@@ -1,5 +1,50 @@
 # mdn-bcd-collector Changelog
 
+## v6.3.1
+
+### Test Changes
+
+#### Changed
+
+- api.FileSystem
+- api.FileSystemDirectoryEntry
+- api.FileSystemDirectoryReader
+- api.FileSystemEntry
+- api.FileSystemFileEntry
+- api.Geolocation
+- api.GeolocationCoordinates
+- api.GeolocationPosition
+- api.MediaStream
+- api.MediaStreamAudioSourceNode
+- api.MediaStreamEvent
+- api.MediaStreamTrack
+- api.MediaStreamTrackAudioSourceNode
+- api.MediaStreamTrackEvent
+- api.MutationRecord
+
+### Commits
+
+- Separate resource preparation from build script
+- Remove doubled variable
+- Use local JavaScript to determine if secure context
+- Update readme
+- Remove useless GAE deploy script
+- Compile TypeScript on Heroku deployment
+- Fix permissions for release workflow
+- Fix TypeScript for release script
+- Fix release script
+- Update workflows (set permissions, format, etc.)
+- Add custom test for MutationRecord API
+- Auto-tag new releases
+- Replace &gt;- with |- in custom-tests.yml
+- Add custom tests for additional MediaStream instances
+- Migrate all scripts to TypeScript
+- Show insecure context warning when not using HTTPS
+- Fallback to legacy getUserMedia for MediaStream instance
+- Add custom tests for file system APIs
+- Add custom tests for Geolocation APIs
+- Connect test action to Codecov
+
 ## v6.3.0
 
 ### Test Changes
