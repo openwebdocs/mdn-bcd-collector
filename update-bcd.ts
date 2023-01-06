@@ -387,13 +387,13 @@ export const update = (
             continue;
           }
         } else {
-          if (JSON.parse(filter.release) !== inferredStatement.version_added) {
+          if (filter.release !== inferredStatement.version_added) {
             // If version_added doesn't match filter
             continue;
           }
           if (
             inferredStatement.version_removed &&
-            JSON.parse(filter.release) !== inferredStatement.version_removed
+            filter.release !== inferredStatement.version_removed
           ) {
             // If version_removed and it doesn't match filter
             continue;
@@ -621,6 +621,10 @@ export const main = async (
   // Replace filter.path with a minimatch object.
   if (filter.path && filter.path.includes('*')) {
     filter.path = new Minimatch(filter.path);
+  }
+
+  if (filter.release === 'false') {
+    filter.release = false;
   }
 
   const bcdFiles = (await loadJsonFiles(
