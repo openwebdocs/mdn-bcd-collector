@@ -44,6 +44,17 @@ class CloudStorage {
     await file.save(data);
   }
 
+  async get(sessionId, key) {
+    assert(sessionId.length > 0);
+    const name = `${this._version}/sessions/${sessionId}/${encodeURIComponent(
+      key
+    )}`;
+    const file = this._bucket.file(name);
+    const data = (await file.download())[0];
+    const result = JSON.parse(data.toString());
+    return result;
+  }
+
   async getAll(sessionId) {
     assert(sessionId.length > 0);
     const prefix = `${this._version}/sessions/${sessionId}/`;
@@ -91,6 +102,15 @@ class MemoryStorage {
       this._data.set(sessionId, sessionData);
     }
     sessionData.set(key, value);
+  }
+
+  async get(sessionId, key) {
+    const result = {};
+    const sessionData = this._data.get(sessionId);
+    if (!(sessionData && key in sessionData)) {
+      return undefined;
+    }
+    return result[key];
   }
 
   async getAll(sessionId) {
