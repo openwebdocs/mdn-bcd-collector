@@ -1,5 +1,58 @@
 # mdn-bcd-collector Changelog
 
+## v8.2.0
+
+### Test Changes
+
+#### Added
+
+- api.EditContext.controlBounds
+- api.EditContext.isComposing
+- api.EditContext.selectionBounds
+- api.EditContext.updateControlBounds
+- api.EditContext.updateSelectionBounds
+- api.HTMLElement.editContext
+- api.PerformanceResourceTiming.deliveryType
+- api.WebTransport.draining
+- api.XRSession.persistentAnchors
+- css.properties.box-shadow-blur
+- css.properties.box-shadow-color
+- css.properties.box-shadow-offset
+- css.properties.box-shadow-position
+- css.properties.box-shadow-spread
+
+#### Removed
+
+- api.EditContext.controlBound
+- api.EditContext.isInComposition
+- api.EditContext.selectionBound
+- api.EditContext.updateControlBound
+- api.EditContext.updateSelectionBound
+- api.Element.editContext
+
+#### Changed
+
+- api.AudioNode.disconnect.destination_parameter
+- api.AudioNode.disconnect.output_parameter
+- api.AudioNode.disconnect.input_parameter
+- api.ImageBitmapRenderingContext
+
+### Commits
+
+- Mention bcd.testOptionParam() in PR review guide
+- Fix ESLint errors
+- Send installed extension data to server
+- Move extensions data to server-side for later processing
+- Alert user if NordPass is detected
+- Fix width of hr elements
+- Catch additional constructor errors
+- Add custom test for ImageBitmapRenderingContext
+- Fix cryptoKey reusable instance
+- Format HTML
+- CSS interface tests: append to &lt;body&gt; if &lt;head&gt; is unavailable
+- Ensure location.search exists
+- Fix tests for AudioNode.disconnect
+
 ## v8.1.2
 
 ### Test Changes
