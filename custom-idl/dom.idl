@@ -24,9 +24,6 @@ callback interface DOMErrorHandler {
 // Non-standard stuff
 
 partial interface Document {
-  // https://developer.mozilla.org/en-US/docs/Web/API/Document#Non-standard_extensions
-  boolean contains();
-
   // https://developer.mozilla.org/en-US/docs/Web/API/Document/mozSetImageElement
   undefined mozSetImageElement(DOMString imageElementId, Element? imageElement);
 
