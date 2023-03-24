@@ -62,7 +62,7 @@
     "ArrayBuffer.prototype.slice": {},
     "ArrayBuffer.@@species": {},
     "AsyncFunction": {
-      "ctor_args": "return true"
+      "code": "(function() { async function a(){ return true }; return a() instanceof Promise })();"
     },
     "AsyncGenerator": {},
     "AsyncGenerator.next": {},
