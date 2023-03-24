@@ -3842,3 +3842,26 @@ css:
     custom-property: |-
       return CSS.supports('color', 'var(--foo)') || CSS.supports('color',
       'env(--foo)');
+
+# Custom tests here also need to be in custom-js.json.
+javascript:
+  builtins:
+    AsyncFunction:
+      __base: |-
+        var instance;
+        try {
+          async function a(){
+            return true;
+          };
+
+          instance = a();
+        } catch(e) {
+          if (e instanceof TypeError) {
+            return {result: false, message: e.message};
+          }
+        }
+      __test: return instance instanceof Promise;
+    Function:
+      name: |-
+        function doTheThing() {};
+        return doTheThing.name == 'doTheThing';

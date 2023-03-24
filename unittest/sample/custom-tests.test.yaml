@@ -97,3 +97,24 @@ css:
   properties:
     foo: return 1;
     bar: <%css.properties.foo:a%>
+
+javascript:
+  builtins:
+    AsyncFunction:
+      __base: |-
+        try {
+          async function a(){
+            return true;
+          };
+        } catch(e) {
+          if (e instanceof TypeError) {
+            return {result: false, message: e.message};
+          }
+        }
+
+        var instance = a();
+      __test: return instance instanceof Promise;
+    Function:
+      name: |-
+        function doTheThing() {};
+        return doTheThing.name == 'doTheThing';

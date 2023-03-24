@@ -71,7 +71,7 @@ const compileCustomTest = (code: string, format = true): string => {
         return importcode;
       }
 
-      // TODO: add CSS category
+      // TODO: add CSS/JS category
       return `throw 'Test is malformed: import ${match}, category ${category} is not importable';`;
     }
   );
@@ -101,24 +101,66 @@ const getCustomTestAPI = (
   member?: string,
   type?: string
 ): string | false => {
+  const testData = customTests.api[name];
+  if (!testData) {
+    return false;
+  }
+
   let test: string | false = false;
 
-  if (name in customTests.api) {
-    const testbase =
-      '__base' in customTests.api[name]
-        ? customTests.api[name].__base.replace(/\n/g, '\n  ') + '\n  '
-        : '';
-    const promise = testbase.includes('var promise');
-    const callback =
-      testbase.match(/callback([(),])/g) || testbase.includes(':callback%>');
+  const testBase =
+    '__base' in testData ? testData.__base.replace(/\n/g, '\n  ') + '\n  ' : '';
+  const promise = testBase.includes('var promise');
+  const callback =
+    testBase.match(/callback([(),])/g) || testBase.includes(':callback%>');
 
-    if (member === undefined) {
-      if ('__test' in customTests.api[name]) {
-        test = testbase + customTests.api[name].__test;
+  if (member === undefined) {
+    if ('__test' in testData) {
+      test = testBase + testData.__test;
+    } else {
+      const returnValue = '!!instance';
+      test = testBase
+        ? testBase +
+          (promise
+            ? `if (!promise) {
+    return {result: false, message: "Promise variable is falsy"};
+  }
+  return promise.then(function(instance) {
+    return ${returnValue};
+  });`
+            : callback
+            ? `function callback(instance) {
+    try {
+      success(${returnValue});
+    } catch(e) {
+      fail(e);
+    }
+  };
+  return "callback";`
+            : `return ${returnValue};`)
+        : false;
+    }
+  } else {
+    if (member in testData && typeof testData[member] === 'string') {
+      test = testBase + testData[member];
+    } else {
+      if (
+        ['constructor', 'static'].includes(type as string) ||
+        ['toString', 'toJSON'].includes(member)
+      ) {
+        // Constructors, constants, and static attributes should not have
+        // auto-generated custom tests
+        test = false;
       } else {
-        const returnValue = '!!instance';
-        test = testbase
-          ? testbase +
+        let returnValue;
+        if (type === 'symbol') {
+          const symbol = member.replace('@@', '');
+          returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
+        } else {
+          returnValue = `!!instance && "${member}" in instance`;
+        }
+        test = testBase
+          ? testBase +
             (promise
               ? `if (!promise) {
     return {result: false, message: "Promise variable is falsy"};
@@ -137,50 +179,6 @@ const getCustomTestAPI = (
   return "callback";`
               : `return ${returnValue};`)
           : false;
-      }
-    } else {
-      if (
-        member in customTests.api[name] &&
-        typeof customTests.api[name][member] === 'string'
-      ) {
-        test = testbase + customTests.api[name][member];
-      } else {
-        if (
-          ['constructor', 'static'].includes(type as string) ||
-          ['toString', 'toJSON'].includes(member)
-        ) {
-          // Constructors, constants, and static attributes should not have
-          // auto-generated custom tests
-          test = false;
-        } else {
-          let returnValue;
-          if (type === 'symbol') {
-            const symbol = member.replace('@@', '');
-            returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
-          } else {
-            returnValue = `!!instance && "${member}" in instance`;
-          }
-          test = testbase
-            ? testbase +
-              (promise
-                ? `if (!promise) {
-    return {result: false, message: "Promise variable is falsy"};
-  }
-  return promise.then(function(instance) {
-    return ${returnValue};
-  });`
-                : callback
-                ? `function callback(instance) {
-    try {
-      success(${returnValue});
-    } catch(e) {
-      fail(e);
-    }
-  };
-  return "callback";`
-                : `return ${returnValue};`)
-            : false;
-        }
       }
     }
   }
@@ -204,7 +202,7 @@ const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
   const subtests = {};
 
   if (name in customTests.api) {
-    const testbase =
+    const testBase =
       '__base' in customTests.api[name]
         ? customTests.api[name].__base.replace(/\n/g, '\n  ') + '\n  '
         : '';
@@ -212,7 +210,7 @@ const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
       for (const subtest of Object.entries(
         customTests.api[name].__additional
       )) {
-        subtests[subtest[0]] = compileCustomTest(`${testbase}${subtest[1]}`);
+        subtests[subtest[0]] = compileCustomTest(`${testBase}${subtest[1]}`);
       }
     }
   }
@@ -242,16 +240,39 @@ const getCustomResourcesAPI = (name: string): Resources => {
 };
 
 const getCustomTestCSS = (name: string): string | false => {
-  return (
-    'properties' in customTests.css &&
-    name in customTests.css.properties &&
-    compileCustomTest(customTests.css.properties[name])
-  );
+  const testData = customTests.css.properties[name];
+  if (!testData) {
+    return false;
+  }
+
+  return compileCustomTest(testData);
+};
+
+const getCustomTestJS = (
+  name: string,
+  member?: string,
+  defaultCode?: any
+): string | false => {
+  const testData = customTests.javascript.builtins[name];
+  if (!testData) {
+    return false;
+  }
+
+  const test =
+    (testData.__base || '') +
+    (testData[member || '__test'] || compileTestCode(defaultCode));
+
+  return compileCustomTest(test);
 };
 
 const compileTestCode = (test: any): string => {
   if (typeof test === 'string') {
     return test;
+  }
+
+  if (Array.isArray(test)) {
+    const parts = test.map(compileTestCode);
+    return parts.join(` && `);
   }
 
   const property = test.property.replace(/(Symbol|constructor)\./, '');
@@ -260,15 +281,24 @@ const compileTestCode = (test: any): string => {
     return `bcd.testConstructor("${property}");`;
   }
   if (test.property.startsWith('Symbol.')) {
-    return `"Symbol" in self && "${test.property.replace(
-      'Symbol.',
+    return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(
+      '.prototype',
       ''
-    )}" in Symbol && "${test.owner}" in self && ${test.property} in ${
-      test.owner
-    }.prototype`;
+    )}" in self && ${test.property} in ${test.owner.replace(
+      '.prototype',
+      ''
+    )}.prototype`;
   }
   if (test.inherit) {
-    return `Object.prototype.hasOwnProperty.call(${test.owner}, "${property}")`;
+    if (test.owner === 'self') {
+      return `self.hasOwnProperty("${property}")`;
+    }
+    return `"${test.owner.replace(
+      '.prototype',
+      ''
+    )}" in self && Object.prototype.hasOwnProperty.call(${
+      test.owner
+    }, "${property}")`;
   }
   if (test.owner === 'self' || test.owner === 'document.body.style') {
     return `"${property}" in ${test.owner}`;
@@ -283,7 +313,7 @@ const compileTest = (test: RawTest): Test => {
   let code;
   if (Array.isArray(test.raw.code)) {
     const parts = test.raw.code.map(compileTestCode);
-    code = parts.join(` ${test.raw.combinator} `);
+    code = parts.join(` ${test.raw.combinator || '&&'} `);
   } else {
     code = compileTestCode(test.raw.code);
   }
@@ -944,6 +974,8 @@ const buildJS = (customJS) => {
       ...parts.filter((p) => p != 'prototype')
     ].join('.');
 
+    let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = '';
+
     if ('code' in extras) {
       // Custom test code, nothing is generated.
       tests[bcdPath] = compileTest({
@@ -957,37 +989,28 @@ const buildJS = (customJS) => {
 
       if (property.startsWith('@@')) {
         property = `Symbol.${property.substr(2)}`;
-      } else {
-        property = JSON.stringify(property);
       }
 
       const owner =
         parts.length > 1 ? parts.slice(0, parts.length - 1).join('.') : 'self';
 
-      let code = `${owner}.hasOwnProperty(${property})`;
+      expr = [{property, owner, inherit: true}];
 
-      if (owner !== 'self') {
-        if (owner.startsWith('Intl')) {
-          if (`"${parts[1]}"` === property) {
-            code = `"Intl" in self && ` + code;
-          } else {
-            code = `"Intl" in self && "${parts[1]}" in Intl && ` + code;
-          }
-        } else if (owner.startsWith('WebAssembly')) {
-          if (`"${parts[1]}"` === property) {
-            code = `"WebAssembly" in self && ` + code;
-          } else {
-            code =
-              `"WebAssembly" in self && "${parts[1]}" in WebAssembly && ` +
-              code;
-          }
-        } else {
-          code = `"${owner.replace('.prototype', '')}" in self && ` + code;
+      if (
+        owner.startsWith('Intl') ||
+        owner.startsWith('WebAssembly') ||
+        owner.startsWith('Temporal')
+      ) {
+        if (`"${parts[1]}"` !== property) {
+          expr.unshift({property: parts[1], owner: parts[0]});
         }
+        expr.unshift({property: parts[0], owner: 'self'});
       }
 
+      const customTest = getCustomTestJS(parts[0], parts[1], expr);
+
       tests[bcdPath] = compileTest({
-        raw: {code},
+        raw: {code: customTest || expr},
         exposure: ['Window']
       });
     }
@@ -1005,31 +1028,32 @@ const buildJS = (customJS) => {
       const maybeNew = extras.ctor_new !== false ? 'new' : '';
 
       let rawCode = `var instance = ${maybeNew} ${expr};
-  return !!instance;`;
+    return !!instance;`;
 
       if (path.startsWith('Intl')) {
         rawCode =
           `if (!("${parts[1]}" in Intl)) {
-    return {result: false, message: 'Intl.${parts[1]} is not defined'};
-  }
-  ` + rawCode;
+      return {result: false, message: 'Intl.${parts[1]} is not defined'};
+    }
+    ` + rawCode;
       } else if (path.startsWith('WebAssembly')) {
         rawCode =
           `if (!("${parts[1]}" in WebAssembly)) {
-    return {result: false, message: 'WebAssembly.${parts[1]} is not defined'};
-  }
-  ` + rawCode;
+      return {result: false, message: 'WebAssembly.${parts[1]} is not defined'};
+    }
+    ` + rawCode;
       }
 
       rawCode =
         `if (!("${parts[0]}" in self)) {
-    return {result: false, message: '${parts[0]} is not defined'};
-  }
-  ` + rawCode;
+      return {result: false, message: '${parts[0]} is not defined'};
+    }
+    ` + rawCode;
 
-      const code = compileCustomTest(rawCode);
+      const customTest = getCustomTestJS(parts[0], undefined, rawCode);
+
       tests[ctorPath] = compileTest({
-        raw: {code},
+        raw: {code: customTest || compileCustomTest(rawCode)},
         exposure: ['Window']
       });
     }

@@ -62,7 +62,7 @@
     "ArrayBuffer.prototype.slice": {},
     "ArrayBuffer.@@species": {},
     "AsyncFunction": {
-      "code": "(function() { async function a(){ return true }; return a() instanceof Promise })();"
+      "ctor_args": ""
     },
     "AsyncGenerator": {},
     "AsyncGenerator.next": {},
@@ -225,9 +225,7 @@
     "Function.prototype.caller": {},
     "Function.prototype.displayName": {},
     "Function.prototype.length": {},
-    "Function.prototype.name": {
-      "code": "function doTheThing() {};\ndoTheThing.name == 'doTheThing';"
-    },
+    "Function.prototype.name": {},
     "Function.prototype.toSource": {},
     "Function.prototype.toString": {},
     "Generator": {},

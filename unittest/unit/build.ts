@@ -462,7 +462,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
       };
       assert.equal(
         compileTestCode(test),
-        'Object.prototype.hasOwnProperty.call(DOMMatrix.prototype, "m11")'
+        '"DOMMatrix" in self && Object.prototype.hasOwnProperty.call(DOMMatrix.prototype, "m11")'
       );
     });
   });
@@ -1822,11 +1822,11 @@ interface Invalid {};
         exposure: ['Window']
       },
       'javascript.builtins.Array.@@iterator': {
-        code: '"Array" in self && Array.prototype.hasOwnProperty(Symbol.iterator)',
+        code: '"Symbol" in self && "iterator" in Symbol && "Array" in self && Symbol.iterator in Array.prototype',
         exposure: ['Window']
       },
       'javascript.builtins.Array.@@species': {
-        code: '"Array" in self && Array.hasOwnProperty(Symbol.species)',
+        code: '"Symbol" in self && "species" in Symbol && "Array" in self && Symbol.species in Array.prototype',
         exposure: ['Window']
       },
       'javascript.builtins.Array.Array': {
@@ -1841,7 +1841,7 @@ interface Invalid {};
         exposure: ['Window']
       },
       'javascript.builtins.Array.at': {
-        code: '"Array" in self && Array.prototype.hasOwnProperty("at")',
+        code: '"Array" in self && Object.prototype.hasOwnProperty.call(Array.prototype, "at")',
         exposure: ['Window']
       },
       'javascript.builtins.Atomics': {
@@ -1849,7 +1849,7 @@ interface Invalid {};
         exposure: ['Window']
       },
       'javascript.builtins.Atomics.add': {
-        code: '"Atomics" in self && Atomics.hasOwnProperty("add")',
+        code: '"Atomics" in self && Object.prototype.hasOwnProperty.call(Atomics, "add")',
         exposure: ['Window']
       },
       'javascript.builtins.BigInt': {
