@@ -2776,6 +2776,10 @@ api:
         return 'then' in value;
   RTCSessionDescription:
     __base: "var instance = new RTCSessionDescription({type: 'offer'});"
+  RTCStatsReport:
+    __base: |-
+      <%api.RTCPeerConnection:connection%>
+      var promise = connection.getStats();
   Screen:
     __base: var instance = window.screen;
   ScriptProcessorNode:
