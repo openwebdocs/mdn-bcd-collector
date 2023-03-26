@@ -21,6 +21,8 @@ import {
   validateIDL,
   buildIDLTests,
   buildIDL,
+  getCustomTestData,
+  getCustomTest,
   getCustomTestAPI,
   getCustomSubtestsAPI,
   getCustomResourcesAPI,
@@ -32,6 +34,70 @@ import {
 import type {RawTest} from '../../types/types.js';
 
 describe('build', () => {
+  describe('getCustomTest(Data)', () => {
+    const expectedResults = {
+      'api.FooBar': [
+        {
+          __base: "'hello world';",
+          __test: "return 'hello world!';"
+        },
+        '(function () {\n  "hello world";\n  return "hello world!";\n})();\n'
+      ],
+      'api.FooBar.foo': [
+        {
+          __base: "'hello world';",
+          __test: "return 'hi, world!';"
+        },
+        '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n'
+      ],
+      'api.FooBar.foo.pear': [
+        {
+          __base: "'hello world';",
+          __test: false
+        },
+        // XXX Not accurate
+        '(function () {\n  "hello world";\n})();\n'
+      ],
+      'api.FooBar.bar': [
+        {
+          __base: "'hello world';\n'goodbye world';",
+          __test: "return 'farewell world!';"
+        },
+        '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n'
+      ],
+      'api.FooBar.bar.cinnamon': [
+        {
+          __base: "'hello world';\n'goodbye world';",
+          __test: false
+        },
+        // XXX Not accurate
+        '(function () {\n  "hello world";\n  "goodbye world";\n})();\n'
+      ],
+      'api.FooBar.baz': [
+        {
+          __base: "'hello world';",
+          __test: false
+        },
+        // XXX Not accurate
+        '(function () {\n  "hello world";\n})();\n'
+      ],
+      'api.Chocolate': [
+        {
+          __base: false,
+          __test: false
+        },
+        false
+      ]
+    };
+
+    for (const [k, v] of Object.entries(expectedResults)) {
+      it(k, () => {
+        assert.deepEqual(getCustomTestData(k), v[0]);
+        assert.equal(getCustomTest(k), v[1]);
+      });
+    }
+  });
+
   describe('getCustomTestAPI', () => {
     beforeEach(() => {
       sinon.stub(console, 'error');

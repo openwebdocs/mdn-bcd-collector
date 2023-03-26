@@ -93,6 +93,13 @@ api:
     characterSet: return document.characterSet == "UTF-8";
     __additional:
       loaded.loaded_is_boolean: return typeof document.loaded === "boolean";
+  FooBar:
+    __base: "'hello world';"
+    __test: return 'hello world!';
+    foo: return 'hi, world!';
+    bar:
+      __base: "'goodbye world';"
+      __test: return 'farewell world!';
 css:
   properties:
     foo: return 1;

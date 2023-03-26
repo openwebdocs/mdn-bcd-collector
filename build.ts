@@ -46,6 +46,88 @@ const customJS = await fs.readJson(
   new URL('./custom-js.json', import.meta.url)
 );
 
+const getCustomTestData = (name: string, customTestData: any = customTests) => {
+  // Get the custom test code for a specified feature identifier by recursively searching
+  // through the custom test data to calculate the base code (__base) and specific test
+  // (__test) for a given member.
+  //
+  // This will allow all custom tests to have their own base and test code, which will
+  // allow for importing any test of any category much easier.
+  //
+  // For example, given the following custom-tests YAML:
+  //
+  // api:
+  //   FooBar:
+  //     __base: 'hello world';
+  //     __test: return 'hello world!';
+  //     foo: return 'hi, world!';
+  //     bar:
+  //       __base: 'goodbye world';
+  //       __test: return 'farewell world!';
+  //
+  // api.FooBar would return: {__base: "'hello world';", __test: "return 'hello world!';"}
+  // api.FooBar.foo would return: {__base: "'hello world';", __test: "return 'hi, world!';"}
+  // api.FooBar.foo.pear would return {__base: "'hello world';", __test: false}
+  // api.FooBar.bar would return: {__base: "'hello world';\n'goodbye world';", __test: "return 'farewell world!';"}
+  // api.FooBar.baz would return: {__base: "'hello world';", __test: false}
+  // api.FooBar.bar.cinnamon would return: {__base: "'hello world';\n'goodbye world';", __test: false}
+  // api.Chocolate would return: {__base: false, __test: false}
+  //
+
+  const result: {__base: string | false; __test: string | false} = {
+    __base: false,
+    __test: false
+  };
+
+  const parts = name.split('.');
+
+  const data = customTestData[parts[0]];
+  if (!data) {
+    // There's no applicable data, and therefore no custom test
+    return result;
+  }
+
+  if (typeof data === 'string') {
+    if (parts.length > 1) {
+      // We can't search deeper if the test is a simple string, so stop here
+      return result;
+    }
+    result.__test = data;
+  } else {
+    result.__base = data.__base || false;
+    result.__test = data.__test || false;
+  }
+
+  if (parts.length > 1) {
+    // We've still got to look through the data
+    const subdata = getCustomTestData(parts.slice(1).join('.'), data);
+
+    if (subdata.__base) {
+      result.__base =
+        (result.__base ? result.__base + '\n' : '') + subdata.__base;
+    }
+
+    result.__test = subdata.__test;
+  }
+
+  return result;
+};
+
+const getCustomTest = (name: string): string | false => {
+  const data = getCustomTestData(name);
+
+  if (!(data.__base || data.__test)) {
+    // If there's no custom test, simply return false
+    return false;
+  }
+
+  if (!data.__test) {
+    // XXX Need to build this part out
+  }
+
+  return compileCustomTest((data.__base || '') + (data.__test || ''));
+};
+
 const compileCustomTest = (code: string, format = true): string => {
   // Import code from other tests
   code = code.replace(
@@ -101,6 +183,8 @@ const getCustomTestAPI = (
   member?: string,
   type?: string
 ): string | false => {
+  // XXX Deprecated; use getCustomTest() instead
+
   const testData = customTests.api[name];
   if (!testData) {
     return false;
@@ -199,6 +283,7 @@ const getCustomTestAPI = (
 };
 
 const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
+  // XXX Integrate this into getCustomTestData()
   const subtests = {};
 
   if (name in customTests.api) {
@@ -219,6 +304,7 @@ const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
 };
 
 const getCustomResourcesAPI = (name: string): Resources => {
+  // XXX Integrate this into getCustomTestData()
   const resources: Resources = {};
 
   // TODO: Use tests imports to inherit resources
@@ -240,6 +326,7 @@ const getCustomResourcesAPI = (name: string): Resources => {
 };
 
 const getCustomTestCSS = (name: string): string | false => {
+  // XXX Deprecated; use getCustomTest() instead
   const testData = customTests.css.properties[name];
   if (!testData) {
     return false;
@@ -253,6 +340,7 @@ const getCustomTestJS = (
   member?: string,
   defaultCode?: any
 ): string | false => {
+  // XXX Deprecated; use getCustomTest() instead
   const testData = customTests.javascript.builtins[name];
   if (!testData) {
     return false;
@@ -1080,6 +1168,8 @@ if (esMain(import.meta)) {
 /* c8 ignore stop */
 
 export {
+  getCustomTestData,
+  getCustomTest,
   getCustomTestAPI,
   getCustomSubtestsAPI,
   getCustomResourcesAPI,
