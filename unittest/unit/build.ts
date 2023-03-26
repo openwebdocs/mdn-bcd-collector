@@ -374,7 +374,7 @@ describe('build', () => {
         assert.equal(
           getCustomTestAPI('badimport'),
           `(function () {
-  throw "Test is malformed: <%api.foobar:apple%> is an invalid reference";
+  throw "Test is malformed: <%api.foobar:apple%> is an invalid import reference";
   return !!instance;
 })();
 `
@@ -386,7 +386,7 @@ describe('build', () => {
         assert.equal(
           getCustomTestAPI('badimport2'),
           `(function () {
-  throw "Test is malformed: <%api.foobar.bar:apple%> is an invalid reference";
+  throw "Test is malformed: <%api.foobar.bar:apple%> is an invalid import reference";
   return !!instance;
 })();
 `
@@ -472,16 +472,6 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
         getCustomTestCSS('foo'),
         `(function () {
   return 1;
-})();
-`
-      );
-    });
-
-    it('import (not implemented)', () => {
-      assert.equal(
-        getCustomTestCSS('bar'),
-        `(function () {
-  throw "Test is malformed: import <%css.properties.foo:a%>, category css is not importable";
 })();
 `
       );
@@ -1838,7 +1828,7 @@ interface Invalid {};
       assert.deepEqual(buildCSS(css, {properties: {}}), {
         'css.properties.bar': {
           code: `(function () {
-  throw "Test is malformed: import <%css.properties.foo:a%>, category css is not importable";
+  throw "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
 })();
 `,
           exposure: ['Window']

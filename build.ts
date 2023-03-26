@@ -131,30 +131,29 @@ const getCustomTest = (name: string): string | false => {
 const compileCustomTest = (code: string, format = true): string => {
   // Import code from other tests
   code = code.replace(
-    /<%(\w+)\.(\w+)(?:\.(\w+))?:(\w+)%> ?/g,
-    (match, category, name, member, instancevar) => {
-      if (category === 'api') {
-        if (!(name in customTests.api && '__base' in customTests.api[name])) {
-          return `throw 'Test is malformed: ${match} is an invalid reference';`;
-        }
-        let importcode = compileCustomTest(customTests.api[name].__base, false);
-        const callback =
-          importcode.match(/callback([(),])/g) ||
-          importcode.includes(':callback%>');
-
-        importcode = importcode
-          .replace(/var (instance|promise)/g, `var ${instancevar}`)
-          .replace(/callback([(),])/g, `${instancevar}$1`)
-          .replace(/promise\.then/g, `${instancevar}.then`)
-          .replace(/(instance|promise) = /g, `${instancevar} = `);
-        if (!(['instance', 'promise'].includes(instancevar) || callback)) {
-          importcode += `\n  if (!${instancevar}) {\n    return {result: false, message: '${instancevar} is falsy'};\n  }`;
-        }
-        return importcode;
+    /<%(\w+(?:\.\w+)*):(\w+)%> ?/g,
+    (match, name, instancevar) => {
+      const importedTest = getCustomTestData(name);
+      if (!importedTest.__base) {
+        const errorMsg = `Test is malformed: ${match} is an invalid import reference`;
+        console.error(name, errorMsg);
+        return `throw '${errorMsg}';`;
       }
 
-      // TODO: add CSS/JS category
-      return `throw 'Test is malformed: import ${match}, category ${category} is not importable';`;
+      let importcode = compileCustomTest(importedTest.__base, false);
+      const callback =
+        importcode.match(/callback([(),])/g) ||
+        importcode.includes(':callback%>');
+
+      importcode = importcode
+        .replace(/var (instance|promise)/g, `var ${instancevar}`)
+        .replace(/callback([(),])/g, `${instancevar}$1`)
+        .replace(/promise\.then/g, `${instancevar}.then`)
+        .replace(/(instance|promise) = /g, `${instancevar} = `);
+      if (!(['instance', 'promise'].includes(instancevar) || callback)) {
+        importcode += `\n  if (!${instancevar}) {\n    return {result: false, message: '${instancevar} is falsy'};\n  }`;
+      }
+      return importcode;
     }
   );
 
@@ -167,7 +166,9 @@ const compileCustomTest = (code: string, format = true): string => {
       code = prettier.format(code, {parser: 'babel'});
     } catch (e) {
       if (e instanceof SyntaxError) {
-        return `(function () {\n  throw "Test is malformed: ${e.message}";\n})();`;
+        const errorMsg = `Test is malformed: ${e.message}`;
+        console.error(errorMsg);
+        return `(function () {\n  throw "${errorMsg}";\n})();`;
       }
       /* c8 ignore next 3 */
       // We should never reach the next line
@@ -272,12 +273,6 @@ const getCustomTestAPI = (
   }
 
   test = compileCustomTest(test);
-
-  if (test.includes('Test is malformed')) {
-    console.error(
-      `api.${name}${member ? `.${member}` : ''}: ${test.replace('throw ', '')}`
-    );
-  }
 
   return test;
 };
