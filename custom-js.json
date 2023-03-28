@@ -1125,7 +1125,9 @@
     },
     "WebAssembly.Exception.prototype.getArg": {},
     "WebAssembly.Exception.prototype.is": {},
-    "WebAssembly.Exception.prototype.stack": {},
+    "WebAssembly.Exception.prototype.stack": {
+      "ctor_args": "new WebAssembly.Tag({parameters:[]}),[], {traceStack:true}"
+    },
     "WebAssembly.Global": {
       "ctor_args": "{value:'i32'}"
     },
