@@ -186,7 +186,9 @@ const getCustomTestAPI = (
 ): string | false => {
   // XXX Deprecated; use getCustomTest() instead
 
-  const testData = getCustomTestData(`api.${name}.${member}`);
+  const testData = getCustomTestData(
+    `api.${name}` + (member ? `.${member}` : '')
+  );
   if (!testData) {
     return false;
   }
@@ -200,11 +202,27 @@ const getCustomTestAPI = (
   const callback =
     testBase.match(/callback([(),])/g) || testBase.includes(':callback%>');
 
-  if (member === undefined) {
-    if (testData.__test) {
-      test = testBase + testData.__test;
+  if (testData.__test) {
+    test = testBase + testData.__test;
+  } else {
+    if (
+      ['constructor', 'static'].includes(type as string) ||
+      ['toString', 'toJSON'].includes(member)
+    ) {
+      // Constructors, constants, and static attributes should not have
+      // auto-generated custom tests
+      test = false;
     } else {
-      const returnValue = '!!instance';
+      let returnValue = '!!instance';
+      if (member) {
+        if (type === 'symbol') {
+          const symbol = member.replace('@@', '');
+          returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
+        } else {
+          returnValue = `!!instance && "${member}" in instance`;
+        }
+      }
+
       test = testBase
         ? testBase +
           (promise
@@ -226,56 +244,9 @@ const getCustomTestAPI = (
             : `return ${returnValue};`)
         : false;
     }
-  } else {
-    if (member in testData && typeof testData[member] === 'string') {
-      test = testBase + testData[member];
-    } else {
-      if (
-        ['constructor', 'static'].includes(type as string) ||
-        ['toString', 'toJSON'].includes(member)
-      ) {
-        // Constructors, constants, and static attributes should not have
-        // auto-generated custom tests
-        test = false;
-      } else {
-        let returnValue;
-        if (type === 'symbol') {
-          const symbol = member.replace('@@', '');
-          returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
-        } else {
-          returnValue = `!!instance && "${member}" in instance`;
-        }
-        test = testBase
-          ? testBase +
-            (promise
-              ? `if (!promise) {
-    return {result: false, message: "Promise variable is falsy"};
-  }
-  return promise.then(function(instance) {
-    return ${returnValue};
-  });`
-              : callback
-              ? `function callback(instance) {
-    try {
-      success(${returnValue});
-    } catch(e) {
-      fail(e);
-    }
-  };
-  return "callback";`
-              : `return ${returnValue};`)
-          : false;
-      }
-    }
   }
 
-  if (!test) {
-    return false;
-  }
-
-  test = compileCustomTest(test);
-
-  return test;
+  return test && compileCustomTest(test);
 };
 
 const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
