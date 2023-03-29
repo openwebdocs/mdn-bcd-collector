@@ -186,21 +186,22 @@ const getCustomTestAPI = (
 ): string | false => {
   // XXX Deprecated; use getCustomTest() instead
 
-  const testData = customTests.api[name];
+  const testData = getCustomTestData(`api.${name}.${member}`);
   if (!testData) {
     return false;
   }
 
   let test: string | false = false;
 
-  const testBase =
-    '__base' in testData ? testData.__base.replace(/\n/g, '\n  ') + '\n  ' : '';
+  const testBase = testData.__base
+    ? testData.__base.replace(/\n/g, '\n  ') + '\n  '
+    : '';
   const promise = testBase.includes('var promise');
   const callback =
     testBase.match(/callback([(),])/g) || testBase.includes(':callback%>');
 
   if (member === undefined) {
-    if ('__test' in testData) {
+    if (testData.__test) {
       test = testBase + testData.__test;
     } else {
       const returnValue = '!!instance';
