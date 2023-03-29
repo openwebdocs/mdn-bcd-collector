@@ -29,7 +29,7 @@ import {getStorage} from './lib/storage.js';
 import {parseUA} from './lib/ua-parser.js';
 import Tests from './lib/tests.js';
 import exec from './lib/exec.js';
-import parseResults from './results.js';
+import parseResults from './lib/results.js';
 
 /* c8 ignore start */
 const getAppVersion = async () => {

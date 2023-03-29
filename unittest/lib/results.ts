@@ -8,7 +8,7 @@
 
 import {assert} from 'chai';
 
-import parseResults from '../../results.js';
+import parseResults from '../../lib/results.js';
 
 describe('results', () => {
   describe('parseResults', () => {
