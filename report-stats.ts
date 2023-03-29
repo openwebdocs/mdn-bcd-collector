@@ -1,6 +1,6 @@
 //
-// mdn-bcd-collector: result-stats.ts
-// Script to print statistics about a results file
+// mdn-bcd-collector: report-stats.ts
+// Script to print statistics about a reports file
 //
 // © Gooborg Studios
 // See the LICENSE file for copyright details
@@ -72,10 +72,10 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
     return;
   }
 
-  // Check to make sure it's a valid results file
+  // Check to make sure it's a valid report file
   if (!('__version' in data && 'results' in data && 'userAgent' in data)) {
     console.error(
-      chalk`{red File {bold ${file}} does not seem to be a collector results file!  Expected "__version", "results" and "userAgent" keys.}`
+      chalk`{red File {bold ${file}} does not seem to be a collector report file!  Expected "__version", "results" and "userAgent" keys.}`
     );
   }
 
@@ -146,7 +146,7 @@ const printStats = (stats: any, verboseNull: boolean): void => {
   }
 
   if (stats.urls.length == 0) {
-    console.log(chalk`{yellow Results file has no results!}\n`);
+    console.log(chalk`{yellow Report file has no results!}\n`);
     return;
   }
 
@@ -224,7 +224,7 @@ if (esMain(import.meta)) {
     (yargs) => {
       yargs
         .positional('files', {
-          describe: 'The result file(s) to generate statistics for',
+          describe: 'The report file(s) to generate statistics for',
           type: 'string',
           array: true
         })

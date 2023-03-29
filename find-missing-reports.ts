@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: find-missing-results.ts
+// mdn-bcd-collector: find-missing-reports.ts
 // Script to find browser versions that don't have a result file in mdn-bcd-results
 //
 // © Gooborg Studios
@@ -33,14 +33,11 @@ const {browsers} = bcd;
 
 const appVersion = (await fs.readJson('./package.json'))?.version;
 
-const generateReportMap = (allResults: boolean) => {
+const generateReportMap = (all: boolean) => {
   const result: ReportMap = {};
 
   for (const [browserKey, browserData] of Object.entries(browsers)) {
-    if (
-      !allResults &&
-      ['ie', 'nodejs', 'deno', 'oculus'].includes(browserKey)
-    ) {
+    if (!all && ['ie', 'nodejs', 'deno', 'oculus'].includes(browserKey)) {
       continue;
     }
 
@@ -49,7 +46,7 @@ const generateReportMap = (allResults: boolean) => {
       .map((r) => r[0]);
     result[browserKey] = releases.sort(compareVersionsSort);
 
-    if (!allResults) {
+    if (!all) {
       if (browserKey == 'safari') {
         // Ignore super old Safari releases
         result[browserKey] = result[browserKey].filter((v) =>
@@ -78,16 +75,16 @@ const generateReportMap = (allResults: boolean) => {
   return result;
 };
 
-const findMissingResults = async (
+const findMissingReports = async (
   reportPaths: string[],
-  allResults: boolean,
+  all: boolean,
   version: string
 ) => {
   if (version == 'current') {
     version = appVersion;
   }
 
-  const reportMap = generateReportMap(allResults);
+  const reportMap = generateReportMap(all);
   const data = await loadJsonFiles(reportPaths);
 
   for (const report of Object.values(data) as Report[]) {
@@ -115,13 +112,13 @@ const findMissingResults = async (
 
 /* c8 ignore start */
 const main = async (argv) => {
-  const missingResults = await findMissingResults(
+  const missingReports = await findMissingReports(
     argv.reports,
     argv.all,
     argv.collectorVersion
   );
 
-  for (const [browser, releases] of Object.entries(missingResults)) {
+  for (const [browser, releases] of Object.entries(missingReports)) {
     if (releases.length) {
       console.log(`${browsers[browser].name}: ${releases.join(', ')}`);
     }
@@ -147,7 +144,7 @@ if (esMain(import.meta)) {
           default: 'current'
         })
         .option('all', {
-          describe: 'Include all results, including ignored',
+          describe: 'Include all browser versions, including ignored',
           alias: 'a',
           type: 'boolean',
           nargs: 0
@@ -159,4 +156,4 @@ if (esMain(import.meta)) {
 }
 /* c8 ignore stop */
 
-export default findMissingResults;
+export default findMissingReports;

@@ -34,10 +34,10 @@
     "selenium": "ts-node selenium.ts",
     "update-bcd": "ts-node update-bcd.ts",
     "find-missing-features": "ts-node find-missing-features.ts",
-    "find-missing-results": "ts-node find-missing-results.ts",
+    "find-missing-reports": "ts-node find-missing-reports.ts",
     "add-new-bcd": "ts-node add-new-bcd.ts",
     "release": "ts-node release.ts",
-    "result-stats": "ts-node result-stats.ts"
+    "report-stats": "ts-node report-stats.ts"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "5.3.0",
