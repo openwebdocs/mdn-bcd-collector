@@ -195,9 +195,7 @@ const getCustomTestAPI = (
 
   let test: string | false = false;
 
-  const testBase = testData.__base
-    ? testData.__base.replace(/\n/g, '\n  ') + '\n  '
-    : '';
+  const testBase = testData.__base ? testData.__base + '\n' : '';
   const promise = testBase.includes('var promise');
   const callback =
     testBase.match(/callback([(),])/g) || testBase.includes(':callback%>');
