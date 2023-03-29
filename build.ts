@@ -281,16 +281,16 @@ const getCustomTestAPI = (
 const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
   // XXX Integrate this into getCustomTestData()
   const subtests = {};
+  const data = customTests.api[name];
+  if (!data) {
+    return subtests;
+  }
 
   if (name in customTests.api) {
     const testBase =
-      '__base' in customTests.api[name]
-        ? customTests.api[name].__base.replace(/\n/g, '\n  ') + '\n  '
-        : '';
-    if ('__additional' in customTests.api[name]) {
-      for (const subtest of Object.entries(
-        customTests.api[name].__additional
-      )) {
+      '__base' in data ? data.__base.replace(/\n/g, '\n  ') + '\n  ' : '';
+    if ('__additional' in data) {
+      for (const subtest of Object.entries(data.__additional)) {
         subtests[subtest[0]] = compileCustomTest(`${testBase}${subtest[1]}`);
       }
     }
