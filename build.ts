@@ -302,19 +302,20 @@ const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
 const getCustomResourcesAPI = (name: string): Resources => {
   // XXX Integrate this into getCustomTestData()
   const resources: Resources = {};
+  const data = customTests.api[name];
+  if (!(data && '__resources' in data)) {
+    return resources;
+  }
 
   // TODO: Use tests imports to inherit resources
-  if (name in customTests.api && '__resources' in customTests.api[name]) {
-    for (const key of customTests.api[name].__resources) {
-      if (Object.keys(customTests.api.__resources).includes(key)) {
-        const r = customTests.api.__resources[key];
-        resources[key] =
-          r.type == 'instance' ? r : customTests.api.__resources[key];
-      } else {
-        throw new Error(
-          `Resource ${key} is not defined but referenced in api.${name}`
-        );
-      }
+  for (const key of data.__resources) {
+    if (Object.keys(customTests.__resources).includes(key)) {
+      const r = customTests.__resources[key];
+      resources[key] = r.type == 'instance' ? r : customTests.__resources[key];
+    } else {
+      throw new Error(
+        `Resource ${key} is not defined but referenced in api.${name}`
+      );
     }
   }
 

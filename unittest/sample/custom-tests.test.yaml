@@ -6,21 +6,22 @@
 # See the LICENSE file for copyright details
 #
 
+__resources:
+  audio-blip:
+    type: audio
+    src:
+      - /media/blip.mp3
+      - /media/blip.ogg
+  webGL:
+    type: instance
+    src: |-
+      var canvas = document.createElement('canvas');
+      if (!canvas) {
+        return false;
+      };
+      return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
 api:
-  __resources:
-    audio-blip:
-      type: audio
-      src:
-        - /media/blip.mp3
-        - /media/blip.ogg
-    webGL:
-      type: instance
-      src: |-
-        var canvas = document.createElement('canvas');
-        if (!canvas) {
-          return false;
-        };
-        return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
   foo:
     __base: var instance = 1;
     __test: return instance + 4;
