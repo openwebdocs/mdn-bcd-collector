@@ -72,9 +72,11 @@ api:
   audiocontext:
     __resources:
       - audio-blip
+    __test: return false;
   badresource:
     __resources:
       - bad-resource
+    __test: return false;
   WebGLRenderingContext:
     __resources:
       - webGL

@@ -117,28 +117,43 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
     }
 
     result.__test = subdata.__test;
-
-    if (subdata.__resources) {
-      result.__resources.push(...subdata.__resources);
-    }
+    result.__resources.push(...subdata.__resources);
   }
 
   return result;
 };
 
-const getCustomTest = (name: string): string | false => {
+const getCustomTest = (name: string) => {
   const data = getCustomTestData(name);
 
+  const response: {test: string | false; resources: Resources} = {
+    test: false,
+    resources: {}
+  };
+
   if (!(data.__base || data.__test)) {
-    // If there's no custom test, simply return false
-    return false;
+    // If there's no custom test, simply return
+    return response;
   }
 
   if (!data.__test) {
     // XXX Need to build this part out
   }
 
-  return compileCustomTest((data.__base || '') + (data.__test || ''));
+  for (const key of data.__resources) {
+    if (Object.keys(customTests.__resources).includes(key)) {
+      const r = customTests.__resources[key];
+      response.resources[key] =
+        r.type == 'instance' ? r : customTests.__resources[key];
+    } else {
+      throw new Error(
+        `Resource ${key} is not defined but referenced in ${name}`
+      );
+    }
+  }
+
+  response.test = compileCustomTest((data.__base || '') + (data.__test || ''));
+  return response;
 };
 
 const compileCustomTest = (code: string, format = true): string => {
@@ -279,29 +294,6 @@ const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
   }
 
   return subtests;
-};
-
-const getCustomResourcesAPI = (name: string): Resources => {
-  // XXX Integrate this into getCustomTestData()
-  const resources: Resources = {};
-  const data = customTests.api[name];
-  if (!(data && '__resources' in data)) {
-    return resources;
-  }
-
-  // TODO: Use tests imports to inherit resources
-  for (const key of data.__resources) {
-    if (Object.keys(customTests.__resources).includes(key)) {
-      const r = customTests.__resources[key];
-      resources[key] = r.type == 'instance' ? r : customTests.__resources[key];
-    } else {
-      throw new Error(
-        `Resource ${key} is not defined but referenced in api.${name}`
-      );
-    }
-  }
-
-  return resources;
 };
 
 const getCustomTestCSS = (name: string): string | false => {
@@ -907,12 +899,11 @@ const buildIDLTests = (ast, globals, scopes) => {
 
     const exposureSet = getExposureSet(iface, scopes);
     const isGlobal = !!getExtAttr(iface, 'Global');
-    const customIfaceTest = getCustomTestAPI(iface.name);
-    const resources = getCustomResourcesAPI(iface.name);
+    const {test: customTest, resources} = getCustomTest(`api.${iface.name}`);
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {
-        code: customIfaceTest || {property: iface.name, owner: 'self'}
+        code: customTest || {property: iface.name, owner: 'self'}
       },
       exposure: Array.from(exposureSet),
       resources
@@ -1157,7 +1148,6 @@ export {
   getCustomTest,
   getCustomTestAPI,
   getCustomSubtestsAPI,
-  getCustomResourcesAPI,
   getCustomTestCSS,
   compileTestCode,
   compileTest,

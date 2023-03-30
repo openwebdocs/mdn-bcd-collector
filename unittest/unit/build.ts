@@ -25,7 +25,6 @@ import {
   getCustomTest,
   getCustomTestAPI,
   getCustomSubtestsAPI,
-  getCustomResourcesAPI,
   buildCSS,
   getCustomTestCSS,
   buildJS
@@ -39,63 +38,129 @@ describe('build', () => {
       'api.FooBar': [
         {
           __base: "'hello world';",
-          __test: "return 'hello world!';"
+          __test: "return 'hello world!';",
+          __resources: []
         },
-        '(function () {\n  "hello world";\n  return "hello world!";\n})();\n'
+        {
+          test: '(function () {\n  "hello world";\n  return "hello world!";\n})();\n',
+          resources: {}
+        }
       ],
       'api.FooBar.foo': [
         {
           __base: "'hello world';",
-          __test: "return 'hi, world!';"
+          __test: "return 'hi, world!';",
+          __resources: []
         },
-        '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n'
+        {
+          test: '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n',
+          resources: {}
+        }
       ],
       'api.FooBar.foo.pear': [
         {
           __base: "'hello world';",
-          __test: false
+          __test: false,
+          __resources: []
         },
         // XXX Not accurate
-        '(function () {\n  "hello world";\n})();\n'
+        {test: '(function () {\n  "hello world";\n})();\n', resources: {}}
       ],
       'api.FooBar.bar': [
         {
           __base: "'hello world';\n'goodbye world';",
-          __test: "return 'farewell world!';"
+          __test: "return 'farewell world!';",
+          __resources: []
         },
-        '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n'
+        {
+          test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n',
+          resources: {}
+        }
       ],
       'api.FooBar.bar.cinnamon': [
         {
           __base: "'hello world';\n'goodbye world';",
-          __test: false
+          __test: false,
+          __resources: []
         },
         // XXX Not accurate
-        '(function () {\n  "hello world";\n  "goodbye world";\n})();\n'
+        {
+          test: '(function () {\n  "hello world";\n  "goodbye world";\n})();\n',
+          resources: {}
+        }
       ],
       'api.FooBar.baz': [
         {
           __base: "'hello world';",
-          __test: false
+          __test: false,
+          __resources: []
         },
         // XXX Not accurate
-        '(function () {\n  "hello world";\n})();\n'
+        {test: '(function () {\n  "hello world";\n})();\n', resources: {}}
       ],
       'api.Chocolate': [
         {
           __base: false,
-          __test: false
+          __test: false,
+          __resources: []
         },
-        false
+        {test: false, resources: {}}
+      ],
+      'api.audiocontext': [
+        {
+          __base: false,
+          __test: 'return false;',
+          __resources: ['audio-blip']
+        },
+        {
+          test: '(function () {\n  return false;\n})();\n',
+          resources: {
+            'audio-blip': {
+              type: 'audio',
+              src: ['/media/blip.mp3', '/media/blip.ogg']
+            }
+          }
+        }
+      ],
+      'api.WebGLRenderingContext': [
+        {
+          __base: 'return reusableInstances.webGL;',
+          __test: false,
+          __resources: ['webGL']
+        },
+        {
+          // XXX Not accurate
+          test: '(function () {\n  return reusableInstances.webGL;\n})();\n',
+          resources: {
+            webGL: {
+              type: 'instance',
+              src: `var canvas = document.createElement('canvas');
+if (!canvas) {
+  return false;
+};
+return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');`
+            }
+          }
+        }
       ]
     };
 
     for (const [k, v] of Object.entries(expectedResults)) {
       it(k, () => {
         assert.deepEqual(getCustomTestData(k), v[0]);
-        assert.equal(getCustomTest(k), v[1]);
+        assert.deepEqual(getCustomTest(k), v[1]);
       });
     }
+
+    it('api.badresource (throw error on bad resource reference)', () => {
+      assert.throws(
+        () => {
+          getCustomTest('api.badresource');
+        },
+        Error,
+        'Resource bad-resource is not defined but referenced in api.badresource'
+      );
+    });
   });
 
   describe('getCustomTestAPI', () => {
@@ -423,42 +488,6 @@ describe('build', () => {
 })();
 `
       });
-    });
-  });
-
-  describe('getCustomResourcesAPI', () => {
-    it('get resources', () => {
-      assert.deepEqual(getCustomResourcesAPI('audiocontext'), {
-        'audio-blip': {
-          type: 'audio',
-          src: ['/media/blip.mp3', '/media/blip.ogg']
-        }
-      });
-
-      assert.deepEqual(getCustomResourcesAPI('WebGLRenderingContext'), {
-        webGL: {
-          type: 'instance',
-          src: `var canvas = document.createElement('canvas');
-if (!canvas) {
-  return false;
-};
-return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');`
-        }
-      });
-    });
-
-    it('no resources', () => {
-      assert.deepEqual(getCustomResourcesAPI('foo'), {});
-    });
-
-    it('try to get invalid resource', () => {
-      assert.throws(
-        () => {
-          getCustomResourcesAPI('badresource');
-        },
-        Error,
-        'Resource bad-resource is not defined but referenced in api.badresource'
-      );
     });
   });
 
