@@ -74,9 +74,14 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   // api.Chocolate would return: {__base: false, __test: false}
   //
 
-  const result: {__base: string | false; __test: string | false} = {
+  const result: {
+    __base: string | false;
+    __test: string | false;
+    __resources: string[];
+  } = {
     __base: false,
-    __test: false
+    __test: false,
+    __resources: []
   };
 
   const parts = name.split('.');
@@ -96,6 +101,10 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   } else {
     result.__base = data.__base || false;
     result.__test = data.__test || false;
+
+    if (data.__resources) {
+      result.__resources.push(...data.__resources);
+    }
   }
 
   if (parts.length > 1) {
@@ -108,6 +117,10 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
     }
 
     result.__test = subdata.__test;
+
+    if (subdata.__resources) {
+      result.__resources.push(...subdata.__resources);
+    }
   }
 
   return result;
