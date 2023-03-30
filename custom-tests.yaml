@@ -6,6 +6,8 @@
 # See the LICENSE file for copyright details
 #
 
+# See DESIGN.md for instructions on how to modify this file
+
 # Reusable resources
 __resources:
   audio-blip:
@@ -102,7 +104,7 @@ __resources:
       };
       return canvas.getContext('webgl2');
 
-# Custom tests here also need to be in @webref/idl or custom-idl/.
+# Features defined here also need to be in @webref/idl or custom-idl/.
 api:
   _globals:
     crypto: return !!self.crypto;
@@ -3837,14 +3839,14 @@ api:
       <%api.XPathExpression:exp%>
       var instance = exp.evaluate(document, 0, null);
 
-# Custom tests here also need to be in @webref/css or custom-css.json.
+# Features defined here also need to be in @webref/css or custom-css.json.
 css:
   properties:
     custom-property: |-
       return CSS.supports('color', 'var(--foo)') || CSS.supports('color',
       'env(--foo)');
 
-# Custom tests here also need to be in custom-js.json.
+# Features defined here also need to be in custom-js.json.
 javascript:
   builtins:
     AsyncFunction:
