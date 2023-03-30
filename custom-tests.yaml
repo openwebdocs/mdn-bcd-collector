@@ -6,6 +6,7 @@
 # See the LICENSE file for copyright details
 #
 
+# Reusable resources
 __resources:
   audio-blip:
     type: audio

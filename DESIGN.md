@@ -1,170 +1,132 @@
 # Design of the MDN browser-compat-data collector
 
-This service is part of an effort to
-[assist BCD updates with automation](https://github.com/mdn/browser-compat-data/issues/3308),
-and exists to run lots of small tests in browsers to determine the support
-status of a feature in a browser, and save those results. Updating BCD using
-the results is not done as part of this service.
+This service is part of an effort to [assist BCD updates with automation](https://github.com/mdn/browser-compat-data/issues/3308), and exists to run lots of small tests in browsers to determine the support status of a feature in a browser, and save those results.
 
-## Tests
+## Custom tests
 
-BCD itself and webref are used to generate tests, and tests can also be
-written manually. The output of a test is arbitrary JSON, which must be
-interpreted with knowledge of what the test does.
+The collector generates simple tests for most features, but sometimes these simple tests may be ineffective for certain features. In these cases, tests can also be written manually.
 
-### Writing custom tests
+The `custom-tests.yaml` file is used to write custom tests for features that cannot be tested with auto-generated test statements (for example, WebGL extensions).
 
-The `custom-tests.yml` file is used to write custom tests for APIs and CSS properties that cannot be tested with a simple statement (for example, WebGL extensions). Custom tests are written in the following structure:
-
-#### APIs
-
-Each API interface is written in the following structure:
+Custom tests are written in the following structure:
 
 ```yaml
-INTERFACE_NAME:
-  __resources:
-    - RESOURCE_ID
-    - ...
-  __base: |-
-    CODE_TO_REPEAT_FOR_EVERY_TEST
-  __test: |-
-    CODE_SPECIFIC_TO_TEST_THE_INTERFACE
-  MEMBER: |-
-    CODE_TO_TEST_THE_MEMBER
-  __additional:
-    SUBFEATURE: |-
-      CODE_TO_TEST_SUBFEATURE
+FEATURE_1:
+  FEATURE_2:
+    __resources:
+      - foobar
+    __base: doSomething();
+    __test: return doTheTest();
+    FEATURE_3: return doTheOtherTest();
+    FEATURE_4:
+      __base: doSomethingElse();
+      __test: return doTheOtherOtherTest();
+    __additional:
+      FEATURE_3.OPTIONS_PARAMETER: "return doTheOtherTest({hello: 'world'});"
 ```
 
-`__base` is the common code to access the interface, repeated across every test. This is where you create your elements and set up your environment. The instance of the interface being tested should be defined in a variable called `instance`. This will allow the build script to automatically generate tests for the instance and its members.
+The structure of `custom-tests.yaml` closely adheres to BCD's own structure, where each feature is identified by a unique hierarchy of strings, with some slight differences. This is to ensure a seamless experience for BCD contributors. For example, to define a custom test for `api.Document.body`, write the following YAML:
 
-You can define a custom method to test the interface instance itself via `__test`. The `__test` should be a return statement that returns `true` or `false`. If no `__test` is defined, it will default to `return !!instance`.
+```yaml
+api:
+  Document:
+    body: (code goes here)
 
-Each member can have a custom test by defining a property as the member name. Like `__test`, it should be a return statement that returns `true` or `false`. If no custom test is defined, it will default to `return 'MEMBER' in instance`.
+    # ...or...
 
-Note: If an interface with a `__base` has a constructor test, but a custom test isn't defined for the constructor, the code will default to normal generation.
+    body:
+      __test: (code goes here)
+```
+
+> **Note:** defining a feature in `custom-tests.yaml` does not directly generate tests, unless defined under the `__additional` property (which will be explained later). For example, defining a custom test for `api.FooBar.baz` in `custom-tests.yaml` will not generate the test for that feature.
+
+> **Tip:** when writing custom tests, make sure to implement thorough feature checking as to not raise exceptions.
+
+Each feature test will compile into a function as follows: `function() {__base + __test}`
+
+### Custom test structure
+
+Each feature within the `custom-tests.yaml` may either be a string or an object with the following properties:
+
+- `__base`: Base code used across this test and every subfeature's test
+- `__test`: Code used specifically for that test (does not bubble down to subtests)
+- `__resources`: The list of reusable resources required for this test
+- `__additional`: Additional tests to generate that cannot be defined in the source data
+
+If the feature is set to a string, it will have the same effect as an object with `__test` set to the string value.
+
+#### `__base`
+
+The `__base` property is the common code used to access the feature, such as to generate an interface instance. This is where you create your elements and set up your environment.
+
+In the code defined in this variable, the instance of the interface being tested should be defined in a variable called `instance`. This will allow the build script to automatically generate tests for the instance and its members.
 
 Sometimes, tests require promises and callbacks. To define a custom test as a promise, simply create a `promise` variable in place of `instance`, and the system will automatically create a promise instead. To define a custom test with callbacks, do not define `var instance` and instead call `callback(<instance_variable>)`, and the system will define the appropriate variables and functions.
 
-Certain tests may require resources, like audio or video. To allow the resources to load before running the tests, rather than create and add an element with JavaScript, we can define resources to be loaded through the `__resources` object.
-
-Additional members and submembers can be defined using the `__additional` property. If there is a subfeature to an API or one of its members, such as "api.AudioContext.AudioContext.latencyHint", that simply cannot be defined within IDL, you can include this object and specify tests for such subfeatures.
-
-Each test will compile into a function as follows: `function() {__base + __test/MEMBER/SUBFEATURE}`
-
-Example:
-
-The following YAML...
+`__base` also compounds as it travels down the feature tree. In the example at the top of this document, the resulting `__base` values will be:
 
 ```yaml
-api:
-  ANGLE_instanced_arrays:
-    __base: |-
-      var canvas = document.createElement('canvas');
-      var gl = canvas.getContext('webgl');
-      var instance = gl.getExtension('ANGLE_instanced_arrays');
-    __test: 'return canvas && instance;'
-    drawArraysInstancedANGLE: "return true && instance && 'drawArraysInstancedANGLE' in instance;"
-  DOMTokenList:
-    __additional:
-      remove_duplicates: |-
-        var elm = document.createElement('b');
-        elm.className = ' foo bar foo ';
-        elm.classList.remove('bar');
-        return elm.className === 'foo';
-css: {}
+FEATURE_1:
+  # Nothing
+FEATURE_1.FEATURE_2: doSomething();
+FEATURE_1.FEATURE_2.FEATURE_3: doSomething();
+FEATURE_1.FEATURE_2.FEATURE_4: doSomething();
+  doSomethingElse();
 ```
 
-...will compile into...
+#### `__test`
 
-```javascript
-bcd.addTest('api.ANGLE_instanced_arrays', "(function() {var canvas = document.createElement('canvas');\nvar gl = canvas.getContext('webgl');\nvar instance = gl.getExtension('ANGLE_instanced_arrays');return canvas && instance;})()", 'Window');
-bcd.addTest('api.ANGLE_instanced_arrays.drawArraysInstancedANGLE', "(function() {var canvas = document.createElement('canvas');\nvar gl = canvas.getContext('webgl');\nvar instance = gl.getExtension('ANGLE_instanced_arrays');return true && instance && 'drawArraysInstancedANGLE' in instance;})()", 'Window');
-bcd.addTest('api.ANGLE_instanced_arrays.drawElementsInstancedANGLE', "(function() {var canvas = document.createElement('canvas');\nvar gl = canvas.getContext('webgl');\nvar instance = gl.getExtension('ANGLE_instanced_arrays');return instance && 'drawElementsInstancedANGLE' in instance;})()", 'Window');
-bcd.addTest('api.ANGLE_instanced_arrays.VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE', "(function() {var canvas = document.createElement('canvas');\nvar gl = canvas.getContext('webgl');\nvar instance = gl.getExtension('ANGLE_instanced_arrays');return instance && 'VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE' in instance;})()", 'Window');
-bcd.addTest('api.ANGLE_instanced_arrays.vertexAttribDivisorANGLE', "(function() {var canvas = document.createElement('canvas');\nvar gl = canvas.getContext('webgl');\nvar instance = gl.getExtension('ANGLE_instanced_arrays');return instance && 'vertexAttribDivisorANGLE' in instance;})()", 'Window');
-bcd.addTest('api.Animation', {"property":"Animation","owner":"self"}, 'Window');
-...
-bcd.addTest('api.DOMTokenList', {"property":"DOMTokenList","owner":"self"}, 'Window');
-bcd.addTest('api.DOMTokenList.remove_duplicates', "(function() {var elm = document.createElement('b');\nelm.className = ' foo bar foo ';\nelm.classList.remove('bar');\nreturn elm.className === 'foo';})()", 'Window');
-```
+The `__test` property is the code used to test that specific feature, such as to test for the presence of an interface member, or to confirm a CSS property is supported. If there is a `__base` value, this code is appended to the end of said value.
 
-Tips: make sure to implement thorough feature checking as to not raise exceptions.
+In the code defined in this variable, a return statement should be declared that returns one of the following values:
 
-##### Resources
+- A boolean determining whether the feature is supported (`true`) or not (`false`)
+- `null` if feature support cannot be determined
+- An object containing:
+  - A `result` property that is one of the two above values
+  - An optional `message` property with a string explaining why or why not the feature is supported
 
-Certain tests may require resources, like audio or video. To allow the resources to load before running the tests, rather than create and add an element with JavaScript, we can define resources to be loaded through the `__resources` object.
+#### `__resources`
+
+The `__resources` property is used to state what reusable resources are required for this test, as well as tests for all subfeatures. Resources are defined in a top-level `__resources` property, as explained above in the "Reusable resources" section.
+
+This variable is a list of identifiers for reusable resources the collector should load before running the feature's test.
+
+#### `__additional`
+
+The `__additional` property is used to define features that cannot be represented by the source data (for example, behavioral features, option parameters, etc.). This property should be used as sparingly as possible, and features should always be defined in the source data whenever possible.
+
+### Resources
+
+Certain tests may require resources, like audio or video. To allow the resources to load before running the tests, rather than create and add an element with JavaScript, we can define resources to be loaded through the top-level `__resources` object.
 
 ```yaml
-api:
-  __resources:
-    RESOURCE_ELEMENT_ID:
-      type: RESOURCE_TYPE
-      src:
-        - PATH_TO_RESOURCE
-        - ALT_PATH_TO_RESOURCE
+__resources:
+  RESOURCE_ELEMENT_ID:
+    type: RESOURCE_TYPE
+    src:
+      - PATH_TO_RESOURCE
+      - ALT_PATH_TO_RESOURCE
 ```
 
 For each resource we wish to load, we simply define the element ID after `resource-` to assign as the object's key, specify the resource's `type` (audio, video, image, etc.), and define the `src` as an array of file paths after `/custom-tests` (or in the case of an `instance` type, code like a custom test to return the instance).
 
 All resource files should be placed in `/static/resources/custom-tests`.
 
-#### CSS
+### Importing code from other tests
 
-Each CSS property is written in the following structure:
+Sometimes, some features will depend on the setup and configuration from other features, especially with APIs. To prevent repeating code, you can import code from other custom tests. To import another test, add the following string to the test code: `<%ident:varname%>`, where `ident` is the full identifier to import from, and `varname` is what to rename the `instance` variable from that test to.
 
-```json
-"PROPERTY_NAME": "CODE_TO_TEST_THE_PROPERTY"
-```
+For example, the following YAML...
 
-Each test will compile into a function as follows: `function() {CODE}`
-
-Example:
-
-The following JSON...
-
-```json
-{
-  "api": {},
-  "css": {
-    "properties": {
-      "custom-property": "return CSS.supports('color', 'var(--foo)') || CSS.supports('color', 'env(--foo)');"
-    }
-  }
-}
-```
-
-...will compile into...
-
-```javascript
-bcd.addTest(
-  'css.properties.custom-property',
-  "(function() {return CSS.supports('color', 'var(--foo)') || CSS.supports('color', 'env(--foo)');})()",
-  'CSS'
-);
-```
-
-Tips: make sure that all return statements will return a boolean, and implement thorough feature checking.
-
-#### Importing code from other tests
-
-Sometimes, some features will depend on the setup and configuration from other features, especially with APIs. To prevent repeating the same code over and over again, you can import code from other custom tests to build new ones quicker. The syntax to specify a test import is the following: `<%ident:varname%>`, where `ident` is the full identifier to import from, and `varname` is what to rename the `instance` variable from that test to.
-
-Example:
-
-The following JSON...
-
-```
-{
-  "api": {
-    "AudioContext": {
-      "__base": "var instance = new (window.AudioContext || window.webkitAudioContext)();"
-    },
-    "AudioDestinationNode": {
-      "__base": "<%api.AudioContext:audioCtx%> if (!audioCtx) {return false}; var instance = audioCtx.destination;"
-    }
-  }
-}
+```yaml
+api:
+  AudioContext:
+    __base: var instance = new (window.AudioContext || window.webkitAudioContext)();
+  AudioDestinationNode:
+    __base: |-
+      <%api.AudioContext:audioCtx%>
+      var instance = audioCtx.destination;
 ```
 
 ...will compile into...
@@ -182,12 +144,11 @@ bcd.addTest(
 );
 ```
 
-Note: if the specified `ident` cannot be found, the code will be replaced with a error to throw indicating as such.
+> **Note:** if the specified `ident` cannot be found, the code will be replaced with a error to throw indicating as such.
 
-## API
+## API endpoints
 
-HTTP endpoints under `/api/` are used to enumerate/iterate test URLs, report
-results for individual tests, and finally create a report for a whole session.
+HTTP endpoints under `/api/` are used to enumerate/iterate test URLs, report results for individual tests, and finally create a report for a whole session.
 
 ### Get URL to run tests
 
@@ -197,13 +158,10 @@ POST /api/get
 
 #### Parameters
 
-`testSelection`: BCD path for the tests to run, such as "api.Node". (optional, default to all tests)
-
-`limitExposure`: The name of a global scope to run the tests on, such as "Window". (optional, defaults to all global scopes)
-
-`ignore`: Comma-separated list of BCD paths to skip, such as "api.Node.baseURI". (optional)
-
-`selenium`: Whether to hide the results when collecting results using Selenium. (optional)
+- `testSelection`: BCD path for the tests to run, such as "api.Node". (optional, default to all tests)
+- `limitExposure`: The name of a global scope to run the tests on, such as "Window". (optional, defaults to all global scopes)
+- `ignore`: Comma-separated list of BCD paths to skip, such as "api.Node.baseURI". (optional)
+- `selenium`: Whether to hide the results when collecting results using Selenium. (optional)
 
 #### Response
 
@@ -217,16 +175,15 @@ GET /api/tests
 
 #### Parameters
 
-`after`: Only list tests after the given test URL. (optional)
-
-`limit`: The maximum number of tests to list. Defaults to all tests. (optional)
+- `after`: Only list tests after the given test URL. (optional)
+- `limit`: The maximum number of tests to list. Defaults to all tests. (optional)
 
 #### Response
 
 ```json
 [
-  "https://mdn-bcd-collector.gooborg.com/bcd/api/Sensor.html",
-  "http://mdn-bcd-collector.gooborg.com/bcd/css/properties/dot-supports.html"
+  "https://mdn-bcd-collector.gooborg.com/tests/api/Sensor",
+  "http://mdn-bcd-collector.gooborg.com/tests/css/properties/dot-supports"
 ]
 ```
 
@@ -238,8 +195,7 @@ If there are no more tests an empty array is returned.
 POST /api/results
 ```
 
-The `Content-Type` should be `application/json` and the post body should be
-an array of test results:
+The `Content-Type` should be `application/json` and the post body should be an array of test results:
 
 ```json
 [
@@ -257,17 +213,13 @@ an array of test results:
 ]
 ```
 
-Status `400 Bad Request` is returned if the results do not match the expected
-format.
-
 #### Parameters
 
-`for`: The test URL the results are for. (required)
+- `for`: The test URL the results are for. (required)
 
 #### Response
 
-Status `201 Created` if the results were saved. The results are put in
-server-side session storage.
+Status `201 Created` if the results were saved. The results are put in server-side session storage. Status `400 Bad Request` is returned if the results do not match the expected format.
 
 ### List results
 
@@ -279,23 +231,19 @@ GET /api/results
 
 ```json
 {
-  "https://mdn-bcd-collector.gooborg.com/bcd/api/Sensor.html": {
+  "https://mdn-bcd-collector.gooborg.com/tests/api/Sensor": {
     "some-data": "some-value"
   }
 }
 ```
 
-If no results have been reported to `/api/results` in this session then an
-empty object is returned.
+If no results have been reported to `/api/results` in this session then an empty object is returned.
 
 ## Running tests
 
 ### Manually
 
-When pointing a browser at https://mdn-bcd-collector.gooborg.com/ to run tests,
-the server keeps track of which tests to run, accepts results from each test as
-it run, and combines all of the results at the end. A random session id, stored
-in a cookie, is used to get results back.
+When pointing a browser at https://mdn-bcd-collector.gooborg.com/ to run tests, the server keeps track of which tests to run, accepts results from each test as it run, and combines all of the results at the end. A random session ID, stored in a cookie, is used to get results back.
 
 When the tests have finished running, buttons for results download and GitHub export be presented.
 
