@@ -561,6 +561,7 @@ const flattenMembers = (iface) => {
             );
           }
         } else {
+          // https://webidl.spec.whatwg.org/#idl-iterable
           members.push(
             {name: '@@iterator', type: 'symbol'},
             {name: 'entries', type: 'operation'},
@@ -571,6 +572,7 @@ const flattenMembers = (iface) => {
         }
         break;
       case 'maplike':
+        // https://webidl.spec.whatwg.org/#idl-maplike
         members.push(
           {name: '@@iterator', type: 'symbol'},
           {name: 'entries', type: 'operation'},
@@ -590,6 +592,7 @@ const flattenMembers = (iface) => {
         }
         break;
       case 'setlike':
+        // https://webidl.spec.whatwg.org/#idl-setlike
         members.push(
           {name: '@@iterator', type: 'symbol'},
           {name: 'entries', type: 'operation'},
@@ -610,6 +613,8 @@ const flattenMembers = (iface) => {
       case 'operation':
         switch (member.special) {
           case 'stringifier':
+            // Catch unnamed stringifiers
+            // https://webidl.spec.whatwg.org/#es-stringifier
             members.push({name: 'toString', type: 'operation'});
             break;
         }
@@ -618,6 +623,7 @@ const flattenMembers = (iface) => {
   }
 
   // Catch named stringifiers
+  // https://webidl.spec.whatwg.org/#es-stringifier
   if (members.some((member) => member.special === 'stringifier')) {
     members.push({name: 'toString', type: 'operation'});
   }
