@@ -110,6 +110,119 @@ Each resource is defined by an ID and a series of parameters that vary based on 
 
 All resource files should be placed in `/static/resources/custom-tests`.
 
+Each resource type takes different parameters, as explained in detail below.
+
+### `audio`/`video` resource
+
+To create an audio or video element, use the `audio` or `video` type respectively. This type takes the following parameters:
+
+- `src`: An array of source audio or video file(s) to load
+- `subtitles`: An optional list of objects of subtitle files to load, each with the following parameters:
+  - `label`: The subtitle label
+  - `lang`: The subtitle language in ISO 639-1 format
+  - `src`: A string containing the source VTT path
+
+Example:
+
+```yaml
+__resources:
+  audio-blip:
+    type: audio
+    src:
+      - /media/blip.mp3
+      - /media/blip.ogg
+  video-blank:
+    type: video
+    src:
+      - /media/blank.mp4
+      - /media/blank.webm
+    subtitles:
+      - label: English
+        lang: en
+        src: /media/subtitles.vtt
+```
+
+Output:
+
+```html
+<audio id="resource-audio-blip">
+  <source src="/resources/custom-tests/media/blip.mp3" />
+  <source src="/resources/custom-tests/media/blip.ogg" />
+</audio>
+
+<video id="resource-video-blank">
+  <source src="/resources/custom-tests/media/blank.mp4" />
+  <source src="/resources/custom-tests/media/blank.webm" />
+  <track
+    label="English"
+    kind="subtitles"
+    srclang="en"
+    src="/resources/custom-tests/media/subtitles.vtt"
+  />
+</video>
+```
+
+### `image` resource
+
+To create an image element, use the `image` type. This type takes the following parameters:
+
+- `src`: A string containing the source file path
+- `alt`: A string containing the alt. text of the image
+
+Example:
+
+```yaml
+__resources:
+  image-black:
+    type: image
+    src: /media/black.png
+    alt: A blank image
+```
+
+Output:
+
+```html
+<img
+  id="resource-image-black"
+  src="/resources/custom-tests/media/black.png"
+  alt="A blank image"
+/>
+```
+
+### `instance` resource
+
+Unlike other resource types, this one is used to create JavaScript instances that can easily be reused across many tests. This type takes the following parameters:
+
+- `src`: A string containing the JavaScript code to create the instance (like custom tests, this code is wrapped in a function that is immediately called)
+
+Example:
+
+```yaml
+__resources:
+  audioContext:
+    type: instance
+    src: |-
+      var constructor = window.AudioContext || window.webkitAudioContext;
+      if (!constructor) {
+        return null;
+      }
+      return new constructor();
+```
+
+Output:
+
+```js
+var reusableInstances = {};
+
+reusableInstances.audioContext = (function () {
+  var constructor = window.AudioContext || window.webkitAudioContext;
+  if (!constructor) {
+    return null;
+  }
+  return new constructor();
+})();
+```
+
 ## Importing code from other tests
 
 Sometimes, some features will depend on the setup and configuration from other features, especially with APIs. To prevent repeating code, you can import code from other custom tests. To import another test, add the following string to the test code: `<%ident:varname%>`, where `ident` is the full identifier to import from, and `varname` is what to rename the `instance` variable from that test to.
