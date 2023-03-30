@@ -27,6 +27,7 @@ __resources:
   image-black:
     type: image
     src: /media/black.png
+    alt: A blank image
   audioContext:
     type: instance
     src: |-

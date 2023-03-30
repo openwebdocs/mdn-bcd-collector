@@ -31,7 +31,7 @@ See the LICENSE file for copyright details
         resourceCount += 1; %>
         <<%-resource.type%> id="resource-<%-resourceId%>">
           <% for (const src of resource.src) { %>
-            <source src="/resources/custom-tests<%-src%>">
+            <source src="/resources/custom-tests<%-src%>" />
           <% } %>
           <% if (resource.subtitles) {
             let i = 0;
@@ -43,7 +43,7 @@ See the LICENSE file for copyright details
         </<%-resource.type%>>
         <% break;
       case 'image': %>
-        <img id="resource-<%-resourceId%>" src="/resources/custom-tests<%-resource.src%>">
+        <img id="resource-<%-resourceId%>" src="/resources/custom-tests<%-resource.src%>" alt="<%-resource.alt%>" />
         <% break;
     }
   }; %>
