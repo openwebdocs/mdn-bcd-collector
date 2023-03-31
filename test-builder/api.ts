@@ -25,7 +25,7 @@ import {
   getCustomTest,
   compileCustomTest,
   compileTest
-} from './custom-tests.js';
+} from './common.js';
 
 const getCustomTestAPI = (
   name: string,

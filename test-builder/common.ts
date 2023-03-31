@@ -1,6 +1,6 @@
 //
-// mdn-bcd-collector: test-builder/custom-tests.ts
-// Functions related to getting custom tests
+// mdn-bcd-collector: test-builder/common.ts
+// Common functions for generating tests, including obtaining custom test data
 //
 // © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
 // See the LICENSE file for copyright details

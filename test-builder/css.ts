@@ -16,7 +16,7 @@ import {
   getCustomTest,
   compileCustomTest,
   compileTest
-} from './custom-tests.js';
+} from './common.js';
 
 import type {
   Test,
