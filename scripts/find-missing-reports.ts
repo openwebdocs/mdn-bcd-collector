@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: find-missing-reports.ts
+// mdn-bcd-collector: scripts/find-missing-reports.ts
 // Script to find browser versions that don't have a result file in mdn-bcd-results
 //
 // © Gooborg Studios
@@ -7,7 +7,7 @@
 //
 
 import {CompatData} from '@mdn/browser-compat-data/types';
-import {Report} from './types/types.js';
+import {Report} from '../types/types.js';
 
 interface ReportMap {
   [k: string]: string[];
@@ -22,7 +22,7 @@ import fs from 'fs-extra';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {parseUA} from './lib/ua-parser.js';
+import {parseUA} from '../lib/ua-parser.js';
 import {loadJsonFiles} from './update-bcd.js';
 
 const BCD_DIR = process.env.BCD_DIR || `../browser-compat-data`;

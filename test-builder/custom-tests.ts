@@ -25,7 +25,7 @@ export const customTests = YAML.parse(
     new URL(
       process.env.NODE_ENV === 'test'
         ? '../unittest/sample/custom-tests.test.yaml'
-        : '../custom-tests.yaml',
+        : '../custom/tests.yaml',
       import.meta.url
     ),
     'utf8'

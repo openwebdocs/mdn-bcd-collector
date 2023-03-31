@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: update-bcd.ts
+// mdn-bcd-collector: scripts/update-bcd.ts
 // Script to update the BCD data using collected results
 //
 // © Gooborg Studios, Google LLC
@@ -18,7 +18,7 @@ import {
   BrowserSupportMap,
   Overrides,
   InternalSupportStatement
-} from './types/types.js';
+} from '../types/types.js';
 
 import assert from 'node:assert';
 import path from 'node:path';
@@ -36,11 +36,11 @@ const {Minimatch} = minimatch;
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import logger from './lib/logger.js';
-import {parseUA} from './lib/ua-parser.js';
+import logger from '../lib/logger.js';
+import {parseUA} from '../lib/ua-parser.js';
 
 const BCD_DIR = fileURLToPath(
-  new URL(process.env.BCD_DIR || `../browser-compat-data`, import.meta.url)
+  new URL(process.env.BCD_DIR || `../../browser-compat-data`, import.meta.url)
 );
 
 const {default: mirror} = await import(
@@ -654,7 +654,7 @@ if (esMain(import.meta)) {
     default: {browsers}
   } = await import(`${BCD_DIR}/index.js`);
   const overrides = await fs.readJson(
-    new URL('./overrides.json', import.meta.url)
+    new URL('../custom/overrides.json', import.meta.url)
   );
 
   const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(

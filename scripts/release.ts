@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: release.ts
+// mdn-bcd-collector: scripts/release.ts
 // Script to perform a new mdn-bcd-collector release
 //
 // © Gooborg Studios, Google LLC
@@ -15,10 +15,10 @@ import prettier from 'prettier';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import exec from './lib/exec.js';
+import exec from '../lib/exec.js';
 
 const currentVersion = (
-  await fs.readJson(new URL('./package.json', import.meta.url))
+  await fs.readJson(new URL('../package.json', import.meta.url))
 ).version;
 
 const prepare = (): ListrTask[] => {

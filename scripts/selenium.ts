@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: selenium.ts
+// mdn-bcd-collector: scripts/selenium.ts
 // Script to collect results from various browsers using Selenium webdriver
 //
 // © Gooborg Studios, Google LLC
@@ -33,12 +33,12 @@ import {Listr, ListrTask} from 'listr2';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import './lib/selenium-keepalive.js';
+import '../lib/selenium-keepalive.js';
 
-const secrets = await fs.readJson(new URL('./secrets.json', import.meta.url));
+const secrets = await fs.readJson(new URL('../secrets.json', import.meta.url));
 
 const resultsDir = fileURLToPath(
-  new URL('../mdn-bcd-results', import.meta.url)
+  new URL('../../mdn-bcd-results', import.meta.url)
 );
 
 const testenv = process.env.NODE_ENV === 'test';

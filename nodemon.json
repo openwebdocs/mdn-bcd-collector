@@ -5,11 +5,7 @@
     "generated/*",
     "static/*",
     "views/*",
-    "tests.json",
-    "find-missing.ts",
-    "prepare.ts",
-    "selenium.ts",
-    "update-bcd.ts",
-    "add-new-bcd.ts"
+    "scripts/*",
+    "tests.json"
   ]
 }

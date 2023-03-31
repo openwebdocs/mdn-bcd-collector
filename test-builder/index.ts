@@ -9,7 +9,7 @@
 import esMain from 'es-main';
 import fs from 'fs-extra';
 
-import customIDL from '../custom-idl/index.js';
+import customIDL from '../custom/idl/index.js';
 
 import {build as buildAPI} from './api.js';
 import {build as buildCSS} from './css.js';
@@ -25,10 +25,10 @@ import type {
 } from '../types/types.js';
 
 const customCSS = await fs.readJson(
-  new URL('../custom-css.json', import.meta.url)
+  new URL('../custom/css.json', import.meta.url)
 );
 const customJS = await fs.readJson(
-  new URL('../custom-js.json', import.meta.url)
+  new URL('../custom/js.json', import.meta.url)
 );
 
 /* c8 ignore start */
@@ -38,7 +38,7 @@ const build = async (customIDL: IDLFiles, customCSS) => {
   const JSTests = await buildJS(customJS);
   const tests = Object.assign({}, APITests, CSSTests, JSTests);
 
-  await fs.writeJson(new URL('./tests.json', import.meta.url), tests);
+  await fs.writeJson(new URL('../tests.json', import.meta.url), tests);
 };
 
 if (esMain(import.meta)) {

@@ -2,7 +2,7 @@
 
 The collector generates simple tests for most features, but sometimes these simple tests may be ineffective for certain features. In these cases, tests can also be written manually.
 
-The `custom-tests.yaml` file is used to write custom tests for features that cannot be tested with auto-generated test statements (for example, WebGL extensions).
+The `custom/tests.yaml` file is used to write custom tests for features that cannot be tested with auto-generated test statements (for example, WebGL extensions).
 
 Custom tests are written in the following structure:
 
@@ -21,7 +21,7 @@ FEATURE_1:
       FEATURE_3.OPTIONS_PARAMETER: "return doTheOtherTest({hello: 'world'});"
 ```
 
-The structure of `custom-tests.yaml` closely adheres to BCD's own structure, where each feature is identified by a unique hierarchy of strings, with some slight differences. This is to ensure a seamless experience for BCD contributors. For example, to define a custom test for `api.Document.body`, write the following YAML:
+The structure of the YAML file closely adheres to BCD's own structure, where each feature is identified by a unique hierarchy of strings, with some slight differences. This is to ensure a seamless experience for BCD contributors. For example, to define a custom test for `api.Document.body`, write the following YAML:
 
 ```yaml
 api:
@@ -34,7 +34,7 @@ api:
       __test: (code goes here)
 ```
 
-> **Note:** defining a feature in `custom-tests.yaml` does not directly generate tests, unless defined under the `__additional` property (which will be explained later). For example, defining a custom test for `api.FooBar.baz` in `custom-tests.yaml` will not generate the test for that feature.
+> **Note:** defining a feature in this file does not directly generate tests, unless defined under the `__additional` property (which will be explained later). For example, defining a custom test for `api.FooBar.baz` in `custom/tests.yaml` will not generate the test for that feature.
 
 > **Tip:** when writing custom tests, make sure to implement thorough feature checking as to not raise exceptions.
 
@@ -42,7 +42,7 @@ Each feature test will compile into a function as follows: `function() {__base +
 
 ## Custom test structure
 
-Each feature within the `custom-tests.yaml` may either be a string or an object with the following properties:
+Each feature may either be a string or an object with the following properties:
 
 - `__base`: Base code used across this test and every subfeature's test
 - `__test`: Code used specifically for that test (does not bubble down to subtests)

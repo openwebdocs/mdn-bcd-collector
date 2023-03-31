@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: report-stats.ts
+// mdn-bcd-collector: scripts/report-stats.ts
 // Script to print statistics about a reports file
 //
 // © Gooborg Studios
@@ -16,11 +16,11 @@ import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 import {CompatData} from '@mdn/browser-compat-data/types';
 
-import {Report} from './types/types.js';
-import {parseUA} from './lib/ua-parser.js';
+import {Report} from '../types/types.js';
+import {parseUA} from '../lib/ua-parser.js';
 import {findMissing} from './find-missing-features.js';
 
-const BCD_DIR = process.env.BCD_DIR || `../browser-compat-data`;
+const BCD_DIR = process.env.BCD_DIR || `../../browser-compat-data`;
 const {default: bcd}: {default: CompatData} = await import(
   `${BCD_DIR}/index.js`
 );

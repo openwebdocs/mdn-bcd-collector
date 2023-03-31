@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: add-new-bcd.ts
+// mdn-bcd-collector: scripts/add-new-bcd.ts
 // Adds missing entries to BCD that have support in some browser version
 //
 // © Gooborg Studios, Google LLC
@@ -17,12 +17,12 @@ import esMain from 'es-main';
 import {getMissing} from './find-missing-features.js';
 import {main as updateBcd} from './update-bcd.js';
 
-const tests = await fs.readJson(new URL('./tests.json', import.meta.url));
+const tests = await fs.readJson(new URL('../tests.json', import.meta.url));
 const overrides = await fs.readJson(
-  new URL('./overrides.json', import.meta.url)
+  new URL('../custom/overrides.json', import.meta.url)
 );
 
-const BCD_DIR = process.env.BCD_DIR || `../browser-compat-data`;
+const BCD_DIR = process.env.BCD_DIR || `../../browser-compat-data`;
 const {default: bcd} = await import(`${BCD_DIR}/index.js`);
 const {orderFeatures} = await import(`${BCD_DIR}/scripts/fix/feature-order.js`);
 

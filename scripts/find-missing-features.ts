@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: find-missing-features.ts
+// mdn-bcd-collector: scripts/find-missing-features.ts
 // Script to find features that are in the collector or BCD but not the other
 //
 // © Gooborg Studios, Google LLC
@@ -7,7 +7,7 @@
 //
 
 import {CompatData, CompatStatement} from '@mdn/browser-compat-data/types';
-import {Tests} from './types/types.js';
+import {Tests} from '../types/types.js';
 
 import {fileURLToPath} from 'node:url';
 
