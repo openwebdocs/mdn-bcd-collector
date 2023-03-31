@@ -69,7 +69,7 @@
     "AsyncGenerator.return": {},
     "AsyncGenerator.throw": {},
     "AsyncGeneratorFunction": {
-      "ctor_args": "yield true"
+      "ctor_args": "'yield true'"
     },
     "AsyncIterator": {},
     "AsyncIterator.@@asyncIterator": {},
@@ -543,7 +543,7 @@
     },
     "Temporal": {},
     "Temporal.Calendar": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.Calendar.dateAdd": {},
     "Temporal.Calendar.dateFromFields": {},
@@ -571,7 +571,7 @@
     "Temporal.Calendar.year": {},
     "Temporal.Calendar.yearMonthFromFields": {},
     "Temporal.Duration": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.Duration.abs": {},
     "Temporal.Duration.add": {},
@@ -599,7 +599,7 @@
     "Temporal.Duration.with": {},
     "Temporal.Duration.years": {},
     "Temporal.Instant": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.Instant.add": {},
     "Temporal.Instant.compare": {},
@@ -624,7 +624,7 @@
     "Temporal.Instant.until": {},
     "Temporal.Instant.valueOf": {},
     "Temporal.PlainDate": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.PlainDate.add": {},
     "Temporal.PlainDate.calendar": {},
@@ -660,7 +660,7 @@
     "Temporal.PlainDate.withCalendar": {},
     "Temporal.PlainDate.year": {},
     "Temporal.PlainDateTime": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.PlainDateTime.add": {},
     "Temporal.PlainDateTime.calendar": {},
@@ -706,7 +706,7 @@
     "Temporal.PlainDateTime.withPlainTime": {},
     "Temporal.PlainDateTime.year": {},
     "Temporal.PlainMonthDay": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.PlainMonthDay.calendar": {},
     "Temporal.PlainMonthDay.day": {},
@@ -721,7 +721,7 @@
     "Temporal.PlainMonthDay.valueOf": {},
     "Temporal.PlainMonthDay.with": {},
     "Temporal.PlainTime": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.PlainTime.add": {},
     "Temporal.PlainTime.calendar": {},
@@ -747,7 +747,7 @@
     "Temporal.PlainTime.valueOf": {},
     "Temporal.PlainTime.with": {},
     "Temporal.PlainYearMonth": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.PlainYearMonth.add": {},
     "Temporal.PlainYearMonth.calendar": {},
@@ -774,7 +774,7 @@
     "Temporal.PlainYearMonth.with": {},
     "Temporal.PlainYearMonth.year": {},
     "Temporal.TimeZone": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.TimeZone.from": {},
     "Temporal.TimeZone.getInstantFor": {},
@@ -788,7 +788,7 @@
     "Temporal.TimeZone.toJSON": {},
     "Temporal.TimeZone.toString": {},
     "Temporal.ZonedDateTime": {
-      "ctor_args": {}
+      "ctor_args": ""
     },
     "Temporal.ZonedDateTime.add": {},
     "Temporal.ZonedDateTime.calendar": {},

@@ -3493,7 +3493,7 @@ api:
     __additional:
       URLSearchParams.record: |-
         try {
-          new URLSearchParams({"q", "HelloWorld", "target": "MDN"});
+          new URLSearchParams({"q": "HelloWorld", "target": "MDN"});
           return true;
         } catch(e) {
           if (e instanceof TypeError) {
@@ -3503,7 +3503,7 @@ api:
         }
       URLSearchParams.sequence: |-
         try {
-          new URLSearchParams([["q", "HelloWorld"]], ["target", "MDN"]]);
+          new URLSearchParams([["q", "HelloWorld"], ["target", "MDN"]]);
           return true;
         } catch(e) {
           if (e instanceof TypeError) {
@@ -3865,6 +3865,36 @@ javascript:
           }
         }
       __test: return instance instanceof Promise;
+    AsyncGeneratorFunction:
+      __base: |-
+        var instance;
+        try {
+          async function *a(){
+            yield true;
+          };
+
+          instance = a();
+        } catch(e) {
+          if (e instanceof TypeError) {
+            return {result: false, message: e.message};
+          }
+        }
+      __test: return instance instanceof Promise;
+    GeneratorFunction:
+      __base: |-
+        var instance;
+        try {
+          function *a(){
+            yield true;
+          };
+
+          instance = a();
+        } catch(e) {
+          if (e instanceof TypeError) {
+            return {result: false, message: e.message};
+          }
+        }
+      __test: return instance;
     Function:
       name: |-
         function doTheThing() {};
