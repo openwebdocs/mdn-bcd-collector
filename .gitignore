@@ -4,6 +4,7 @@ coverage.lcov
 coverage/
 generated/
 node_modules/
+download/
 secrets.json
 tests.json
 tests.old.json

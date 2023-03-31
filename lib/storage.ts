@@ -125,6 +125,11 @@ class MemoryStorage {
   }
 
   async saveFile(filename, data) {
+    const downloadsPath = new URL(`../download`, import.meta.url);
+    if (!fs.existsSync(downloadsPath)) {
+      await fs.mkdir(downloadsPath);
+    }
+
     assert(!filename.includes('..'));
     await fs.writeFile(
       new URL(`../download/${filename}`, import.meta.url),
