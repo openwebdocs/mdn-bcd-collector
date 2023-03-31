@@ -1,1 +1,9 @@
+<!--
+mdn-bcd-collector: views/browserinfo.ejs
+Snippet to display info about the current browser
+
+© Gooborg Studios
+See the LICENSE file for copyright details
+-->
+
 <p class="browserinfo" <% if (!browser.inBcd) { %>class="error-notice"<% } %>><span class="mdi mdi-web"></span> <% if (browser.browser.name) { %>Detected Browser: <%- browser.browser.name %> <%- browser.version %> <% if (!browser.inBcd) { %>(not in BCD v<%- bcdVersion %>)<% } %><% } else {%>Could not determine browser<% } %></p>
