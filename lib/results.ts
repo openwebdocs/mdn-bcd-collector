@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import type {TestResult, Exposure} from './types/types.js';
+import type {TestResult, Exposure} from '../types/types.js';
 
 const parseShortString = (value, desc) => {
   if (typeof value !== 'string') {
