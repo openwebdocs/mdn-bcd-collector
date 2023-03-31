@@ -6,6 +6,10 @@ permissions:
   contents: read
   pull-requests: read
 
+env:
+  FORCE_COLOR: 3
+  BCD_DIR: ./browser-compat-data
+
 jobs:
   test:
     strategy:
@@ -47,6 +51,3 @@ jobs:
           NODE_ENV: production
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-env:
-  FORCE_COLOR: 3
-  BCD_DIR: ./browser-compat-data
