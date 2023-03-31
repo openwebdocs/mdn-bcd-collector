@@ -39,7 +39,7 @@ export interface Resources {
 export interface Test {
   code: string;
   exposure: Exposure[];
-  resources?: Resources;
+  resources?: (keyof Resources)[];
 }
 
 export type Tests = Record<string, Test>;
@@ -56,7 +56,7 @@ export interface RawTest {
     combinator?: string;
   };
   exposure: Exposure[];
-  resources?: Resources;
+  resources?: (keyof Resources)[];
 }
 
 export type RawTests = Record<string, RawTest>;

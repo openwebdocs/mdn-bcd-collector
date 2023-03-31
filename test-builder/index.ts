@@ -16,6 +16,7 @@ import customIDL from '../custom/idl/index.js';
 import {build as buildAPI} from './api.js';
 import {build as buildCSS} from './css.js';
 import {build as buildJS} from './javascript.js';
+import {customTests} from './common.js';
 
 import type {IDLFiles} from '../types/types.js';
 
@@ -34,7 +35,12 @@ const build = async (customIDL: IDLFiles, customCSS) => {
   const APITests = buildAPI(specIDLs, customIDL);
   const CSSTests = buildCSS(specCSS, customCSS);
   const JSTests = buildJS(customJS);
-  const tests = Object.assign({}, APITests, CSSTests, JSTests);
+  const tests = Object.assign(
+    {__resources: customTests.__resources},
+    APITests,
+    CSSTests,
+    JSTests
+  );
 
   await fs.writeJson(new URL('../tests.json', import.meta.url), tests);
 };

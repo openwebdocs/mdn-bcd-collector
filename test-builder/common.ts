@@ -109,9 +109,9 @@ const getCustomTest = (name: string, exactMatchNeeded = false) => {
 
   const data = getCustomTestData(name);
 
-  const response: {test: string | false; resources: Resources} = {
+  const response: {test: string | false; resources: (keyof Resources)[]} = {
     test: false,
-    resources: {}
+    resources: []
   };
 
   if (!(data.__base || data.__test)) {
@@ -129,19 +129,7 @@ const getCustomTest = (name: string, exactMatchNeeded = false) => {
   }
 
   response.test = compileCustomTest((data.__base || '') + (data.__test || ''));
-
-  for (const key of data.__resources) {
-    if (Object.keys(customTests.__resources).includes(key)) {
-      const r = customTests.__resources[key];
-      response.resources[key] =
-        r.type == 'instance' ? r : customTests.__resources[key];
-    } else {
-      throw new Error(
-        `Resource ${key} is not defined but referenced in ${name}`
-      );
-    }
-  }
-
+  response.resources = data.__resources;
   return response;
 };
 
@@ -252,7 +240,7 @@ const compileTest = (test: RawTest): Test => {
   const {exposure, resources} = test;
   const newTest: Test = {code, exposure};
 
-  if (resources && Object.keys(resources).length) {
+  if (resources && resources.length) {
     newTest.resources = resources;
   }
 

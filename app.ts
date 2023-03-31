@@ -295,6 +295,7 @@ app.all('/tests/*', (req, res) => {
     res.render('tests', {
       title: `${ident || 'All Tests'}`,
       tests: foundTests,
+      resources: tests.resources,
       selenium: req.query.selenium
     });
   } else {

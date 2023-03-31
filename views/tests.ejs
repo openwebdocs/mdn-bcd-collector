@@ -18,13 +18,16 @@ See the LICENSE file for copyright details
   <hr />
 </div>
 
-<% let resources = {}; %>
+<% let resourcesToLoad = new Set(); %>
 <% tests.forEach(function(test) {
-  Object.assign(resources, test.resources)
+  for (const r of test.resources) {
+    resourcesToLoad.add(r);
+  }
 }); %>
 <div id="resources" style="display: none;">
   <% let resourceCount = 0;
-  for (const [resourceId, resource] of Object.entries(resources)) {
+  for (const resourceId of resourcesToLoad.values()) {
+    const resource = resources[resourceId];
     switch (resource.type) {
       case 'audio':
       case 'video':
@@ -53,9 +56,11 @@ See the LICENSE file for copyright details
 
 <script>
   <% for (const [instanceId, instance] of Object.entries(resources)
-    .filter((item) => (item[1].type === 'instance'))) { %>
-    bcd.addInstance("<%- instanceId %>", <%- JSON.stringify(instance.src) %>);
-  <% }; %>
+    .filter((item) => (item[1].type === 'instance'))) { 
+    if (resourcesToLoad.has(instanceId)) { %>
+      bcd.addInstance("<%- instanceId %>", <%- JSON.stringify(instance.src) %>);
+    <% }
+   }; %>
   <% tests.forEach(function(test) { %>
     bcd.addTest("<%- test.ident %>", <%- JSON.stringify(test.tests) %>, "<%- test.exposure %>");
   <% }); %>

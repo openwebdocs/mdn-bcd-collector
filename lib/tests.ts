@@ -8,17 +8,21 @@
 
 import didYouMean from 'didyoumean';
 
+import type {Resources} from '../types/types.js';
+
 interface Endpoints {
   [key: string]: string[];
 }
 
 class Tests {
   tests: {[key: string]: any};
+  resources: Resources;
   endpoints: Endpoints;
   httpOnly: boolean;
 
   constructor(options) {
     this.tests = options.tests;
+    this.resources = options.tests.__resources;
     this.endpoints = this.buildEndpoints();
     this.httpOnly = options.httpOnly;
   }
@@ -29,6 +33,9 @@ class Tests {
     };
 
     for (const ident of Object.keys(this.tests)) {
+      if (ident === '__resources') {
+        continue;
+      }
       endpoints[''].push(ident);
 
       let endpoint = '';
@@ -79,7 +86,7 @@ class Tests {
             // TODO: Simplify this to just a code string.
             tests: [{code: test.code}],
             exposure,
-            resources: test.resources || {}
+            resources: test.resources || []
           });
         }
       }
