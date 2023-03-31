@@ -617,7 +617,8 @@ const buildIDLTests = (ast, globals, scopes) => {
 
     const exposureSet = getExposureSet(iface, scopes);
     const isGlobal = !!getExtAttr(iface, 'Global');
-    const {test: customTest, resources} = getCustomTest(`api.${iface.name}`);
+    const {resources} = getCustomTest(`api.${iface.name}`);
+    const customTest = getCustomTestAPI(iface.name);
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {
