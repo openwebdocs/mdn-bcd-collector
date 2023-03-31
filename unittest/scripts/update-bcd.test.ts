@@ -22,7 +22,7 @@ import {
   inferSupportStatements,
   splitRange,
   update
-} from '../../update-bcd.js';
+} from '../../scripts/update-bcd.js';
 
 import bcd from '../sample/bcd.test.js';
 const overrides = await fs.readJson(

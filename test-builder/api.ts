@@ -6,18 +6,9 @@
 // See the LICENSE file for copyright details
 //
 
-import fs from 'fs-extra';
-import idl from '@webref/idl';
 import * as WebIDL2 from 'webidl2';
 
-import type {
-  Test,
-  RawTest,
-  RawTestCodeExpr,
-  Exposure,
-  Resources,
-  IDLFiles
-} from '../types/types.js';
+import type {RawTestCodeExpr, Exposure, IDLFiles} from '../types/types.js';
 
 import {
   customTests,
@@ -681,8 +672,7 @@ const buildIDLTests = (ast, globals, scopes) => {
   return tests;
 };
 
-const build = async (customIDLs: IDLFiles) => {
-  const specIDLs: IDLFiles = await idl.parseAll();
+const build = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   const {ast, globals, scopes} = flattenIDL(specIDLs, customIDLs);
   validateIDL(ast);
   return buildIDLTests(ast, globals, scopes);

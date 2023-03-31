@@ -10,17 +10,12 @@ import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-import * as WebIDL2 from 'webidl2';
-import sinon from 'sinon';
-
 import {
   compileTestCode,
   compileTest,
   getCustomTestData,
   getCustomTest
 } from '../../test-builder/common.js';
-
-import type {RawTest} from '../../types/types.js';
 
 describe('build (common)', () => {
   describe('getCustomTest(Data)', () => {

@@ -6,26 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import css from '@webref/css';
-import fs from 'fs-extra';
-import prettier from 'prettier';
-
-import {
-  customTests,
-  getCustomTestData,
-  getCustomTest,
-  compileCustomTest,
-  compileTest
-} from './common.js';
-
-import type {
-  Test,
-  RawTest,
-  RawTestCodeExpr,
-  Exposure,
-  Resources,
-  IDLFiles
-} from '../types/types.js';
+import {customTests, compileCustomTest, compileTest} from './common.js';
 
 const getCustomTestCSS = (name: string): string | false => {
   // XXX Deprecated; use getCustomTest() instead
@@ -37,9 +18,7 @@ const getCustomTestCSS = (name: string): string | false => {
   return compileCustomTest(testData);
 };
 
-const build = async (customCSS) => {
-  const specCSS = await css.listAll();
-
+const build = (specCSS, customCSS) => {
   const properties = new Map();
 
   for (const data of Object.values(specCSS) as any[]) {
@@ -104,4 +83,4 @@ const build = async (customCSS) => {
   return tests;
 };
 
-export {build};
+export {getCustomTestCSS, build};

@@ -10,12 +10,7 @@ import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-import * as WebIDL2 from 'webidl2';
-import sinon from 'sinon';
-
-import {build} from '../../javascript.js';
-
-import type {RawTest} from '../../types/types.js';
+import {build} from '../../test-builder/javascript.js';
 
 describe('build (JavaScript)', () => {
   it('build', () => {

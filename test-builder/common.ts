@@ -10,14 +10,7 @@ import fs from 'fs-extra';
 import prettier from 'prettier';
 import * as YAML from 'yaml';
 
-import type {
-  Test,
-  RawTest,
-  RawTestCodeExpr,
-  Exposure,
-  Resources,
-  IDLFiles
-} from '../types/types.js';
+import type {Test, RawTest, Resources} from '../types/types.js';
 
 /* c8 ignore start */
 export const customTests = YAML.parse(

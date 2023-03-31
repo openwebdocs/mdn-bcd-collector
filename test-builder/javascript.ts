@@ -6,26 +6,14 @@
 // See the LICENSE file for copyright details
 //
 
-import fs from 'fs-extra';
-import prettier from 'prettier';
-
 import {
   customTests,
-  getCustomTestData,
-  getCustomTest,
   compileCustomTest,
   compileTest,
   compileTestCode
 } from './common.js';
 
-import type {
-  Test,
-  RawTest,
-  RawTestCodeExpr,
-  Exposure,
-  Resources,
-  IDLFiles
-} from '../types/types.js';
+import type {RawTestCodeExpr} from '../types/types.js';
 
 const getCustomTestJS = (
   name: string,
@@ -45,7 +33,7 @@ const getCustomTestJS = (
   return compileCustomTest(test);
 };
 
-const build = async (customJS) => {
+const build = (customJS) => {
   const tests = {};
 
   for (const [path, extras] of Object.entries(customJS.builtins) as any[]) {

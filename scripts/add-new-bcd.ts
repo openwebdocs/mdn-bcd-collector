@@ -10,7 +10,6 @@ import {Identifier} from '@mdn/browser-compat-data/types';
 
 import path from 'node:path';
 import {execSync} from 'node:child_process';
-import {fileURLToPath} from 'node:url';
 
 import fs from 'fs-extra';
 import esMain from 'es-main';

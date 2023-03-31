@@ -9,8 +9,6 @@
 import {CompatData, CompatStatement} from '@mdn/browser-compat-data/types';
 import {Tests} from '../types/types.js';
 
-import {fileURLToPath} from 'node:url';
-
 import chalk from 'chalk-template';
 import esMain from 'es-main';
 import fs from 'fs-extra';

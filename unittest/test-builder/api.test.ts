@@ -21,9 +21,7 @@ import {
   build,
   getCustomTestAPI,
   getCustomSubtestsAPI
-} from '../../build/api.js';
-
-import type {RawTest} from '../../types/types.js';
+} from '../../test-builder/api.js';
 
 describe('build (API)', () => {
   describe('getCustomTestAPI', () => {
