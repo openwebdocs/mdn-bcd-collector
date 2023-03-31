@@ -47,7 +47,7 @@ const customJS = await fs.readJson(
 );
 
 const getCustomTestData = (name: string, customTestData: any = customTests) => {
-  // Get the custom test code for a specified feature identifier by recursively searching
+  // Get the custom test data for a specified feature identifier by recursively searching
   // through the custom test data to calculate the base code (__base) and specific test
   // (__test) for a given member.
   //
@@ -123,7 +123,10 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   return result;
 };
 
-const getCustomTest = (name: string) => {
+const getCustomTest = (name: string, exactMatchNeeded = false) => {
+  // Get the custom test for a specified feature identifier using getCustomTestData().
+  // If exactMatchNeeded is true, a __test must be defined.
+
   const data = getCustomTestData(name);
 
   const response: {test: string | false; resources: Resources} = {
@@ -137,8 +140,15 @@ const getCustomTest = (name: string) => {
   }
 
   if (!data.__test) {
-    // XXX Need to build this part out
+    if (exactMatchNeeded) {
+      // We don't have a custom test, so return
+      return response;
+    }
+
+    // XXX Build me out
   }
+
+  response.test = compileCustomTest((data.__base || '') + (data.__test || ''));
 
   for (const key of data.__resources) {
     if (Object.keys(customTests.__resources).includes(key)) {
@@ -152,7 +162,6 @@ const getCustomTest = (name: string) => {
     }
   }
 
-  response.test = compileCustomTest((data.__base || '') + (data.__test || ''));
   return response;
 };
 
@@ -217,49 +226,49 @@ const getCustomTestAPI = (
   const testData = getCustomTestData(
     `api.${name}` + (member ? `.${member}` : '')
   );
+
   if (!testData) {
     return false;
   }
 
-  let test: string | false = false;
+  let test = testData.__base ? testData.__base + '\n' : '';
 
-  const testBase = testData.__base ? testData.__base + '\n' : '';
-  const promise = testBase.includes('var promise');
+  const promise = test.includes('var promise');
   const callback =
-    testBase.match(/callback([(),])/g) || testBase.includes(':callback%>');
+    test.match(/callback([(),])/g) || test.includes(':callback%>');
 
   if (testData.__test) {
-    test = testBase + testData.__test;
+    test += testData.__test;
+  } else if (
+    ['constructor', 'static'].includes(type as string) ||
+    ['toString', 'toJSON'].includes(member)
+  ) {
+    // Constructors, constants, and static attributes should not have
+    // auto-generated custom tests
+    return false;
+  } else if (!test) {
+    // If there's no base code or specific test code, there's no custom test
+    return false;
   } else {
-    if (
-      ['constructor', 'static'].includes(type as string) ||
-      ['toString', 'toJSON'].includes(member)
-    ) {
-      // Constructors, constants, and static attributes should not have
-      // auto-generated custom tests
-      test = false;
-    } else {
-      let returnValue = '!!instance';
-      if (member) {
-        if (type === 'symbol') {
-          const symbol = member.replace('@@', '');
-          returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
-        } else {
-          returnValue = `!!instance && "${member}" in instance`;
-        }
+    let returnValue = '!!instance';
+    if (member) {
+      if (type === 'symbol') {
+        const symbol = member.replace('@@', '');
+        returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
+      } else {
+        returnValue = `!!instance && "${member}" in instance`;
       }
+    }
 
-      test = testBase
-        ? testBase +
-          (promise
-            ? `if (!promise) {
+    test += promise
+      ? `if (!promise) {
     return {result: false, message: "Promise variable is falsy"};
   }
   return promise.then(function(instance) {
     return ${returnValue};
   });`
-            : callback
-            ? `function callback(instance) {
+      : callback
+      ? `function callback(instance) {
     try {
       success(${returnValue});
     } catch(e) {
@@ -267,9 +276,7 @@ const getCustomTestAPI = (
     }
   };
   return "callback";`
-            : `return ${returnValue};`)
-        : false;
-    }
+      : `return ${returnValue};`;
   }
 
   return test && compileCustomTest(test);
@@ -334,12 +341,12 @@ const compileTestCode = (test: any): string => {
     return parts.join(` && `);
   }
 
-  const property = test.property.replace(/(Symbol|constructor)\./, '');
+  const property = test.property.replace(/(Symbol|constructor|@@)\./, '');
 
   if (test.property.startsWith('constructor')) {
     return `bcd.testConstructor("${property}");`;
   }
-  if (test.property.startsWith('Symbol.')) {
+  if (test.property.startsWith('Symbol.') || test.property.startsWith('@@')) {
     return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(
       '.prototype',
       ''
