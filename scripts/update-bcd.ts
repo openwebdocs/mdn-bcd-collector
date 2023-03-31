@@ -36,16 +36,11 @@ const {Minimatch} = minimatch;
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
+import {BCD_DIR} from '../lib/config.js';
 import logger from '../lib/logger.js';
 import {parseUA} from '../lib/ua-parser.js';
 
-const BCD_DIR = fileURLToPath(
-  new URL(process.env.BCD_DIR || `../../browser-compat-data`, import.meta.url)
-);
-
-const {default: mirror} = await import(
-  path.join(BCD_DIR, 'scripts', 'release', 'mirror.js')
-);
+const {default: mirror} = await import(`${BCD_DIR}/scripts/release/mirror.js`);
 
 export const findEntry = (
   bcd: Identifier,

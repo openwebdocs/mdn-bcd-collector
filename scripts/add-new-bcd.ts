@@ -10,10 +10,12 @@ import {Identifier} from '@mdn/browser-compat-data/types';
 
 import path from 'node:path';
 import {execSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 
 import fs from 'fs-extra';
 import esMain from 'es-main';
 
+import {BCD_DIR} from '../lib/config.js';
 import {getMissing} from './find-missing-features.js';
 import {main as updateBcd} from './update-bcd.js';
 
@@ -22,7 +24,6 @@ const overrides = await fs.readJson(
   new URL('../custom/overrides.json', import.meta.url)
 );
 
-const BCD_DIR = process.env.BCD_DIR || `../../browser-compat-data`;
 const {default: bcd} = await import(`${BCD_DIR}/index.js`);
 const {orderFeatures} = await import(`${BCD_DIR}/scripts/fix/feature-order.js`);
 
@@ -167,8 +168,7 @@ export const collectMissing = async (filepath: string): Promise<void> => {
   }
 
   const json = JSON.stringify(missing, null, '  ') + '\n';
-  await fs.ensureDir(path.dirname(filepath));
-  await fs.writeFile(filepath, json);
+  await fs.outputJson(filepath, json);
 };
 
 /* c8 ignore start */

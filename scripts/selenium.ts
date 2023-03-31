@@ -33,13 +33,11 @@ import {Listr, ListrTask} from 'listr2';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
+import {RESULTS_DIR} from '../lib/config.js';
+
 import '../lib/selenium-keepalive.js';
 
 const secrets = await fs.readJson(new URL('../secrets.json', import.meta.url));
-
-const resultsDir = fileURLToPath(
-  new URL('../../mdn-bcd-results', import.meta.url)
-);
 
 const testenv = process.env.NODE_ENV === 'test';
 const host = testenv
@@ -508,7 +506,7 @@ const run = async (browser, version, os, ctx, task) => {
       const filename = path.basename(new URL(downloadUrl).pathname);
       log(task, `Downloading ${filename} ...`);
       const report = await (await fetch(downloadUrl)).buffer();
-      await fs.writeFile(path.join(resultsDir, filename), report);
+      await fs.writeFile(path.join(RESULTS_DIR, filename), report);
     }
   } finally {
     driver.quit().catch(() => {});

@@ -17,6 +17,8 @@ import fs from 'fs-extra';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
+import {BCD_DIR} from '../lib/config.js';
+
 const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
   const features: string[] = [];
 
@@ -171,11 +173,15 @@ const main = (bcd: CompatData, tests: Tests) => {
 };
 
 if (esMain(import.meta)) {
-  const BCD_DIR = fileURLToPath(
-    new URL(process.env.BCD_DIR || `../browser-compat-data`, import.meta.url)
-  );
   const {default: bcd} = await import(`${BCD_DIR}/index.js`);
-  const tests = await fs.readJson(new URL('./tests.json', import.meta.url));
+
+  const testsPath = new URL('../tests.json', import.meta.url);
+  if (!fs.existsSync(testsPath)) {
+    throw new Error(
+      'The tests must be built using `npm run build:tests` before this script can be run.'
+    );
+  }
+  const tests = await fs.readJson(testsPath);
 
   main(bcd, tests);
 }
