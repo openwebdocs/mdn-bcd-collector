@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: unittest/unit/tests.ts
+// mdn-bcd-collector: unittest/unit/tests.test.ts
 // Unittest for the Tests class
 //
 // © Gooborg Studios, Google LLC

@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: unittest/unit/storage.ts
+// mdn-bcd-collector: unittest/unit/storage.test.ts
 // Unittest for the temporary storage handler
 //
 // © Gooborg Studios, Google LLC

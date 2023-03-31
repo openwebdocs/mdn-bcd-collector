@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: unittest/scripts/add-new-bcd.ts
+// mdn-bcd-collector: unittest/scripts/add-new-bcd.test.ts
 // Unittest for the script to add new features to BCD
 //
 // © Gooborg Studios, Google LLC

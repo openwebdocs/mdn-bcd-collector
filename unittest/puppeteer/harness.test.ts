@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: unittest/puppeteer/harness.ts
+// mdn-bcd-collector: unittest/puppeteer/harness.test.ts
 // Unittest for testing harness.js in multiple browsers
 //
 // © Gooborg Studios, Google LLC, Mozilla Corporation

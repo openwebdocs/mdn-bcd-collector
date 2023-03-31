@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: unittest/unit/results.ts
+// mdn-bcd-collector: unittest/unit/results.test.ts
 // Unittest for the results parsing script
 //
 // © Gooborg Studios, Google LLC
