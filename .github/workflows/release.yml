@@ -6,6 +6,9 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  FORCE_COLOR: 3
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -24,5 +27,3 @@ jobs:
       - run: npm run release -- --no-fetch --no-prompt
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-env:
-  FORCE_COLOR: 3
