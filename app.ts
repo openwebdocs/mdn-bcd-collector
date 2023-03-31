@@ -17,6 +17,7 @@ import esMain from 'es-main';
 import express from 'express';
 import {expressCspHeader, INLINE, SELF, EVAL} from 'express-csp-header';
 import cookieParser from 'cookie-parser';
+import * as marked from 'marked';
 import uniqueString from 'unique-string';
 import expressLayouts from 'express-ejs-layouts';
 import yargs from 'yargs';
@@ -211,6 +212,15 @@ app.get('/', (req, res) => {
     selenium: req.query.selenium,
     ignore: req.query.ignore
   });
+});
+
+app.get('/changelog', async (req, res) => {
+  const fileData = await fs.readFile(
+    new URL('./CHANGELOG.md', import.meta.url),
+    'utf8'
+  );
+  const changelog = marked.parse(fileData);
+  res.render('changelog', {changelog});
 });
 
 /* c8 ignore start */
