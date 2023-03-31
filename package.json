@@ -63,7 +63,7 @@
     "yargs": "17.7.1"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
+    "@babel/core": "7.21.4",
     "@babel/eslint-parser": "7.21.3",
     "@babel/plugin-syntax-import-assertions": "7.20.0",
     "@babel/preset-env": "7.20.2",
