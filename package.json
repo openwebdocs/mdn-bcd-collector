@@ -21,7 +21,7 @@
     "clean": "rm -rf .nyc_output coverage generated tests.json",
     "build": "npm run build:compile && npm run build:tests && npm run build:resources",
     "build:compile": "tsc -p .",
-    "build:tests": "ts-node build.ts",
+    "build:tests": "ts-node test-builder/index.ts",
     "build:resources": "ts-node prepare-resources.ts",
     "gcp-build": "npm run build",
     "start": "NODE_ENV=production node app.js",
