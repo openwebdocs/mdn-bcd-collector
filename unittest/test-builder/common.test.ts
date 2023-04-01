@@ -28,7 +28,7 @@ describe('build (common)', () => {
         },
         {
           test: '(function () {\n  "hello world";\n  return "hello world!";\n})();\n',
-          resources: {}
+          resources: []
         }
       ],
       'api.FooBar.foo': [
@@ -39,7 +39,7 @@ describe('build (common)', () => {
         },
         {
           test: '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n',
-          resources: {}
+          resources: []
         }
       ],
       'api.FooBar.foo.pear': [
@@ -49,7 +49,7 @@ describe('build (common)', () => {
           __resources: []
         },
         // XXX Not accurate
-        {test: '(function () {\n  "hello world";\n})();\n', resources: {}}
+        {test: '(function () {\n  "hello world";\n})();\n', resources: []}
       ],
       'api.FooBar.bar': [
         {
@@ -59,7 +59,7 @@ describe('build (common)', () => {
         },
         {
           test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n',
-          resources: {}
+          resources: []
         }
       ],
       'api.FooBar.bar.cinnamon': [
@@ -71,7 +71,7 @@ describe('build (common)', () => {
         // XXX Not accurate
         {
           test: '(function () {\n  "hello world";\n  "goodbye world";\n})();\n',
-          resources: {}
+          resources: []
         }
       ],
       'api.FooBar.baz': [
@@ -81,7 +81,7 @@ describe('build (common)', () => {
           __resources: []
         },
         // XXX Not accurate
-        {test: '(function () {\n  "hello world";\n})();\n', resources: {}}
+        {test: '(function () {\n  "hello world";\n})();\n', resources: []}
       ],
       'api.Chocolate': [
         {
@@ -89,7 +89,7 @@ describe('build (common)', () => {
           __test: false,
           __resources: []
         },
-        {test: false, resources: {}}
+        {test: false, resources: []}
       ],
       'api.audiocontext': [
         {
@@ -99,12 +99,7 @@ describe('build (common)', () => {
         },
         {
           test: '(function () {\n  return false;\n})();\n',
-          resources: {
-            'audio-blip': {
-              type: 'audio',
-              src: ['/media/blip.mp3', '/media/blip.ogg']
-            }
-          }
+          resources: ['audio-blip']
         }
       ],
       'api.WebGLRenderingContext': [
@@ -116,16 +111,7 @@ describe('build (common)', () => {
         {
           // XXX Not accurate
           test: '(function () {\n  return reusableInstances.webGL;\n})();\n',
-          resources: {
-            webGL: {
-              type: 'instance',
-              src: `var canvas = document.createElement('canvas');
-if (!canvas) {
-  return false;
-};
-return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');`
-            }
-          }
+          resources: ['webGL']
         }
       ]
     };
@@ -199,24 +185,14 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
         raw: {
           code: {property: 'body', owner: `Document.prototype`}
         },
-        resources: {
-          'audio-blip': {
-            type: 'audio',
-            src: ['/media/blip.mp3', '/media/blip.ogg']
-          }
-        },
+        resources: ['audio-blip'],
         exposure: ['Window']
       };
 
       assert.deepEqual(compileTest(rawTest), {
         code: '"Document" in self && "body" in Document.prototype',
         exposure: ['Window'],
-        resources: {
-          'audio-blip': {
-            type: 'audio',
-            src: ['/media/blip.mp3', '/media/blip.ogg']
-          }
-        }
+        resources: ['audio-blip']
       });
     });
 
@@ -227,7 +203,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
             code: 'foo',
             combinator: '&&'
           },
-          resources: {},
+          resources: [],
           exposure: ['Window']
         };
 
@@ -243,7 +219,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
             code: ['foo', 'foo'],
             combinator: '&&'
           },
-          resources: {},
+          resources: [],
           exposure: ['Window']
         };
 
@@ -261,7 +237,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
             code: 'true',
             combinator: '&&'
           },
-          resources: {},
+          resources: [],
           exposure: ['Window']
         },
         {
@@ -269,7 +245,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
             code: ['true', 'true'],
             combinator: '||'
           },
-          resources: {},
+          resources: [],
           exposure: ['Window']
         },
         {
@@ -277,7 +253,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
             code: ['true', 'true'],
             combinator: '&&'
           },
-          resources: {},
+          resources: [],
           exposure: ['Worker']
         }
       ];
@@ -305,7 +281,7 @@ return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getCo
           ],
           combinator: '||'
         },
-        resources: {},
+        resources: [],
         exposure: ['Window']
       };
 

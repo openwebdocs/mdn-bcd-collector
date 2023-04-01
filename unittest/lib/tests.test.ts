@@ -17,12 +17,7 @@ const testDatabase = {
   },
   'api.AbortController.signal': {
     code: '"AbortController" in self && "signal" in AbortController.prototype',
-    resources: {
-      'audio-blip': {
-        type: 'audio',
-        src: '/media/blip.mp3'
-      }
-    },
+    resources: ['audio-blip'],
     exposure: ['Window', 'Worker']
   },
   'css.properties.font-family': {
@@ -90,19 +85,19 @@ describe('Tests', () => {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Window',
-          resources: {}
+          resources: []
         },
         {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Worker',
-          resources: {}
+          resources: []
         },
         {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'ServiceWorker',
-          resources: {}
+          resources: []
         },
         {
           ident: 'api.AbortController.signal',
@@ -112,7 +107,7 @@ describe('Tests', () => {
             }
           ],
           exposure: 'Window',
-          resources: {'audio-blip': {type: 'audio', src: '/media/blip.mp3'}}
+          resources: ['audio-blip']
         },
         {
           ident: 'api.AbortController.signal',
@@ -122,7 +117,7 @@ describe('Tests', () => {
             }
           ],
           exposure: 'Worker',
-          resources: {'audio-blip': {type: 'audio', src: '/media/blip.mp3'}}
+          resources: ['audio-blip']
         }
       ]);
     });
@@ -133,7 +128,7 @@ describe('Tests', () => {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Window',
-          resources: {}
+          resources: []
         },
         {
           ident: 'api.AbortController.signal',
@@ -143,7 +138,7 @@ describe('Tests', () => {
             }
           ],
           exposure: 'Window',
-          resources: {'audio-blip': {type: 'audio', src: '/media/blip.mp3'}}
+          resources: ['audio-blip']
         }
       ]);
     });
@@ -157,7 +152,7 @@ describe('Tests', () => {
             ident: 'api.AbortController',
             tests: [{code: '"AbortController" in self'}],
             exposure: 'Window',
-            resources: {}
+            resources: []
           }
         ]
       );
@@ -174,7 +169,7 @@ describe('Tests', () => {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Window',
-          resources: {}
+          resources: []
         },
         {
           ident: 'api.AbortController.signal',
@@ -184,7 +179,7 @@ describe('Tests', () => {
             }
           ],
           exposure: 'Window',
-          resources: {'audio-blip': {type: 'audio', src: '/media/blip.mp3'}}
+          resources: ['audio-blip']
         }
       ]);
     });
