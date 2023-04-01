@@ -130,6 +130,16 @@ const getCustomTest = (name: string, exactMatchNeeded = false) => {
 
   response.test = compileCustomTest((data.__base || '') + (data.__test || ''));
   response.resources = data.__resources;
+
+  // Check for bad resources
+  for (const key of data.__resources) {
+    if (!Object.keys(customTests.__resources).includes(key)) {
+      throw new Error(
+        `Resource ${key} is not defined but referenced in ${name}`
+      );
+    }
+  }
+
   return response;
 };
 
