@@ -6,17 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import {customTests, compileCustomTest, compileTest} from './common.js';
-
-const getCustomTestCSS = (name: string): string | false => {
-  // XXX Deprecated; use getCustomTest() instead
-  const testData = customTests.css.properties[name];
-  if (!testData) {
-    return false;
-  }
-
-  return compileCustomTest(testData);
-};
+import {getCustomTest, compileTest} from './common.js';
 
 const build = (specCSS, customCSS) => {
   const properties = new Map();
@@ -50,18 +40,12 @@ const build = (specCSS, customCSS) => {
   const tests = {};
 
   for (const name of Array.from(properties.keys()).sort()) {
-    const customTest = getCustomTestCSS(name);
-    if (customTest) {
-      tests[`css.properties.${name}`] = compileTest({
-        raw: {code: customTest},
-        exposure: ['Window']
-      });
-      continue;
-    }
+    const ident = `css.properties.${name}`;
+    const customTest = getCustomTest(ident, true);
 
     // Test for the property itself
-    tests[`css.properties.${name}`] = compileTest({
-      raw: {code: `bcd.testCSSProperty("${name}")`},
+    tests[ident] = compileTest({
+      raw: {code: customTest.test || `bcd.testCSSProperty("${name}")`},
       exposure: ['Window']
     });
 
@@ -69,12 +53,14 @@ const build = (specCSS, customCSS) => {
     for (const [key, value] of Array.from(
       properties.get(name).entries()
     ).sort() as any[]) {
+      const valueIdent = `${ident}.${key}`;
+      const customValueTest = getCustomTest(valueIdent, true);
       const values = Array.isArray(value) ? value : [value];
       const code = values
         .map((value) => `bcd.testCSSProperty("${name}", "${value}")`)
         .join(' || ');
-      tests[`css.properties.${name}.${key}`] = compileTest({
-        raw: {code: code},
+      tests[valueIdent] = compileTest({
+        raw: {code: customValueTest.test || code},
         exposure: ['Window']
       });
     }
@@ -83,4 +69,4 @@ const build = (specCSS, customCSS) => {
   return tests;
 };
 
-export {getCustomTestCSS, build};
+export {build};
