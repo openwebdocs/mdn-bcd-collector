@@ -10,6 +10,7 @@ permissions:
 
 env:
   FORCE_COLOR: 3
+  BCD_DIR: ./browser-compat-data
 
 jobs:
   test:
