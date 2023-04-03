@@ -15,7 +15,7 @@ import fs from 'fs-extra';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {BCD_DIR} from '../lib/constants.js';
+import {BCD_DIR, CATEGORIES} from '../lib/constants.js';
 
 const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
   const features: string[] = [];
@@ -141,8 +141,8 @@ const main = (bcd: CompatData, tests: Tests) => {
           alias: 'c',
           describe: 'The BCD categories to filter',
           type: 'array',
-          choices: ['api', 'css.properties', 'javascript.builtins'],
-          default: ['api', 'css.properties', 'javascript.builtins']
+          choices: CATEGORIES,
+          default: CATEGORIES
         });
     }
   );

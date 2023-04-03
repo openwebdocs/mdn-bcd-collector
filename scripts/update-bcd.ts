@@ -35,7 +35,7 @@ const {Minimatch} = minimatch;
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {BCD_DIR} from '../lib/constants.js';
+import {BCD_DIR, CATEGORIES} from '../lib/constants.js';
 import logger from '../lib/logger.js';
 import {parseUA} from '../lib/ua-parser.js';
 
@@ -666,8 +666,8 @@ if (esMain(import.meta)) {
           alias: 'c',
           describe: 'The BCD categories to update',
           type: 'array',
-          choices: ['api', 'css.properties', 'javascript.builtins'],
-          default: ['api', 'css.properties', 'javascript.builtins']
+          choices: CATEGORIES,
+          default: CATEGORIES
         })
         .option('path', {
           alias: 'p',

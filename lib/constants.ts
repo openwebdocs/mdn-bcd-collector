@@ -17,3 +17,5 @@ export const BCD_DIR = fileURLToPath(
 export const RESULTS_DIR = fileURLToPath(
   new URL(process.env.RESULTS_DIR || '../mdn-bcd-results', BASE_DIR)
 );
+
+export const CATEGORIES = ['api', 'css.properties', 'javascript.builtins'];
