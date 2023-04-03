@@ -3903,6 +3903,8 @@ javascript:
       name: |-
         function doTheThing() {};
         return doTheThing.name == 'doTheThing';
+    TypedArray:
+      __base: var instance = new Int8Array(2);
     WebAssembly:
       Exception:
         __base: |-

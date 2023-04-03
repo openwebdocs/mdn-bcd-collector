@@ -32,13 +32,6 @@ const build = (customJS) => {
         raw: {code: customTest.test},
         exposure: ['Window']
       });
-    } else if ('code' in extras) {
-      // XXX Deprecated; use standard custom/tests.yaml
-      // Custom test code, nothing is generated.
-      tests[bcdPath] = compileTest({
-        raw: {code: extras.code},
-        exposure: ['Window']
-      });
     } else {
       // Get the last part as the property and everything else as the expression
       // we should test for existence in, or "self" if there's just one part.
