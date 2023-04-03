@@ -7,7 +7,7 @@
 //
 
 import {
-  customTests,
+  getCustomTestData,
   compileCustomTest,
   compileTest,
   compileTestCode
@@ -15,22 +15,30 @@ import {
 
 import type {RawTestCodeExpr} from '../types/types.js';
 
-const getCustomTestJS = (
-  name: string,
-  member?: string,
-  defaultCode?: any
-): string | false => {
+const getCustomTestJS = (path: string, defaultCode?: any): string | false => {
   // XXX Deprecated; use getCustomTest() instead
-  const testData = customTests.javascript.builtins[name];
+  const testData = getCustomTestData(path);
   if (!testData) {
     return false;
   }
 
-  const test =
-    (testData.__base || '') +
-    (testData[member || '__test'] || compileTestCode(defaultCode));
+  if (!(testData.__test || defaultCode)) {
+    // If there's not an exact match and no default code is specified, return false
+    return false;
+  }
 
-  return compileCustomTest(test);
+  if (testData.__base) {
+    const test = testData.__test || compileTestCode(defaultCode);
+    return compileCustomTest(
+      testData.__base + (test.includes('return ') ? test : `return ${test}`)
+    );
+  }
+
+  if (testData.__test) {
+    return compileCustomTest(testData.__test);
+  }
+
+  return compileTestCode(defaultCode);
 };
 
 const build = (customJS) => {
@@ -79,7 +87,7 @@ const build = (customJS) => {
         expr.unshift({property: parts[0], owner: 'self'});
       }
 
-      const customTest = getCustomTestJS(parts[0], parts[1], expr);
+      const customTest = getCustomTestJS(bcdPath, expr);
 
       tests[bcdPath] = compileTest({
         raw: {code: customTest || expr},
@@ -122,7 +130,7 @@ const build = (customJS) => {
     }
     ` + rawCode;
 
-      const customTest = getCustomTestJS(parts[0], undefined, rawCode);
+      const customTest = getCustomTestJS(ctorPath);
 
       tests[ctorPath] = compileTest({
         raw: {code: customTest || compileCustomTest(rawCode)},
