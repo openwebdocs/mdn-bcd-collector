@@ -6,40 +6,9 @@
 // See the LICENSE file for copyright details
 //
 
-import {
-  getCustomTestData,
-  compileCustomTest,
-  compileTest,
-  compileTestCode
-} from './common.js';
+import {getCustomTest, compileCustomTest, compileTest} from './common.js';
 
 import type {RawTestCodeExpr} from '../types/types.js';
-
-const getCustomTestJS = (path: string, defaultCode?: any): string | false => {
-  // XXX Deprecated; use getCustomTest() instead
-  const testData = getCustomTestData(path);
-  if (!testData) {
-    return false;
-  }
-
-  if (!(testData.__test || defaultCode)) {
-    // If there's not an exact match and no default code is specified, return false
-    return false;
-  }
-
-  if (testData.__base) {
-    const test = testData.__test || compileTestCode(defaultCode);
-    return compileCustomTest(
-      testData.__base + (test.includes('return ') ? test : `return ${test}`)
-    );
-  }
-
-  if (testData.__test) {
-    return compileCustomTest(testData.__test);
-  }
-
-  return compileTestCode(defaultCode);
-};
 
 const build = (customJS) => {
   const tests = {};
@@ -56,7 +25,15 @@ const build = (customJS) => {
 
     let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = '';
 
-    if ('code' in extras) {
+    const customTest = getCustomTest(bcdPath);
+
+    if (customTest.test) {
+      tests[bcdPath] = compileTest({
+        raw: {code: customTest.test},
+        exposure: ['Window']
+      });
+    } else if ('code' in extras) {
+      // XXX Deprecated; use standard custom/tests.yaml
       // Custom test code, nothing is generated.
       tests[bcdPath] = compileTest({
         raw: {code: extras.code},
@@ -87,10 +64,8 @@ const build = (customJS) => {
         expr.unshift({property: parts[0], owner: 'self'});
       }
 
-      const customTest = getCustomTestJS(bcdPath, expr);
-
       tests[bcdPath] = compileTest({
-        raw: {code: customTest || expr},
+        raw: {code: expr},
         exposure: ['Window']
       });
     }
@@ -104,38 +79,46 @@ const build = (customJS) => {
         // Repeat the last part of the path
         parts[parts.length - 1]
       ].join('.');
-      const expr = `${path}(${extras.ctor_args})`;
-      const maybeNew = extras.ctor_new !== false ? 'new' : '';
 
-      let rawCode = `var instance = ${maybeNew} ${expr};
+      const customTest = getCustomTest(ctorPath);
+
+      if (customTest.test) {
+        tests[ctorPath] = compileTest({
+          raw: {code: customTest.test},
+          exposure: ['Window']
+        });
+      } else {
+        const expr = `${path}(${extras.ctor_args})`;
+        const maybeNew = extras.ctor_new !== false ? 'new' : '';
+
+        let rawCode = `var instance = ${maybeNew} ${expr};
     return !!instance;`;
 
-      if (path.startsWith('Intl')) {
-        rawCode =
-          `if (!("${parts[1]}" in Intl)) {
+        if (path.startsWith('Intl')) {
+          rawCode =
+            `if (!("${parts[1]}" in Intl)) {
       return {result: false, message: 'Intl.${parts[1]} is not defined'};
     }
     ` + rawCode;
-      } else if (path.startsWith('WebAssembly')) {
-        rawCode =
-          `if (!("${parts[1]}" in WebAssembly)) {
+        } else if (path.startsWith('WebAssembly')) {
+          rawCode =
+            `if (!("${parts[1]}" in WebAssembly)) {
       return {result: false, message: 'WebAssembly.${parts[1]} is not defined'};
     }
     ` + rawCode;
-      }
+        }
 
-      rawCode =
-        `if (!("${parts[0]}" in self)) {
+        rawCode =
+          `if (!("${parts[0]}" in self)) {
       return {result: false, message: '${parts[0]} is not defined'};
     }
     ` + rawCode;
 
-      const customTest = getCustomTestJS(ctorPath);
-
-      tests[ctorPath] = compileTest({
-        raw: {code: customTest || compileCustomTest(rawCode)},
-        exposure: ['Window']
-      });
+        tests[ctorPath] = compileTest({
+          raw: {code: compileCustomTest(rawCode)},
+          exposure: ['Window']
+        });
+      }
     }
   }
 
