@@ -32,7 +32,7 @@ import {Listr, ListrTask} from 'listr2';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {RESULTS_DIR} from '../lib/config.js';
+import {RESULTS_DIR} from '../lib/constants.js';
 
 import '../lib/selenium-keepalive.js';
 

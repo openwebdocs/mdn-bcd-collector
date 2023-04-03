@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: lib/config.ts
+// mdn-bcd-collector: lib/constants.ts
 // Common variables used throughout all of the collector
 //
 // © Gooborg Studios

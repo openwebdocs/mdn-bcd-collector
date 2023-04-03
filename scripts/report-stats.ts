@@ -17,7 +17,7 @@ import {hideBin} from 'yargs/helpers';
 import {CompatData} from '@mdn/browser-compat-data/types';
 
 import {Report} from '../types/types.js';
-import {BCD_DIR} from '../lib/config.js';
+import {BCD_DIR} from '../lib/constants.js';
 import {parseUA} from '../lib/ua-parser.js';
 import {findMissing} from './find-missing-features.js';
 

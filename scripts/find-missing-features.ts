@@ -15,7 +15,7 @@ import fs from 'fs-extra';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {BCD_DIR} from '../lib/config.js';
+import {BCD_DIR} from '../lib/constants.js';
 
 const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
   const features: string[] = [];

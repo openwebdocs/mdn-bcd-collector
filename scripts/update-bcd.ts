@@ -35,7 +35,7 @@ const {Minimatch} = minimatch;
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {BCD_DIR} from '../lib/config.js';
+import {BCD_DIR} from '../lib/constants.js';
 import logger from '../lib/logger.js';
 import {parseUA} from '../lib/ua-parser.js';
 

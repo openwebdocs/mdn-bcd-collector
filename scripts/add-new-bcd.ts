@@ -14,7 +14,7 @@ import {execSync} from 'node:child_process';
 import fs from 'fs-extra';
 import esMain from 'es-main';
 
-import {BCD_DIR} from '../lib/config.js';
+import {BCD_DIR} from '../lib/constants.js';
 import {getMissing} from './find-missing-features.js';
 import {main as updateBcd} from './update-bcd.js';
 
