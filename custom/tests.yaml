@@ -3903,3 +3903,12 @@ javascript:
       name: |-
         function doTheThing() {};
         return doTheThing.name == 'doTheThing';
+    WebAssembly:
+      Exception:
+        __base: |-
+          if (!('WebAssembly' in self && 'Exception' in WebAssembly)) {
+            return {result: false, message: 'WebAssembly.Exception is not defined'};
+          }
+          var instance = new WebAssembly.Exception(new WebAssembly.Tag({parameters: []}), [], {traceStack: true});
+        __test: return !!instance;
+        stack: return !!instance && 'stack' in instance;
