@@ -54,7 +54,7 @@ const getCustomTestAPI = (
   } else {
     let returnValue = '!!instance';
     if (member) {
-      if (type === 'symbol') {
+      if (member.includes('@@')) {
         const symbol = member.replace('@@', '');
         returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
       } else {
