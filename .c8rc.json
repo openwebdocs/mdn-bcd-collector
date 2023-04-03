@@ -7,6 +7,7 @@
     "**/coverage/**",
     "**/resources/custom-tests/**",
     "**/types/**",
+    "custom/idl/index.ts",
     "lib/selenium-keepalive.ts",
     "prepare.ts",
     "prepare-resources.ts",
