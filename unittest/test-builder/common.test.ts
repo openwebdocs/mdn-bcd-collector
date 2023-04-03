@@ -48,8 +48,10 @@ describe('build (common)', () => {
           __test: false,
           __resources: []
         },
-        // XXX Not accurate
-        {test: '(function () {\n  "hello world";\n})();\n', resources: []}
+        {
+          test: false,
+          resources: []
+        }
       ],
       'api.FooBar.bar': [
         {
@@ -68,22 +70,46 @@ describe('build (common)', () => {
           __test: false,
           __resources: []
         },
-        // XXX Not accurate
         {
-          test: '(function () {\n  "hello world";\n  "goodbye world";\n})();\n',
+          test: false,
           resources: []
         }
       ],
+      // XXX Should be:
+      // 'api.FooBar.bar.cinnamon': [
+      //   {
+      //     __base: "'hello world';\n'goodbye world';",
+      //     __test: "return 'snickerdoodle';",
+      //     __resources: []
+      //   },
+      //   {
+      //     test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "snickerdoodle";\n})();\n',
+      //     resources: []
+      //   }
+      // ],
       'api.FooBar.baz': [
         {
           __base: "'hello world';",
           __test: false,
           __resources: []
         },
-        // XXX Not accurate
-        {test: '(function () {\n  "hello world";\n})();\n', resources: []}
+        {
+          test: '(function () {\n  "hello world";\n  return !!instance && "baz" in instance;\n})();\n',
+          resources: []
+        }
       ],
-      'api.Chocolate': [
+      'api.FooBar.FooBar': [
+        {
+          __base: "'hello world';",
+          __test: false,
+          __resources: []
+        },
+        {
+          test: false,
+          resources: []
+        }
+      ],
+      'api.nonexistent': [
         {
           __base: false,
           __test: false,
@@ -104,13 +130,13 @@ describe('build (common)', () => {
       ],
       'api.WebGLRenderingContext': [
         {
-          __base: 'return reusableInstances.webGL;',
+          __base: 'var instance = reusableInstances.webGL;',
           __test: false,
           __resources: ['webGL']
         },
         {
           // XXX Not accurate
-          test: '(function () {\n  return reusableInstances.webGL;\n})();\n',
+          test: '(function () {\n  var instance = reusableInstances.webGL;\n  return !!instance;\n})();\n',
           resources: ['webGL']
         }
       ]

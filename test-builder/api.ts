@@ -12,77 +12,10 @@ import type {RawTestCodeExpr, Exposure, IDLFiles} from '../types/types.js';
 
 import {
   customTests,
-  getCustomTestData,
   getCustomTest,
   compileCustomTest,
   compileTest
 } from './common.js';
-
-const getCustomTestAPI = (
-  name: string,
-  member?: string,
-  type?: string
-): string | false => {
-  // XXX Deprecated; use getCustomTest() instead
-
-  const testData = getCustomTestData(
-    `api.${name}` + (member ? `.${member}` : '')
-  );
-
-  if (!testData) {
-    return false;
-  }
-
-  let test = testData.__base ? testData.__base + '\n' : '';
-
-  const promise = test.includes('var promise');
-  const callback =
-    test.match(/callback([(),])/g) || test.includes(':callback%>');
-
-  if (testData.__test) {
-    test += testData.__test;
-  } else if (
-    ['constructor', 'static'].includes(type as string) ||
-    ['toString', 'toJSON'].includes(member as string)
-  ) {
-    // Constructors, constants, and static attributes should not have
-    // auto-generated custom tests
-    return false;
-  } else if (!test) {
-    // If there's no base code or specific test code, there's no custom test
-    return false;
-  } else {
-    let returnValue = '!!instance';
-    if (member) {
-      if (member.includes('@@')) {
-        const symbol = member.replace('@@', '');
-        returnValue = `!!instance && "Symbol" in self && "${symbol}" in Symbol && Symbol.${symbol} in instance`;
-      } else {
-        returnValue = `!!instance && "${member}" in instance`;
-      }
-    }
-
-    test += promise
-      ? `if (!promise) {
-    return {result: false, message: "Promise variable is falsy"};
-  }
-  return promise.then(function(instance) {
-    return ${returnValue};
-  });`
-      : callback
-      ? `function callback(instance) {
-    try {
-      success(${returnValue});
-    } catch(e) {
-      fail(e);
-    }
-  };
-  return "callback";`
-      : `return ${returnValue};`;
-  }
-
-  return test && compileCustomTest(test);
-};
 
 const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
   // XXX Integrate this into getCustomTestData()
@@ -546,14 +479,19 @@ const buildIDLMemberTests = (
     const isStatic = member.special === 'static' || iface.type === 'namespace';
 
     let expr: string | RawTestCodeExpr = '';
-    const customTestMember = getCustomTestAPI(
-      iface.name,
-      member.name,
-      isStatic ? 'static' : member.type
+
+    // Constructors, constants, and static attributes should not have
+    // auto-generated custom tests
+    const customTestExactMatchNeeded =
+      isStatic || ['toString', 'toJSON'].includes(member.name as string);
+
+    const customTestMember = getCustomTest(
+      `api.${iface.name}.${member.name}`,
+      customTestExactMatchNeeded
     );
 
-    if (customTestMember) {
-      expr = customTestMember;
+    if (customTestMember.test) {
+      expr = customTestMember.test;
     } else {
       switch (member.type) {
         case 'attribute':
@@ -617,8 +555,7 @@ const buildIDLTests = (ast, globals, scopes) => {
 
     const exposureSet = getExposureSet(iface, scopes);
     const isGlobal = !!getExtAttr(iface, 'Global');
-    const {resources} = getCustomTest(`api.${iface.name}`);
-    const customTest = getCustomTestAPI(iface.name);
+    const {test: customTest, resources} = getCustomTest(`api.${iface.name}`);
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {
@@ -680,7 +617,6 @@ const build = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
 };
 
 export {
-  getCustomTestAPI,
   getCustomSubtestsAPI,
   flattenIDL,
   getExposureSet,

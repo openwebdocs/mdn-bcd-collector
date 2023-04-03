@@ -80,7 +80,7 @@ api:
   WebGLRenderingContext:
     __resources:
       - webGL
-    __base: return reusableInstances.webGL;
+    __base: var instance = reusableInstances.webGL;
   ANGLE_instanced_arrays:
     __base: |-
       var canvas = document.createElement('canvas');
@@ -103,6 +103,8 @@ api:
     bar:
       __base: "'goodbye world';"
       __test: return 'farewell world!';
+      __additional:
+        cinnamon: return 'snickerdoodle';
 css:
   properties:
     foo: return 1;

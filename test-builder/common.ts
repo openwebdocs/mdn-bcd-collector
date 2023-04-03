@@ -11,6 +11,7 @@ import prettier from 'prettier';
 import * as YAML from 'yaml';
 
 import type {Test, RawTest, Resources} from '../types/types.js';
+import {CATEGORIES} from '../lib/constants.js';
 
 /* c8 ignore start */
 export const customTests = YAML.parse(
@@ -26,6 +27,25 @@ export const customTests = YAML.parse(
 );
 /* c8 ignore stop */
 
+const getCategory = (name: string): string | false => {
+  for (const c of CATEGORIES) {
+    if (name.startsWith(c)) {
+      return c;
+    }
+  }
+
+  return false;
+};
+
+const getIdentAfterCategory = (name: string): string => {
+  const cat = getCategory(name);
+  if (!cat) {
+    return name;
+  }
+
+  return name.replace(`${cat}.`, '');
+};
+
 const getCustomTestData = (name: string, customTestData: any = customTests) => {
   // Get the custom test data for a specified feature identifier by recursively searching
   // through the custom test data to calculate the base code (__base) and specific test
@@ -33,26 +53,6 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   //
   // This will allow all custom tests to have their own base and test code, which will
   // allow for importing any test of any category much easier.
-  //
-  // For example, given the following custom-tests YAML:
-  //
-  // api:
-  //   FooBar:
-  //     __base: 'hello world';
-  //     __test: return 'hello world!';
-  //     foo: return 'hi, world!';
-  //     bar:
-  //       __base: 'goodbye world';
-  //       __test: return 'farewell world!';
-  //
-  // api.FooBar would return: {__base: "'hello world';", __test: "return 'hello world!';"}
-  // api.FooBar.foo would return: {__base: "'hello world';", __test: "return 'hi, world!';"}
-  // api.FooBar.foo.pear would return {__base: "'hello world';", __test: false}
-  // api.FooBar.bar would return: {__base: "'hello world';\n'goodbye world';", __test: "return 'farewell world!';"}
-  // api.FooBar.baz would return: {__base: "'hello world';", __test: false}
-  // api.FooBar.bar.cinnamon would return: {__base: "'hello world';\n'goodbye world';", __test: false}
-  // api.Chocolate would return: {__base: false, __test: false}
-  //
 
   const result: {
     __base: string | false;
@@ -114,21 +114,73 @@ const getCustomTest = (name: string, exactMatchNeeded = false) => {
     resources: []
   };
 
-  if (!(data.__base || data.__test)) {
-    // If there's no custom test, simply return
-    return response;
-  }
+  let test = data.__test;
 
   if (!data.__test) {
     if (exactMatchNeeded) {
-      // We don't have a custom test, so return
+      // We don't have an exact custom test, so return
       return response;
     }
 
-    // XXX Build me out
+    if (!data.__base) {
+      // If there's no custom test at all, simply return
+      return response;
+    }
+
+    const promise = data.__base.includes('var promise');
+    const callback =
+      data.__base.match(/callback([(),])/g) ||
+      data.__base.includes(':callback%>');
+
+    const parts = getIdentAfterCategory(name).split('.');
+
+    if (parts.length > 2) {
+      // Grandchildren features must have an exact test match
+
+      // XXX Need to check __additional here
+      return response;
+    }
+
+    const member = parts.length > 1 ? parts[1] : '';
+
+    if (member === parts[0]) {
+      // Constructors must have an exact test match
+      return response;
+    }
+
+    let returnValue = '!!instance';
+    if (member) {
+      if (member.includes('@@')) {
+        // The member is a symbol
+        returnValue = `!!instance && ${compileTestCode({
+          property: member,
+          owner: 'instance'
+        })}`;
+      } else {
+        returnValue = `!!instance && "${member}" in instance`;
+      }
+    }
+
+    test = promise
+      ? `if (!promise) {
+    return {result: false, message: "Promise variable is falsy"};
+  }
+  return promise.then(function(instance) {
+    return ${returnValue};
+  });`
+      : callback
+      ? `function callback(instance) {
+    try {
+      success(${returnValue});
+    } catch(e) {
+      fail(e);
+    }
+  };
+  return "callback";`
+      : `return ${returnValue};`;
   }
 
-  response.test = compileCustomTest((data.__base || '') + (data.__test || ''));
+  response.test = compileCustomTest((data.__base || '') + test);
   response.resources = data.__resources;
 
   // Check for bad resources
