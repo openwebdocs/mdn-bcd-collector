@@ -3894,7 +3894,10 @@ javascript:
             return {result: false, message: e.message};
           }
         }
-      __test: return instance;
+      __test: return !!instance;
+    Generator:
+      __base: <%javascript.builtins.GeneratorFunction:instance%>
+      __test: return !!instance;
     Function:
       name: |-
         function doTheThing() {};
