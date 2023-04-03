@@ -256,7 +256,7 @@ const compileTestCode = (test: any): string => {
     return parts.join(` && `);
   }
 
-  const property = test.property.replace(/(Symbol|constructor|@@)\./, '');
+  const property = test.property.replace(/((Symbol|constructor)\.|@@)/, '');
 
   if (test.property.startsWith('constructor')) {
     return `bcd.testConstructor("${property}");`;
