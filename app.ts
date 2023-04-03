@@ -286,6 +286,9 @@ app.all('/export', async (req, res, next) => {
 /* c8 ignore stop */
 
 app.all('/tests/*', (req, res) => {
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+
   const ident = req.params['0'].replace(/\//g, '.');
   const ignoreIdents = req.query.ignore
     ? req.query.ignore.split(',').filter((s) => s)
