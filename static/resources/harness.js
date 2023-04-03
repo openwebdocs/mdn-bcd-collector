@@ -1060,6 +1060,7 @@
       darkStyle.rel = 'stylesheet';
       darkStyle.href =
         '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/stackoverflow-dark.min.css';
+      darkStyle.crossOrigin = true;
       document.body.appendChild(darkStyle);
 
       // Load light style
@@ -1068,12 +1069,14 @@
       lightStyle.href =
         '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/stackoverflow-light.min.css';
       lightStyle.media = '(prefers-color-scheme: light)';
+      lightStyle.crossOrigin = true;
       document.body.appendChild(lightStyle);
 
       // Load script
       var script = document.createElement('script');
       script.src =
         '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js';
+      script.crossOrigin = true;
 
       if ('onload' in script) {
         script.onload = callback;
