@@ -3895,6 +3895,7 @@ javascript:
           }
         }
       __test: return !!instance;
+      GeneratorFunction: return !!instance;
     Generator:
       __base: <%javascript.builtins.GeneratorFunction:instance%>
       __test: return !!instance;

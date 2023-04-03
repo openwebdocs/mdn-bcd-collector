@@ -233,7 +233,7 @@
     "Generator.return": {},
     "Generator.throw": {},
     "GeneratorFunction": {
-      "ctor_args": "yield true"
+      "ctor_args": ""
     },
     "Infinity": {},
     "Int16Array": {
