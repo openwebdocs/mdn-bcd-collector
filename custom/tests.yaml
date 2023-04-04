@@ -927,8 +927,16 @@ api:
   Document:
     __base: var instance = document;
     __additional:
-      createElement.options_parameter: return bcd.testOptionParam(instance, 'createElement', '', {});
-      createElementNS.options_parameter: return bcd.testOptionParam(instance, 'createElementNS', '', {});
+      createElement.options_parameter: |-
+        function doTest(options) {
+          instance.createElement('p', options);
+        }
+        return bcd.testOptionParam(doTest, null, 'is', '');
+      createElementNS.options_parameter: |-
+        function doTest(options) {
+          instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
+        }
+        return bcd.testOptionParam(doTest, null, 'is', '');
       createTreeWalker.whatToShow_filter_parameters_optional: |-
         try {
           instance.createTreeWalker(document.body);
@@ -1170,7 +1178,11 @@ api:
           )
         }
         return bcd.testOptionParam(animate, null, 'pseudoElement', '');
-      attachShadow.init_delegatesFocus_parameter: return bcd.testOptionParam(instance, 'attachShadow', 'delegatesFocus', true);
+      attachShadow.init_delegatesFocus_parameter: |-
+        // Only specific elements may have shadows attached -- see
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
+        var el = document.createElement('main');
+        return bcd.testOptionParam(el, 'attachShadow', 'delegatesFocus', true, {mode: 'open'});
       getElementsByTagName.all_elements_selector: |-
         if (!(instance && instance.getElementsByTagName)) {
           return {result: false, message: 'instance.getElementsByTagName is not defined'};
