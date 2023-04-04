@@ -26,7 +26,7 @@ const {default: bcd}: {default: CompatData} = await import(
 );
 
 const tests = Object.keys(
-  await fs.readJson(new URL('./tests.json', import.meta.url))
+  await fs.readJson(new URL('../tests.json', import.meta.url))
 );
 
 const statuses = {Supported: 'green', Unsupported: 'red', Unknown: 'yellow'};
