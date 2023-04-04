@@ -98,6 +98,21 @@ const createReport = (results, req) => {
 
 const app = express();
 
+// COOP/COEP
+const headers = {
+  'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Opener-Policy': 'same-origin'
+};
+
+// Options for static paths
+const staticOptions = {
+  setHeaders: (res) => {
+    for (const h of Object.keys(headers)) {
+      res.set(h, headers[h]);
+    }
+  }
+};
+
 // Layout config
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -109,8 +124,8 @@ app.use(cookieParser());
 app.use(cookieSession);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json({limit: '32mb'}));
-app.use(express.static('static'));
-app.use(express.static('generated'));
+app.use(express.static('static', staticOptions));
+app.use(express.static('generated', staticOptions));
 
 app.locals.appVersion = appVersion;
 app.locals.bcdVersion = bcd.__meta.version;
@@ -133,8 +148,9 @@ app.use(
 
 // Set COOP/COEP
 app.use((req, res, next) => {
-  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  for (const h of Object.keys(headers)) {
+    res.setHeader(h, headers[h]);
+  }
   next();
 });
 
