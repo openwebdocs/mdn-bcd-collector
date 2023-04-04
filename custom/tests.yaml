@@ -318,7 +318,7 @@ api:
           imag[0] = 0;
           imag[1] = 0;
 
-          instance.createPeriodicWave(real, image, constraints);
+          instance.createPeriodicWave(real, imag, constraints);
         }
         return bcd.testOptionParam(create, null, 'disableNormalization', true);
       decodeAudioData.returns_promise: |-
