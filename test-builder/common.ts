@@ -27,23 +27,26 @@ export const customTests = YAML.parse(
 );
 /* c8 ignore stop */
 
-const getCategory = (name: string): string | false => {
+const getCategory = (name: string): string => {
   for (const c of CATEGORIES) {
     if (name.startsWith(c)) {
       return c;
     }
   }
 
-  return false;
+  return '';
 };
 
-const getIdentAfterCategory = (name: string): string => {
-  const cat = getCategory(name);
-  if (!cat) {
+const getIdentAfterCategory = (name: string, category = ''): string => {
+  if (!category) {
+    category = getCategory(name);
+  }
+
+  if (!category) {
     return name;
   }
 
-  return name.replace(`${cat}.`, '');
+  return name.replace(`${category}.`, '');
 };
 
 const getCustomTestData = (name: string, customTestData: any = customTests) => {
@@ -103,7 +106,11 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   return result;
 };
 
-const getCustomTest = (name: string, exactMatchNeeded = false) => {
+const getCustomTest = (
+  name: string,
+  category = '',
+  exactMatchNeeded = false
+) => {
   // Get the custom test for a specified feature identifier using getCustomTestData().
   // If exactMatchNeeded is true, a __test must be defined.
 
@@ -132,7 +139,7 @@ const getCustomTest = (name: string, exactMatchNeeded = false) => {
       data.__base.match(/callback([(),])/g) ||
       data.__base.includes(':callback%>');
 
-    const parts = getIdentAfterCategory(name).split('.');
+    const parts = getIdentAfterCategory(name, category).split('.');
 
     if (parts.length > 2) {
       // Grandchildren features must have an exact test match

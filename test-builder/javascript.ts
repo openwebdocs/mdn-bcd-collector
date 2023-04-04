@@ -25,7 +25,16 @@ const build = (customJS) => {
 
     let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = '';
 
-    const customTest = getCustomTest(bcdPath);
+    let category = 'javascript.builtins';
+    const isInSubcategory =
+      parts.length > 1 &&
+      ['Intl', 'WebAssembly', 'Temporal'].includes(parts[0]);
+
+    if (isInSubcategory) {
+      category += '.' + parts[0];
+    }
+
+    const customTest = getCustomTest(bcdPath, category);
 
     if (customTest.test) {
       tests[bcdPath] = compileTest({
@@ -46,11 +55,7 @@ const build = (customJS) => {
 
       expr = [{property, owner, inherit: true}];
 
-      if (
-        owner.startsWith('Intl') ||
-        owner.startsWith('WebAssembly') ||
-        owner.startsWith('Temporal')
-      ) {
+      if (isInSubcategory) {
         if (`"${parts[1]}"` !== property) {
           expr.unshift({property: parts[1], owner: parts[0]});
         }
@@ -73,7 +78,7 @@ const build = (customJS) => {
         parts[parts.length - 1]
       ].join('.');
 
-      const customTest = getCustomTest(ctorPath);
+      const customTest = getCustomTest(ctorPath, category, true);
 
       if (customTest.test) {
         tests[ctorPath] = compileTest({

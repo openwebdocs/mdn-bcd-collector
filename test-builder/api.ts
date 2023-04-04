@@ -487,6 +487,7 @@ const buildIDLMemberTests = (
 
     const customTestMember = getCustomTest(
       `api.${iface.name}.${member.name}`,
+      'api',
       customTestExactMatchNeeded
     );
 
@@ -555,7 +556,10 @@ const buildIDLTests = (ast, globals, scopes) => {
 
     const exposureSet = getExposureSet(iface, scopes);
     const isGlobal = !!getExtAttr(iface, 'Global');
-    const {test: customTest, resources} = getCustomTest(`api.${iface.name}`);
+    const {test: customTest, resources} = getCustomTest(
+      `api.${iface.name}`,
+      'api'
+    );
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {

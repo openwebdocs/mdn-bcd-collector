@@ -41,7 +41,7 @@ const build = (specCSS, customCSS) => {
 
   for (const name of Array.from(properties.keys()).sort()) {
     const ident = `css.properties.${name}`;
-    const customTest = getCustomTest(ident, true);
+    const customTest = getCustomTest(ident, 'css.properties', true);
 
     // Test for the property itself
     tests[ident] = compileTest({
@@ -54,7 +54,7 @@ const build = (specCSS, customCSS) => {
       properties.get(name).entries()
     ).sort() as any[]) {
       const valueIdent = `${ident}.${key}`;
-      const customValueTest = getCustomTest(valueIdent, true);
+      const customValueTest = getCustomTest(valueIdent, 'css.properties', true);
       const values = Array.isArray(value) ? value : [value];
       const code = values
         .map((value) => `bcd.testCSSProperty("${name}", "${value}")`)
