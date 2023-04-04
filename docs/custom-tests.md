@@ -257,3 +257,12 @@ bcd.addTest(
 ```
 
 > **Note:** if the specified `ident` cannot be found, the code will be replaced with a error to throw indicating as such.
+
+## Use ES3 features
+
+Tests are intended to be run on as early of browser versions as possible, including Chrome 1, Firefox 1 and Safari 3. These older versions, however, do not support modern ES6 features. To maximize compatibility, perform the following in custom test code:
+
+- Use `var` instead of `const`/`let`
+- Do not use arrow functions
+- Always implement thorough feature checking whenever possible
+- Use non-invasive polyfills
