@@ -11,7 +11,6 @@ import prettier from 'prettier';
 import * as YAML from 'yaml';
 
 import type {Test, RawTest, Resources} from '../types/types.js';
-import {CATEGORIES} from '../lib/constants.js';
 
 /* c8 ignore start */
 export const customTests = YAML.parse(
@@ -27,26 +26,15 @@ export const customTests = YAML.parse(
 );
 /* c8 ignore stop */
 
-const getCategory = (name: string): string => {
-  for (const c of CATEGORIES) {
-    if (name.startsWith(c)) {
-      return c;
-    }
-  }
-
-  return '';
+export type CustomTestData = {
+  __base: string | false;
+  __test: string | false;
+  __resources: string[];
 };
 
-const getIdentAfterCategory = (name: string, category = ''): string => {
-  if (!category) {
-    category = getCategory(name);
-  }
-
-  if (!category) {
-    return name;
-  }
-
-  return name.replace(`${category}.`, '');
+export type CustomTestResult = {
+  test: string | false;
+  resources: (keyof Resources)[];
 };
 
 const getCustomTestData = (name: string, customTestData: any = customTests) => {
@@ -57,11 +45,7 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   // This will allow all custom tests to have their own base and test code, which will
   // allow for importing any test of any category much easier.
 
-  const result: {
-    __base: string | false;
-    __test: string | false;
-    __resources: string[];
-  } = {
+  const result: CustomTestData = {
     __base: false,
     __test: false,
     __resources: []
@@ -108,7 +92,7 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
 
 const getCustomTest = (
   name: string,
-  category = '',
+  category: string,
   exactMatchNeeded = false
 ) => {
   // Get the custom test for a specified feature identifier using getCustomTestData().
@@ -116,7 +100,7 @@ const getCustomTest = (
 
   const data = getCustomTestData(name);
 
-  const response: {test: string | false; resources: (keyof Resources)[]} = {
+  const response: CustomTestResult = {
     test: false,
     resources: []
   };
@@ -139,7 +123,7 @@ const getCustomTest = (
       data.__base.match(/callback([(),])/g) ||
       data.__base.includes(':callback%>');
 
-    const parts = getIdentAfterCategory(name, category).split('.');
+    const parts = name.replace(`${category}.`, '').split('.');
 
     if (parts.length > 2) {
       // Grandchildren features must have an exact test match

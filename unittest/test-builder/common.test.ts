@@ -10,149 +10,170 @@ import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
+import type {RawTest} from '../../types/types.js';
+
 import {
   compileTestCode,
   compileTest,
   getCustomTestData,
-  getCustomTest
+  getCustomTest,
+  CustomTestData,
+  CustomTestResult
 } from '../../test-builder/common.js';
 
 describe('build (common)', () => {
   describe('getCustomTest(Data)', () => {
-    const expectedResults = {
-      'api.FooBar': [
-        {
+    const expectedResults: {
+      [k: string]: {
+        category: string;
+        data: CustomTestData;
+        result: CustomTestResult;
+      };
+    } = {
+      'api.FooBar': {
+        category: 'api',
+        data: {
           __base: "'hello world';",
           __test: "return 'hello world!';",
           __resources: []
         },
-        {
+        result: {
           test: '(function () {\n  "hello world";\n  return "hello world!";\n})();\n',
           resources: []
         }
-      ],
-      'api.FooBar.foo': [
-        {
+      },
+      'api.FooBar.foo': {
+        category: 'api',
+        data: {
           __base: "'hello world';",
           __test: "return 'hi, world!';",
           __resources: []
         },
-        {
+        result: {
           test: '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n',
           resources: []
         }
-      ],
-      'api.FooBar.foo.pear': [
-        {
+      },
+      'api.FooBar.foo.pear': {
+        category: 'api',
+        data: {
           __base: "'hello world';",
           __test: false,
           __resources: []
         },
-        {
+        result: {
           test: false,
           resources: []
         }
-      ],
-      'api.FooBar.bar': [
-        {
+      },
+      'api.FooBar.bar': {
+        category: 'api',
+        data: {
           __base: "'hello world';\n'goodbye world';",
           __test: "return 'farewell world!';",
           __resources: []
         },
-        {
+        result: {
           test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n',
           resources: []
         }
-      ],
-      'api.FooBar.bar.cinnamon': [
-        {
+      },
+      'api.FooBar.bar.cinnamon': {
+        category: 'api',
+        data: {
           __base: "'hello world';\n'goodbye world';",
           __test: false,
           __resources: []
         },
-        {
+        result: {
           test: false,
           resources: []
         }
-      ],
+      },
       // XXX Should be:
-      // 'api.FooBar.bar.cinnamon': [
-      //   {
+      // 'api.FooBar.bar.cinnamon': {
+      //   category: 'api',
+      //   data: {
       //     __base: "'hello world';\n'goodbye world';",
       //     __test: "return 'snickerdoodle';",
       //     __resources: []
       //   },
-      //   {
+      //   result: {
       //     test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "snickerdoodle";\n})();\n',
       //     resources: []
       //   }
-      // ],
-      'api.FooBar.baz': [
-        {
+      // },
+      'api.FooBar.baz': {
+        category: 'api',
+        data: {
           __base: "'hello world';",
           __test: false,
           __resources: []
         },
-        {
+        result: {
           test: '(function () {\n  "hello world";\n  return !!instance && "baz" in instance;\n})();\n',
           resources: []
         }
-      ],
-      'api.FooBar.FooBar': [
-        {
+      },
+      'api.FooBar.FooBar': {
+        category: 'api',
+        data: {
           __base: "'hello world';",
           __test: false,
           __resources: []
         },
-        {
+        result: {
           test: false,
           resources: []
         }
-      ],
-      'api.nonexistent': [
-        {
+      },
+      'api.nonexistent': {
+        category: 'api',
+        data: {
           __base: false,
           __test: false,
           __resources: []
         },
-        {test: false, resources: []}
-      ],
-      'api.audiocontext': [
-        {
+        result: {test: false, resources: []}
+      },
+      'api.audiocontext': {
+        category: 'api',
+        data: {
           __base: false,
           __test: 'return false;',
           __resources: ['audio-blip']
         },
-        {
+        result: {
           test: '(function () {\n  return false;\n})();\n',
           resources: ['audio-blip']
         }
-      ],
-      'api.WebGLRenderingContext': [
-        {
+      },
+      'api.WebGLRenderingContext': {
+        category: 'api',
+        data: {
           __base: 'var instance = reusableInstances.webGL;',
           __test: false,
           __resources: ['webGL']
         },
-        {
+        result: {
           // XXX Not accurate
           test: '(function () {\n  var instance = reusableInstances.webGL;\n  return !!instance;\n})();\n',
           resources: ['webGL']
         }
-      ]
+      }
     };
 
     for (const [k, v] of Object.entries(expectedResults)) {
       it(k, () => {
-        assert.deepEqual(getCustomTestData(k), v[0]);
-        assert.deepEqual(getCustomTest(k), v[1]);
+        assert.deepEqual(getCustomTestData(k), v.data);
+        assert.deepEqual(getCustomTest(k, v.category), v.result);
       });
     }
 
     it('api.badresource (throw error on bad resource reference)', () => {
       assert.throws(
         () => {
-          getCustomTest('api.badresource');
+          getCustomTest('api.badresource', 'api');
         },
         Error,
         'Resource bad-resource is not defined but referenced in api.badresource'
