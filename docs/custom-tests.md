@@ -92,6 +92,8 @@ This variable is a list of identifiers for reusable resources the collector shou
 
 The `__additional` property is used to define features that cannot be represented by the source data (for example, behavioral features, option parameters, etc.). This property should be used as sparingly as possible, and features should always be defined in the source data whenever possible.
 
+Note: this property is not fully implemented, and currently only supported when applied to an API (not its members). This will be resolved in a later version.
+
 ## Resources
 
 Certain tests may require resources, like an image or a resuable instance. To allow the resources to load before running the tests, rather than create and add an element with JavaScript, we can define resources to be loaded through the top-level `__resources` object.
