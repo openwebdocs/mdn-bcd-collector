@@ -3905,14 +3905,28 @@ javascript:
       name: |-
         function doTheThing() {};
         return doTheThing.name == 'doTheThing';
+    Intl:
+      Segmenter:
+        __base: "var instance = new Intl.Segmenter('fr', { granularity: 'word' });"
+      Segments:
+        __base: |-
+          <%javascript.builtins.Intl.Segmenter:segmenter%>
+          var instance = segmenter.segment('Que ma joie demeure');
     TypedArray:
       __base: var instance = new Int8Array(2);
     WebAssembly:
       Exception:
         __base: |-
+          <%javascript.builtins.WebAssembly.Tag:tag%>
           if (!('WebAssembly' in self && 'Exception' in WebAssembly)) {
             return {result: false, message: 'WebAssembly.Exception is not defined'};
           }
-          var instance = new WebAssembly.Exception(new WebAssembly.Tag({parameters: []}), [], {traceStack: true});
+          var instance = new WebAssembly.Exception(tag, [], {traceStack: true});
         __test: return !!instance;
         stack: return !!instance && 'stack' in instance;
+      Tag:
+        __base: |-
+          if (!('WebAssembly' in self && 'Tag' in WebAssembly)) {
+            return {result: false, message: 'WebAssembly.Tag is not defined'};
+          }
+          var instance = new WebAssembly.Tag({parameters: ["i32", "i64"]});
