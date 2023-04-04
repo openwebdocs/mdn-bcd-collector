@@ -3881,7 +3881,7 @@ javascript:
         }
       __test: return instance instanceof Promise;
     Error:
-      __base: var instance = new Error('hello world');
+      __base: "var instance = new Error('hello world', {cause: 'for testing'});"
     GeneratorFunction:
       __base: |-
         var instance;
