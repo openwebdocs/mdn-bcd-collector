@@ -21,6 +21,7 @@
     "Array.prototype.flatMap": {},
     "Array.prototype.forEach": {},
     "Array.from": {},
+    "Array.fromAsync": {},
     "Array.prototype.group": {},
     "Array.prototype.groupToMap": {},
     "Array.prototype.includes": {},
@@ -58,6 +59,9 @@
       "ctor_args": "2"
     },
     "ArrayBuffer.prototype.byteLength": {},
+    "ArrayBuffer.prototype.maxByteLength": {},
+    "ArrayBuffer.prototype.resizable": {},
+    "ArrayBuffer.prototype.resize": {},
     "ArrayBuffer.isView": {},
     "ArrayBuffer.prototype.slice": {},
     "ArrayBuffer.@@species": {},
@@ -454,6 +458,9 @@
       "ctor_args": "2"
     },
     "SharedArrayBuffer.prototype.byteLength": {},
+    "SharedArrayBuffer.prototype.grow": {},
+    "SharedArrayBuffer.prototype.growable": {},
+    "SharedArrayBuffer.prototype.maxByteLength": {},
     "SharedArrayBuffer.prototype.slice": {},
     "String": {
       "ctor_args": "0"
@@ -477,6 +484,7 @@
     "String.prototype.includes": {},
     "String.prototype.indexOf": {},
     "String.prototype.italics": {},
+    "String.prototype.isWellFormed": {},
     "String.prototype.lastIndexOf": {},
     "String.prototype.length": {},
     "String.prototype.link": {},
@@ -506,6 +514,7 @@
     "String.prototype.toSource": {},
     "String.prototype.toString": {},
     "String.prototype.toUpperCase": {},
+    "String.prototype.toWellFormed": {},
     "String.prototype.trim": {},
     "String.prototype.trimEnd": {},
     "String.prototype.trimLeft": {},
