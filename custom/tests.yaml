@@ -64,6 +64,21 @@ __resources:
       }, true, ['encrypt', 'decrypt']).then(function(pair) {
         return pair.publicKey;
       });
+  mediaStream:
+    type: instance
+    callback: true
+    src: |-
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({audio: true}).then(callback, fail);
+      } else if (navigator.getUserMedia) {
+        navigator.getUserMedia({audio: true}, callback, fail);
+      } else if (navigator.mozGetUserMedia) {
+        navigator.mozGetUserMedia({audio: true}, callback, fail);
+      } else if (navigator.webkitGetUserMedia) {
+        navigator.webkitGetUserMedia({audio: true}, callback, fail);
+      } else {
+        fail('navigator(.mediaDevices).(moz/webkit)getUserMedia is not defined');
+      }
   offlineAudioContext:
     type: instance
     src: |-
@@ -2153,18 +2168,10 @@ api:
       var instance = new MediaSource();
     isTypeSupported: return 'isTypeSupported' in MediaSource;
   MediaStream:
+    __resources:
+      - mediaStream
     __base: |-
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({audio: true}).then(callback, fail);
-      } else if (navigator.getUserMedia) {
-        navigator.getUserMedia({audio: true}, callback, fail);
-      } else if (navigator.mozGetUserMedia) {
-        navigator.mozGetUserMedia({audio: true}, callback, fail);
-      } else if (navigator.webkitGetUserMedia) {
-        navigator.webkitGetUserMedia({audio: true}, callback, fail);
-      } else {
-        return {result: false, message: 'navigator(.mediaDevices).(moz/webkit)getUserMedia is not defined'};
-      }
+      var instance = reusableInstances.mediaStream;
   MediaStreamAudioDestinationNode:
     __resources:
       - audioContext
@@ -2179,72 +2186,76 @@ api:
   MediaStreamAudioSourceNode:
     __resources:
       - audioContext
+      - mediaStream
     __base: |-
-      <%api.MediaStream:mediaStream%>
       if (!reusableInstances.audioContext) {
         return {result: false, message: 'Audio context is not available'};
+      }
+      if (!reusableInstances.mediaStream) {
+        return {result: false, message: 'Media stream is not available'};
       }
       if (!('createMediaStreamSource' in reusableInstances.audioContext)) {
         return {result: false, message: 'audioContext.createMediaStreamSource is not defined'};
       }
-      function mediaStream(ms) {
-        callback(reusableInstances.audioContext.createMediaStreamSource(ms));
-      };
+      var instance = reusableInstances.audioContext.createMediaStreamSource(reusableInstances.mediaStream);
   MediaStreamEvent:
+    __resources:
+      - mediaStream
     __base: |-
-      <%api.MediaStream:mediaStream%>
-      function mediaStream(stream) {
+      if (!reusableInstances.mediaStream) {
+        return {result: false, message: 'Media stream is not available'};
+      }
+
+      var instance;
+      try {
+        instance = new MediaStreamEvent('addstream', { stream: reusableInstances.mediaStream });
+      } catch(e) {
         try {
-          callback(new MediaStreamEvent('addstream', { stream: stream }));
+          instance = document.createEvent('MediaStreamEvent');
         } catch(e) {
-          try {
-            callback(document.createEvent('MediaStreamEvent'));
-          } catch(e) {
-            if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
-              callback(false);
-            }
-            throw e;
+          if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
+            return {result: false, message: e.message};
           }
+          throw e;
         }
-      };
+      }
   MediaStreamTrack:
+    __resources:
+      - mediaStream
     __base: |-
-      <%api.MediaStream:mediaStream%>
-      function mediaStream(ms) {
-        callback(ms.getAudioTracks()[0]);
-      };
+      if (!reusableInstances.mediaStream) {
+        return {result: false, message: 'Media stream is not available'};
+      }
+      var instance = reusableInstances.mediaStream.getAudioTracks()[0];
   MediaStreamTrackEvent:
     __base: |-
       <%api.MediaStreamTrack:msTrack%>
-      function msTrack(track) {
+
+      var instance;
+      try {
+        instance = new MediaStreamTrackEvent('addtrack', { track: msTrack });
+      } catch(e) {
         try {
-          callback(new MediaStreamTrackEvent('addtrack', { track: track }));
+          instance = document.createEvent('MediaStreamTrackEvent');
         } catch(e) {
-          try {
-            callback(document.createEvent('MediaStreamTrackEvent'));
-          } catch(e) {
-            if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
-              callback(false);
-            }
-            throw e;
+          if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
+            return {result: false, message: e.message};
           }
+          throw e;
         }
-      };
+      }
   MediaStreamTrackAudioSourceNode:
     __resources:
       - audioContext
     __base: |-
-      <%api.MediaStream:mediaStream%>
+      <%api.MediaStreamTrack:msTrack%>
       if (!reusableInstances.audioContext) {
         return {result: false, message: 'Audio context is not available'};
       }
       if (!('createMediaStreamTrackSource' in reusableInstances.audioContext)) {
         return {result: false, message: 'audioContext.createMediaStreamTrackSource is not defined'};
       }
-      function mediaStream(ms) {
-        var tracks = ms.getTracks();
-        callback(reusableInstances.audioContext.createMediaStreamTrackSource(tracks[0]));
-      };
+      var instance = reusableInstances.audioContext.createMediaStreamTrackSource(msTrack);
   MerchantValidationEvent:
     __base: |-
       if (!('MerchantValidationEvent' in self)) {
