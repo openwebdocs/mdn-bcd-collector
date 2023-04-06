@@ -17,7 +17,9 @@ import {
   compileTest
 } from './common.js';
 
-const getCustomSubtestsAPI = (name: string): {[subtest: string]: string} => {
+const getCustomSubtestsAPI = (
+  name: string
+): {[subtest: string]: {code: string; resources: string[]}} => {
   // XXX Integrate this into getCustomTestData()
   const subtests = {};
   const data = customTests.api[name];
@@ -582,13 +584,13 @@ const buildIDLTests = (ast, globals, scopes) => {
     }
 
     const subtests = getCustomSubtestsAPI(iface.name);
-    for (const subtest of Object.entries(subtests)) {
-      tests[`api.${iface.name}.${subtest[0]}`] = compileTest({
+    for (const [subtestName, subtestData] of Object.entries(subtests)) {
+      tests[`api.${iface.name}.${subtestName}`] = compileTest({
         raw: {
-          code: subtest[1]
+          code: subtestData.code
         },
         exposure: Array.from(exposureSet),
-        resources
+        resources: [...resources, ...subtestData.resources]
       });
     }
   }

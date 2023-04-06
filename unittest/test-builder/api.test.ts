@@ -337,16 +337,22 @@ describe('build (API)', () => {
   describe('getCustomSubtestsAPI', () => {
     it('get subtests', () => {
       assert.deepEqual(getCustomSubtestsAPI('foo'), {
-        multiple: `(function () {
+        multiple: {
+          code: `(function () {
   var instance = 1;
   return 1 + 1 + 1;
 })();
 `,
-        'one.only': `(function () {
+          resources: []
+        },
+        'one.only': {
+          code: `(function () {
   var instance = 1;
   return 1;
 })();
-`
+`,
+          resources: []
+        }
       });
     });
   });

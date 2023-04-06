@@ -171,8 +171,10 @@ const getCustomTest = (
       : `return ${returnValue};`;
   }
 
-  response.test = compileCustomTest((data.__base || '') + test);
-  response.resources = data.__resources;
+  const customTest = compileCustomTest((data.__base || '') + test);
+
+  response.test = customTest.code;
+  response.resources = [...data.__resources, ...customTest.resources];
 
   // Check for bad resources
   for (const key of data.__resources) {
@@ -186,7 +188,11 @@ const getCustomTest = (
   return response;
 };
 
-const compileCustomTest = (code: string, format = true): string => {
+const compileCustomTest = (
+  code: string,
+  format = true
+): {code: string; resources: string[]} => {
+  const resources: string[] = [];
   // Import code from other tests
   code = code.replace(
     /<%(\w+(?:\.\w+)*):(\w+)%> ?/g,
@@ -198,20 +204,24 @@ const compileCustomTest = (code: string, format = true): string => {
         return `throw '${errorMsg}';`;
       }
 
-      let importcode = compileCustomTest(importedTest.__base, false);
+      const {code: importedCode, resources: newResources} = compileCustomTest(
+        importedTest.__base,
+        false
+      );
+      resources.push(...newResources, ...importedTest.__resources);
       const callback =
-        importcode.match(/callback([(),])/g) ||
-        importcode.includes(':callback%>');
+        importedCode.match(/callback([(),])/g) ||
+        importedCode.includes(':callback%>');
 
-      importcode = importcode
+      let response = importedCode
         .replace(/var (instance|promise)/g, `var ${instancevar}`)
         .replace(/callback([(),])/g, `${instancevar}$1`)
         .replace(/promise\.then/g, `${instancevar}.then`)
         .replace(/(instance|promise) = /g, `${instancevar} = `);
       if (!(['instance', 'promise'].includes(instancevar) || callback)) {
-        importcode += `\n  if (!${instancevar}) {\n    return {result: false, message: '${instancevar} is falsy'};\n  }`;
+        response += `\n  if (!${instancevar}) {\n    return {result: false, message: '${instancevar} is falsy'};\n  }`;
       }
-      return importcode;
+      return response;
     }
   );
 
@@ -226,7 +236,10 @@ const compileCustomTest = (code: string, format = true): string => {
       if (e instanceof SyntaxError) {
         const errorMsg = `Test is malformed: ${e.message}`;
         console.error(errorMsg);
-        return `(function () {\n  throw "${errorMsg}";\n})();`;
+        return {
+          code: `(function () {\n  throw "${errorMsg}";\n})();`,
+          resources
+        };
       }
       /* c8 ignore next 3 */
       // We should never reach the next line
@@ -234,7 +247,7 @@ const compileCustomTest = (code: string, format = true): string => {
     }
   }
 
-  return code;
+  return {code, resources};
 };
 
 const compileTestCode = (test: any): string => {

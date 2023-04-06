@@ -113,7 +113,7 @@ const build = (customJS) => {
     ` + rawCode;
 
         tests[ctorPath] = compileTest({
-          raw: {code: compileCustomTest(rawCode)},
+          raw: {code: compileCustomTest(rawCode).code},
           exposure: ['Window']
         });
       }
