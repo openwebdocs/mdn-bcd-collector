@@ -148,19 +148,15 @@
    *
    * name (string): Name of the instance
    * code (string): A string of the code to create the instance
+   * options ({callback: boolean}): Options that alter the instance loading behavior
    *
    * returns (null)
    */
-  function addInstance(name, code) {
+  function addInstance(name, code, options = {}) {
     var newCode = '(function () {\n  ' + code.replace(/\n/g, '\n  ') + '\n})()';
     reusableInstances.__sources[name] = newCode;
 
-    try {
-      reusableInstances[name] = eval(newCode);
-    } catch (e) {
-      reusableInstances[name] = false;
-      consoleError(e);
-    }
+    reusableInstances[name] = options.callback ? 'callback' : null;
   }
 
   /**
@@ -1021,6 +1017,7 @@
 
       // Load resources
       try {
+        // Load audio and video
         var i;
         var resourceMedia = document.querySelectorAll(
           '#resources audio, #resources video'
@@ -1029,9 +1026,54 @@
           resourceMedia[i].load();
           resourceMedia[i].onloadeddata = resourceLoaded;
         }
+
+        // Load images
         var resourceImages = document.querySelectorAll('#resources img');
         for (i = 0; i < resourceImages.length; i++) {
           resourceImages[i].onload = resourceLoaded;
+        }
+
+        // Load resources
+        var instanceKeys = Object.keys(reusableInstances);
+        for (i = 0; i < instanceKeys.length; i++) {
+          var instanceKey = instanceKeys[i];
+
+          if (instanceKey == '__sources') {
+            // The __sources key is a special key
+            continue;
+          }
+
+          if (reusableInstances[instanceKey] == 'callback') {
+            // If it's a callback, we need to load it here
+            try {
+              function callback(instance) {
+                reusableInstances[instanceKey] = instance;
+                resourceLoaded();
+              }
+              function fail(response) {
+                reusableInstances[instanceKey] = false;
+                consoleError(response);
+                resourceLoaded();
+              }
+
+              eval(reusableInstances.__sources[instanceKey]);
+            } catch (e) {
+              reusableInstances[instanceKey] = false;
+              consoleError(e);
+              resourceLoaded();
+            }
+          } else {
+            // If it's not a callback, it can be loaded synchronously
+            try {
+              reusableInstances[instanceKey] = eval(
+                reusableInstances.__sources[instanceKey]
+              );
+            } catch (e) {
+              reusableInstances[instanceKey] = false;
+              consoleError(e);
+            }
+            resourceLoaded();
+          }
         }
       } catch (e) {
         // Couldn't use resource loading code, start anyways

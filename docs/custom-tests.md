@@ -196,6 +196,7 @@ Output:
 Unlike other resource types, this one is used to create JavaScript instances that can easily be reused across many tests. This type takes the following parameters:
 
 - `src`: A string containing the JavaScript code to create the instance (like custom tests, this code is wrapped in a function that is immediately called)
+- `callback`: If the instance is loaded through a callback, set this to `true` and pass the instance through a predefined `callback(instance)` function
 
 Example:
 
