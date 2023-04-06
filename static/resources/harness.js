@@ -1030,7 +1030,11 @@
         // Load images
         var resourceImages = document.querySelectorAll('#resources img');
         for (i = 0; i < resourceImages.length; i++) {
-          resourceImages[i].onload = resourceLoaded;
+          if (resourceImages[i].complete) {
+            resourceLoaded();
+          } else {
+            resourceImages[i].onload = resourceLoaded;
+          }
         }
 
         // Load resources
