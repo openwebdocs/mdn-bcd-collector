@@ -2625,6 +2625,17 @@ api:
           }
           return e;
         }
+  ReadableStream:
+    __base: |-
+      try {
+        var instance = new ReadableStream();
+      } catch(e) {
+        if (e instanceof TypeError) {
+          return {result: false, message: e.message};
+        }
+
+        throw e;
+      }
   Request:
     __base: |-
       if (!('Request' in self)) {
