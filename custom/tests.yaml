@@ -87,15 +87,6 @@ __resources:
         return null;
       }
       return new constructor(2,44100*40,44100);
-  rtcPeerConnection:
-    type: instance
-    src: |-
-      /* Firefox briefly defines RTCPeerConnection in older versions, but it is not a valid constructor until later versions. */
-      var constructor = window.mozRTCPeerConnection || window.RTCPeerConnection || window.webkitRTCPeerConnection;
-      if (!constructor) {
-        return {result: false, message: '(moz/webkit)RTCPeerConnection is not defined or is falsy'};
-      };
-      return new constructor({iceServers: []});
   speechRecognition:
     type: instance
     src: |-
@@ -2735,9 +2726,13 @@ api:
   RTCIceCandidate:
     __base: "var instance = new RTCIceCandidate({candidate: 'candidate:4234997325 1 udp 2043278322 192.168.0.56 44323 typ host', sdpMid: ''});"
   RTCPeerConnection:
-    __resources:
-      - rtcPeerConnection
-    __base: var instance = reusableInstances.rtcPeerConnection;
+    __base: |-
+      /* Firefox briefly defines RTCPeerConnection in older versions, but it is not a valid constructor until later versions. */
+      var constructor = window.mozRTCPeerConnection || window.RTCPeerConnection || window.webkitRTCPeerConnection;
+      if (!constructor) {
+        return {result: false, message: '(moz/webkit)RTCPeerConnection is not defined or is falsy'};
+      };
+      var instance = new constructor({iceServers: []});
     __additional:
       RTCPeerConnection.configuration_bundlePolicy_parameter: return bcd.testOptionParam(constructor, 'constructor', 'bundlePolicy', 'balanced');
       RTCPeerConnection.configuration_certificates_parameter: return bcd.testOptionParam(constructor, 'constructor', 'certificates', []);
