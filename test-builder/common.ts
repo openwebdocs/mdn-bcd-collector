@@ -177,11 +177,21 @@ const getCustomTest = (
   response.resources = [...data.__resources, ...customTest.resources];
 
   // Check for bad resources
-  for (const key of data.__resources) {
+  for (const key of response.resources) {
     if (!Object.keys(customTests.__resources).includes(key)) {
       throw new Error(
         `Resource ${key} is not defined but referenced in ${name}`
       );
+    }
+    if (customTests.__resources[key].dependencies) {
+      for (const dKey of customTests.__resources[key].dependencies) {
+        response.resources.push(dKey);
+        if (!Object.keys(customTests.__resources).includes(dKey)) {
+          throw new Error(
+            `Resource ${dKey} is not defined but referenced in __resources.${key}`
+          );
+        }
+      }
     }
   }
 

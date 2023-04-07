@@ -102,6 +102,9 @@ Certain tests may require resources, like an image or a resuable instance. To al
 __resources:
   RESOURCE_ID:
     type: RESOURCE_TYPE
+    dependencies:
+      - RESOURCE_DEPENDENCY_1
+      - RESOURCE_DEPENDENCY_2
     src:
       - PATH_TO_RESOURCE
       - ALT_PATH_TO_RESOURCE
@@ -112,7 +115,10 @@ Each resource is defined by an ID and a series of parameters that vary based on 
 
 All resource files should be placed in `/static/resources/custom-tests`.
 
-Each resource type takes different parameters, as explained in detail below.
+Each resource type takes different parameters, as explained in detail below, but all types take the following parameters:
+
+- `type`: A string stating the type of resource
+- `dependencies`: An optional array containing the list of dependent resources that must be loaded as well
 
 ### `audio`/`video` resource
 
@@ -196,7 +202,7 @@ Output:
 Unlike other resource types, this one is used to create JavaScript instances that can easily be reused across many tests. This type takes the following parameters:
 
 - `src`: A string containing the JavaScript code to create the instance (like custom tests, this code is wrapped in a function that is immediately called)
-- `callback`: If the instance is loaded through a callback, set this to `true` and pass the instance through a predefined `callback(instance)` function
+- `callback`: An optional boolean stating whether the instance is loaded through a callback; if it is, set this to `true` and pass the instance through a predefined `callback(instance)` function
 
 Example:
 
