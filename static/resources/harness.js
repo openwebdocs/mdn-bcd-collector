@@ -152,11 +152,11 @@
    *
    * returns (null)
    */
-  function addInstance(name, code, options = {}) {
+  function addInstance(name, code, options) {
     var newCode = '(function () {\n  ' + code.replace(/\n/g, '\n  ') + '\n})()';
     reusableInstances.__sources[name] = newCode;
 
-    reusableInstances[name] = options.callback ? 'callback' : null;
+    reusableInstances[name] = options && options.callback ? 'callback' : null;
   }
 
   /**
@@ -1050,10 +1050,12 @@
           if (reusableInstances[instanceKey] == 'callback') {
             // If it's a callback, we need to load it here
             try {
+              /* eslint-disable-next-line no-inner-declarations,no-redeclare,no-unused-vars */
               function callback(instance) {
                 reusableInstances[instanceKey] = instance;
                 resourceLoaded();
               }
+              /* eslint-disable-next-line no-inner-declarations,no-redeclare,no-unused-vars */
               function fail(response) {
                 reusableInstances[instanceKey] = false;
                 consoleError(response);
