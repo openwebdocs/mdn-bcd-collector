@@ -25,13 +25,10 @@ describe('harness.js', function () {
 
     it('valid', function (done) {
       bcd.addInstance('foo', 'return 123');
-      assert.equal(reusableInstances.foo, 123);
-      done();
-    });
-
-    it('invalid', function (done) {
-      bcd.addInstance('foo', 'foobar');
-      assert.equal(reusableInstances.foo, false);
+      assert.equal(
+        reusableInstances.__sources.foo,
+        '(function () {\n  return 123\n})();'
+      );
       done();
     });
 

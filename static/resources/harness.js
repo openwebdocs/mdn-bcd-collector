@@ -153,7 +153,8 @@
    * returns (null)
    */
   function addInstance(name, code, options) {
-    var newCode = '(function () {\n  ' + code.replace(/\n/g, '\n  ') + '\n})()';
+    var newCode =
+      '(function () {\n  ' + code.replace(/\n/g, '\n  ') + '\n})();';
     reusableInstances.__sources[name] = newCode;
 
     reusableInstances[name] = options && options.callback ? 'callback' : null;
