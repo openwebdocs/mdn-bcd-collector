@@ -30,11 +30,13 @@ export type CustomTestData = {
   __base: string | false;
   __test: string | false;
   __resources: string[];
+  __additional: {[key: string]: string};
 };
 
 export type CustomTestResult = {
   test: string | false;
   resources: (keyof Resources)[];
+  additional: {[key: string]: string};
 };
 
 const getCustomTestData = (name: string, customTestData: any = customTests) => {
@@ -48,12 +50,14 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   const result: CustomTestData = {
     __base: false,
     __test: false,
-    __resources: []
+    __resources: [],
+    __additional: {}
   };
 
   const parts = name.split('.');
 
   const data = customTestData[parts[0]];
+
   if (!data) {
     // There's no applicable data, and therefore no custom test
     return result;
@@ -72,6 +76,9 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
     if (data.__resources) {
       result.__resources.push(...data.__resources);
     }
+    if (data.__additional) {
+      result.__additional = data.__additional;
+    }
   }
 
   if (parts.length > 1) {
@@ -85,37 +92,29 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
 
     result.__test = subdata.__test;
     result.__resources.push(...subdata.__resources);
+    result.__additional = subdata.__additional;
   }
 
   return result;
 };
 
-const getCustomTest = (
+const generateCustomTestCode = (
   name: string,
   category: string,
-  exactMatchNeeded = false
-) => {
-  // Get the custom test for a specified feature identifier using getCustomTestData().
-  // If exactMatchNeeded is true, a __test must be defined.
-
-  const data = getCustomTestData(name);
-
-  const response: CustomTestResult = {
-    test: false,
-    resources: []
-  };
-
+  exactMatchNeeded: boolean,
+  data: CustomTestData
+): {code: string; resources: string[]} | false => {
   let test = data.__test;
 
   if (!data.__test) {
     if (exactMatchNeeded) {
       // We don't have an exact custom test, so return
-      return response;
+      return false;
     }
 
     if (!data.__base) {
       // If there's no custom test at all, simply return
-      return response;
+      return false;
     }
 
     const promise = data.__base.includes('var promise');
@@ -129,14 +128,14 @@ const getCustomTest = (
       // Grandchildren features must have an exact test match
 
       // XXX Need to check __additional here
-      return response;
+      return false;
     }
 
     const member = parts.length > 1 ? parts[1] : '';
 
     if (member === parts[0]) {
       // Constructors must have an exact test match
-      return response;
+      return false;
     }
 
     let returnValue = '!!instance';
@@ -171,7 +170,49 @@ const getCustomTest = (
       : `return ${returnValue};`;
   }
 
-  const customTest = compileCustomTest((data.__base || '') + test);
+  return compileCustomTest((data.__base || '') + test);
+};
+
+const getCustomTest = (
+  name: string,
+  category: string,
+  exactMatchNeeded = false
+) => {
+  // Get the custom test for a specified feature identifier using getCustomTestData().
+  // If exactMatchNeeded is true, a __test must be defined.
+
+  const data = getCustomTestData(name);
+
+  const response: CustomTestResult = {
+    test: false,
+    resources: [],
+    additional: {}
+  };
+
+  // Compile the additional tests
+  for (const [key, code] of Object.entries(data.__additional)) {
+    const additionalTest = generateCustomTestCode(
+      `${name}.${key}`,
+      category,
+      exactMatchNeeded,
+      {...data, __test: code}
+    );
+    if (!additionalTest) {
+      continue;
+    }
+    response.additional[key] = additionalTest.code;
+  }
+
+  const customTest = generateCustomTestCode(
+    name,
+    category,
+    exactMatchNeeded,
+    data
+  );
+
+  if (!customTest) {
+    return response;
+  }
 
   response.test = customTest.code;
   response.resources = [...data.__resources, ...customTest.resources];

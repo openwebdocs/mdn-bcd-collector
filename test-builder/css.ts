@@ -64,6 +64,14 @@ const build = (specCSS, customCSS) => {
         exposure: ['Window']
       });
     }
+
+    // Add the additional tests
+    for (const [key, code] of Object.entries(customTest.additional)) {
+      tests[`${ident}.${key}`] = compileTest({
+        raw: {code: code},
+        exposure: ['Window']
+      });
+    }
   }
 
   return tests;

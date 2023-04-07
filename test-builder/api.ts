@@ -10,35 +10,7 @@ import * as WebIDL2 from 'webidl2';
 
 import type {RawTestCodeExpr, Exposure, IDLFiles} from '../types/types.js';
 
-import {
-  customTests,
-  getCustomTest,
-  compileCustomTest,
-  compileTest
-} from './common.js';
-
-const getCustomSubtestsAPI = (
-  name: string
-): {[subtest: string]: {code: string; resources: string[]}} => {
-  // XXX Integrate this into getCustomTestData()
-  const subtests = {};
-  const data = customTests.api[name];
-  if (!data) {
-    return subtests;
-  }
-
-  if (name in customTests.api) {
-    const testBase =
-      '__base' in data ? data.__base.replace(/\n/g, '\n  ') + '\n  ' : '';
-    if ('__additional' in data) {
-      for (const subtest of Object.entries(data.__additional)) {
-        subtests[subtest[0]] = compileCustomTest(`${testBase}${subtest[1]}`);
-      }
-    }
-  }
-
-  return subtests;
-};
+import {getCustomTest, compileTest} from './common.js';
 
 const mergeMembers = (target, source) => {
   // Check for duplicate members across partials/mixins.
@@ -535,6 +507,16 @@ const buildIDLMemberTests = (
       resources
     });
     handledMemberNames.add(member.name);
+
+    for (const [subtestName, subtestData] of Object.entries(
+      customTestMember.additional
+    )) {
+      tests[`${member.name}.${subtestName}`] = compileTest({
+        raw: {code: subtestData},
+        exposure: Array.from(exposureSet),
+        resources
+      });
+    }
   }
 
   return tests;
@@ -558,10 +540,11 @@ const buildIDLTests = (ast, globals, scopes) => {
 
     const exposureSet = getExposureSet(iface, scopes);
     const isGlobal = !!getExtAttr(iface, 'Global');
-    const {test: customTest, resources} = getCustomTest(
-      `api.${iface.name}`,
-      'api'
-    );
+    const {
+      test: customTest,
+      resources,
+      additional: subtests
+    } = getCustomTest(`api.${iface.name}`, 'api');
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {
@@ -583,14 +566,11 @@ const buildIDLTests = (ast, globals, scopes) => {
       tests[`api.${iface.name}.${k}`] = v;
     }
 
-    const subtests = getCustomSubtestsAPI(iface.name);
     for (const [subtestName, subtestData] of Object.entries(subtests)) {
       tests[`api.${iface.name}.${subtestName}`] = compileTest({
-        raw: {
-          code: subtestData.code
-        },
+        raw: {code: subtestData},
         exposure: Array.from(exposureSet),
-        resources: [...resources, ...subtestData.resources]
+        resources
       });
     }
   }
@@ -622,11 +602,4 @@ const build = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   return buildIDLTests(ast, globals, scopes);
 };
 
-export {
-  getCustomSubtestsAPI,
-  flattenIDL,
-  getExposureSet,
-  buildIDLTests,
-  build,
-  validateIDL
-};
+export {flattenIDL, getExposureSet, buildIDLTests, build, validateIDL};

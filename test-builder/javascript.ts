@@ -118,6 +118,14 @@ const build = (customJS) => {
         });
       }
     }
+
+    // Add the additional tests
+    for (const [key, code] of Object.entries(customTest.additional)) {
+      tests[`${path}.${key}`] = compileTest({
+        raw: {code: code},
+        exposure: ['Window']
+      });
+    }
   }
 
   return tests;

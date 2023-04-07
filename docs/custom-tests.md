@@ -92,7 +92,27 @@ This variable is a list of identifiers for reusable resources the collector shou
 
 The `__additional` property is used to define features that cannot be represented by the source data (for example, behavioral features, option parameters, etc.). This property should be used as sparingly as possible, and features should always be defined in the source data whenever possible.
 
-Note: this property is not fully implemented, and currently only supported when applied to an API (not its members). This will be resolved in a later version.
+For example, if you need to define code for an option parameter, you may do the following:
+
+```yaml
+api:
+  AudioContext:
+    __resources:
+      - audioContext
+    __base: var instance = reusableInstances.audioContext;
+    __test: return 'AudioContext' in self;
+    AudioContext:
+      __additional:
+        options_latencyHint_parameter: return bcd.testOptionParam(window.AudioContext || window.webkitAudioContext, 'constructor', 'latencyHint', 'playback');
+        options_sampleRate_parameter: return bcd.testOptionParam(window.AudioContext || window.webkitAudioContext, 'constructor', 'sampleRate', '44100');
+        options_sinkId_parameter: return bcd.testOptionParam(window.AudioContext || window.webkitAudioContext, 'constructor', 'sinkId', '');
+```
+
+This example will create tests for three BCD identifiers:
+
+- api.AudioContext.AudioContext.options_latencyHint_parameter
+- api.AudioContext.AudioContext.options_sampleRate_parameter
+- api.AudioContext.AudioContext.options_sinkId_parameter
 
 ## Resources
 

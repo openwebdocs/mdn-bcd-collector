@@ -35,11 +35,13 @@ describe('build (common)', () => {
         data: {
           __base: "'hello world';",
           __test: "return 'hello world!';",
-          __resources: []
+          __resources: [],
+          __additional: {}
         },
         result: {
           test: '(function () {\n  "hello world";\n  return "hello world!";\n})();\n',
-          resources: []
+          resources: [],
+          additional: {}
         }
       },
       'api.FooBar.foo': {
@@ -47,11 +49,13 @@ describe('build (common)', () => {
         data: {
           __base: "'hello world';",
           __test: "return 'hi, world!';",
-          __resources: []
+          __resources: [],
+          __additional: {}
         },
         result: {
           test: '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n',
-          resources: []
+          resources: [],
+          additional: {}
         }
       },
       'api.FooBar.foo.pear': {
@@ -59,11 +63,13 @@ describe('build (common)', () => {
         data: {
           __base: "'hello world';",
           __test: false,
-          __resources: []
+          __resources: [],
+          __additional: {}
         },
         result: {
           test: false,
-          resources: []
+          resources: [],
+          additional: {}
         }
       },
       'api.FooBar.bar': {
@@ -71,48 +77,32 @@ describe('build (common)', () => {
         data: {
           __base: "'hello world';\n'goodbye world';",
           __test: "return 'farewell world!';",
-          __resources: []
+          __resources: [],
+          __additional: {
+            cinnamon: "return 'snickerdoodle';"
+          }
         },
         result: {
           test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n',
-          resources: []
+          resources: [],
+          additional: {
+            cinnamon:
+              '(function () {\n  "hello world";\n  "goodbye world";\n  return "snickerdoodle";\n})();\n'
+          }
         }
       },
-      'api.FooBar.bar.cinnamon': {
-        category: 'api',
-        data: {
-          __base: "'hello world';\n'goodbye world';",
-          __test: false,
-          __resources: []
-        },
-        result: {
-          test: false,
-          resources: []
-        }
-      },
-      // XXX Should be:
-      // 'api.FooBar.bar.cinnamon': {
-      //   category: 'api',
-      //   data: {
-      //     __base: "'hello world';\n'goodbye world';",
-      //     __test: "return 'snickerdoodle';",
-      //     __resources: []
-      //   },
-      //   result: {
-      //     test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "snickerdoodle";\n})();\n',
-      //     resources: []
-      //   }
-      // },
       'api.FooBar.baz': {
         category: 'api',
         data: {
           __base: "'hello world';",
           __test: false,
-          __resources: []
+          __resources: [],
+          __additional: {}
         },
         result: {
           test: '(function () {\n  "hello world";\n  return !!instance && "baz" in instance;\n})();\n',
-          resources: []
+          resources: [],
+          additional: {}
         }
       },
       'api.FooBar.FooBar': {
@@ -120,11 +110,13 @@ describe('build (common)', () => {
         data: {
           __base: "'hello world';",
           __test: false,
-          __resources: []
+          __resources: [],
+          __additional: {}
         },
         result: {
           test: false,
-          resources: []
+          resources: [],
+          additional: {}
         }
       },
       'api.nonexistent': {
@@ -132,20 +124,23 @@ describe('build (common)', () => {
         data: {
           __base: false,
           __test: false,
-          __resources: []
+          __resources: [],
+          __additional: {}
         },
-        result: {test: false, resources: []}
+        result: {test: false, resources: [], additional: {}}
       },
       'api.audiocontext': {
         category: 'api',
         data: {
           __base: false,
           __test: 'return false;',
-          __resources: ['audio-blip']
+          __resources: ['audio-blip'],
+          __additional: {}
         },
         result: {
           test: '(function () {\n  return false;\n})();\n',
-          resources: ['audio-blip']
+          resources: ['audio-blip'],
+          additional: {}
         }
       },
       'api.WebGLRenderingContext': {
@@ -153,12 +148,14 @@ describe('build (common)', () => {
         data: {
           __base: 'var instance = reusableInstances.webGL;',
           __test: false,
-          __resources: ['webGL']
+          __resources: ['webGL'],
+          __additional: {}
         },
         result: {
           // XXX Not accurate
           test: '(function () {\n  var instance = reusableInstances.webGL;\n  return !!instance;\n})();\n',
-          resources: ['webGL']
+          resources: ['webGL'],
+          additional: {}
         }
       }
     };
@@ -251,6 +248,7 @@ describe('build (common)', () => {
             combinator: '&&'
           },
           resources: [],
+          additional: {},
           exposure: ['Window']
         };
 
@@ -267,6 +265,7 @@ describe('build (common)', () => {
             combinator: '&&'
           },
           resources: [],
+          additional: {},
           exposure: ['Window']
         };
 
@@ -285,6 +284,7 @@ describe('build (common)', () => {
             combinator: '&&'
           },
           resources: [],
+          additional: {},
           exposure: ['Window']
         },
         {
@@ -293,6 +293,7 @@ describe('build (common)', () => {
             combinator: '||'
           },
           resources: [],
+          additional: {},
           exposure: ['Window']
         },
         {
@@ -301,6 +302,7 @@ describe('build (common)', () => {
             combinator: '&&'
           },
           resources: [],
+          additional: {},
           exposure: ['Worker']
         }
       ];
