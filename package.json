@@ -30,7 +30,7 @@
     "coverage": "npm run coverage:report && npm run coverage:open",
     "coverage:report": "c8 report -r lcov",
     "coverage:open": "open-cli coverage/lcov-report/index.html",
-    "test": "npm run format && npm run unittest",
+    "test": "npm run format && tsc -p . --noEmit && npm run unittest",
     "selenium": "ts-node scripts/selenium.ts",
     "update-bcd": "ts-node scripts/update-bcd.ts",
     "find-missing-features": "ts-node scripts/find-missing-features.ts",
