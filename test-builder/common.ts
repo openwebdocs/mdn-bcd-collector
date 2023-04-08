@@ -35,7 +35,7 @@ export type CustomTestData = {
 
 export type CustomTestResult = {
   test: string | false;
-  resources: (keyof Resources)[];
+  resources: string[];
   additional: {[key: string]: string};
 };
 
