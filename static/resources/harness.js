@@ -940,7 +940,7 @@
    * callback (TestResults): The processed result of the tests
    *
    */
-  function go(callback, resourceCount, hideResults) {
+  function go(onComplete, resourceCount, hideResults) {
     var allresults = [];
     state = {
       started: false,
@@ -981,8 +981,8 @@
                 window.__workerCleanup();
               }
 
-              if (typeof callback == 'function') {
-                callback(allresults);
+              if (typeof onComplete == 'function') {
+                onComplete(allresults);
               } else {
                 report(allresults, hideResults);
               }
@@ -1051,12 +1051,12 @@
           if (reusableInstances[instanceKey] == 'callback') {
             // If it's a callback, we need to load it here
             try {
-              /* eslint-disable-next-line no-inner-declarations,no-redeclare,no-unused-vars */
+              /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
               function callback(instance) {
                 reusableInstances[instanceKey] = instance;
                 resourceLoaded();
               }
-              /* eslint-disable-next-line no-inner-declarations,no-redeclare,no-unused-vars */
+              /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
               function fail(response) {
                 consoleError(response);
                 resourceLoaded();
