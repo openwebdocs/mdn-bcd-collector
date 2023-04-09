@@ -1058,14 +1058,13 @@
               }
               /* eslint-disable-next-line no-inner-declarations,no-redeclare,no-unused-vars */
               function fail(response) {
-                reusableInstances[instanceKey] = null;
                 consoleError(response);
                 resourceLoaded();
               }
 
+              reusableInstances[instanceKey] = null;
               eval(reusableInstances.__sources[instanceKey]);
             } catch (e) {
-              reusableInstances[instanceKey] = null;
               consoleError(e);
               resourceLoaded();
             }
@@ -1076,7 +1075,6 @@
                 reusableInstances.__sources[instanceKey]
               );
             } catch (e) {
-              reusableInstances[instanceKey] = null;
               consoleError(e);
             }
             resourceLoaded();
