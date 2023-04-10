@@ -1009,6 +1009,8 @@
     };
 
     if (resourceCount) {
+      updateStatus('Loading required resources...');
+
       resources.required = resourceCount;
 
       var resourceTimeout = setTimeout(function () {
@@ -1017,7 +1019,7 @@
           'Timed out waiting for resources to load, starting tests anyways'
         );
         startTests();
-      }, 5000);
+      }, 10000);
 
       var resourceLoaded = function () {
         if (state.started) {
