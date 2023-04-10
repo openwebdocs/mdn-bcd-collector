@@ -27,6 +27,7 @@
   var reusableInstances = {
     __sources: {}
   };
+  var cleanupFunctions = [];
 
   // Set to true for debugging output, and 'full' to include completion logging
   var debugmode =
@@ -181,6 +182,17 @@
       exposure: exposure,
       info: info
     });
+  }
+
+  /**
+   * Add a cleanup function to run after all tests are finished
+   *
+   * f (function): The cleaup function to run
+   *
+   * returns (null)
+   */
+  function addCleanup(f) {
+    cleanupFunctions.push(f);
   }
 
   /**
@@ -977,6 +989,10 @@
               state.timedout = false;
               clearTimeout(timeout);
 
+              for (var i = 0; i < cleanupFunctions.length; i++) {
+                cleanupFunctions[i]();
+              }
+
               if ('serviceWorker' in navigator) {
                 window.__workerCleanup();
               }
@@ -1432,6 +1448,7 @@
     testCSSProperty: testCSSProperty,
     addInstance: addInstance,
     addTest: addTest,
+    addCleanup: addCleanup,
     runTests: runTests,
     go: go
   };
