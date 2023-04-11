@@ -67,7 +67,65 @@ __resources:
   mediaStream:
     type: instance
     callback: true
+    dependencies:
+      - audioContext
     src: |-
+      // First, we'll try creating a dummy stream
+      var stream;
+
+      if ('MediaStream' in self) {
+        try {
+          var stream = new MediaStream();
+        } catch(e) {
+          // If creating the MediaStream fails, continue
+        }
+      }
+
+      if (
+        stream &&
+        reusableInstances.audioContext &&
+        'createMediaStreamDestination' in reusableInstances.audioContext &&
+        'captureStream' in HTMLCanvasElement.prototype
+      ) {
+        // Create the audio noise stream
+        var oscillator = reusableInstances.audioContext.createOscillator();
+        var dst = oscillator.connect(reusableInstances.audioContext.createMediaStreamDestination());
+        oscillator.start();
+        var audioTrack = dst.stream.getAudioTracks()[0];
+        stream.addTrack(audioTrack);
+        bcd.addCleanup(function() {audioTrack.stop()});
+
+        // Create the video noise stream
+        var canvas = document.createElement("canvas");
+        canvas.width = 640;
+        canvas.height = 480;
+        var ctx = canvas.getContext('2d');
+        var videoStream = canvas.captureStream();
+        var count = 0;
+        var interval = setInterval(function() {
+          ctx.fillStyle = `rgb(${count%255}, ${count*count%255}, ${count%255})`;
+          count += 1;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          // Add some bouncing boxes in contrast color to add a little more noise.
+          var contrast = count + 128;
+          ctx.fillStyle = `rgb(${contrast%255}, ${contrast*contrast%255}, ${contrast%255})`;
+          var xpos = count % (canvas.width - 20);
+          var ypos = count % (canvas.height - 20);
+          ctx.fillRect(xpos, ypos, xpos + 20, ypos + 20);
+          var xpos2 = (count + canvas.width / 2) % (canvas.width - 20);
+          var ypos2 = (count + canvas.height / 2) % (canvas.height - 20);
+          ctx.fillRect(xpos2, ypos2, xpos2 + 20, ypos2 + 20);
+        }, 50);
+        var videoTrack = videoStream.getVideoTracks()[0];
+        stream.addTrack(videoTrack);
+        bcd.addCleanup(function() {videoTrack.stop()});
+
+        // Return the stream
+        callback(stream);
+        return;
+      }
+
+      // If we couldn't create a dummy stream, we'll use the camera and mic instead
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({audio: true}).then(callback, fail);
       } else if (navigator.getUserMedia) {
@@ -91,7 +149,7 @@ __resources:
     type: instance
     callback: true
     dependencies:
-      - audioContext
+      - mediaStream
     src: |-
       // Most of this code has loosely been taken from https://wpt.live/webrtc/RTCPeerConnection-mandatory-getStats.https.html
 
@@ -110,41 +168,25 @@ __resources:
       var dc1 = rpc1.createDataChannel("dummy", {negotiated: true, id: 0});
       var dc2 = rpc2.createDataChannel("dummy", {negotiated: true, id: 0});
 
-      if (!('MediaStream' in self && 'addTrack' in rpc1)) {
-        fail('MediaStream and RTCPeerConnection.addTrack must both be defined');
+      if (!('addTrack' in rpc1)) {
+        // XXX Handle this somehow
+        fail('RTCPeerConnection.addTrack must be defined');
         return;
       }
 
-      // Create the audio noise stream
-      var audioTrack;
-      if (reusableInstances.audioContext) {
-        var oscillator = reusableInstances.audioContext.createOscillator();
-        var dst = oscillator.connect(reusableInstances.audioContext.createMediaStreamDestination());
-        oscillator.start();
-        audioTrack = dst.stream.getAudioTracks()[0];
-      }
-
-      // Create the video noise stream
-      var videoTrack;
-      if ('captureStream' in HTMLCanvasElement.prototype) {
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext('2d');
-        var videoStream = canvas.captureStream();
-        videoTrack = videoStream.getVideoTracks()[0];
-      }
-
-      if (!(audioTrack && videoTrack)) {
-        // XXX Use a media stream here
-        fail('audioTrack and videoTrack must both be defined');
+      if (!('mediaStream' in reusableInstances)) {
+        // XXX Handle mediaStream not being defined
+        fail('Media stream must be defined');
         return;
       }
 
-      // Create stream and add to connections
-      var stream = new MediaStream([audioTrack, videoTrack]);
-      rpc1.addTrack(audioTrack, stream);
-      rpc1.addTrack(videoTrack, stream);
-      rpc2.addTrack(audioTrack, stream);
-      rpc2.addTrack(videoTrack, stream);
+      // Add stream to RTC connections
+      var audioTrack = reusableInstances.mediaStream.getAudioTracks()[0];
+      var videoTrack = reusableInstances.mediaStream.getVideoTracks()[0];
+      rpc1.addTrack(audioTrack, reusableInstances.mediaStream);
+      rpc1.addTrack(videoTrack, reusableInstances.mediaStream);
+      rpc2.addTrack(audioTrack, reusableInstances.mediaStream);
+      rpc2.addTrack(videoTrack, reusableInstances.mediaStream);
 
       // Perform ice candidate exchange
       function doExchange(localPc, remotePc) {
@@ -3036,7 +3078,7 @@ api:
       function getStatByType(type) {
         for (var i = 0; i < stats.length; i++) {
           if (stats[i].type === type) {
-            return stats[i]
+            return stats[i];
           }
         }
 
