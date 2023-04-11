@@ -1177,6 +1177,82 @@
 
   /**
    * Render a report element to display on the page
+   * Render a reusable instance like a report element
+   *
+   * instanceId (string): The identifier of the reusable instance
+   * resultsEl (HTMLElement): The element to add the report to
+   *
+   * returns (void)
+   *
+   */
+  function renderReInstReportEl(instanceId, resultsEl) {
+    var resultEl = document.createElement('details');
+    resultEl.className = 'result';
+
+    var resultSummaryEl = document.createElement('summary');
+    resultSummaryEl.innerHTML = 'reusableInstances.' + instanceId;
+    resultSummaryEl.innerHTML += ':&nbsp;';
+
+    var instance = reusableInstances[instanceId];
+    var resultValue =
+      !!instance && instance !== 'callback'
+        ? 'true'
+        : instance === false
+        ? 'false'
+        : 'null';
+    var resultValueEl = document.createElement('span');
+    resultValueEl.className = 'result-value result-value-' + resultValue;
+    resultValueEl.innerHTML =
+      resultValue === 'true'
+        ? 'Loaded'
+        : resultValue === 'false'
+        ? 'Not Loaded, Unsupported'
+        : resultValue === 'null'
+        ? 'Failed to Load'
+        : resultValue;
+    resultSummaryEl.appendChild(resultValueEl);
+    resultEl.appendChild(resultSummaryEl);
+
+    var resultInfoEl = document.createElement('div');
+    resultInfoEl.className = 'result-info';
+
+    if (resultValue === 'null') {
+      var resultMessageEl = document.createElement('p');
+      resultMessageEl.className = 'result-message';
+      resultMessageEl.innerHTML =
+        'Instance failed to load, check the console log for more details';
+      resultInfoEl.appendChild(resultMessageEl);
+    }
+
+    var resultCodeEl = document.createElement('code');
+    var code =
+      'reusableInstances.' +
+      instanceId +
+      ' = ' +
+      reusableInstances.__sources[instanceId];
+
+    var formattedCode;
+    if ('hljs' in self) {
+      formattedCode = hljs.highlight(code, {
+        language: 'js'
+      }).value;
+    }
+
+    resultCodeEl.className = 'result-code';
+    resultCodeEl.innerHTML = (formattedCode || code).replace(
+      /\n([^\S\r\n]*)/g,
+      function (match, p1) {
+        return '<br>' + p1.replace(/ /g, '&nbsp;');
+      }
+    );
+    resultInfoEl.appendChild(resultCodeEl);
+
+    resultEl.appendChild(resultInfoEl);
+    resultsEl.appendChild(resultEl);
+  }
+
+  /**
+   * Render a report element to display on the page
    *
    * result (TestResult): The test result to render
    * resultsEl (HTMLElement): The element to add the report to
@@ -1222,34 +1298,6 @@
     if (result.info.code) {
       var resultCodeEl = document.createElement('code');
       var code = result.info.code;
-
-      // Display the code that creates the reusable instance in results
-      var reusedInstances = result.info.code.match(
-        /reusableInstances\.([^.());]*)/g
-      );
-      var addedInstances = [];
-
-      if (reusedInstances) {
-        for (var i = 0; i < reusedInstances.length; i++) {
-          var reusedInstance = reusedInstances[i].replace(
-            'reusableInstances.',
-            ''
-          );
-
-          // De-duplicate instances
-          if (addedInstances.indexOf(reusedInstance) > -1) {
-            continue;
-          }
-          addedInstances.push(reusedInstance);
-
-          code =
-            reusedInstances[i] +
-            ' = ' +
-            reusableInstances.__sources[reusedInstance] +
-            '\n\n' +
-            code;
-        }
-      }
 
       var formattedCode;
       if ('hljs' in self) {
@@ -1361,6 +1409,13 @@
 
     function doRenderResults() {
       loadHighlightJs(function () {
+        var reInstKeys = Object.keys(reusableInstances.__sources);
+        for (var i = 0; i < reInstKeys.length; i++) {
+          renderReInstReportEl(reInstKeys[i], resultsEl);
+        }
+        if (reInstKeys.length) {
+          resultsEl.appendChild(document.createElement('hr'));
+        }
         for (var i = 0; i < results.length; i++) {
           renderReportEl(results[i], resultsEl);
         }
