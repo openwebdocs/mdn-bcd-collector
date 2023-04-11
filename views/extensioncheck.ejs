@@ -52,6 +52,14 @@ See the LICENSE file for copyright details
       }
     }
 
+    function checkSafariExtension(id, callback) {
+      if (id) {
+        checkUrl('safari-extension://' + id + '/assets/manifestIcons/icon.svg', callback);
+      } else {
+        callback(false);
+      }
+    }
+
     function checkExtension(options, callback) {
       checkChromeExtension(options.chromeId, function(result) {
         if (result) {
@@ -61,9 +69,13 @@ See the LICENSE file for copyright details
             if (result) {
               callback('firefox');
             } else {
-              callback(false);
-
-              // XXX Detect on Safari
+              checkSafariExtension(options.safariId, function(result) {
+              if (result) {
+                callback('safari');
+              } else {
+                callback(false);
+              }
+            });
             }
           });
         }

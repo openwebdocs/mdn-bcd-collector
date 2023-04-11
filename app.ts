@@ -98,9 +98,10 @@ const createReport = (results, req) => {
 
 const app = express();
 
-// COOP/COEP
+// Cross-Origin policies
 const headers = {
   'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Resource-Policy': 'same-origin',
   'Cross-Origin-Opener-Policy': 'same-origin'
 };
 
