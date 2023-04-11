@@ -1009,9 +1009,25 @@
     };
 
     if (resourceCount) {
-      updateStatus('Loading required resources...');
-
       resources.required = resourceCount;
+
+      var resourceTimeoutLength = 5000;
+      var resourceCountdown = resourceTimeoutLength / 1000;
+      var resourceCountdownTimeout;
+      var resourceCountdownFunc = function () {
+        updateStatus(
+          'Loading required resources (timeout in ' +
+            resourceCountdown +
+            's)...'
+        );
+        resourceCountdown = resourceCountdown - 1;
+
+        if (resourceCountdown > 0) {
+          resourceCountdownTimeout = setTimeout(resourceCountdownFunc, 1000);
+        }
+      };
+
+      resourceCountdownFunc();
 
       var resourceTimeout = setTimeout(function () {
         // If the resources don't load, just start the tests anyways
@@ -1019,7 +1035,7 @@
           'Timed out waiting for resources to load, starting tests anyways'
         );
         startTests();
-      }, 10000);
+      }, resourceTimeoutLength);
 
       var resourceLoaded = function () {
         if (state.started) {
@@ -1030,6 +1046,7 @@
 
         if (resources.loaded >= resources.required) {
           clearTimeout(resourceTimeout);
+          clearTimeout(resourceCountdownTimeout);
           startTests();
         }
       };
