@@ -3718,164 +3718,228 @@ api:
         var stat = getStatByType('remote-candidate');
         return !!stat && 'usernameFragment' in stat;
       type_remote-inbound-rtp: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat;
       type_remote-inbound-rtp.codecId: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'codecId' in stat;
       type_remote-inbound-rtp.fractionLost: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'fractionLost' in stat;
       type_remote-inbound-rtp.id: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'id' in stat;
       type_remote-inbound-rtp.jitter: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'jitter' in stat;
       type_remote-inbound-rtp.kind: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'kind' in stat;
       type_remote-inbound-rtp.localId: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'localId' in stat;
       type_remote-inbound-rtp.packetsLost: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'packetsLost' in stat;
       type_remote-inbound-rtp.packetsReceived: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'packetsReceived' in stat;
       type_remote-inbound-rtp.roundTripTime: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'roundTripTime' in stat;
       type_remote-inbound-rtp.roundTripTimeMeasurements: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'roundTripTimeMeasurements' in stat;
       type_remote-inbound-rtp.ssrc: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'ssrc' in stat;
       type_remote-inbound-rtp.timestamp: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'timestamp' in stat;
       type_remote-inbound-rtp.totalRoundTripTime: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'totalRoundTripTime' in stat;
       type_remote-inbound-rtp.transportId: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'transportId' in stat;
       type_remote-inbound-rtp.type: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-inbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'type' in stat;
       type_remote-outbound-rtp: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat;
       type_remote-outbound-rtp.bytesSent: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'bytesSent' in stat;
       type_remote-outbound-rtp.codecId: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'codecId' in stat;
       type_remote-outbound-rtp.id: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'id' in stat;
       type_remote-outbound-rtp.kind: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'kind' in stat;
       type_remote-outbound-rtp.localId: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'localId' in stat;
       type_remote-outbound-rtp.packetsSent: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'packetsSent' in stat;
       type_remote-outbound-rtp.remoteTimestamp: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'remoteTimestamp' in stat;
       type_remote-outbound-rtp.reportsSent: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'reportsSent' in stat;
       type_remote-outbound-rtp.roundTripTime: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'roundTripTime' in stat;
       type_remote-outbound-rtp.roundTripTimeMeasurements: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'roundTripTimeMeasurements' in stat;
       type_remote-outbound-rtp.ssrc: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'ssrc' in stat;
       type_remote-outbound-rtp.timestamp: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'timestamp' in stat;
       type_remote-outbound-rtp.totalRoundTripTime: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'totalRoundTripTime' in stat;
       type_remote-outbound-rtp.transportId: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'transportId' in stat;
       type_remote-outbound-rtp.type: |-
-        // XXX Need to wait a bit before this stats type will be available
-        return {result: null, message: 'Test code has not yet been implemented for this stats type'};
         var stat = getStatByType('remote-outbound-rtp');
+        if (!stat) {
+          // XXX Need to wait a bit before this stats type will be available
+          return {result: null, message: 'Test code has not yet been implemented for this stats type'};
+        }
         return !!stat && 'type' in stat;
       type_transport: |-
         var stat = getStatByType('transport');
