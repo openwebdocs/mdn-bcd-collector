@@ -1416,8 +1416,8 @@
         if (reInstKeys.length) {
           resultsEl.appendChild(document.createElement('hr'));
         }
-        for (var i = 0; i < results.length; i++) {
-          renderReportEl(results[i], resultsEl);
+        for (var j = 0; j < results.length; j++) {
+          renderReportEl(results[j], resultsEl);
         }
       });
     }
