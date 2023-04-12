@@ -30,8 +30,7 @@ import {
 import esMain from 'es-main';
 import fs from 'fs-extra';
 import klaw from 'klaw';
-import minimatch from 'minimatch';
-const {Minimatch} = minimatch;
+import {Minimatch} from 'minimatch';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
