@@ -202,22 +202,24 @@ __resources:
       doExchange(rpc2, rpc1);
 
       // Exchange offer and answer between two peer connections
-      function exchangeOfferAnswer() {
-        return rpc1.createOffer().then(function(offer) {
-          return rpc1.setLocalDescription(offer);
+      function exchangeOfferAnswer(localPc, remotePc) {
+        return localPc.createOffer().then(function(offer) {
+          return localPc.setLocalDescription(offer);
         }).then(function() {
-          return rpc2.setRemoteDescription(rpc1.localDescription);
+          return remotePc.setRemoteDescription(localPc.localDescription);
         }).then(function() {
-          return rpc2.createAnswer();
+          return remotePc.createAnswer();
         }).then(function(answer) {
           return Promise.all([
-            rpc1.setRemoteDescription(answer),
-            rpc2.setLocalDescription(answer)
+            localPc.setRemoteDescription(answer),
+            remotePc.setLocalDescription(answer)
           ]);
         })
       };
 
-      exchangeOfferAnswer().then(function() {
+      exchangeOfferAnswer(rpc1, rpc2).then(function() {
+        return exchangeOfferAnswer(rpc2, rpc1);
+      }).then(function() {
         setTimeout(function() {
           // Return the stats after a small delay
           // The small delay helps catch additional stats types that load after
