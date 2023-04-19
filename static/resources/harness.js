@@ -1093,14 +1093,21 @@
               }
               /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
               function fail(response) {
-                consoleError(response);
+                consoleError(
+                  'Failed to load reusable instance ' +
+                    instanceKey +
+                    ': ' +
+                    response
+                );
                 resourceLoaded();
               }
 
               reusableInstances[instanceKey] = null;
               eval(reusableInstances.__sources[instanceKey]);
             } catch (e) {
-              consoleError(e);
+              consoleError(
+                'Failed to load reusable instance ' + instanceKey + ': ' + e
+              );
               resourceLoaded();
             }
           } else {
@@ -1110,7 +1117,9 @@
                 reusableInstances.__sources[instanceKey]
               );
             } catch (e) {
-              consoleError(e);
+              consoleError(
+                'Failed to load reusable instance ' + instanceKey + ': ' + e
+              );
             }
             resourceLoaded();
           }
@@ -1118,7 +1127,7 @@
       } catch (e) {
         // Couldn't use resource loading code, start anyways
         clearTimeout(resourceTimeout);
-        consoleError(e);
+        consoleError('Failed to load resources: ' + e);
         startTests();
       }
     } else {
