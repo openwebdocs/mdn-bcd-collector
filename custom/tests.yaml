@@ -217,6 +217,25 @@ __resources:
         })
       };
 
+      function getStats(pc, statsCallback) {
+        var statsPromise;
+        try {
+          statsPromise = pc.getStats();
+        } catch(e) {
+          // If we run into an error, it's probably not a promise
+        }
+
+        if (statsPromise) {
+          statsPromise.then(statsCallback).catch(fail);
+        } else {
+          try {
+            pc.getStats(statsCallback, fail);
+          } catch(e) {
+            fail(e);
+          }
+        }
+      }
+
       exchangeOfferAnswer(rpc1, rpc2).then(function() {
         return exchangeOfferAnswer(rpc2, rpc1);
       }).then(function() {
@@ -224,22 +243,14 @@ __resources:
           // Return the stats after a small delay
           // The small delay helps catch additional stats types that load after
 
-          var statsPromise;
-          try {
-            statsPromise = rpc1.getStats();
-          } catch(e) {
-            // If we run into an error, it's probably not a promise
-          }
-
-          if (statsPromise) {
-            statsPromise.then(callback).catch(fail);
-          } else {
-            try {
-              rpc1.getStats(callback, fail);
-            } catch(e) {
-              fail(e);
-            }
-          }
+          // Obtain stats from both peer connections and combine them, as each
+          // connection has different stats types
+          getStats(rpc1, function(stats1) {
+            getStats(rpc2, function(stats2) {
+              var stats = new Map([...stats1, ...stats2]);
+              callback(stats);
+            });
+          });
         }, 2000);
 
         bcd.addCleanup(function() {
