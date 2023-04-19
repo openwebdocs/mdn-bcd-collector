@@ -140,8 +140,8 @@ const getTestChanges = (): ListrTask[] => {
       task: async () => {
         await exec('npm run build:tests');
         await fs.rename(
-          new URL('./tests.json', import.meta.url),
-          new URL('./tests.old.json', import.meta.url)
+          new URL('../tests.json', import.meta.url),
+          new URL('../tests.old.json', import.meta.url)
         );
       }
     },
@@ -162,10 +162,10 @@ const getTestChanges = (): ListrTask[] => {
       title: 'Compare tests',
       task: async (ctx) => {
         const oldTests = await fs.readJson(
-          new URL('./tests.old.json', import.meta.url)
+          new URL('../tests.old.json', import.meta.url)
         );
         const newTests = await fs.readJson(
-          new URL('./tests.json', import.meta.url)
+          new URL('../tests.json', import.meta.url)
         );
 
         const oldTestKeys = Object.keys(oldTests);
@@ -204,7 +204,7 @@ const getTestChanges = (): ListrTask[] => {
     {
       title: 'Cleanup',
       task: async () =>
-        await fs.rm(new URL('./tests.old.json', import.meta.url))
+        await fs.rm(new URL('../tests.old.json', import.meta.url))
     }
   ];
 };
@@ -230,7 +230,7 @@ const getGitChanges = async (ctx) => {
 };
 
 const doChangelogUpdate = async (ctx) => {
-  const filepath = new URL('./CHANGELOG.md', import.meta.url);
+  const filepath = new URL('../CHANGELOG.md', import.meta.url);
   const changelog = await fs.readFile(filepath, 'utf8');
   const idx = changelog.indexOf('##');
   let newChangelog =
