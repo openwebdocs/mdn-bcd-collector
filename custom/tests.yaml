@@ -3044,25 +3044,27 @@ api:
     setLocalDescription:
       __additional:
         description_parameter_optional: |-
-          try {
-            if (!(instance && instance.setLocalDescription)) {
-              return {result: false, message: 'instance.setLocalDescription is not defined'};
-            }
-            instance.setLocalDescription();
-            return true;
-          } catch(e) {
+          if (!(instance && instance.setLocalDescription)) {
+            return {result: false, message: 'instance.setLocalDescription is not defined'};
+          }
+          var promise = instance.setLocalDescription().catch(function(e) {
             if (e instanceof TypeError || stringIncludes(e.message, ['WRONG_ARGUMENTS_ERR', 'Not enough arguments'])) {
               return {result: false, message: e.message};
             }
             return e;
-          }
+          });
+          return promise.then(function() {return true});
         returns_promise: |-
           <%api.RTCSessionDescription:description%>
           if (!(instance && instance.setLocalDescription)) {
             return {result: false, message: 'instance.setLocalDescription is not defined'};
           }
           var value = instance.setLocalDescription(description);
-          return 'then' in value;
+          if ('then' in value) {
+            value.catch(function() {});
+            return true;
+          }
+          return false;
     setRemoteDescription:
       __additional:
         returns_promise: |-
@@ -3071,7 +3073,11 @@ api:
             return {result: false, message: 'instance.setRemoteDescription is not defined'};
           }
           var value = instance.setRemoteDescription(description);
-          return 'then' in value;
+          if ('then' in value) {
+            value.catch(function() {});
+            return true;
+          }
+          return false;
   RTCSessionDescription:
     __base: "var instance = new RTCSessionDescription({type: 'offer'});"
   RTCStatsReport:
