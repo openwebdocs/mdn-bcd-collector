@@ -1500,6 +1500,9 @@ api:
         return {result: false, message: 'EventSource is not defined'};
       }
       var instance = new EventSource('/eventstream');
+      bcd.addCleanup(function() {
+        instance.close();
+      });
     EventSource: return !!instance;
   EventTarget:
     __base: <%api.Element:instance%>
@@ -5039,6 +5042,9 @@ api:
         return {result: false, message: '(Moz)WebSocket is not defined or falsy'};
       }
       var instance = new constructor('wss://' + location.hostname);
+      bcd.addCleanup(function() {
+        instance.close();
+      });
   WheelEvent:
     __base: |-
       var instance;
