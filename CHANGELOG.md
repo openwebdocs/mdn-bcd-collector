@@ -1,5 +1,67 @@
 # mdn-bcd-collector Changelog
 
+## v9.0.1
+
+### Test Changes
+
+#### Added
+
+- api.FencedFrameConfig.containerHeight
+- api.FencedFrameConfig.containerWidth
+- api.FencedFrameConfig.contentHeight
+- api.FencedFrameConfig.contentWidth
+- api.FencedFrameConfig.setSharedStorageContext
+- api.GPUSupportedLimits.maxBindGroupsPlusVertexBuffers
+- api.XMLHttpRequest.setAttributionReporting
+
+#### Removed
+
+- api.FencedFrameConfig.FencedFrameConfig
+- api.FencedFrameConfig.height
+- api.FencedFrameConfig.width
+- api.GPUSupportedLimits.maxFragmentCombinedOutputResources
+
+#### Changed
+
+- api.CSPViolationReportBody
+- api.EventSource
+- api.RTCPeerConnection.setLocalDescription.description_parameter_optional
+- api.RTCPeerConnection.setLocalDescription.returns_promise
+- api.RTCPeerConnection.setRemoteDescription.returns_promise
+- api.WebSocket
+- javascript.builtins.Array.@@species
+- javascript.builtins.ArrayBuffer.@@species
+- javascript.builtins.AsyncFunction
+- javascript.builtins.AsyncGenerator
+- javascript.builtins.AsyncGeneratorFunction
+- javascript.builtins.AsyncIterator
+- javascript.builtins.Map.@@species
+- javascript.builtins.Object.constructor
+- javascript.builtins.RegExp
+- javascript.builtins.Set.@@species
+- javascript.builtins.TypedArray
+- javascript.builtins.Intl.Collator
+- javascript.builtins.Intl.DateTimeFormat
+- javascript.builtins.Intl.DisplayNames
+- javascript.builtins.Intl.ListFormat
+- javascript.builtins.Intl.Locale
+- javascript.builtins.Intl.NumberFormat
+- javascript.builtins.Intl.PluralRules
+- javascript.builtins.Intl.RelativeTimeFormat
+- javascript.builtins.Intl.Segmenter
+- javascript.builtins.Intl.Segments
+
+### Commits
+
+- Mitigate a JavaScript bug with setting a variable inside a for loop
+- Improve custom test for CSPViolationReportBody
+- Add additional icons
+- Separate resource loading into its own function
+- Add additional custom tests for JavaScript builtins
+- Always test Symbol.species presence not on prototype
+- Add cleanup functions
+- Add additional error catching to tests
+
 ## v9.0.0
 
 ### Notable changes
