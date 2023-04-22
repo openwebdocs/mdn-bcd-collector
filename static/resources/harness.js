@@ -942,72 +942,15 @@
   }
 
   /**
-   * Run all of the pending tests
+   * Load all resources
    *
-   * callback (function?): The callback to call once tests are completed
+   * onReady (function?): The callback to call once resources are loaded
    * resourceCount (Number?): The number of resources required
-   * hideResults (boolean): Whether to keep the results hidden afterwards
    *
    * returns (void)
-   * callback (TestResults): The processed result of the tests
    *
    */
-  function go(onComplete, resourceCount, hideResults) {
-    var allresults = [];
-    state = {
-      started: false,
-      timedout: false,
-      completed: false
-    };
-
-    var startTests = function () {
-      if (state.started) {
-        consoleError('Warning: Tests started twice!');
-        return;
-      }
-
-      state.started = true;
-
-      var timeout = setTimeout(function () {
-        state.timedout = true;
-      }, 20000);
-
-      runWindow(function (results) {
-        allresults = allresults.concat(results);
-
-        runWorker(function (results) {
-          allresults = allresults.concat(results);
-
-          runSharedWorker(function (results) {
-            allresults = allresults.concat(results);
-
-            runServiceWorker(function (results) {
-              allresults = allresults.concat(results);
-
-              pending = {};
-              state.completed = true;
-              state.timedout = false;
-              clearTimeout(timeout);
-
-              for (var i = 0; i < cleanupFunctions.length; i++) {
-                cleanupFunctions[i]();
-              }
-
-              if ('serviceWorker' in navigator) {
-                window.__workerCleanup();
-              }
-
-              if (typeof onComplete == 'function') {
-                onComplete(allresults);
-              } else {
-                report(allresults, hideResults);
-              }
-            });
-          });
-        });
-      });
-    };
-
+  function loadResources(onReady, resourceCount) {
     if (resourceCount) {
       resources.required = resourceCount;
 
@@ -1031,10 +974,10 @@
 
       var resourceTimeout = setTimeout(function () {
         // If the resources don't load, just start the tests anyways
-        consoleLog(
-          'Timed out waiting for resources to load, starting tests anyways'
+        updateStatus(
+          'Timed out waiting for resources to load, readying anyways'
         );
-        startTests();
+        onReady();
       }, resourceTimeoutLength);
 
       var resourceLoaded = function () {
@@ -1047,7 +990,8 @@
         if (resources.loaded >= resources.required) {
           clearTimeout(resourceTimeout);
           clearTimeout(resourceCountdownTimeout);
-          startTests();
+          updateStatus('Resources loaded, ready to run');
+          onReady();
         }
       };
 
@@ -1128,11 +1072,93 @@
         // Couldn't use resource loading code, start anyways
         clearTimeout(resourceTimeout);
         consoleError('Failed to load resources: ' + e);
-        startTests();
+        onReady();
       }
     } else {
-      startTests();
+      onReady();
     }
+  }
+
+  /**
+   * Run all of the pending tests
+   *
+   * callback (function?): The callback to call once tests are completed
+   * hideResults (boolean): Whether to keep the results hidden afterwards
+   *
+   * returns (void)
+   * callback (TestResults): The processed result of the tests
+   *
+   */
+  function doTests(onComplete, hideResults) {
+    var allresults = [];
+    state = {
+      started: false,
+      timedout: false,
+      completed: false
+    };
+
+    if (state.started) {
+      consoleError('Warning: Tests started twice!');
+      return;
+    }
+
+    state.started = true;
+
+    var timeout = setTimeout(function () {
+      state.timedout = true;
+    }, 20000);
+
+    runWindow(function (results) {
+      allresults = allresults.concat(results);
+
+      runWorker(function (results) {
+        allresults = allresults.concat(results);
+
+        runSharedWorker(function (results) {
+          allresults = allresults.concat(results);
+
+          runServiceWorker(function (results) {
+            allresults = allresults.concat(results);
+
+            pending = {};
+            state.completed = true;
+            state.timedout = false;
+            clearTimeout(timeout);
+
+            for (var i = 0; i < cleanupFunctions.length; i++) {
+              cleanupFunctions[i]();
+            }
+
+            if ('serviceWorker' in navigator) {
+              window.__workerCleanup();
+            }
+
+            if (typeof onComplete == 'function') {
+              onComplete(allresults);
+            } else {
+              report(allresults, hideResults);
+            }
+          });
+        });
+      });
+    });
+  }
+
+  /**
+   * Load all resources and run pending tests
+   *
+   * callback (function?): The callback to call once tests are completed
+   * resourceCount (Number?): The number of resources required
+   * hideResults (boolean): Whether to keep the results hidden afterwards
+   *
+   * returns (void)
+   * callback (TestResults): The processed result of the tests
+   *
+   */
+  function go(onComplete, resourceCount, hideResults) {
+    loadResources(function () {
+      doTests(onComplete, hideResults);
+    }, resourceCount);
   }
 
   /**
