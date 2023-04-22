@@ -279,6 +279,11 @@ const buildDriver = async (browser, version, os) => {
         // BrowserStack doesn't support the Safari x.0 versions
         continue;
       }
+    } else if (service === 'saucelabs') {
+      if (browser === 'edge' && version === '79') {
+        // SauceLabs has issues with Edge 79
+        continue;
+      }
     }
 
     // eslint-disable-next-line guard-for-in
