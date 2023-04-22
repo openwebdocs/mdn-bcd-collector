@@ -58,7 +58,7 @@ describe('build (JavaScript)', () => {
         exposure: ['Window']
       },
       'javascript.builtins.Array.@@species': {
-        code: '"Symbol" in self && "species" in Symbol && "Array" in self && Symbol.species in Array.prototype',
+        code: '"Symbol" in self && "species" in Symbol && "Array" in self && Symbol.species in Array',
         exposure: ['Window']
       },
       'javascript.builtins.Array.Array': {
