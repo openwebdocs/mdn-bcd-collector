@@ -1020,12 +1020,10 @@
 
         // Load resources
         var instanceKeys = Object.keys(reusableInstances);
-        for (i = 0; i < instanceKeys.length; i++) {
-          var instanceKey = instanceKeys[i];
-
+        instanceKeys.forEach(function (instanceKey) {
           if (instanceKey == '__sources') {
             // The __sources key is a special key
-            continue;
+            return;
           }
 
           if (reusableInstances[instanceKey] == 'callback') {
@@ -1068,7 +1066,7 @@
             }
             resourceLoaded();
           }
-        }
+        });
       } catch (e) {
         // Couldn't use resource loading code, start anyways
         clearTimeout(resourceTimeout);
