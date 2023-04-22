@@ -1155,6 +1155,16 @@
    *
    */
   function go(onComplete, resourceCount, hideResults) {
+    if (!('XMLHttpRequest' in self)) {
+      // If XMLHttpRequest is not supported, we can't export the results
+      document.getElementById('export-download').remove();
+      document.getElementById('export-github').remove();
+      var form = document.getElementById('export');
+      var message = document.createElement('em');
+      message.innerHTML = 'Export disabled; XMLHttpRequest not supported';
+      form.appendChild(message);
+    }
+
     loadResources(function () {
       doTests(onComplete, hideResults);
     }, resourceCount);
