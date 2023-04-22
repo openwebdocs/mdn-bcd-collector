@@ -952,6 +952,7 @@
    */
   function loadResources(onReady, resourceCount) {
     if (resourceCount) {
+      updateStatus('Loading required resources...');
       resources.required = resourceCount;
 
       var resourceTimeoutLength = 5000;
