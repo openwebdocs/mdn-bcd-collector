@@ -1,5 +1,13 @@
 # mdn-bcd-collector Changelog
 
+## v9.0.2
+
+### Commits
+
+- Fix export buttons
+- Ignore Edge 79 on SauceLabs in Selenium script
+- Disallow Node.js v20 for now
+
 ## v9.0.1
 
 ### Test Changes
