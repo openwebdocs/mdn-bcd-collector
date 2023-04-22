@@ -5243,24 +5243,28 @@ javascript:
             return {result: false, message: 'Intl.Collator is not defined'};
           }
           var instance = new Intl.Collator('en');
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.Collator;
       DateTimeFormat:
         __base: |-
           if (!('Intl' in self && 'DateTimeFormat' in Intl)) {
             return {result: false, message: 'Intl.DateTimeFormat is not defined'};
           }
           var instance = new Intl.DateTimeFormat('en');
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.DateTimeFormat;
       DisplayNames:
         __base: |-
           if (!('Intl' in self && 'DisplayNames' in Intl)) {
             return {result: false, message: 'Intl.DisplayNames is not defined'};
           }
           var instance = new Intl.DisplayNames(['en'], { type: 'region' });
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.DisplayNames;
       ListFormat:
         __base: |-
           if (!('Intl' in self && 'ListFormat' in Intl)) {
             return {result: false, message: 'Intl.ListFormat is not defined'};
           }
           var instance = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.ListFormat;
       Locale:
         __base: |-
           if (!('Intl' in self && 'Locale' in Intl)) {
@@ -5275,24 +5279,28 @@ javascript:
             return {result: false, message: 'Intl.NumberFormat is not defined'};
           }
           var instance = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.NumberFormat;
       PluralRules:
         __base: |-
           if (!('Intl' in self && 'PluralRules' in Intl)) {
             return {result: false, message: 'Intl.PluralRules is not defined'};
           }
           var instance = new Intl.PluralRules();
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.PluralRules;
       RelativeTimeFormat:
         __base: |-
           if (!('Intl' in self && 'RelativeTimeFormat' in Intl)) {
             return {result: false, message: 'Intl.RelativeTimeFormat is not defined'};
           }
           var instance = new Intl.RelativeTimeFormat('en', { style: 'short' });
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.RelativeTimeFormat;
       Segmenter:
         __base: |-
           if (!('Intl' in self && 'Segmenter' in Intl)) {
             return {result: false, message: 'Intl.Segmenter is not defined'};
           }
           var instance = new Intl.Segmenter('fr', { granularity: 'word' });
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.Segmenter;
       Segments:
         __base: |-
           <%javascript.builtins.Intl.Segmenter:segmenter%>
