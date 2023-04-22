@@ -894,12 +894,7 @@ api:
         return {result: false, message: 'ReportingObserver is not defined'};
       }
 
-      // Load some "script" from bad-domain.awful
-      var el = document.createElement('script');
-      el.src = "//bad-domain.awful/dummy-script.js";
-      document.body.append(el);
-
-      // And now observe
+      // Create the observer
       var observer = new ReportingObserver(
         function(reports, observer) {
           var instance = reports.length && reports[0].body;
@@ -913,7 +908,17 @@ api:
         }
       );
 
+      // Start observing
       observer.observe();
+
+      // Load some "script" from bad-domain.awful
+      var el = document.createElement('script');
+      el.src = "//bad-domain.awful/dummy-script.js";
+      try {
+        document.body.append(el);
+      } catch(e) {
+        // We expect a CSP error here
+      }
     toJSON: |-
       function callback(instance) {
         try {
