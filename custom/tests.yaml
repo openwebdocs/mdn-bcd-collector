@@ -5149,36 +5149,63 @@ javascript:
   builtins:
     AsyncFunction:
       __base: |-
+        var func;
         var instance;
         try {
-          async function a(){
+          func = async function(){
             return true;
           };
 
-          instance = a();
+          instance = func();
         } catch(e) {
           if (e instanceof TypeError) {
             return {result: false, message: e.message};
           }
         }
-      __test: return instance instanceof Promise;
+      AsyncFunction: |-
+        var AsyncFunction = func.constructor;
+        if (!AsyncFunction) {
+          return false;
+        }
+        try {
+          new AsyncFunction('return true');
+          return true;
+        } catch(e) {
+          return false;
+        }
+    AsyncGenerator:
+      __base: <%javascript.builtins.AsyncGeneratorFunction:instance%>
     AsyncGeneratorFunction:
       __base: |-
+        var func;
         var instance;
         try {
-          async function *a(){
+          func = async function *(){
             yield true;
           };
 
-          instance = a();
+          instance = func();
         } catch(e) {
           if (e instanceof TypeError) {
             return {result: false, message: e.message};
           }
         }
-      __test: return instance instanceof Promise;
+      AsyncGeneratorFunction: |-
+        var AsyncGeneratorFunction = func.constructor;
+        if (!AsyncGeneratorFunction) {
+          return false;
+        }
+        try {
+          new AsyncGeneratorFunction('yield true');
+          return true;
+        } catch(e) {
+          return false;
+        }
     AsyncIterator:
       __base: <%javascript.builtins.AsyncGeneratorFunction:instance%>
+      '@@asyncIterator': |-
+        const AsyncIteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(instance)));
+        return !!instance && "Symbol" in self && "asyncIterator" in Symbol && Symbol.asyncIterator in AsyncIteratorPrototype;
     Error:
       __base: "var instance = new Error('hello world', {cause: 'for testing'});"
     GeneratorFunction:
@@ -5205,8 +5232,62 @@ javascript:
         function doTheThing() {};
         return doTheThing.name == 'doTheThing';
     Intl:
+      Collator:
+        __base: |-
+          if (!('Intl' in self && 'Collator' in Intl)) {
+            return {result: false, message: 'Intl.Collator is not defined'};
+          }
+          var instance = new Intl.Collator('en');
+      DateTimeFormat:
+        __base: |-
+          if (!('Intl' in self && 'DateTimeFormat' in Intl)) {
+            return {result: false, message: 'Intl.DateTimeFormat is not defined'};
+          }
+          var instance = new Intl.DateTimeFormat('en');
+      DisplayNames:
+        __base: |-
+          if (!('Intl' in self && 'DisplayNames' in Intl)) {
+            return {result: false, message: 'Intl.DisplayNames is not defined'};
+          }
+          var instance = new Intl.DisplayNames(['en'], { type: 'region' });
+      ListFormat:
+        __base: |-
+          if (!('Intl' in self && 'ListFormat' in Intl)) {
+            return {result: false, message: 'Intl.ListFormat is not defined'};
+          }
+          var instance = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+      Locale:
+        __base: |-
+          if (!('Intl' in self && 'Locale' in Intl)) {
+            return {result: false, message: 'Intl.Locale is not defined'};
+          }
+          var instance = new Intl.Locale('ko', {
+            script: 'Kore', region: 'KR', hourCycle: 'h24', calendar: 'gregory'
+          });
+      NumberFormat:
+        __base: |-
+          if (!('Intl' in self && 'NumberFormat' in Intl)) {
+            return {result: false, message: 'Intl.NumberFormat is not defined'};
+          }
+          var instance = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+      PluralRules:
+        __base: |-
+          if (!('Intl' in self && 'PluralRules' in Intl)) {
+            return {result: false, message: 'Intl.PluralRules is not defined'};
+          }
+          var instance = new Intl.PluralRules();
+      RelativeTimeFormat:
+        __base: |-
+          if (!('Intl' in self && 'RelativeTimeFormat' in Intl)) {
+            return {result: false, message: 'Intl.RelativeTimeFormat is not defined'};
+          }
+          var instance = new Intl.RelativeTimeFormat('en', { style: 'short' });
       Segmenter:
-        __base: "var instance = new Intl.Segmenter('fr', { granularity: 'word' });"
+        __base: |-
+          if (!('Intl' in self && 'Segmenter' in Intl)) {
+            return {result: false, message: 'Intl.Segmenter is not defined'};
+          }
+          var instance = new Intl.Segmenter('fr', { granularity: 'word' });
       Segments:
         __base: |-
           <%javascript.builtins.Intl.Segmenter:segmenter%>
@@ -5218,8 +5299,24 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
+    Object:
+      constructor: |-
+        var instance = {};
+        return !!instance.constructor;
+    RegExp:
+      __base: |-
+        if (!('RegExp' in self)) {
+          return {result: false, message: 'RegExp is not defined'};
+        }
+        var instance = new RegExp('foo', 'g');
     TypedArray:
-      __base: var instance = new Int8Array(2);
+      __base: |-
+        if (!('Int8Array' in self)) {
+          return {result: false, message: 'Int8Array is not defined'};
+        }
+        var instance = new Int8Array(2);
+      from: return 'from' in Int8Array;
+      of: return 'of' in Int8Array;
     WebAssembly:
       Exception:
         __base: |-
