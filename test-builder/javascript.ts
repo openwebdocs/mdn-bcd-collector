@@ -34,7 +34,12 @@ const build = (customJS) => {
       category += '.' + parts[0];
     }
 
-    const customTest = getCustomTest(bcdPath, category);
+    // If we're not trying to test the prototype of an object, we should be looking for an exact match
+    const customTest = getCustomTest(
+      bcdPath,
+      category,
+      !path.includes('.prototype')
+    );
 
     if (customTest.test) {
       tests[bcdPath] = compileTest({
