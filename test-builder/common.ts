@@ -320,12 +320,7 @@ const compileTestCode = (test: any): string => {
     return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(
       '.prototype',
       ''
-    )}" in self && Symbol.${property} in ${test.owner.replace(
-      '.prototype',
-      ''
-    )}${
-      test.owner === 'instance' || property === 'species' ? '' : '.prototype'
-    }`;
+    )}" in self && !!(${test.owner}[Symbol.${property}])`;
   }
   if (test.inherit) {
     if (test.owner === 'self') {

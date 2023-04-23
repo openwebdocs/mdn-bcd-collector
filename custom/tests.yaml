@@ -5305,7 +5305,6 @@ javascript:
         __base: |-
           <%javascript.builtins.Intl.Segmenter:segmenter%>
           var instance = segmenter.segment('Que ma joie demeure');
-        '@@iterator': return !!(instance[Symbol.iterator]);
     Iterator:
       __base: |-
         var array = [1, 2, 3];
@@ -5313,7 +5312,6 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
-      '@@iterator': return !!(instance[Symbol.iterator]);
     Object:
       constructor: |-
         var instance = {};
@@ -5331,8 +5329,6 @@ javascript:
           return {result: false, message: 'Int8Array is not defined'};
         }
         var instance = new Int8Array(2);
-      '@@iterator': return !!(instance[Symbol.iterator]);
-      '@@species': return !!(instance[Symbol.species]);
       from: return 'from' in Int8Array;
       name: return 'name' in Int8Array;
       of: return 'of' in Int8Array;
