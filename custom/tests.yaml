@@ -5324,12 +5324,7 @@ javascript:
           return {result: false, message: 'RegExp is not defined'};
         }
         var instance = new RegExp('foo', 'g');
-      input: return 'input' in RegExp;
-      lastMatch: return 'lastMatch' in RegExp;
-      lastParen: return 'lastParen' in RegExp;
-      leftContext: return 'leftContext' in RegExp;
       n: return '$1' in RegExp;
-      rightContext: return 'rightContext' in RegExp;
     TypedArray:
       __base: |-
         if (!('Int8Array' in self)) {
