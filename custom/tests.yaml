@@ -1792,6 +1792,7 @@ api:
   HTMLAudioElement:
     __base: var instance = document.createElement('audio');
     __test: return bcd.testObjectName(instance, 'HTMLAudioElement');
+    Audio: return bcd.testConstructor('Audio');
   HTMLBaseElement:
     __base: var instance = document.createElement('base');
     __test: return bcd.testObjectName(instance, 'HTMLBaseElement');
@@ -2023,6 +2024,7 @@ api:
   HTMLImageElement:
     __base: var instance = document.createElement('img');
     __test: return bcd.testObjectName(instance, 'HTMLImageElement');
+    Image: return bcd.testConstructor('Image');
   HTMLInputElement:
     __base: var instance = document.createElement('input');
     __test: return bcd.testObjectName(instance, 'HTMLInputElement');
@@ -2089,6 +2091,7 @@ api:
   HTMLOptionElement:
     __base: var instance = document.createElement('option');
     __test: return bcd.testObjectName(instance, 'HTMLOptionElement');
+    Option: return bcd.testConstructor('Option');
   HTMLOptionsCollection:
     __base: |-
       var el = document.createElement('select');
