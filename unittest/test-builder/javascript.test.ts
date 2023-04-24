@@ -54,11 +54,11 @@ describe('build (JavaScript)', () => {
         exposure: ['Window']
       },
       'javascript.builtins.Array.@@iterator': {
-        code: '"Symbol" in self && "iterator" in Symbol && "Array" in self && Symbol.iterator in Array.prototype',
+        code: '"Symbol" in self && "iterator" in Symbol && "Array" in self && !!(Array.prototype[Symbol.iterator])',
         exposure: ['Window']
       },
       'javascript.builtins.Array.@@species': {
-        code: '"Symbol" in self && "species" in Symbol && "Array" in self && Symbol.species in Array',
+        code: '"Symbol" in self && "species" in Symbol && "Array" in self && !!(Array[Symbol.species])',
         exposure: ['Window']
       },
       'javascript.builtins.Array.Array': {

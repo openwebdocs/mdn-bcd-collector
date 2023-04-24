@@ -198,7 +198,7 @@ describe('build (common)', () => {
       const test = {property: 'Symbol.iterator', owner: 'DOMMatrixReadOnly'};
       assert.equal(
         compileTestCode(test),
-        '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && Symbol.iterator in DOMMatrixReadOnly.prototype'
+        '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])'
       );
     });
 
