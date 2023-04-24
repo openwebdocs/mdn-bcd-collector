@@ -31,11 +31,6 @@ const copyResources = async () => {
       'browser-logos',
       'firefox.png'
     ],
-    [
-      '@browser-logos/internet-explorer_9-11/internet-explorer_9-11_64x64.png',
-      'browser-logos',
-      'ie.png'
-    ],
     ['@browser-logos/opera/opera_64x64.png', 'browser-logos', 'opera.png'],
     ['@browser-logos/safari/safari_64x64.png', 'browser-logos', 'safari.png'],
     ['@mdi/font/css/materialdesignicons.min.css', 'resources'],
