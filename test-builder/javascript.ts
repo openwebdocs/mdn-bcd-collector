@@ -34,12 +34,13 @@ const build = (customJS) => {
       category += '.' + parts[0];
     }
 
-    // If we're not trying to test the prototype of an object, we should be looking for an exact match
-    const customTest = getCustomTest(
-      bcdPath,
-      category,
-      !path.includes('.prototype')
-    );
+    // We should be looking for an exact match if we're checking for a subfeature not
+    // defined on the object prototype (in other words, static members and functions)
+    const exactMatchNeeded =
+      bcdPath.replace(category, '').split('.').length > 2 &&
+      !path.includes('.prototype');
+
+    const customTest = getCustomTest(bcdPath, category, exactMatchNeeded);
 
     if (customTest.test) {
       tests[bcdPath] = compileTest({
