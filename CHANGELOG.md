@@ -1,5 +1,98 @@
 # mdn-bcd-collector Changelog
 
+## v9.0.3
+
+### Test Changes
+
+#### Changed
+
+- api.AudioParamMap.@@iterator
+- api.BluetoothManufacturerDataMap.@@iterator
+- api.BluetoothServiceDataMap.@@iterator
+- api.CSSFontFeatureValuesMap.@@iterator
+- api.CSSNumericArray.@@iterator
+- api.CSSStyleDeclaration.@@iterator
+- api.CSSTransformValue.@@iterator
+- api.CSSUnparsedValue.@@iterator
+- api.CustomStateSet.@@iterator
+- api.DOMTokenList.@@iterator
+- api.EventCounts.@@iterator
+- api.FileSystemDirectoryHandle.@@asyncIterator
+- api.FontFacePalette.@@iterator
+- api.FontFacePalettes.@@iterator
+- api.FontFaceSet.@@iterator
+- api.FontFaceVariations.@@iterator
+- api.FormData.@@iterator
+- api.GPUSupportedFeatures.@@iterator
+- api.Headers.@@iterator
+- api.Highlight.@@iterator
+- api.HighlightRegistry.@@iterator
+- api.HTMLAudioElement.Audio
+- api.HTMLImageElement.Image
+- api.HTMLOptionElement.Option
+- api.KeyboardLayoutMap.@@iterator
+- api.MediaKeyStatusMap.@@iterator
+- api.MIDIInputMap.@@iterator
+- api.MIDIOutputMap.@@iterator
+- api.NamedFlowMap.@@iterator
+- api.NodeList.@@iterator
+- api.ReadableStream.@@asyncIterator
+- api.RTCStatsReport.@@iterator
+- api.SpeechGrammar
+- api.SpeechGrammarList
+- api.StylePropertyMapReadOnly.@@iterator
+- api.URLSearchParams.@@iterator
+- api.WGSLLanguageFeatures.@@iterator
+- api.XRAnchorSet.@@iterator
+- api.XRHand.@@iterator
+- api.XRInputSourceArray.@@iterator
+- javascript.builtins.Array.@@iterator
+- javascript.builtins.Array.@@species
+- javascript.builtins.Array.@@unscopables
+- javascript.builtins.ArrayBuffer.@@species
+- javascript.builtins.AsyncFunction
+- javascript.builtins.AsyncGenerator
+- javascript.builtins.AsyncGeneratorFunction
+- javascript.builtins.AsyncIterator
+- javascript.builtins.Date.@@toPrimitive
+- javascript.builtins.Error
+- javascript.builtins.Generator.next
+- javascript.builtins.Generator.return
+- javascript.builtins.Generator.throw
+- javascript.builtins.Iterator
+- javascript.builtins.Map.@@iterator
+- javascript.builtins.Map.@@species
+- javascript.builtins.Map.@@toStringTag
+- javascript.builtins.RegExp
+- javascript.builtins.Set.@@iterator
+- javascript.builtins.Set.@@species
+- javascript.builtins.String.@@iterator
+- javascript.builtins.Symbol.@@toPrimitive
+- javascript.builtins.TypedArray
+- javascript.builtins.Intl.Collator
+- javascript.builtins.Intl.DateTimeFormat
+- javascript.builtins.Intl.DisplayNames
+- javascript.builtins.Intl.@@toStringTag
+- javascript.builtins.Intl.ListFormat
+- javascript.builtins.Intl.Locale
+- javascript.builtins.Intl.NumberFormat
+- javascript.builtins.Intl.PluralRules
+- javascript.builtins.Intl.RelativeTimeFormat
+- javascript.builtins.Intl.Segmenter
+- javascript.builtins.Intl.Segments
+- javascript.builtins.WebAssembly.Tag
+
+### Commits
+
+- Add custom tests for SpeechGrammar and SpeechGrammarList
+- Add custom tests for Audio/Image/Option constructors
+- Always use index to get if Symbol is present vs. "in" syntax
+- Fix RegExp feature definitions
+- Require exact custom test match for static members of JS builtins
+- Add custom tests for more JavaScript builtins
+- Add custom test for supportedLocalesOf properties
+- Remove export buttons if XHR is not supported
+
 ## v9.0.2
 
 ### Commits
