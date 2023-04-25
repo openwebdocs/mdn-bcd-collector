@@ -5230,6 +5230,9 @@ javascript:
         return !!instance && "Symbol" in self && "asyncIterator" in Symbol && Symbol.asyncIterator in AsyncIteratorPrototype;
     Error:
       __base: "var instance = new Error('hello world', {cause: 'for testing'});"
+    Generator:
+      __base: <%javascript.builtins.GeneratorFunction:instance%>
+      __test: return !!instance;
     GeneratorFunction:
       __base: |-
         var instance;
@@ -5246,9 +5249,6 @@ javascript:
         }
       __test: return !!instance;
       GeneratorFunction: return !!instance;
-    Generator:
-      __base: <%javascript.builtins.GeneratorFunction:instance%>
-      __test: return !!instance;
     Function:
       name: |-
         function doTheThing() {};
