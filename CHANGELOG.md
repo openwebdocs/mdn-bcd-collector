@@ -1,5 +1,49 @@
 # mdn-bcd-collector Changelog
 
+## v9.0.4
+
+### Test Changes
+
+#### Changed
+
+- api.CSSStyleDeclaration.@@iterator
+- api.DOMTokenList.@@iterator
+- api.FontFaceSet.@@iterator
+- api.FormData.@@iterator
+- api.NodeList.@@iterator
+- api.ReadableStream.@@asyncIterator
+- api.RTCStatsReport.@@iterator
+- api.URLSearchParams.@@iterator
+- javascript.builtins.AsyncFunction
+- javascript.builtins.AsyncGenerator
+- javascript.builtins.AsyncGeneratorFunction
+- javascript.builtins.AsyncIterator
+- javascript.builtins.Error
+- javascript.builtins.Generator.next
+- javascript.builtins.Generator.return
+- javascript.builtins.Generator.throw
+- javascript.builtins.Iterator
+- javascript.builtins.RegExp
+- javascript.builtins.TypedArray
+- javascript.builtins.Intl.Collator
+- javascript.builtins.Intl.DateTimeFormat
+- javascript.builtins.Intl.DisplayNames
+- javascript.builtins.Intl.ListFormat
+- javascript.builtins.Intl.Locale
+- javascript.builtins.Intl.NumberFormat
+- javascript.builtins.Intl.PluralRules
+- javascript.builtins.Intl.RelativeTimeFormat
+- javascript.builtins.Intl.Segmenter
+- javascript.builtins.Intl.Segments
+- javascript.builtins.WebAssembly.Tag
+
+### Commits
+
+- Add .prototype in JavaScript feature list where needed
+- Sort custom tests
+- Fix when exact custom test match is needed for JavaScript features
+- Fix automatic test generation for Symbol
+
 ## v9.0.3
 
 ### Test Changes
