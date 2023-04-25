@@ -317,6 +317,9 @@ const compileTestCode = (test: any): string => {
     return `bcd.testConstructor("${property}");`;
   }
   if (test.property.startsWith('Symbol.') || test.property.startsWith('@@')) {
+    if (test.owner === 'instance') {
+      return `"Symbol" in self && "${property}" in Symbol && !!(${test.owner}[Symbol.${property}])`;
+    }
     return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(
       '.prototype',
       ''
