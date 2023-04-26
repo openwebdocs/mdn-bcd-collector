@@ -490,7 +490,10 @@ const buildIDLMemberTests = (
         case 'symbol':
           // eslint-disable-next-line no-case-declarations
           const symbol = member.name.replace('@@', '');
-          expr = {property: `Symbol.${symbol}`, owner: iface.name};
+          expr = {
+            property: `Symbol.${symbol}`,
+            owner: `${iface.name}.prototype`
+          };
           break;
       }
     }
