@@ -5359,6 +5359,45 @@ javascript:
           var instance = new WebAssembly.Exception(tag, [], {traceStack: true});
         __test: return !!instance;
         stack: return !!instance && 'stack' in instance;
+      Global:
+        __base: "var instance = new WebAssembly.Global({ value: 'i32', mutable: true }, 0);"
+      Instance:
+        __base: |-
+          <%javascript.builtins.WebAssembly.Module:module%>
+          var importObject = {
+            imports: {
+              imported_func(arg) {
+                console.log(arg);
+              },
+            },
+          };
+
+          var promise = module.then(function(m) {
+            return new WebAssembly.Instance(m, importObject);
+          });
+      Memory:
+        __base: |-
+          var instance = new WebAssembly.Memory({
+            initial: 10,
+            maximum: 100,
+          });
+      Module:
+        __base: |-
+          if (!('WebAssembly' in self && 'Module' in WebAssembly)) {
+            return {result: false, message: 'WebAssembly.Module is not defined'};
+          }
+          var promise = fetch('/resources/custom-tests/wasm/simple.wasm')
+            .then(function(response) {
+              return response.arrayBuffer();
+            }).then(function(bytes) {
+              return new WebAssembly.Module(bytes);
+            });
+      Table:
+        __base: |-
+          var instance = new WebAssembly.Table({
+            initial: 2,
+            element: "anyfunc",
+          });
       Tag:
         __base: |-
           if (!('WebAssembly' in self && 'Tag' in WebAssembly)) {

@@ -1066,9 +1066,9 @@
     "WebAssembly.Memory.prototype.buffer": {},
     "WebAssembly.Memory.prototype.grow": {},
     "WebAssembly.Module": {},
-    "WebAssembly.Module.customSections": {},
-    "WebAssembly.Module.exports": {},
-    "WebAssembly.Module.imports": {},
+    "WebAssembly.Module.prototype.customSections": {},
+    "WebAssembly.Module.prototype.exports": {},
+    "WebAssembly.Module.prototype.imports": {},
     "WebAssembly.RuntimeError": {
       "ctor_args": "'message'"
     },
