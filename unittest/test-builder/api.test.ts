@@ -632,7 +632,7 @@ describe('build (API)', () => {
           exposure: ['Window']
         },
         'api.DoubleList.@@iterator': {
-          code: '"Symbol" in self && "iterator" in Symbol && "DoubleList" in self && !!(DoubleList[Symbol.iterator])',
+          code: '"Symbol" in self && "iterator" in Symbol && "DoubleList" in self && !!(DoubleList.prototype[Symbol.iterator])',
           exposure: ['Window']
         },
         'api.DoubleList.entries': {
@@ -667,7 +667,7 @@ describe('build (API)', () => {
           exposure: ['Window']
         },
         'api.ReadableStream.@@asyncIterator': {
-          code: '"Symbol" in self && "asyncIterator" in Symbol && "ReadableStream" in self && !!(ReadableStream[Symbol.asyncIterator])',
+          code: '"Symbol" in self && "asyncIterator" in Symbol && "ReadableStream" in self && !!(ReadableStream.prototype[Symbol.asyncIterator])',
           exposure: ['Window']
         },
         'api.ReadableStream.values': {
@@ -690,7 +690,7 @@ describe('build (API)', () => {
           exposure: ['Window']
         },
         'api.AsyncMap.@@asyncIterator': {
-          code: '"Symbol" in self && "asyncIterator" in Symbol && "AsyncMap" in self && !!(AsyncMap[Symbol.asyncIterator])',
+          code: '"Symbol" in self && "asyncIterator" in Symbol && "AsyncMap" in self && !!(AsyncMap.prototype[Symbol.asyncIterator])',
           exposure: ['Window']
         },
         'api.AsyncMap.values': {
@@ -721,7 +721,7 @@ describe('build (API)', () => {
           exposure: ['Window']
         },
         'api.DoubleMap.@@iterator': {
-          code: '"Symbol" in self && "iterator" in Symbol && "DoubleMap" in self && !!(DoubleMap[Symbol.iterator])',
+          code: '"Symbol" in self && "iterator" in Symbol && "DoubleMap" in self && !!(DoubleMap.prototype[Symbol.iterator])',
           exposure: ['Window']
         },
         'api.DoubleMap.clear': {
@@ -780,7 +780,7 @@ describe('build (API)', () => {
           exposure: ['Window']
         },
         'api.DoubleSet.@@iterator': {
-          code: '"Symbol" in self && "iterator" in Symbol && "DoubleSet" in self && !!(DoubleSet[Symbol.iterator])',
+          code: '"Symbol" in self && "iterator" in Symbol && "DoubleSet" in self && !!(DoubleSet.prototype[Symbol.iterator])',
           exposure: ['Window']
         },
         'api.DoubleSet.add': {
