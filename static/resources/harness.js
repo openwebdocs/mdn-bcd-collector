@@ -464,21 +464,40 @@
    * Test a CSS property for support
    *
    * name (string): The CSS property name
-   * value (string?): The CSS property value
+   * value (string?): The CSS property value (defaults to "inherit")
    *
    * returns (TestResult): Whether the property is supported; if `value` is present,
    *   whether that value is supported with the property
    */
   function testCSSProperty(name, value) {
-    // Use CSS.supports if available
-    if ('CSS' in window && window.CSS.supports) {
-      return window.CSS.supports(name, value || 'inherit');
+    if (!value) {
+      // Default to "inherit"
+      value = 'inherit';
     }
 
-    // Use fallback
+    // Use CSS.supports if available
+    if ('CSS' in window && window.CSS.supports) {
+      return window.CSS.supports(name, value);
+    }
+
+    // Use div.style fallback
     var div = document.createElement('div');
-    div.setProperty(name, value || 'inherit');
-    return div.getPropertyValue(name);
+
+    if ('style' in div) {
+      // Use .setProperty() if supported
+      if ('setProperty' in div.style) {
+        div.style.setProperty(name, value);
+        return div.style.getPropertyValue(name) == value;
+      }
+
+      // Use getter/setter fallback
+      if (name in div.style) {
+        div.style[name] = value;
+        return div.style[name] == value;
+      }
+    }
+
+    return {result: null, message: 'Detection methods are not supported'};
   }
 
   /**
