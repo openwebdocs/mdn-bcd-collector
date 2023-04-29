@@ -1,5 +1,58 @@
 # mdn-bcd-collector Changelog
 
+## v9.1.0
+
+### Test Changes
+
+#### Added
+
+- api.CSSImportRule.supportsText
+- api.InterestGroupScriptRunnerGlobalScope
+- api.VisibilityStateEntry
+- css.properties.scroll-timeline-attachment
+- css.properties.view-timeline-attachment
+
+#### Changed
+
+- api.AudioParamMap.@@iterator
+- api.BluetoothManufacturerDataMap.@@iterator
+- api.BluetoothServiceDataMap.@@iterator
+- api.CSSFontFeatureValuesMap.@@iterator
+- api.CSSNumericArray.@@iterator
+- api.CSSTransformValue.@@iterator
+- api.CSSUnparsedValue.@@iterator
+- api.CustomStateSet.@@iterator
+- api.EventCounts.@@iterator
+- api.FileSystemDirectoryHandle.@@asyncIterator
+- api.FontFacePalette.@@iterator
+- api.FontFacePalettes.@@iterator
+- api.FontFaceVariations.@@iterator
+- api.GPUSupportedFeatures.@@iterator
+- api.Headers.@@iterator
+- api.Highlight.@@iterator
+- api.HighlightRegistry.@@iterator
+- api.KeyboardLayoutMap.@@iterator
+- api.MediaKeyStatusMap.@@iterator
+- api.MIDIInputMap.@@iterator
+- api.MIDIOutputMap.@@iterator
+- api.NamedFlowMap.@@iterator
+- api.StylePropertyMapReadOnly.@@iterator
+- api.WGSLLanguageFeatures.@@iterator
+- api.XRAnchorSet.@@iterator
+- api.XRHand.@@iterator
+- api.XRInputSourceArray.@@iterator
+- javascript.builtins.WebAssembly.Global
+- javascript.builtins.WebAssembly.Instance
+- javascript.builtins.WebAssembly.Memory
+- javascript.builtins.WebAssembly.Module
+- javascript.builtins.WebAssembly.Table
+
+### Commits
+
+- Fix testCSSProperty
+- Update WebAssembly API tests
+- Fix symbol tests for interfaces
+
 ## v9.0.4
 
 ### Test Changes
