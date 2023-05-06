@@ -2699,12 +2699,12 @@ api:
       var instance = reusableInstances.webGL1.getExtension('OES_texture_half_float');
   OES_texture_half_float_linear:
     __resources:
-      - webGL
+      - webGL1
     __base: |-
-      if (!reusableInstances.webGL) {
-        return {result: false, message: 'WebGL is not available'};
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
       };
-      var instance = reusableInstances.webGL.getExtension('OES_texture_half_float_linear');
+      var instance = reusableInstances.webGL1.getExtension('OES_texture_half_float_linear');
   OES_vertex_array_object:
     __resources:
       - webGL1
