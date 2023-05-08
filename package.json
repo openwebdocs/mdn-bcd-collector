@@ -76,7 +76,7 @@
     "@swc/core": "^1.3.56",
     "@swc/helpers": "^0.5.0",
     "@types/mocha": "10.0.1",
-    "@types/node": "20.0.0",
+    "@types/node": "20.1.0",
     "@types/superagent": "^4.1.17",
     "@types/webidl2": "^23.13.6",
     "@types/yargs": "17.0.24",
