@@ -93,7 +93,7 @@
     "chalk-template": "1.0.0",
     "ejs-lint": "2.0.0",
     "enquirer": "2.3.6",
-    "eslint": "8.39.0",
+    "eslint": "8.40.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-prettier": "4.2.1",
