@@ -8,7 +8,7 @@ This service is part of an effort to [assist BCD updates with automation](https:
 
 ## Copyright
 
-© 2023 Gooborg Studios, © 2020-2022 Google LLC, Mozilla Corporation and Gooborg Studios.
+© 2023 Gooborg Studios + various contributors, © 2020-2022 Google LLC, Mozilla Corporation and Gooborg Studios.
 
 This project is under the Apache License 2.0 license. See the LICENSE file for more details.
 
