@@ -1,5 +1,26 @@
 # mdn-bcd-collector Changelog
 
+## v9.1.1
+
+### Test Changes
+
+#### Added
+
+- api.HTMLFencedFrameElement.allow
+- api.XRCompositionLayer.quality
+
+#### Changed
+
+- api.OES_texture_half_float_linear
+
+### Commits
+
+- Update subtitle
+- Abstract test result clearing timeframe
+- Update caveats list
+- OES_texture_half_float_linear is only available in WebGL 1
+- Mention Firefox's bug with CSS property values
+
 ## v9.1.0
 
 ### Test Changes
