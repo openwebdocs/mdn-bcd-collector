@@ -1267,11 +1267,11 @@
     resultValueEl.className = 'result-value result-value-' + resultValue;
     resultValueEl.innerHTML =
       resultValue === 'true'
-        ? 'Loaded'
+        ? '<span class="mdi mdi-check-bold"></span> Loaded'
         : resultValue === 'false'
-        ? 'Not Loaded, Unsupported'
+        ? '<span class="mdi mdi-close-thick"></span> Not Loaded, Unsupported'
         : resultValue === 'null'
-        ? 'Failed to Load'
+        ? '<span class="mdi mdi-exclamation-thick"></span> Failed to Load'
         : resultValue;
     resultSummaryEl.appendChild(resultValueEl);
     resultEl.appendChild(resultSummaryEl);
@@ -1339,11 +1339,11 @@
     resultValueEl.className = 'result-value result-value-' + resultValue;
     resultValueEl.innerHTML =
       resultValue === 'true'
-        ? 'Supported'
+        ? '<span class="mdi mdi-check-bold"></span> Supported'
         : resultValue === 'false'
-        ? 'No Support'
+        ? '<span class="mdi mdi-close-thick"></span> No Support'
         : resultValue === 'null'
-        ? 'Support Unknown'
+        ? '<span class="mdi mdi-help"></span> Support Unknown'
         : resultValue;
     resultSummaryEl.appendChild(resultValueEl);
     resultEl.appendChild(resultSummaryEl);
