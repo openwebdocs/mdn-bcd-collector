@@ -107,6 +107,23 @@ $colors: (
   }
 }
 
+@mixin themedTextGlow($color, $size: 10px, $opacity: 0.75) {
+  text-shadow: 0 0 $size rgba(map-deep-get($colors, $color, 'dark'), $opacity);
+
+  @media (prefers-color-scheme: light) {
+    text-shadow: 0 0 $size
+      rgba(map-deep-get($colors, $color, 'light'), $opacity);
+  }
+}
+
+@mixin themedBoxShadow($color, $size: 10px, $opacity: 0.75) {
+  box-shadow: 0 0 $size rgba(map-deep-get($colors, $color, 'dark'), $opacity);
+
+  @media (prefers-color-scheme: light) {
+    box-shadow: 0 0 $size rgba(map-deep-get($colors, $color, 'light'), $opacity);
+  }
+}
+
 @mixin gradient-base($direction, $color-1, $color-2, $color-3) {
   background: $color-1; /* Old browsers */
   background: -moz-linear-gradient(
@@ -195,10 +212,12 @@ h2 {
 a {
   text-decoration: none;
   @include themedProperty(color, 'link');
-  transition: color 0.2s;
+  @include themedTextGlow('link', 0px);
+  transition: color 0.2s, text-shadow 0.2s;
 
   &:hover {
     @include themedProperty(color, 'link-hover');
+    @include themedTextGlow('link');
   }
 }
 
@@ -212,17 +231,19 @@ select,
 input {
   @include themedProperty(background, 'input-bg');
   @include themedProperty(color, 'input-fg');
+  @include themedBoxShadow('input-bg', 0px);
   border: none;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
   padding: 8px;
 
   &:hover {
     cursor: pointer;
     @include themedProperty(background, 'input-hover-bg');
+    @include themedBoxShadow('input-bg', 15px);
   }
 
   &:disabled,
@@ -281,14 +302,17 @@ hr {
 
 .error-notice {
   @include themedProperty(color, 'error');
+  @include themedTextGlow('error');
 }
 
 .warning-notice {
   @include themedProperty(color, 'warning');
+  @include themedTextGlow('warning');
 }
 
 .success-notice {
   @include themedProperty(color, 'success');
+  @include themedTextGlow('success');
 }
 
 .hidden {
@@ -304,6 +328,7 @@ hr {
 
 #title {
   @include themedProperty(color, 'main');
+  @include themedTextGlow('main', 20px);
   font-family: Montserrat;
   font-size: 36pt;
   font-weight: 500;
@@ -418,6 +443,10 @@ hr {
 #extension-warnings {
   margin-top: 1em;
 
+  h2 {
+    @include themedTextGlow('error', 20px);
+  }
+
   h2,
   h3 {
     @include themedProperty(color, 'error');
@@ -455,10 +484,17 @@ hr {
 
     &.result-value-true {
       @include themedProperty(color, 'success');
+      @include themedTextGlow('success', 10px, 0.5);
     }
 
     &.result-value-false {
       @include themedProperty(color, 'error');
+      @include themedTextGlow('error', 10px, 0.5);
+    }
+
+    &.result-value-null {
+      @include themedProperty(color, 'input-placeholder');
+      @include themedTextGlow('input-placeholder', 10px, 0.5);
     }
   }
 
