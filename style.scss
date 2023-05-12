@@ -59,6 +59,10 @@ $colors: (
     dark: #5e3d8a,
     light: #5e3d8a
   ),
+  input-focus-bg: (
+    dark: #523579,
+    light: #523579
+  ),
   input-disabled-bg: (
     dark: #636363,
     light: #636363
@@ -237,13 +241,27 @@ input {
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
   padding: 8px;
+  outline-color: rgba(0, 0, 0, 0);
+  outline-style: auto;
+  outline-width: 0px;
 
-  &:hover {
+  &:hover,
+  &:hover:focus {
     cursor: pointer;
     @include themedProperty(background, 'input-hover-bg');
     @include themedBoxShadow('input-bg', 15px);
+  }
+
+  &:focus {
+    @include themedProperty(background, 'input-focus-bg');
+    @include themedBoxShadow('input-bg', 15px);
+    @include themedProperty(outline-color, 'main');
+  }
+
+  &:focus-visible {
+    outline-width: 1px;
   }
 
   &:disabled,
