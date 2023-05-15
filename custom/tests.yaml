@@ -413,10 +413,16 @@ api:
     disconnect:
       __additional:
         destination_parameter: |-
+          // XXX testOptionParam doesn't work here
+          return {result: null, message: 'Detection methods are unsupported for this method'};
+
           <%api.AnalyserNode:node2%>
           instance.connect(node2);
           return bcd.testOptionParam(instance, 'disconnect', null, node2);
         output_parameter: |-
+          // XXX testOptionParam doesn't work here
+          return {result: null, message: 'Detection methods are unsupported for this method'};
+
           <%api.AnalyserNode:node2%>
           instance.connect(node2);
           function disconnect(output) {
@@ -424,6 +430,9 @@ api:
           }
           return bcd.testOptionParam(disconnect, null, null, 0);
         input_parameter: |-
+          // XXX testOptionParam doesn't work here
+          return {result: null, message: 'Detection methods are unsupported for this method'};
+
           <%api.AnalyserNode:node2%>
           instance.connect(node2);
           function disconnect(input) {
