@@ -2327,6 +2327,7 @@ api:
       // XXX Obtaining an instance of this interface is much like triggering an event.
       // See http://developer.mozilla.org/docs/Web/API/InterventionReportBody#examples
       return {result: null, message: 'Testing InterventionReportBody is not yet implemented'};
+    toJSON: ''
   KeyboardEvent:
     __base: |-
       var instance;

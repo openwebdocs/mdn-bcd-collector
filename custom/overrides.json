@@ -38,7 +38,7 @@
   "A WebKit prototyping error makes the `length` property undefined on the following interface's prototypes:",
   ["api.DOMStringList.length", "chrome", "1-44", true],
   ["api.DataTransferItemList.length", "chrome", "13-44", true],
-  ["api.FileList.length", "chrome", "1-44", true],
+  ["api.FileList.length", "chrome", "2-44", true],
   ["api.Storage.length", "chrome", "4-44", true],
   "The DataTransfer API is a special event API for drag/drop events containing drag data, so creating an instance of the interface is too challenging.",
   ["api.DataTransfer.dropEffect", "chrome", "3-43", true],
@@ -55,5 +55,14 @@
   ["api.AudioProcessingEvent", "firefox", "25+", true],
   ["api.AudioProcessingEvent.inputBuffer", "firefox", "25+", true],
   ["api.AudioProcessingEvent.outputBuffer", "firefox", "25+", true],
-  ["api.AudioProcessingEvent.playbackTime", "firefox", "25+", true]
+  ["api.AudioProcessingEvent.playbackTime", "firefox", "25+", true],
+  "https://github.com/mdn/browser-compat-data/pull/18985#issuecomment-1461923451",
+  ["api.CredentialsContainer.get.identity_option", "chrome", "105-107", false],
+  "Has partial implementation",
+  [
+    "api.Element.animate.options_pseudoElement_parameter",
+    "chrome",
+    "81-83",
+    false
+  ]
 ]
