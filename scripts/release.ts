@@ -231,18 +231,48 @@ const getGitChanges = async (ctx) => {
 
 const doChangelogUpdate = async (ctx) => {
   const filepath = new URL('../CHANGELOG.md', import.meta.url);
-  const changelog = await fs.readFile(filepath, 'utf8');
-  const idx = changelog.indexOf('##');
-  let newChangelog =
-    changelog.substring(0, idx) +
+  let changelog = await fs.readFile(filepath, 'utf8');
+
+  let newChangelogSection =
     `## v${ctx.newVersion}\n\n` +
     (ctx.testChanges === '\n' ? '' : '### Test Changes\n' + ctx.testChanges) +
     '\n### Commits\n\n' +
     ctx.commits +
-    '\n\n' +
+    '\n\n';
+
+  const idx = changelog.indexOf('##');
+
+  // If we are doing a major version bump, move old changelog results to another file
+  if (ctx.newVersion.endsWith('.0.0')) {
+    const currentMajorVersion = currentVersion.split('.')[0];
+    const olderVersionsHeader = '## Older Versions';
+
+    let oldChangelog =
+      `# mdn-bcd-collector v{currentMajorVersion}.x Changelog\n\n` +
+      changelog.substring(idx, changelog.indexOf(olderVersionsHeader));
+    oldChangelog = prettier.format(oldChangelog, {parser: 'markdown'});
+    await fs.writeFile(
+      new URL(`../changelog/v{currentMajorVersion}.md`, import.meta.url),
+      oldChangelog,
+      'utf8'
+    );
+
+    // Move the Older Versions list to new changelog
+    changelog =
+      '# mdn-bcd-collector Changelog\n\n## Older Versions\n\n' +
+      `- [v{currentMajorVersion}.x](../changelog/v{currentMajorVersion}.md)` +
+      changelog.substring(
+        changelog.indexOf(olderVersionsHeader) + olderVersionsHeader.length + 2,
+        changelog.length
+      );
+  }
+
+  changelog =
+    changelog.substring(0, idx) +
+    newChangelogSection +
     changelog.substring(idx, changelog.length);
-  newChangelog = prettier.format(newChangelog, {parser: 'markdown'});
-  await fs.writeFile(filepath, newChangelog, 'utf8');
+  changelog = prettier.format(changelog, {parser: 'markdown'});
+  await fs.writeFile(filepath, changelog, 'utf8');
 };
 
 const doVersionBump = async (newVersion) => {
