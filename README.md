@@ -22,75 +22,7 @@ npm install
 
 ## Updating BCD using the results
 
-Given a checkout of [BCD](https://github.com/mdn/browser-compat-data) at `../browser-compat-data` and a checkout of [collector results](https://github.com/GooborgStudios/mdn-bcd-results) at `../mdn-bcd-results`, `npm run update-bcd` can be used to update existing BCD entries.
-
-If you have results from a browser not yet in BCD, first add the release in `../browser-compat-data/browsers/`. This is because the full version (from the `User-Agent` header) is mapped to BCD browser release as part of the processing.
-
-Updating all data:
-
-```sh
-npm run update-bcd
-```
-
-Updating a specific category:
-
-```sh
-npm run update-bcd -- --category=css.properties
-npm run update-bcd -- -c css.properties
-```
-
-Updating a specific entry, ex. the `appendChild()` method on `Node`:
-
-```sh
-npm run update-bcd -- --path=api.Node.appendChild
-npm run update-bcd -- -p api.Node.appendChild
-```
-
-Updating a specific feature and its children, ex. the `Document` API (also updates `api.Document.*`, ex. `api.Document.body`):
-
-```sh
-npm run update-bcd -- --path=api.Document
-npm run update-bcd -- -p api.Document
-```
-
-Updating paths matched with wildcards, ex. everything related to WebRTC:
-
-```sh
-npm run update-bcd -- --path=api.RTC*
-npm run update-bcd -- -p api.RTC*
-```
-
-Only update BCD when we have an exact version number and skip any ranges:
-
-```sh
-npm run update-bcd -- --exact-only
-npm run update-bcd -- -e
-```
-
-The `--browser` argument can be used to only update data for one or more browsers:
-
-```sh
-npm run update-bcd -- --browser=safari --browser=safari_ios
-npm run update-bcd -- -b safari -b safari_ios
-```
-
-The `--release` arguments can be used to only update data for a specific browser release, ex. Firefox 84:
-
-```sh
-npm run update-bcd -- --browser=firefox --release=84
-npm run update-bcd -- -b firefox -r 84
-```
-
-This will only make changes that set either `version_added` or `version_removed` to "84".
-
-### Custom ranged version format
-
-When the results don't have enough data to determine an exact version, ranges which aren't valid in BCD may be added:
-
-- "≤N" for any release, not just the ranged versions allowed by BCD.
-- "M> ≤N" when a feature is _not_ in M and _is_ in N, but there are releases between the two for which support is unknown.
-
-In both cases, the uncertainty has to be resolved by hand before submitting the data to BCD.
+See [docs/update-bcd.md](./docs/update-bcd.md) for information on how to use the `update-bcd` script.
 
 ## Reviewing BCD changes
 
