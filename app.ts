@@ -243,8 +243,22 @@ app.get('/changelog', async (req, res) => {
     new URL('./CHANGELOG.md', import.meta.url),
     'utf8'
   );
-  const changelog = marked.parse(fileData);
-  res.render('changelog', {changelog});
+  res.render('md', {md: marked.parse(fileData)});
+});
+
+app.get('/docs/*', async (req, res) => {
+  const filepath = new URL(`./docs/${req.params['0']}.md`, import.meta.url);
+  if (!fs.existsSync(filepath)) {
+    res.status(404).render('error', {
+      title: 'Page Not Found',
+      message: 'The requested page was not found.',
+      url: req.url
+    });
+    return;
+  }
+
+  const fileData = await fs.readFile(filepath, 'utf8');
+  res.render('md', {md: marked.parse(fileData)});
 });
 
 /* c8 ignore start */
