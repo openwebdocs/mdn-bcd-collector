@@ -39,14 +39,18 @@ See the LICENSE file for copyright details
     <link rel="stylesheet" type="text/css" href="/resources/materialdesignicons.min.css">
   </head>
   <body>
+    <nav id="navbar">
+      <a href="/"><span class="mdi mdi-home"> Home</span></a>
+      <a href="https://github.com/GooborgStudios/mdn-bcd-collector"><span class="mdi mdi-github"> GitHub</span></a>
+      <a href="/about"><span class="mdi mdi-information"> About</span></a>
+      <a href="/changelog">v<%- appVersion %></a>
+    </nav>
+
     <%- body %>
 
     <footer>
       <p>Made with <span class="mdi mdi-heart"></span> by <a href="https://www.queengoob.org">@queengooborg</a> and <a href="https://foolip.org">@foolip</a><br />
       Forked and maintained by <a href="https://www.gooborg.com">Gooborg Studios</a> (@queengooborg)</p><br />
-      <p><a href="/changelog">v<%- appVersion %></a></p>
-      <a href="https://github.com/GooborgStudios/mdn-bcd-collector"><span class="mdi mdi-github"> GitHub</span></a>
-      <a href="/"><span class="mdi mdi-home"> Home</span></a>
       <%- include('browserinfo') %>
     </footer>
 

@@ -292,6 +292,32 @@ input {
   }
 }
 
+nav#navbar {
+  display: block;
+  @include gradient(
+    180deg,
+    'background-3' 0%,
+    'background-3' 75%,
+    transparent 100%
+  );
+  margin: -8px;
+  padding: 0.5em;
+  padding-bottom: 0.75em;
+
+  a {
+    margin: 0 0.1em;
+  }
+
+  a:first-child {
+    margin-left: 0;
+  }
+
+  a:last-child {
+    float: right;
+    margin-right: 0;
+  }
+}
+
 footer {
   display: block;
   text-align: center;
