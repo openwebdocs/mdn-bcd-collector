@@ -168,6 +168,21 @@ marked.use(
   })
 );
 
+// Markdown renderer
+const renderMarkdown = async (filepath, req, res) => {
+  if (!fs.existsSync(filepath)) {
+    res.status(404).render('error', {
+      title: 'Page Not Found',
+      message: 'The requested page was not found.',
+      url: req.url
+    });
+    return;
+  }
+
+  const fileData = await fs.readFile(filepath, 'utf8');
+  res.render('md', {md: marked.parse(fileData)});
+};
+
 // Backend API
 
 app.post('/api/get', (req, res) => {
@@ -252,37 +267,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', async (req, res) => {
-  const fileData = await fs.readFile(
-    new URL('./ABOUT.md', import.meta.url),
-    'utf8'
-  );
-  res.render('md', {md: marked.parse(fileData)});
+  await renderMarkdown(new URL('./ABOUT.md', import.meta.url), req, res);
 });
 
 app.get('/changelog', async (req, res) => {
-  const fileData = await fs.readFile(
-    new URL('./CHANGELOG.md', import.meta.url),
-    'utf8'
+  await renderMarkdown(new URL('./CHANGELOG.md', import.meta.url), req, res);
   );
-  res.render('md', {md: marked.parse(fileData)});
 });
 
 app.get('/docs/*', async (req, res) => {
-  const filepath = new URL(
-    `./docs/${req.params['0'].replace('.md', '')}.md`,
-    import.meta.url
+  await renderMarkdown(
+    new URL(`./docs/${req.params['0']}`, import.meta.url),
+    req,
+    res
   );
-  if (!fs.existsSync(filepath)) {
-    res.status(404).render('error', {
-      title: 'Page Not Found',
-      message: 'The requested page was not found.',
-      url: req.url
-    });
-    return;
-  }
-
-  const fileData = await fs.readFile(filepath, 'utf8');
-  res.render('md', {md: marked.parse(fileData)});
 });
 
 /* c8 ignore start */
