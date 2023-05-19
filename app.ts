@@ -268,7 +268,10 @@ app.get('/changelog', async (req, res) => {
 });
 
 app.get('/docs/*', async (req, res) => {
-  const filepath = new URL(`./docs/${req.params['0']}.md`, import.meta.url);
+  const filepath = new URL(
+    `./docs/${req.params['0'].replace('.md', '')}.md`,
+    import.meta.url
+  );
   if (!fs.existsSync(filepath)) {
     res.status(404).render('error', {
       title: 'Page Not Found',
