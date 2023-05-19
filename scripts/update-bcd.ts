@@ -482,8 +482,7 @@ export const update = (
       // our data is not older than BCD (ex. BCD says 79 but we have results for 40-78)
       if (
         inferredStatement.version_added === false &&
-        typeof simpleStatement.version_added === 'string' &&
-        simpleStatement.version_added !== 'preview'
+        typeof simpleStatement.version_added === 'string'
       ) {
         let latestNonNullVersion = '';
 
@@ -504,6 +503,7 @@ export const update = (
         }
 
         if (
+          simpleStatement.version_added === 'preview' ||
           compareVersions(
             latestNonNullVersion,
             simpleStatement.version_added.replace('≤', ''),
