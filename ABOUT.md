@@ -19,7 +19,13 @@ The collector has two primary parts:
 
 The workflow for the collector's process looks something like this:
 
-(XXX Add flowchart...)
+- In the browser...
+  - The collector's website is opened
+  - The "Run" button is clicked to run all of the tests
+  - Once tests are completed, they are exported
+  - Rinse and repeat for every browser and browser version results are desired for
+- After running through all browser and browser versions...
+  - The `update-bcd` script is run to create changes to BCD
 
 ## How to Use
 
@@ -30,7 +36,7 @@ The collector can be used to both:
 
 ### Runing tests in the browser
 
-Tests may be run in the local browser to determine what is supported and what is not. (XXX Write me...)
+Tests may be run in the local browser to determine what is supported and what is not. Head to the homepage to start running tests.
 
 ### Updating BCD using the results
 
