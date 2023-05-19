@@ -619,7 +619,7 @@ export const main = async (
   }
 
   const bcdFiles = (await loadJsonFiles(
-    filter.category.map((cat) => path.join(BCD_DIR, ...cat.split('.')))
+    CATEGORIES.map((cat) => path.join(BCD_DIR, ...cat.split('.')))
   )) as {[key: string]: Identifier};
 
   const reports = Object.values(await loadJsonFiles(reportPaths)) as Report[];
@@ -698,6 +698,12 @@ if (esMain(import.meta)) {
         });
     }
   );
+
+  if (argv.category) {
+    logger.warn(
+      `The -c/--category argument is deprecated.  Use -p/--path instead.`
+    );
+  }
 
   await main(argv.reports, argv, browsers, overrides);
 }
