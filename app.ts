@@ -238,6 +238,14 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/about', async (req, res) => {
+  const fileData = await fs.readFile(
+    new URL('./ABOUT.md', import.meta.url),
+    'utf8'
+  );
+  res.render('md', {md: marked.parse(fileData)});
+});
+
 app.get('/changelog', async (req, res) => {
   const fileData = await fs.readFile(
     new URL('./CHANGELOG.md', import.meta.url),
