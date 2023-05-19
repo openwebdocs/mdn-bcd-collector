@@ -16,13 +16,13 @@ See the LICENSE file for copyright details
   <h2>Run Tests</h2>
   <form id="test-form" action="/api/get" method="post">
     <div id="test-entry">
-      <button type="submit" id="start"><span class="mdi mdi-play"></span> Run</button>
       <datalist id="tests">
         <% tests.forEach(function(test) { %>
           <option value="<%- test %>"></option>
         <% }); %>
       </datalist>
       <input id="test-selection" name="testSelection" list="tests" placeholder="All Tests">
+      <button type="submit" id="start"><span class="mdi mdi-play"></span> Run</button>
     </div>
     <br>
     <div id="limit-exposure-box">
