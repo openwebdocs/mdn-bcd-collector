@@ -272,6 +272,13 @@ app.get('/about', async (req, res) => {
 
 app.get('/changelog', async (req, res) => {
   await renderMarkdown(new URL('./CHANGELOG.md', import.meta.url), req, res);
+});
+
+app.get('/changelog/*', async (req, res) => {
+  await renderMarkdown(
+    new URL(`./changelog/${req.params[0]}`, import.meta.url),
+    req,
+    res
   );
 });
 
