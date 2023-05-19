@@ -7,6 +7,7 @@
 //
 
 @use 'sass:map';
+@use 'sass:list';
 
 // Variables, Functions, Mixins
 
@@ -89,95 +90,100 @@ $colors: (
   )
 );
 
-/// Map deep get - https://css-tricks.com/snippets/sass/deep-getset-maps/
-/// @author Kitty Giraudel
-/// @access public
-/// @param {Map} $map - Map
-/// @param {Arglist} $keys - Key chain
-/// @return {*} - Desired value
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map.get($map, $key);
-  }
-  @return $map;
+@function getKeyInMap($map, $nth) {
+  @return list.nth((list.nth($map, $nth)), 1);
 }
-/// End Map deep get
+
+@function getValueInMap($map, $nth) {
+  @return list.nth((list.nth($map, $nth)), 2);
+}
 
 @mixin themedProperty($property, $color, $opacity: 1) {
-  #{$property}: rgba(map-deep-get($colors, $color, 'dark'), $opacity);
+  #{$property}: rgba(map.get($colors, $color, 'dark'), $opacity);
 
   @media (prefers-color-scheme: light) {
-    #{$property}: rgba(map-deep-get($colors, $color, 'light'), $opacity);
+    #{$property}: rgba(map.get($colors, $color, 'light'), $opacity);
   }
 }
 
 @mixin themedTextGlow($color, $size: 10px, $opacity: 0.75) {
-  text-shadow: 0 0 $size rgba(map-deep-get($colors, $color, 'dark'), $opacity);
+  text-shadow: 0 0 $size rgba(map.get($colors, $color, 'dark'), $opacity);
 
   @media (prefers-color-scheme: light) {
-    text-shadow: 0 0 $size
-      rgba(map-deep-get($colors, $color, 'light'), $opacity);
+    text-shadow: 0 0 $size rgba(map.get($colors, $color, 'light'), $opacity);
   }
 }
 
 @mixin themedBoxShadow($color, $size: 10px, $opacity: 0.75) {
-  box-shadow: 0 0 $size rgba(map-deep-get($colors, $color, 'dark'), $opacity);
+  box-shadow: 0 0 $size rgba(map.get($colors, $color, 'dark'), $opacity);
 
   @media (prefers-color-scheme: light) {
-    box-shadow: 0 0 $size rgba(map-deep-get($colors, $color, 'light'), $opacity);
+    box-shadow: 0 0 $size rgba(map.get($colors, $color, 'light'), $opacity);
   }
 }
 
-@mixin gradient-base($direction, $color-1, $color-2, $color-3) {
-  background: $color-1; /* Old browsers */
+@mixin gradient-base($direction, $gradient-colors) {
+  background: getKeyInMap($gradient-colors, 1); /* Old browsers */
   background: -moz-linear-gradient(
     $direction,
-    $color-1 0%,
-    $color-2 90%,
-    $color-3 100%
+    list.zip($gradient-colors)
   ); /* FF3.6-15 */
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    right top,
-    color-stop(0%, $color-1),
-    color-stop(90%, $color-2),
-    color-stop(100%, $color-3)
-  ); /* Chrome4-9,Safari4-5 */
   background: -webkit-linear-gradient(
     $direction,
-    $color-1 0%,
-    $color-2 90%,
-    $color-3 100%
+    list.zip($gradient-colors)
   ); /* Chrome10-25,Safari5.1-6 */
   background: -o-linear-gradient(
     $direction,
-    $color-1 0%,
-    $color-2 90%,
-    $color-3 100%
+    list.zip($gradient-colors)
   ); /* Opera 11.10-11.50 */
   background: linear-gradient(
     $direction,
-    $color-1 0%,
-    $color-2 90%,
-    $color-3 100%
+    list.zip($gradient-colors)
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
-@mixin gradient($direction, $color-1, $color-2, $color-3) {
+@function map-gradient-colors($gradient-colors) {
+  $dark-colors: ();
+  $light-colors: ();
+
+  @each $key, $value in $gradient-colors {
+    $color: map.get($colors, $key) or
+      (
+        dark: $key,
+        light: $key
+      );
+
+    @if $value {
+      $dark-colors: list.append($dark-colors, map.get($color, 'dark') $value);
+      $light-colors: list.append(
+        $light-colors,
+        map.get($color, 'light') $value
+      );
+    } @else {
+      $dark-colors: list.append($dark-colors, map.get($color, 'dark'));
+      $light-colors: list.append($light-colors, map.get($color, 'light'));
+    }
+  }
+
+  $generated-colors: (
+    dark: $dark-colors,
+    light: $light-colors
+  );
+
+  @return $generated-colors;
+}
+
+@mixin gradient($direction, $gradient-colors...) {
+  $generated-colors: map-gradient-colors($gradient-colors);
   @include gradient-base(
     $direction,
-    map-deep-get($colors, $color-1, 'dark'),
-    map-deep-get($colors, $color-2, 'dark'),
-    map-deep-get($colors, $color-3, 'dark')
+    list.zip(map.get($generated-colors, 'dark'))
   );
 
   @media (prefers-color-scheme: light) {
     @include gradient-base(
       $direction,
-      map-deep-get($colors, $color-1, 'light'),
-      map-deep-get($colors, $color-2, 'light'),
-      map-deep-get($colors, $color-3, 'light')
+      list.zip(map.get($generated-colors, 'light'))
     );
   }
 }
@@ -197,7 +203,12 @@ html {
 body {
   font-family: 'Roboto', Arial, sans-serif;
   @include themedProperty(color, 'text');
-  @include gradient(15deg, 'background', 'background-2', 'background-3');
+  @include gradient(
+    15deg,
+    'background' 0%,
+    'background-2' 90%,
+    'background-3' 100%
+  );
   min-height: 100vh;
   margin: 0;
   padding: 8px;
