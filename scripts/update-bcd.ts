@@ -661,13 +661,6 @@ if (esMain(import.meta)) {
           array: true,
           default: ['../mdn-bcd-results/']
         })
-        .option('category', {
-          alias: 'c',
-          describe: 'The BCD categories to update',
-          type: 'array',
-          choices: CATEGORIES,
-          default: CATEGORIES
-        })
         .option('path', {
           alias: 'p',
           describe:
@@ -698,12 +691,6 @@ if (esMain(import.meta)) {
         });
     }
   );
-
-  if (argv.category) {
-    logger.warn(
-      `The -c/--category argument is deprecated.  Use -p/--path instead.`
-    );
-  }
 
   await main(argv.reports, argv, browsers, overrides);
 }
