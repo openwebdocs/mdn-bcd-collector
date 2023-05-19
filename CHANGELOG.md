@@ -1042,11 +1042,11 @@ Reusable instances have gotten some nice updates as well. They can be callbacks,
 
 ## Older Versions
 
-- [v8.x](../changelog/v8.md)
-- [v7.x](../changelog/v7.md)
-- [v6.x](../changelog/v6.md)
-- [v5.x](../changelog/v5.md)
-- [v4.x](../changelog/v4.md)
-- [v3.x](../changelog/v3.md)
-- [v2.x](../changelog/v2.md)
-- [v1.x](../changelog/v1.md)
+- [v8.x](./changelog/v8.md)
+- [v7.x](./changelog/v7.md)
+- [v6.x](./changelog/v6.md)
+- [v5.x](./changelog/v5.md)
+- [v4.x](./changelog/v4.md)
+- [v3.x](./changelog/v3.md)
+- [v2.x](./changelog/v2.md)
+- [v1.x](./changelog/v1.md)
