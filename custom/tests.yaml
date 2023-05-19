@@ -5358,6 +5358,7 @@ javascript:
       from: return 'from' in Int8Array;
       name: return 'name' in Int8Array;
       of: return 'of' in Int8Array;
+      '@@species': return "Symbol" in self && "species" in Symbol && !!Int8Array[Symbol.species];
     WebAssembly:
       Exception:
         __base: |-
