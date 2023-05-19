@@ -1127,6 +1127,7 @@ api:
       // XXX Obtaining an instance of this interface is much like triggering an event.
       // See http://developer.mozilla.org/docs/Web/API/DeprecationReportBody#examples
       return {result: null, message: 'Testing DeprecationReportBody is not yet implemented'};
+    toJSON: ''
   DeviceMotionEvent:
     __base: |-
       var instance;
