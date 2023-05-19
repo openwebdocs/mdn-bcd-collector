@@ -233,7 +233,7 @@ const doChangelogUpdate = async (ctx) => {
   const filepath = new URL('../CHANGELOG.md', import.meta.url);
   let changelog = await fs.readFile(filepath, 'utf8');
 
-  let newChangelogSection =
+  const newChangelogSection =
     `## v${ctx.newVersion}\n\n` +
     (ctx.testChanges === '\n' ? '' : '### Test Changes\n' + ctx.testChanges) +
     '\n### Commits\n\n' +
@@ -248,11 +248,11 @@ const doChangelogUpdate = async (ctx) => {
     const olderVersionsHeader = '## Older Versions';
 
     let oldChangelog =
-      `# mdn-bcd-collector v{currentMajorVersion}.x Changelog\n\n` +
+      `# mdn-bcd-collector v${currentMajorVersion}.x Changelog\n\n` +
       changelog.substring(idx, changelog.indexOf(olderVersionsHeader));
     oldChangelog = prettier.format(oldChangelog, {parser: 'markdown'});
     await fs.writeFile(
-      new URL(`../changelog/v{currentMajorVersion}.md`, import.meta.url),
+      new URL(`../changelog/v${currentMajorVersion}.md`, import.meta.url),
       oldChangelog,
       'utf8'
     );
@@ -260,7 +260,7 @@ const doChangelogUpdate = async (ctx) => {
     // Move the Older Versions list to new changelog
     changelog =
       '# mdn-bcd-collector Changelog\n\n## Older Versions\n\n' +
-      `- [v{currentMajorVersion}.x](../changelog/v{currentMajorVersion}.md)` +
+      `- [v${currentMajorVersion}.x](../changelog/v${currentMajorVersion}.md)` +
       changelog.substring(
         changelog.indexOf(olderVersionsHeader) + olderVersionsHeader.length + 2,
         changelog.length
