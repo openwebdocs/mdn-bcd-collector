@@ -204,6 +204,13 @@ export const getSupportMatrix = (
       for (const v of versionMap.keys()) {
         versionMap.set(v, supported);
       }
+    } else if (version.includes('+')) {
+      // Browser versions from x onwards (inclusive)
+      for (const v of versionMap.keys()) {
+        if (compareVersions(version.replace('+', ''), v, '<=')) {
+          versionMap.set(v, supported);
+        }
+      }
     } else if (version.includes('-')) {
       // Browser versions between x and y (inclusive)
       const versions = version.split('-');
