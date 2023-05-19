@@ -1,5 +1,90 @@
 # mdn-bcd-collector Changelog
 
+## v9.2.0
+
+## Notable changes
+
+- New page styling; styling and design updates have been made to reflect the company that maintains this project
+- More icons, improving aspects of accessibility
+- New about page better describing the project and how to use it
+
+### Test Changes
+
+#### Added
+
+- api.Navigator.storageBuckets
+- api.PerformanceResourceTiming.firstInterimResponseStart
+- api.SharedStorage
+- api.SharedStorageOperation
+- api.SharedStorageRunOperation
+- api.SharedStorageSelectURLOperation
+- api.SharedStorageWorklet
+- api.SharedStorageWorkletGlobalScope
+- api.StorageBucket
+- api.StorageBucketManager
+- api.WindowSharedStorage
+- api.WorkerNavigator.storageBuckets
+- api.WorkletSharedStorage
+- api.XRFrame.detectedMeshs
+- api.XRMesh
+- api.XRMeshSet
+
+#### Removed
+
+- css.properties.scroll-start
+- css.properties.scroll-start-block
+- css.properties.scroll-start-inline
+- css.properties.scroll-start-target
+- css.properties.scroll-start-x
+- css.properties.scroll-start-y
+
+#### Changed
+
+- api.AudioNode.disconnect.destination_parameter
+- api.AudioNode.disconnect.output_parameter
+- api.AudioNode.disconnect.input_parameter
+- javascript.builtins.TypedArray.@@species
+- javascript.builtins.WebAssembly.Module.customSections
+- javascript.builtins.WebAssembly.Module.exports
+- javascript.builtins.WebAssembly.Module.imports
+
+### Commits
+
+- Fix errors
+- Update footer to include copyright info
+- Update About page to include missing details
+- Mention Gooborg Studios by name in title
+- Remove second version directly underneath version in navbar
+- Rearrange nav bar
+- Move old changelog during release process
+- Add support for rendering older changelogs
+- Create common Markdown renderer function
+- Separate changelogs of older major versions
+- Update styling
+- Allow .md in docs URLs
+- Move Run button to other side
+- Highlight codeblocks in Markdown files
+- Add an About page
+- Move update-bcd explanation to its own file
+- Deprecate --category parameter
+- Add a navigation bar
+- Tracked members of WebAssembly.Module are not on the prototype
+- Add custom test for TypedArray.@@species
+- Add rendering for any Markdown file in docs/ folder
+- Overhaul gradient function to allow for more customization
+- Run npm update
+- Disable custom tests for AudioNode.disconnect parameters
+- Improve styling for inputs/buttons
+- Add glowing effects to various parts of the website
+- Don't use error notice on section that's not for an error
+- Improve styling on results page
+- Add icons to test results
+- Add vertical margin to all paper elements
+- Add a small "about" blurb
+- Update copyright notice to mention various contributors
+- Add/update icons
+- Format HTML
+
 ## v9.1.1
 
 ### Test Changes
