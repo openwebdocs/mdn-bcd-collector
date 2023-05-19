@@ -50,5 +50,10 @@
   ["api.HTMLAnchorElement.referrerPolicy", "chrome", "52", true],
   ["api.HTMLAreaElement.referrerPolicy", "chrome", "52", true],
   ["api.HTMLIFrameElement.referrerPolicy", "chrome", "52", true],
-  ["api.HTMLImageElement.referrerPolicy", "chrome", "52", true]
+  ["api.HTMLImageElement.referrerPolicy", "chrome", "52", true],
+  "In Firefox, the AudioProcessingEvent API is not exposed and there is no way to synthetically create the event.",
+  ["api.AudioProcessingEvent", "firefox", "25-200", true],
+  ["api.AudioProcessingEvent.inputBuffer", "firefox", "25-200", true],
+  ["api.AudioProcessingEvent.outputBuffer", "firefox", "25-200", true],
+  ["api.AudioProcessingEvent.playbackTime", "firefox", "25-200", true]
 ]
