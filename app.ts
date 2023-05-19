@@ -17,7 +17,9 @@ import esMain from 'es-main';
 import express from 'express';
 import {expressCspHeader, INLINE, SELF, EVAL} from 'express-csp-header';
 import cookieParser from 'cookie-parser';
-import * as marked from 'marked';
+import {marked} from 'marked';
+import {markedHighlight} from 'marked-highlight';
+import hljs from 'highlight.js';
 import uniqueString from 'unique-string';
 import expressLayouts from 'express-ejs-layouts';
 import yargs from 'yargs';
@@ -154,6 +156,17 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// Code highlighting for Markdown files
+marked.use(
+  markedHighlight({
+    langPrefix: 'hljs language-',
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, {language}).value;
+    }
+  })
+);
 
 // Backend API
 

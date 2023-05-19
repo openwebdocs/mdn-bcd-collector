@@ -37,7 +37,9 @@ const copyResources = async () => {
     ['@mdi/font/fonts/materialdesignicons-webfont.eot', 'fonts'],
     ['@mdi/font/fonts/materialdesignicons-webfont.ttf', 'fonts'],
     ['@mdi/font/fonts/materialdesignicons-webfont.woff', 'fonts'],
-    ['@mdi/font/fonts/materialdesignicons-webfont.woff2', 'fonts']
+    ['@mdi/font/fonts/materialdesignicons-webfont.woff2', 'fonts'],
+    ['highlight.js/styles/stackoverflow-dark.css', 'resources/highlight.js'],
+    ['highlight.js/styles/stackoverflow-light.css', 'resources/highlight.js']
   ];
   for (const [srcInModules, destInGenerated, newFilename] of resources) {
     const src = fileURLToPath(
