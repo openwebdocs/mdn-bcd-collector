@@ -219,8 +219,8 @@ body {
 }
 
 h1,
-h2 {
-  text-align: center;
+h2,
+h3 {
   margin-top: 0;
 }
 
@@ -301,6 +301,7 @@ nav#navbar {
     transparent 100%
   );
   margin: -8px;
+  margin-bottom: 1em;
   padding: 0.5em;
   padding-bottom: 0.75em;
 
@@ -440,6 +441,7 @@ hr {
 }
 
 #supported-browsers {
+  text-align: center;
   margin-top: 2em;
   padding-top: 0.5em;
   padding-bottom: 1em;
