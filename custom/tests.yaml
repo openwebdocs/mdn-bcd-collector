@@ -4876,6 +4876,12 @@ api:
     __base: |-
       var el = document.getElementById('resource-video-blank');
       var instance = el.videoTracks;
+  VideoPlaybackQuality:
+    __resources:
+      - video-blank
+    __base: |-
+      var el = document.getElementById('resource-video-blank');
+      var instance = el.getVideoPlaybackQuality();
   VTTCue:
     __resources:
       - video-blank
