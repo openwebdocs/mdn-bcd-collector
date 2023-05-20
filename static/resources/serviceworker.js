@@ -10,7 +10,10 @@
 
 self.importScripts('harness.js');
 
+var installEvent = null;
+
 self.addEventListener('install', function (event) {
+  installEvent = event;
   var promiseChain = caches.open('test-cache').then(function (openCache) {
     return openCache.put(new Request(''), new Response(''));
   });

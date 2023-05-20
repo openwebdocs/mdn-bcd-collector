@@ -2352,12 +2352,17 @@ api:
         return {result: false, message: 'navigator.ink.requestPresenter() is not defined'};
       }
       var promise = navigator.ink.requestPresenter();
+  InputDeviceInfo:
+    __base: <%api.MediaDeviceInfo:instance%>
   InstallEvent:
     __base: |-
-      if (!('InstallEvent' in self)) {
-        return {result: false, message: 'InstallEvent is not defined'};
-      }
-      var instance = new InstallEvent('install');
+      // During the installation of the service worker, we set an "installEvent" global variable so that we may easily reuse it here:
+      //   var installEvent = null;
+      //   self.addEventListener('install', function (event) {
+      //     installEvent = event;
+      //   });
+
+      var instance = installEvent;
   InterventionReportBody:
     __base: |-
       // XXX Obtaining an instance of this interface is much like triggering an event.
