@@ -2163,12 +2163,27 @@ api:
     add:
       __additional:
         index_before_parameter: |-
-          instance.add(document.createElement("option"));
-          instance.add(document.createElement("option"));
-          function add(before) {
-            instance.add(document.createElement("option"), before);
+          var opt1 = document.createElement("option");
+          opt1.value = "1";
+          opt1.text = "Option: Value 1";
+          instance.add(opt1);
+
+          var opt2 = document.createElement("option");
+          opt2.value = "2";
+          opt2.text = "Option: Value 2";
+          instance.add(opt2);
+
+          var opt3 = document.createElement("option");
+          opt3.value = "3";
+          opt3.text = "Option: Value 3";
+
+          try {
+            instance.add(opt3, 1);
+
+            return instance.options[1] === opt3;
+          } catch(e) {
+            return {result: false, message: e.message};
           }
-          return bcd.testOptionParam(add, null, null, 1);
   HTMLShadowElement:
     __base: var instance = document.createElement('shadow');
     __test: return bcd.testObjectName(instance, 'HTMLShadowElement');
