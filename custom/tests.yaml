@@ -3051,6 +3051,13 @@ api:
       var instance = new RTCDTMFToneChangeEvent('tonechange', {tone: ''});
   RTCIceCandidate:
     __base: "var instance = new RTCIceCandidate({candidate: 'candidate:4234997325 1 udp 2043278322 192.168.0.56 44323 typ host', sdpMid: ''});"
+  RTCIdentityAssertion:
+    __base: |-
+      <%api.RTCPeerConnection:rpc%>
+      if (!('getIdentityAssertion' in rpc)) {
+        return {result: false, message: 'RTCPeerConnection.prototype.getIdentityAssertion is not defined'};
+      }
+      var promise = rpc.getIdentityAssertion();
   RTCPeerConnection:
     __base: |-
       /* Firefox briefly defines RTCPeerConnection in older versions, but it is not a valid constructor until later versions. */
