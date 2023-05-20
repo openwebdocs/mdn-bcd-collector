@@ -1132,7 +1132,7 @@ api:
     __base: |-
       var instance;
       try {
-        instance = new DeviceMotionEvent('devicemotion');
+        instance = new DeviceMotionEvent('devicemotion', {acceleration: {x: 1, y: 1, z: 1}, rotationRate: {alpha: 1, beta: 1, gamma: 1}});
       } catch(e) {
         try {
           instance = document.createEvent('DeviceMotionEvent');
@@ -1143,6 +1143,14 @@ api:
           throw e;
         }
       }
+  DeviceMotionEventAcceleration:
+    __base: |-
+      <%api.DeviceMotionEvent:event%>
+      var instance = event.acceleration;
+  DeviceMotionEventRotationRate:
+    __base: |-
+      <%api.DeviceMotionEvent:event%>
+      var instance = event.rotationRate;
   DeviceOrientationEvent:
     __base: |-
       var instance;
