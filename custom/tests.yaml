@@ -2568,9 +2568,18 @@ api:
         fse.getMetadata(callback, fail);
       }
   MimeType:
-    __base: var instance = navigator.mimeTypes[0];
+    __base: |-
+      <%api.MimeTypeArray:mimetypes%>
+      if (mimetypes.length === 0) {
+        return {result: null, messgae: 'navigator.mimeTypes is an empty array'};
+      }
+      var instance = mimeTypes[0];
   MimeTypeArray:
-    __base: var instance = navigator.mimeTypes;
+    __base: |-
+      if (!('mimeTypes' in navigator)) {
+        return {result: false, message: 'navigator.mimeTypes is not defined'};
+      }
+      var instance = navigator.mimeTypes;
   MouseEvent:
     __base: |-
       var instance;
