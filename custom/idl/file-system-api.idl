@@ -14,6 +14,7 @@ interface mixin LocalFileSystem {
   undefined resolveLocalFileSystemURL(DOMString url, FileSystemEntryCallback successCallback, optional ErrorCallback errorCallback);
 };
 Window includes LocalFileSystem;
+WorkerGlobalScope includes LocalFileSystem;
 
 [Exposed=Window,Worker]
 interface Metadata {
@@ -36,7 +37,15 @@ partial interface FileSystemFileEntry {
 
 // FileSystem is here: https://wicg.github.io/entries-api/#api-domfilesystem
 
-[Exposed=Window,Worker]
+[Supplemental, NoInterfaceObject]
+interface mixin LocalFileSystemSync {
+    FileSystemSync requestFileSystemSync (unsigned short type, unsigned long long size);
+    EntrySync      resolveLocalFileSystemSyncURL (DOMString url);
+};
+
+WorkerGlobalScope includes LocalFileSystemSync;
+
+[Exposed=Worker]
 interface FileSystemSync {
   readonly attribute DOMString name;
   readonly attribute DirectoryEntrySync root;
@@ -46,9 +55,9 @@ interface FileSystemSync {
 interface DirectoryEntrySync {};
 
 // The old names of things, before FileSystem prefixing
-[Exposed=Window,Worker] interface DirectoryReaderSync {};
-[Exposed=Window,Worker] interface EntrySync {};
-[Exposed=Window,Worker] interface FileEntrySync {};
+[Exposed=Worker] interface DirectoryReaderSync {};
+[Exposed=Worker] interface EntrySync {};
+[Exposed=Worker] interface FileEntrySync {};
 
 // In BCD, but removed in the new spec
 partial interface FileSystemDirectoryEntry {

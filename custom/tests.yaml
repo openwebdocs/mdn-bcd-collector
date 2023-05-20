@@ -1487,6 +1487,10 @@ api:
         options_behavior_parameter: return bcd.testOptionParam(instance, 'scrollTo', 'behavior', 'auto');
         options_left_parameter: return bcd.testOptionParam(instance, 'scrollTo', 'left', '0');
         options_top_parameter: return bcd.testOptionParam(instance, 'scrollTo', 'top', '0');
+  EntrySync:
+    __base: |-
+      // XXX Need to find a "safe" file path that can be used
+      var instance = self.webkitResolveLocalFileSystemSyncURL('');
   ErrorEvent:
     __base: |-
       var instance;
@@ -1662,7 +1666,10 @@ api:
     __base: var instance = new FileReader();
   FileSystem:
     __base: |-
-      window.webkitRequestFileSystem(TEMPORARY, 8*1024 /* 8KB */, function(fs) {
+      if (!('webkitRequestFileSystem') in self) {
+        return {result: false, message: 'webkitRequestFileSystem is not defined'};
+      }
+      self.webkitRequestFileSystem(TEMPORARY, 8*1024 /* 8KB */, function(fs) {
         callback(fs);
       }, function(error) {
         fail(error.message);
@@ -1691,6 +1698,12 @@ api:
           fail(event.message);
         });
       }
+  FileSystemSync:
+    __base: |-
+      if (!('webkitRequestFileSystemSync') in self) {
+        return {result: false, message: 'webkitRequestFileSystemSync is not defined'};
+      }
+      var instance = self.webkitRequestFileSystemSync(TEMPORARY, 8*1024 /* 8KB */);
   FocusEvent:
     __base: |-
       var instance;
@@ -2548,6 +2561,12 @@ api:
     __base: |-
       <%api.MessageChannel:channel%>
       var instance = channel.port1;
+  Metadata:
+    __base: |-
+      <%api.FileSystemEntry:fseCallback%>
+      function fseCallback(fse) {
+        fse.getMetadata(callback, fail);
+      }
   MimeType:
     __base: var instance = navigator.mimeTypes[0];
   MimeTypeArray:
