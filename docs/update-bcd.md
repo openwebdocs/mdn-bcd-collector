@@ -52,7 +52,7 @@ npm run update-bcd -- --path=api.RTC*
 npm run update-bcd -- -p api.RTC*
 ```
 
-Note: `update-bcd` used to take a `-c/--category` parameter. This has been deprecated in favor of the more versatile `-p/--path`.
+> **Note:** `update-bcd` used to take a `-c/--category` parameter. This has been deprecated in favor of the more versatile `-p/--path`.
 
 ## Limit changes by browser
 
