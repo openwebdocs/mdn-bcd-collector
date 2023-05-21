@@ -10,6 +10,7 @@
 
 self.importScripts('harness.js');
 
+// eslint-disable-next-line no-unused-vars
 var installEvent = null;
 
 self.addEventListener('install', function (event) {
