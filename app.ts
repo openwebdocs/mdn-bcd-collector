@@ -267,7 +267,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', async (req, res) => {
-  res.redirect('/docs/about');
+  res.redirect('/docs/about.md');
 });
 
 app.get('/changelog', async (req, res) => {
