@@ -401,16 +401,16 @@ const changeProtocol = (browser, version, page) => {
   let useHttp = false;
   switch (browser) {
     case 'chrome':
-      useHttp = version <= 15;
+      useHttp = compareVersions(version, '15', '<=');
       break;
     case 'firefox':
-      useHttp = version <= 4;
+      useHttp = compareVersions(version, '4', '<=');
       break;
   }
 
   if (
-    (browser === 'edge' && version <= 18) ||
-    (browser === 'firefox' && version <= 52)
+    (browser === 'edge' && compareVersions(version, '18', '<=')) ||
+    (browser === 'firefox' && compareVersions(version, '52', '<='))
   ) {
     page = page.replace(/,/g, '%2C');
   }
@@ -548,7 +548,11 @@ const runAll = async (
 
     for (const version of browsersToTest[browser]) {
       for (const os of oses) {
-        if (os === 'macOS' && browser === 'edge' && version <= '18') {
+        if (
+          os === 'macOS' &&
+          browser === 'edge' &&
+          compareVersions(version, '18', '<=')
+        ) {
           // Don't test EdgeHTML on macOS
           continue;
         }
