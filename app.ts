@@ -267,7 +267,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', async (req, res) => {
-  await renderMarkdown(new URL('./ABOUT.md', import.meta.url), req, res);
+  res.redirect('/docs/about');
 });
 
 app.get('/changelog', async (req, res) => {

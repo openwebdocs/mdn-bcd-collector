@@ -40,4 +40,4 @@ Tests may be run in the local browser to determine what is supported and what is
 
 ### Updating BCD using the results
 
-See [docs/update-bcd.md](./docs/update-bcd.md) for information on how to use the `update-bcd` script.
+See [docs/update-bcd.md](./update-bcd.md) for information on how to use the `update-bcd` script.
