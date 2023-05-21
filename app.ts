@@ -282,6 +282,13 @@ app.get('/changelog/*', async (req, res) => {
   );
 });
 
+app.get('/docs', async (req, res) => {
+  const docs = await fs.readdir(new URL('./docs', import.meta.url));
+  res.render('docs', {
+    docs
+  });
+});
+
 app.get('/docs/*', async (req, res) => {
   await renderMarkdown(
     new URL(`./docs/${req.params['0']}`, import.meta.url),

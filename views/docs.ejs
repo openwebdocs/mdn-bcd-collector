@@ -1,0 +1,15 @@
+<!--
+mdn-bcd-collector: views/docs.ejs
+A list of all the docs that can be opened
+
+© Gooborg Studios
+See the LICENSE file for copyright details
+-->
+
+<%- contentFor('body') %>
+
+<ul>
+<% for (const doc of docs) { %>
+  <li><a href="/docs/<%- doc %>"><%- doc %></a></li>
+<% } %>
+</ul>
