@@ -54,16 +54,7 @@ npm run update-bcd -- -p api.RTC*
 
 Note: `update-bcd` used to take a `-c/--category` parameter. This has been deprecated in favor of the more versatile `-p/--path`.
 
-## Limit changes to non-ranged only
-
-The `-e/--exact-only` argument can be used to only update BCD when we have an exact version number and skip any ranges:
-
-```sh
-npm run update-bcd -- --exact-only
-npm run update-bcd -- -e
-```
-
-## Limit changes by borwser
+## Limit changes by browser
 
 The `-b/--browser` argument can be used to only update data for one or more browsers:
 
@@ -80,6 +71,15 @@ npm run update-bcd -- -b firefox -r 84
 ```
 
 This will only make changes that set either `version_added` or `version_removed` to "84".
+
+## Limit changes to non-ranged only
+
+The `-e/--exact-only` argument can be used to only update BCD when we have an exact version number and skip any ranges (ex. `≤37`):
+
+```sh
+npm run update-bcd -- --exact-only
+npm run update-bcd -- -e
+```
 
 ## Custom ranged version format
 
