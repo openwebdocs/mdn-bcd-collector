@@ -1,5 +1,129 @@
 # mdn-bcd-collector Changelog
 
+## v9.2.1
+
+### Test Changes
+
+#### Added
+
+- api.WorkerGlobalScope.requestFileSystem
+- api.WorkerGlobalScope.requestFileSystemSync
+- api.WorkerGlobalScope.resolveLocalFileSystemSyncURL
+- api.WorkerGlobalScope.resolveLocalFileSystemURL
+
+#### Removed
+
+- css.properties.-ms-content-zoom-chaining
+- css.properties.-ms-content-zoom-limit
+- css.properties.-ms-content-zoom-limit-max
+- css.properties.-ms-content-zoom-limit-min
+- css.properties.-ms-content-zoom-snap
+- css.properties.-ms-content-zoom-snap-points
+- css.properties.-ms-content-zoom-snap-type
+- css.properties.-ms-content-zooming
+- css.properties.-ms-flex-positive
+- css.properties.-ms-flow-from
+- css.properties.-ms-flow-into
+- css.properties.-ms-font-feature-settings
+- css.properties.-ms-grid-column
+- css.properties.-ms-grid-column-align
+- css.properties.-ms-grid-column-span
+- css.properties.-ms-grid-columns
+- css.properties.-ms-grid-row
+- css.properties.-ms-grid-row-align
+- css.properties.-ms-grid-row-span
+- css.properties.-ms-grid-rows
+- css.properties.-ms-high-contrast-adjust
+- css.properties.-ms-hyphenate-limit-chars
+- css.properties.-ms-hyphenate-limit-lines
+- css.properties.-ms-hyphenate-limit-zone
+- css.properties.-ms-hyphens
+- css.properties.-ms-ime-align
+- css.properties.-ms-layout-grid
+- css.properties.-ms-layout-grid-char
+- css.properties.-ms-layout-grid-line
+- css.properties.-ms-layout-grid-mode
+- css.properties.-ms-layout-grid-type
+- css.properties.-ms-overflow-style
+- css.properties.-ms-scroll-chaining
+- css.properties.-ms-scroll-limit
+- css.properties.-ms-scroll-limit-x-max
+- css.properties.-ms-scroll-limit-x-min
+- css.properties.-ms-scroll-limit-y-max
+- css.properties.-ms-scroll-limit-y-min
+- css.properties.-ms-scroll-rails
+- css.properties.-ms-scroll-snap-points-x
+- css.properties.-ms-scroll-snap-points-y
+- css.properties.-ms-scroll-snap-type
+- css.properties.-ms-scroll-snap-x
+- css.properties.-ms-scroll-snap-y
+- css.properties.-ms-scroll-translation
+- css.properties.-ms-scrollbar-track-color
+- css.properties.-ms-text-combine-horizontal
+- css.properties.-ms-text-size-adjust
+- css.properties.-ms-touch-select
+- css.properties.-ms-user-select
+- css.properties.-ms-wrap-flow
+- css.properties.-ms-wrap-margin
+- css.properties.-ms-wrap-through
+- css.properties.display.-ms-flexbox
+- css.properties.display.-ms-grid
+- css.properties.display.-ms-inline-flexbox
+- css.properties.display.-ms-inline-grid
+
+#### Changed
+
+- api.DeviceMotionEvent
+- api.DeviceMotionEventAcceleration
+- api.DeviceMotionEventRotationRate
+- api.EntrySync
+- api.FileSystem
+- api.FileSystemDirectoryEntry
+- api.FileSystemDirectoryReader
+- api.FileSystemEntry
+- api.FileSystemFileEntry
+- api.FileSystemSync
+- api.HTMLSelectElement.add.index_before_parameter
+- api.InputDeviceInfo
+- api.InstallEvent
+- api.Metadata
+- api.MimeType
+- api.MimeTypeArray
+- api.RTCIdentityAssertion
+- api.SpeechGrammar
+- api.SpeechGrammarList
+- api.VideoPlaybackQuality
+
+### Commits
+
+- Fix ESLint errors
+- Fix add-new-bcd script
+- Update FAQ
+- Update documentation
+- Add styling for blockquote elements
+- Install marked-gfm-heading-id and marked-mangle
+- Make note blocks more consistent
+- Fix link to about.md
+- Add docs list page
+- Reorganize parts in update-bcd doc; fix typo
+- Move About.md to docs/ folder
+- Add custom test for RTCIdentityAssertion
+- Update test for InstallEvent to use real event instead
+- Update test for SpeechGrammarList to include prefixes
+- Fix custom test for api.HTMLSelectElement.add.index_before_parameter
+- Update custom tests for MimeType and MimeTypeArray
+- Add custom test for VideoPlaybackQuality
+- Update custom tests for old file system API
+- Add custom tests for DeviceMotionEvent[Acceleration/RotationRate]
+- Fix changelog links
+- Remove MS-proprietary CSS properties/values
+- Update overrides
+- Add a custom test for \*ReportBody.toJSON to disable it
+- Add support for X+ overrides
+- Add overrides for AudioProcessingEvent
+- Don't replace "preview" with "false"
+- Remove --category argument altogether
+
 ## v9.2.0
 
 ## Notable changes
