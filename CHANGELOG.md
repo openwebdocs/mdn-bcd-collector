@@ -1,5 +1,18 @@
 # mdn-bcd-collector Changelog
 
+## v9.2.2
+
+### Test Changes
+
+#### Changed
+
+- api.MimeType
+
+### Commits
+
+- Fix typo
+- Use compare-versions to compare version numbers
+
 ## v9.2.1
 
 ### Test Changes
