@@ -348,6 +348,14 @@ hr {
   margin-left: min(0px, calc(env(safe-area-inset-left) * -1));
 }
 
+blockquote {
+  @include themedProperty(background, 'paper-bg');
+  padding: 0.25em 1em;
+  box-shadow: 0 0 10px black;
+  border-radius: 8px;
+  margin: 1em;
+}
+
 .paper {
   @include themedProperty(background, 'paper-bg');
   padding: 1em 8px;
