@@ -56,11 +56,28 @@ See [docs/update-bcd.md](./update-bcd.md) for information on how to use the `upd
 
 ### Why not generate your own version of BCD using the collected results?
 
-XXX Write me...
+Our tool was not built to compete against BCD, and it may never be able to in the first place.
 
-### Why not use the interactive examples already hosted on MDN?
+- `@mdn/browser-compat-data` is widely used in many projects and has many contributors/reviewers
+- There are a number of features that can't be tested automatically well (OS limitations, hardware requirements, etc.)
+- A number of features tracked in BCD are not/cannot be tracked by the collector
+- We at Gooborg Studios are contracted by Open Web Docs and MDN Web Docs to maintain BCD already
 
-XXX Write me...
+### Why not use the interactive examples from MDN?
+
+The examples on MDN Web Docs are written with different goals:
+
+- MDN Web Docs examples are designed to reflect real world use cases; our code is just for feature testing
+- Example code on MDN is written using newer syntax (`let`/`const`, arrow functions, etc.) for modern browsers; our code is designed to run on as old of browsers as possible
+
+While some of our code is based on MDN Web Docs examples, it is modified to fit our needs better.
+
+### Why not use tests from WPT.live?
+
+WPT.live is a great resource to test support for various features, but like MDN Web Docs, it has different goals:
+
+- WPT.live exclusively focuses on support for standard features; BCD covers non-standard features as well
+- WPT.live focuses on providing test code for the latest browsers to ensure they're all functioning according to spec; thus, they use newer syntax just like the interactive examples on MDN
 
 ## Copyright
 
