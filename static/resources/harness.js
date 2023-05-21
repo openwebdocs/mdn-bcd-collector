@@ -993,6 +993,7 @@
       resourceCountdownFunc();
 
       var resourceTimeout = setTimeout(function () {
+        clearTimeout(resourceCountdownTimeout);
         // If the resources don't load, just start the tests anyways
         updateStatus(
           'Timed out waiting for resources to load, readying anyways'
@@ -1089,6 +1090,7 @@
       } catch (e) {
         // Couldn't use resource loading code, start anyways
         clearTimeout(resourceTimeout);
+        clearTimeout(resourceCountdownTimeout);
         consoleError('Failed to load resources: ' + e);
         onReady();
       }
