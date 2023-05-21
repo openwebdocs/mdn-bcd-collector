@@ -166,8 +166,7 @@ export const collectMissing = async (filepath: string): Promise<void> => {
     recursiveAdd(entry.split('.'), 0, missing, template);
   }
 
-  const json = JSON.stringify(missing, null, '  ') + '\n';
-  await fs.outputJson(filepath, json);
+  await fs.writeJSON(filepath, missing, {spaces: 2});
 };
 
 /* c8 ignore start */
