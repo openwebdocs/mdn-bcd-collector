@@ -626,7 +626,9 @@ export const main = async (
   }
 
   const bcdFiles = (await loadJsonFiles(
-    CATEGORIES.map((cat) => path.join(BCD_DIR, ...cat.split('.')))
+    filter.addNewFeatures
+      ? [path.join(BCD_DIR, '__missing')]
+      : CATEGORIES.map((cat) => path.join(BCD_DIR, ...cat.split('.')))
   )) as {[key: string]: Identifier};
 
   const reports = Object.values(await loadJsonFiles(reportPaths)) as Report[];

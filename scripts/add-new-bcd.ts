@@ -180,7 +180,7 @@ const main = async (): Promise<void> => {
   await collectMissing(filepath);
   await updateBcd(
     ['../mdn-bcd-results/'],
-    {category: ['__missing']},
+    {addNewFeatures: true},
     bcd.browsers,
     overrides
   );
