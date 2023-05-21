@@ -2591,7 +2591,7 @@ api:
     __base: |-
       <%api.MimeTypeArray:mimetypes%>
       if (mimetypes.length === 0) {
-        return {result: null, messgae: 'navigator.mimeTypes is an empty array'};
+        return {result: null, message: 'navigator.mimeTypes is an empty array'};
       }
       var instance = mimeTypes[0];
   MimeTypeArray:
