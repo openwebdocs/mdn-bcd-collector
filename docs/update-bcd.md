@@ -1,13 +1,18 @@
 # Updating BCD using the results
 
-In this repository, the `update-bcd` script can be used to update the existing BCD entries. This script assumes you have the following:
+In this repository, the `update-bcd` and `add-new-bcd` scripts can be used to update the existing BCD entries. These scripts assume you have the following:
 
+- An understanding of the [compat data JSON schema](https://github.com/mdn/browser-compat-data/blob/main/schemas/compat-data-schema.md#mirroring-data)
+  - An understanding of [ranged versions](https://github.com/mdn/browser-compat-data/blob/main/schemas/compat-data-schema.md#ranged-versions) in BCD
 - A local checkout of:
   - [This repository](https://github.com/GooborgStudios/mdn-bcd-collector)
   - [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data) at `../browser-compat-data` (or the path set as the `BCD_DIR` environment variable)
-  - [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results), preferably at `../mdn-bcd-results`
+  - Recommended: [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results), preferably at `../mdn-bcd-results`
+    - This repository contains the results that have been exported to GitHub, including new results generated on every collector release for all browsers released in 2020 and later; you may use your own results if desired
 
-To update BCD, run the following command:
+## `update-bcd`
+
+The `update-bcd` script is used to update the features tracked in BCD with the collected results. To update BCD, run the following command:
 
 ```sh
 npm run update-bcd
@@ -20,7 +25,7 @@ npm run update-bcd ../local-results
 npm run update-bcd ../mdn-bcd-results/9.1.0-chrome-112.0.0.0-mac-os-10.15.7-79d130f929.json
 ```
 
-## Limit changes by BCD path
+### Limit changes by BCD path
 
 To limit changes to a specific BCD path, such as by category or a specific interface, you may use the `-p/--path` argument.
 
@@ -54,7 +59,7 @@ npm run update-bcd -- -p api.RTC*
 
 > **Note:** `update-bcd` used to take a `-c/--category` parameter. This has been deprecated in favor of the more versatile `-p/--path`.
 
-## Limit changes by browser
+### Limit changes by browser
 
 The `-b/--browser` argument can be used to only update data for one or more browsers:
 
@@ -72,7 +77,7 @@ npm run update-bcd -- -b firefox -r 84
 
 This will only make changes that set either `version_added` or `version_removed` to "84".
 
-## Limit changes to non-ranged only
+### Limit changes to non-ranged only
 
 The `-e/--exact-only` argument can be used to only update BCD when we have an exact version number and skip any ranges (ex. `≤37`):
 
@@ -80,6 +85,16 @@ The `-e/--exact-only` argument can be used to only update BCD when we have an ex
 npm run update-bcd -- --exact-only
 npm run update-bcd -- -e
 ```
+
+## `add-new-bcd`
+
+As specifications update, new features may be added that BCD doesn't yet track. The goal of this script is to add missing features to BCD. To add missing features, run the following command:
+
+```sh
+npm run add-new-bcd
+```
+
+This script takes no arguments.
 
 ## Custom ranged version format
 
