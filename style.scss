@@ -255,7 +255,7 @@ input {
   transition: background-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
   padding: 8px;
   outline-color: rgba(0, 0, 0, 0);
-  outline-style: auto;
+  outline-style: none;
   outline-width: 0px;
 
   &:hover,
@@ -272,6 +272,7 @@ input {
   }
 
   &:focus-visible {
+    outline-style: auto;
     outline-width: 1px;
   }
 
