@@ -2438,7 +2438,17 @@ api:
       }
       var promise = navigator.ink.requestPresenter();
   InputDeviceInfo:
-    __base: <%api.MediaDeviceInfo:instance%>
+    __base: |-
+      <%api.MediaDevices:mediaDevices%>
+      var promise = navigator.mediaDevices.enumerateDevices().then(
+        function(devices) {
+          for (var i = 0; i < devices.length; i++) {
+            if (devices[i].kind == 'audioinput' || devices[i].kind == 'videoinput') {
+              return devices[i];
+            }
+          }
+        }
+      );
   InstallEvent:
     __base: |-
       // During the installation of the service worker, we set an "installEvent" global variable so that we may easily reuse it here:
