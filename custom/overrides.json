@@ -65,5 +65,8 @@
     "chrome",
     "81-83",
     false
-  ]
+  ],
+  "The Sanitizer API was briefly enabled in Firefox 82 before quickly hidden behind a flag. Simply ignore the single version.",
+  ["api.Sanitizer", "firefox", "82", false],
+  ["api.Sanitizer.sanitize", "firefox", "82", false]
 ]
