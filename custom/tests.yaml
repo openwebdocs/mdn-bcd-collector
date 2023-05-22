@@ -1780,6 +1780,91 @@ api:
       }, {
         timeout: 5000
       });
+  GPU:
+    __base: var instance = navigator.gpu;
+  GPUAdapter:
+    __base: |-
+      <%api.GPU:gpu%>
+      var promise = gpu.requestAdapter();
+  GPUBuffer:
+    __base: |-
+      <%api.GPUDevice:device%>
+      if (!('GPUBufferUsage' in self)) {
+        return {result: false, message: 'GPUBufferUsage is not defined'};
+      }
+      var promise = device.then(function(d) {
+        return d.createBuffer({
+          size: 1000,
+          usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC
+        });
+      });
+  GPUCommandEncoder:
+    __base: |-
+      <%api.GPUDevice:device%>
+      var promise = device.then(function(d) {
+        return d.createCommandEncoder();
+      });
+  GPUComputePassEncoder:
+    __base: |-
+      <%api.GPUCommandEncoder:commandEncoder%>
+      var promise = commandEncoder.then(function(ce) {
+        var computePass = ce.beginComputePass();
+        bcd.addCleanup(function() {
+          computePass.end();
+        });
+        return computePass;
+      });
+  GPUDevice:
+    __base: |-
+      <%api.GPUAdapter:adapter%>
+      var promise = adapter.then(function(a) {
+        return a.requestDevice();
+      });
+  GPUQueue:
+    __base: |-
+      <%api.GPUDevice:device%>
+      var promise = device.then(function(d) {
+        return d.queue;
+      });
+  GPURenderPassEncoder:
+    __base: |-
+      <%api.GPUCommandEncoder:commandEncoder%>
+      <%api.GPUTexture:texture%>
+      var promise = commandEncoder.then(function(ce) {
+        return texture.then(function(txtr) {
+          var renderPassDescriptor = {
+            colorAttachments: [
+              {
+                clearValue: [0.0, 0.5, 1.0, 1.0],
+                loadOp: "clear",
+                storeOp: "store",
+                view: txtr.createView()
+              },
+            ],
+          };
+          var renderPass = ce.beginRenderPass(renderPassDescriptor);
+          bcd.addCleanup(function() {
+            renderPass.end();
+          });
+          return renderPass;
+        });
+      });
+  GPUTexture:
+    __base: |-
+      <%api.GPUDevice:device%>
+      if (!('GPUTextureUsage' in self)) {
+        return {result: false, message: 'GPUTextureUsage is not defined'};
+      }
+      var promise = device.then(function(d) {
+        return d.createTexture({
+          size: [512, 512, 1],
+          format: "rgba8unorm",
+          usage:
+            GPUTextureUsage.TEXTURE_BINDING |
+            GPUTextureUsage.COPY_DST |
+            GPUTextureUsage.RENDER_ATTACHMENT,
+        });
+      });
   HashChangeEvent:
     __base: |-
       var instance;
