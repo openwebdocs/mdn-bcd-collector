@@ -14,7 +14,11 @@ By default, the following scripts generate results based on pre-collected report
 
 ## `update-bcd`
 
-The `update-bcd` script is used to update the features tracked in BCD with the collected results. To update BCD, run the following command:
+The `update-bcd` script is used to update the features tracked in BCD with the collected results. This script takes results files and compiles them into BCD support statements, which are then compared against the local BCD repository. If the collector's results differ from BCD's statements, the files are modified accordingly.
+
+### Basic usage
+
+To update BCD, run the following command:
 
 ```sh
 npm run update-bcd
@@ -90,7 +94,11 @@ npm run update-bcd -- -e
 
 ## `add-new-bcd`
 
-As specifications update, new features may be added that BCD doesn't yet track. The goal of this script is to add missing features to BCD. To add missing features, run the following command:
+As specifications update, new features may be added that BCD doesn't yet track. This script utilizes `update-bcd` to add any missing features to BCD that are supported in at least one browser version.
+
+### Basic usage
+
+To add missing features, run the following command:
 
 ```sh
 npm run add-new-bcd
