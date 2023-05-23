@@ -541,6 +541,12 @@ const buildIDLTests = (ast, globals, scopes) => {
       continue;
     }
 
+    const members = flattenMembers(iface);
+    if (iface.type === 'namespace' && members.length === 0) {
+      // We should not generate tests for namespaces with no properties/methods
+      continue;
+    }
+
     const exposureSet = getExposureSet(iface, scopes);
     const isGlobal = !!getExtAttr(iface, 'Global');
     const {
@@ -557,7 +563,6 @@ const buildIDLTests = (ast, globals, scopes) => {
       resources
     });
 
-    const members = flattenMembers(iface);
     const memberTests = buildIDLMemberTests(
       members,
       iface,
