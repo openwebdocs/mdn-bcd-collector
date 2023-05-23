@@ -843,11 +843,18 @@ describe('build (API)', () => {
         `[Exposed=Window] interface Worker {};
            [Exposed=Worker] interface WorkerSync {};
            [Exposed=(Window,Worker)] interface MessageChannel {};
-           [Exposed=Window] namespace console {};`
+           [Exposed=Window] namespace console {
+             undefined log(any... data);
+           };
+           [Exposed=Window] namespace GPUBufferUsage {};`
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.console': {
           code: '"console" in self',
+          exposure: ['Window']
+        },
+        'api.console.log': {
+          code: '"console" in self && "log" in console',
           exposure: ['Window']
         },
         'api.MessageChannel': {
