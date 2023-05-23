@@ -8,11 +8,17 @@ In this repository, the `update-bcd` and `add-new-bcd` scripts can be used to up
   - [This repository](https://github.com/GooborgStudios/mdn-bcd-collector)
   - [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data) at `../browser-compat-data` (or the path set as the `BCD_DIR` environment variable)
   - Recommended: [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results), preferably at `../mdn-bcd-results`
-    - This repository contains the results that have been exported to GitHub, including new results generated on every collector release for all browsers released in 2020 and later; you may use your own results if desired
+    - This repository contains the reports that have been exported to GitHub, but you may use your own reports if desired
+
+By default, the following scripts generate results based on pre-collected reports stored in the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repository. The reports in this repository are collected on every new release of the collector for almost every release of Chrome, Edge, Firefox and Safari since January 2020, and for the latest release of mobile browsers. With these reports, most contributors will not need access to their own browser library or CT platform in order to update BCD.
 
 ## `update-bcd`
 
-The `update-bcd` script is used to update the features tracked in BCD with the collected results. To update BCD, run the following command:
+The `update-bcd` script is used to update the features tracked in BCD with the collected results. This script takes results files and compiles them into BCD support statements, which are then compared against the local BCD repository. If the collector's results differ from BCD's statements, the files are modified accordingly.
+
+### Basic usage
+
+To update BCD, run the following command:
 
 ```sh
 npm run update-bcd
@@ -88,7 +94,11 @@ npm run update-bcd -- -e
 
 ## `add-new-bcd`
 
-As specifications update, new features may be added that BCD doesn't yet track. The goal of this script is to add missing features to BCD. To add missing features, run the following command:
+As specifications update, new features may be added that BCD doesn't yet track. This script utilizes `update-bcd` to add any missing features to BCD that are supported in at least one browser version.
+
+### Basic usage
+
+To add missing features, run the following command:
 
 ```sh
 npm run add-new-bcd
