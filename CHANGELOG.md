@@ -1,5 +1,63 @@
 # mdn-bcd-collector Changelog
 
+## v9.3.0
+
+### Test Changes
+
+#### Added
+
+- api.AbortSignal.any
+- api.DocumentPictureInPicture
+- api.DocumentPictureInPictureEvent
+- api.PerformanceResourceTiming.contentType
+- api.TaskSignal.any
+- api.Window.documentPictureInPicture
+- css.properties.scroll-start
+- css.properties.scroll-start-block
+- css.properties.scroll-start-inline
+- css.properties.scroll-start-target
+- css.properties.scroll-start-target-block
+- css.properties.scroll-start-target-inline
+- css.properties.scroll-start-target-x
+- css.properties.scroll-start-target-y
+- css.properties.scroll-start-x
+- css.properties.scroll-start-y
+
+#### Removed
+
+- api.FencedFrameConfig.url
+- api.GPUBufferUsage
+- api.GPUColorWrite
+- api.GPUMapMode
+- api.GPUShaderStage
+- api.GPUTextureUsage
+
+#### Changed
+
+- api.GPU
+- api.GPUAdapter
+- api.GPUBuffer
+- api.GPUCommandEncoder
+- api.GPUComputePassEncoder
+- api.GPUDevice
+- api.GPUQueue
+- api.GPURenderPassEncoder
+- api.GPUTexture
+- api.InputDeviceInfo
+
+### Commits
+
+- Update docs ([#409](https://github.com/GooborgStudios/mdn-bcd-collector/pull/409))
+- Don't generate tests for namespaces with no members
+- Update InputDeviceInfo test to strictly get input device
+- Add custom tests for WebGPU API
+- Add overrides for Sanitizer API
+- Fix font size of code elements inside headers
+- Fix input styling on Firefox
+- Update overrides
+- Clear timeouts on resource loading errors
+- Fix add-new-bcd
+
 ## v9.2.2
 
 ### Test Changes
