@@ -6,20 +6,17 @@ Feature detection tests are generated based on machine readable data (Web IDL, C
 
 ## How to Use
 
-The collector project has three main parts:
+The collector project has two main parts:
 
 - The website (https://mdn-bcd-collector.gooborg.com)
   - Run a specific test on a specific browser to check if the browser supports that feature
   - Run all tests in a specific browser to determine what that browser does and does not support
   - Check to see what code was run to determine support or lack of, often during reviews of BCD PRs based on collector data
-- The `update-bcd` script and the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repo
-  - Run updates on BCD based on pre-collected data in the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repo.
-    The data is run regularly against a large number of browsers on different platforms, so you don't need to have access to your own browser library in order to update BCD.
-- The `add-new-bcd` script.
-  - Add data for new standard features that BCD does not yet track.
+- The BCD updater scripts
+  - `update-bcd` updates BCD based on results collected from the website
+  - `add-new-bcd` adds data for new standard features that BCD does not yet track, also based on results collected from the website
 
-These parts work in tandem to ultimately help ensure that the data within the browser-compat-data repository is as accurate as possible.
-Depending on what your end goal is, you may use these these components togother, separately, or in other ways than outlined above.
+These parts work in tandem to ultimately help ensure that BCD is as accurate as possible. Depending on what your end goal is, you may use these these components together, separately, or in other ways than outlined above.
 
 ### General workflow
 
@@ -58,7 +55,7 @@ See [docs/update-bcd.md](./update-bcd.md) for information on how to use the `upd
 
 ### Why not generate your own version of BCD using the collected results?
 
-Our tool was not built to compete against BCD. and may never be able to do so.
+Our tool was not built to compete against BCD, and it may never be able to do so:
 
 - `@mdn/browser-compat-data` is widely used in many projects and has many contributors/reviewers
 - There are a number of features that can't be tested automatically well (OS limitations, hardware requirements, etc.)
