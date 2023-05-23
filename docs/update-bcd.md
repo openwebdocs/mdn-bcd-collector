@@ -25,6 +25,14 @@ npm run update-bcd ../local-results
 npm run update-bcd ../mdn-bcd-results/9.1.0-chrome-112.0.0.0-mac-os-10.15.7-79d130f929.json
 ```
 
+Users are advised to restrict the scope of updates, limiting to particular APIs, and mirroring mobile browsers that use the same engines as the desktop browsers.
+This can reduce the number of values that need to be corrected.
+For example, you could update just the WebTransport APIs using desktop browser information, so that mobile browsers are mirrored:
+
+```sh
+npm run update-bcd -- --path=api.WebTransport -b chrome -b firefox -b safari 
+```
+
 ### Limit changes by BCD path
 
 To limit changes to a specific BCD path, such as by category or a specific interface, you may use the `-p/--path` argument.
