@@ -231,7 +231,7 @@ app.get('/api/results', async (req, res) => {
   res.status(200).json(createReport(results, req));
 });
 
-app.post('/api/browserExtensions', async (req, res, next) => {
+app.post('/api/browserExtensions', async (req, res) => {
   if (!req.is('json')) {
     res.status(400).send('body should be JSON');
     return;
@@ -292,9 +292,8 @@ app.get('/changelog/*', async (req, res) => {
 });
 
 app.get('/docs', async (req, res) => {
-  const docsPath = new URL('./docs', import.meta.url);
-  let docs = {};
-  for (const f of await fs.readdir(docsPath)) {
+  const docs = {};
+  for (const f of await fs.readdir(new URL('./docs', import.meta.url))) {
     const readable = fs.createReadStream(
       new URL(`./docs/${f}`, import.meta.url)
     );
