@@ -236,14 +236,17 @@ app.post('/api/browserExtensions', async (req, res, next) => {
     return;
   }
 
+  let extData = {};
+
   try {
-    const extData = (await storage.get(req.sessionID, 'extensions')) || {};
-    Object.assign(extData, req.body);
-    await storage.put(req.sessionID, 'extensions', extData);
-    res.status(201).end();
+    extData = await storage.get(req.sessionID, 'extensions');
   } catch (e) {
-    next(e);
+    // We probably don't have any extension data yet
   }
+
+  Object.assign(extData, req.body);
+  await storage.put(req.sessionID, 'extensions', extData);
+  res.status(201).end();
 });
 
 // Test Resources
