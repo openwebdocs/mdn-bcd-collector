@@ -1,5 +1,19 @@
 # mdn-bcd-collector Changelog
 
+## v9.3.1
+
+## Notable changes
+
+The report schema for problematic extensions has been simplified to be an array of strings to remove redundant complexity. While this would usually be classified as a breaking change, the production server also experienced fatal errors that prevented collection of this data in the first place.
+
+### Commits
+
+- Improve docs overview page
+- Add link to docs page
+- Sort names in footer alphabetically
+- Simplify browser extensions data
+- Fix collection of problematic browser extensions data
+
 ## v9.3.0
 
 ### Test Changes
