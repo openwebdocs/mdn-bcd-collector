@@ -11,7 +11,7 @@ See the LICENSE file for copyright details
 <h1>Docs for mdn-bcd-collector project</h1>
 
 <ul>
-<% for (const doc of docs) { %>
-  <li><a href="/docs/<%- doc %>"><%- doc %></a></li>
+<% for (const [k, v] of Object.entries(docs)) { %>
+  <li><a href="/docs/<%- k %>"><%- v %> (<%- k %>)</a></li>
 <% } %>
 </ul>

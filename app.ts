@@ -9,6 +9,7 @@
 import https from 'node:https';
 import http from 'node:http';
 import querystring from 'node:querystring';
+import readline from 'node:readline';
 
 import fs from 'fs-extra';
 import bcd from '@mdn/browser-compat-data' assert {type: 'json'};
@@ -291,7 +292,23 @@ app.get('/changelog/*', async (req, res) => {
 });
 
 app.get('/docs', async (req, res) => {
-  const docs = await fs.readdir(new URL('./docs', import.meta.url));
+  const docsPath = new URL('./docs', import.meta.url);
+  let docs = {};
+  for (const f of await fs.readdir(docsPath)) {
+    const readable = fs.createReadStream(
+      new URL(`./docs/${f}`, import.meta.url)
+    );
+    const reader = readline.createInterface({input: readable});
+    const line: string = await new Promise((resolve) => {
+      reader.on('line', (line) => {
+        reader.close();
+        resolve(line);
+      });
+    });
+    readable.close();
+
+    docs[f] = line.replace('# ', '');
+  }
   res.render('docs', {
     docs
   });
