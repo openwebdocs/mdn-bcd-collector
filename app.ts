@@ -236,15 +236,20 @@ app.post('/api/browserExtensions', async (req, res, next) => {
     return;
   }
 
-  let extData = {};
+  let extData: string[] = [];
 
   try {
-    extData = await storage.get(req.sessionID, 'extensions');
+    extData = (await storage.get(req.sessionID, 'extensions')) || [];
   } catch (e) {
     // We probably don't have any extension data yet
   }
 
-  Object.assign(extData, req.body);
+  if (!Array.isArray(req.body)) {
+    res.status(400).send('body should be an array of strings');
+    return;
+  }
+
+  extData.push(...req.body);
   await storage.put(req.sessionID, 'extensions', extData);
   res.status(201).end();
 });

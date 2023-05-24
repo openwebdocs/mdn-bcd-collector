@@ -97,12 +97,12 @@ See the LICENSE file for copyright details
       container.parentElement.classList.remove('hidden');
     }
 
-    function sendToServer(results) {
+    function sendToServer(foundExtensions) {
       var client = new XMLHttpRequest();
 
       client.open('POST', '/api/browserExtensions');
       client.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      client.send(JSON.stringify(results));
+      client.send(JSON.stringify(foundExtensions));
     }
 
     function checkExtensions(extensions) {
@@ -114,16 +114,18 @@ See the LICENSE file for copyright details
       var extensionsToCheck = Object.keys(extensions);
       var remaining = extensionsToCheck.length;
 
-      var results = {};
+      var foundExtensions = [];
 
       extensionsToCheck.forEach(function(k) {
         var extension = extensions[k];
         checkExtension(extension, function(result) {
-          results[k] = result;
+          if (result) {
+            foundExtensions.push(k);
+          }
           remaining--;
 
           if (remaining == 0 && doSend) {
-            sendToServer(results);
+            sendToServer(foundExtensions);
           }
 
           if (result) {
