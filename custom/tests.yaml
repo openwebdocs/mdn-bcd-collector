@@ -154,15 +154,15 @@ __resources:
       // Most of this code has loosely been taken from https://wpt.live/webrtc/RTCPeerConnection-mandatory-getStats.https.html
 
       /* Firefox briefly defines RTCPeerConnection in older versions, but it is not a valid constructor until later versions. */
-      var rpcConstructor = window.mozRTCPeerConnection || window.RTCPeerConnection || window.webkitRTCPeerConnection;
-      if (!rpcConstructor) {
+      var peerConnectionConstructor = window.mozRTCPeerConnection || window.RTCPeerConnection || window.webkitRTCPeerConnection;
+      if (!peerConnectionConstructor) {
         callback(false);
         return;
       };
 
       // Create RTC peer connections
-      var rpc1 = new rpcConstructor({iceServers: []});
-      var rpc2 = new rpcConstructor({iceServers: []});
+      var rpc1 = new peerConnectionConstructor({iceServers: []});
+      var rpc2 = new peerConnectionConstructor({iceServers: []});
 
       // Create data channels
       var dc1 = rpc1.createDataChannel("dummy", {negotiated: true, id: 0});
