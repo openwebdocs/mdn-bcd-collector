@@ -3304,17 +3304,28 @@ api:
         return false;
       }
 
+      // The following function is defined to help obtain individual stats types
+      // and entries
+      function getStatByTypeAndEntry(type, entry) {
+        for (var i = 0; i < stats.length; i++) {
+          if (stats[i].type === type
+            && Object.prototype.hasOwnProperty.call(stats[i], entry)
+            && stats[i][entry] !== null) {
+            return stats[i];
+          }
+        }
+        return false;
+      }
+
       var instance = reusableInstances.rtcStats;
     __additional:
       type_candidate-pair: |-
         var stat = getStatByType('candidate-pair');
         return !!stat;
       type_candidate-pair.availableIncomingBitrate: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'availableIncomingBitrate' in stat;
+        return !!getStatByTypeAndEntry('candidate-pair', 'availableIncomingBitrate');
       type_candidate-pair.availableOutgoingBitrate: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'availableOutgoingBitrate' in stat;
+        return !!getStatByTypeAndEntry('candidate-pair', 'availableOutgoingBitrate');
       type_candidate-pair.bytesDiscardedOnSend: |-
         var stat = getStatByType('candidate-pair');
         return !!stat && 'bytesDiscardedOnSend' in stat;
@@ -3328,17 +3339,14 @@ api:
         var stat = getStatByType('candidate-pair');
         return !!stat && 'consentRequestsSent' in stat;
       type_candidate-pair.currentRoundTripTime: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'currentRoundTripTime' in stat;
+        return !!getStatByTypeAndEntry('candidate-pair', 'currentRoundTripTime');
       type_candidate-pair.id: |-
         var stat = getStatByType('candidate-pair');
         return !!stat && 'id' in stat;
       type_candidate-pair.lastPacketReceivedTimestamp: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'lastPacketReceivedTimestamp' in stat;
+        return !!getStatByTypeAndEntry('candidate-pair', 'lastPacketReceivedTimestamp');
       type_candidate-pair.lastPacketSentTimestamp: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'lastPacketSentTimestamp' in stat;
+        return !!getStatByTypeAndEntry('candidate-pair', 'lastPacketSentTimestamp');
       type_candidate-pair.localCandidateId: |-
         var stat = getStatByType('candidate-pair');
         return !!stat && 'localCandidateId' in stat;
