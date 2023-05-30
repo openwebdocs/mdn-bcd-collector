@@ -260,18 +260,25 @@ __resources:
         return exchangeOfferAnswer(rpc2, rpc1);
       }).then(function() {
         setTimeout(function() {
-          // Return the stats after a small delay
-          // The small delay helps catch additional stats types that load after
+          // Some stats are loaded later than others. Wait a bit after creating
+          // the connection, then call getStats, and if the results are empty,
+          // wait a bit longer and call getStats again.
 
           // Obtain stats from both peer connections and combine them, as each
           // connection has different stats types
-          getStats(rpc1, function(stats1) {
-            getStats(rpc2, function(stats2) {
-              var stats = new Map([...stats1, ...stats2]);
-              callback(stats);
+          getStats(rpc1, function() {
+            getStats(rpc2, function() {
+              setTimeout(function() {
+                getStats(rpc1, function(stats1) {
+                  getStats(rpc2, function(stats2) {
+                    var stats = new Map([...stats1, ...stats2]);
+                    callback(stats);
+                  });
+                });
+              }, 2000);
             });
           });
-        }, 2000);
+        }, 1000);
 
         bcd.addCleanup(function() {
           rpc1.close();
