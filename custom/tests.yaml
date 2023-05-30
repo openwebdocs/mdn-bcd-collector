@@ -201,10 +201,30 @@ __resources:
       doExchange(rpc1, rpc2);
       doExchange(rpc2, rpc1);
 
+      // Remove transport-cc related lines from SDP
+      function removeTwcc(sdp) {
+        var lines = sdp.split('\r\n');
+        var builder = [];
+        for (var i = 0; i < lines.length; i++) {
+          if (/^a=extmap:.*transport-wide-cc-extensions.*$/.test(lines[i])) {
+            continue;
+          }
+          if (/^a=rtcp-fb:.*transport-cc.*$/.test(lines[i])) {
+            continue;
+          }
+          builder.push(lines[i]);
+        }
+        return builder.join('\r\n');
+      }
+
       // Exchange offer and answer between two peer connections
       function exchangeOfferAnswer(localPc, remotePc) {
         return localPc.createOffer().then(function(offer) {
-          return localPc.setLocalDescription(offer);
+          var newOffer = {
+            type: offer.type,
+            sdp: removeTwcc(offer.sdp)
+          };
+          return localPc.setLocalDescription(newOffer);
         }).then(function() {
           return remotePc.setRemoteDescription(localPc.localDescription);
         }).then(function() {
