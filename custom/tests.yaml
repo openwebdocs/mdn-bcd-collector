@@ -4431,7 +4431,10 @@ api:
   SpeechSynthesisVoice:
     __base: |-
       <%api.SpeechSynthesis:synth%>
-      var instance = synth.getVoices()[0];
+      // Browsers have a slight delay before speech synthesis voices are loaded
+      setTimeout(function() {
+        callback(synth.getVoices()[0]);
+      }, 100);
   StereoPannerNode:
     __resources:
       - audioContext
