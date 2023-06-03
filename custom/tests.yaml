@@ -4362,36 +4362,37 @@ api:
       var grammar = "#JSGF V1.0; grammar colors; public <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;";
       var instance = new (SpeechGrammarList || webkitSpeechGrammarList)();
       speechRecognitionList.addFromString(grammar, 1);
+  SpeechRecognitionAlternative:
+    __base: |-
+      // XXX no idea how to synthetically generate this interface
+      return {Alternative: null, message: 'Testing for SpeechRecognitionResult is not yet implemented'};
   SpeechRecognitionErrorEvent:
     __base: |-
       var instance;
       try {
         instance = new SpeechRecognitionErrorEvent('error', {error: 'aborted'});
       } catch(e) {
-        try {
-          instance = document.createEvent('SpeechRecognitionErrorEvent');
-        } catch(e) {
-          if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
-            return {result: false, message: 'Cannot create event'};
-          }
-          throw e;
-        }
+        return {result: false, message: 'Cannot create event'};
       }
   SpeechRecognitionEvent:
     __base: |-
+      // XXX need to create a SpeechRecognitionResultList and pass it to the results argument
+      return {result: null, message: 'Testing for SpeechRecognitionEvent is not yet implemented'};
+
       var instance;
       try {
-        instance = new SpeechRecognitionEvent('result');
+        instance = new SpeechRecognitionEvent('result', {results: null});
       } catch(e) {
-        try {
-          instance = document.createEvent('SpeechRecognitionEvent');
-        } catch(e) {
-          if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
-            return {result: false, message: 'Cannot create event'};
-          }
-          throw e;
-        }
+        return {result: false, message: 'Cannot create event'};
       }
+  SpeechRecognitionResult:
+    __base: |-
+      // XXX no idea how to synthetically generate this interface
+      return {result: null, message: 'Testing for SpeechRecognitionResult is not yet implemented'};
+  SpeechRecognitionResultList:
+    __base: |-
+      // XXX no idea how to synthetically generate this interface
+      return {result: null, message: 'Testing for SpeechRecognitionResultList is not yet implemented'};
   SpeechSynthesis:
     __base: var instance = window.speechSynthesis;
   SpeechSynthesisErrorEvent:
@@ -4401,14 +4402,7 @@ api:
       try {
         instance = new SpeechSynthesisErrorEvent('error', { utterance: utterance, error: 'canceled' });
       } catch(e) {
-        try {
-          instance = document.createEvent('SpeechSynthesisErrorEvent');
-        } catch(e) {
-          if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
-            return {result: false, message: 'Cannot create event'};
-          }
-          throw e;
-        }
+        return {result: false, message: 'Cannot create event'};
       }
   SpeechSynthesisEvent:
     __base: |-
@@ -4417,14 +4411,7 @@ api:
       try {
         instance = new SpeechSynthesisEvent('start', { utterance: utterance });
       } catch(e) {
-        try {
-          instance = document.createEvent('SpeechSynthesisEvent');
-        } catch(e) {
-          if (e.name === 'NotSupportedError' || e.name === 'NOT_SUPPORTED_ERR') {
-            return {result: false, message: 'Cannot create event'};
-          }
-          throw e;
-        }
+        return {result: false, message: 'Cannot create event'};
       }
   SpeechSynthesisUtterance:
     __base: var instance = new SpeechSynthesisUtterance('Hello world!');
@@ -4434,7 +4421,7 @@ api:
       // Browsers have a slight delay before speech synthesis voices are loaded
       setTimeout(function() {
         callback(synth.getVoices()[0]);
-      }, 100);
+      }, 10);
   StereoPannerNode:
     __resources:
       - audioContext
