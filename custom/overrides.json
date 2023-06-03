@@ -74,5 +74,11 @@
   ["api.OES_fbo_render_mipmap", "firefox", "71-80", true],
   ["api.OVR_multiview2", "firefox", "71-80", true],
   ["api.WEBGL_compressed_texture_astc", "firefox", "53-80", true],
-  ["api.WEBGL_debug_shaders", "firefox", "56-80", true]
+  ["api.WEBGL_debug_shaders", "firefox", "56-80", true],
+  [
+    "api.WEBGL_debug_shaders.getTranslatedShaderSource",
+    "firefox",
+    "56-80",
+    true
+  ]
 ]
