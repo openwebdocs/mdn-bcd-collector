@@ -4366,7 +4366,7 @@ api:
     __base: |-
       var instance;
       try {
-        instance = new SpeechRecognitionErrorEvent('error');
+        instance = new SpeechRecognitionErrorEvent('error', {error: 'aborted'});
       } catch(e) {
         try {
           instance = document.createEvent('SpeechRecognitionErrorEvent');
