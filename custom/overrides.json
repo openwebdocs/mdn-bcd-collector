@@ -68,5 +68,11 @@
   ],
   "The Sanitizer API was briefly enabled in Firefox 82 before quickly hidden behind a flag. Simply ignore the single version.",
   ["api.Sanitizer", "firefox", "82", false],
-  ["api.Sanitizer.sanitize", "firefox", "82", false]
+  ["api.Sanitizer.sanitize", "firefox", "82", false],
+  "In BrowserStack, WebGL2 doesn't seem to work before Firefox 80.",
+  ["api.EXT_color_buffer_float", "firefox", "51-80", true],
+  ["api.OES_fbo_render_mipmap", "firefox", "71-80", true],
+  ["api.OVR_multiview2", "firefox", "71-80", true],
+  ["api.WEBGL_compressed_texture_astc", "firefox", "53-80", true],
+  ["api.WEBGL_debug_shaders", "firefox", "56-80", true]
 ]
