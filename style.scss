@@ -310,6 +310,16 @@ nav#navbar {
   padding: 0.5em;
   padding-bottom: 0.75em;
 
+  @media (prefers-color-scheme: light) {
+    // Mitigate Safari bug
+    @include gradient(
+      180deg,
+      'background-3' 0%,
+      'background-3' 75%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
   a {
     margin: 0 0.1em;
   }
