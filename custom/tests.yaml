@@ -3060,6 +3060,18 @@ api:
       var promise = fetch('/favicon/favicon.ico').then(function(response) {
         return response.body;
       });
+  Report:
+    __base: |-
+      // XXX Obtaining an instance of this interface is much like triggering an event.
+      // See http://developer.mozilla.org/docs/Web/API/Report#examples
+      return {result: null, message: 'Testing Report is not yet implemented'};
+    toJSON: return null;
+  ReportBody:
+    __base: |-
+      // XXX Obtaining an instance of this interface is much like triggering an event.
+      // See http://developer.mozilla.org/docs/Web/API/ReportBody#examples
+      return {result: null, message: 'Testing ReportBody is not yet implemented'};
+    toJSON: return null;
   Request:
     __base: |-
       if (!('Request' in self)) {
