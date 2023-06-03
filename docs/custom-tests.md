@@ -274,12 +274,12 @@ api:
 bcd.addTest(
   'api.AudioContext',
   '(function() {var instance = new (window.AudioContext || window.webkitAudioContext)();})()',
-  'Window'
+  'Window',
 );
 bcd.addTest(
   'api.AudioDestinationNode',
   '(function() {var instance = new (window.AudioContext || window.webkitAudioContext)(); if (!audioCtx) {return false}; var instance = audioCtx.destination;})()',
-  'Window'
+  'Window',
 );
 ```
 

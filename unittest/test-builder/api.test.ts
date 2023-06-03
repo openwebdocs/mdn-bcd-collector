@@ -18,7 +18,7 @@ import {
   getExposureSet,
   validateIDL,
   buildIDLTests,
-  build
+  build,
 } from '../../test-builder/api.js';
 
 describe('build (API)', () => {
@@ -26,15 +26,15 @@ describe('build (API)', () => {
     const specIDLs = {
       first: WebIDL2.parse(
         `[Global=Window, Exposed=Window] interface Window {};
-        [Exposed=Window] interface DOMError {};`
+        [Exposed=Window] interface DOMError {};`,
       ),
-      second: WebIDL2.parse(`[Exposed=Window] interface XSLTProcessor {};`)
+      second: WebIDL2.parse(`[Exposed=Window] interface XSLTProcessor {};`),
     };
 
     const customIDLs = {
       second: WebIDL2.parse(
-        `partial interface XSLTProcessor { undefined reset(); };`
-      )
+        `partial interface XSLTProcessor { undefined reset(); };`,
+      ),
     };
 
     const tests = build(specIDLs, customIDLs);
@@ -44,7 +44,7 @@ describe('build (API)', () => {
   describe('flattenIDL', () => {
     const customIDLs = {
       first: WebIDL2.parse(`[Exposed=Window] interface DOMError {};`),
-      second: WebIDL2.parse(`[Exposed=Window] interface XSLTProcessor {};`)
+      second: WebIDL2.parse(`[Exposed=Window] interface XSLTProcessor {};`),
     };
 
     it('interface + mixin', () => {
@@ -53,7 +53,7 @@ describe('build (API)', () => {
           `[Exposed=Window]
              interface DummyError : Error {
                readonly attribute boolean imadumdum;
-             };`
+             };`,
         ),
         second: WebIDL2.parse(
           `[Exposed=Window]
@@ -61,13 +61,13 @@ describe('build (API)', () => {
                DummyError geterror();
              };
 
-             DummyError includes DummyErrorHelper;`
-        )
+             DummyError includes DummyErrorHelper;`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
 
       const interfaces = ast.filter(
-        (dfn) => dfn.type === 'interface'
+        (dfn) => dfn.type === 'interface',
       ) as WebIDL2.InterfaceType[];
       assert.lengthOf(interfaces, 3);
 
@@ -75,11 +75,11 @@ describe('build (API)', () => {
       assert.lengthOf(interfaces[0].members, 2);
       (assert as any).containSubset(interfaces[0].members[0], {
         type: 'attribute',
-        name: 'imadumdum'
+        name: 'imadumdum',
       });
       (assert as any).containSubset(interfaces[0].members[1], {
         type: 'operation',
-        name: 'geterror'
+        name: 'geterror',
       });
 
       assert.equal(interfaces[1].name, 'DOMError');
@@ -92,18 +92,18 @@ describe('build (API)', () => {
           `[Exposed=Window]
              namespace CSS {
                boolean supports();
-             };`
+             };`,
         ),
         paint: WebIDL2.parse(
           `partial namespace CSS {
                readonly attribute any paintWorklet;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
 
       const namespaces = ast.filter(
-        (dfn) => dfn.type === 'namespace'
+        (dfn) => dfn.type === 'namespace',
       ) as WebIDL2.NamespaceType[];
       assert.lengthOf(namespaces, 1);
       const [namespace] = namespaces;
@@ -111,11 +111,11 @@ describe('build (API)', () => {
       assert.lengthOf(namespace.members, 2);
       (assert as any).containSubset(namespace.members[0], {
         type: 'operation',
-        name: 'supports'
+        name: 'supports',
       });
       (assert as any).containSubset(namespace.members[1], {
         type: 'attribute',
-        name: 'paintWorklet'
+        name: 'paintWorklet',
       });
 
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -128,7 +128,7 @@ describe('build (API)', () => {
           `[Exposed=Window]
              interface Window {
                readonly attribute boolean imadumdum;
-             };`
+             };`,
         ),
         second: WebIDL2.parse(
           `[Exposed=Window]
@@ -136,8 +136,8 @@ describe('build (API)', () => {
                undefined atob();
              };
 
-             Window includes WindowOrWorkerGlobalScope;`
-        )
+             Window includes WindowOrWorkerGlobalScope;`,
+        ),
       };
       const {ast, globals} = flattenIDL(specIDLs, customIDLs) as {
         ast: WebIDL2.InterfaceType[];
@@ -154,7 +154,7 @@ describe('build (API)', () => {
       assert.lengthOf(globals[0].members, 1);
       (assert as any).containSubset(globals[0].members[0], {
         type: 'operation',
-        name: 'atob'
+        name: 'atob',
       });
     });
 
@@ -163,9 +163,9 @@ describe('build (API)', () => {
         first: WebIDL2.parse(
           `interface mixin DummyErrorHelper {
                DummyError geterror();
-             };`
+             };`,
         ),
-        secnd: WebIDL2.parse(`DummyError includes DummyErrorHelper;`)
+        secnd: WebIDL2.parse(`DummyError includes DummyErrorHelper;`),
       };
 
       assert.throws(() => {
@@ -179,9 +179,9 @@ describe('build (API)', () => {
           `[Exposed=Window]
              interface DummyError : Error {
                readonly attribute boolean imadumdum;
-             };`
+             };`,
         ),
-        secnd: WebIDL2.parse(`DummyError includes DummyErrorHelper;`)
+        secnd: WebIDL2.parse(`DummyError includes DummyErrorHelper;`),
       };
 
       assert.throws(() => {
@@ -195,18 +195,18 @@ describe('build (API)', () => {
           `[Exposed=Window]
              namespace CSS {
                boolean supports();
-             };`
+             };`,
         ),
         paint: WebIDL2.parse(
           `partial namespace CSS {
                readonly attribute any paintWorklet;
-             };`
+             };`,
         ),
         paint2: WebIDL2.parse(
           `partial namespace CSS {
                boolean supports();
-             };`
-        )
+             };`,
+        ),
       };
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
@@ -218,8 +218,8 @@ describe('build (API)', () => {
         paint: WebIDL2.parse(
           `partial namespace CSS {
                readonly attribute any paintWorklet;
-             };`
-        )
+             };`,
+        ),
       };
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
@@ -236,7 +236,7 @@ describe('build (API)', () => {
       'SharedWorker',
       'ServiceWorker',
       'AudioWorklet',
-      'RTCIdentityProvider'
+      'RTCIdentityProvider',
     ]);
 
     it('no defined exposure set', () => {
@@ -244,8 +244,8 @@ describe('build (API)', () => {
         first: WebIDL2.parse(
           `interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -254,7 +254,7 @@ describe('build (API)', () => {
           getExposureSet(interfaces[0], scopes);
         },
         Error,
-        'Exposed extended attribute not found on interface Dummy'
+        'Exposed extended attribute not found on interface Dummy',
       );
     });
 
@@ -264,8 +264,8 @@ describe('build (API)', () => {
           `[Exposed=40]
           interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -274,7 +274,7 @@ describe('build (API)', () => {
           getExposureSet(interfaces[0], []);
         },
         Error,
-        'Unexpected RHS "integer" for Exposed extended attribute'
+        'Unexpected RHS "integer" for Exposed extended attribute',
       );
     });
 
@@ -284,8 +284,8 @@ describe('build (API)', () => {
           `[Exposed=Worker]
              interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -299,8 +299,8 @@ describe('build (API)', () => {
           `[Exposed=(Window,Worker)]
              interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -314,8 +314,8 @@ describe('build (API)', () => {
           `[Exposed=*]
              interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -329,8 +329,8 @@ describe('build (API)', () => {
           `[Exposed=DedicatedWorker]
              interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -344,8 +344,8 @@ describe('build (API)', () => {
           `[Exposed=RTCIdentityProviderGlobalScope]
              interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -359,8 +359,8 @@ describe('build (API)', () => {
           `[Exposed=SomeWrongScope]
           interface Dummy {
                readonly attribute boolean imadumdum;
-             };`
-        )
+             };`,
+        ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === 'interface');
@@ -369,7 +369,7 @@ describe('build (API)', () => {
           getExposureSet(interfaces[0], scopes);
         },
         Error,
-        'interface Dummy is exposed on SomeWrongScope but SomeWrongScope is not a valid scope'
+        'interface Dummy is exposed on SomeWrongScope but SomeWrongScope is not a valid scope',
       );
     });
   });
@@ -380,7 +380,7 @@ describe('build (API)', () => {
       'Worker',
       'SharedWorker',
       'ServiceWorker',
-      'AudioWorklet'
+      'AudioWorklet',
     ]);
 
     it('interface with attribute', () => {
@@ -388,17 +388,17 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Attr {
              attribute any name;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.Attr': {
           code: '"Attr" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Attr.name': {
           code: '"Attr" in self && "name" in Attr.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -407,17 +407,17 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Node {
              boolean contains(Node? other);
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.Node': {
           code: '"Node" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Node.contains': {
           code: '"Node" in self && "contains" in Node.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -426,18 +426,18 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface MediaSource {
              static boolean isTypeSupported(DOMString type);
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.MediaSource': {
           code: '"MediaSource" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.MediaSource.isTypeSupported': {
           code: '"MediaSource" in self && "isTypeSupported" in MediaSource',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -446,14 +446,14 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Window {
              const boolean isWindow = true;
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.Window': {
           code: '"Window" in self',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -462,13 +462,13 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Foo {
              attribute EventHandler onadd;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.Foo': {
           code: '"Foo" in self',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -494,7 +494,7 @@ describe('build (API)', () => {
           interface Document {
             readonly attribute boolean loaded;
             readonly attribute DOMString? characterSet;
-          };`
+          };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
@@ -506,7 +506,7 @@ describe('build (API)', () => {
   return !!instance;
 })();
 `,
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.ANGLE_instanced_arrays.drawArraysInstancedANGLE': {
           code: `(function () {
@@ -516,7 +516,7 @@ describe('build (API)', () => {
   return true && instance && "drawArraysInstancedANGLE" in instance;
 })();
 `,
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.ANGLE_instanced_arrays.drawElementsInstancedANGLE': {
           code: `(function () {
@@ -526,37 +526,37 @@ describe('build (API)', () => {
   return !!instance && "drawElementsInstancedANGLE" in instance;
 })();
 `,
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Document': {
           code: '"Document" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Document.characterSet': {
           code: `(function () {
   return document.characterSet == "UTF-8";
 })();
 `,
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Document.loaded': {
           code: '"Document" in self && "loaded" in Document.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Document.loaded.loaded_is_boolean': {
           code: `(function () {
   return typeof document.loaded === "boolean";
 })();
 `,
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
     it('interface with legacy namespace', () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window, LegacyNamespace]
-           interface Legacy {};`
+           interface Legacy {};`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {});
     });
@@ -567,18 +567,18 @@ describe('build (API)', () => {
            interface WorkerGlobalScope {
              attribute boolean isLoaded;
              const boolean active = true;
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.WorkerGlobalScope': {
           code: '"WorkerGlobalScope" in self',
-          exposure: ['Worker']
+          exposure: ['Worker'],
         },
         'api.WorkerGlobalScope.isLoaded': {
           code: '"isLoaded" in self',
-          exposure: ['Worker']
-        }
+          exposure: ['Worker'],
+        },
       });
     });
 
@@ -587,18 +587,18 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Number {
              constructor(optional any value);
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.Number': {
           code: '"Number" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Number.Number': {
           code: 'bcd.testConstructor("Number");',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -607,14 +607,14 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface HTMLButtonElement {
              [HTMLConstructor] constructor();
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.HTMLButtonElement': {
           code: '"HTMLButtonElement" in self',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
         // no constructor test
       });
     });
@@ -624,33 +624,33 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface DoubleList {
              iterable<double>;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.DoubleList': {
           code: '"DoubleList" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleList.@@iterator': {
           code: '"Symbol" in self && "iterator" in Symbol && "DoubleList" in self && !!(DoubleList.prototype[Symbol.iterator])',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleList.entries': {
           code: '"DoubleList" in self && "entries" in DoubleList.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleList.forEach': {
           code: '"DoubleList" in self && "forEach" in DoubleList.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleList.keys': {
           code: '"DoubleList" in self && "keys" in DoubleList.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleList.values': {
           code: '"DoubleList" in self && "values" in DoubleList.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -659,21 +659,21 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface ReadableStream {
              async iterable<any>;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.ReadableStream': {
           code: '"ReadableStream" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.ReadableStream.@@asyncIterator': {
           code: '"Symbol" in self && "asyncIterator" in Symbol && "ReadableStream" in self && !!(ReadableStream.prototype[Symbol.asyncIterator])',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.ReadableStream.values': {
           code: '"ReadableStream" in self && "values" in ReadableStream.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -682,29 +682,29 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface AsyncMap {
              async iterable<DOMString, any>;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.AsyncMap': {
           code: '"AsyncMap" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.AsyncMap.@@asyncIterator': {
           code: '"Symbol" in self && "asyncIterator" in Symbol && "AsyncMap" in self && !!(AsyncMap.prototype[Symbol.asyncIterator])',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.AsyncMap.values': {
           code: '"AsyncMap" in self && "values" in AsyncMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.AsyncMap.entries': {
           code: '"AsyncMap" in self && "entries" in AsyncMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.AsyncMap.keys': {
           code: '"AsyncMap" in self && "keys" in AsyncMap.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -713,57 +713,57 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface DoubleMap {
              maplike<DOMString, double>;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.DoubleMap': {
           code: '"DoubleMap" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.@@iterator': {
           code: '"Symbol" in self && "iterator" in Symbol && "DoubleMap" in self && !!(DoubleMap.prototype[Symbol.iterator])',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.clear': {
           code: '"DoubleMap" in self && "clear" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.delete': {
           code: '"DoubleMap" in self && "delete" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.entries': {
           code: '"DoubleMap" in self && "entries" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.forEach': {
           code: '"DoubleMap" in self && "forEach" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.get': {
           code: '"DoubleMap" in self && "get" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.has': {
           code: '"DoubleMap" in self && "has" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.keys': {
           code: '"DoubleMap" in self && "keys" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.set': {
           code: '"DoubleMap" in self && "set" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.size': {
           code: '"DoubleMap" in self && "size" in DoubleMap.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleMap.values': {
           code: '"DoubleMap" in self && "values" in DoubleMap.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -772,53 +772,53 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface DoubleSet {
              setlike<double>;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.DoubleSet': {
           code: '"DoubleSet" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.@@iterator': {
           code: '"Symbol" in self && "iterator" in Symbol && "DoubleSet" in self && !!(DoubleSet.prototype[Symbol.iterator])',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.add': {
           code: '"DoubleSet" in self && "add" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.clear': {
           code: '"DoubleSet" in self && "clear" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.delete': {
           code: '"DoubleSet" in self && "delete" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.entries': {
           code: '"DoubleSet" in self && "entries" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.forEach': {
           code: '"DoubleSet" in self && "forEach" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.has': {
           code: '"DoubleSet" in self && "has" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.keys': {
           code: '"DoubleSet" in self && "keys" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.size': {
           code: '"DoubleSet" in self && "size" in DoubleSet.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.DoubleSet.values': {
           code: '"DoubleSet" in self && "values" in DoubleSet.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -828,13 +828,13 @@ describe('build (API)', () => {
            interface GetMe {
              getter GetMe (unsigned long index);
              setter undefined (GetMe data, optional unsigned long index);
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.GetMe': {
           code: '"GetMe" in self',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -846,29 +846,29 @@ describe('build (API)', () => {
            [Exposed=Window] namespace console {
              undefined log(any... data);
            };
-           [Exposed=Window] namespace GPUBufferUsage {};`
+           [Exposed=Window] namespace GPUBufferUsage {};`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.console': {
           code: '"console" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.console.log': {
           code: '"console" in self && "log" in console',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.MessageChannel': {
           code: '"MessageChannel" in self',
-          exposure: ['Window', 'Worker']
+          exposure: ['Window', 'Worker'],
         },
         'api.Worker': {
           code: '"Worker" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.WorkerSync': {
           code: '"WorkerSync" in self',
-          exposure: ['Worker']
-        }
+          exposure: ['Worker'],
+        },
       });
     });
 
@@ -877,18 +877,18 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Number {
              stringifier DOMString();
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.Number': {
           code: '"Number" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Number.toString': {
           code: '"Number" in self && "toString" in Number.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -897,22 +897,22 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface HTMLAreaElement {
              stringifier readonly attribute USVString href;
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.HTMLAreaElement': {
           code: '"HTMLAreaElement" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.HTMLAreaElement.href': {
           code: '"HTMLAreaElement" in self && "href" in HTMLAreaElement.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.HTMLAreaElement.toString': {
           code: '"HTMLAreaElement" in self && "toString" in HTMLAreaElement.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -923,17 +923,17 @@ describe('build (API)', () => {
              undefined disconnect ();
              undefined disconnect (unsigned long output);
              undefined disconnect (AudioNode destinationNode);
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.AudioNode': {
           code: '"AudioNode" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.AudioNode.disconnect': {
           code: '"AudioNode" in self && "disconnect" in AudioNode.prototype',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -942,17 +942,17 @@ describe('build (API)', () => {
         `[Exposed=Window]
            namespace CSS {
              readonly attribute any paintWorklet;
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.CSS': {
           code: '"CSS" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.CSS.paintWorklet': {
           code: '"CSS" in self && "paintWorklet" in CSS',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -961,17 +961,17 @@ describe('build (API)', () => {
         `[Exposed=Window]
            namespace CSS {
              boolean supports(CSSOMString property, CSSOMString value);
-           };`
+           };`,
       );
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.CSS': {
           code: '"CSS" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.CSS.supports': {
           code: '"CSS" in self && "supports" in CSS',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -980,7 +980,7 @@ describe('build (API)', () => {
         `[Exposed=Window]
            namespace Scope {
              readonly attribute any specialWorklet;
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
@@ -990,7 +990,7 @@ describe('build (API)', () => {
   return !!scope;
 })();
 `,
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Scope.specialWorklet': {
           code: `(function () {
@@ -998,8 +998,8 @@ describe('build (API)', () => {
   return scope && "specialWorklet" in scope;
 })();
 `,
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -1009,18 +1009,18 @@ describe('build (API)', () => {
              Exposed=Window,
              LegacyFactoryFunction=Image(DOMString src)
            ]
-           interface HTMLImageElement {};`
+           interface HTMLImageElement {};`,
       );
 
       assert.deepEqual(buildIDLTests(ast, [], scopes), {
         'api.HTMLImageElement': {
           code: '"HTMLImageElement" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.HTMLImageElement.Image': {
           code: 'bcd.testConstructor("Image");',
-          exposure: ['Window']
-        }
+          exposure: ['Window'],
+        },
       });
     });
 
@@ -1029,28 +1029,28 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Dummy {
              readonly attribute boolean imadumdum;
-           };`
+           };`,
       );
       const globals = WebIDL2.parse(
         `[Exposed=Window]
            interface mixin WindowOrWorkerGlobalScope {
              undefined atob();
-           };`
+           };`,
       );
 
       assert.deepEqual(buildIDLTests(ast, globals, scopes), {
         'api.Dummy': {
           code: '"Dummy" in self',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.Dummy.imadumdum': {
           code: '"Dummy" in self && "imadumdum" in Dummy.prototype',
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         'api.atob': {
           code: '"atob" in self',
-          exposure: ['Window', 'Worker']
-        }
+          exposure: ['Window', 'Worker'],
+        },
       });
     });
   });
@@ -1061,7 +1061,7 @@ describe('build (API)', () => {
         `[Exposed=Window]
            interface Node {
              boolean contains(Node otherNode);
-           };`
+           };`,
       );
       assert.doesNotThrow(() => {
         validateIDL(ast);
@@ -1077,7 +1077,7 @@ describe('build (API)', () => {
         `Web IDL validation failed:
 Validation error at line 1, inside \`interface Invalid\`:
 interface Invalid {};
-          ^ Interfaces must have \`[Exposed]\` extended attribute. To fix, add, for example, \`[Exposed=Window]\`. Please also consider carefully if your interface should also be exposed in a Worker scope. Refer to the [WebIDL spec section on Exposed](https://heycam.github.io/webidl/#Exposed) for more information. [require-exposed]`
+          ^ Interfaces must have \`[Exposed]\` extended attribute. To fix, add, for example, \`[Exposed=Window]\`. Please also consider carefully if your interface should also be exposed in a Worker scope. Refer to the [WebIDL spec section on Exposed](https://heycam.github.io/webidl/#Exposed) for more information. [require-exposed]`,
       );
     });
 
@@ -1086,7 +1086,7 @@ interface Invalid {};
         `[Exposed=Window]
            interface Dummy {
              attribute Dumdum imadumdum;
-           };`
+           };`,
       );
       assert.throws(() => {
         validateIDL(ast);
@@ -1098,7 +1098,7 @@ interface Invalid {};
         `[Exposed=Window]
            interface Dummy {
              attribute CSSOMString style;
-           };`
+           };`,
       );
       assert.doesNotThrow(() => {
         validateIDL(ast);
@@ -1108,7 +1108,7 @@ interface Invalid {};
     it('allow LegacyNoInterfaceObject', () => {
       const ast = WebIDL2.parse(
         `[Exposed=(Window,Worker), LegacyNoInterfaceObject]
-           interface ANGLE_instanced_arrays {};`
+           interface ANGLE_instanced_arrays {};`,
       );
       assert.doesNotThrow(() => {
         validateIDL(ast);

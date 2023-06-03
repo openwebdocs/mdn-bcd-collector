@@ -4,7 +4,7 @@
   "singleQuote": true,
   "bracketSpacing": false,
   "quoteProps": "as-needed",
-  "trailingComma": "none",
+  "trailingComma": "all",
   "overrides": [
     {
       "files": ["**/*.yml"],

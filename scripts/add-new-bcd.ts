@@ -20,7 +20,7 @@ import {main as updateBcd} from './update-bcd.js';
 
 const tests = await fs.readJson(new URL('../tests.json', import.meta.url));
 const overrides = await fs.readJson(
-  new URL('../custom/overrides.json', import.meta.url)
+  new URL('../custom/overrides.json', import.meta.url),
 );
 
 const {default: bcd} = await import(`${BCD_DIR}/index.js`);
@@ -41,17 +41,17 @@ const template = {
       safari: {version_added: null},
       safari_ios: 'mirror',
       samsunginternet_android: 'mirror',
-      webview_android: 'mirror'
+      webview_android: 'mirror',
     },
-    status: {experimental: true, standard_track: true, deprecated: false}
-  }
+    status: {experimental: true, standard_track: true, deprecated: false},
+  },
 };
 
 export const recursiveAdd = (
   ident: string[],
   i: number,
   data: Identifier,
-  obj: any
+  obj: any,
 ): Identifier => {
   const part = ident[i];
 
@@ -107,7 +107,7 @@ export const getFilePath = (ident: string[]): string => {
     }
   } else {
     throw new Error(
-      `Cannot determine file path from BCD path: ${ident.join('.')}`
+      `Cannot determine file path from BCD path: ${ident.join('.')}`,
     );
   }
   parts[parts.length - 1] += '.json';
@@ -128,14 +128,14 @@ const writeFile = async (ident: string[], obj: any): Promise<void> => {
   await fs.writeJSON(
     filepath,
     recursiveAdd(ident.concat(['__compat']), 0, data, obj.__compat),
-    {spaces: 2, replacer: orderFeatures}
+    {spaces: 2, replacer: orderFeatures},
   );
 };
 /* c8 ignore stop */
 
 export const traverseFeatures = async (
   obj: Identifier,
-  identifier: string[]
+  identifier: string[],
 ): Promise<any> => {
   for (const i in obj) {
     if (!!obj[i] && typeof obj[i] == 'object' && i !== '__compat') {
@@ -172,7 +172,7 @@ export const collectMissing = async (filepath: string): Promise<void> => {
 /* c8 ignore start */
 const main = async (): Promise<void> => {
   const filepath = path.resolve(
-    path.join(BCD_DIR, '__missing', '__missing.json')
+    path.join(BCD_DIR, '__missing', '__missing.json'),
   );
 
   console.log('Generating missing BCD...');
@@ -181,7 +181,7 @@ const main = async (): Promise<void> => {
     ['../mdn-bcd-results/'],
     {addNewFeatures: true},
     bcd.browsers,
-    overrides
+    overrides,
   );
 
   console.log('Injecting BCD...');

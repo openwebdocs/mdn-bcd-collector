@@ -16,11 +16,11 @@ describe('build (CSS)', () => {
   it('valid input', () => {
     const webrefCSS = {
       'css-fonts': {
-        properties: [{name: 'font-family'}, {name: 'font-weight'}]
+        properties: [{name: 'font-family'}, {name: 'font-weight'}],
       },
       'css-grid': {
-        properties: [{name: 'grid'}]
-      }
+        properties: [{name: 'grid'}],
+      },
     };
 
     const customCSS = {
@@ -28,50 +28,50 @@ describe('build (CSS)', () => {
         'font-family': {
           __values: ['emoji', 'system-ui'],
           __additional_values: {
-            historic: ['sans-serif', 'serif']
-          }
+            historic: ['sans-serif', 'serif'],
+          },
         },
-        zoom: {}
-      }
+        zoom: {},
+      },
     };
 
     assert.deepEqual(build(webrefCSS, customCSS), {
       'css.properties.font-family': {
         code: 'bcd.testCSSProperty("font-family")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'css.properties.font-family.emoji': {
         code: 'bcd.testCSSProperty("font-family", "emoji")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'css.properties.font-family.historic': {
         code: 'bcd.testCSSProperty("font-family", "sans-serif") || bcd.testCSSProperty("font-family", "serif")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'css.properties.font-family.system-ui': {
         code: 'bcd.testCSSProperty("font-family", "system-ui")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'css.properties.font-weight': {
         code: 'bcd.testCSSProperty("font-weight")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'css.properties.grid': {
         code: 'bcd.testCSSProperty("grid")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'css.properties.zoom': {
         code: 'bcd.testCSSProperty("zoom")',
-        exposure: ['Window']
-      }
+        exposure: ['Window'],
+      },
     });
   });
 
   it('with custom test', () => {
     const css = {
       'css-dummy': {
-        properties: [{name: 'foo'}]
-      }
+        properties: [{name: 'foo'}],
+      },
     };
 
     assert.deepEqual(build(css, {properties: {}}), {
@@ -80,16 +80,16 @@ describe('build (CSS)', () => {
   return 1;
 })();
 `,
-        exposure: ['Window']
-      }
+        exposure: ['Window'],
+      },
     });
   });
 
   it('double-defined property', () => {
     const css = {
       'css-dummy': {
-        properties: [{name: 'foo'}]
-      }
+        properties: [{name: 'foo'}],
+      },
     };
 
     assert.throws(() => {
@@ -100,8 +100,8 @@ describe('build (CSS)', () => {
   it('invalid import', () => {
     const css = {
       'css-dummy': {
-        properties: [{name: 'bar'}]
-      }
+        properties: [{name: 'bar'}],
+      },
     };
 
     assert.deepEqual(build(css, {properties: {}}), {
@@ -110,8 +110,8 @@ describe('build (CSS)', () => {
   throw "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
 })();
 `,
-        exposure: ['Window']
-      }
+        exposure: ['Window'],
+      },
     });
   });
 });

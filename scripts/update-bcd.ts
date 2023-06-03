@@ -9,7 +9,7 @@
 import {
   Browsers,
   SimpleSupportStatement,
-  Identifier
+  Identifier,
 } from '@mdn/browser-compat-data/types';
 import {
   Report,
@@ -17,7 +17,7 @@ import {
   SupportMatrix,
   BrowserSupportMap,
   Overrides,
-  InternalSupportStatement
+  InternalSupportStatement,
 } from '../types/types.js';
 
 import assert from 'node:assert';
@@ -25,7 +25,7 @@ import path from 'node:path';
 
 import {
   compare as compareVersions,
-  compareVersions as compareVersionsSort
+  compareVersions as compareVersionsSort,
 } from 'compare-versions';
 import esMain from 'es-main';
 import fs from 'fs-extra';
@@ -42,7 +42,7 @@ const {default: mirror} = await import(`${BCD_DIR}/scripts/release/mirror.js`);
 
 export const findEntry = (
   bcd: Identifier,
-  ident: string
+  ident: string,
 ): Identifier | null => {
   if (!ident) {
     return null;
@@ -137,7 +137,7 @@ export const getSupportMap = (report: Report): BrowserSupportMap => {
 export const getSupportMatrix = (
   reports: Report[],
   browsers: Browsers,
-  overrides: Overrides
+  overrides: Overrides,
 ): SupportMatrix => {
   const supportMatrix = new Map();
 
@@ -146,11 +146,11 @@ export const getSupportMatrix = (
     if (!inBcd) {
       if (inBcd === false) {
         logger.warn(
-          `Ignoring unknown ${browser.name} version ${version} (${report.userAgent})`
+          `Ignoring unknown ${browser.name} version ${version} (${report.userAgent})`,
         );
       } else if (browser.name) {
         logger.warn(
-          `Ignoring unknown browser ${browser.name} ${version} (${report.userAgent})`
+          `Ignoring unknown browser ${browser.name} ${version} (${report.userAgent})`,
         );
       } else {
         logger.warn(`Unable to parse browser from UA ${report.userAgent}`);
@@ -172,7 +172,7 @@ export const getSupportMatrix = (
       if (!versionMap) {
         versionMap = new Map();
         for (const browserVersion of Object.keys(
-          browsers[browser.id].releases
+          browsers[browser.id].releases,
         )) {
           versionMap.set(browserVersion, null);
         }
@@ -232,14 +232,14 @@ export const getSupportMatrix = (
 };
 
 export const inferSupportStatements = (
-  versionMap: BrowserSupportMap
+  versionMap: BrowserSupportMap,
 ): SimpleSupportStatement[] => {
   const versions = Array.from(versionMap.keys()).sort(compareVersionsSort);
 
   const statements: SimpleSupportStatement[] = [];
   const lastKnown: {version: string; support: TestResultValue} = {
     version: '0',
-    support: null
+    support: null,
   };
   let lastWasNull = false;
 
@@ -253,7 +253,7 @@ export const inferSupportStatements = (
           version_added:
             lastWasNull || lastKnown.support === false
               ? joinRange(lastKnown.version, version)
-              : version
+              : version,
         });
       } else if (!lastStatement.version_added) {
         lastStatement.version_added = lastWasNull
@@ -262,7 +262,7 @@ export const inferSupportStatements = (
       } else if (lastStatement.version_removed) {
         // added back again
         statements.push({
-          version_added: version
+          version_added: version,
         });
       }
 
@@ -299,7 +299,7 @@ export const inferSupportStatements = (
 export const update = (
   bcd: Identifier,
   supportMatrix: SupportMatrix,
-  filter: any
+  filter: any,
 ): boolean => {
   let modified = false;
 
@@ -336,7 +336,7 @@ export const update = (
       if (inferredStatements.length !== 1) {
         // TODO: handle more complicated scenarios
         logger.warn(
-          `${path} skipped for ${browser} due to multiple inferred statements`
+          `${path} skipped for ${browser} due to multiple inferred statements`,
         );
         continue;
       }
@@ -357,12 +357,12 @@ export const update = (
             compareVersions(
               inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ''),
               filterMatch[1],
-              '<'
+              '<',
             ) ||
             compareVersions(
               inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ''),
               filterMatch[2],
-              '>'
+              '>',
             )
           ) {
             // If version_added is outside of filter range
@@ -373,12 +373,12 @@ export const update = (
             (compareVersions(
               inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ''),
               filterMatch[1],
-              '<'
+              '<',
             ) ||
               compareVersions(
                 inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ''),
                 filterMatch[2],
-                '>'
+                '>',
               ))
           ) {
             // If version_removed and it's outside of filter range
@@ -460,7 +460,7 @@ export const update = (
         //
         // See https://github.com/mdn/browser-compat-data/pull/16637
         const nonFlagStatements = allStatements.filter(
-          (statement) => !('flags' in statement)
+          (statement) => !('flags' in statement),
         );
         persist([inferredStatement, ...nonFlagStatements]);
 
@@ -470,7 +470,7 @@ export const update = (
       if (defaultStatements.length !== 1) {
         // TODO: handle more complicated scenarios
         logger.warn(
-          `${path} skipped for ${browser} due to multiple default statements`
+          `${path} skipped for ${browser} due to multiple default statements`,
         );
         continue;
       }
@@ -480,7 +480,7 @@ export const update = (
       if (simpleStatement.version_removed) {
         // TODO: handle updating existing added+removed entries.
         logger.warn(
-          `${path} skipped for ${browser} due to added+removed statement`
+          `${path} skipped for ${browser} due to added+removed statement`,
         );
         continue;
       }
@@ -494,7 +494,7 @@ export const update = (
         let latestNonNullVersion = '';
 
         for (const [version, result] of Array.from(
-          versionMap.entries()
+          versionMap.entries(),
         ).reverse()) {
           if (result === null) {
             // Ignore null values
@@ -514,11 +514,11 @@ export const update = (
           compareVersions(
             latestNonNullVersion,
             simpleStatement.version_added.replace('≤', ''),
-            '<'
+            '<',
           )
         ) {
           logger.warn(
-            `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`
+            `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
           );
           continue;
         }
@@ -577,7 +577,7 @@ export const update = (
 // from (absolute) path to the parsed file content.
 /* c8 ignore start */
 export const loadJsonFiles = async (
-  paths: string[]
+  paths: string[],
 ): Promise<{[filename: string]: any}> => {
   // Ignores .DS_Store, .git, etc.
   const dotFilter = (item) => {
@@ -604,7 +604,7 @@ export const loadJsonFiles = async (
     jsonFiles.map(async (file) => {
       const data = await fs.readJson(file);
       return [file, data];
-    })
+    }),
   );
 
   return Object.fromEntries(entries);
@@ -614,7 +614,7 @@ export const main = async (
   reportPaths: string[],
   filter: any,
   browsers: Browsers,
-  overrides: Overrides
+  overrides: Overrides,
 ): Promise<void> => {
   // Replace filter.path with a minimatch object.
   if (filter.path && filter.path.includes('*')) {
@@ -628,14 +628,14 @@ export const main = async (
   const bcdFiles = (await loadJsonFiles(
     filter.addNewFeatures
       ? [path.join(BCD_DIR, '__missing')]
-      : CATEGORIES.map((cat) => path.join(BCD_DIR, ...cat.split('.')))
+      : CATEGORIES.map((cat) => path.join(BCD_DIR, ...cat.split('.'))),
   )) as {[key: string]: Identifier};
 
   const reports = Object.values(await loadJsonFiles(reportPaths)) as Report[];
   const supportMatrix = getSupportMatrix(
     reports,
     browsers,
-    overrides.filter(Array.isArray)
+    overrides.filter(Array.isArray),
   );
 
   // Should match https://github.com/mdn/browser-compat-data/blob/f10bf2cc7d1b001a390e70b7854cab9435ffb443/test/linter/test-style.js#L63
@@ -653,10 +653,10 @@ export const main = async (
 
 if (esMain(import.meta)) {
   const {
-    default: {browsers}
+    default: {browsers},
   } = await import(`${BCD_DIR}/index.js`);
   const overrides = await fs.readJson(
-    new URL('../custom/overrides.json', import.meta.url)
+    new URL('../custom/overrides.json', import.meta.url),
   );
 
   const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
@@ -668,37 +668,37 @@ if (esMain(import.meta)) {
           describe: 'The report files to update from (also accepts folders)',
           type: 'string',
           array: true,
-          default: ['../mdn-bcd-results/']
+          default: ['../mdn-bcd-results/'],
         })
         .option('path', {
           alias: 'p',
           describe:
             'The BCD path to update (includes children, ex. "api.Document" will also update "api.Document.body")',
           type: 'string',
-          default: null
+          default: null,
         })
         .option('browser', {
           alias: 'b',
           describe: 'The browser to update',
           type: 'array',
           choices: Object.keys(browsers),
-          default: []
+          default: [],
         })
         .option('release', {
           alias: 'r',
           describe:
             'Only update when version_added or version_removed is set to the given value (can be an inclusive range, ex. xx-yy, or `false` for changes that set no support)',
           type: 'string',
-          default: null
+          default: null,
         })
         .option('exact-only', {
           alias: 'e',
           describe:
             'Only update when versions are a specific number (or "false"), disallowing ranges',
           type: 'boolean',
-          default: false
+          default: false,
         });
-    }
+    },
   );
 
   await main(argv.reports, argv, browsers, overrides);

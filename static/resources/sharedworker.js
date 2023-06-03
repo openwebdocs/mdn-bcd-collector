@@ -8,7 +8,7 @@
 
 /* global self, bcd */
 
-self.importScripts('harness.js');
+self.importScripts("harness.js");
 
 self.onconnect = function (connectEvent) {
   var port = connectEvent.ports[0];

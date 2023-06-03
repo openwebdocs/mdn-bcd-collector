@@ -18,14 +18,14 @@ class CloudStorage {
   constructor(
     projectIdOrCreds: string | any,
     bucketName: string,
-    appVersion: string
+    appVersion: string,
   ) {
     const storageOpts =
       typeof projectIdOrCreds === 'string'
         ? {projectId: projectIdOrCreds}
         : {
             projectId: projectIdOrCreds.projectId,
-            credentials: projectIdOrCreds
+            credentials: projectIdOrCreds,
           };
     const storage = new Storage(storageOpts);
     this._bucket = storage.bucket(bucketName);
@@ -37,7 +37,7 @@ class CloudStorage {
   async put(sessionId, key, value) {
     assert(sessionId.length > 0);
     const name = `${this._version}/sessions/${sessionId}/${encodeURIComponent(
-      key
+      key,
     )}`;
     const file = this._bucket.file(name);
     const data = JSON.stringify(value);
@@ -47,7 +47,7 @@ class CloudStorage {
   async get(sessionId, key) {
     assert(sessionId.length > 0);
     const name = `${this._version}/sessions/${sessionId}/${encodeURIComponent(
-      key
+      key,
     )}`;
     const file = this._bucket.file(name);
     const data = (await file.download())[0];
@@ -66,7 +66,7 @@ class CloudStorage {
         const key = decodeURIComponent(file.name.substr(prefix.length));
         const data = (await file.download())[0];
         result[key] = JSON.parse(data.toString());
-      })
+      }),
     );
     return result;
   }
@@ -133,14 +133,14 @@ class MemoryStorage {
     assert(!filename.includes('..'));
     await fs.writeFile(
       new URL(`../download/${filename}`, import.meta.url),
-      data
+      data,
     );
   }
 
   async readFile(filename) {
     assert(!filename.includes('..'));
     return await fs.readFile(
-      new URL(`../download/${filename}`, import.meta.url)
+      new URL(`../download/${filename}`, import.meta.url),
     );
   }
 }

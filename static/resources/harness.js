@@ -31,27 +31,27 @@
 
   // Set to true for debugging output, and 'full' to include completion logging
   var debugmode =
-    'location' in self &&
-    'search' in location &&
-    stringIncludes(location.search, 'debug=true');
+    "location" in self &&
+    "search" in location &&
+    stringIncludes(location.search, "debug=true");
 
   /* c8 ignore start */
   // Non-invasive polyfills
 
   function consoleLog(message) {
-    if ('console' in self) {
+    if ("console" in self) {
       console.log(message);
     }
   }
 
   function consoleWarn(message) {
-    if ('console' in self) {
+    if ("console" in self) {
       console.warn(message);
     }
   }
 
   function consoleError(message) {
-    if ('console' in self) {
+    if ("console" in self) {
       console.error(message);
     }
   }
@@ -68,7 +68,7 @@
     try {
       return String(value);
     } catch (err) {
-      return 'unserializable value';
+      return "unserializable value";
     }
   }
 
@@ -80,7 +80,7 @@
    * returns (Boolean): `true` if the object is an array, otherwise `false`.
    */
   function isArray(obj) {
-    if ('isArray' in Array) {
+    if ("isArray" in Array) {
       return Array.isArray(obj);
     }
 
@@ -122,7 +122,7 @@
    * returns (null)
    */
   function updateStatus(newStatus, className) {
-    var statusElement = document.getElementById('status');
+    var statusElement = document.getElementById("status");
     if (!statusElement) {
       return;
     }
@@ -130,8 +130,8 @@
     if (state.timedout) {
       statusElement.innerHTML =
         newStatus +
-        '<br>The tests seem to be taking a long time; ' +
-        'they may have crashed. Check the console for errors.';
+        "<br>The tests seem to be taking a long time; " +
+        "they may have crashed. Check the console for errors.";
     } else {
       statusElement.innerHTML = newStatus;
     }
@@ -140,7 +140,7 @@
       statusElement.className = className;
     }
 
-    consoleLog(statusElement.innerHTML.replace(/<br>/g, '\n'));
+    consoleLog(statusElement.innerHTML.replace(/<br>/g, "\n"));
   }
   /* c8 ignore stop */
 
@@ -155,10 +155,10 @@
    */
   function addInstance(name, code, options) {
     var newCode =
-      '(function () {\n  ' + code.replace(/\n/g, '\n  ') + '\n})();';
+      "(function () {\n  " + code.replace(/\n/g, "\n  ") + "\n})();";
     reusableInstances.__sources[name] = newCode;
 
-    reusableInstances[name] = options && options.callback ? 'callback' : null;
+    reusableInstances[name] = options && options.callback ? "callback" : null;
   }
 
   /**
@@ -207,46 +207,46 @@
     var result = {};
 
     try {
-      if (typeof iface == 'string') {
-        eval('new ' + iface + '()');
+      if (typeof iface == "string") {
+        eval("new " + iface + "()");
       } else {
         // eslint-disable-next-line new-cap
         new iface();
       }
       result.result = true;
-      result.message = 'Constructor passed with no errors';
+      result.message = "Constructor passed with no errors";
     } catch (err) {
       if (
         stringIncludes(err.message, [
-          'Illegal constructor',
-          'is not a constructor',
-          'Function expected',
-          'is not defined',
+          "Illegal constructor",
+          "is not a constructor",
+          "Function expected",
+          "is not defined",
           "Can't find variable",
-          'NOT_SUPPORTED_ERR'
+          "NOT_SUPPORTED_ERR"
         ])
       ) {
         result.result = false;
       } else if (
         stringIncludes(err.message, [
-          'Not enough arguments',
-          'argument required',
-          'arguments required',
-          'Argument not optional',
+          "Not enough arguments",
+          "argument required",
+          "arguments required",
+          "Argument not optional",
           "Arguments can't be empty",
-          'undefined is not an object',
-          'must be an object',
-          'WRONG_ARGUMENTS_ERR',
-          'are both null',
-          'must be specified',
-          'is not a valid custom element constructor',
-          'constructor takes a',
-          'is not a valid argument count',
-          'Missing required',
-          'Cannot read property',
-          'event name must be provided',
-          'requires a single argument',
-          'requires at least'
+          "undefined is not an object",
+          "must be an object",
+          "WRONG_ARGUMENTS_ERR",
+          "are both null",
+          "must be specified",
+          "is not a valid custom element constructor",
+          "constructor takes a",
+          "is not a valid argument count",
+          "Missing required",
+          "Cannot read property",
+          "event name must be provided",
+          "requires a single argument",
+          "requires at least"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
@@ -258,7 +258,7 @@
         result.result = null;
       }
 
-      result.message = 'threw ' + stringify(err);
+      result.message = "threw " + stringify(err);
     }
 
     return result;
@@ -277,48 +277,48 @@
     // Do not reject "falsey" values generally in order to support
     // `document.all`
     if (instance === null || instance === undefined) {
-      return {result: false, message: 'testObjectName: instance is falsy'};
+      return { result: false, message: "testObjectName: instance is falsy" };
     }
 
     /* c8 ignore start */
     if (
       !instance.constructor.name &&
-      Object.prototype.toString.call(instance) === '[object Object]'
+      Object.prototype.toString.call(instance) === "[object Object]"
     ) {
       return {
         result: null,
         message:
-          'testObjectName: Browser does not support object prototype confirmation methods'
+          "testObjectName: Browser does not support object prototype confirmation methods"
       };
     }
     /* c8 ignore stop */
 
-    if (typeof names === 'string') {
+    if (typeof names === "string") {
       names = [names];
     }
 
     var actualName = instance.constructor.name;
 
-    if (!actualName || actualName == 'Function.prototype') {
+    if (!actualName || actualName == "Function.prototype") {
       actualName = Object.prototype.toString
         .call(instance)
-        .replace(/\[object (.*)\]/g, '$1');
+        .replace(/\[object (.*)\]/g, "$1");
     }
 
     for (var i = 0; i < names.length; i++) {
       if (actualName === names[i]) {
-        return {result: true, message: 'Got ' + actualName};
+        return { result: true, message: "Got " + actualName };
       }
     }
 
     return {
       result: false,
       message:
-        'testObjectName: Instance prototype does not match accepted names (expected ' +
-        names.join(', ') +
-        '; got ' +
+        "testObjectName: Instance prototype does not match accepted names (expected " +
+        names.join(", ") +
+        "; got " +
         actualName +
-        ')'
+        ")"
     };
   }
 
@@ -406,10 +406,10 @@
     }
 
     /* c8 ignore start */
-    if (!('Object' in self && 'defineProperty' in Object)) {
+    if (!("Object" in self && "defineProperty" in Object)) {
       return {
         result: null,
-        message: 'Browser does not support detection methods'
+        message: "Browser does not support detection methods"
       };
     }
     /* c8 ignore stop */
@@ -417,18 +417,18 @@
     if (!instance) {
       return {
         result: false,
-        message: 'testOptionParam: instance is falsy'
+        message: "testOptionParam: instance is falsy"
       };
     }
 
     if (
       methodName &&
-      methodName !== 'constructor' &&
+      methodName !== "constructor" &&
       !(methodName in instance)
     ) {
       return {
         result: false,
-        message: 'testOptionParam: instance.' + methodName + ' is undefined'
+        message: "testOptionParam: instance." + methodName + " is undefined"
       };
     }
 
@@ -447,7 +447,7 @@
       options = paramObj;
     }
 
-    if (methodName === 'constructor') {
+    if (methodName === "constructor") {
       // If methodName is 'constructor', we're testing a constructor
       new instance(options);
     } else if (methodName) {
@@ -472,20 +472,20 @@
   function testCSSProperty(name, value) {
     if (!value) {
       // Default to "inherit"
-      value = 'inherit';
+      value = "inherit";
     }
 
     // Use CSS.supports if available
-    if ('CSS' in window && window.CSS.supports) {
+    if ("CSS" in window && window.CSS.supports) {
       return window.CSS.supports(name, value);
     }
 
     // Use div.style fallback
-    var div = document.createElement('div');
+    var div = document.createElement("div");
 
-    if ('style' in div) {
+    if ("style" in div) {
       // Use .setProperty() if supported
-      if ('setProperty' in div.style) {
+      if ("setProperty" in div.style) {
         div.style.setProperty(name, value);
         return div.style.getPropertyValue(name) == value;
       }
@@ -497,7 +497,7 @@
       }
     }
 
-    return {result: null, message: 'Detection methods are not supported'};
+    return { result: null, message: "Detection methods are not supported" };
   }
 
   /**
@@ -530,35 +530,35 @@
    *
    */
   function processTestResult(value, data, i, callback) {
-    var result = {name: data.name, info: {}};
+    var result = { name: data.name, info: {} };
 
-    if (typeof value === 'boolean') {
+    if (typeof value === "boolean") {
       result.result = value;
     } else if (value instanceof Error) {
       result.result = null;
-      result.message = 'threw ' + stringify(value);
-    } else if (value && typeof value === 'object') {
+      result.message = "threw " + stringify(value);
+    } else if (value && typeof value === "object") {
       /* c8 ignore start */
       if (
-        'name' in value &&
-        stringIncludes(value.name, ['NS_ERROR', 'NotSupported'])
+        "name" in value &&
+        stringIncludes(value.name, ["NS_ERROR", "NotSupported"])
       ) {
         // Catch exceptions from early versions of Firefox
         result.result = null;
-        result.message = 'threw ' + stringify(value.message);
+        result.message = "threw " + stringify(value.message);
         /* c8 ignore stop */
-      } else if ('result' in value) {
+      } else if ("result" in value) {
         result.result = value.result;
         if (value.message) {
           result.message = value.message;
         }
       } else {
         result.result = null;
-        result.message = 'returned ' + stringify(value);
+        result.message = "returned " + stringify(value);
       }
     } else {
       result.result = null;
-      result.message = 'returned ' + stringify(value);
+      result.message = "returned " + stringify(value);
     }
 
     if (result.result !== false) {
@@ -585,9 +585,9 @@
 
     /* c8 ignore start */
     if (debugmode) {
-      if (typeof result.result !== 'boolean' && result.result !== null) {
+      if (typeof result.result !== "boolean" && result.result !== null) {
         consoleLog(
-          data.name + ' returned ' + result.result + ', not true/false/null!.'
+          data.name + " returned " + result.result + ", not true/false/null!."
         );
       }
     }
@@ -611,7 +611,7 @@
     /* c8 ignore start */
     // If a test is stuck for too long (ex. user interaction needed), ignore it
     var timeout = setTimeout(function () {
-      fail('Timed out');
+      fail("Timed out");
     }, 10000);
     /* c8 ignore stop */
 
@@ -636,13 +636,13 @@
       var value = eval(test.code);
 
       if (
-        typeof value === 'object' &&
+        typeof value === "object" &&
         value !== null &&
-        typeof value.then === 'function'
+        typeof value.then === "function"
       ) {
         value.then(success, fail);
-        value['catch'](fail);
-      } else if (value !== 'callback') {
+        value["catch"](fail);
+      } else if (value !== "callback") {
         success(value);
       }
     } catch (err) {
@@ -679,25 +679,25 @@
 
       /* c8 ignore start */
       if (debugmode) {
-        if (debugmode === 'full') {
+        if (debugmode === "full") {
           consoleLog(
-            'Completed ' +
+            "Completed " +
               result.name +
-              ' (' +
+              " (" +
               result.info.exposure +
-              ' exposure)'
+              " exposure)"
           );
         }
         var index = remaining.indexOf(result.name);
         if (index !== -1) {
           remaining.splice(index, 1);
         } else {
-          consoleWarn('Warning! ' + result.name + ' ran twice!');
+          consoleWarn("Warning! " + result.name + " ran twice!");
         }
         if (remaining.length > 0 && remaining.length <= 50) {
-          consoleLog('Remaining (' + result.info.exposure + '): ' + remaining);
+          consoleLog("Remaining (" + result.info.exposure + "): " + remaining);
           updateStatus(
-            'Remaining (' + result.info.exposure + '): ' + remaining
+            "Remaining (" + result.info.exposure + "): " + remaining
           );
         } else if (
           (remaining.length > 50 &&
@@ -706,11 +706,11 @@
           (remaining.length >= 200 && remaining.length % 500 == 0)
         ) {
           consoleLog(
-            'Remaining (' +
+            "Remaining (" +
               result.info.exposure +
-              '): ' +
+              "): " +
               (tests.length - completedTests) +
-              ' tests'
+              " tests"
           );
         }
       }
@@ -720,7 +720,7 @@
         callback(results);
       } else if (completedTests > tests.length) {
         consoleWarn(
-          'Warning! More tests were completed than there should have been; did a test run twice?'
+          "Warning! More tests were completed than there should have been; did a test run twice?"
         );
       }
     };
@@ -741,7 +741,7 @@
    */
   function runWindow(callback) {
     if (pending.Window) {
-      updateStatus('Running tests for Window...');
+      updateStatus("Running tests for Window...");
       runTests(pending.Window, callback);
     } else {
       callback([]);
@@ -759,12 +759,12 @@
    */
   function runWorker(callback) {
     if (pending.Worker) {
-      updateStatus('Running tests for Worker...');
+      updateStatus("Running tests for Worker...");
       var myWorker = null;
 
-      if ('Worker' in self) {
+      if ("Worker" in self) {
         try {
-          myWorker = new Worker('/resources/worker.js');
+          myWorker = new Worker("/resources/worker.js");
         } catch (e) {
           /* c8 ignore start */
           // eslint-disable-next-rule no-empty
@@ -786,7 +786,7 @@
       } else {
         /* c8 ignore start */
         updateStatus(
-          'No worker support, skipping Worker/DedicatedWorker tests'
+          "No worker support, skipping Worker/DedicatedWorker tests"
         );
 
         var results = [];
@@ -794,9 +794,9 @@
           var result = {
             name: pending.Worker[i].name,
             result: false,
-            message: 'No worker support',
+            message: "No worker support",
             info: {
-              exposure: 'Worker'
+              exposure: "Worker"
             }
           };
 
@@ -830,12 +830,12 @@
    */
   function runSharedWorker(callback) {
     if (pending.SharedWorker) {
-      updateStatus('Running tests for Shared Worker...');
+      updateStatus("Running tests for Shared Worker...");
       var myWorker = null;
 
-      if ('SharedWorker' in self) {
+      if ("SharedWorker" in self) {
         try {
-          myWorker = new SharedWorker('/resources/sharedworker.js');
+          myWorker = new SharedWorker("/resources/sharedworker.js");
         } catch (e) {
           /* c8 ignore start */
           // eslint-disable-next-rule no-empty
@@ -856,16 +856,16 @@
         );
       } else {
         /* c8 ignore start */
-        updateStatus('No shared worker support, skipping SharedWorker tests');
+        updateStatus("No shared worker support, skipping SharedWorker tests");
 
         var results = [];
         for (var i = 0; i < pending.SharedWorker.length; i++) {
           var result = {
             name: pending.SharedWorker[i].name,
             result: false,
-            message: 'No shared worker support',
+            message: "No shared worker support",
             info: {
-              exposure: 'SharedWorker'
+              exposure: "SharedWorker"
             }
           };
 
@@ -899,15 +899,15 @@
    */
   function runServiceWorker(callback) {
     if (pending.ServiceWorker) {
-      updateStatus('Running tests for Service Worker...');
-      if ('serviceWorker' in navigator) {
+      updateStatus("Running tests for Service Worker...");
+      if ("serviceWorker" in navigator) {
         window.__workerCleanup().then(function () {
           navigator.serviceWorker
-            .register('/resources/serviceworker.js', {
-              scope: '/resources/'
+            .register("/resources/serviceworker.js", {
+              scope: "/resources/"
             })
             .then(function (reg) {
-              return window.__waitForSWState(reg, 'activated');
+              return window.__waitForSWState(reg, "activated");
             })
             .then(navigator.serviceWorker.ready)
             .then(function (reg) {
@@ -928,16 +928,16 @@
         });
       } else {
         /* c8 ignore start */
-        updateStatus('No service worker support, skipping ServiceWorker tests');
+        updateStatus("No service worker support, skipping ServiceWorker tests");
 
         var results = [];
         for (var i = 0; i < pending.ServiceWorker.length; i++) {
           var result = {
             name: pending.ServiceWorker[i].name,
             result: false,
-            message: 'No service worker support',
+            message: "No service worker support",
             info: {
-              exposure: 'ServiceWorker'
+              exposure: "ServiceWorker"
             }
           };
 
@@ -971,7 +971,7 @@
    */
   function loadResources(onReady, resourceCount) {
     if (resourceCount) {
-      updateStatus('Loading required resources...');
+      updateStatus("Loading required resources...");
       resources.required = resourceCount;
 
       var resourceTimeoutLength = 5000;
@@ -979,9 +979,9 @@
       var resourceCountdownTimeout;
       var resourceCountdownFunc = function () {
         updateStatus(
-          'Loading required resources (timeout in ' +
+          "Loading required resources (timeout in " +
             resourceCountdown +
-            's)...'
+            "s)..."
         );
         resourceCountdown = resourceCountdown - 1;
 
@@ -996,7 +996,7 @@
         clearTimeout(resourceCountdownTimeout);
         // If the resources don't load, just start the tests anyways
         updateStatus(
-          'Timed out waiting for resources to load, readying anyways'
+          "Timed out waiting for resources to load, readying anyways"
         );
         onReady();
       }, resourceTimeoutLength);
@@ -1011,7 +1011,7 @@
         if (resources.loaded >= resources.required) {
           clearTimeout(resourceTimeout);
           clearTimeout(resourceCountdownTimeout);
-          updateStatus('Resources loaded, ready to run');
+          updateStatus("Resources loaded, ready to run");
           onReady();
         }
       };
@@ -1021,7 +1021,7 @@
         // Load audio and video
         var i;
         var resourceMedia = document.querySelectorAll(
-          '#resources audio, #resources video'
+          "#resources audio, #resources video"
         );
         for (i = 0; i < resourceMedia.length; i++) {
           resourceMedia[i].load();
@@ -1029,7 +1029,7 @@
         }
 
         // Load images
-        var resourceImages = document.querySelectorAll('#resources img');
+        var resourceImages = document.querySelectorAll("#resources img");
         for (i = 0; i < resourceImages.length; i++) {
           if (resourceImages[i].complete) {
             resourceLoaded();
@@ -1041,12 +1041,12 @@
         // Load resources
         var instanceKeys = Object.keys(reusableInstances);
         instanceKeys.forEach(function (instanceKey) {
-          if (instanceKey == '__sources') {
+          if (instanceKey == "__sources") {
             // The __sources key is a special key
             return;
           }
 
-          if (reusableInstances[instanceKey] == 'callback') {
+          if (reusableInstances[instanceKey] == "callback") {
             // If it's a callback, we need to load it here
             try {
               /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
@@ -1057,9 +1057,9 @@
               /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
               function fail(response) {
                 consoleError(
-                  'Failed to load reusable instance ' +
+                  "Failed to load reusable instance " +
                     instanceKey +
-                    ': ' +
+                    ": " +
                     response
                 );
                 resourceLoaded();
@@ -1069,7 +1069,7 @@
               eval(reusableInstances.__sources[instanceKey]);
             } catch (e) {
               consoleError(
-                'Failed to load reusable instance ' + instanceKey + ': ' + e
+                "Failed to load reusable instance " + instanceKey + ": " + e
               );
               resourceLoaded();
             }
@@ -1081,7 +1081,7 @@
               );
             } catch (e) {
               consoleError(
-                'Failed to load reusable instance ' + instanceKey + ': ' + e
+                "Failed to load reusable instance " + instanceKey + ": " + e
               );
             }
             resourceLoaded();
@@ -1091,7 +1091,7 @@
         // Couldn't use resource loading code, start anyways
         clearTimeout(resourceTimeout);
         clearTimeout(resourceCountdownTimeout);
-        consoleError('Failed to load resources: ' + e);
+        consoleError("Failed to load resources: " + e);
         onReady();
       }
     } else {
@@ -1118,7 +1118,7 @@
     };
 
     if (state.started) {
-      consoleError('Warning: Tests started twice!');
+      consoleError("Warning: Tests started twice!");
       return;
     }
 
@@ -1149,11 +1149,11 @@
               cleanupFunctions[i]();
             }
 
-            if ('serviceWorker' in navigator) {
+            if ("serviceWorker" in navigator) {
               window.__workerCleanup();
             }
 
-            if (typeof onComplete == 'function') {
+            if (typeof onComplete == "function") {
               onComplete(allresults);
             } else {
               report(allresults, hideResults);
@@ -1176,13 +1176,13 @@
    *
    */
   function go(onComplete, resourceCount, hideResults) {
-    if (!('XMLHttpRequest' in self)) {
+    if (!("XMLHttpRequest" in self)) {
       // If XMLHttpRequest is not supported, we can't export the results
-      document.getElementById('export-download').remove();
-      document.getElementById('export-github').remove();
-      var form = document.getElementById('export');
-      var message = document.createElement('em');
-      message.innerHTML = 'Export disabled; XMLHttpRequest not supported';
+      document.getElementById("export-download").remove();
+      document.getElementById("export-github").remove();
+      var form = document.getElementById("export");
+      var message = document.createElement("em");
+      message.innerHTML = "Export disabled; XMLHttpRequest not supported";
       form.appendChild(message);
     }
 
@@ -1203,25 +1203,25 @@
   function loadHighlightJs(callback) {
     try {
       // Load dark (main) style
-      var darkStyle = document.createElement('link');
-      darkStyle.rel = 'stylesheet';
-      darkStyle.href = '/resources/highlight.js/stackoverflow-dark.css';
+      var darkStyle = document.createElement("link");
+      darkStyle.rel = "stylesheet";
+      darkStyle.href = "/resources/highlight.js/stackoverflow-dark.css";
       document.body.appendChild(darkStyle);
 
       // Load light style
-      var lightStyle = document.createElement('link');
-      lightStyle.rel = 'stylesheet';
-      lightStyle.href = '/resources/highlight.js/stackoverflow-light.css';
-      lightStyle.media = '(prefers-color-scheme: light)';
+      var lightStyle = document.createElement("link");
+      lightStyle.rel = "stylesheet";
+      lightStyle.href = "/resources/highlight.js/stackoverflow-light.css";
+      lightStyle.media = "(prefers-color-scheme: light)";
       document.body.appendChild(lightStyle);
 
       // Load script
-      var script = document.createElement('script');
+      var script = document.createElement("script");
       script.src =
-        '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js';
+        "//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js";
       script.crossOrigin = true;
 
-      if ('onload' in script) {
+      if ("onload" in script) {
         script.onload = callback;
         script.onerror = callback;
       } else {
@@ -1247,63 +1247,63 @@
    *
    */
   function renderReInstReportEl(instanceId, resultsEl) {
-    var resultEl = document.createElement('details');
-    resultEl.className = 'result';
+    var resultEl = document.createElement("details");
+    resultEl.className = "result";
 
-    var resultSummaryEl = document.createElement('summary');
-    resultSummaryEl.innerHTML = 'reusableInstances.' + instanceId;
-    resultSummaryEl.innerHTML += ':&nbsp;';
+    var resultSummaryEl = document.createElement("summary");
+    resultSummaryEl.innerHTML = "reusableInstances." + instanceId;
+    resultSummaryEl.innerHTML += ":&nbsp;";
 
     var instance = reusableInstances[instanceId];
     var resultValue =
-      !!instance && instance !== 'callback'
-        ? 'true'
+      !!instance && instance !== "callback"
+        ? "true"
         : instance === false
-        ? 'false'
-        : 'null';
-    var resultValueEl = document.createElement('span');
-    resultValueEl.className = 'result-value result-value-' + resultValue;
+        ? "false"
+        : "null";
+    var resultValueEl = document.createElement("span");
+    resultValueEl.className = "result-value result-value-" + resultValue;
     resultValueEl.innerHTML =
-      resultValue === 'true'
+      resultValue === "true"
         ? '<span class="mdi mdi-check-bold"></span> Loaded'
-        : resultValue === 'false'
+        : resultValue === "false"
         ? '<span class="mdi mdi-close-thick"></span> Not Loaded, Unsupported'
-        : resultValue === 'null'
+        : resultValue === "null"
         ? '<span class="mdi mdi-exclamation-thick"></span> Failed to Load'
         : resultValue;
     resultSummaryEl.appendChild(resultValueEl);
     resultEl.appendChild(resultSummaryEl);
 
-    var resultInfoEl = document.createElement('div');
-    resultInfoEl.className = 'result-info';
+    var resultInfoEl = document.createElement("div");
+    resultInfoEl.className = "result-info";
 
-    if (resultValue === 'null') {
-      var resultMessageEl = document.createElement('p');
-      resultMessageEl.className = 'result-message';
+    if (resultValue === "null") {
+      var resultMessageEl = document.createElement("p");
+      resultMessageEl.className = "result-message";
       resultMessageEl.innerHTML =
-        'Instance failed to load, check the console log for more details';
+        "Instance failed to load, check the console log for more details";
       resultInfoEl.appendChild(resultMessageEl);
     }
 
-    var resultCodeEl = document.createElement('code');
+    var resultCodeEl = document.createElement("code");
     var code =
-      'reusableInstances.' +
+      "reusableInstances." +
       instanceId +
-      ' = ' +
+      " = " +
       reusableInstances.__sources[instanceId];
 
     var formattedCode;
-    if ('hljs' in self) {
+    if ("hljs" in self) {
       formattedCode = hljs.highlight(code, {
-        language: 'js'
+        language: "js"
       }).value;
     }
 
-    resultCodeEl.className = 'result-code';
+    resultCodeEl.className = "result-code";
     resultCodeEl.innerHTML = (formattedCode || code).replace(
       /\n([^\S\r\n]*)/g,
       function (match, p1) {
-        return '<br>' + p1.replace(/ /g, '&nbsp;');
+        return "<br>" + p1.replace(/ /g, "&nbsp;");
       }
     );
     resultInfoEl.appendChild(resultCodeEl);
@@ -1322,56 +1322,56 @@
    *
    */
   function renderReportEl(result, resultsEl) {
-    var resultEl = document.createElement('details');
-    resultEl.className = 'result';
+    var resultEl = document.createElement("details");
+    resultEl.className = "result";
 
-    var resultSummaryEl = document.createElement('summary');
+    var resultSummaryEl = document.createElement("summary");
     resultSummaryEl.innerHTML = result.name;
-    if (result.name.indexOf('css.') != 0) {
-      resultSummaryEl.innerHTML += ' (' + result.info.exposure + ' exposure)';
+    if (result.name.indexOf("css.") != 0) {
+      resultSummaryEl.innerHTML += " (" + result.info.exposure + " exposure)";
     }
-    resultSummaryEl.innerHTML += ':&nbsp;';
+    resultSummaryEl.innerHTML += ":&nbsp;";
 
     var resultValue = stringify(result.result);
-    var resultValueEl = document.createElement('span');
-    resultValueEl.className = 'result-value result-value-' + resultValue;
+    var resultValueEl = document.createElement("span");
+    resultValueEl.className = "result-value result-value-" + resultValue;
     resultValueEl.innerHTML =
-      resultValue === 'true'
+      resultValue === "true"
         ? '<span class="mdi mdi-check-bold"></span> Supported'
-        : resultValue === 'false'
+        : resultValue === "false"
         ? '<span class="mdi mdi-close-thick"></span> No Support'
-        : resultValue === 'null'
+        : resultValue === "null"
         ? '<span class="mdi mdi-help"></span> Support Unknown'
         : resultValue;
     resultSummaryEl.appendChild(resultValueEl);
     resultEl.appendChild(resultSummaryEl);
 
-    var resultInfoEl = document.createElement('div');
-    resultInfoEl.className = 'result-info';
+    var resultInfoEl = document.createElement("div");
+    resultInfoEl.className = "result-info";
 
     if (result.message) {
-      var resultMessageEl = document.createElement('p');
-      resultMessageEl.className = 'result-message';
+      var resultMessageEl = document.createElement("p");
+      resultMessageEl.className = "result-message";
       resultMessageEl.innerHTML = result.message;
       resultInfoEl.appendChild(resultMessageEl);
     }
 
     if (result.info.code) {
-      var resultCodeEl = document.createElement('code');
+      var resultCodeEl = document.createElement("code");
       var code = result.info.code;
 
       var formattedCode;
-      if ('hljs' in self) {
+      if ("hljs" in self) {
         formattedCode = hljs.highlight(code, {
-          language: 'js'
+          language: "js"
         }).value;
       }
 
-      resultCodeEl.className = 'result-code';
+      resultCodeEl.className = "result-code";
       resultCodeEl.innerHTML = (formattedCode || code).replace(
         /\n([^\S\r\n]*)/g,
         function (match, p1) {
-          return '<br>' + p1.replace(/ /g, '&nbsp;');
+          return "<br>" + p1.replace(/ /g, "&nbsp;");
         }
       );
       resultInfoEl.appendChild(resultCodeEl);
@@ -1392,10 +1392,10 @@
   function sendReport(results) {
     var body = JSON.stringify(results);
 
-    if (!('XMLHttpRequest' in self)) {
+    if (!("XMLHttpRequest" in self)) {
       updateStatus(
-        'Cannot upload results: XMLHttpRequest is not supported.',
-        'error-notice'
+        "Cannot upload results: XMLHttpRequest is not supported.",
+        "error-notice"
       );
       return;
     }
@@ -1403,25 +1403,25 @@
     var client = new XMLHttpRequest();
 
     var resultsURL =
-      (location.origin || location.protocol + '//' + location.host) +
-      '/api/results?for=' +
+      (location.origin || location.protocol + "//" + location.host) +
+      "/api/results?for=" +
       encodeURIComponent(location.href);
 
-    client.open('POST', resultsURL);
-    client.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    client.open("POST", resultsURL);
+    client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     client.send(body);
     client.onreadystatechange = function () {
       if (client.readyState == 4) {
         if (client.status >= 200 && client.status <= 299) {
-          document.getElementById('export-download').disabled = false;
-          document.getElementById('export-github').disabled = false;
-          updateStatus('Results uploaded.', 'success-notice');
+          document.getElementById("export-download").disabled = false;
+          document.getElementById("export-github").disabled = false;
+          updateStatus("Results uploaded.", "success-notice");
         } else {
           updateStatus(
-            'Failed to upload results: server error.',
-            'error-notice'
+            "Failed to upload results: server error.",
+            "error-notice"
           );
-          consoleLog('Server response: ' + client.response);
+          consoleLog("Server response: " + client.response);
         }
       }
     };
@@ -1438,17 +1438,17 @@
    *
    */
   function report(results, hideResults) {
-    updateStatus('Tests complete. Posting results to server...');
+    updateStatus("Tests complete. Posting results to server...");
 
     try {
-      if ('JSON' in self && 'parse' in JSON) {
+      if ("JSON" in self && "parse" in JSON) {
         sendReport(results);
       } else {
         // Load JSON polyfill if needed
-        var polyfill = document.createElement('script');
-        polyfill.src = '/resources/json3.min.js';
+        var polyfill = document.createElement("script");
+        polyfill.src = "/resources/json3.min.js";
 
-        if ('onload' in polyfill) {
+        if ("onload" in polyfill) {
           polyfill.onload = function () {
             sendReport(results);
           };
@@ -1462,11 +1462,11 @@
         document.body.appendChild(polyfill);
       }
     } catch (e) {
-      updateStatus('Failed to upload results: client error.', 'error-notice');
+      updateStatus("Failed to upload results: client error.", "error-notice");
       consoleError(e);
     }
 
-    var resultsEl = document.getElementById('results');
+    var resultsEl = document.getElementById("results");
 
     function doRenderResults() {
       loadHighlightJs(function () {
@@ -1475,7 +1475,7 @@
           renderReInstReportEl(reInstKeys[i], resultsEl);
         }
         if (reInstKeys.length) {
-          resultsEl.appendChild(document.createElement('hr'));
+          resultsEl.appendChild(document.createElement("hr"));
         }
         for (var j = 0; j < results.length; j++) {
           renderReportEl(results[j], resultsEl);
@@ -1485,15 +1485,15 @@
 
     if (resultsEl && !hideResults) {
       if (results.length > 250) {
-        var renderWarning = document.createElement('p');
+        var renderWarning = document.createElement("p");
         renderWarning.innerHTML =
-          'There are ' +
+          "There are " +
           results.length +
-          ' test results.<br>Displaying all results may cause your browser to freeze, especially on older browsers.<br>Display results anyways?';
+          " test results.<br>Displaying all results may cause your browser to freeze, especially on older browsers.<br>Display results anyways?";
         resultsEl.appendChild(renderWarning);
 
-        var renderButton = document.createElement('button');
-        renderButton.innerHTML = 'Show Results';
+        var renderButton = document.createElement("button");
+        renderButton.innerHTML = "Show Results";
         resultsEl.appendChild(renderButton);
 
         renderButton.onclick = function () {
@@ -1509,8 +1509,8 @@
   }
 
   // Service Worker helpers
-  if ('serviceWorker' in navigator) {
-    if ('window' in self) {
+  if ("serviceWorker" in navigator) {
+    if ("window" in self) {
       window.__waitForSWState = function (registration, desiredState) {
         return new Promise(function (resolve, reject) {
           var serviceWorker = registration.installing;
@@ -1524,32 +1524,32 @@
 
             return reject(
               new Error(
-                'Service worker not installing, cleaning and retrying...'
+                "Service worker not installing, cleaning and retrying..."
               )
             );
           }
 
           function stateListener(evt) {
             if (evt.target.state === desiredState) {
-              serviceWorker.removeEventListener('statechange', stateListener);
+              serviceWorker.removeEventListener("statechange", stateListener);
               return resolve(registration);
             }
 
-            if (evt.target.state === 'redundant') {
-              serviceWorker.removeEventListener('statechange', stateListener);
+            if (evt.target.state === "redundant") {
+              serviceWorker.removeEventListener("statechange", stateListener);
 
               return reject(
-                new Error('Installing service worker became redundant')
+                new Error("Installing service worker became redundant")
               );
             }
           }
 
-          serviceWorker.addEventListener('statechange', stateListener);
+          serviceWorker.addEventListener("statechange", stateListener);
         });
       };
 
       window.__workerCleanup = function () {
-        if ('getRegistrations' in navigator.serviceWorker) {
+        if ("getRegistrations" in navigator.serviceWorker) {
           return navigator.serviceWorker
             .getRegistrations()
             .then(function (registrations) {
@@ -1562,7 +1562,7 @@
             });
         } else {
           return navigator.serviceWorker
-            .getRegistration('/resources/')
+            .getRegistration("/resources/")
             .then(function (registration) {
               if (registration) {
                 return registration.unregister();

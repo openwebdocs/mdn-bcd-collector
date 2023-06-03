@@ -8,7 +8,7 @@
 
 import {
   compare as compareVersions,
-  compareVersions as compareVersionsSort
+  compareVersions as compareVersionsSort,
 } from 'compare-versions';
 import uaParser from 'ua-parser-js';
 
@@ -34,7 +34,7 @@ const parseUA = (userAgent, browsers) => {
     version: '',
     fullVersion: '',
     os: {name: '', version: ''},
-    inBcd: undefined
+    inBcd: undefined,
   };
 
   if (!ua.browser.name) {

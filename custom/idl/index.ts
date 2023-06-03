@@ -27,7 +27,7 @@ const parseIDL = async (): Promise<IDLFiles> => {
     const name = path.parse(file).name;
     const text = await fs.readFile(
       new URL(`./${file}`, import.meta.url),
-      'utf8'
+      'utf8',
     );
     results[name] = WebIDL2.parse(text);
   }

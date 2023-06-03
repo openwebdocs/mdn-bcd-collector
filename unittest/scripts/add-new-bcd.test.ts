@@ -15,21 +15,21 @@ describe('add-new-bcd', () => {
     it('New interface', () => {
       assert.strictEqual(
         getFilePath(['api', 'NewInterface']),
-        'api/NewInterface.json'
+        'api/NewInterface.json',
       );
     });
 
     it('New property on interface', () => {
       assert.strictEqual(
         getFilePath(['api', 'OldInterface', 'prop']),
-        'api/OldInterface.json'
+        'api/OldInterface.json',
       );
     });
 
     it('New global', () => {
       assert.strictEqual(
         getFilePath(['api', 'newGlobal']),
-        'api/_globals/newGlobal.json'
+        'api/_globals/newGlobal.json',
       );
     });
   });
@@ -38,28 +38,28 @@ describe('add-new-bcd', () => {
     it('new property', () => {
       assert.strictEqual(
         getFilePath(['css', 'properties', 'new-property']),
-        'css/properties/new-property.json'
+        'css/properties/new-property.json',
       );
     });
 
     it('new property value', () => {
       assert.strictEqual(
         getFilePath(['css', 'properties', 'old-property', 'auto']),
-        'css/properties/old-property.json'
+        'css/properties/old-property.json',
       );
     });
 
     it('new at-rule', () => {
       assert.strictEqual(
         getFilePath(['css', 'at-rules', 'new-rule']),
-        'css/at-rules/new-rule.json'
+        'css/at-rules/new-rule.json',
       );
     });
 
     it('new at-rule descriptor', () => {
       assert.strictEqual(
         getFilePath(['css', 'at-rules', 'old-rule', 'src']),
-        'css/at-rules/old-rule.json'
+        'css/at-rules/old-rule.json',
       );
     });
   });
@@ -68,42 +68,42 @@ describe('add-new-bcd', () => {
     it('new class', () => {
       assert.strictEqual(
         getFilePath(['javascript', 'builtins', 'Thing']),
-        'javascript/builtins/Thing.json'
+        'javascript/builtins/Thing.json',
       );
     });
 
     it('new global', () => {
       assert.strictEqual(
         getFilePath(['javascript', 'builtins', 'createMagic']),
-        'javascript/builtins/globals.json'
+        'javascript/builtins/globals.json',
       );
     });
 
     it('Array constructor', () => {
       assert.strictEqual(
         getFilePath(['javascript', 'builtins', 'Array', 'Array']),
-        'javascript/builtins/Array.json'
+        'javascript/builtins/Array.json',
       );
     });
 
     it('Array method', () => {
       assert.strictEqual(
         getFilePath(['javascript', 'builtins', 'Array', 'sort']),
-        'javascript/builtins/Array.json'
+        'javascript/builtins/Array.json',
       );
     });
 
     it('Intl method', () => {
       assert.strictEqual(
         getFilePath(['javascript', 'builtins', 'Intl', 'getCanonicalLocales']),
-        'javascript/builtins/Intl.json'
+        'javascript/builtins/Intl.json',
       );
     });
 
     it('Intl.Collator method', () => {
       assert.strictEqual(
         getFilePath(['javascript', 'builtins', 'Intl', 'Collator', 'maximize']),
-        'javascript/builtins/Intl/Collator.json'
+        'javascript/builtins/Intl/Collator.json',
       );
     });
   });

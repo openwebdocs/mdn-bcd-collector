@@ -8,7 +8,7 @@
 
 /* global self, bcd */
 
-self.importScripts('harness.js');
+self.importScripts("harness.js");
 
 self.onmessage = function (event) {
   var data = JSON.parse(event.data);

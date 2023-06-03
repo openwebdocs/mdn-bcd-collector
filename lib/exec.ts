@@ -17,7 +17,7 @@ const exec = async (cmd, env?: any, pipe = true) => {
   /* c8 ignore stop */
   const output = childProcess.execSync(cmd, {
     env,
-    stdio: pipe ? 'pipe' : 'inherit'
+    stdio: pipe ? 'pipe' : 'inherit',
   });
   return String(output);
 };

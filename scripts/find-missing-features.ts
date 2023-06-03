@@ -59,7 +59,7 @@ const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
     }
 
     features.push(
-      ...traverseFeatures(obj[id], path + id + '.', includeAliases)
+      ...traverseFeatures(obj[id], path + id + '.', includeAliases),
     );
   }
 
@@ -83,7 +83,7 @@ const getMissing = (
   tests: Tests,
   direction = 'collector-from-bcd',
   category: string[] = [],
-  includeAliases = false
+  includeAliases = false,
 ) => {
   const filterCategory = (item) => {
     return (
@@ -97,8 +97,8 @@ const getMissing = (
     ...traverseFeatures(
       bcd.javascript.builtins,
       'javascript.builtins.',
-      includeAliases
-    )
+      includeAliases,
+    ),
   ].filter(filterCategory);
   const collectorEntries = Object.keys(tests).filter(filterCategory);
 
@@ -107,7 +107,7 @@ const getMissing = (
       return findMissing(bcdEntries, collectorEntries);
     default:
       console.log(
-        `Direction '${direction}' is unknown; defaulting to collector <- bcd`
+        `Direction '${direction}' is unknown; defaulting to collector <- bcd`,
       );
     // eslint-disable-next-line no-fallthrough
     case 'collector-from-bcd':
@@ -126,7 +126,7 @@ const main = (bcd: CompatData, tests: Tests) => {
           alias: 'a',
           describe: 'Include BCD entries using prefix or alternative_name',
           type: 'boolean',
-          default: false
+          default: false,
         })
         .option('direction', {
           alias: 'd',
@@ -135,21 +135,21 @@ const main = (bcd: CompatData, tests: Tests) => {
           choices: ['bcd-from-collector', 'collector-from-bcd'],
           nargs: 1,
           type: 'string',
-          default: 'collector-from-bcd'
+          default: 'collector-from-bcd',
         })
         .option('category', {
           alias: 'c',
           describe: 'The BCD categories to filter',
           type: 'array',
           choices: CATEGORIES,
-          default: CATEGORIES
+          default: CATEGORIES,
         });
-    }
+    },
   );
 
   const direction = argv.direction.split('-from-');
   console.log(
-    chalk`{yellow Finding entries that are missing in {red.bold ${direction[0]}} but present in {green.bold ${direction[1]}}...}\n`
+    chalk`{yellow Finding entries that are missing in {red.bold ${direction[0]}} but present in {green.bold ${direction[1]}}...}\n`,
   );
 
   const {missingEntries, total} = getMissing(
@@ -157,7 +157,7 @@ const main = (bcd: CompatData, tests: Tests) => {
     tests,
     argv.direction,
     argv.category,
-    argv.includeAliases
+    argv.includeAliases,
   );
   console.log(missingEntries.join('\n'));
   console.log(
@@ -166,7 +166,7 @@ const main = (bcd: CompatData, tests: Tests) => {
       100.0
     ).toFixed(2)}%)} {yellow entries missing from {red.bold ${
       direction[0]
-    }} that are in {green.bold ${direction[1]}}}`
+    }} that are in {green.bold ${direction[1]}}}`,
   );
 };
 
@@ -176,7 +176,7 @@ if (esMain(import.meta)) {
   const testsPath = new URL('../tests.json', import.meta.url);
   if (!fs.existsSync(testsPath)) {
     throw new Error(
-      'The tests must be built using `npm run build:tests` before this script can be run.'
+      'The tests must be built using `npm run build:tests` before this script can be run.',
     );
   }
   const tests = await fs.readJson(testsPath);

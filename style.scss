@@ -14,80 +14,80 @@
 $colors: (
   background: (
     dark: #111,
-    light: white
+    light: white,
   ),
   background-2: (
     dark: #100216,
-    light: #faf2ff
+    light: #faf2ff,
   ),
   background-3: (
     dark: #260037,
-    light: #ead4ff
+    light: #ead4ff,
   ),
   paper-bg: (
     dark: #191919,
-    light: #eee
+    light: #eee,
   ),
   main: (
     dark: #8c42e9,
-    light: #490877
+    light: #490877,
   ),
   main-2: (
     dark: #bd88f6,
-    light: #500977
+    light: #500977,
   ),
   text: (
     dark: white,
-    light: black
+    light: black,
   ),
   link: (
     dark: #99f,
-    light: #00f
+    light: #00f,
   ),
   link-hover: (
     dark: #bbf,
-    light: #44f
+    light: #44f,
   ),
   input-fg: (
     dark: white,
-    light: white
+    light: white,
   ),
   input-bg: (
     dark: #462d67,
-    light: #462d67
+    light: #462d67,
   ),
   input-hover-bg: (
     dark: #5e3d8a,
-    light: #5e3d8a
+    light: #5e3d8a,
   ),
   input-focus-bg: (
     dark: #523579,
-    light: #523579
+    light: #523579,
   ),
   input-disabled-bg: (
     dark: #636363,
-    light: #636363
+    light: #636363,
   ),
   input-placeholder: (
     dark: #ccc,
-    light: #ccc
+    light: #ccc,
   ),
   error: (
     dark: #faa,
-    light: #700
+    light: #700,
   ),
   error-bg: (
     dark: rgba(255, 170, 170),
-    light: rgba(119, 0, 0)
+    light: rgba(119, 0, 0),
   ),
   warning: (
     dark: #ffa,
-    light: #770
+    light: #770,
   ),
   success: (
     dark: #afa,
-    light: #070
-  )
+    light: #070,
+  ),
 );
 
 @function getKeyInMap($map, $nth) {
@@ -150,7 +150,7 @@ $colors: (
     $color: map.get($colors, $key) or
       (
         dark: $key,
-        light: $key
+        light: $key,
       );
 
     @if $value {
@@ -167,7 +167,7 @@ $colors: (
 
   $generated-colors: (
     dark: $dark-colors,
-    light: $light-colors
+    light: $light-colors,
   );
 
   @return $generated-colors;

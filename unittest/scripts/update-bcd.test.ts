@@ -21,12 +21,12 @@ import {
   getSupportMatrix,
   inferSupportStatements,
   splitRange,
-  update
+  update,
 } from '../../scripts/update-bcd.js';
 
 import bcd from '../sample/bcd.test.js';
 const overrides = await fs.readJson(
-  new URL('../sample/overrides.test.json', import.meta.url)
+  new URL('../sample/overrides.test.json', import.meta.url),
 );
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -43,83 +43,83 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.AbortController.abort',
           exposure: 'Window',
-          result: null
+          result: null,
         },
         {
           name: 'api.AbortController.AbortController',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.AudioContext',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.AudioContext.close',
           exposure: 'Window',
           result: null,
-          message: 'threw ReferenceError: AbortController is not defined'
+          message: 'threw ReferenceError: AbortController is not defined',
         },
         {
           name: 'api.DeprecatedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.ExperimentalInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.UnflaggedInterface',
           exposure: 'Window',
-          result: null
+          result: null,
         },
         {
           name: 'api.UnprefixedInterface',
           exposure: 'Window',
-          result: null
+          result: null,
         },
         {
           name: 'api.NullAPI',
           exposure: 'Window',
-          result: null
+          result: null,
         },
         {
           name: 'api.RemovedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.SuperNewInterface',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'css.properties.font-family',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'css.properties.font-face',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'css.properties.font-style',
           exposure: 'Window',
-          result: true
-        }
-      ]
+          result: true,
+        },
+      ],
     },
     userAgent:
-      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
+      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
   },
   {
     __version: '0.3.1',
@@ -128,93 +128,93 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.AbortController.abort',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.AbortController.abort',
           exposure: 'Worker',
-          result: true
+          result: true,
         },
         {
           name: 'api.AbortController.AbortController',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.AudioContext',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.AudioContext.close',
           exposure: 'Window',
           result: null,
-          message: 'threw ReferenceError: AbortController is not defined'
+          message: 'threw ReferenceError: AbortController is not defined',
         },
         {
           name: 'api.DeprecatedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.ExperimentalInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.UnflaggedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.UnprefixedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.NewInterfaceNotInBCD',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.NullAPI',
           exposure: 'Window',
-          result: null
+          result: null,
         },
         {
           name: 'api.RemovedInterface',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.SuperNewInterface',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'css.properties.font-family',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'css.properties.font-face',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'css.properties.font-style',
           exposure: 'Window',
-          result: true
-        }
-      ]
+          result: true,
+        },
+      ],
     },
     userAgent:
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36'
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
   },
   {
     __version: '0.3.1',
@@ -223,87 +223,87 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.AbortController.abort',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.AbortController.AbortController',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.AudioContext',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.AudioContext.close',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.DeprecatedInterface',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'api.ExperimentalInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.UnflaggedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.UnprefixedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.NewInterfaceNotInBCD',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.NullAPI',
           exposure: 'Window',
-          result: null
+          result: null,
         },
         {
           name: 'api.RemovedInterface',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'api.SuperNewInterface',
           exposure: 'Window',
-          result: false
+          result: false,
         },
         {
           name: 'css.properties.font-family',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'css.properties.font-face',
           exposure: 'Window',
-          result: true
+          result: true,
         },
         {
           name: 'css.properties.font-style',
           exposure: 'Window',
-          result: true
-        }
-      ]
+          result: true,
+        },
+      ],
     },
     userAgent:
-      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
+      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
   },
   {
     __version: '0.3.1',
@@ -312,12 +312,12 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: false
-        }
-      ]
+          result: false,
+        },
+      ],
     },
     userAgent:
-      'Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.749 Yowser/2.5 Safari/537.36'
+      'Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.749 Yowser/2.5 Safari/537.36',
   },
   {
     __version: '0.3.1',
@@ -326,12 +326,12 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: false
-        }
-      ]
+          result: false,
+        },
+      ],
     },
     userAgent:
-      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/1000.1.4183.83 Safari/537.36'
+      'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/1000.1.4183.83 Safari/537.36',
   },
   {
     __version: '0.3.1',
@@ -340,12 +340,12 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: true
-        }
-      ]
+          result: true,
+        },
+      ],
     },
     userAgent:
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Safari/605.1.15'
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Safari/605.1.15',
   },
   {
     __version: '0.3.1',
@@ -354,12 +354,12 @@ const reports: Report[] = [
         {
           name: 'api.AbortController',
           exposure: 'Window',
-          result: false
-        }
-      ]
+          result: false,
+        },
+      ],
     },
-    userAgent: 'node-superagent/1.2.3'
-  }
+    userAgent: 'node-superagent/1.2.3',
+  },
 ];
 
 describe('BCD updater', () => {
@@ -367,7 +367,7 @@ describe('BCD updater', () => {
     it('equal', () => {
       assert.strictEqual(
         findEntry(bcd as any, 'api.AbortController'),
-        bcd.api.AbortController
+        bcd.api.AbortController,
       );
     });
 
@@ -399,8 +399,8 @@ describe('BCD updater', () => {
           ['api.SuperNewInterface', false],
           ['css.properties.font-family', true],
           ['css.properties.font-face', true],
-          ['css.properties.font-style', true]
-        ])
+          ['css.properties.font-style', true],
+        ]),
       );
     });
 
@@ -423,8 +423,8 @@ describe('BCD updater', () => {
           ['api.SuperNewInterface', false],
           ['css.properties.font-family', true],
           ['css.properties.font-face', true],
-          ['css.properties.font-style', true]
-        ])
+          ['css.properties.font-style', true],
+        ]),
       );
     });
 
@@ -433,7 +433,7 @@ describe('BCD updater', () => {
         getSupportMap({
           __version: 'test',
           results: {},
-          userAgent: 'abc/1.2.3-beta'
+          userAgent: 'abc/1.2.3-beta',
         });
       }, 'Report for "abc/1.2.3-beta" has no results!');
     });
@@ -457,18 +457,18 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', true],
                   ['84', true],
-                  ['85', true]
-                ])
+                  ['85', true],
+                ]),
               ],
               [
                 'safari',
                 new Map([
                   ['13', null],
                   ['13.1', true],
-                  ['14', null]
-                ])
-              ]
-            ])
+                  ['14', null],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.AbortController.abort',
@@ -479,10 +479,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', null],
                   ['84', true],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.AbortController.AbortController',
@@ -493,10 +493,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', false],
                   ['84', false],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.AudioContext',
@@ -507,10 +507,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', false],
                   ['84', false],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.AudioContext.close',
@@ -521,10 +521,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', false],
                   ['84', false],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.DeprecatedInterface',
@@ -535,10 +535,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', true],
                   ['84', true],
-                  ['85', false]
-                ])
-              ]
-            ])
+                  ['85', false],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.ExperimentalInterface',
@@ -549,10 +549,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', true],
                   ['84', true],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.UnflaggedInterface',
@@ -563,10 +563,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', null],
                   ['84', true],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.UnprefixedInterface',
@@ -577,10 +577,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', null],
                   ['84', true],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.NewInterfaceNotInBCD',
@@ -591,10 +591,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', null],
                   ['84', false],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.NullAPI',
@@ -605,10 +605,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', null],
                   ['84', null],
-                  ['85', null]
-                ])
-              ]
-            ])
+                  ['85', null],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.RemovedInterface',
@@ -619,10 +619,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', true],
                   ['84', false],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'api.SuperNewInterface',
@@ -633,10 +633,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', false],
                   ['84', false],
-                  ['85', false]
-                ])
-              ]
-            ])
+                  ['85', false],
+                ]),
+              ],
+            ]),
           ],
           [
             'css.properties.font-family',
@@ -647,10 +647,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', false],
                   ['84', true],
-                  ['85', true]
-                ])
-              ]
-            ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
           ],
           [
             'css.properties.font-face',
@@ -661,10 +661,10 @@ describe('BCD updater', () => {
                   ['82', null],
                   ['83', null],
                   ['84', null],
-                  ['85', null]
-                ])
-              ]
-            ])
+                  ['85', null],
+                ]),
+              ],
+            ]),
           ],
           [
             'css.properties.font-style',
@@ -675,28 +675,28 @@ describe('BCD updater', () => {
                   ['82', false],
                   ['83', false],
                   ['84', false],
-                  ['85', true]
-                ])
-              ]
-            ])
-          ]
-        ])
+                  ['85', true],
+                ]),
+              ],
+            ]),
+          ],
+        ]),
       );
 
       assert.isTrue(
         (logger.warn as any).calledWith(
-          'Ignoring unknown browser Yandex 17.6 (Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.749 Yowser/2.5 Safari/537.36)'
-        )
+          'Ignoring unknown browser Yandex 17.6 (Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.749 Yowser/2.5 Safari/537.36)',
+        ),
       );
       assert.isTrue(
         (logger.warn as any).calledWith(
-          'Ignoring unknown Chrome version 1000.1 (Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/1000.1.4183.83 Safari/537.36)'
-        )
+          'Ignoring unknown Chrome version 1000.1 (Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/1000.1.4183.83 Safari/537.36)',
+        ),
       );
       assert.isTrue(
         (logger.warn as any).calledWith(
-          'Unable to parse browser from UA node-superagent/1.2.3'
-        )
+          'Unable to parse browser from UA node-superagent/1.2.3',
+        ),
       );
     });
 
@@ -708,12 +708,12 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: 87 as any
-            }
-          ]
+              result: 87 as any,
+            },
+          ],
         },
         userAgent:
-          'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
+          'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
       };
 
       assert.throws(() => {
@@ -730,14 +730,14 @@ describe('BCD updater', () => {
     const expectedResults = {
       'api.AbortController': {
         chrome: [{version_added: '≤83'}],
-        safari: [{version_added: '≤13.1'}]
+        safari: [{version_added: '≤13.1'}],
       },
       'api.AbortController.abort': {chrome: [{version_added: '≤84'}]},
       'api.AbortController.AbortController': {chrome: [{version_added: '85'}]},
       'api.AudioContext': {chrome: [{version_added: '85'}]},
       'api.AudioContext.close': {chrome: [{version_added: '85'}]},
       'api.DeprecatedInterface': {
-        chrome: [{version_added: '≤83', version_removed: '85'}]
+        chrome: [{version_added: '≤83', version_removed: '85'}],
       },
       'api.ExperimentalInterface': {chrome: [{version_added: '≤83'}]},
       'api.UnflaggedInterface': {chrome: [{version_added: '≤84'}]},
@@ -747,15 +747,15 @@ describe('BCD updater', () => {
       'api.RemovedInterface': {
         chrome: [
           {version_added: '≤83', version_removed: '84'},
-          {version_added: '85'}
-        ]
+          {version_added: '85'},
+        ],
       },
       'api.SuperNewInterface': {
-        chrome: [{version_added: false}]
+        chrome: [{version_added: false}],
       },
       'css.properties.font-family': {chrome: [{version_added: '84'}]},
       'css.properties.font-face': {chrome: []},
-      'css.properties.font-style': {chrome: [{version_added: '85'}]}
+      'css.properties.font-style': {chrome: [{version_added: '85'}]},
     };
 
     const supportMatrix = getSupportMatrix(reports, bcd.browsers, overrides);
@@ -764,7 +764,7 @@ describe('BCD updater', () => {
         it(`${path}: ${browser}`, () => {
           assert.deepEqual(
             inferSupportStatements(versionMap),
-            expectedResults[path][browser]
+            expectedResults[path][browser],
           );
         });
       }
@@ -775,7 +775,7 @@ describe('BCD updater', () => {
         ['82', null],
         ['83', 87 as any],
         ['84', true],
-        ['85', true]
+        ['85', true],
       ]);
 
       assert.throws(() => {
@@ -787,13 +787,13 @@ describe('BCD updater', () => {
       const versionMap = new Map([
         ['82', false],
         ['83', null],
-        ['84', true]
+        ['84', true],
       ]);
 
       assert.deepEqual(inferSupportStatements(versionMap), [
         {
-          version_added: '82> ≤84'
-        }
+          version_added: '82> ≤84',
+        },
       ]);
     });
 
@@ -801,14 +801,14 @@ describe('BCD updater', () => {
       const versionMap = new Map([
         ['82', true],
         ['83', null],
-        ['84', false]
+        ['84', false],
       ]);
 
       assert.deepEqual(inferSupportStatements(versionMap), [
         {
           version_added: '82',
-          version_removed: '82> ≤84'
-        }
+          version_removed: '82> ≤84',
+        },
       ]);
     });
   });
@@ -837,55 +837,55 @@ describe('BCD updater', () => {
             __compat: {
               support: {
                 chrome: {version_added: '80'},
-                safari: {version_added: '≤13.1'}
-              }
+                safari: {version_added: '≤13.1'},
+              },
             },
             AbortController: {
-              __compat: {support: {chrome: {version_added: '85'}}}
+              __compat: {support: {chrome: {version_added: '85'}}},
             },
             abort: {
-              __compat: {support: {chrome: {version_added: '≤84'}}}
+              __compat: {support: {chrome: {version_added: '≤84'}}},
             },
             dummy: {
-              __compat: {support: {chrome: {version_added: null}}}
+              __compat: {support: {chrome: {version_added: null}}},
             },
             signal: {
-              __compat: {support: {chrome: {version_added: null}}}
-            }
+              __compat: {support: {chrome: {version_added: null}}},
+            },
           },
           AudioContext: {
             __compat: {
               support: {
                 chrome: [
                   {
-                    version_added: '85'
+                    version_added: '85',
                   },
                   {
                     version_added: '1',
-                    prefix: 'webkit'
-                  }
-                ]
-              }
+                    prefix: 'webkit',
+                  },
+                ],
+              },
             },
             close: {
-              __compat: {support: {chrome: {version_added: '85'}}}
-            }
+              __compat: {support: {chrome: {version_added: '85'}}},
+            },
           },
           DeprecatedInterface: {
             __compat: {
               support: {
                 chrome: {
                   version_added: '≤83',
-                  version_removed: '85'
-                }
-              }
-            }
+                  version_removed: '85',
+                },
+              },
+            },
           },
           DummyAPI: {
             __compat: {support: {chrome: {version_added: null}}},
             dummy: {
-              __compat: {support: {chrome: {version_added: null}}}
-            }
+              __compat: {support: {chrome: {version_added: null}}},
+            },
           },
           ExperimentalInterface: {
             __compat: {
@@ -893,51 +893,51 @@ describe('BCD updater', () => {
                 chrome: [
                   {
                     version_added: '70',
-                    notes: 'Not supported on Windows XP.'
+                    notes: 'Not supported on Windows XP.',
                   },
                   {
                     version_added: '64',
                     version_removed: '70',
                     flags: {},
-                    notes: 'Not supported on Windows XP.'
+                    notes: 'Not supported on Windows XP.',
                   },
                   {
                     version_added: '50',
                     version_removed: '70',
                     alternative_name: 'TryingOutInterface',
-                    notes: 'Not supported on Windows XP.'
-                  }
-                ]
-              }
-            }
+                    notes: 'Not supported on Windows XP.',
+                  },
+                ],
+              },
+            },
           },
           UnflaggedInterface: {
             __compat: {
               support: {
                 chrome: {
-                  version_added: '≤84'
-                }
-              }
-            }
+                  version_added: '≤84',
+                },
+              },
+            },
           },
           UnprefixedInterface: {
             __compat: {
               support: {
                 chrome: [
                   {
-                    version_added: '≤84'
+                    version_added: '≤84',
                   },
                   {
                     version_added: '83',
                     prefix: 'webkit',
-                    notes: 'Not supported on Windows XP.'
-                  }
-                ]
-              }
-            }
+                    notes: 'Not supported on Windows XP.',
+                  },
+                ],
+              },
+            },
           },
           NullAPI: {
-            __compat: {support: {chrome: {version_added: '80'}}}
+            __compat: {support: {chrome: {version_added: '80'}}},
           },
           RemovedInterface: {
             // TODO: handle more complicated scenarios
@@ -945,11 +945,11 @@ describe('BCD updater', () => {
             //   {version_added: '85'},
             //   {version_added: '≤83', version_removed: '84'}
             // ]}}
-            __compat: {support: {chrome: {version_added: null}}}
+            __compat: {support: {chrome: {version_added: null}}},
           },
           SuperNewInterface: {
-            __compat: {support: {chrome: {version_added: '100'}}}
-          }
+            __compat: {support: {chrome: {version_added: '100'}}},
+          },
         },
         browsers: {
           chrome: {name: 'Chrome', releases: {82: {}, 83: {}, 84: {}, 85: {}}},
@@ -958,7 +958,7 @@ describe('BCD updater', () => {
           safari: {name: 'Safari', releases: {13: {}, 13.1: {}, 14: {}}},
           safari_ios: {
             name: 'iOS Safari',
-            releases: {13: {}, 13.3: {}, 13.4: {}, 14: {}}
+            releases: {13: {}, 13.3: {}, 13.4: {}, 14: {}},
           },
           samsunginternet_android: {
             name: 'Samsung Internet',
@@ -968,40 +968,40 @@ describe('BCD updater', () => {
               '11.0': {},
               11.2: {},
               '12.0': {},
-              12.1: {}
-            }
-          }
+              12.1: {},
+            },
+          },
         },
         css: {
           properties: {
             'font-family': {
-              __compat: {support: {chrome: {version_added: '84'}}}
+              __compat: {support: {chrome: {version_added: '84'}}},
             },
             'font-face': {
-              __compat: {support: {chrome: {version_added: null}}}
+              __compat: {support: {chrome: {version_added: null}}},
             },
             'font-style': {
-              __compat: {support: {chrome: {version_added: '85'}}}
-            }
-          }
+              __compat: {support: {chrome: {version_added: '85'}}},
+            },
+          },
         },
         javascript: {
           builtins: {
             Array: {
-              __compat: {support: {chrome: {version_added: null}}}
+              __compat: {support: {chrome: {version_added: null}}},
             },
             Date: {
-              __compat: {support: {chrome: {version_added: null}}}
-            }
-          }
-        }
+              __compat: {support: {chrome: {version_added: null}}},
+            },
+          },
+        },
       });
     });
 
     it('limit browsers', () => {
       update(bcdCopy, supportMatrix, {browser: ['chrome']});
       assert.deepEqual(bcdCopy.api.AbortController.__compat.support.safari, {
-        version_added: null
+        version_added: null,
       });
     });
 
@@ -1013,12 +1013,12 @@ describe('BCD updater', () => {
         chrome_android: {
           name: 'Chrome Android',
           upstream: 'chrome',
-          releases: {86: {}}
-        }
+          releases: {86: {}},
+        },
       };
 
       const bcdFromSupport = (support) => ({
-        api: {FakeInterface: {__compat: {support}}}
+        api: {FakeInterface: {__compat: {support}}},
       });
 
       /**
@@ -1038,12 +1038,12 @@ describe('BCD updater', () => {
                 {
                   name: 'api.FakeInterface',
                   exposure: 'Window',
-                  result: downstreamResult
-                }
-              ]
+                  result: downstreamResult,
+                },
+              ],
             },
-            userAgent: chromeAndroid86UaString
-          }
+            userAgent: chromeAndroid86UaString,
+          },
         ];
         const supportMatrix = getSupportMatrix(reports, browsers, []);
         const bcd = bcdFromSupport(support);
@@ -1056,16 +1056,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: '86'},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: true
+            downstreamResult: true,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: '86'},
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
 
@@ -1073,16 +1073,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: '85'},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: false
+            downstreamResult: false,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: '85'},
-              chrome_android: {version_added: false}
-            })
+              chrome_android: {version_added: false},
+            }),
           );
         });
 
@@ -1090,16 +1090,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: '85'},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: null
+            downstreamResult: null,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: '85'},
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
       });
@@ -1109,16 +1109,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: '85', flags: [{}]},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: true
+            downstreamResult: true,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: '85', flags: [{}]},
-              chrome_android: {version_added: '86'}
-            })
+              chrome_android: {version_added: '86'},
+            }),
           );
         });
 
@@ -1126,16 +1126,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: '85', flags: [{}]},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: false
+            downstreamResult: false,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: '85', flags: [{}]},
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
 
@@ -1143,16 +1143,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: '85', flags: [{}]},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: null
+            downstreamResult: null,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: '85', flags: [{}]},
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
       });
@@ -1164,11 +1164,11 @@ describe('BCD updater', () => {
               chrome: {
                 version_added: '85',
                 partial_implementation: true,
-                notes: 'This only works on Tuesdays'
+                notes: 'This only works on Tuesdays',
               },
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: true
+            downstreamResult: true,
           });
           assert.deepEqual(
             actual,
@@ -1176,10 +1176,10 @@ describe('BCD updater', () => {
               chrome: {
                 version_added: '85',
                 partial_implementation: true,
-                notes: 'This only works on Tuesdays'
+                notes: 'This only works on Tuesdays',
               },
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
 
@@ -1191,13 +1191,13 @@ describe('BCD updater', () => {
                   version_added: '85',
                   partial_implementation: true,
                   impl_url: 'http://zombo.com',
-                  notes: 'This only works on Wednesdays'
+                  notes: 'This only works on Wednesdays',
                 },
-                {version_added: '84', flags: [{}]}
+                {version_added: '84', flags: [{}]},
               ],
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: false
+            downstreamResult: false,
           });
           assert.deepEqual(
             actual,
@@ -1207,14 +1207,14 @@ describe('BCD updater', () => {
                   version_added: '85',
                   partial_implementation: true,
                   impl_url: 'http://zombo.com',
-                  notes: 'This only works on Wednesdays'
+                  notes: 'This only works on Wednesdays',
                 },
-                {version_added: '84', flags: [{}]}
+                {version_added: '84', flags: [{}]},
               ],
               chrome_android: {
-                version_added: false
-              }
-            })
+                version_added: false,
+              },
+            }),
           );
         });
 
@@ -1224,11 +1224,11 @@ describe('BCD updater', () => {
               chrome: {
                 version_added: '85',
                 partial_implementation: true,
-                notes: 'This only works on Thursdays'
+                notes: 'This only works on Thursdays',
               },
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: null
+            downstreamResult: null,
           });
           assert.deepEqual(
             actual,
@@ -1236,10 +1236,10 @@ describe('BCD updater', () => {
               chrome: {
                 version_added: '85',
                 partial_implementation: true,
-                notes: 'This only works on Thursdays'
+                notes: 'This only works on Thursdays',
               },
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
       });
@@ -1249,16 +1249,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: false},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: true
+            downstreamResult: true,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: false},
-              chrome_android: {version_added: '86'}
-            })
+              chrome_android: {version_added: '86'},
+            }),
           );
         });
 
@@ -1266,16 +1266,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: false},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: false
+            downstreamResult: false,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: false},
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
 
@@ -1283,16 +1283,16 @@ describe('BCD updater', () => {
           const actual = mirroringCase({
             support: {
               chrome: {version_added: false},
-              chrome_android: 'mirror'
+              chrome_android: 'mirror',
             },
-            downstreamResult: null
+            downstreamResult: null,
           });
           assert.deepEqual(
             actual,
             bcdFromSupport({
               chrome: {version_added: false},
-              chrome_android: 'mirror'
-            })
+              chrome_android: 'mirror',
+            }),
           );
         });
       });
@@ -1306,14 +1306,14 @@ describe('BCD updater', () => {
           AbortController: {
             __compat: {
               support: {
-                firefox: {version_added: '92'}
-              }
-            }
-          }
+                firefox: {version_added: '92'},
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {92: {}}}
-        } as unknown as Browsers
+          firefox: {name: 'Firefox', releases: {92: {}}},
+        } as unknown as Browsers,
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1323,11 +1323,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: true
-            }
-          ]
+              result: true,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
@@ -1344,14 +1344,14 @@ describe('BCD updater', () => {
           AbortController: {
             __compat: {
               support: {
-                firefox: {version_added: '91', flags: [{}]}
-              }
-            }
-          }
+                firefox: {version_added: '91', flags: [{}]},
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}}
-        } as unknown as Browsers
+          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}},
+        } as unknown as Browsers,
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1361,11 +1361,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: false
-            }
-          ]
+              result: false,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
@@ -1384,15 +1384,19 @@ describe('BCD updater', () => {
               support: {
                 firefox: [
                   {version_added: '92'},
-                  {version_added: '91', partial_implementation: true, notes: ''}
-                ]
-              }
-            }
-          }
+                  {
+                    version_added: '91',
+                    partial_implementation: true,
+                    notes: '',
+                  },
+                ],
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}}
-        }
+          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}},
+        },
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1402,11 +1406,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: false
-            }
-          ]
+              result: false,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
@@ -1425,15 +1429,22 @@ describe('BCD updater', () => {
               support: {
                 firefox: [
                   {version_added: '94'},
-                  {version_added: '93', partial_implementation: true, notes: ''}
-                ]
-              }
-            }
-          }
+                  {
+                    version_added: '93',
+                    partial_implementation: true,
+                    notes: '',
+                  },
+                ],
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}, 94: {}}}
-        }
+          firefox: {
+            name: 'Firefox',
+            releases: {91: {}, 92: {}, 93: {}, 94: {}},
+          },
+        },
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1443,11 +1454,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: false
-            }
-          ]
+              result: false,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
@@ -1464,14 +1475,14 @@ describe('BCD updater', () => {
           AbortController: {
             __compat: {
               support: {
-                firefox: {version_added: '90', version_removed: '91'}
-              }
-            }
-          }
+                firefox: {version_added: '90', version_removed: '91'},
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {90: {}, 91: {}, 92: {}}}
-        }
+          firefox: {name: 'Firefox', releases: {90: {}, 91: {}, 92: {}}},
+        },
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1481,11 +1492,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: true
-            }
-          ]
+              result: true,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
@@ -1502,14 +1513,14 @@ describe('BCD updater', () => {
           AbortController: {
             __compat: {
               support: {
-                firefox: {version_added: '91', prefix: 'moz'}
-              }
-            }
-          }
+                firefox: {version_added: '91', prefix: 'moz'},
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}}
-        }
+          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}},
+        },
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1519,21 +1530,21 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: true
-            }
-          ]
+              result: true,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
       const expectedBcd = clone(initialBcd);
       expectedBcd.api.AbortController.__compat.support.firefox = [
         {
-          version_added: '≤92'
+          version_added: '≤92',
         },
         {
           prefix: 'moz',
-          version_added: '91'
-        }
+          version_added: '91',
+        },
       ];
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
@@ -1550,14 +1561,14 @@ describe('BCD updater', () => {
           AbortController: {
             __compat: {
               support: {
-                firefox: {version_added: '91'}
-              }
-            }
-          }
+                firefox: {version_added: '91'},
+              },
+            },
+          },
         },
         browsers: {
-          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}}
-        }
+          firefox: {name: 'Firefox', releases: {91: {}, 92: {}, 93: {}}},
+        },
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1567,11 +1578,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: false
-            }
-          ]
+              result: false,
+            },
+          ],
         },
-        userAgent: firefox92UaString
+        userAgent: firefox92UaString,
       };
       const expectedBcd = clone(initialBcd);
       expectedBcd.api.AbortController.__compat.support.firefox.version_added =
@@ -1593,7 +1604,7 @@ describe('BCD updater', () => {
 
       it('path', () => {
         const filter = {
-          path: new Minimatch('css.properties.*')
+          path: new Minimatch('css.properties.*'),
         };
         expectedBcd.css.properties[
           'font-family'
@@ -1628,19 +1639,19 @@ describe('BCD updater', () => {
             __compat: {
               support: {
                 chrome: {version_added: '86'},
-                chrome_android: 'mirror'
-              }
-            }
-          }
+                chrome_android: 'mirror',
+              },
+            },
+          },
         },
         browsers: {
           chrome: {name: 'Chrome', releases: {85: {}, 86: {}}},
           chrome_android: {
             name: 'Chrome Android',
             upstream: 'chrome',
-            releases: {86: {}}
-          }
-        } as unknown as Browsers
+            releases: {86: {}},
+          },
+        } as unknown as Browsers,
       };
       const finalBcd = clone(initialBcd);
       const report: Report = {
@@ -1650,11 +1661,11 @@ describe('BCD updater', () => {
             {
               name: 'api.AbortController',
               exposure: 'Window',
-              result: true
-            }
-          ]
+              result: true,
+            },
+          ],
         },
-        userAgent: chromeAndroid86UaString
+        userAgent: chromeAndroid86UaString,
       };
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);

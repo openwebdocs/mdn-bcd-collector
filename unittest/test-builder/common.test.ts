@@ -18,7 +18,7 @@ import {
   getCustomTestData,
   getCustomTest,
   CustomTestData,
-  CustomTestResult
+  CustomTestResult,
 } from '../../test-builder/common.js';
 
 describe('build (common)', () => {
@@ -36,13 +36,13 @@ describe('build (common)', () => {
           __base: "'hello world';",
           __test: "return 'hello world!';",
           __resources: [],
-          __additional: {}
+          __additional: {},
         },
         result: {
           test: '(function () {\n  "hello world";\n  return "hello world!";\n})();\n',
           resources: [],
-          additional: {}
-        }
+          additional: {},
+        },
       },
       'api.FooBar.foo': {
         category: 'api',
@@ -50,13 +50,13 @@ describe('build (common)', () => {
           __base: "'hello world';",
           __test: "return 'hi, world!';",
           __resources: [],
-          __additional: {}
+          __additional: {},
         },
         result: {
           test: '(function () {\n  "hello world";\n  return "hi, world!";\n})();\n',
           resources: [],
-          additional: {}
-        }
+          additional: {},
+        },
       },
       'api.FooBar.foo.pear': {
         category: 'api',
@@ -64,13 +64,13 @@ describe('build (common)', () => {
           __base: "'hello world';",
           __test: false,
           __resources: [],
-          __additional: {}
+          __additional: {},
         },
         result: {
           test: false,
           resources: [],
-          additional: {}
-        }
+          additional: {},
+        },
       },
       'api.FooBar.bar': {
         category: 'api',
@@ -79,17 +79,17 @@ describe('build (common)', () => {
           __test: "return 'farewell world!';",
           __resources: [],
           __additional: {
-            cinnamon: "return 'snickerdoodle';"
-          }
+            cinnamon: "return 'snickerdoodle';",
+          },
         },
         result: {
           test: '(function () {\n  "hello world";\n  "goodbye world";\n  return "farewell world!";\n})();\n',
           resources: [],
           additional: {
             cinnamon:
-              '(function () {\n  "hello world";\n  "goodbye world";\n  return "snickerdoodle";\n})();\n'
-          }
-        }
+              '(function () {\n  "hello world";\n  "goodbye world";\n  return "snickerdoodle";\n})();\n',
+          },
+        },
       },
       'api.FooBar.baz': {
         category: 'api',
@@ -97,13 +97,13 @@ describe('build (common)', () => {
           __base: "'hello world';",
           __test: false,
           __resources: [],
-          __additional: {}
+          __additional: {},
         },
         result: {
           test: '(function () {\n  "hello world";\n  return !!instance && "baz" in instance;\n})();\n',
           resources: [],
-          additional: {}
-        }
+          additional: {},
+        },
       },
       'api.FooBar.FooBar': {
         category: 'api',
@@ -111,13 +111,13 @@ describe('build (common)', () => {
           __base: "'hello world';",
           __test: false,
           __resources: [],
-          __additional: {}
+          __additional: {},
         },
         result: {
           test: false,
           resources: [],
-          additional: {}
-        }
+          additional: {},
+        },
       },
       'api.nonexistent': {
         category: 'api',
@@ -125,9 +125,9 @@ describe('build (common)', () => {
           __base: false,
           __test: false,
           __resources: [],
-          __additional: {}
+          __additional: {},
         },
-        result: {test: false, resources: [], additional: {}}
+        result: {test: false, resources: [], additional: {}},
       },
       'api.audiocontext': {
         category: 'api',
@@ -135,13 +135,13 @@ describe('build (common)', () => {
           __base: false,
           __test: 'return false;',
           __resources: ['audio-blip'],
-          __additional: {}
+          __additional: {},
         },
         result: {
           test: '(function () {\n  return false;\n})();\n',
           resources: ['audio-blip'],
-          additional: {}
-        }
+          additional: {},
+        },
       },
       'api.WebGLRenderingContext': {
         category: 'api',
@@ -149,15 +149,15 @@ describe('build (common)', () => {
           __base: 'var instance = reusableInstances.webGL;',
           __test: false,
           __resources: ['webGL'],
-          __additional: {}
+          __additional: {},
         },
         result: {
           // XXX Not accurate
           test: '(function () {\n  var instance = reusableInstances.webGL;\n  return !!instance;\n})();\n',
           resources: ['webGL'],
-          additional: {}
-        }
-      }
+          additional: {},
+        },
+      },
     };
 
     for (const [k, v] of Object.entries(expectedResults)) {
@@ -173,7 +173,7 @@ describe('build (common)', () => {
           getCustomTest('api.badresource', 'api');
         },
         Error,
-        'Resource bad-resource is not defined but referenced in api.badresource'
+        'Resource bad-resource is not defined but referenced in api.badresource',
       );
     });
   });
@@ -186,11 +186,11 @@ describe('build (common)', () => {
     it('constructor', () => {
       const test = {
         property: 'constructor.AudioContext',
-        owner: 'AudioContext'
+        owner: 'AudioContext',
       };
       assert.equal(
         compileTestCode(test),
-        'bcd.testConstructor("AudioContext");'
+        'bcd.testConstructor("AudioContext");',
       );
     });
 
@@ -198,7 +198,7 @@ describe('build (common)', () => {
       const test = {property: 'Symbol.iterator', owner: 'DOMMatrixReadOnly'};
       assert.equal(
         compileTestCode(test),
-        '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])'
+        '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])',
       );
     });
 
@@ -206,7 +206,7 @@ describe('build (common)', () => {
       const test = {property: 'log', owner: 'console'};
       assert.equal(
         compileTestCode(test),
-        '"console" in self && "log" in console'
+        '"console" in self && "log" in console',
       );
     });
 
@@ -214,11 +214,11 @@ describe('build (common)', () => {
       const test = {
         property: 'm11',
         owner: 'DOMMatrix.prototype',
-        inherit: true
+        inherit: true,
       };
       assert.equal(
         compileTestCode(test),
-        '"DOMMatrix" in self && Object.prototype.hasOwnProperty.call(DOMMatrix.prototype, "m11")'
+        '"DOMMatrix" in self && Object.prototype.hasOwnProperty.call(DOMMatrix.prototype, "m11")',
       );
     });
   });
@@ -227,16 +227,16 @@ describe('build (common)', () => {
     it('main', () => {
       const rawTest: RawTest = {
         raw: {
-          code: {property: 'body', owner: `Document.prototype`}
+          code: {property: 'body', owner: `Document.prototype`},
         },
         resources: ['audio-blip'],
-        exposure: ['Window']
+        exposure: ['Window'],
       };
 
       assert.deepEqual(compileTest(rawTest), {
         code: '"Document" in self && "body" in Document.prototype',
         exposure: ['Window'],
-        resources: ['audio-blip']
+        resources: ['audio-blip'],
       });
     });
 
@@ -245,16 +245,16 @@ describe('build (common)', () => {
         const rawTest: RawTest = {
           raw: {
             code: 'foo',
-            combinator: '&&'
+            combinator: '&&',
           },
           resources: [],
           additional: {},
-          exposure: ['Window']
+          exposure: ['Window'],
         };
 
         assert.deepEqual(compileTest(rawTest), {
           code: 'foo',
-          exposure: ['Window']
+          exposure: ['Window'],
         });
       });
 
@@ -262,16 +262,16 @@ describe('build (common)', () => {
         const rawTest: RawTest = {
           raw: {
             code: ['foo', 'foo'],
-            combinator: '&&'
+            combinator: '&&',
           },
           resources: [],
           additional: {},
-          exposure: ['Window']
+          exposure: ['Window'],
         };
 
         assert.deepEqual(compileTest(rawTest), {
           code: 'foo && foo',
-          exposure: ['Window']
+          exposure: ['Window'],
         });
       });
     });
@@ -281,43 +281,43 @@ describe('build (common)', () => {
         {
           raw: {
             code: 'true',
-            combinator: '&&'
+            combinator: '&&',
           },
           resources: [],
           additional: {},
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         {
           raw: {
             code: ['true', 'true'],
-            combinator: '||'
+            combinator: '||',
           },
           resources: [],
           additional: {},
-          exposure: ['Window']
+          exposure: ['Window'],
         },
         {
           raw: {
             code: ['true', 'true'],
-            combinator: '&&'
+            combinator: '&&',
           },
           resources: [],
           additional: {},
-          exposure: ['Worker']
-        }
+          exposure: ['Worker'],
+        },
       ];
 
       assert.deepEqual(compileTest(rawTests[0]), {
         code: 'true',
-        exposure: ['Window']
+        exposure: ['Window'],
       });
       assert.deepEqual(compileTest(rawTests[1]), {
         code: 'true || true',
-        exposure: ['Window']
+        exposure: ['Window'],
       });
       assert.deepEqual(compileTest(rawTests[2]), {
         code: 'true && true',
-        exposure: ['Worker']
+        exposure: ['Worker'],
       });
     });
 
@@ -326,17 +326,17 @@ describe('build (common)', () => {
         raw: {
           code: [
             {property: 'fontFamily', owner: 'document.body.style'},
-            {property: 'font-family', owner: 'document.body.style'}
+            {property: 'font-family', owner: 'document.body.style'},
           ],
-          combinator: '||'
+          combinator: '||',
         },
         resources: [],
-        exposure: ['Window']
+        exposure: ['Window'],
       };
 
       assert.deepEqual(compileTest(rawTest), {
         code: '"fontFamily" in document.body.style || "font-family" in document.body.style',
-        exposure: ['Window']
+        exposure: ['Window'],
       });
     });
   });

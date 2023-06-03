@@ -30,10 +30,10 @@ const prepare = (): ListrTask[] => {
           await exec('git --version');
         } catch (e) {
           throw new Error(
-            chalk`{red This script depends on {bold git}. Please {bold install} git using the following instructions:} {blue https://git-scm.com/book/en/v2/Getting-Started-Installing-Git}`
+            chalk`{red This script depends on {bold git}. Please {bold install} git using the following instructions:} {blue https://git-scm.com/book/en/v2/Getting-Started-Installing-Git}`,
           );
         }
-      }
+      },
     },
     {
       title: 'Checking for GitHub CLI',
@@ -42,11 +42,11 @@ const prepare = (): ListrTask[] => {
           await exec('gh --version');
         } catch (e) {
           throw new Error(
-            chalk`{red This script depends on the {bold GitHub CLI}. Please {bold install} the CLI using the following instructions:} {blue https://cli.github.com/}`
+            chalk`{red This script depends on the {bold GitHub CLI}. Please {bold install} the CLI using the following instructions:} {blue https://cli.github.com/}`,
           );
         }
       },
-      skip: (ctx) => ctx.skipPR
+      skip: (ctx) => ctx.skipPR,
     },
     {
       title: 'Checking git status',
@@ -54,16 +54,16 @@ const prepare = (): ListrTask[] => {
         const changes = await exec('git status -s');
         if (changes.length) {
           throw new Error(
-            chalk`{red You currently have {bold uncommitted changes}. Please {bold commit} or {bold stash} your changes and try again.}`
+            chalk`{red You currently have {bold uncommitted changes}. Please {bold commit} or {bold stash} your changes and try again.}`,
           );
         }
-      }
+      },
     },
     {
       title: 'Fetching from remote',
       task: async () => await exec('git fetch --all'),
-      skip: (ctx) => ctx.skipFetch
-    }
+      skip: (ctx) => ctx.skipFetch,
+    },
   ];
 };
 
@@ -72,7 +72,7 @@ const getNewVersion = async (ctx, task) => {
   const newVersions = [
     `${versionParts[0] + 1}.0.0`,
     `${versionParts[0]}.${versionParts[1] + 1}.0`,
-    `${versionParts[0]}.${versionParts[1]}.${versionParts[2] + 1}`
+    `${versionParts[0]}.${versionParts[1]}.${versionParts[2] + 1}`,
   ];
 
   if (ctx.skipPrompt) {
@@ -88,23 +88,23 @@ const getNewVersion = async (ctx, task) => {
       choices: [
         {
           message: chalk`Major {blue (${newVersions[0]})}`,
-          name: newVersions[0]
+          name: newVersions[0],
         },
         {
           message: chalk`Minor {blue (${newVersions[1]})}`,
-          name: newVersions[1]
+          name: newVersions[1],
         },
         {
           message: chalk`Patch {blue (${newVersions[2]})}`,
-          name: newVersions[2]
+          name: newVersions[2],
         },
         {
           message: chalk`{yellow Cancel}`,
-          name: 'cancel'
-        }
+          name: 'cancel',
+        },
       ],
-      initial: 2
-    }
+      initial: 2,
+    },
   ]);
 
   if (ctx.newVersion === 'cancel') {
@@ -133,7 +133,7 @@ const getTestChanges = (): ListrTask[] => {
       task: async () => {
         await exec(`git checkout v${currentVersion}`);
         await exec('npm install');
-      }
+      },
     },
     {
       title: 'Build tests from last release',
@@ -141,9 +141,9 @@ const getTestChanges = (): ListrTask[] => {
         await exec('npm run build:tests');
         await fs.rename(
           new URL('../tests.json', import.meta.url),
-          new URL('../tests.old.json', import.meta.url)
+          new URL('../tests.old.json', import.meta.url),
         );
-      }
+      },
     },
     {
       title: 'Checkout current release',
@@ -152,20 +152,20 @@ const getTestChanges = (): ListrTask[] => {
         // --force to throw those away.
         await exec('git checkout --force origin/main');
         await exec('npm install');
-      }
+      },
     },
     {
       title: 'Build tests from current release',
-      task: async () => await exec('npm run build:tests')
+      task: async () => await exec('npm run build:tests'),
     },
     {
       title: 'Compare tests',
       task: async (ctx) => {
         const oldTests = await fs.readJson(
-          new URL('../tests.old.json', import.meta.url)
+          new URL('../tests.old.json', import.meta.url),
         );
         const newTests = await fs.readJson(
-          new URL('../tests.json', import.meta.url)
+          new URL('../tests.json', import.meta.url),
         );
 
         const oldTestKeys = Object.keys(oldTests);
@@ -199,32 +199,32 @@ const getTestChanges = (): ListrTask[] => {
           ctx.testChanges +=
             '#### Changed\n\n' + changed.map((x) => '- ' + x).join('\n') + '\n';
         }
-      }
+      },
     },
     {
       title: 'Cleanup',
       task: async () =>
-        await fs.rm(new URL('../tests.old.json', import.meta.url))
-    }
+        await fs.rm(new URL('../tests.old.json', import.meta.url)),
+    },
   ];
 };
 
 const getGitChanges = async (ctx) => {
   const commits = String(
-    await exec(`git log --pretty=format:%s v${currentVersion}..origin/main`)
+    await exec(`git log --pretty=format:%s v${currentVersion}..origin/main`),
   ).split('\n');
   ctx.commits = commits
     .filter((summary) => !summary.startsWith('Bump '))
     .map(
       (summary) =>
-        `- ${summary.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}`
+        `- ${summary.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}`,
     )
     .map((summary) =>
       // Link to pull requests
       summary.replace(
         /\(#(\d+)\)/g,
-        '([#$1](https://github.com/GooborgStudios/mdn-bcd-collector/pull/$1))'
-      )
+        '([#$1](https://github.com/GooborgStudios/mdn-bcd-collector/pull/$1))',
+      ),
     )
     .join('\n');
 };
@@ -254,7 +254,7 @@ const doChangelogUpdate = async (ctx) => {
     await fs.writeFile(
       new URL(`../changelog/v${currentMajorVersion}.md`, import.meta.url),
       oldChangelog,
-      'utf8'
+      'utf8',
     );
 
     // Move the Older Versions list to new changelog
@@ -263,7 +263,7 @@ const doChangelogUpdate = async (ctx) => {
       `- [v${currentMajorVersion}.x](./changelog/v${currentMajorVersion}.md)` +
       changelog.substring(
         changelog.indexOf(olderVersionsHeader) + olderVersionsHeader.length + 2,
-        changelog.length
+        changelog.length,
       );
   }
 
@@ -289,7 +289,7 @@ const prepareBranch = async (ctx) => {
   // Commit
   await exec('git add package.json package-lock.json CHANGELOG.md');
   await exec(
-    `git commit -m "Release ${ctx.newVersion}" -m "Generated by release.js."`
+    `git commit -m "Release ${ctx.newVersion}" -m "Generated by release.js."`,
   );
 };
 
@@ -301,49 +301,49 @@ const createPR = async (ctx) => {
 const main = async () => {
   const {argv} = yargs(hideBin(process.argv))
     .parserConfiguration({
-      'boolean-negation': false
+      'boolean-negation': false,
     })
     .option('no-fetch', {
       describe: "Don't fetch remote",
       type: 'boolean',
-      default: false
+      default: false,
     })
     .option('no-prompt', {
       describe: "Don't prompt about anything, assume defaults",
       type: 'boolean',
-      default: false
+      default: false,
     })
     .option('no-pr', {
       describe: "Don't create a pull request",
       type: 'boolean',
-      default: false
+      default: false,
     });
 
   const tasks = new Listr(
     [
       {
         title: 'Check prerequesites',
-        task: (_, task) => task.newListr(prepare())
+        task: (_, task) => task.newListr(prepare()),
       },
       {
         title: 'Get new version number',
-        task: getNewVersion
+        task: getNewVersion,
       },
       {
         title: 'Get test changes',
-        task: (_, task) => task.newListr(getTestChanges())
+        task: (_, task) => task.newListr(getTestChanges()),
       },
       {
         title: 'Get commits',
-        task: getGitChanges
+        task: getGitChanges,
       },
       {
         title: 'Update changelog',
-        task: doChangelogUpdate
+        task: doChangelogUpdate,
       },
       {
         title: 'Bump version number',
-        task: async (ctx) => await doVersionBump(ctx.newVersion)
+        task: async (ctx) => await doVersionBump(ctx.newVersion),
       },
       {
         title: 'Get confirmation to continue',
@@ -353,28 +353,28 @@ const main = async () => {
               type: 'confirm',
               name: 'confirm',
               message: `Ready to release ${ctx.newVersion}?`,
-              initial: true
-            }
+              initial: true,
+            },
           ]);
 
           if (!confirm) {
             throw new Error(
-              chalk`{yellow Release cancelled by user, reverting package[-lock.json] changes (changelog retained)}`
+              chalk`{yellow Release cancelled by user, reverting package[-lock.json] changes (changelog retained)}`,
             );
           }
         },
         rollback: async () => await doVersionBump(currentVersion),
-        skip: (ctx) => ctx.skipPrompt
+        skip: (ctx) => ctx.skipPrompt,
       },
       {
         title: 'Prepare release branch',
-        task: prepareBranch
+        task: prepareBranch,
       },
       {
         title: 'Create pull request',
         task: createPR,
-        skip: (ctx) => ctx.skipPR
-      }
+        skip: (ctx) => ctx.skipPR,
+      },
     ],
     {
       showErrorMessage: true,
@@ -384,9 +384,9 @@ const main = async () => {
         skipFetch: argv['no-fetch'],
         skipPrompt: argv['no-prompt'],
         skipPR: argv['no-pr'],
-        newVersion: null
-      }
-    } as any
+        newVersion: null,
+      },
+    } as any,
   );
 
   try {

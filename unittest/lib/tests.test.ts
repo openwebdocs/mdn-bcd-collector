@@ -13,27 +13,27 @@ import Tests from '../../lib/tests.js';
 const testDatabase = {
   'api.AbortController': {
     code: '"AbortController" in self',
-    exposure: ['Window', 'Worker', 'ServiceWorker']
+    exposure: ['Window', 'Worker', 'ServiceWorker'],
   },
   'api.AbortController.signal': {
     code: '"AbortController" in self && "signal" in AbortController.prototype',
     resources: ['audio-blip'],
-    exposure: ['Window', 'Worker']
+    exposure: ['Window', 'Worker'],
   },
   'css.properties.font-family': {
     code: '"fontFamily" in document.body.style || "font-family" in document.body.style',
-    exposure: ['Window']
+    exposure: ['Window'],
   },
   'javascript.builtins.array': {
     code: '[1, 2, 3]',
-    exposure: ['JavaScript']
-  }
+    exposure: ['JavaScript'],
+  },
 };
 
 describe('Tests', () => {
   const tests = new Tests({
     tests: testDatabase,
-    host: 'host.test'
+    host: 'host.test',
   });
 
   it('buildEndpoints', () => {
@@ -42,12 +42,12 @@ describe('Tests', () => {
         'api.AbortController',
         'api.AbortController.signal',
         'css.properties.font-family',
-        'javascript.builtins.array'
+        'javascript.builtins.array',
       ],
       api: ['api.AbortController', 'api.AbortController.signal'],
       'api.AbortController': [
         'api.AbortController',
-        'api.AbortController.signal'
+        'api.AbortController.signal',
       ],
       'api.AbortController.signal': ['api.AbortController.signal'],
       css: ['css.properties.font-family'],
@@ -55,7 +55,7 @@ describe('Tests', () => {
       'css.properties.font-family': ['css.properties.font-family'],
       javascript: ['javascript.builtins.array'],
       'javascript.builtins': ['javascript.builtins.array'],
-      'javascript.builtins.array': ['javascript.builtins.array']
+      'javascript.builtins.array': ['javascript.builtins.array'],
     };
 
     const endpoints = tests.buildEndpoints();
@@ -74,7 +74,7 @@ describe('Tests', () => {
       'css.properties.font-family',
       'javascript',
       'javascript.builtins',
-      'javascript.builtins.array'
+      'javascript.builtins.array',
     ]);
   });
 
@@ -85,40 +85,40 @@ describe('Tests', () => {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Window',
-          resources: []
+          resources: [],
         },
         {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Worker',
-          resources: []
+          resources: [],
         },
         {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'ServiceWorker',
-          resources: []
+          resources: [],
         },
         {
           ident: 'api.AbortController.signal',
           tests: [
             {
-              code: '"AbortController" in self && "signal" in AbortController.prototype'
-            }
+              code: '"AbortController" in self && "signal" in AbortController.prototype',
+            },
           ],
           exposure: 'Window',
-          resources: ['audio-blip']
+          resources: ['audio-blip'],
         },
         {
           ident: 'api.AbortController.signal',
           tests: [
             {
-              code: '"AbortController" in self && "signal" in AbortController.prototype'
-            }
+              code: '"AbortController" in self && "signal" in AbortController.prototype',
+            },
           ],
           exposure: 'Worker',
-          resources: ['audio-blip']
-        }
+          resources: ['audio-blip'],
+        },
       ]);
     });
 
@@ -128,18 +128,18 @@ describe('Tests', () => {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Window',
-          resources: []
+          resources: [],
         },
         {
           ident: 'api.AbortController.signal',
           tests: [
             {
-              code: '"AbortController" in self && "signal" in AbortController.prototype'
-            }
+              code: '"AbortController" in self && "signal" in AbortController.prototype',
+            },
           ],
           exposure: 'Window',
-          resources: ['audio-blip']
-        }
+          resources: ['audio-blip'],
+        },
       ]);
     });
 
@@ -152,15 +152,15 @@ describe('Tests', () => {
             ident: 'api.AbortController',
             tests: [{code: '"AbortController" in self'}],
             exposure: 'Window',
-            resources: []
-          }
-        ]
+            resources: [],
+          },
+        ],
       );
 
       // Filter out a tests recursively.
       assert.deepEqual(
         tests.getTests('api', 'Window', ['api.AbortController']),
-        []
+        [],
       );
 
       // Matching prefix does not ignore a test.
@@ -169,18 +169,18 @@ describe('Tests', () => {
           ident: 'api.AbortController',
           tests: [{code: '"AbortController" in self'}],
           exposure: 'Window',
-          resources: []
+          resources: [],
         },
         {
           ident: 'api.AbortController.signal',
           tests: [
             {
-              code: '"AbortController" in self && "signal" in AbortController.prototype'
-            }
+              code: '"AbortController" in self && "signal" in AbortController.prototype',
+            },
           ],
           exposure: 'Window',
-          resources: ['audio-blip']
-        }
+          resources: ['audio-blip'],
+        },
       ]);
     });
   });

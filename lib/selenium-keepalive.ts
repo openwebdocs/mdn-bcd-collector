@@ -20,12 +20,12 @@ if (http.globalAgent && 'keepAlive' in http.globalAgent) {
 } else {
   const agent = new http.Agent({
     keepAlive: true,
-    keepAliveMsecs: keepAliveTimeout
+    keepAliveMsecs: keepAliveTimeout,
   });
 
   const secureAgent = new https.Agent({
     keepAlive: true,
-    keepAliveMsecs: keepAliveTimeout
+    keepAliveMsecs: keepAliveTimeout,
   });
 
   const httpRequest = http.request;

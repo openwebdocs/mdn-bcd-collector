@@ -26,7 +26,7 @@ const {default: bcd}: {default: CompatData} = await import(
 );
 
 const tests = Object.keys(
-  await fs.readJson(new URL('../tests.json', import.meta.url))
+  await fs.readJson(new URL('../tests.json', import.meta.url)),
 );
 
 const statuses = {Supported: 'green', Unsupported: 'red', Unknown: 'yellow'};
@@ -75,7 +75,7 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   // Check to make sure it's a valid report file
   if (!('__version' in data && 'results' in data && 'userAgent' in data)) {
     console.error(
-      chalk`{red File {bold ${file}} does not seem to be a collector report file!  Expected "__version", "results" and "userAgent" keys.}`
+      chalk`{red File {bold ${file}} does not seem to be a collector report file!  Expected "__version", "results" and "userAgent" keys.}`,
     );
   }
 
@@ -88,13 +88,13 @@ const getStats = (data: Report, featureQuery: string[]): any => {
   const testedFeatures = dedupeArray(testResults.map((r) => r.name));
 
   const supportedFeatures = dedupeArray(
-    testResults.filter((r) => r.result).map((r) => r.name)
+    testResults.filter((r) => r.result).map((r) => r.name),
   );
   const unsupportedFeatures = dedupeArray(
-    testResults.filter((r) => r.result === false).map((r) => r.name)
+    testResults.filter((r) => r.result === false).map((r) => r.name),
   );
   const unknownFeatures = dedupeArray(
-    testResults.filter((r) => r.result === null).map((r) => r.name)
+    testResults.filter((r) => r.result === null).map((r) => r.name),
   );
 
   const featuresQueried: any[] = [];
@@ -109,10 +109,10 @@ const getStats = (data: Report, featureQuery: string[]): any => {
             ? 'Supported'
             : r.result === false
             ? 'Unsupported'
-            : 'Unknown'
+            : 'Unknown',
         }));
       featuresQueried.push(
-        ...featuresFound.sort((a, b) => a.name.localeCompare(b.name))
+        ...featuresFound.sort((a, b) => a.name.localeCompare(b.name)),
       );
     }
   }
@@ -126,15 +126,15 @@ const getStats = (data: Report, featureQuery: string[]): any => {
       supported: supportedFeatures,
       unsupported: unsupportedFeatures,
       unknown: unknownFeatures,
-      missing: findMissing(testedFeatures, tests).missingEntries
+      missing: findMissing(testedFeatures, tests).missingEntries,
     },
-    featuresQueried
+    featuresQueried,
   };
 };
 
 const printStats = (stats: any, verboseNull: boolean): void => {
   console.log(
-    chalk` -=- Statistics for {bold ${stats.browser.browser.name} ${stats.browser.version}} (${stats.browser.os.name} ${stats.browser.os.version}) -=-`
+    chalk` -=- Statistics for {bold ${stats.browser.browser.name} ${stats.browser.version}} (${stats.browser.os.name} ${stats.browser.os.version}) -=-`,
   );
 
   if (!stats.browser.inBcd) {
@@ -151,7 +151,7 @@ const printStats = (stats: any, verboseNull: boolean): void => {
   }
 
   console.log(
-    chalk`{bold URLs Run:}\n${stats.urls.map((u) => ` - ${u}`).join('\n')}`
+    chalk`{bold URLs Run:}\n${stats.urls.map((u) => ` - ${u}`).join('\n')}`,
   );
 
   const totalTests = stats.testResults.total;
@@ -163,11 +163,11 @@ const printStats = (stats: any, verboseNull: boolean): void => {
     console.log(
       chalk` - {${color} ${name}: {bold ${testResults}} features ({bold ${percentage(
         testResults,
-        totalTests
+        totalTests,
       )}} of tested / {bold ${percentage(
         testResults,
-        tests.length
-      )}} of total)}`
+        tests.length,
+      )}} of total)}`,
     );
   }
 
@@ -182,8 +182,8 @@ const printStats = (stats: any, verboseNull: boolean): void => {
       stats.testResults.missing.length
     }} features ({bold ${percentage(
       stats.testResults.missing.length,
-      tests.length
-    )}})}`
+      tests.length,
+    )}})}`,
   );
 
   if (stats.featuresQueried.length) {
@@ -192,7 +192,8 @@ const printStats = (stats: any, verboseNull: boolean): void => {
       console.log(
         chalk` - ${feature.name} ({bold ${feature.exposure}} exposure): {${
           statuses[feature.status] || 'bold'
-        } ${feature.status}}` + (feature.message ? ` - ${feature.message}` : '')
+        } ${feature.status}}` +
+          (feature.message ? ` - ${feature.message}` : ''),
       );
     }
   }
@@ -203,7 +204,7 @@ const printStats = (stats: any, verboseNull: boolean): void => {
 const main = async (
   files: string[],
   features: string[],
-  verboseNull: boolean
+  verboseNull: boolean,
 ): Promise<void> => {
   for (const file of files) {
     const data = await loadFile(file);
@@ -226,21 +227,21 @@ if (esMain(import.meta)) {
         .positional('files', {
           describe: 'The report file(s) to generate statistics for',
           type: 'string',
-          array: true
+          array: true,
         })
         .option('feature', {
           alias: 'f',
           describe: 'A specific feature identifier to query support for',
           type: 'string',
-          array: true
+          array: true,
         })
         .option('null', {
           alias: 'n',
           describe:
             'Enable this flag to print the list of features with unknown support',
-          type: 'boolean'
+          type: 'boolean',
         });
-    }
+    },
   );
 
   await main(argv.files, argv.feature, argv.null);

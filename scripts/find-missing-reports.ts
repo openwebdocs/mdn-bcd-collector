@@ -15,7 +15,7 @@ interface ReportMap {
 
 import {
   compare as compareVersions,
-  compareVersions as compareVersionsSort
+  compareVersions as compareVersionsSort,
 } from 'compare-versions';
 import esMain from 'es-main';
 import fs from 'fs-extra';
@@ -50,7 +50,7 @@ const generateReportMap = (all: boolean) => {
       if (browserKey == 'safari') {
         // Ignore super old Safari releases
         result[browserKey] = result[browserKey].filter((v) =>
-          compareVersions(v, '4', '>=')
+          compareVersions(v, '4', '>='),
         );
       } else if (browserKey == 'opera') {
         // Ignore all Opera versions besides 12.1, 15, and the latest stable
@@ -58,7 +58,7 @@ const generateReportMap = (all: boolean) => {
           (v) =>
             v == '12.1' ||
             v == '15' ||
-            v == result[browserKey][result[browserKey].length - 1]
+            v == result[browserKey][result[browserKey].length - 1],
         );
       } else if (
         browserKey.includes('_android') ||
@@ -66,7 +66,7 @@ const generateReportMap = (all: boolean) => {
       ) {
         // Ignore all mobile browser releases besides the most current
         result[browserKey] = result[browserKey].filter(
-          (v) => v == result[browserKey][result[browserKey].length - 1]
+          (v) => v == result[browserKey][result[browserKey].length - 1],
         );
       }
     }
@@ -78,7 +78,7 @@ const generateReportMap = (all: boolean) => {
 const findMissingReports = async (
   reportPaths: string[],
   all: boolean,
-  version: string
+  version: string,
 ) => {
   if (version == 'current') {
     version = appVersion;
@@ -101,7 +101,7 @@ const findMissingReports = async (
     if (browserKey in reportMap) {
       if (reportMap[browserKey].includes(browserVersion)) {
         reportMap[browserKey] = reportMap[browserKey].filter(
-          (v) => v !== browserVersion
+          (v) => v !== browserVersion,
         );
       }
     }
@@ -115,7 +115,7 @@ const main = async (argv) => {
   const missingReports = await findMissingReports(
     argv.reports,
     argv.all,
-    argv.collectorVersion
+    argv.collectorVersion,
   );
 
   for (const [browser, releases] of Object.entries(missingReports)) {
@@ -135,21 +135,21 @@ if (esMain(import.meta)) {
           describe: 'The report files to update from (also accepts folders)',
           type: 'string',
           array: true,
-          default: ['../mdn-bcd-results/']
+          default: ['../mdn-bcd-results/'],
         })
         .option('collector-version', {
           alias: 'c',
           describe: 'Limit the collector version (set to "all" to disable)',
           type: 'string',
-          default: 'current'
+          default: 'current',
         })
         .option('all', {
           describe: 'Include all browser versions, including ignored',
           alias: 'a',
           type: 'boolean',
-          nargs: 0
+          nargs: 0,
         });
-    }
+    },
   );
 
   await main(argv);

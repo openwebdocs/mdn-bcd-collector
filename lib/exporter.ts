@@ -55,7 +55,7 @@ const getReportMeta = (report) => {
     slug,
     filename,
     branch,
-    version
+    version,
   };
 };
 
@@ -87,7 +87,7 @@ const exportAsPR = async (report: Report, octokit?) => {
     repo: 'mdn-bcd-results',
     ref: `refs/heads/${meta.branch}`,
     // first commit in repo
-    sha: '753c6ed8e991e9729353a63d650ff0f5bd902b69'
+    sha: '753c6ed8e991e9729353a63d650ff0f5bd902b69',
   });
 
   await octokit.repos.createOrUpdateFileContents({
@@ -96,7 +96,7 @@ const exportAsPR = async (report: Report, octokit?) => {
     path: `${meta.filename}`,
     message: meta.title,
     content: meta.buffer.toString('base64'),
-    branch: meta.branch
+    branch: meta.branch,
   });
 
   const {data} = await octokit.pulls.create({
@@ -105,12 +105,12 @@ const exportAsPR = async (report: Report, octokit?) => {
     title: meta.title,
     head: meta.branch,
     body: createBody(meta),
-    base: 'main'
+    base: 'main',
   });
 
   return {
     filename: meta.filename,
-    url: data.html_url
+    url: data.html_url,
   };
 };
 

@@ -17,10 +17,10 @@ describe('build (JavaScript)', () => {
     const customJS = {
       builtins: {
         AggregateError: {
-          ctor_args: "[new Error('message')]"
+          ctor_args: "[new Error('message')]",
         },
         Array: {
-          ctor_args: '2'
+          ctor_args: '2',
         },
         'Array.prototype.at': {},
         'Array.prototype.@@iterator': {},
@@ -29,14 +29,14 @@ describe('build (JavaScript)', () => {
         'Atomics.add': {},
         BigInt: {
           ctor_args: '1',
-          ctor_new: false
-        }
-      }
+          ctor_new: false,
+        },
+      },
     };
     assert.deepEqual(build(customJS), {
       'javascript.builtins.AggregateError': {
         code: 'self.hasOwnProperty("AggregateError")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.AggregateError.AggregateError': {
         code: `(function () {
@@ -47,19 +47,19 @@ describe('build (JavaScript)', () => {
   return !!instance;
 })();
 `,
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Array': {
         code: 'self.hasOwnProperty("Array")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Array.@@iterator': {
         code: '"Symbol" in self && "iterator" in Symbol && "Array" in self && !!(Array.prototype[Symbol.iterator])',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Array.@@species': {
         code: '"Symbol" in self && "species" in Symbol && "Array" in self && !!(Array[Symbol.species])',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Array.Array': {
         code: `(function () {
@@ -70,23 +70,23 @@ describe('build (JavaScript)', () => {
   return !!instance;
 })();
 `,
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Array.at': {
         code: '"Array" in self && Object.prototype.hasOwnProperty.call(Array.prototype, "at")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Atomics': {
         code: 'self.hasOwnProperty("Atomics")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.Atomics.add': {
         code: '"Atomics" in self && Object.prototype.hasOwnProperty.call(Atomics, "add")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.BigInt': {
         code: 'self.hasOwnProperty("BigInt")',
-        exposure: ['Window']
+        exposure: ['Window'],
       },
       'javascript.builtins.BigInt.BigInt': {
         code: `(function () {
@@ -97,8 +97,8 @@ describe('build (JavaScript)', () => {
   return !!instance;
 })();
 `,
-        exposure: ['Window']
-      }
+        exposure: ['Window'],
+      },
     });
   });
 });

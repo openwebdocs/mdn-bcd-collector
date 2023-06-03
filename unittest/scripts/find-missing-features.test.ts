@@ -12,12 +12,12 @@ import fs from 'fs-extra';
 
 import {
   traverseFeatures,
-  getMissing
+  getMissing,
 } from '../../scripts/find-missing-features.js';
 
 import bcd from '../sample/bcd.test.js';
 const tests = await fs.readJson(
-  new URL('../sample/tests.test.json', import.meta.url)
+  new URL('../sample/tests.test.json', import.meta.url),
 );
 
 describe('find-missing-features', () => {
@@ -44,7 +44,7 @@ describe('find-missing-features', () => {
         'css.properties.font-face',
         'css.properties.font-style',
         'javascript.builtins.Array',
-        'javascript.builtins.Date'
+        'javascript.builtins.Date',
       ]);
     });
 
@@ -73,7 +73,7 @@ describe('find-missing-features', () => {
         'css.properties.font-face',
         'css.properties.font-style',
         'javascript.builtins.Array',
-        'javascript.builtins.Date'
+        'javascript.builtins.Date',
       ]);
     });
   });
@@ -102,9 +102,9 @@ describe('find-missing-features', () => {
           'api.SuperNewInterface',
           'css.properties.font-face',
           'css.properties.font-style',
-          'javascript.builtins.Date'
+          'javascript.builtins.Date',
         ],
-        total: 21
+        total: 21,
       };
 
       assert.deepEqual(getMissing(bcd as any, tests), expected);
@@ -116,15 +116,15 @@ describe('find-missing-features', () => {
 
       assert.isTrue(
         (console.log as any).calledWith(
-          "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd"
-        )
+          "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd",
+        ),
       );
     });
 
     it('bcd <- collector', () => {
       assert.deepEqual(getMissing(bcd as any, tests, 'bcd-from-collector'), {
         missingEntries: ['javascript.builtins.Error'],
-        total: 5
+        total: 5,
       });
     });
 
@@ -146,10 +146,10 @@ describe('find-missing-features', () => {
             'api.UnprefixedInterface',
             'api.NullAPI',
             'api.RemovedInterface',
-            'api.SuperNewInterface'
+            'api.SuperNewInterface',
           ],
-          total: 16
-        }
+          total: 16,
+        },
       );
     });
 
@@ -172,15 +172,15 @@ describe('find-missing-features', () => {
           'api.SuperNewInterface',
           'css.properties.font-face',
           'css.properties.font-style',
-          'javascript.builtins.Date'
+          'javascript.builtins.Date',
         ],
-        total: 21
+        total: 21,
       });
 
       assert.isTrue(
         (console.log as any).calledWith(
-          "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd"
-        )
+          "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd",
+        ),
       );
     });
 

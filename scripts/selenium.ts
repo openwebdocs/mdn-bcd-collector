@@ -15,14 +15,14 @@ import {
   Capabilities,
   Capability,
   logging,
-  until
+  until,
 } from 'selenium-webdriver';
 import bcd from '@mdn/browser-compat-data' assert {type: 'json'};
 import type {BrowserStatement, BrowserName} from '@mdn/browser-compat-data';
 const bcdBrowsers = bcd.browsers;
 import {
   compare as compareVersions,
-  compareVersions as compareVersionsSort
+  compareVersions as compareVersionsSort,
 } from 'compare-versions';
 import fetch from 'node-fetch';
 import esMain from 'es-main';
@@ -47,7 +47,7 @@ const seleniumUrls = {
   browserstack: 'https://${username}:${key}@hub-cloud.browserstack.com/wd/hub',
   saucelabs:
     'https://${username}:${key}@ondemand.${region}.saucelabs.com:443/wd/hub',
-  lambdatest: 'https://${username}:${key}@hub.lambdatest.com/wd/hub'
+  lambdatest: 'https://${username}:${key}@hub.lambdatest.com/wd/hub',
 };
 
 // Custom tests that use getUserMedia() make Chrome 25-26, Edge 12-18 and Firefox 34-53 block.
@@ -56,13 +56,13 @@ const gumTests = [
   'MediaStream',
   'MediaStreamAudioSourceNode',
   'MediaStreamTrack',
-  'MediaStreamTrackAudioSourceNode'
+  'MediaStreamTrackAudioSourceNode',
 ].map((iface) => `api.${iface}`);
 
 const ignore = {
   chrome: {
     25: gumTests,
-    26: gumTests
+    26: gumTests,
   },
   edge: {
     12: gumTests,
@@ -71,7 +71,7 @@ const ignore = {
     15: ['api.SecurityPolicyViolationEvent', ...gumTests],
     16: gumTests,
     17: gumTests,
-    18: gumTests
+    18: gumTests,
   },
   firefox: {
     34: gumTests,
@@ -92,15 +92,15 @@ const ignore = {
     49: gumTests,
     50: gumTests,
     51: gumTests,
-    52: gumTests
-  }
+    52: gumTests,
+  },
 };
 
 const earliestBrowserVersions = {
   chrome: '15',
   edge: '12',
   firefox: '4',
-  safari: '5.1'
+  safari: '5.1',
 };
 
 const prettyName = (browser, version, os) => {
@@ -119,7 +119,7 @@ const filterVersions = (browser: BrowserName, since: Date, reverse) => {
   const versions: string[] = [];
 
   for (const [version, versionData] of Object.entries(
-    (bcdBrowsers[browser] as BrowserStatement).releases
+    (bcdBrowsers[browser] as BrowserStatement).releases,
   )) {
     if (
       (versionData.status == 'current' || versionData.status == 'retired') &&
@@ -132,27 +132,27 @@ const filterVersions = (browser: BrowserName, since: Date, reverse) => {
   }
 
   return versions.sort((a, b) =>
-    reverse ? compareVersionsSort(a, b) : compareVersionsSort(b, a)
+    reverse ? compareVersionsSort(a, b) : compareVersionsSort(b, a),
   );
 };
 
 const getBrowsersToTest = (
   limitBrowsers: BrowserName[],
   since: Date,
-  reverse: boolean
+  reverse: boolean,
 ) => {
   let browsersToTest: {[browser: string]: string[]} = {
     chrome: filterVersions('chrome', since, reverse),
     edge: filterVersions('edge', since, reverse),
     firefox: filterVersions('firefox', since, reverse),
-    safari: filterVersions('safari', since, reverse)
+    safari: filterVersions('safari', since, reverse),
   };
 
   if (limitBrowsers) {
     browsersToTest = Object.fromEntries(
       Object.entries(browsersToTest).filter(([k]) =>
-        limitBrowsers.includes(k as BrowserName)
-      )
+        limitBrowsers.includes(k as BrowserName),
+      ),
     );
   }
 
@@ -187,7 +187,7 @@ const getOsesToTest = (service, os) => {
         ['Windows', '8.1'],
         ['Windows', '8'],
         ['Windows', '7'],
-        ['Windows', 'XP']
+        ['Windows', 'XP'],
       ];
       break;
     case 'macOS':
@@ -195,7 +195,7 @@ const getOsesToTest = (service, os) => {
         case 'saucelabs':
           osesToTest = [
             ['macOS', '13'],
-            ['macOS', '10.14']
+            ['macOS', '10.14'],
           ];
           break;
         case 'lambdatest':
@@ -203,7 +203,7 @@ const getOsesToTest = (service, os) => {
             ['macOS', 'Monterey'],
             ['macOS', 'Big Sur'],
             ['macOS', 'Mojave'],
-            ['OS X', 'El Capitan']
+            ['OS X', 'El Capitan'],
           ];
           break;
         default:
@@ -212,7 +212,7 @@ const getOsesToTest = (service, os) => {
             ['OS X', 'Monterey'],
             ['OS X', 'Big Sur'],
             ['OS X', 'Mojave'],
-            ['OS X', 'El Capitan']
+            ['OS X', 'El Capitan'],
           ];
       }
       break;
@@ -234,7 +234,7 @@ const getSeleniumUrl = (service, credentials) => {
       seleniumUrls[service] = credentials.url;
     } else {
       throw new Error(
-        `Couldn't compile Selenium URL for ${service}: service is unknown and URL not specified`
+        `Couldn't compile Selenium URL for ${service}: service is unknown and URL not specified`,
       );
     }
   }
@@ -255,8 +255,8 @@ const getSeleniumUrl = (service, credentials) => {
   if (missingVars.length) {
     throw new Error(
       `Couldn't compile Selenium URL for ${service}: missing required variables: ${missingVars.join(
-        ', '
-      )}`
+        ', ',
+      )}`,
     );
   }
 
@@ -295,7 +295,7 @@ const buildDriver = async (browser, version, os) => {
       capabilities.set('name', testName);
       if (service === 'saucelabs') {
         capabilities.set('sauce:options', {
-          name: testName
+          name: testName,
         });
       }
 
@@ -319,7 +319,7 @@ const buildDriver = async (browser, version, os) => {
         // LambdaTest
         capabilities.set('LT:Options', {
           name: testName,
-          platformName: `${osName} ${osVersion}`
+          platformName: `${osName} ${osVersion}`,
         });
       }
 
@@ -328,16 +328,16 @@ const buildDriver = async (browser, version, os) => {
         capabilities.set('goog:chromeOptions', {
           args: [
             '--use-fake-device-for-media-stream',
-            '--use-fake-ui-for-media-stream'
+            '--use-fake-ui-for-media-stream',
           ],
           prefs: {
             'profile.managed_default_content_settings.geolocation': 1,
-            'profile.managed_default_content_settings.notifications': 1
-          }
+            'profile.managed_default_content_settings.notifications': 1,
+          },
         });
       } else if (browser === 'firefox') {
         let firefoxPrefs: {[pref: string]: any} = {
-          'media.navigator.streams.fake': true
+          'media.navigator.streams.fake': true,
         };
         if (version >= 53) {
           firefoxPrefs = {
@@ -345,7 +345,7 @@ const buildDriver = async (browser, version, os) => {
             'media.navigator.permission.disabled': 1,
             'permissions.default.camera': 1,
             'permissions.default.microphone': 1,
-            'permissions.default.geo': 1
+            'permissions.default.geo': 1,
           };
         }
         if (version >= 54) {
@@ -353,7 +353,7 @@ const buildDriver = async (browser, version, os) => {
         }
 
         capabilities.set('moz:firefoxOptions', {
-          prefs: firefoxPrefs
+          prefs: firefoxPrefs,
         });
       }
 
@@ -382,7 +382,7 @@ const buildDriver = async (browser, version, os) => {
           'Browser/Browser_Version not supported',
           'The Browser/Os combination is not supported',
           "Couldn't compile Selenium URL",
-          'Unsupported platform'
+          'Unsupported platform',
         ];
         if (messages.some((m) => (e as Error).message.includes(m))) {
           // If unsupported config, continue to the next grid configuration
@@ -444,7 +444,7 @@ const goToPage = async (driver, browser, version, page) => {
 const click = async (driver, browser, elementId) => {
   if (browser === 'safari') {
     await driver.executeScript(
-      `document.getElementById('${elementId}').click()`
+      `document.getElementById('${elementId}').click()`,
     );
   } else {
     await driver.findElement(By.id(elementId)).click();
@@ -462,7 +462,7 @@ const run = async (browser, version, os, ctx, task) => {
 
   log(
     task,
-    `Selected ${service.service} on ${service.osName} ${service.osVersion}`
+    `Selected ${service.service} on ${service.osName} ${service.osVersion}`,
   );
 
   let statusEl;
@@ -488,7 +488,7 @@ const run = async (browser, version, os, ctx, task) => {
     } catch (e) {
       if ((e as Error).name == 'TimeoutError') {
         throw new Error(
-          task.title + ' - ' + 'Timed out waiting for results to upload'
+          task.title + ' - ' + 'Timed out waiting for results to upload',
         );
       }
 
@@ -522,11 +522,11 @@ const runAll = async (
   limitVersion,
   oses,
   concurrent,
-  reverse
+  reverse,
 ) => {
   if (!Object.keys(secrets.selenium).length) {
     console.error(
-      chalk`{red.bold A Selenium remote WebDriver URL is not defined in secrets.json.  Please define your Selenium remote(s).}`
+      chalk`{red.bold A Selenium remote WebDriver URL is not defined in secrets.json.  Please define your Selenium remote(s).}`,
     );
     return false;
   }
@@ -538,7 +538,7 @@ const runAll = async (
   const browsersToTest = getBrowsersToTest(
     limitBrowsers,
     limitVersion,
-    reverse
+    reverse,
   );
   const tasks: ListrTask[] = [];
 
@@ -565,7 +565,7 @@ const runAll = async (
         browsertasks.push({
           title: prettyName(browser, version, os),
           task: (ctx, task) => run(browser, version, os, ctx, task),
-          retry: 3
+          retry: 3,
         });
       }
     }
@@ -575,8 +575,8 @@ const runAll = async (
       task: () =>
         new Listr(browsertasks, {
           concurrent,
-          exitOnError: false
-        })
+          exitOnError: false,
+        }),
     });
   }
 
@@ -586,8 +586,8 @@ const runAll = async (
     renderer: 'verbose',
     rendererOptions: {
       collapseSkips: false,
-      collapseErrors: false
-    } as any
+      collapseErrors: false,
+    } as any,
   });
 
   await taskrun.run({testenv});
@@ -603,36 +603,36 @@ if (esMain(import.meta)) {
           describe: 'Limit the browser(s) to test',
           alias: 'b',
           type: 'string',
-          choices: ['chrome', 'edge', 'firefox', 'safari']
+          choices: ['chrome', 'edge', 'firefox', 'safari'],
         })
         .option('since', {
           describe: 'Limit to browser releases from this year on',
           alias: 's',
           type: 'string',
           default: '2020',
-          nargs: 1
+          nargs: 1,
         })
         .option('os', {
           describe: 'Specify OS to test',
           alias: 'o',
           type: 'array',
           choices: ['Windows', 'macOS'],
-          default: ['Windows', 'macOS']
+          default: ['Windows', 'macOS'],
         })
         .option('concurrent', {
           describe: 'Define the number of concurrent jobs to run',
           alias: 'j',
           type: 'integer',
           nargs: 1,
-          default: 5
+          default: 5,
         })
         .option('reverse', {
           describe: 'Run browser versions oldest-to-newest',
           alias: 'r',
           type: 'boolean',
-          nargs: 0
+          nargs: 0,
         });
-    }
+    },
   );
 
   await runAll(
@@ -640,6 +640,6 @@ if (esMain(import.meta)) {
     new Date(`${argv.since}-01-01`),
     argv.os,
     argv.concurrent,
-    argv.reverse
+    argv.reverse,
   );
 }

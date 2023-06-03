@@ -8,20 +8,20 @@
 
 /* global self, caches, Request, Response, bcd */
 
-self.importScripts('harness.js');
+self.importScripts("harness.js");
 
 // eslint-disable-next-line no-unused-vars
 var installEvent = null;
 
-self.addEventListener('install', function (event) {
+self.addEventListener("install", function (event) {
   installEvent = event;
-  var promiseChain = caches.open('test-cache').then(function (openCache) {
-    return openCache.put(new Request(''), new Response(''));
+  var promiseChain = caches.open("test-cache").then(function (openCache) {
+    return openCache.put(new Request(""), new Response(""));
   });
   event.waitUntil(promiseChain);
 });
 
-self.addEventListener('message', function (event) {
+self.addEventListener("message", function (event) {
   var data = JSON.parse(event.data);
 
   for (var i in data.instances) {

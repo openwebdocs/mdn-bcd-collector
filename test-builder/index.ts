@@ -21,10 +21,10 @@ import {customTests} from './common.js';
 import type {IDLFiles} from '../types/types.js';
 
 const customCSS = await fs.readJson(
-  new URL('../custom/css.json', import.meta.url)
+  new URL('../custom/css.json', import.meta.url),
 );
 const customJS = await fs.readJson(
-  new URL('../custom/js.json', import.meta.url)
+  new URL('../custom/js.json', import.meta.url),
 );
 
 /* c8 ignore start */
@@ -39,7 +39,7 @@ const build = async (customIDL: IDLFiles, customCSS) => {
     {__resources: customTests.__resources},
     APITests,
     CSSTests,
-    JSTests
+    JSTests,
   );
 
   await fs.writeJson(new URL('../tests.json', import.meta.url), tests);

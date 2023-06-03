@@ -27,7 +27,7 @@ const mergeMembers = (target, source) => {
         sourceMembers.add(member);
       } else if (member.special !== 'static') {
         throw new Error(
-          `Duplicate definition of ${target.name}.${member.name}`
+          `Duplicate definition of ${target.name}.${member.name}`,
         );
       }
     } else {
@@ -59,11 +59,11 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
       (it) =>
         !('partial' in it && it.partial) &&
         it.type === dfn.type &&
-        it.name === dfn.name
+        it.name === dfn.name,
     );
     if (!target) {
       throw new Error(
-        `Original definition not found for partial ${dfn.type} ${dfn.name}`
+        `Original definition not found for partial ${dfn.type} ${dfn.name}`,
       );
     }
 
@@ -84,22 +84,22 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
         (it) =>
           !('partial' in it && it.partial) &&
           it.type === 'interface mixin' &&
-          it.name === dfn.includes
+          it.name === dfn.includes,
       );
       if (!mixin) {
         throw new Error(
-          `Interface mixin ${dfn.includes} not found for target ${dfn.target}`
+          `Interface mixin ${dfn.includes} not found for target ${dfn.target}`,
         );
       }
       const target = ast.find(
         (it) =>
           !('partial' in it && it.partial) &&
           it.type === 'interface' &&
-          it.name === dfn.target
+          it.name === dfn.target,
       );
       if (!target) {
         throw new Error(
-          `Target ${dfn.target} not found for interface mixin ${dfn.includes}`
+          `Target ${dfn.target} not found for interface mixin ${dfn.includes}`,
         );
       }
 
@@ -109,12 +109,12 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   }
 
   const globals = ast.filter(
-    (dfn) => 'name' in dfn && dfn.name === 'WindowOrWorkerGlobalScope'
+    (dfn) => 'name' in dfn && dfn.name === 'WindowOrWorkerGlobalScope',
   );
 
   // drop includes and mixins
   ast = ast.filter(
-    (dfn) => dfn.type !== 'includes' && dfn.type !== 'interface mixin'
+    (dfn) => dfn.type !== 'includes' && dfn.type !== 'interface mixin',
   );
 
   // Get all possible scopes
@@ -149,7 +149,7 @@ const flattenMembers = (iface) => {
           (iface.name === 'Document' &&
             ['charset', 'inputEncoding'].includes(member.name)) ||
           (iface.name === 'Window' && member.name === 'clientInformation')
-        )
+        ),
     );
   for (const member of iface.members.filter((member) => !member.name)) {
     switch (member.type) {
@@ -168,13 +168,13 @@ const flattenMembers = (iface) => {
           // https://webidl.spec.whatwg.org/#idl-async-iterable
           members.push(
             {name: '@@asyncIterator', type: 'symbol'},
-            {name: 'values', type: 'operation'}
+            {name: 'values', type: 'operation'},
           );
           if (member.idlType.length === 2) {
             // https://webidl.spec.whatwg.org/#pair-asynchronously-iterable-declaration
             members.push(
               {name: 'entries', type: 'operation'},
-              {name: 'keys', type: 'operation'}
+              {name: 'keys', type: 'operation'},
             );
           }
         } else {
@@ -184,7 +184,7 @@ const flattenMembers = (iface) => {
             {name: 'entries', type: 'operation'},
             {name: 'forEach', type: 'operation'},
             {name: 'keys', type: 'operation'},
-            {name: 'values', type: 'operation'}
+            {name: 'values', type: 'operation'},
           );
         }
         break;
@@ -198,13 +198,13 @@ const flattenMembers = (iface) => {
           {name: 'has', type: 'operation'},
           {name: 'keys', type: 'operation'},
           {name: 'size', type: 'attribute'},
-          {name: 'values', type: 'operation'}
+          {name: 'values', type: 'operation'},
         );
         if (!member.readonly) {
           members.push(
             {name: 'clear', type: 'operation'},
             {name: 'delete', type: 'operation'},
-            {name: 'set', type: 'operation'}
+            {name: 'set', type: 'operation'},
           );
         }
         break;
@@ -217,13 +217,13 @@ const flattenMembers = (iface) => {
           {name: 'has', type: 'operation'},
           {name: 'keys', type: 'operation'},
           {name: 'size', type: 'attribute'},
-          {name: 'values', type: 'operation'}
+          {name: 'values', type: 'operation'},
         );
         if (!member.readonly) {
           members.push(
             {name: 'add', type: 'operation'},
             {name: 'clear', type: 'operation'},
-            {name: 'delete', type: 'operation'}
+            {name: 'delete', type: 'operation'},
           );
         }
         break;
@@ -250,7 +250,7 @@ const flattenMembers = (iface) => {
   if (legacyFactoryFunction) {
     members.push({
       name: legacyFactoryFunction.rhs.value,
-      type: 'constructor'
+      type: 'constructor',
     });
   }
 
@@ -282,7 +282,7 @@ const getExtAttrSet = (node, name: string) => {
       break;
     default:
       throw new Error(
-        `Unexpected RHS "${attr.rhs.type}" for ${name} extended attribute`
+        `Unexpected RHS "${attr.rhs.type}" for ${name} extended attribute`,
       );
   }
 
@@ -295,7 +295,7 @@ const getExposureSet = (node, scopes): Set<Exposure> => {
   const exposure = getExtAttrSet(node, 'Exposed');
   if (!exposure) {
     throw new Error(
-      `Exposed extended attribute not found on ${node.type} ${node.name}`
+      `Exposed extended attribute not found on ${node.type} ${node.name}`,
     );
   }
 
@@ -326,7 +326,7 @@ const getExposureSet = (node, scopes): Set<Exposure> => {
   for (const e of exposure) {
     if (!scopes.has(e)) {
       throw new Error(
-        `${node.type} ${node.name} is exposed on ${e} but ${e} is not a valid scope`
+        `${node.type} ${node.name} is exposed on ${e} but ${e} is not a valid scope`,
       );
     }
   }
@@ -402,7 +402,7 @@ const validateIDL = (ast) => {
     'unsigned long', // https://webidl.spec.whatwg.org/#idl-unsigned-long
     'unsigned short', // https://webidl.spec.whatwg.org/#idl-unsigned-short
     'USVString', // https://webidl.spec.whatwg.org/#idl-USVString
-    'undefined' // https://webidl.spec.whatwg.org/#idl-undefined
+    'undefined', // https://webidl.spec.whatwg.org/#idl-undefined
   ]);
   // Add any types defined by the (flattened) spec and custom IDL.
   for (const dfn of ast) {
@@ -413,7 +413,7 @@ const validateIDL = (ast) => {
     'Animatable', // TODO: this is a mixin used as a union type
     'CSSOMString', // https://drafts.csswg.org/cssom/#cssomstring-type
     'Region', // https://github.com/w3c/csswg-drafts/issues/5519
-    'WindowProxy' // https://html.spec.whatwg.org/multipage/window-object.html#windowproxy
+    'WindowProxy', // https://html.spec.whatwg.org/multipage/window-object.html#windowproxy
   ]);
   for (const usedType of usedTypes) {
     if (!knownTypes.has(usedType) && !ignoreTypes.has(usedType)) {
@@ -427,7 +427,7 @@ const buildIDLMemberTests = (
   iface,
   exposureSet,
   isGlobal,
-  resources
+  resources,
 ) => {
   const tests = {};
   // Avoid generating duplicate tests for operations.
@@ -462,7 +462,7 @@ const buildIDLMemberTests = (
     const customTestMember = getCustomTest(
       `api.${iface.name}.${member.name}`,
       'api',
-      customTestExactMatchNeeded
+      customTestExactMatchNeeded,
     );
 
     if (customTestMember.test) {
@@ -480,7 +480,7 @@ const buildIDLMemberTests = (
             expr = {
               property: member.name,
               owner: `${iface.name}.prototype`,
-              inherit: member.special === 'inherit'
+              inherit: member.special === 'inherit',
             };
           }
           break;
@@ -492,7 +492,7 @@ const buildIDLMemberTests = (
           const symbol = member.name.replace('@@', '');
           expr = {
             property: `Symbol.${symbol}`,
-            owner: `${iface.name}.prototype`
+            owner: `${iface.name}.prototype`,
           };
           break;
       }
@@ -504,20 +504,20 @@ const buildIDLMemberTests = (
 
     tests[member.name] = compileTest({
       raw: {
-        code: expr
+        code: expr,
       },
       exposure: Array.from(exposureSet),
-      resources
+      resources,
     });
     handledMemberNames.add(member.name);
 
     for (const [subtestName, subtestData] of Object.entries(
-      customTestMember.additional
+      customTestMember.additional,
     )) {
       tests[`${member.name}.${subtestName}`] = compileTest({
         raw: {code: subtestData},
         exposure: Array.from(exposureSet),
-        resources
+        resources,
       });
     }
   }
@@ -552,15 +552,15 @@ const buildIDLTests = (ast, globals, scopes) => {
     const {
       test: customTest,
       resources,
-      additional: subtests
+      additional: subtests,
     } = getCustomTest(`api.${iface.name}`, 'api');
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {
-        code: customTest || {property: iface.name, owner: 'self'}
+        code: customTest || {property: iface.name, owner: 'self'},
       },
       exposure: Array.from(exposureSet),
-      resources
+      resources,
     });
 
     const memberTests = buildIDLMemberTests(
@@ -568,7 +568,7 @@ const buildIDLTests = (ast, globals, scopes) => {
       iface,
       exposureSet,
       isGlobal,
-      resources
+      resources,
     );
     for (const [k, v] of Object.entries(memberTests)) {
       tests[`api.${iface.name}.${k}`] = v;
@@ -578,7 +578,7 @@ const buildIDLTests = (ast, globals, scopes) => {
       tests[`api.${iface.name}.${subtestName}`] = compileTest({
         raw: {code: subtestData},
         exposure: Array.from(exposureSet),
-        resources
+        resources,
       });
     }
   }
@@ -594,7 +594,7 @@ const buildIDLTests = (ast, globals, scopes) => {
       fakeIface,
       exposureSet,
       true,
-      {}
+      {},
     );
     for (const [k, v] of Object.entries(memberTests)) {
       tests[`api.${k}`] = v;

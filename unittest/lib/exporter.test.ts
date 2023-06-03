@@ -26,59 +26,59 @@ const REPORTS: {
       __version: '1.2.3',
       results: {},
       userAgent:
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15'
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15',
     },
     expected: {
       slug: '1.2.3-safari-12.0-mac-os-10.14-cadc34e83f',
       title: 'Results from Safari 12 / Mac OS 10.14 / Collector v1.2.3',
-      body: 'User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15\nBrowser: Safari 12 (on Mac OS 10.14)\nHash Digest: cadc34e83f\nTest URLs: '
-    }
+      body: 'User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15\nBrowser: Safari 12 (on Mac OS 10.14)\nHash Digest: cadc34e83f\nTest URLs: ',
+    },
   },
   {
     report: {
       __version: '1.2.3-dev',
       results: {},
       userAgent:
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
     },
     expected: {
       slug: '1.2.3-dev-chrome-86.0.4240.198-mac-os-11.0.0-32f70f2e14',
       title: 'Results from Chrome 86 / Mac OS 11.0.0 / Collector v1.2.3-dev',
-      body: 'User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36\nBrowser: Chrome 86 (on Mac OS 11.0.0)\nHash Digest: 32f70f2e14\nTest URLs: \n\n**WARNING:** this PR was created from a development/staging version!'
-    }
+      body: 'User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36\nBrowser: Chrome 86 (on Mac OS 11.0.0)\nHash Digest: 32f70f2e14\nTest URLs: \n\n**WARNING:** this PR was created from a development/staging version!',
+    },
   },
   {
     report: {
       __version: '1.2.3',
       results: {
-        'https://mdn-bcd-collector.gooborg.com/tests/': []
+        'https://mdn-bcd-collector.gooborg.com/tests/': [],
       },
       userAgent:
-        'Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36'
+        'Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36',
     },
     expected: {
       slug: '1.2.3-samsunginternet-android-12.1-android-11-804fe4cd9d',
       title:
         'Results from Samsung Internet 12.1 / Android 11 / Collector v1.2.3',
-      body: 'User Agent: Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36\nBrowser: Samsung Internet 12.1 (on Android 11)\nHash Digest: 804fe4cd9d\nTest URLs: https://mdn-bcd-collector.gooborg.com/tests/'
-    }
+      body: 'User Agent: Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36\nBrowser: Samsung Internet 12.1 (on Android 11)\nHash Digest: 804fe4cd9d\nTest URLs: https://mdn-bcd-collector.gooborg.com/tests/',
+    },
   },
   {
     report: {
       __version: '1.2.3',
       results: {
         'https://mdn-bcd-collector.gooborg.com/tests/?exposure=Window': [],
-        'https://mdn-bcd-collector.gooborg.com/tests/?exposure=Worker': []
+        'https://mdn-bcd-collector.gooborg.com/tests/?exposure=Worker': [],
       },
       userAgent:
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36'
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36',
     },
     expected: {
       slug: '1.2.3-chrome-800.0.1.2-mac-os-11.0.0-ee13f09a68',
       title: 'Results from Chrome 800.0 / Mac OS 11.0.0 / Collector v1.2.3',
-      body: 'User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36\nBrowser: Chrome 800.0 (on Mac OS 11.0.0) - **Not in BCD**\nHash Digest: ee13f09a68\nTest URLs: https://mdn-bcd-collector.gooborg.com/tests/?exposure=Window, https://mdn-bcd-collector.gooborg.com/tests/?exposure=Worker'
-    }
-  }
+      body: 'User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36\nBrowser: Chrome 800.0 (on Mac OS 11.0.0) - **Not in BCD**\nHash Digest: ee13f09a68\nTest URLs: https://mdn-bcd-collector.gooborg.com/tests/?exposure=Window, https://mdn-bcd-collector.gooborg.com/tests/?exposure=Worker',
+    },
+  },
 ];
 
 describe('GitHub export', () => {
@@ -100,7 +100,7 @@ describe('GitHub export', () => {
             owner: 'GooborgStudios',
             ref: `refs/heads/collector/${expected.slug}`,
             repo: 'mdn-bcd-results',
-            sha: '753c6ed8e991e9729353a63d650ff0f5bd902b69'
+            sha: '753c6ed8e991e9729353a63d650ff0f5bd902b69',
           });
 
         sinon
@@ -114,8 +114,8 @@ describe('GitHub export', () => {
               path: `${expected.slug}.json`,
               message: expected.title,
               content: sinon.match.string,
-              branch: `collector/${expected.slug}`
-            })
+              branch: `collector/${expected.slug}`,
+            }),
           );
 
         sinon
@@ -128,20 +128,20 @@ describe('GitHub export', () => {
             title: expected.title,
             head: `collector/${expected.slug}`,
             body: expected.body,
-            base: 'main'
+            base: 'main',
           })
           .resolves({
             data: {
               html_url:
-                'https://github.com/GooborgStudios/mdn-bcd-results/pull/42'
-            }
+                'https://github.com/GooborgStudios/mdn-bcd-results/pull/42',
+            },
           });
 
         const result = await exportAsPR(report, octokit);
 
         assert.deepEqual(result, {
           filename: `${expected.slug}.json`,
-          url: 'https://github.com/GooborgStudios/mdn-bcd-results/pull/42'
+          url: 'https://github.com/GooborgStudios/mdn-bcd-results/pull/42',
         });
       });
     }
@@ -154,14 +154,14 @@ describe('GitHub export', () => {
   it('no Octokit', async () => {
     (expect(exportAsPR(REPORTS[0].report)).to.be as any).rejectedWith(
       Error,
-      '"octokit" must be defined'
+      '"octokit" must be defined',
     );
   });
 
   it('no auth token', async () => {
     (expect(exportAsPR(REPORTS[0].report, octokit)).to.be as any).rejectedWith(
       Error,
-      'Octokit authentication failure'
+      'Octokit authentication failure',
     );
   });
 });

@@ -16,10 +16,10 @@ import {app, version} from '../../app.js';
 const agent = chai.request.agent(app);
 
 const tests = Object.entries(
-  await fs.readJson(new URL('../../tests.json', import.meta.url))
+  await fs.readJson(new URL('../../tests.json', import.meta.url)),
 );
 const packageLock = await fs.readJson(
-  new URL('../../package-lock.json', import.meta.url)
+  new URL('../../package-lock.json', import.meta.url),
 );
 
 const userAgent = `node-superagent/${packageLock.packages['node_modules/superagent'].version}`;
@@ -44,7 +44,7 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {},
-      userAgent: userAgent
+      userAgent: userAgent,
     });
   });
 
@@ -55,16 +55,16 @@ describe('/api/results', () => {
     {
       exposure: 'Worker',
       name: 'api.Blob',
-      result: false
-    }
+      result: false,
+    },
   ];
 
   const modifiedResults = [
     {
       exposure: 'Worker',
       name: 'api.Blob',
-      result: true
-    }
+      result: true,
+    },
   ];
 
   it('submit valid results', async () => {
@@ -82,7 +82,7 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {[testURL]: testResults},
-      userAgent: userAgent
+      userAgent: userAgent,
     });
   });
 
@@ -100,7 +100,7 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {[testURL]: modifiedResults},
-      userAgent: userAgent
+      userAgent: userAgent,
     });
   });
 
@@ -119,7 +119,7 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {[testURL]: modifiedResults, [testURL2]: testResults},
-      userAgent: userAgent
+      userAgent: userAgent,
     });
   });
 
@@ -176,10 +176,10 @@ describe('/api/get', () => {
   it('get specific test, limit exposure', async () => {
     const res = await agent.post('/api/get').send({
       testSelection: 'api.AbortController.signal',
-      limitExposure: 'Window'
+      limitExposure: 'Window',
     });
     expect(res).to.redirectTo(
-      /\/tests\/api\/AbortController\/signal\?exposure=Window$/
+      /\/tests\/api\/AbortController\/signal\?exposure=Window$/,
     );
   });
 
@@ -187,10 +187,10 @@ describe('/api/get', () => {
     const res = await agent.post('/api/get').send({
       testSelection: 'api.AbortController.signal',
       limitExposure: '',
-      selenium: true
+      selenium: true,
     });
     expect(res).to.redirectTo(
-      /\/tests\/api\/AbortController\/signal\?selenium=true$/
+      /\/tests\/api\/AbortController\/signal\?selenium=true$/,
     );
   });
 
@@ -198,10 +198,10 @@ describe('/api/get', () => {
     const res = await agent.post('/api/get').send({
       testSelection: 'api.AbortController.signal',
       limitExposure: 'Window',
-      selenium: true
+      selenium: true,
     });
     expect(res).to.redirectTo(
-      /\/tests\/api\/AbortController\/signal\?selenium=true&exposure=Window$/
+      /\/tests\/api\/AbortController\/signal\?selenium=true&exposure=Window$/,
     );
   });
 });
@@ -213,7 +213,7 @@ describe('test assets', () => {
     assert.equal(
       // XXX TypeScript incorrectly states the interface doesn't have "headers"
       (res as any).headers['content-type'],
-      'text/event-stream; charset=utf-8'
+      'text/event-stream; charset=utf-8',
     );
   });
 });

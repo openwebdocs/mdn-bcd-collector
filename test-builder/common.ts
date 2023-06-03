@@ -19,10 +19,10 @@ export const customTests = YAML.parse(
       process.env.NODE_ENV === 'test'
         ? '../unittest/sample/custom-tests.test.yaml'
         : '../custom/tests.yaml',
-      import.meta.url
+      import.meta.url,
     ),
-    'utf8'
-  )
+    'utf8',
+  ),
 );
 /* c8 ignore stop */
 
@@ -51,7 +51,7 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
     __base: false,
     __test: false,
     __resources: [],
-    __additional: {}
+    __additional: {},
   };
 
   const parts = name.split('.');
@@ -102,7 +102,7 @@ const generateCustomTestCode = (
   name: string,
   category: string,
   exactMatchNeeded: boolean,
-  data: CustomTestData
+  data: CustomTestData,
 ): {code: string; resources: string[]} | false => {
   let test = data.__test;
 
@@ -144,7 +144,7 @@ const generateCustomTestCode = (
         // The member is a symbol
         returnValue = `!!instance && ${compileTestCode({
           property: member,
-          owner: 'instance'
+          owner: 'instance',
         })}`;
       } else {
         returnValue = `!!instance && "${member}" in instance`;
@@ -176,7 +176,7 @@ const generateCustomTestCode = (
 const getCustomTest = (
   name: string,
   category: string,
-  exactMatchNeeded = false
+  exactMatchNeeded = false,
 ) => {
   // Get the custom test for a specified feature identifier using getCustomTestData().
   // If exactMatchNeeded is true, a __test must be defined.
@@ -186,7 +186,7 @@ const getCustomTest = (
   const response: CustomTestResult = {
     test: false,
     resources: [],
-    additional: {}
+    additional: {},
   };
 
   // Compile the additional tests
@@ -195,7 +195,7 @@ const getCustomTest = (
       `${name}.${key}`,
       category,
       exactMatchNeeded,
-      {...data, __test: code}
+      {...data, __test: code},
     );
     if (!additionalTest) {
       continue;
@@ -207,7 +207,7 @@ const getCustomTest = (
     name,
     category,
     exactMatchNeeded,
-    data
+    data,
   );
 
   if (!customTest) {
@@ -221,7 +221,7 @@ const getCustomTest = (
   for (const key of response.resources) {
     if (!Object.keys(customTests.__resources).includes(key)) {
       throw new Error(
-        `Resource ${key} is not defined but referenced in ${name}`
+        `Resource ${key} is not defined but referenced in ${name}`,
       );
     }
     if (customTests.__resources[key].dependencies) {
@@ -229,7 +229,7 @@ const getCustomTest = (
         response.resources.push(dKey);
         if (!Object.keys(customTests.__resources).includes(dKey)) {
           throw new Error(
-            `Resource ${dKey} is not defined but referenced in __resources.${key}`
+            `Resource ${dKey} is not defined but referenced in __resources.${key}`,
           );
         }
       }
@@ -241,7 +241,7 @@ const getCustomTest = (
 
 const compileCustomTest = (
   code: string,
-  format = true
+  format = true,
 ): {code: string; resources: string[]} => {
   const resources: string[] = [];
   // Import code from other tests
@@ -257,7 +257,7 @@ const compileCustomTest = (
 
       const {code: importedCode, resources: newResources} = compileCustomTest(
         importedTest.__base,
-        false
+        false,
       );
       resources.push(...newResources, ...importedTest.__resources);
       const callback =
@@ -273,7 +273,7 @@ const compileCustomTest = (
         response += `\n  if (!${instancevar}) {\n    return {result: false, message: '${instancevar} is falsy'};\n  }`;
       }
       return response;
-    }
+    },
   );
 
   if (format) {
@@ -289,7 +289,7 @@ const compileCustomTest = (
         console.error(errorMsg);
         return {
           code: `(function () {\n  throw "${errorMsg}";\n})();`,
-          resources
+          resources,
         };
       }
       /* c8 ignore next 3 */
@@ -322,7 +322,7 @@ const compileTestCode = (test: any): string => {
     }
     return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(
       '.prototype',
-      ''
+      '',
     )}" in self && !!(${test.owner}[Symbol.${property}])`;
   }
   if (test.inherit) {
@@ -331,7 +331,7 @@ const compileTestCode = (test: any): string => {
     }
     return `"${test.owner.replace(
       '.prototype',
-      ''
+      '',
     )}" in self && Object.prototype.hasOwnProperty.call(${
       test.owner
     }, "${property}")`;
@@ -341,7 +341,7 @@ const compileTestCode = (test: any): string => {
   }
   return `"${test.owner.replace(
     '.prototype',
-    ''
+    '',
   )}" in self && "${property}" in ${test.owner}`;
 };
 
@@ -369,5 +369,5 @@ export {
   getCustomTest,
   compileCustomTest,
   compileTestCode,
-  compileTest
+  compileTest,
 };

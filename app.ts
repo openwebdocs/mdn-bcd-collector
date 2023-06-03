@@ -62,12 +62,12 @@ const secrets = await fs.readJson(
     process.env.NODE_ENV === 'test'
       ? './secrets.sample.json'
       : './secrets.json',
-    import.meta.url
-  )
+    import.meta.url,
+  ),
 );
 
 const browserExtensions = await fs.readJson(
-  new URL('./browser-extensions.json', import.meta.url)
+  new URL('./browser-extensions.json', import.meta.url),
 );
 /* c8 ignore stop */
 
@@ -75,7 +75,7 @@ const storage = getStorage(appVersion);
 
 const tests = new Tests({
   tests: await fs.readJson(new URL('./tests.json', import.meta.url)),
-  httpOnly: process.env.NODE_ENV !== 'production'
+  httpOnly: process.env.NODE_ENV !== 'production',
 });
 
 const cookieSession = (req, res, next) => {
@@ -95,7 +95,7 @@ const createReport = (results, req) => {
     __version: appVersion,
     results: testResults,
     extensions,
-    userAgent: req.get('User-Agent')
+    userAgent: req.get('User-Agent'),
   };
 };
 
@@ -105,7 +105,7 @@ const app = express();
 const headers = {
   'Cross-Origin-Embedder-Policy': 'require-corp',
   'Cross-Origin-Resource-Policy': 'same-origin',
-  'Cross-Origin-Opener-Policy': 'same-origin'
+  'Cross-Origin-Opener-Policy': 'same-origin',
 };
 
 // Options for static paths
@@ -114,7 +114,7 @@ const staticOptions = {
     for (const h of Object.keys(headers)) {
       res.set(h, headers[h]);
     }
-  }
+  },
 };
 
 // Layout config
@@ -145,9 +145,9 @@ app.use((req, res, next) => {
 app.use(
   expressCspHeader({
     directives: {
-      'script-src': [SELF, INLINE, EVAL, 'http://cdnjs.cloudflare.com']
-    }
-  })
+      'script-src': [SELF, INLINE, EVAL, 'http://cdnjs.cloudflare.com'],
+    },
+  }),
 );
 
 // Set COOP/COEP
@@ -165,8 +165,8 @@ marked.use(
     highlight: (code, lang) => {
       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
       return hljs.highlight(code, {language}).value;
-    }
-  })
+    },
+  }),
 );
 
 // Markdown renderer
@@ -175,7 +175,7 @@ const renderMarkdown = async (filepath, req, res) => {
     res.status(404).render('error', {
       title: 'Page Not Found',
       message: 'The requested page was not found.',
-      url: req.url
+      url: req.url,
     });
     return;
   }
@@ -191,7 +191,7 @@ app.post('/api/get', (req, res) => {
   const queryParams = {
     selenium: req.body.selenium,
     ignore: req.body.ignore,
-    exposure: req.body.limitExposure
+    exposure: req.body.limitExposure,
   };
   Object.keys(queryParams).forEach((key) => {
     if (!queryParams[key]) {
@@ -261,7 +261,7 @@ app.post('/api/browserExtensions', async (req, res) => {
 app.get('/eventstream', (req, res) => {
   res.header('Content-Type', 'text/event-stream');
   res.send(
-    'event: ping\ndata: Hello world!\ndata: {"foo": "bar"}\ndata: Goodbye world!'
+    'event: ping\ndata: Hello world!\ndata: {"foo": "bar"}\ndata: Goodbye world!',
   );
 });
 
@@ -271,7 +271,7 @@ app.get('/', (req, res) => {
   res.render('index', {
     tests: tests.listEndpoints(),
     selenium: req.query.selenium,
-    ignore: req.query.ignore
+    ignore: req.query.ignore,
   });
 });
 
@@ -287,7 +287,7 @@ app.get('/changelog/*', async (req, res) => {
   await renderMarkdown(
     new URL(`./changelog/${req.params[0]}`, import.meta.url),
     req,
-    res
+    res,
   );
 });
 
@@ -295,7 +295,7 @@ app.get('/docs', async (req, res) => {
   const docs = {};
   for (const f of await fs.readdir(new URL('./docs', import.meta.url))) {
     const readable = fs.createReadStream(
-      new URL(`./docs/${f}`, import.meta.url)
+      new URL(`./docs/${f}`, import.meta.url),
     );
     const reader = readline.createInterface({input: readable});
     const line: string = await new Promise((resolve) => {
@@ -309,7 +309,7 @@ app.get('/docs', async (req, res) => {
     docs[f] = line.replace('# ', '');
   }
   res.render('docs', {
-    docs
+    docs,
   });
 });
 
@@ -317,7 +317,7 @@ app.get('/docs/*', async (req, res) => {
   await renderMarkdown(
     new URL(`./docs/${req.params['0']}`, import.meta.url),
     req,
-    res
+    res,
   );
 });
 
@@ -351,21 +351,21 @@ app.all('/export', async (req, res, next) => {
           res.render('export', {
             title: 'Exported to GitHub',
             description: url,
-            url
+            url,
           });
         } catch (e) {
           logger.error(e);
           res.status(500).render('export', {
             title: 'GitHub Export Failed',
             description: '[GitHub Export Failed]',
-            url: null
+            url: null,
           });
         }
       } else {
         res.render('export', {
           title: 'GitHub Export Disabled',
           description: '[No GitHub Token, GitHub Export Disabled]',
-          url: null
+          url: null,
         });
       }
     } else {
@@ -374,7 +374,7 @@ app.all('/export', async (req, res, next) => {
       res.render('export', {
         title: 'Exported for download',
         description: filename,
-        url: `/download/${filename}`
+        url: `/download/${filename}`,
       });
     }
   } catch (e) {
@@ -394,13 +394,13 @@ app.all('/tests/*', (req, res) => {
       title: `${ident || 'All Tests'}`,
       tests: foundTests,
       resources: tests.resources,
-      selenium: req.query.selenium
+      selenium: req.query.selenium,
     });
   } else {
     res.status(404).render('testnotfound', {
       ident,
       suggestion: tests.didYouMean(ident),
-      query: querystring.encode(req.query)
+      query: querystring.encode(req.query),
     });
   }
 });
@@ -410,7 +410,7 @@ app.use((req, res) => {
   res.status(404).render('error', {
     title: `Page Not Found`,
     message: 'The requested page was not found.',
-    url: req.url
+    url: req.url,
   });
 });
 
@@ -423,23 +423,23 @@ if (esMain(import.meta)) {
       yargs
         .option('https-cert', {
           describe: 'HTTPS cert chains in PEM format',
-          type: 'string'
+          type: 'string',
         })
         .option('https-key', {
           describe: 'HTTPS private keys in PEM format',
-          type: 'string'
+          type: 'string',
         })
         .option('https-port', {
           describe: 'HTTPS port (requires cert and key)',
           type: 'number',
-          default: 8443
+          default: 8443,
         })
         .option('port', {
           describe: 'HTTP port',
           type: 'number',
-          default: process.env.PORT ? +process.env.PORT : 8080
+          default: process.env.PORT ? +process.env.PORT : 8080,
         });
-    }
+    },
   );
 
   http.createServer(app).listen(argv.port);
@@ -447,7 +447,7 @@ if (esMain(import.meta)) {
   if (argv.httpsCert && argv.httpsKey) {
     const options = {
       cert: fs.readFileSync(argv.httpsCert),
-      key: fs.readFileSync(argv.httpsKey)
+      key: fs.readFileSync(argv.httpsKey),
     };
     https.createServer(options, app).listen(argv.httpsPort);
     logger.info(`Listening on port ${argv.httpsPort} (HTTPS)`);

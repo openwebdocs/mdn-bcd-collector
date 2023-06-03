@@ -22,7 +22,7 @@ const products: Product[] = ['chrome']; // ['chrome', 'firefox'];
 // Workaround for https://github.com/puppeteer/puppeteer/issues/6255
 const consoleLogType = {
   chrome: 'log',
-  firefox: 'verbose'
+  firefox: 'verbose',
 };
 
 describe('harness.js', () => {
@@ -79,9 +79,9 @@ describe('harness.js', () => {
                 scriptId: String(it.scriptId),
                 url: it.url.replace(
                   `http://localhost:${port}/`,
-                  new URL('../../static/', import.meta.url).toString()
-                )
-              }
+                  new URL('../../static/', import.meta.url).toString(),
+                ),
+              },
           )
           .filter((it) => it && fs.existsSync(fileURLToPath(it.url)));
 
@@ -90,8 +90,8 @@ describe('harness.js', () => {
             `${
               process.env.NODE_V8_COVERAGE
             }/coverage-${Date.now()}-${idx}.json`,
-            JSON.stringify({result: [it]})
-          )
+            JSON.stringify({result: [it]}),
+          ),
         );
       }
 

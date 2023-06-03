@@ -20,7 +20,7 @@ const build = (customJS) => {
       'javascript',
       'builtins',
       // The "prototype" part is not part of the BCD paths.
-      ...parts.filter((p) => p != 'prototype')
+      ...parts.filter((p) => p != 'prototype'),
     ].join('.');
 
     let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = '';
@@ -45,7 +45,7 @@ const build = (customJS) => {
     if (customTest.test) {
       tests[bcdPath] = compileTest({
         raw: {code: customTest.test},
-        exposure: ['Window']
+        exposure: ['Window'],
       });
     } else {
       // Get the last part as the property and everything else as the expression
@@ -70,7 +70,7 @@ const build = (customJS) => {
 
       tests[bcdPath] = compileTest({
         raw: {code: expr},
-        exposure: ['Window']
+        exposure: ['Window'],
       });
     }
 
@@ -81,7 +81,7 @@ const build = (customJS) => {
         'builtins',
         ...parts,
         // Repeat the last part of the path
-        parts[parts.length - 1]
+        parts[parts.length - 1],
       ].join('.');
 
       const customTest = getCustomTest(ctorPath, category, true);
@@ -89,7 +89,7 @@ const build = (customJS) => {
       if (customTest.test) {
         tests[ctorPath] = compileTest({
           raw: {code: customTest.test},
-          exposure: ['Window']
+          exposure: ['Window'],
         });
       } else {
         const expr = `${path}(${extras.ctor_args})`;
@@ -120,7 +120,7 @@ const build = (customJS) => {
 
         tests[ctorPath] = compileTest({
           raw: {code: compileCustomTest(rawCode).code},
-          exposure: ['Window']
+          exposure: ['Window'],
         });
       }
     }
@@ -129,7 +129,7 @@ const build = (customJS) => {
     for (const [key, code] of Object.entries(customTest.additional)) {
       tests[`${path}.${key}`] = compileTest({
         raw: {code: code},
-        exposure: ['Window']
+        exposure: ['Window'],
       });
     }
   }

@@ -29,7 +29,7 @@ const copyResources = async () => {
     [
       '@browser-logos/firefox/firefox_64x64.png',
       'browser-logos',
-      'firefox.png'
+      'firefox.png',
     ],
     ['@browser-logos/opera/opera_64x64.png', 'browser-logos', 'opera.png'],
     ['@browser-logos/safari/safari_64x64.png', 'browser-logos', 'safari.png'],
@@ -39,11 +39,11 @@ const copyResources = async () => {
     ['@mdi/font/fonts/materialdesignicons-webfont.woff', 'fonts'],
     ['@mdi/font/fonts/materialdesignicons-webfont.woff2', 'fonts'],
     ['highlight.js/styles/stackoverflow-dark.css', 'resources/highlight.js'],
-    ['highlight.js/styles/stackoverflow-light.css', 'resources/highlight.js']
+    ['highlight.js/styles/stackoverflow-light.css', 'resources/highlight.js'],
   ];
   for (const [srcInModules, destInGenerated, newFilename] of resources) {
     const src = fileURLToPath(
-      new URL(`./node_modules/${srcInModules}`, import.meta.url)
+      new URL(`./node_modules/${srcInModules}`, import.meta.url),
     );
     const destDir = path.join(generatedDir, destInGenerated);
     const dest = path.join(destDir, path.basename(src));

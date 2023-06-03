@@ -19,16 +19,16 @@ describe('results', () => {
           name: 'api.Attr.name',
           result: true,
           message: 'ignored',
-          extra_stuff: 'ignored'
-        }
+          extra_stuff: 'ignored',
+        },
       ]);
       assert.equal(url, 'http://localhost/'); // normalized
       assert.deepEqual(results, [
         {
           exposure: 'Window',
           name: 'api.Attr.name',
-          result: true
-        }
+          result: true,
+        },
       ]);
     });
 
@@ -37,19 +37,19 @@ describe('results', () => {
         {
           info: {
             code: 'ignored',
-            exposure: 'Window'
+            exposure: 'Window',
           },
           name: 'api.Attr.localName',
           result: false,
-          message: 'ignored'
-        }
+          message: 'ignored',
+        },
       ]);
       assert.deepEqual(results, [
         {
           exposure: 'Window',
           name: 'api.Attr.localName',
-          result: false
-        }
+          result: false,
+        },
       ]);
     });
 
@@ -59,16 +59,16 @@ describe('results', () => {
           exposure: 'Window',
           name: 'api.Attr.name',
           result: null,
-          message: 'bad thing happened'
-        }
+          message: 'bad thing happened',
+        },
       ]);
       assert.deepEqual(results, [
         {
           exposure: 'Window',
           name: 'api.Attr.name',
           result: null,
-          message: 'bad thing happened'
-        }
+          message: 'bad thing happened',
+        },
       ]);
     });
 
@@ -78,7 +78,7 @@ describe('results', () => {
           parseResults('not a URL', []);
         },
         Error,
-        'invalid URL'
+        'invalid URL',
       );
     });
 
@@ -88,7 +88,7 @@ describe('results', () => {
           parseResults('http://localhost', null);
         },
         Error,
-        'results should be an array'
+        'results should be an array',
       );
     });
 
@@ -98,7 +98,7 @@ describe('results', () => {
           parseResults('http://localhost', [null]);
         },
         Error,
-        'results[0] should be an object'
+        'results[0] should be an object',
       );
     });
 
@@ -109,12 +109,12 @@ describe('results', () => {
             {
               exposure: 'Window',
               name: 42,
-              result: true
-            }
+              result: true,
+            },
           ]);
         },
         Error,
-        'results[0].name should be a string; got number'
+        'results[0].name should be a string; got number',
       );
     });
 
@@ -125,12 +125,12 @@ describe('results', () => {
             {
               exposure: 'Window',
               name: 'a'.repeat(1100),
-              result: true
-            }
+              result: true,
+            },
           ]);
         },
         Error,
-        'results[0].name should be a short string; string is too long'
+        'results[0].name should be a short string; string is too long',
       );
     });
 
@@ -141,12 +141,12 @@ describe('results', () => {
             {
               exposure: 'Window',
               name: 'api.Attr.name',
-              result: 42
-            }
+              result: 42,
+            },
           ]);
         },
         Error,
-        'results[0].result (api.Attr.name) should be true/false/null; got 42'
+        'results[0].result (api.Attr.name) should be true/false/null; got 42',
       );
     });
 
@@ -157,12 +157,12 @@ describe('results', () => {
             {
               exposure: 42,
               name: 'api.Attr.name',
-              result: true
-            }
+              result: true,
+            },
           ]);
         },
         Error,
-        'results[0].exposure (api.Attr.name) should be a string; got number'
+        'results[0].exposure (api.Attr.name) should be a string; got number',
       );
     });
   });

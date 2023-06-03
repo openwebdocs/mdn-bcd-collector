@@ -11,23 +11,23 @@
 /* global bcd, reusableInstances */
 
 mocha.setup({
-  ui: 'bdd',
-  reporter: location.hash === '#reporter=json' ? 'json' : 'html'
+  ui: "bdd",
+  reporter: location.hash === "#reporter=json" ? "json" : "html"
 });
 
 var assert = chai.assert;
 
-describe('harness.js', function () {
-  describe('addInstance', function () {
+describe("harness.js", function () {
+  describe("addInstance", function () {
     beforeEach(function () {
-      sinon.stub(window.console, 'error');
+      sinon.stub(window.console, "error");
     });
 
-    it('valid', function (done) {
-      bcd.addInstance('foo', 'return 123');
+    it("valid", function (done) {
+      bcd.addInstance("foo", "return 123");
       assert.equal(
         reusableInstances.__sources.foo,
-        '(function () {\n  return 123\n})();'
+        "(function () {\n  return 123\n})();"
       );
       done();
     });
@@ -37,108 +37,110 @@ describe('harness.js', function () {
     });
   });
 
-  describe('run tests', function () {
-    describe('normal', function () {
-      it('no tests', function (done) {
+  describe("run tests", function () {
+    describe("normal", function () {
+      it("no tests", function (done) {
         bcd.go(function (results) {
           assert.isEmpty(results);
           done();
         });
       });
 
-      it('return true', function (done) {
-        bcd.addTest('name', [{code: 'true'}], 'Window');
+      it("return true", function (done) {
+        bcd.addTest("name", [{ code: "true" }], "Window");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
-              info: {code: 'true', exposure: 'Window'}
+              info: { code: "true", exposure: "Window" }
             }
           ]);
           done();
         });
       });
 
-      it('return false', function (done) {
-        bcd.addTest('name', [{code: 'false'}], 'Window');
+      it("return false", function (done) {
+        bcd.addTest("name", [{ code: "false" }], "Window");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: false,
-              info: {code: 'false', exposure: 'Window'}
+              info: { code: "false", exposure: "Window" }
             }
           ]);
           done();
         });
       });
 
-      it('return null', function (done) {
-        bcd.addTest('name', [{code: 'null'}], 'Window');
+      it("return null", function (done) {
+        bcd.addTest("name", [{ code: "null" }], "Window");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: null,
-              message: 'returned null',
-              info: {code: 'null', exposure: 'Window'}
+              message: "returned null",
+              info: { code: "null", exposure: "Window" }
             }
           ]);
           done();
         });
       });
 
-      it('return symbol', function (done) {
-        if (typeof Symbol === 'undefined') {
+      it("return symbol", function (done) {
+        if (typeof Symbol === "undefined") {
           this.skip();
         }
-        bcd.addTest('name', [{code: "Symbol('bar')"}], 'Window');
+        bcd.addTest("name", [{ code: "Symbol('bar')" }], "Window");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: null,
-              message: 'returned Symbol(bar)',
-              info: {code: "Symbol('bar')", exposure: 'Window'}
+              message: "returned Symbol(bar)",
+              info: { code: "Symbol('bar')", exposure: "Window" }
             }
           ]);
           done();
         });
       });
 
-      it('return undefined', function (done) {
-        bcd.addTest('name', [{code: 'undefined'}], 'Window');
+      it("return undefined", function (done) {
+        bcd.addTest("name", [{ code: "undefined" }], "Window");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: null,
-              message: 'returned undefined',
-              info: {code: 'undefined', exposure: 'Window'}
+              message: "returned undefined",
+              info: { code: "undefined", exposure: "Window" }
             }
           ]);
           done();
         });
       });
 
-      it('return results object', function (done) {
+      it("return results object", function (done) {
         bcd.addTest(
-          'name',
+          "name",
           [
-            {code: '(function() {return {result: true, message: "foo bar"}})()'}
+            {
+              code: '(function() {return {result: true, message: "foo bar"}})()'
+            }
           ],
-          'Window'
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
-              message: 'foo bar',
+              message: "foo bar",
               info: {
                 code: '(function() {return {result: true, message: "foo bar"}})()',
-                exposure: 'Window'
+                exposure: "Window"
               }
             }
           ]);
@@ -146,21 +148,21 @@ describe('harness.js', function () {
         });
       });
 
-      it('return non-results object', function (done) {
+      it("return non-results object", function (done) {
         bcd.addTest(
-          'name',
-          [{code: '(function() {return {error: true}})()'}],
-          'Window'
+          "name",
+          [{ code: "(function() {return {error: true}})()" }],
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: null,
-              message: 'returned [object Object]',
+              message: "returned [object Object]",
               info: {
-                code: '(function() {return {error: true}})()',
-                exposure: 'Window'
+                code: "(function() {return {error: true}})()",
+                exposure: "Window"
               }
             }
           ]);
@@ -168,21 +170,21 @@ describe('harness.js', function () {
         });
       });
 
-      it('throw error', function (done) {
+      it("throw error", function (done) {
         bcd.addTest(
-          'name',
-          [{code: "throw new Error('something went wrong')"}],
-          'Window'
+          "name",
+          [{ code: "throw new Error('something went wrong')" }],
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: null,
-              message: 'threw Error: something went wrong',
+              message: "threw Error: something went wrong",
               info: {
                 code: "throw new Error('something went wrong')",
-                exposure: 'Window'
+                exposure: "Window"
               }
             }
           ]);
@@ -190,32 +192,32 @@ describe('harness.js', function () {
         });
       });
 
-      it('include info', function (done) {
-        bcd.addTest('ctx', [{code: 'true'}], 'Window', {extra: 'stuff'});
+      it("include info", function (done) {
+        bcd.addTest("ctx", [{ code: "true" }], "Window", { extra: "stuff" });
         bcd.go(function (results) {
           assert.deepStrictEqual(results[0].info, {
-            extra: 'stuff',
-            code: 'true',
-            exposure: 'Window'
+            extra: "stuff",
+            code: "true",
+            exposure: "Window"
           });
           done();
         });
       });
 
-      it('two tests', function (done) {
-        bcd.addTest('first', [{code: 'true'}], 'Window', {a: 1});
-        bcd.addTest('second', [{code: 'false'}], 'Window', {b: 2});
+      it("two tests", function (done) {
+        bcd.addTest("first", [{ code: "true" }], "Window", { a: 1 });
+        bcd.addTest("second", [{ code: "false" }], "Window", { b: 2 });
         bcd.go(function (results) {
           assert.deepEqual(results, [
             {
-              name: 'first',
+              name: "first",
               result: true,
-              info: {code: 'true', exposure: 'Window', a: 1}
+              info: { code: "true", exposure: "Window", a: 1 }
             },
             {
-              name: 'second',
+              name: "second",
               result: false,
-              info: {code: 'false', exposure: 'Window', b: 2}
+              info: { code: "false", exposure: "Window", b: 2 }
             }
           ]);
           done();
@@ -223,21 +225,21 @@ describe('harness.js', function () {
       });
     });
 
-    describe('tests with promise', function () {
-      it('Resolved: pass', function (done) {
+    describe("tests with promise", function () {
+      it("Resolved: pass", function (done) {
         bcd.addTest(
-          'name',
-          [{code: 'new Promise(function(resolve, reject) {resolve(true)})'}],
-          'Window'
+          "name",
+          [{ code: "new Promise(function(resolve, reject) {resolve(true)})" }],
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
               info: {
-                code: 'new Promise(function(resolve, reject) {resolve(true)})',
-                exposure: 'Window'
+                code: "new Promise(function(resolve, reject) {resolve(true)})",
+                exposure: "Window"
               }
             }
           ]);
@@ -245,20 +247,20 @@ describe('harness.js', function () {
         });
       });
 
-      it('Resolved: fail', function (done) {
+      it("Resolved: fail", function (done) {
         bcd.addTest(
-          'name',
-          [{code: 'new Promise(function(resolve, reject) {resolve(false)})'}],
-          'Window'
+          "name",
+          [{ code: "new Promise(function(resolve, reject) {resolve(false)})" }],
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: false,
               info: {
-                code: 'new Promise(function(resolve, reject) {resolve(false)})',
-                exposure: 'Window'
+                code: "new Promise(function(resolve, reject) {resolve(false)})",
+                exposure: "Window"
               }
             }
           ]);
@@ -266,21 +268,21 @@ describe('harness.js', function () {
         });
       });
 
-      it('Rejected', function (done) {
+      it("Rejected", function (done) {
         bcd.addTest(
-          'name',
-          [{code: 'new Promise(function(resolve, reject) {reject()})'}],
-          'Window'
+          "name",
+          [{ code: "new Promise(function(resolve, reject) {reject()})" }],
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: null,
-              message: 'threw Error',
+              message: "threw Error",
               info: {
-                code: 'new Promise(function(resolve, reject) {reject()})',
-                exposure: 'Window'
+                code: "new Promise(function(resolve, reject) {reject()})",
+                exposure: "Window"
               }
             }
           ]);
@@ -289,25 +291,25 @@ describe('harness.js', function () {
       });
     });
 
-    describe('tests with callback', function () {
-      it('Success', function (done) {
+    describe("tests with callback", function () {
+      it("Success", function (done) {
         bcd.addTest(
-          'name',
+          "name",
           [
             {
               code: '(function() {setTimeout(function() {success(true)}, 1); return "callback"})()'
             }
           ],
-          'Window'
+          "Window"
         );
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
               info: {
                 code: '(function() {setTimeout(function() {success(true)}, 1); return "callback"})()',
-                exposure: 'Window'
+                exposure: "Window"
               }
             }
           ]);
@@ -316,43 +318,43 @@ describe('harness.js', function () {
       });
     });
 
-    describe('other exposure', function () {
-      it('Worker', function (done) {
-        bcd.addTest('name', [{code: 'true'}], 'Worker');
+    describe("other exposure", function () {
+      it("Worker", function (done) {
+        bcd.addTest("name", [{ code: "true" }], "Worker");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
-              info: {code: 'true', exposure: 'Worker'}
+              info: { code: "true", exposure: "Worker" }
             }
           ]);
           done();
         });
       });
 
-      it('Shared Worker', function (done) {
-        bcd.addTest('name', [{code: 'true'}], 'SharedWorker');
+      it("Shared Worker", function (done) {
+        bcd.addTest("name", [{ code: "true" }], "SharedWorker");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
-              info: {code: 'true', exposure: 'SharedWorker'}
+              info: { code: "true", exposure: "SharedWorker" }
             }
           ]);
           done();
         });
       });
 
-      it('Service Worker', function (done) {
-        bcd.addTest('name', [{code: 'true'}], 'ServiceWorker');
+      it("Service Worker", function (done) {
+        bcd.addTest("name", [{ code: "true" }], "ServiceWorker");
         bcd.go(function (results) {
           assert.deepStrictEqual(results, [
             {
-              name: 'name',
+              name: "name",
               result: true,
-              info: {code: 'true', exposure: 'ServiceWorker'}
+              info: { code: "true", exposure: "ServiceWorker" }
             }
           ]);
           done();
@@ -361,59 +363,59 @@ describe('harness.js', function () {
     });
   });
 
-  describe('testConstructor', function () {
-    it('successful constructor', function () {
-      var value = bcd.testConstructor('Array');
+  describe("testConstructor", function () {
+    it("successful constructor", function () {
+      var value = bcd.testConstructor("Array");
       assert.equal(value.result, true);
     });
 
-    it('directly pass constructor', function () {
+    it("directly pass constructor", function () {
       var value = bcd.testConstructor(Array);
       assert.equal(value.result, true);
     });
 
-    it('needs more arguments', function () {
-      var value = bcd.testConstructor('RTCIceCandidate');
+    it("needs more arguments", function () {
+      var value = bcd.testConstructor("RTCIceCandidate");
       assert.equal(value.result, true);
     });
 
-    it('invalid constructor', function () {
-      var value = bcd.testConstructor('CanvasRenderingContext2D');
+    it("invalid constructor", function () {
+      var value = bcd.testConstructor("CanvasRenderingContext2D");
       assert.equal(value.result, false);
     });
   });
 
-  describe('testObjectName', function () {
-    it('Correct object name', function () {
-      var instance = document.createElement('p');
-      var value = bcd.testObjectName(instance, 'HTMLParagraphElement');
+  describe("testObjectName", function () {
+    it("Correct object name", function () {
+      var instance = document.createElement("p");
+      var value = bcd.testObjectName(instance, "HTMLParagraphElement");
       assert.equal(value.result, true);
     });
 
-    it('Correct object name from array of names', function () {
-      var instance = document.createElement('p');
+    it("Correct object name from array of names", function () {
+      var instance = document.createElement("p");
       var value = bcd.testObjectName(instance, [
-        'HTMLPElement',
-        'HTMLParagraphElement',
-        'HTMLElement'
+        "HTMLPElement",
+        "HTMLParagraphElement",
+        "HTMLElement"
       ]);
       assert.equal(value.result, true);
     });
 
-    it('Incorrect object name', function () {
-      var instance = document.createElement('p');
-      var value = bcd.testObjectName(instance, 'Document');
+    it("Incorrect object name", function () {
+      var instance = document.createElement("p");
+      var value = bcd.testObjectName(instance, "Document");
       assert.equal(value.result, false);
       assert.equal(
         value.message,
-        'testObjectName: Instance prototype does not match accepted names (expected Document; got HTMLParagraphElement)'
+        "testObjectName: Instance prototype does not match accepted names (expected Document; got HTMLParagraphElement)"
       );
     });
 
-    it('Falsy value', function () {
-      var value = bcd.testObjectName(null, 'HTMLParagraphElement');
+    it("Falsy value", function () {
+      var value = bcd.testObjectName(null, "HTMLParagraphElement");
       assert.equal(value.result, false);
-      assert.equal(value.message, 'testObjectName: instance is falsy');
+      assert.equal(value.message, "testObjectName: instance is falsy");
     });
   });
 });

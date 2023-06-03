@@ -29,7 +29,7 @@ class Tests {
 
   buildEndpoints() {
     const endpoints: Endpoints = {
-      '': []
+      '': [],
     };
 
     for (const ident of Object.keys(this.tests)) {
@@ -86,7 +86,7 @@ class Tests {
             // TODO: Simplify this to just a code string.
             tests: [{code: test.code}],
             exposure,
-            resources: test.resources || []
+            resources: test.resources || [],
           });
         }
       }

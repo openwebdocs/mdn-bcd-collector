@@ -46,12 +46,12 @@ const build = (specCSS, customCSS) => {
     // Test for the property itself
     tests[ident] = compileTest({
       raw: {code: customTest.test || `bcd.testCSSProperty("${name}")`},
-      exposure: ['Window']
+      exposure: ['Window'],
     });
 
     // Tests for values
     for (const [key, value] of Array.from(
-      properties.get(name).entries()
+      properties.get(name).entries(),
     ).sort() as any[]) {
       const valueIdent = `${ident}.${key}`;
       const customValueTest = getCustomTest(valueIdent, 'css.properties', true);
@@ -61,7 +61,7 @@ const build = (specCSS, customCSS) => {
         .join(' || ');
       tests[valueIdent] = compileTest({
         raw: {code: customValueTest.test || code},
-        exposure: ['Window']
+        exposure: ['Window'],
       });
     }
 
@@ -69,7 +69,7 @@ const build = (specCSS, customCSS) => {
     for (const [key, code] of Object.entries(customTest.additional)) {
       tests[`${ident}.${key}`] = compileTest({
         raw: {code: code},
-        exposure: ['Window']
+        exposure: ['Window'],
       });
     }
   }
