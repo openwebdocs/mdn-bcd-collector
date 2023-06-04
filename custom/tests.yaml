@@ -5368,6 +5368,8 @@ api:
     __base: |-
       <%api.XPathExpression:exp%>
       var instance = exp.evaluate(document, 0, null);
+  XRSystem:
+    __base: var instance = navigator.xr;
 
 # Features defined here also need to be in @webref/css or custom-css.json.
 css:
