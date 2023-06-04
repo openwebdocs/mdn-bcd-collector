@@ -1,5 +1,52 @@
 # mdn-bcd-collector Changelog
 
+## v9.3.2
+
+### Test Changes
+
+#### Added
+
+- api.InterestGroupReportingScriptRunnerGlobalScope.registerAdBeacon
+- api.WebTransportSendStream.sendOrder
+
+#### Removed
+
+- api.WebGLRenderingContext.commit
+
+#### Changed
+
+- api.DeprecationReportBody.toJSON
+- api.InterventionReportBody.toJSON
+- api.Report
+- api.ReportBody
+- api.SpeechRecognitionAlternative
+- api.SpeechRecognitionErrorEvent
+- api.SpeechRecognitionEvent
+- api.SpeechRecognitionResult
+- api.SpeechRecognitionResultList
+- api.SpeechSynthesisErrorEvent
+- api.SpeechSynthesisEvent
+- api.SpeechSynthesisVoice
+- api.WebGLQuery
+- api.WebGLSampler
+- api.WebGLSync
+- css.properties.list-style-type.string
+- css.properties.list-style-type.symbols
+
+### Commits
+
+- Add custom tests for WebGL 2 interfaces
+- Fix list-style-type.string and list-style-type.symbols ([#440](https://github.com/GooborgStudios/mdn-bcd-collector/pull/440))
+- Remove WebGLRenderingContext.commit()
+- Update all Speech API tests
+- Fix test for SpeechRecognitionErrorEvent
+- Add timeout to SpeechSynthesisVoice test
+- Disable tests for Report and ReportBody
+- Fix disabling tests
+- Mitigate Safari gradient bug
+- Minor variable name changes (rpcConstructor) ([#415](https://github.com/GooborgStudios/mdn-bcd-collector/pull/415))
+- Fix styling on mobile devices
+
 ## v9.3.1
 
 ## Notable changes
