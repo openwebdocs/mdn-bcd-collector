@@ -454,5 +454,8 @@
   ["api.WebGL2RenderingContext.vertexAttribIPointer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.vertexAttribPointer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.viewport", "firefox", "51-80", true],
-  ["api.WebGL2RenderingContext.waitSync", "firefox", "51-80", true]
+  ["api.WebGL2RenderingContext.waitSync", "firefox", "51-80", true],
+  ["api.WebGLQuery", "firefox", "51-80", true],
+  ["api.WebGLSampler", "firefox", "51-80", true],
+  ["api.WebGLSync", "firefox", "51-80", true]
 ]
