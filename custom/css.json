@@ -919,8 +919,6 @@
         "simp-chinese-informal",
         "somali",
         "square",
-        "string",
-        "symbols",
         "tamil",
         "telugu",
         "thai",
@@ -940,7 +938,11 @@
         "upper-norwegian",
         "upper-roman",
         "urdu"
-      ]
+      ],
+      "__additional_values": {
+        "string": "'x'",
+        "symbols": "symbols(cyclic 'x' 'y' 'z')"
+      }
     },
     "margin": {
       "__values": ["auto"]
