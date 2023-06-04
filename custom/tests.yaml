@@ -5603,6 +5603,9 @@ javascript:
             }).then(function(bytes) {
               return new WebAssembly.Module(bytes);
             });
+        customSections: return 'customSections' in WebAssembly.Module;
+        exports: return 'exports' in WebAssembly.Module;
+        imports: return 'imports' in WebAssembly.Module;
       Table:
         __base: |-
           var instance = new WebAssembly.Table({
