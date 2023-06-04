@@ -5192,6 +5192,39 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('WEBGL_lose_context');
+  WebGLQuery:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      if (!('createQuery' in reusableInstances.webGL2)) {
+        return {result: false, message: 'WebGL2RenderingContext.createQuery() is not defined'};
+      }
+      var instance = reusableInstances.webGL2.createQuery();
+  WebGLSampler:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      if (!('createSampler' in reusableInstances.webGL2)) {
+        return {result: false, message: 'WebGL2RenderingContext.createSampler() is not defined'};
+      }
+      var instance = reusableInstances.webGL2.createSampler();
+  WebGLSync:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      if (!('fenceSync' in reusableInstances.webGL2)) {
+        return {result: false, message: 'WebGL2RenderingContext.fenceSync() is not defined'};
+      }
+      var instance = reusableInstances.webGL2.fenceSync(reusableInstances.webGL2.SYNC_GPU_COMMANDS_COMPLETE, 0);
   WebGLTimerQueryEXT:
     __resources:
       - webGL
