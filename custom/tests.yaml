@@ -261,8 +261,8 @@ __resources:
       }).then(function() {
         setTimeout(function() {
           // Some stats are loaded later than others. Wait a bit after creating
-          // the connection, then call getStats, and if the results are empty,
-          // wait a bit longer and call getStats again.
+          // the connection, then call getStats. After that, call getStats once more
+          // since some stats will be created after the first call to getStats.
 
           // Obtain stats from both peer connections and combine them, as each
           // connection has different stats types
