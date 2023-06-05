@@ -45,7 +45,7 @@ describe('build (CSS)', () => {
         exposure: ['Window'],
       },
       'css.properties.font-family.historic': {
-        code: 'bcd.testCSSProperty("font-family", "sans-serif") || bcd.testCSSProperty("font-family", "serif")',
+        code: 'bcd.testCSSProperty("font-family", "sans-serif") && bcd.testCSSProperty("font-family", "serif")',
         exposure: ['Window'],
       },
       'css.properties.font-family.system-ui': {
