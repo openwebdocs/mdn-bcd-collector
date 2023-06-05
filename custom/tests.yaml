@@ -3301,698 +3301,469 @@ api:
       var stats = Array.from(reusableInstances.rtcStats.values());
 
       // The following function is defined to help obtain individual stats types
-      function getStatByType(type) {
+      // and entries
+      function getStatByType(type, entry) {
         for (var i = 0; i < stats.length; i++) {
           if (stats[i].type === type) {
-            return stats[i];
+            if (!entry || !!stats[i][entry]) {
+              return stats[i];
+            }
           }
         }
 
-        return false;
-      }
-
-      // The following function is defined to help obtain individual stats types
-      // and entries
-      function getStatByTypeAndEntry(type, entry) {
-        for (var i = 0; i < stats.length; i++) {
-          if (stats[i].type === type
-            && Object.prototype.hasOwnProperty.call(stats[i], entry)
-            && stats[i][entry] !== null) {
-            return stats[i];
-          }
-        }
         return false;
       }
 
       var instance = reusableInstances.rtcStats;
     __additional:
       type_candidate-pair: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat;
+        return !!getStatByType('candidate-pair', null)
       type_candidate-pair.availableIncomingBitrate: |-
-        return !!getStatByTypeAndEntry('candidate-pair', 'availableIncomingBitrate');
+        return !!getStatByType('candidate-pair', 'availableIncomingBitrate');
       type_candidate-pair.availableOutgoingBitrate: |-
-        return !!getStatByTypeAndEntry('candidate-pair', 'availableOutgoingBitrate');
+        return !!getStatByType('candidate-pair', 'availableOutgoingBitrate');
       type_candidate-pair.bytesDiscardedOnSend: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'bytesDiscardedOnSend' in stat;
+        return !!getStatByType('candidate-pair', 'bytesDiscardedOnSend');
       type_candidate-pair.bytesReceived: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'bytesReceived' in stat;
+        return !!getStatByType('candidate-pair', 'bytesReceived');
       type_candidate-pair.bytesSent: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'bytesSent' in stat;
+        return !!getStatByType('candidate-pair', 'bytesSent');
       type_candidate-pair.consentRequestsSent: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'consentRequestsSent' in stat;
+        return !!getStatByType('candidate-pair', 'consentRequestsSent');
       type_candidate-pair.currentRoundTripTime: |-
-        return !!getStatByTypeAndEntry('candidate-pair', 'currentRoundTripTime');
+        return !!getStatByType('candidate-pair', 'currentRoundTripTime');
       type_candidate-pair.id: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('candidate-pair', 'id');
       type_candidate-pair.lastPacketReceivedTimestamp: |-
-        return !!getStatByTypeAndEntry('candidate-pair', 'lastPacketReceivedTimestamp');
+        return !!getStatByType('candidate-pair', 'lastPacketReceivedTimestamp');
       type_candidate-pair.lastPacketSentTimestamp: |-
-        return !!getStatByTypeAndEntry('candidate-pair', 'lastPacketSentTimestamp');
+        return !!getStatByType('candidate-pair', 'lastPacketSentTimestamp');
       type_candidate-pair.localCandidateId: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'localCandidateId' in stat;
+        return !!getStatByType('candidate-pair', 'localCandidateId');
       type_candidate-pair.nominated: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'nominated' in stat;
+        return !!getStatByType('candidate-pair', 'nominated');
       type_candidate-pair.packetsDiscardedOnSend: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'packetsDiscardedOnSend' in stat;
+        return !!getStatByType('candidate-pair', 'packetsDiscardedOnSend');
       type_candidate-pair.packetsReceived: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'packetsReceived' in stat;
+        return !!getStatByType('candidate-pair', 'packetsReceived');
       type_candidate-pair.packetsSent: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'packetsSent' in stat;
+        return !!getStatByType('candidate-pair', 'packetsSent');
       type_candidate-pair.priority: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'priority' in stat;
+        return !!getStatByType('candidate-pair', 'priority');
       type_candidate-pair.remoteCandidateId: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'remoteCandidateId' in stat;
+        return !!getStatByType('candidate-pair', 'remoteCandidateId');
       type_candidate-pair.requestsReceived: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'requestsReceived' in stat;
+        return !!getStatByType('candidate-pair', 'requestsReceived');
       type_candidate-pair.requestsSent: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'requestsSent' in stat;
+        return !!getStatByType('candidate-pair', 'requestsSent');
       type_candidate-pair.responsesReceived: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'responsesReceived' in stat;
+        return !!getStatByType('candidate-pair', 'responsesReceived');
       type_candidate-pair.responsesSent: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'responsesSent' in stat;
+        return !!getStatByType('candidate-pair', 'responsesSent');
       type_candidate-pair.state: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'state' in stat;
+        return !!getStatByType('candidate-pair', 'state');
       type_candidate-pair.timestamp: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('candidate-pair', 'timestamp');
       type_candidate-pair.totalRoundTripTime: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'totalRoundTripTime' in stat;
+        return !!getStatByType('candidate-pair', 'totalRoundTripTime');
       type_candidate-pair.transportId: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'transportId' in stat;
+        return !!getStatByType('candidate-pair', 'transportId');
       type_candidate-pair.type: |-
-        var stat = getStatByType('candidate-pair');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('candidate-pair', 'type');
       type_certificate: |-
-        var stat = getStatByType('certificate');
-        return !!stat;
+        return !!getStatByType('certificate', null)
       type_certificate.base64Certificate: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'base64Certificate' in stat;
+        return !!getStatByType('certificate', 'base64Certificate');
       type_certificate.fingerprint: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'fingerprint' in stat;
+        return !!getStatByType('certificate', 'fingerprint');
       type_certificate.fingerprintAlgorithm: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'fingerprintAlgorithm' in stat;
+        return !!getStatByType('certificate', 'fingerprintAlgorithm');
       type_certificate.id: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('certificate', 'id');
       type_certificate.issuerCertificateId: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'issuerCertificateId' in stat;
+        return !!getStatByType('certificate', 'issuerCertificateId');
       type_certificate.timestamp: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('certificate', 'timestamp');
       type_certificate.type: |-
-        var stat = getStatByType('certificate');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('certificate', 'type');
       type_codec: |-
-        var stat = getStatByType('codec');
-        return !!stat;
+        return !!getStatByType('codec', null)
       type_codec.channels: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'channels' in stat;
+        return !!getStatByType('codec', 'channels');
       type_codec.clockRate: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'clockRate' in stat;
+        return !!getStatByType('codec', 'clockRate');
       type_codec.id: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('codec', 'id');
       type_codec.mimeType: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'mimeType' in stat;
+        return !!getStatByType('codec', 'mimeType');
       type_codec.payloadType: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'payloadType' in stat;
+        return !!getStatByType('codec', 'payloadType');
       type_codec.sdpFmtpLine: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'sdpFmtpLine' in stat;
+        return !!getStatByType('codec', 'sdpFmtpLine');
       type_codec.timestamp: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('codec', 'timestamp');
       type_codec.transportId: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'transportId' in stat;
+        return !!getStatByType('codec', 'transportId');
       type_codec.type: |-
-        var stat = getStatByType('codec');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('codec', 'type');
       type_data-channel: |-
-        var stat = getStatByType('data-channel');
-        return !!stat;
+        return !!getStatByType('data-channel', null)
       type_data-channel.bytesReceived: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'bytesReceived' in stat;
+        return !!getStatByType('data-channel', 'bytesReceived');
       type_data-channel.bytesSent: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'bytesSent' in stat;
+        return !!getStatByType('data-channel', 'bytesSent');
       type_data-channel.dataChannelIdentifier: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'dataChannelIdentifier' in stat;
+        return !!getStatByType('data-channel', 'dataChannelIdentifier');
       type_data-channel.id: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('data-channel', 'id');
       type_data-channel.label: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'label' in stat;
+        return !!getStatByType('data-channel', 'label');
       type_data-channel.messagesReceived: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'messagesReceived' in stat;
+        return !!getStatByType('data-channel', 'messagesReceived');
       type_data-channel.messagesSent: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'messagesSent' in stat;
+        return !!getStatByType('data-channel', 'messagesSent');
       type_data-channel.protocol: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'protocol' in stat;
+        return !!getStatByType('data-channel', 'protocol');
       type_data-channel.state: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'state' in stat;
+        return !!getStatByType('data-channel', 'state');
       type_data-channel.timestamp: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('data-channel', 'timestamp');
       type_data-channel.type: |-
-        var stat = getStatByType('data-channel');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('data-channel', 'type');
       type_inbound-rtp: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat;
+        return !!getStatByType('inbound-rtp', null)
       type_inbound-rtp.audioLevel: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'audioLevel' in stat;
+        return !!getStatByType('inbound-rtp', 'audioLevel');
       type_inbound-rtp.bytesReceived: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'bytesReceived' in stat;
+        return !!getStatByType('inbound-rtp', 'bytesReceived');
       type_inbound-rtp.codecId: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'codecId' in stat;
+        return !!getStatByType('inbound-rtp', 'codecId');
       type_inbound-rtp.concealedSamples: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'concealedSamples' in stat;
+        return !!getStatByType('inbound-rtp', 'concealedSamples');
       type_inbound-rtp.concealmentEvents: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'concealmentEvents' in stat;
+        return !!getStatByType('inbound-rtp', 'concealmentEvents');
       type_inbound-rtp.decoderImplementation: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'decoderImplementation' in stat;
+        return !!getStatByType('inbound-rtp', 'decoderImplementation');
       type_inbound-rtp.estimatedPlayoutTimestamp: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'estimatedPlayoutTimestamp' in stat;
+        return !!getStatByType('inbound-rtp', 'estimatedPlayoutTimestamp');
       type_inbound-rtp.fecPacketsDiscarded: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'fecPacketsDiscarded' in stat;
+        return !!getStatByType('inbound-rtp', 'fecPacketsDiscarded');
       type_inbound-rtp.fecPacketsReceived: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'fecPacketsReceived' in stat;
+        return !!getStatByType('inbound-rtp', 'fecPacketsReceived');
       type_inbound-rtp.firCount: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'firCount' in stat;
+        return !!getStatByType('inbound-rtp', 'firCount');
       type_inbound-rtp.frameHeight: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'frameHeight' in stat;
-      type_inbound-rtp.framesAssembledFromMultiplePackets: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'framesAssembledFromMultiplePackets' in stat;
-      type_inbound-rtp.framesDecoded: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'framesDecoded' in stat;
-      type_inbound-rtp.framesDropped: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'framesDropped' in stat;
-      type_inbound-rtp.framesPerSecond: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'framesPerSecond' in stat;
-      type_inbound-rtp.framesReceived: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'framesReceived' in stat;
-      type_inbound-rtp.framesRendered: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'framesRendered' in stat;
+        return !!getStatByType('inbound-rtp', 'frameHeight');
       type_inbound-rtp.frameWidth: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'frameWidth' in stat;
+        return !!getStatByType('inbound-rtp', 'frameWidth');
+      type_inbound-rtp.framesAssembledFromMultiplePackets: |-
+        return !!getStatByType('inbound-rtp', 'framesAssembledFromMultiplePackets');
+      type_inbound-rtp.framesDecoded: |-
+        return !!getStatByType('inbound-rtp', 'framesDecoded');
+      type_inbound-rtp.framesDropped: |-
+        return !!getStatByType('inbound-rtp', 'framesDropped');
+      type_inbound-rtp.framesPerSecond: |-
+        return !!getStatByType('inbound-rtp', 'framesPerSecond');
+      type_inbound-rtp.framesReceived: |-
+        return !!getStatByType('inbound-rtp', 'framesReceived');
+      type_inbound-rtp.framesRendered: |-
+        return !!getStatByType('inbound-rtp', 'framesRendered');
       type_inbound-rtp.freezeCount: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'freezeCount' in stat;
+        return !!getStatByType('inbound-rtp', 'freezeCount');
       type_inbound-rtp.headerBytesReceived: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'headerBytesReceived' in stat;
+        return !!getStatByType('inbound-rtp', 'headerBytesReceived');
       type_inbound-rtp.id: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('inbound-rtp', 'id');
       type_inbound-rtp.insertedSamplesForDeceleration: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'insertedSamplesForDeceleration' in stat;
+        return !!getStatByType('inbound-rtp', 'insertedSamplesForDeceleration');
       type_inbound-rtp.jitter: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'jitter' in stat;
+        return !!getStatByType('inbound-rtp', 'jitter');
       type_inbound-rtp.jitterBufferDelay: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'jitterBufferDelay' in stat;
+        return !!getStatByType('inbound-rtp', 'jitterBufferDelay');
       type_inbound-rtp.jitterBufferEmittedCount: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'jitterBufferEmittedCount' in stat;
+        return !!getStatByType('inbound-rtp', 'jitterBufferEmittedCount');
       type_inbound-rtp.jitterBufferMinimumDelay: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'jitterBufferMinimumDelay' in stat;
+        return !!getStatByType('inbound-rtp', 'jitterBufferMinimumDelay');
       type_inbound-rtp.jitterBufferTargetDelay: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'jitterBufferTargetDelay' in stat;
+        return !!getStatByType('inbound-rtp', 'jitterBufferTargetDelay');
       type_inbound-rtp.keyFramesDecoded: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'keyFramesDecoded' in stat;
+        return !!getStatByType('inbound-rtp', 'keyFramesDecoded');
       type_inbound-rtp.kind: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'kind' in stat;
+        return !!getStatByType('inbound-rtp', 'kind');
       type_inbound-rtp.lastPacketReceivedTimestamp: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'lastPacketReceivedTimestamp' in stat;
+        return !!getStatByType('inbound-rtp', 'lastPacketReceivedTimestamp');
       type_inbound-rtp.mid: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'mid' in stat;
+        return !!getStatByType('inbound-rtp', 'mid');
       type_inbound-rtp.nackCount: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'nackCount' in stat;
+        return !!getStatByType('inbound-rtp', 'nackCount');
       type_inbound-rtp.packetsDiscarded: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'packetsDiscarded' in stat;
+        return !!getStatByType('inbound-rtp', 'packetsDiscarded');
       type_inbound-rtp.packetsLost: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'packetsLost' in stat;
+        return !!getStatByType('inbound-rtp', 'packetsLost');
       type_inbound-rtp.packetsReceived: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'packetsReceived' in stat;
+        return !!getStatByType('inbound-rtp', 'packetsReceived');
       type_inbound-rtp.pauseCount: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'pauseCount' in stat;
+        return !!getStatByType('inbound-rtp', 'pauseCount');
       type_inbound-rtp.playoutId: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'playoutId' in stat;
+        return !!getStatByType('inbound-rtp', 'playoutId');
       type_inbound-rtp.pliCount: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'pliCount' in stat;
+        return !!getStatByType('inbound-rtp', 'pliCount');
       type_inbound-rtp.powerEfficientDecoder: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'powerEfficientDecoder' in stat;
+        return !!getStatByType('inbound-rtp', 'powerEfficientDecoder');
       type_inbound-rtp.qpSum: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'qpSum' in stat;
+        return !!getStatByType('inbound-rtp', 'qpSum');
       type_inbound-rtp.remoteId: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'remoteId' in stat;
+        return !!getStatByType('inbound-rtp', 'remoteId');
       type_inbound-rtp.removedSamplesForAcceleration: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'removedSamplesForAcceleration' in stat;
+        return !!getStatByType('inbound-rtp', 'removedSamplesForAcceleration');
       type_inbound-rtp.silentConcealedSamples: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'silentConcealedSamples' in stat;
+        return !!getStatByType('inbound-rtp', 'silentConcealedSamples');
       type_inbound-rtp.ssrc: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'ssrc' in stat;
+        return !!getStatByType('inbound-rtp', 'ssrc');
       type_inbound-rtp.timestamp: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('inbound-rtp', 'timestamp');
       type_inbound-rtp.totalAssemblyTime: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalAssemblyTime' in stat;
+        return !!getStatByType('inbound-rtp', 'totalAssemblyTime');
       type_inbound-rtp.totalAudioEnergy: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalAudioEnergy' in stat;
+        return !!getStatByType('inbound-rtp', 'totalAudioEnergy');
       type_inbound-rtp.totalDecodeTime: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalDecodeTime' in stat;
+        return !!getStatByType('inbound-rtp', 'totalDecodeTime');
       type_inbound-rtp.totalFreezesDuration: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalFreezesDuration' in stat;
+        return !!getStatByType('inbound-rtp', 'totalFreezesDuration');
       type_inbound-rtp.totalInterFrameDelay: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalInterFrameDelay' in stat;
+        return !!getStatByType('inbound-rtp', 'totalInterFrameDelay');
       type_inbound-rtp.totalPausesDuration: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalPausesDuration' in stat;
+        return !!getStatByType('inbound-rtp', 'totalPausesDuration');
       type_inbound-rtp.totalProcessingDelay: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalProcessingDelay' in stat;
+        return !!getStatByType('inbound-rtp', 'totalProcessingDelay');
       type_inbound-rtp.totalSamplesDuration: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalSamplesDuration' in stat;
+        return !!getStatByType('inbound-rtp', 'totalSamplesDuration');
       type_inbound-rtp.totalSamplesReceived: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalSamplesReceived' in stat;
+        return !!getStatByType('inbound-rtp', 'totalSamplesReceived');
       type_inbound-rtp.totalSquaredInterFrameDelay: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'totalSquaredInterFrameDelay' in stat;
+        return !!getStatByType('inbound-rtp', 'totalSquaredInterFrameDelay');
       type_inbound-rtp.trackIdentifier: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'trackIdentifier' in stat;
+        return !!getStatByType('inbound-rtp', 'trackIdentifier');
       type_inbound-rtp.transportId: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'transportId' in stat;
+        return !!getStatByType('inbound-rtp', 'transportId');
       type_inbound-rtp.type: |-
-        var stat = getStatByType('inbound-rtp');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('inbound-rtp', 'type');
       type_local-candidate: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat;
+        return !!getStatByType('local-candidate', null)
       type_local-candidate.address: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'address' in stat;
+        return !!getStatByType('local-candidate', 'address');
       type_local-candidate.candidateType: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'candidateType' in stat;
+        return !!getStatByType('local-candidate', 'candidateType');
       type_local-candidate.foundation: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'foundation' in stat;
+        return !!getStatByType('local-candidate', 'foundation');
       type_local-candidate.id: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('local-candidate', 'id');
       type_local-candidate.port: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'port' in stat;
+        return !!getStatByType('local-candidate', 'port');
       type_local-candidate.priority: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'priority' in stat;
+        return !!getStatByType('local-candidate', 'priority');
       type_local-candidate.protocol: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'protocol' in stat;
+        return !!getStatByType('local-candidate', 'protocol');
       type_local-candidate.relatedAddress: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'relatedAddress' in stat;
+        return !!getStatByType('local-candidate', 'relatedAddress');
       type_local-candidate.relatedPort: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'relatedPort' in stat;
+        return !!getStatByType('local-candidate', 'relatedPort');
       type_local-candidate.relayProtocol: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'relayProtocol' in stat;
+        return !!getStatByType('local-candidate', 'relayProtocol');
       type_local-candidate.tcpType: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'tcpType' in stat;
+        return !!getStatByType('local-candidate', 'tcpType');
       type_local-candidate.timestamp: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('local-candidate', 'timestamp');
       type_local-candidate.transportId: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'transportId' in stat;
+        return !!getStatByType('local-candidate', 'transportId');
       type_local-candidate.type: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('local-candidate', 'type');
       type_local-candidate.url: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'url' in stat;
+        return !!getStatByType('local-candidate', 'url');
       type_local-candidate.usernameFragment: |-
-        var stat = getStatByType('local-candidate');
-        return !!stat && 'usernameFragment' in stat;
+        return !!getStatByType('local-candidate', 'usernameFragment');
       type_media-playout: |-
-        var stat = getStatByType('media-playout');
-        return !!stat;
+        return !!getStatByType('media-playout', null)
       type_media-playout.id: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('media-playout', 'id');
       type_media-playout.kind: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'kind' in stat;
+        return !!getStatByType('media-playout', 'kind');
       type_media-playout.synthesizedSamplesDuration: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'synthesizedSamplesDuration' in stat;
+        return !!getStatByType('media-playout', 'synthesizedSamplesDuration');
       type_media-playout.synthesizedSamplesEvents: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'synthesizedSamplesEvents' in stat;
+        return !!getStatByType('media-playout', 'synthesizedSamplesEvents');
       type_media-playout.timestamp: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('media-playout', 'timestamp');
       type_media-playout.totalPlayoutDelay: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'totalPlayoutDelay' in stat;
+        return !!getStatByType('media-playout', 'totalPlayoutDelay');
       type_media-playout.totalSamplesCount: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'totalSamplesCount' in stat;
+        return !!getStatByType('media-playout', 'totalSamplesCount');
       type_media-playout.totalSamplesDuration: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'totalSamplesDuration' in stat;
+        return !!getStatByType('media-playout', 'totalSamplesDuration');
       type_media-playout.type: |-
-        var stat = getStatByType('media-playout');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('media-playout', 'type');
       type_media-source: |-
-        var stat = getStatByType('media-source');
-        return !!stat;
+        return !!getStatByType('media-source', null)
       type_media-source.audioLevel: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'audioLevel' in stat;
+        return !!getStatByType('media-source', 'audioLevel');
       type_media-source.droppedSamplesDuration: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'droppedSamplesDuration' in stat;
+        return !!getStatByType('media-source', 'droppedSamplesDuration');
       type_media-source.droppedSamplesEvents: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'droppedSamplesEvents' in stat;
+        return !!getStatByType('media-source', 'droppedSamplesEvents');
       type_media-source.echoReturnLoss: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'echoReturnLoss' in stat;
+        return !!getStatByType('media-source', 'echoReturnLoss');
       type_media-source.echoReturnLossEnhancement: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'echoReturnLossEnhancement' in stat;
+        return !!getStatByType('media-source', 'echoReturnLossEnhancement');
       type_media-source.frames: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'frames' in stat;
+        return !!getStatByType('media-source', 'frames');
       type_media-source.framesPerSecond: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'framesPerSecond' in stat;
+        return !!getStatByType('media-source', 'framesPerSecond');
       type_media-source.height: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'height' in stat;
+        return !!getStatByType('media-source', 'height');
       type_media-source.id: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('media-source', 'id');
       type_media-source.kind: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'kind' in stat;
+        return !!getStatByType('media-source', 'kind');
       type_media-source.timestamp: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('media-source', 'timestamp');
       type_media-source.totalAudioEnergy: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'totalAudioEnergy' in stat;
+        return !!getStatByType('media-source', 'totalAudioEnergy');
       type_media-source.totalCaptureDelay: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'totalCaptureDelay' in stat;
+        return !!getStatByType('media-source', 'totalCaptureDelay');
       type_media-source.totalSamplesCaptured: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'totalSamplesCaptured' in stat;
+        return !!getStatByType('media-source', 'totalSamplesCaptured');
       type_media-source.totalSamplesDuration: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'totalSamplesDuration' in stat;
+        return !!getStatByType('media-source', 'totalSamplesDuration');
       type_media-source.trackIdentifier: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'trackIdentifier' in stat;
+        return !!getStatByType('media-source', 'trackIdentifier');
       type_media-source.type: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('media-source', 'type');
       type_media-source.width: |-
-        var stat = getStatByType('media-source');
-        return !!stat && 'width' in stat;
+        return !!getStatByType('media-source', 'width');
       type_outbound-rtp: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat;
+        return !!getStatByType('outbound-rtp', null)
       type_outbound-rtp.active: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'active' in stat;
+        return !!getStatByType('outbound-rtp', 'active');
       type_outbound-rtp.bytesSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'bytesSent' in stat;
+        return !!getStatByType('outbound-rtp', 'bytesSent');
       type_outbound-rtp.codecId: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'codecId' in stat;
+        return !!getStatByType('outbound-rtp', 'codecId');
       type_outbound-rtp.encoderImplementation: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'encoderImplementation' in stat;
+        return !!getStatByType('outbound-rtp', 'encoderImplementation');
       type_outbound-rtp.firCount: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'firCount' in stat;
+        return !!getStatByType('outbound-rtp', 'firCount');
       type_outbound-rtp.frameHeight: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'frameHeight' in stat;
-      type_outbound-rtp.framesEncoded: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'framesEncoded' in stat;
-      type_outbound-rtp.framesPerSecond: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'framesPerSecond' in stat;
-      type_outbound-rtp.framesSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'framesSent' in stat;
+        return !!getStatByType('outbound-rtp', 'frameHeight');
       type_outbound-rtp.frameWidth: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'frameWidth' in stat;
+        return !!getStatByType('outbound-rtp', 'frameWidth');
+      type_outbound-rtp.framesEncoded: |-
+        return !!getStatByType('outbound-rtp', 'framesEncoded');
+      type_outbound-rtp.framesPerSecond: |-
+        return !!getStatByType('outbound-rtp', 'framesPerSecond');
+      type_outbound-rtp.framesSent: |-
+        return !!getStatByType('outbound-rtp', 'framesSent');
       type_outbound-rtp.headerBytesSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'headerBytesSent' in stat;
+        return !!getStatByType('outbound-rtp', 'headerBytesSent');
       type_outbound-rtp.hugeFramesSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'hugeFramesSent' in stat;
+        return !!getStatByType('outbound-rtp', 'hugeFramesSent');
       type_outbound-rtp.id: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('outbound-rtp', 'id');
       type_outbound-rtp.keyFramesEncoded: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'keyFramesEncoded' in stat;
+        return !!getStatByType('outbound-rtp', 'keyFramesEncoded');
       type_outbound-rtp.kind: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'kind' in stat;
+        return !!getStatByType('outbound-rtp', 'kind');
       type_outbound-rtp.mediaSourceId: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'mediaSourceId' in stat;
+        return !!getStatByType('outbound-rtp', 'mediaSourceId');
       type_outbound-rtp.mid: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'mid' in stat;
+        return !!getStatByType('outbound-rtp', 'mid');
       type_outbound-rtp.nackCount: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'nackCount' in stat;
+        return !!getStatByType('outbound-rtp', 'nackCount');
       type_outbound-rtp.packetsSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'packetsSent' in stat;
+        return !!getStatByType('outbound-rtp', 'packetsSent');
       type_outbound-rtp.pliCount: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'pliCount' in stat;
+        return !!getStatByType('outbound-rtp', 'pliCount');
       type_outbound-rtp.powerEfficientEncoder: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'powerEfficientEncoder' in stat;
+        return !!getStatByType('outbound-rtp', 'powerEfficientEncoder');
       type_outbound-rtp.qpSum: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'qpSum' in stat;
+        return !!getStatByType('outbound-rtp', 'qpSum');
       type_outbound-rtp.qualityLimitationDurations: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'qualityLimitationDurations' in stat;
+        return !!getStatByType('outbound-rtp', 'qualityLimitationDurations');
       type_outbound-rtp.qualityLimitationReason: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'qualityLimitationReason' in stat;
+        return !!getStatByType('outbound-rtp', 'qualityLimitationReason');
       type_outbound-rtp.qualityLimitationResolutionChanges: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'qualityLimitationResolutionChanges' in stat;
+        return !!getStatByType('outbound-rtp', 'qualityLimitationResolutionChanges');
       type_outbound-rtp.remoteId: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'remoteId' in stat;
+        return !!getStatByType('outbound-rtp', 'remoteId');
       type_outbound-rtp.retransmittedBytesSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'retransmittedBytesSent' in stat;
+        return !!getStatByType('outbound-rtp', 'retransmittedBytesSent');
       type_outbound-rtp.retransmittedPacketsSent: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'retransmittedPacketsSent' in stat;
+        return !!getStatByType('outbound-rtp', 'retransmittedPacketsSent');
       type_outbound-rtp.rid: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'rid' in stat;
+        return !!getStatByType('outbound-rtp', 'rid');
       type_outbound-rtp.scalabilityMode: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'scalabilityMode' in stat;
+        return !!getStatByType('outbound-rtp', 'scalabilityMode');
       type_outbound-rtp.ssrc: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'ssrc' in stat;
+        return !!getStatByType('outbound-rtp', 'ssrc');
       type_outbound-rtp.targetBitrate: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'targetBitrate' in stat;
+        return !!getStatByType('outbound-rtp', 'targetBitrate');
       type_outbound-rtp.timestamp: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'timestamp' in stat;
-      type_outbound-rtp.totalEncodedBytesTarget: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'totalEncodedBytesTarget' in stat;
+        return !!getStatByType('outbound-rtp', 'timestamp');
       type_outbound-rtp.totalEncodeTime: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'totalEncodeTime' in stat;
+        return !!getStatByType('outbound-rtp', 'totalEncodeTime');
+      type_outbound-rtp.totalEncodedBytesTarget: |-
+        return !!getStatByType('outbound-rtp', 'totalEncodedBytesTarget');
       type_outbound-rtp.totalPacketSendDelay: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'totalPacketSendDelay' in stat;
+        return !!getStatByType('outbound-rtp', 'totalPacketSendDelay');
       type_outbound-rtp.transportId: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'transportId' in stat;
+        return !!getStatByType('outbound-rtp', 'transportId');
       type_outbound-rtp.type: |-
-        var stat = getStatByType('outbound-rtp');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('outbound-rtp', 'type');
       type_peer-connection: |-
-        var stat = getStatByType('peer-connection');
-        return !!stat;
+        return !!getStatByType('peer-connection', null)
       type_peer-connection.dataChannelsClosed: |-
-        var stat = getStatByType('peer-connection');
-        return !!stat && 'dataChannelsClosed' in stat;
+        return !!getStatByType('peer-connection', 'dataChannelsClosed');
       type_peer-connection.dataChannelsOpened: |-
-        var stat = getStatByType('peer-connection');
-        return !!stat && 'dataChannelsOpened' in stat;
+        return !!getStatByType('peer-connection', 'dataChannelsOpened');
       type_peer-connection.id: |-
-        var stat = getStatByType('peer-connection');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('peer-connection', 'id');
       type_peer-connection.timestamp: |-
-        var stat = getStatByType('peer-connection');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('peer-connection', 'timestamp');
       type_peer-connection.type: |-
-        var stat = getStatByType('peer-connection');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('peer-connection', 'type');
       type_remote-candidate: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat;
+        return !!getStatByType('remote-candidate', null)
       type_remote-candidate.address: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'address' in stat;
+        return !!getStatByType('remote-candidate', 'address');
       type_remote-candidate.candidateType: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'candidateType' in stat;
+        return !!getStatByType('remote-candidate', 'candidateType');
       type_remote-candidate.foundation: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'foundation' in stat;
+        return !!getStatByType('remote-candidate', 'foundation');
       type_remote-candidate.id: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('remote-candidate', 'id');
       type_remote-candidate.port: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'port' in stat;
+        return !!getStatByType('remote-candidate', 'port');
       type_remote-candidate.priority: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'priority' in stat;
+        return !!getStatByType('remote-candidate', 'priority');
       type_remote-candidate.protocol: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'protocol' in stat;
+        return !!getStatByType('remote-candidate', 'protocol');
       type_remote-candidate.relatedAddress: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'relatedAddress' in stat;
+        return !!getStatByType('remote-candidate', 'relatedAddress');
       type_remote-candidate.relatedPort: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'relatedPort' in stat;
+        return !!getStatByType('remote-candidate', 'relatedPort');
       type_remote-candidate.relayProtocol: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'relayProtocol' in stat;
+        return !!getStatByType('remote-candidate', 'relayProtocol');
       type_remote-candidate.tcpType: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'tcpType' in stat;
+        return !!getStatByType('remote-candidate', 'tcpType');
       type_remote-candidate.timestamp: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('remote-candidate', 'timestamp');
       type_remote-candidate.transportId: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'transportId' in stat;
+        return !!getStatByType('remote-candidate', 'transportId');
       type_remote-candidate.type: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('remote-candidate', 'type');
       type_remote-candidate.url: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'url' in stat;
+        return !!getStatByType('remote-candidate', 'url');
       type_remote-candidate.usernameFragment: |-
-        var stat = getStatByType('remote-candidate');
-        return !!stat && 'usernameFragment' in stat;
+        return !!getStatByType('remote-candidate', 'usernameFragment');
       type_remote-inbound-rtp: |-
         var stat = getStatByType('remote-inbound-rtp');
         if (!stat) {
@@ -4218,65 +3989,45 @@ api:
         }
         return !!stat && 'type' in stat;
       type_transport: |-
-        var stat = getStatByType('transport');
-        return !!stat;
+        return !!getStatByType('transport', null)
       type_transport.bytesReceived: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'bytesReceived' in stat;
+        return !!getStatByType('transport', 'bytesReceived');
       type_transport.bytesSent: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'bytesSent' in stat;
+        return !!getStatByType('transport', 'bytesSent');
       type_transport.dtlsCipher: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'dtlsCipher' in stat;
+        return !!getStatByType('transport', 'dtlsCipher');
       type_transport.dtlsRole: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'dtlsRole' in stat;
+        return !!getStatByType('transport', 'dtlsRole');
       type_transport.dtlsState: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'dtlsState' in stat;
+        return !!getStatByType('transport', 'dtlsState');
       type_transport.iceLocalUsernameFragment: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'iceLocalUsernameFragment' in stat;
+        return !!getStatByType('transport', 'iceLocalUsernameFragment');
       type_transport.iceRole: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'iceRole' in stat;
+        return !!getStatByType('transport', 'iceRole');
       type_transport.iceState: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'iceState' in stat;
+        return !!getStatByType('transport', 'iceState');
       type_transport.id: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'id' in stat;
+        return !!getStatByType('transport', 'id');
       type_transport.localCertificateId: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'localCertificateId' in stat;
+        return !!getStatByType('transport', 'localCertificateId');
       type_transport.packetsReceived: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'packetsReceived' in stat;
+        return !!getStatByType('transport', 'packetsReceived');
       type_transport.packetsSent: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'packetsSent' in stat;
+        return !!getStatByType('transport', 'packetsSent');
       type_transport.remoteCertificateId: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'remoteCertificateId' in stat;
+        return !!getStatByType('transport', 'remoteCertificateId');
       type_transport.selectedCandidatePairChanges: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'selectedCandidatePairChanges' in stat;
+        return !!getStatByType('transport', 'selectedCandidatePairChanges');
       type_transport.selectedCandidatePairId: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'selectedCandidatePairId' in stat;
+        return !!getStatByType('transport', 'selectedCandidatePairId');
       type_transport.srtpCipher: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'srtpCipher' in stat;
+        return !!getStatByType('transport', 'srtpCipher');
       type_transport.timestamp: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'timestamp' in stat;
+        return !!getStatByType('transport', 'timestamp');
       type_transport.tlsVersion: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'tlsVersion' in stat;
+        return !!getStatByType('transport', 'tlsVersion');
       type_transport.type: |-
-        var stat = getStatByType('transport');
-        return !!stat && 'type' in stat;
+        return !!getStatByType('transport', 'type');
   Screen:
     __base: var instance = window.screen;
   ScriptProcessorNode:
