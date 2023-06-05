@@ -80,6 +80,6 @@ WPT.live is a great resource to test support for various features, but like MDN 
 
 ## Copyright
 
-© 2023 Gooborg Studios + various contributors, © 2020-2022 Google LLC, Mozilla Corporation and Gooborg Studios.
+© 2023 [Gooborg Studios](https://www.gooborg.com/) + [various contributors](https://github.com/GooborgStudios/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
 
 This project is under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) license.
