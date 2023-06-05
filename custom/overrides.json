@@ -457,5 +457,7 @@
   ["api.WebGL2RenderingContext.waitSync", "firefox", "51-80", true],
   ["api.WebGLQuery", "firefox", "51-80", true],
   ["api.WebGLSampler", "firefox", "51-80", true],
-  ["api.WebGLSync", "firefox", "51-80", true]
+  ["api.WebGLSync", "firefox", "51-80", true],
+  "WEBGL_compressed_texture_pvrtc is only available on ARM-based Macs (excluding virtual machines)",
+  ["api.WEBGL_compressed_texture_pvrtc", "safari", "7+", true]
 ]
