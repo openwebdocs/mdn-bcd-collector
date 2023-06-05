@@ -4727,6 +4727,8 @@ css:
     custom-property: |-
       return CSS.supports('color', 'var(--foo)') || CSS.supports('color',
       'env(--foo)');
+    list-style-type: |-
+      return {result: null, message: 'In Firefox, and per spec, any value for list-style-type will return "true" as custom list styles are allowed'};
 
 # Features defined here also need to be in custom-js.json.
 javascript:
