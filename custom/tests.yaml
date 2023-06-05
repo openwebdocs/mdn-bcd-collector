@@ -3317,7 +3317,7 @@ api:
       var instance = reusableInstances.rtcStats;
     __additional:
       type_candidate-pair: |-
-        return !!getStatByType('candidate-pair', null)
+        return !!getStatByType('candidate-pair');
       type_candidate-pair.availableIncomingBitrate: |-
         return !!getStatByType('candidate-pair', 'availableIncomingBitrate');
       type_candidate-pair.availableOutgoingBitrate: |-
@@ -3371,7 +3371,7 @@ api:
       type_candidate-pair.type: |-
         return !!getStatByType('candidate-pair', 'type');
       type_certificate: |-
-        return !!getStatByType('certificate', null)
+        return !!getStatByType('certificate');
       type_certificate.base64Certificate: |-
         return !!getStatByType('certificate', 'base64Certificate');
       type_certificate.fingerprint: |-
@@ -3387,7 +3387,7 @@ api:
       type_certificate.type: |-
         return !!getStatByType('certificate', 'type');
       type_codec: |-
-        return !!getStatByType('codec', null)
+        return !!getStatByType('codec');
       type_codec.channels: |-
         return !!getStatByType('codec', 'channels');
       type_codec.clockRate: |-
@@ -3407,7 +3407,7 @@ api:
       type_codec.type: |-
         return !!getStatByType('codec', 'type');
       type_data-channel: |-
-        return !!getStatByType('data-channel', null)
+        return !!getStatByType('data-channel');
       type_data-channel.bytesReceived: |-
         return !!getStatByType('data-channel', 'bytesReceived');
       type_data-channel.bytesSent: |-
@@ -3431,7 +3431,7 @@ api:
       type_data-channel.type: |-
         return !!getStatByType('data-channel', 'type');
       type_inbound-rtp: |-
-        return !!getStatByType('inbound-rtp', null)
+        return !!getStatByType('inbound-rtp');
       type_inbound-rtp.audioLevel: |-
         return !!getStatByType('inbound-rtp', 'audioLevel');
       type_inbound-rtp.bytesReceived: |-
@@ -3549,7 +3549,7 @@ api:
       type_inbound-rtp.type: |-
         return !!getStatByType('inbound-rtp', 'type');
       type_local-candidate: |-
-        return !!getStatByType('local-candidate', null)
+        return !!getStatByType('local-candidate');
       type_local-candidate.address: |-
         return !!getStatByType('local-candidate', 'address');
       type_local-candidate.candidateType: |-
@@ -3583,7 +3583,7 @@ api:
       type_local-candidate.usernameFragment: |-
         return !!getStatByType('local-candidate', 'usernameFragment');
       type_media-playout: |-
-        return !!getStatByType('media-playout', null)
+        return !!getStatByType('media-playout');
       type_media-playout.id: |-
         return !!getStatByType('media-playout', 'id');
       type_media-playout.kind: |-
@@ -3603,7 +3603,7 @@ api:
       type_media-playout.type: |-
         return !!getStatByType('media-playout', 'type');
       type_media-source: |-
-        return !!getStatByType('media-source', null)
+        return !!getStatByType('media-source');
       type_media-source.audioLevel: |-
         return !!getStatByType('media-source', 'audioLevel');
       type_media-source.droppedSamplesDuration: |-
@@ -3641,7 +3641,7 @@ api:
       type_media-source.width: |-
         return !!getStatByType('media-source', 'width');
       type_outbound-rtp: |-
-        return !!getStatByType('outbound-rtp', null)
+        return !!getStatByType('outbound-rtp');
       type_outbound-rtp.active: |-
         return !!getStatByType('outbound-rtp', 'active');
       type_outbound-rtp.bytesSent: |-
@@ -3719,7 +3719,7 @@ api:
       type_outbound-rtp.type: |-
         return !!getStatByType('outbound-rtp', 'type');
       type_peer-connection: |-
-        return !!getStatByType('peer-connection', null)
+        return !!getStatByType('peer-connection');
       type_peer-connection.dataChannelsClosed: |-
         return !!getStatByType('peer-connection', 'dataChannelsClosed');
       type_peer-connection.dataChannelsOpened: |-
@@ -3731,7 +3731,7 @@ api:
       type_peer-connection.type: |-
         return !!getStatByType('peer-connection', 'type');
       type_remote-candidate: |-
-        return !!getStatByType('remote-candidate', null)
+        return !!getStatByType('remote-candidate');
       type_remote-candidate.address: |-
         return !!getStatByType('remote-candidate', 'address');
       type_remote-candidate.candidateType: |-
