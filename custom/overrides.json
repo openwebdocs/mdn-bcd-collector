@@ -87,6 +87,7 @@
     "56-80",
     true
   ],
+  ["api.HTMLCanvasElement.getContext.webgl2_context", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.activeTexture", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.attachShader", "firefox", "51-80", true],
