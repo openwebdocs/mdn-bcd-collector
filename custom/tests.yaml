@@ -3087,6 +3087,24 @@ api:
       var promise = fetch('/favicon/favicon.ico').then(function(response) {
         return response.body;
       });
+  ReadableStreamDefaultController:
+    __base: |-
+      if (!('ReadableStream' in self)) {
+        return {result: false, message: 'ReadableStream constructor is not defined'};
+      }
+
+      var instance;
+      var stream = new ReadableStream({
+        start(controller) {
+          instance = controller;
+        }
+      });
+  ReadableStreamDefaultReader:
+    __base: |-
+      <%api.ReadableStream:streamPromise%>
+      var promise = streamPromise.then(function(stream) {
+        return stream.getReader();
+      });
   Report:
     __base: |-
       // XXX Obtaining an instance of this interface is much like triggering an event.
