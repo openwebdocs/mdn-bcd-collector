@@ -3789,7 +3789,7 @@ api:
       // Browsers have a slight delay before speech synthesis voices are loaded
       setTimeout(function() {
         callback(synth.getVoices()[0]);
-      }, 10);
+      }, 100);
   StereoPannerNode:
     __resources:
       - audioContext
