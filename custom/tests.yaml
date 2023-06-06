@@ -4280,6 +4280,21 @@ api:
           throw e;
         }
       }
+  TransformStreamDefaultController:
+    __base: |-
+      var instance;
+      var transformer = {
+        start() {}, // Required
+        async transform(chunk, controller) {
+          instance = controller;
+        }
+      };
+      class AnyToU8Stream extends TransformStream {
+        constructor() {
+          super({ ...transformer, textencoder: new TextEncoder() });
+        }
+      }
+      new AnyToU8Stream();
   TransitionEvent:
     __base: |-
       var instance;
