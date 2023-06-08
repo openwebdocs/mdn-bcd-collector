@@ -469,6 +469,9 @@
    * returns (TestResult): Whether the property is supported; if `value` is present,
    *   whether that value is supported with the property
    */
+  async function testWasmFeature(feature) {
+    return await wasmFeatureDetect[feature]();
+  }
   function testCSSProperty(name, value) {
     if (!value) {
       // Default to "inherit"
@@ -1581,6 +1584,7 @@
     testObjectName: testObjectName,
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
+    testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,
     addCleanup: addCleanup,

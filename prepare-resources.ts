@@ -18,6 +18,7 @@ const generatedDir = fileURLToPath(new URL('./generated', import.meta.url));
 
 const copyResources = async () => {
   const resources = [
+    ['wasm-feature-detect/dist/umd/index.js', 'resources/wasm-feature-detect'],
     ['json3/lib/json3.min.js', 'resources'],
     ['chai/chai.js', 'unittest'],
     ['mocha/mocha.css', 'unittest'],

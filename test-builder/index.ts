@@ -16,6 +16,7 @@ import customIDL from '../custom/idl/index.js';
 import {build as buildAPI} from './api.js';
 import {build as buildCSS} from './css.js';
 import {build as buildJS} from './javascript.js';
+import {build as buildWasm} from './webassembly.js';
 import {customTests} from './common.js';
 
 import type {IDLFiles} from '../types/types.js';
@@ -26,6 +27,9 @@ const customCSS = await fs.readJson(
 const customJS = await fs.readJson(
   new URL('../custom/js.json', import.meta.url),
 );
+const customWasm = await fs.readJson(
+  new URL('../custom/wasm.json', import.meta.url)
+);
 
 /* c8 ignore start */
 const build = async (customIDL: IDLFiles, customCSS) => {
@@ -35,11 +39,13 @@ const build = async (customIDL: IDLFiles, customCSS) => {
   const APITests = buildAPI(specIDLs, customIDL);
   const CSSTests = buildCSS(specCSS, customCSS);
   const JSTests = buildJS(customJS);
+  const WasmTests = buildWasm(customWasm);
   const tests = Object.assign(
     {__resources: customTests.__resources},
     APITests,
     CSSTests,
     JSTests,
+    WasmTests
   );
 
   await fs.writeJson(new URL('../tests.json', import.meta.url), tests);
