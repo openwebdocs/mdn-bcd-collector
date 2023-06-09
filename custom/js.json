@@ -3,6 +3,7 @@
     "AggregateError": {
       "ctor_args": "[new Error('message')]"
     },
+    "AggregateError.prototype.errors": {},
     "Array": {
       "ctor_args": "2"
     },
@@ -56,7 +57,8 @@
     "Array.@@species": {},
     "Array.prototype.@@unscopables": {},
     "ArrayBuffer": {
-      "ctor_args": "2"
+      "ctor_args": "2",
+      "ctor_new": "required"
     },
     "ArrayBuffer.prototype.byteLength": {},
     "ArrayBuffer.prototype.maxByteLength": {},
@@ -114,7 +116,8 @@
     "Boolean.prototype.toString": {},
     "Boolean.prototype.valueOf": {},
     "DataView": {
-      "ctor_args": "new ArrayBuffer(2)"
+      "ctor_args": "new ArrayBuffer(2)",
+      "ctor_new": "required"
     },
     "DataView.prototype.buffer": {},
     "DataView.prototype.byteLength": {},
@@ -214,10 +217,18 @@
     "FinalizationRegistry.prototype.register": {},
     "FinalizationRegistry.prototype.unregister": {},
     "Float32Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Float64Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Function": {
       "ctor_args": "'return true'"
@@ -240,13 +251,25 @@
     },
     "Infinity": {},
     "Int16Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Int32Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Int8Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "InternalError": {
       "ctor_args": "'message'"
@@ -257,7 +280,8 @@
     "JSON.parse": {},
     "JSON.stringify": {},
     "Map": {
-      "ctor_args": ""
+      "ctor_args": "",
+      "ctor_new": "required"
     },
     "Map.prototype.clear": {},
     "Map.prototype.delete": {},
@@ -347,6 +371,8 @@
     "Object.assign": {},
     "Object.prototype.constructor": {},
     "Object.create": {},
+    "Object.prototype.defineGetter": {},
+    "Object.prototype.defineSetter": {},
     "Object.defineProperties": {},
     "Object.defineProperty": {},
     "Object.entries": {},
@@ -365,6 +391,8 @@
     "Object.prototype.isPrototypeOf": {},
     "Object.isSealed": {},
     "Object.keys": {},
+    "Object.prototype.lookupGetter": {},
+    "Object.prototype.lookupSetter": {},
     "Object.preventExtensions": {},
     "Object.prototype.propertyIsEnumerable": {},
     "Object.seal": {},
@@ -441,7 +469,8 @@
     "RegExp.@@species": {},
     "RegExp.prototype.@@split": {},
     "Set": {
-      "ctor_args": ""
+      "ctor_args": "",
+      "ctor_new": "required"
     },
     "Set.prototype.add": {},
     "Set.prototype.clear": {},
@@ -864,7 +893,9 @@
     "TypeError": {
       "ctor_args": "'message'"
     },
-    "TypedArray": {},
+    "TypedArray": {
+      "ctor_args": ""
+    },
     "TypedArray.prototype.BYTES_PER_ELEMENT": {},
     "TypedArray.prototype.at": {},
     "TypedArray.prototype.buffer": {},
@@ -910,19 +941,36 @@
       "ctor_args": "'message'"
     },
     "Uint16Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Uint32Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Uint8Array": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "Uint8ClampedArray": {
-      "ctor_args": "2"
+      "ctor_args": {
+        "args": "2",
+        "optional": true
+      },
+      "ctor_new": "required"
     },
     "WeakMap": {
-      "ctor_args": ""
+      "ctor_args": "",
+      "ctor_new": "required"
     },
     "WeakMap.prototype.clear": {},
     "WeakMap.prototype.delete": {},
@@ -1055,7 +1103,9 @@
     },
     "WebAssembly.Global.prototype.value": {},
     "WebAssembly.Global.prototype.valueOf": {},
-    "WebAssembly.Instance": {},
+    "WebAssembly.Instance": {
+      "ctor_args": ""
+    },
     "WebAssembly.Instance.prototype.exports": {},
     "WebAssembly.LinkError": {
       "ctor_args": "'message'"
@@ -1065,7 +1115,9 @@
     },
     "WebAssembly.Memory.prototype.buffer": {},
     "WebAssembly.Memory.prototype.grow": {},
-    "WebAssembly.Module": {},
+    "WebAssembly.Module": {
+      "ctor_args": ""
+    },
     "WebAssembly.Module.customSections": {},
     "WebAssembly.Module.exports": {},
     "WebAssembly.Module.imports": {},

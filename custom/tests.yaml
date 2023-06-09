@@ -4829,6 +4829,26 @@ javascript:
         return !!instance && "Symbol" in self && "asyncIterator" in Symbol && Symbol.asyncIterator in AsyncIteratorPrototype;
     Error:
       __base: "var instance = new Error('hello world', {cause: 'for testing'});"
+    Float32Array:
+      __additional:
+        Float32Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Float32Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    Float64Array:
+      __additional:
+        Float64Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Float64Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     Generator:
       __base: <%javascript.builtins.GeneratorFunction:instance%>
       __test: return !!instance;
@@ -4852,6 +4872,36 @@ javascript:
       name: |-
         function doTheThing() {};
         return doTheThing.name == 'doTheThing';
+    Int16Array:
+      __additional:
+        Int16Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Int16Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    Int32Array:
+      __additional:
+        Int32Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Int32Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    Int8Array:
+      __additional:
+        Int8Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Int8Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     Intl:
       Collator:
         __base: |-
@@ -4928,10 +4978,34 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
+    Map:
+      __additional:
+        Map.iterable_allowed: |-
+          try {
+            new Map([
+              [1, "one"],
+              [2, "two"],
+              [3, "three"],
+            ]);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        Map.null_allowed: |-
+          try {
+            new Map(null);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     Object:
       constructor: |-
         var instance = {};
         return !!instance.constructor;
+      defineGetter: return '__defineGetter__' in instance;
+      defineSetter: return '__defineSetter__' in instance;
+      lookupGetter: return '__lookupGetter__' in instance;
+      lookupSetter: return '__lookupSetter__' in instance;
     RegExp:
       __base: |-
         if (!('RegExp' in self)) {
@@ -4939,16 +5013,132 @@ javascript:
         }
         var instance = new RegExp('foo', 'g');
       n: return '$1' in RegExp;
+    Set:
+      __additional:
+        Set.iterable_allowed: |-
+          try {
+            new Set([1, 2, 3, 4, 5]);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        Set.null_allowed: |-
+          try {
+            new Set(null);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     TypedArray:
       __base: |-
         if (!('Int8Array' in self)) {
           return {result: false, message: 'Int8Array is not defined'};
         }
         var instance = new Int8Array(2);
+      TypedArray: return !!instance;
       from: return 'from' in Int8Array;
       name: return 'name' in Int8Array;
       of: return 'of' in Int8Array;
       '@@species': return "Symbol" in self && "species" in Symbol && !!Int8Array[Symbol.species];
+      __additional:
+        constructor_without_parameters: |-
+          try {
+            new Int8Array();
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        iterable_in_constructor: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Int8Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        new_required: |-
+          try {
+            Int8Array();
+            return false;
+          } catch(e) {
+            return {result: true, message: e.message};
+          }
+    Uint16Array:
+      __additional:
+        Uint16Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Uint16Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    Uint32Array:
+      __additional:
+        Uint32Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Uint32Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    Uint8Array:
+      __additional:
+        Uint8Array.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Uint8Array(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    Uint8ClampedArray:
+      __additional:
+        Uint8ClampedArray.iterable_allowed: |-
+          <%javascript.builtins.GeneratorFunction:iterable%>
+          try {
+            new Uint8ClampedArray(iterable);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    WeakMap:
+      __additional:
+        WeakMap.iterable_allowed: |-
+          try {
+            new WeakMap([
+              [1, "one"],
+              [2, "two"],
+              [3, "three"],
+            ]);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        WeakMap.null_allowed: |-
+          try {
+            new WeakMap(null);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    WeakSet:
+      __additional:
+        WeakSet.iterable_allowed: |-
+          try {
+            new WeakSet([1, 2, 3, 4, 5]);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        WeakSet.null_allowed: |-
+          try {
+            new WeakSet(null);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     WebAssembly:
       Exception:
         __base: |-
@@ -4975,6 +5165,10 @@ javascript:
           var promise = module.then(function(m) {
             return new WebAssembly.Instance(m, importObject);
           });
+        Instance: |-
+          return promise.then(function(instance) {
+            return !!instance;
+          });
       Memory:
         __base: |-
           var instance = new WebAssembly.Memory({
@@ -4992,6 +5186,10 @@ javascript:
             }).then(function(bytes) {
               return new WebAssembly.Module(bytes);
             });
+        Module: |-
+          return promise.then(function(instance) {
+            return !!instance;
+          });
         customSections: return 'customSections' in WebAssembly.Module;
         exports: return 'exports' in WebAssembly.Module;
         imports: return 'imports' in WebAssembly.Module;

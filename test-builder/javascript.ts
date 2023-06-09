@@ -92,36 +92,62 @@ const build = (customJS) => {
           exposure: ['Window'],
         });
       } else {
-        const expr = `${path}(${extras.ctor_args})`;
+        const ctor_args = extras.ctor_args.args || extras.ctor_args || '';
+        const expr = `${path}(${ctor_args})`;
         const maybeNew = extras.ctor_new !== false ? 'new' : '';
 
-        let rawCode = `var instance = ${maybeNew} ${expr};
-    return !!instance;`;
+        let baseCode = '';
 
         if (path.startsWith('Intl')) {
-          rawCode =
-            `if (!("${parts[1]}" in Intl)) {
+          baseCode += `if (!("${parts[1]}" in Intl)) {
       return {result: false, message: 'Intl.${parts[1]} is not defined'};
     }
-    ` + rawCode;
+    `;
         } else if (path.startsWith('WebAssembly')) {
-          rawCode =
-            `if (!("${parts[1]}" in WebAssembly)) {
+          baseCode += `if (!("${parts[1]}" in WebAssembly)) {
       return {result: false, message: 'WebAssembly.${parts[1]} is not defined'};
     }
-    ` + rawCode;
+    `;
         }
 
-        rawCode =
-          `if (!("${parts[0]}" in self)) {
+        baseCode += `if (!("${parts[0]}" in self)) {
       return {result: false, message: '${parts[0]} is not defined'};
     }
-    ` + rawCode;
+    `;
+
+        let ctorCode = `var instance = ${maybeNew} ${expr};
+    return !!instance;`;
 
         tests[ctorPath] = compileTest({
-          raw: {code: compileCustomTest(rawCode).code},
+          raw: {code: compileCustomTest(baseCode + ctorCode).code},
           exposure: ['Window'],
         });
+
+        if (extras.ctor_new === 'required') {
+          let ctorNewCode = `try {
+            ${expr};
+            return {result: false, message: 'Constructor successful without "new" keyword'};
+          } catch(e) {
+            return {result: true, message: e.message};
+          }`;
+          tests[`${ctorPath}.new_required`] = compileTest({
+            raw: {code: compileCustomTest(baseCode + ctorNewCode).code},
+            exposure: ['Window'],
+          });
+        }
+
+        if (extras.ctor_args.optional) {
+          let ctorNewCode = `try {
+            new ${path}();
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }`;
+          tests[`${ctorPath}.constructor_without_parameters`] = compileTest({
+            raw: {code: compileCustomTest(baseCode + ctorNewCode).code},
+            exposure: ['Window'],
+          });
+        }
       }
     }
 
