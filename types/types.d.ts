@@ -11,7 +11,12 @@ import type * as WebIDL2 from 'webidl2';
 
 export type InternalSupportStatement = SupportStatement | 'mirror';
 
-export type Exposure = 'Window' | 'Worker' | 'SharedWorker' | 'ServiceWorker';
+export type Exposure =
+  | 'Window'
+  | 'Worker'
+  | 'SharedWorker'
+  | 'ServiceWorker'
+  | 'WebAssembly';
 
 export type Resource =
   | {

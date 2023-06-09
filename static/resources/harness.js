@@ -508,6 +508,15 @@
    * returns (TestResult): Whether the web assembly feature is supported
    */
   function testWasmFeature(feature) {
+    if (!("wasmFeatureDetect" in self)) {
+      return { result: null, message: "Failed to load wasm-feature-detect" };
+    }
+    if (!(feature in wasmFeatureDetect)) {
+      return {
+        result: false,
+        message: feature + " is not present in wasm-feature-detect"
+      };
+    }
     return wasmFeatureDetect[feature]();
   }
 
@@ -972,6 +981,76 @@
   }
 
   /**
+   * Run all of the pending tests under the WebAssembly exposure if any
+   *
+   * callback (function): The callback to call once function completes
+   *
+   * returns (void)
+   * callback (TestResults): The processed result of the tests
+   *
+   */
+  function runWebAssembly(callback) {
+    var fallback = function (message, value) {
+      /* c8 ignore start */
+      var results = [];
+      for (var i = 0; i < pending.WebAssembly.length; i++) {
+        var result = {
+          name: pending.WebAssembly[i].name,
+          result: value,
+          message: message,
+          info: {
+            exposure: "WebAssembly"
+          }
+        };
+
+        if (pending.WebAssembly[i].info !== undefined) {
+          result.info = Object.assign(
+            {},
+            result.info,
+            pending.WebAssembly[i].info
+          );
+        }
+
+        results.push(result);
+      }
+
+      callback(results);
+      /* c8 ignore stop */
+    };
+
+    if (pending.WebAssembly) {
+      updateStatus("Running tests for Web Assembly...");
+      if ("WebAssembly" in self) {
+        try {
+          // Load wasm-feature-detect
+          var wfdScript = document.createElement("script");
+          wfdScript.src = "/resources/wasm-feature-detect.js";
+          document.body.appendChild(wfdScript);
+
+          wfdScript.onload = function () {
+            runTests(pending.WebAssembly, callback);
+          };
+
+          wfdScript.onError = function () {
+            // If anything fails with loading, set all WASM features to null
+            fallback("Failed to load wasm-feature-detect", null);
+          };
+        } catch (e) {
+          // If anything fails with loading, set all WASM features to null
+          fallback("Failed to load wasm-feature-detect", null);
+        }
+      } else {
+        /* c8 ignore start */
+        updateStatus("No web assembly support, skipping WebAssembly tests");
+        fallback("No web assembly support", false);
+        /* c8 ignore stop */
+      }
+    } else {
+      callback([]);
+    }
+  }
+
+  /**
    * Load all resources
    *
    * onReady (function?): The callback to call once resources are loaded
@@ -1139,7 +1218,13 @@
       state.timedout = true;
     }, 20000);
 
-    var scopes = [runWindow, runWorker, runSharedWorker, runServiceWorker];
+    var scopes = [
+      runWindow,
+      runWorker,
+      runSharedWorker,
+      runServiceWorker,
+      runWebAssembly
+    ];
     var currentScope = 0;
 
     var allFinished = function () {

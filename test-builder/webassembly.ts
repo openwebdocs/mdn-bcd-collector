@@ -17,9 +17,9 @@ const build = (customWasm) => {
     tests[path] = compileTest({
       raw: {
         // 'wfd-key' stands for 'wasm-feature-detect key'
-        code: `bcd.testWasmFeature('${details['wfd-key']}')`
+        code: `bcd.testWasmFeature('${details['wfd-key']}')`,
       },
-      exposure: ['Window']
+      exposure: ['WebAssembly'],
     });
   }
   return tests;
