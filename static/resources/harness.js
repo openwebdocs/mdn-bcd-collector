@@ -469,9 +469,6 @@
    * returns (TestResult): Whether the property is supported; if `value` is present,
    *   whether that value is supported with the property
    */
-  async function testWasmFeature(feature) {
-    return await wasmFeatureDetect[feature]();
-  }
   function testCSSProperty(name, value) {
     if (!value) {
       // Default to "inherit"
@@ -501,6 +498,17 @@
     }
 
     return { result: null, message: "Detection methods are not supported" };
+  }
+
+  /**
+   * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
+   *
+   * feature (string): The web assembly feature name as defined in `wasm-feature-detect`
+   *
+   * returns (TestResult): Whether the web assembly feature is supported
+   */
+  function testWasmFeature(feature) {
+    return wasmFeatureDetect[feature]();
   }
 
   /**
