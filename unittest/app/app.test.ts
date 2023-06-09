@@ -18,11 +18,6 @@ const agent = chai.request.agent(app);
 const tests = Object.entries(
   await fs.readJson(new URL('../../tests.json', import.meta.url)),
 );
-const packageLock = await fs.readJson(
-  new URL('../../package-lock.json', import.meta.url),
-);
-
-const userAgent = `node-superagent/${packageLock.packages['node_modules/superagent'].version}`;
 
 describe('/api/results', () => {
   it('missing `Content-Type` header', async () => {
@@ -44,7 +39,6 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {},
-      userAgent: userAgent,
     });
   });
 
@@ -82,7 +76,6 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {[testURL]: testResults},
-      userAgent: userAgent,
     });
   });
 
@@ -100,7 +93,6 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {[testURL]: modifiedResults},
-      userAgent: userAgent,
     });
   });
 
@@ -119,7 +111,6 @@ describe('/api/results', () => {
     assert.deepEqual(res.body, {
       __version: version,
       results: {[testURL]: modifiedResults, [testURL2]: testResults},
-      userAgent: userAgent,
     });
   });
 
