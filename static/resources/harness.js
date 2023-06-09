@@ -1139,40 +1139,42 @@
       state.timedout = true;
     }, 20000);
 
-    runWindow(function (results) {
+    var scopes = [runWindow, runWorker, runSharedWorker, runServiceWorker];
+    var currentScope = 0;
+
+    var allFinished = function () {
+      pending = {};
+      state.completed = true;
+      state.timedout = false;
+      clearTimeout(timeout);
+
+      for (var i = 0; i < cleanupFunctions.length; i++) {
+        cleanupFunctions[i]();
+      }
+
+      if ("serviceWorker" in navigator) {
+        window.__workerCleanup();
+      }
+
+      if (typeof onComplete == "function") {
+        onComplete(allresults);
+      } else {
+        report(allresults, hideResults);
+      }
+    };
+
+    var scopeFinished = function (results) {
       allresults = allresults.concat(results);
+      currentScope++;
 
-      runWorker(function (results) {
-        allresults = allresults.concat(results);
+      if (currentScope >= scopes.length) {
+        allFinished();
+      } else {
+        scopes[currentScope](scopeFinished);
+      }
+    };
 
-        runSharedWorker(function (results) {
-          allresults = allresults.concat(results);
-
-          runServiceWorker(function (results) {
-            allresults = allresults.concat(results);
-
-            pending = {};
-            state.completed = true;
-            state.timedout = false;
-            clearTimeout(timeout);
-
-            for (var i = 0; i < cleanupFunctions.length; i++) {
-              cleanupFunctions[i]();
-            }
-
-            if ("serviceWorker" in navigator) {
-              window.__workerCleanup();
-            }
-
-            if (typeof onComplete == "function") {
-              onComplete(allresults);
-            } else {
-              report(allresults, hideResults);
-            }
-          });
-        });
-      });
-    });
+    scopes[0](scopeFinished);
   }
 
   /**
