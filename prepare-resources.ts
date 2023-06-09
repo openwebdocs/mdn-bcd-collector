@@ -40,6 +40,11 @@ const copyResources = async () => {
     ['@mdi/font/fonts/materialdesignicons-webfont.woff2', 'fonts'],
     ['highlight.js/styles/stackoverflow-dark.css', 'resources/highlight.js'],
     ['highlight.js/styles/stackoverflow-light.css', 'resources/highlight.js'],
+    [
+      'wasm-feature-detect/dist/umd/index.js',
+      'resources',
+      'wasm-feature-detect.js',
+    ],
   ];
   for (const [srcInModules, destInGenerated, newFilename] of resources) {
     const src = fileURLToPath(

@@ -8,7 +8,7 @@
 
 /* global console, document, window, location, navigator, XMLHttpRequest,
           self, Worker, Promise, setTimeout, clearTimeout, MessageChannel,
-          SharedWorker, hljs */
+          SharedWorker, hljs, wasmFeatureDetect */
 
 // This harness should work on as old browsers as possible and shouldn't depend
 // on any modern JavaScript features.
@@ -501,6 +501,26 @@
   }
 
   /**
+   * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
+   *
+   * feature (string): The web assembly feature name as defined in `wasm-feature-detect`
+   *
+   * returns (TestResult): Whether the web assembly feature is supported
+   */
+  function testWasmFeature(feature) {
+    if (!("wasmFeatureDetect" in self)) {
+      return { result: null, message: "Failed to load wasm-feature-detect" };
+    }
+    if (!(feature in wasmFeatureDetect)) {
+      return {
+        result: false,
+        message: feature + " is not present in wasm-feature-detect"
+      };
+    }
+    return wasmFeatureDetect[feature]();
+  }
+
+  /**
    * Once a test is evaluated and run, it calls this function with the result.
    * This function then compiles a result object from the given result value,
    * and then passes the result to `callback()` (or if the result is not true
@@ -961,6 +981,76 @@
   }
 
   /**
+   * Run all of the pending tests under the WebAssembly exposure if any
+   *
+   * callback (function): The callback to call once function completes
+   *
+   * returns (void)
+   * callback (TestResults): The processed result of the tests
+   *
+   */
+  function runWebAssembly(callback) {
+    var fallback = function (message, value) {
+      /* c8 ignore start */
+      var results = [];
+      for (var i = 0; i < pending.WebAssembly.length; i++) {
+        var result = {
+          name: pending.WebAssembly[i].name,
+          result: value,
+          message: message,
+          info: {
+            exposure: "WebAssembly"
+          }
+        };
+
+        if (pending.WebAssembly[i].info !== undefined) {
+          result.info = Object.assign(
+            {},
+            result.info,
+            pending.WebAssembly[i].info
+          );
+        }
+
+        results.push(result);
+      }
+
+      callback(results);
+      /* c8 ignore stop */
+    };
+
+    if (pending.WebAssembly) {
+      updateStatus("Running tests for Web Assembly...");
+      if ("WebAssembly" in self) {
+        try {
+          // Load wasm-feature-detect
+          var wfdScript = document.createElement("script");
+          wfdScript.src = "/resources/wasm-feature-detect.js";
+          document.body.appendChild(wfdScript);
+
+          wfdScript.onload = function () {
+            runTests(pending.WebAssembly, callback);
+          };
+
+          wfdScript.onError = function () {
+            // If anything fails with loading, set all WASM features to null
+            fallback("Failed to load wasm-feature-detect", null);
+          };
+        } catch (e) {
+          // If anything fails with loading, set all WASM features to null
+          fallback("Failed to load wasm-feature-detect", null);
+        }
+      } else {
+        /* c8 ignore start */
+        updateStatus("No web assembly support, skipping WebAssembly tests");
+        fallback("No web assembly support", false);
+        /* c8 ignore stop */
+      }
+    } else {
+      callback([]);
+    }
+  }
+
+  /**
    * Load all resources
    *
    * onReady (function?): The callback to call once resources are loaded
@@ -1128,40 +1218,48 @@
       state.timedout = true;
     }, 20000);
 
-    runWindow(function (results) {
+    var scopes = [
+      runWindow,
+      runWorker,
+      runSharedWorker,
+      runServiceWorker,
+      runWebAssembly
+    ];
+    var currentScope = 0;
+
+    var allFinished = function () {
+      pending = {};
+      state.completed = true;
+      state.timedout = false;
+      clearTimeout(timeout);
+
+      for (var i = 0; i < cleanupFunctions.length; i++) {
+        cleanupFunctions[i]();
+      }
+
+      if ("serviceWorker" in navigator) {
+        window.__workerCleanup();
+      }
+
+      if (typeof onComplete == "function") {
+        onComplete(allresults);
+      } else {
+        report(allresults, hideResults);
+      }
+    };
+
+    var scopeFinished = function (results) {
       allresults = allresults.concat(results);
+      currentScope++;
 
-      runWorker(function (results) {
-        allresults = allresults.concat(results);
+      if (currentScope >= scopes.length) {
+        allFinished();
+      } else {
+        scopes[currentScope](scopeFinished);
+      }
+    };
 
-        runSharedWorker(function (results) {
-          allresults = allresults.concat(results);
-
-          runServiceWorker(function (results) {
-            allresults = allresults.concat(results);
-
-            pending = {};
-            state.completed = true;
-            state.timedout = false;
-            clearTimeout(timeout);
-
-            for (var i = 0; i < cleanupFunctions.length; i++) {
-              cleanupFunctions[i]();
-            }
-
-            if ("serviceWorker" in navigator) {
-              window.__workerCleanup();
-            }
-
-            if (typeof onComplete == "function") {
-              onComplete(allresults);
-            } else {
-              report(allresults, hideResults);
-            }
-          });
-        });
-      });
-    });
+    scopes[0](scopeFinished);
   }
 
   /**
@@ -1581,6 +1679,7 @@
     testObjectName: testObjectName,
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
+    testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,
     addCleanup: addCleanup,
