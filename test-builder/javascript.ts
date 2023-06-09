@@ -115,7 +115,7 @@ const build = (customJS) => {
     }
     `;
 
-        let ctorCode = `var instance = ${maybeNew} ${expr};
+        const ctorCode = `var instance = ${maybeNew} ${expr};
     return !!instance;`;
 
         tests[ctorPath] = compileTest({
@@ -124,7 +124,7 @@ const build = (customJS) => {
         });
 
         if (extras.ctor_new === 'required') {
-          let ctorNewCode = `try {
+          const ctorNewCode = `try {
             ${expr};
             return {result: false, message: 'Constructor successful without "new" keyword'};
           } catch(e) {
@@ -137,14 +137,14 @@ const build = (customJS) => {
         }
 
         if (extras.ctor_args.optional) {
-          let ctorNewCode = `try {
+          const ctorNoArgsCode = `try {
             new ${path}();
             return true;
           } catch(e) {
             return {result: false, message: e.message};
           }`;
           tests[`${ctorPath}.constructor_without_parameters`] = compileTest({
-            raw: {code: compileCustomTest(baseCode + ctorNewCode).code},
+            raw: {code: compileCustomTest(baseCode + ctorNoArgsCode).code},
             exposure: ['Window'],
           });
         }
