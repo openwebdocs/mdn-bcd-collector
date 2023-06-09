@@ -91,15 +91,9 @@ const getMissing = (
     );
   };
 
-  const bcdEntries = [
-    ...traverseFeatures(bcd.api, 'api.', includeAliases),
-    ...traverseFeatures(bcd.css.properties, 'css.properties.', includeAliases),
-    ...traverseFeatures(
-      bcd.javascript.builtins,
-      'javascript.builtins.',
-      includeAliases,
-    ),
-  ].filter(filterCategory);
+  const bcdEntries = traverseFeatures(bcd, '', includeAliases).filter(
+    filterCategory,
+  );
   const collectorEntries = Object.keys(tests).filter(filterCategory);
 
   switch (direction) {
