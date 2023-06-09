@@ -28,7 +28,7 @@ const customJS = await fs.readJson(
   new URL('../custom/js.json', import.meta.url),
 );
 const customWasm = await fs.readJson(
-  new URL('../custom/wasm.json', import.meta.url)
+  new URL('../custom/wasm.json', import.meta.url),
 );
 
 /* c8 ignore start */
@@ -45,7 +45,7 @@ const build = async (customIDL: IDLFiles, customCSS) => {
     APITests,
     CSSTests,
     JSTests,
-    WasmTests
+    WasmTests,
   );
 
   await fs.writeJson(new URL('../tests.json', import.meta.url), tests);

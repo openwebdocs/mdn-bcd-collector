@@ -8,7 +8,7 @@
 
 /* global console, document, window, location, navigator, XMLHttpRequest,
           self, Worker, Promise, setTimeout, clearTimeout, MessageChannel,
-          SharedWorker, hljs */
+          SharedWorker, hljs, wasmFeatureDetect */
 
 // This harness should work on as old browsers as possible and shouldn't depend
 // on any modern JavaScript features.
