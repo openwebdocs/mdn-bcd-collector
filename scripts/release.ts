@@ -260,7 +260,7 @@ const doChangelogUpdate = async (ctx) => {
     // Move the Older Versions list to new changelog
     changelog =
       '# mdn-bcd-collector Changelog\n\n## Older Versions\n\n' +
-      `- [v${currentMajorVersion}.x](./changelog/v${currentMajorVersion}.md)` +
+      `- [v${currentMajorVersion}.x](./changelog/v${currentMajorVersion}.md)\n` +
       changelog.substring(
         changelog.indexOf(olderVersionsHeader) + olderVersionsHeader.length + 2,
         changelog.length,
