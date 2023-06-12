@@ -434,7 +434,9 @@ const buildIDLMemberTests = (
   const handledMemberNames = new Set();
 
   for (const member of members) {
-    if (handledMemberNames.has(member.name)) {
+    const name = member.name + (member.special === 'static' ? '_static' : '');
+
+    if (handledMemberNames.has(name)) {
       continue;
     }
 
@@ -460,7 +462,7 @@ const buildIDLMemberTests = (
       isStatic || ['toString', 'toJSON'].includes(member.name as string);
 
     const customTestMember = getCustomTest(
-      `api.${iface.name}.${member.name}`,
+      `api.${iface.name}.${name}`,
       'api',
       customTestExactMatchNeeded,
     );
@@ -502,19 +504,19 @@ const buildIDLMemberTests = (
     //   ? `${member.name.replace(/^on/, '')}_event`
     //   : member.name;
 
-    tests[member.name] = compileTest({
+    tests[name] = compileTest({
       raw: {
         code: expr,
       },
       exposure: Array.from(exposureSet),
       resources,
     });
-    handledMemberNames.add(member.name);
+    handledMemberNames.add(name);
 
     for (const [subtestName, subtestData] of Object.entries(
       customTestMember.additional,
     )) {
-      tests[`${member.name}.${subtestName}`] = compileTest({
+      tests[`${name}.${subtestName}`] = compileTest({
         raw: {code: subtestData},
         exposure: Array.from(exposureSet),
         resources,
