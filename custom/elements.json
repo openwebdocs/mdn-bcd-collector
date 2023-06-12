@@ -122,6 +122,12 @@
           "interfaceName": "SVGVKernElement",
           "attributes": ["g1", "g2", "k", "u1", "u2"]
         }
+      },
+      "mathml": {
+        "menclose": {
+          "attributes": ["notation"]
+        },
+        "mfenced": {}
       }
     },
     "attributes": {
@@ -683,6 +689,55 @@
         "tspan": ["dx", "dy", "lengthAdjust", "rotate", "textLength", "x", "y"],
         "use": ["height", "href", "width", "x", "xlink_href", "y"],
         "view": ["preserveAspectRatio", "viewBox", "viewTarget", "zoomAndPan"]
+      },
+      "mathml": {
+        "maction": ["actiontype", "selection"],
+        "math": ["display"],
+        "mfrac": ["denomalign", "linethickness", "numalign"],
+        "mmultiscripts": ["subscriptshift", "superscriptshift"],
+        "mo": [
+          "accent",
+          "form",
+          "largeop",
+          "lspace",
+          "maxsize",
+          "minsize",
+          "moveablelimits",
+          "rspace",
+          "stretchy",
+          "symmetric"
+        ],
+        "mover": ["accent"],
+        "mpadded": ["depth", "height", "lspace", "voffset", "width"],
+        "mspace": ["depth", "height", "width"],
+        "mstyle": [
+          "background",
+          "color",
+          "fontsize",
+          "fontstyle",
+          "fontweight",
+          "scriptminsize",
+          "scriptsizemultiplier"
+        ],
+        "msub": ["subscriptshift"],
+        "msubsup": ["subscriptshift", "superscriptshift"],
+        "msup": ["superscriptshift"],
+        "mtable": [
+          "align",
+          "columnalign",
+          "columnlines",
+          "columnspacing",
+          "frame",
+          "framespacing",
+          "rowalign",
+          "rowlines",
+          "rowspacing",
+          "width"
+        ],
+        "mtd": ["columnalign", "columnspan", "rowalign", "rowspan"],
+        "mtr": ["columnalign", "rowalign"],
+        "munder": ["accentunder"],
+        "munderover": ["accent", "accentunder"]
       }
     }
   }
