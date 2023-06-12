@@ -483,5 +483,8 @@
   ["api.MediaStreamTrackProcessor.readable", "edge", "94+", true],
   "Only supported in Chrome OS",
   ["api.NetworkInformation.downlinkMax", "chrome", "61+", true],
-  ["api.NetworkInformation.type", "chrome", "61+", true]
+  ["api.NetworkInformation.type", "chrome", "61+", true],
+  "Only supported in first-party sets",
+  ["api.Document.hasStorageAccess", "chrome", "113+", true],
+  ["api.Document.requestStorageAccess", "chrome", "113+", true]
 ]
