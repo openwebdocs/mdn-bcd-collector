@@ -56,18 +56,29 @@ const build = (specElements, customHTML) => {
 
     // Add tests for the attributes
     for (const attr of data.attributes || []) {
+      let attrName = '';
+      let attrProp = '';
+
+      if (typeof attr == 'string') {
+        attrName = attr;
+        attrProp = attr;
+      } else {
+        attrName = attr.name;
+        attrProp = attr.prop;
+      }
+
       const customAttrTest = getCustomTest(
-        `${bcdPath}.${attr}`,
+        `${bcdPath}.${attrName}`,
         'html.elements',
         true,
       );
 
       const defaultAttrCode = `(function() {
   var instance = document.createElement('${el}');
-  return !!instance && '${attr}' in instance;
+  return !!instance && '${attrProp}' in instance;
 })()`;
 
-      tests[`${bcdPath}.${attr}`] = compileTest({
+      tests[`${bcdPath}.${attrName}`] = compileTest({
         raw: {
           code: customAttrTest.test || defaultAttrCode,
         },
@@ -76,7 +87,7 @@ const build = (specElements, customHTML) => {
 
       // Add the additional tests
       for (const [key, code] of Object.entries(customTest.additional)) {
-        tests[`${bcdPath}.${attr}.${key}`] = compileTest({
+        tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
           raw: {code: code},
           exposure: ['Window'],
         });
