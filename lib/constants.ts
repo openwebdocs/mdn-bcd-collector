@@ -18,12 +18,3 @@ export const BCD_DIR = process.env.BCD_DIR
 export const RESULTS_DIR = process.env.RESULTS_DIR
   ? path.resolve(process.env.RESULTS_DIR)
   : fileURLToPath(new URL('../mdn-bcd-results', BASE_DIR));
-
-export const CATEGORIES = [
-  'api',
-  'css.properties',
-  'javascript.builtins',
-  'html.elements',
-  'svg.elements',
-  'mathml.elements',
-];

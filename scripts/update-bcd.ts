@@ -34,7 +34,7 @@ import {Minimatch} from 'minimatch';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {BCD_DIR, CATEGORIES} from '../lib/constants.js';
+import {BCD_DIR} from '../lib/constants.js';
 import logger from '../lib/logger.js';
 import {parseUA} from '../lib/ua-parser.js';
 
@@ -628,7 +628,18 @@ export const main = async (
   const bcdFiles = (await loadJsonFiles(
     filter.addNewFeatures
       ? [path.join(BCD_DIR, '__missing')]
-      : CATEGORIES.map((cat) => path.join(BCD_DIR, ...cat.split('.'))),
+      : [
+          'api',
+          'browsers',
+          'css',
+          'html',
+          'http',
+          'javascript',
+          'mathml',
+          'svg',
+          'webdriver',
+          'webextensions',
+        ].map((cat) => path.join(BCD_DIR, ...cat.split('.'))),
   )) as {[key: string]: Identifier};
 
   const reports = Object.values(await loadJsonFiles(reportPaths)) as Report[];
