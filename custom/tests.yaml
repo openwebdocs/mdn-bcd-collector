@@ -3786,10 +3786,12 @@ api:
   SpeechSynthesisVoice:
     __base: |-
       <%api.SpeechSynthesis:synth%>
-      // Browsers have a slight delay before speech synthesis voices are loaded
+      // Firefox has a bug where speech synthesis voices aren't loaded on the first call
+      synth.getVoices();
+      // Browsers have a bug where speech synthesis voices aren't loaded immediately
       setTimeout(function() {
         callback(synth.getVoices()[0]);
-      }, 100);
+      }, 3000);
   StereoPannerNode:
     __resources:
       - audioContext
