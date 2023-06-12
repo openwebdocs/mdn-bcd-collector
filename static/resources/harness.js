@@ -343,6 +343,8 @@
    *   passed directly as the argument
    * otherOptions (object?): An object containing other options to set, in case of
    *   required options; if "optName" is empty, this has no effect
+   * mustReturnTruthy (boolean?): If set to "true", the result of the method called must
+   *   be truthy
    *
    * returns (TestResult): If the value was accessed, the result will be `true`
    *
@@ -385,7 +387,8 @@
     methodName,
     optName,
     optValue,
-    otherOptions
+    otherOptions,
+    mustReturnTruthy
   ) {
     // If an array of method names is specified, test them all
     if (isArray(methodName)) {
@@ -447,14 +450,20 @@
       options = paramObj;
     }
 
+    var returnValue;
+
     if (methodName === "constructor") {
       // If methodName is 'constructor', we're testing a constructor
-      new instance(options);
+      returnValue = new instance(options);
     } else if (methodName) {
-      instance[methodName](options);
+      returnValue = instance[methodName](options);
     } else {
       // If there's no method name specified, we're testing a function
-      instance(options);
+      returnValue = instance(options);
+    }
+
+    if (mustReturnTruthy) {
+      return !!returnValue && accessed;
     }
 
     return accessed;

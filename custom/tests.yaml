@@ -2025,7 +2025,7 @@ api:
           function createContext(options) {
             return instance.getContext('webgl2', options);
           }
-          return bcd.testOptionParam(createContext, null, 'alpha', true);
+          return bcd.testOptionParam(createContext, null, 'alpha', true, {}, true);
         webgl2_context.options_desynchronized_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2033,7 +2033,7 @@ api:
           function createContext(options) {
             return instance.getContext('webgl2', options);
           }
-          return bcd.testOptionParam(createContext, null, 'desynchronized', true);
+          return bcd.testOptionParam(createContext, null, 'desynchronized', true, {}, true);
         webgl2_context.options_failIfMajorPerformanceCaveat_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2041,7 +2041,7 @@ api:
           function createContext(options) {
             return instance.getContext('webgl2', options);
           }
-          return bcd.testOptionParam(createContext, null, 'failIfMajorPerformanceCaveat', true);
+          return bcd.testOptionParam(createContext, null, 'failIfMajorPerformanceCaveat', true, {}, true);
         webgl2_context.options_powerPreference_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2049,7 +2049,7 @@ api:
           function createContext(options) {
             return instance.getContext('webgl2', options);
           }
-          return bcd.testOptionParam(createContext, null, 'powerPreference', "default");
+          return bcd.testOptionParam(createContext, null, 'powerPreference', "default", {}, true);
         2d_context: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
