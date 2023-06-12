@@ -32,7 +32,9 @@ const build = (specElements, customHTML) => {
     };
   }
 
-  for (const [el, data] of Object.entries(els) as any[]) {
+  for (const [el, data] of Object.entries(els).sort((a, b) =>
+    a[0].localeCompare(b[0]),
+  ) as any[]) {
     const bcdPath = `html.elements.${el}`;
 
     const customTest = getCustomTest(bcdPath, 'html.elements', true);
