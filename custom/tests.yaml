@@ -5006,6 +5006,7 @@ javascript:
       defineSetter: return '__defineSetter__' in instance;
       lookupGetter: return '__lookupGetter__' in instance;
       lookupSetter: return '__lookupSetter__' in instance;
+      proto: return '__proto__' in instance;
     RegExp:
       __base: |-
         if (!('RegExp' in self)) {
