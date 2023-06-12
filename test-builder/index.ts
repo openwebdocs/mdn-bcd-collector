@@ -10,11 +10,13 @@ import esMain from 'es-main';
 import fs from 'fs-extra';
 import idl from '@webref/idl';
 import css from '@webref/css';
+import elements from '@webref/elements';
 
 import customIDL from '../custom/idl/index.js';
 
 import {build as buildAPI} from './api.js';
 import {build as buildCSS} from './css.js';
+import {build as buildHTML} from './html.js';
 import {build as buildJS} from './javascript.js';
 import {build as buildWasm} from './webassembly.js';
 import {customTests} from './common.js';
@@ -23,6 +25,9 @@ import type {IDLFiles} from '../types/types.js';
 
 const customCSS = await fs.readJson(
   new URL('../custom/css.json', import.meta.url),
+);
+const customHTML = await fs.readJson(
+  new URL('../custom/html.json', import.meta.url),
 );
 const customJS = await fs.readJson(
   new URL('../custom/js.json', import.meta.url),
@@ -35,15 +40,18 @@ const customWasm = await fs.readJson(
 const build = async (customIDL: IDLFiles, customCSS) => {
   const specIDLs: IDLFiles = await idl.parseAll();
   const specCSS = await css.listAll();
+  const specElements = await elements.listAll();
 
   const APITests = buildAPI(specIDLs, customIDL);
   const CSSTests = buildCSS(specCSS, customCSS);
+  const HTMLTests = buildHTML(specElements, customHTML);
   const JSTests = buildJS(customJS);
   const WasmTests = buildWasm(customWasm);
   const tests = Object.assign(
     {__resources: customTests.__resources},
     APITests,
     CSSTests,
+    HTMLTests,
     JSTests,
     WasmTests,
   );
