@@ -11,7 +11,7 @@ import {getCustomTest, compileTest} from './common.js';
 const categories: {
   [name: string]: {
     namespace?: string;
-    default: string;
+    default?: string;
     startsWith: string;
   };
 } = {
@@ -21,10 +21,10 @@ const categories: {
   },
   svg: {
     namespace: 'http://www.w3.org/2000/svg',
-    default: 'SVGElement',
     startsWith: 'SVG',
   },
   mathml: {
+    // XXX Need to confirm that we can check for MathML support
     namespace: 'http://www.w3.org/1998/Math/MathML',
     default: 'MathMLElement',
     startsWith: 'MathML',
@@ -65,6 +65,11 @@ const build = (specElements, customElements) => {
       a[0].localeCompare(b[0]),
     ) as any[]) {
       const bcdPath = `${category}.elements.${el}`;
+
+      const interfaceName = data.interfaceName || categoryData.default;
+      if (!interfaceName) {
+        throw new Error(`${bcdPath} is missing an interface name`);
+      }
 
       const customTest = getCustomTest(bcdPath, '${category}.elements', true);
       const defaultConstructCode = namespace

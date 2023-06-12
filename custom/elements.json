@@ -3,22 +3,29 @@
     "custom": {
       "html": {
         "image": {
-          "instanceName": "HTMLImageElement"
+          "interfaceName": "HTMLImageElement"
         }
       },
       "svg": {
         "cursor": {
+          "interfaceName": "SVGCursorElement",
           "attributes": ["href", "x", "xlink_href", "y"]
         },
         "font-face-format": {
+          "interfaceName": "SVGFontFaceFormatElement",
           "attributes": ["string"]
         },
         "font-face-name": {
+          "interfaceName": "SVGFontFaceNameElement",
           "attributes": ["name"]
         },
-        "font-face-src": {},
-        "font-face-uri": {"attributes": ["xlink_href"]},
+        "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
+        "font-face-uri": {
+          "interfaceName": "SVGFontFaceUriElement",
+          "attributes": ["xlink_href"]
+        },
         "font-face": {
+          "interfaceName": "SVGFontFaceElement",
           "attributes": [
             "accent-height",
             "alphabetic",
@@ -56,6 +63,7 @@
           ]
         },
         "font": {
+          "interfaceName": "SVGFontElement",
           "attributes": [
             "horiz-adv-x",
             "horiz-origin-x",
@@ -66,6 +74,7 @@
           ]
         },
         "glyph": {
+          "interfaceName": "SVGGlyphElement",
           "attributes": [
             "arabic-form",
             "d",
@@ -80,6 +89,7 @@
           ]
         },
         "glyphRef": {
+          "interfaceName": "SVGGlyphRefElement",
           "attributes": [
             "dx",
             "dy",
@@ -91,9 +101,11 @@
           ]
         },
         "hkern": {
+          "interfaceName": "SVGHKernElement",
           "attributes": ["g1", "g2", "k", "u1", "u2"]
         },
         "missing-glyph": {
+          "interfaceName": "SVGMissingGlyphElement",
           "attributes": [
             "d",
             "horiz-adv-x",
@@ -103,9 +115,11 @@
           ]
         },
         "tref": {
+          "interfaceName": "SVGTRefElement",
           "attributes": ["xlink_href"]
         },
         "vkern": {
+          "interfaceName": "SVGVKernElement",
           "attributes": ["g1", "g2", "k", "u1", "u2"]
         }
       }
