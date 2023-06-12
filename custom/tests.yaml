@@ -3791,7 +3791,7 @@ api:
       // Browsers have a bug where speech synthesis voices aren't loaded immediately
       setTimeout(function() {
         callback(synth.getVoices()[0]);
-      }, 3000);
+      }, 2000);
   StereoPannerNode:
     __resources:
       - audioContext
