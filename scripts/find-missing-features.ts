@@ -15,7 +15,7 @@ import fs from 'fs-extra';
 import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
-import {BCD_DIR, CATEGORIES} from '../lib/constants.js';
+import {BCD_DIR} from '../lib/constants.js';
 
 const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
   const features: string[] = [];
@@ -82,19 +82,20 @@ const getMissing = (
   bcd: CompatData,
   tests: Tests,
   direction = 'collector-from-bcd',
-  category: string[] = [],
+  pathFilter: string[] = [],
   includeAliases = false,
 ) => {
-  const filterCategory = (item) => {
+  const filterPath = (item) => {
     return (
-      !category.length || category.some((cat) => item.startsWith(`${cat}.`))
+      pathFilter.length == 0 ||
+      pathFilter.some((p) => item === p || item.startsWith(`${p}.`))
     );
   };
 
   const bcdEntries = traverseFeatures(bcd, '', includeAliases).filter(
-    filterCategory,
+    filterPath,
   );
-  const collectorEntries = Object.keys(tests).filter(filterCategory);
+  const collectorEntries = Object.keys(tests).filter(filterPath);
 
   switch (direction) {
     case 'bcd-from-collector':
@@ -131,12 +132,11 @@ const main = (bcd: CompatData, tests: Tests) => {
           type: 'string',
           default: 'collector-from-bcd',
         })
-        .option('category', {
-          alias: 'c',
-          describe: 'The BCD categories to filter',
+        .option('path', {
+          alias: 'p',
+          describe: 'The path(s) to filter for',
           type: 'array',
-          choices: CATEGORIES,
-          default: CATEGORIES,
+          default: [],
         });
     },
   );
@@ -150,7 +150,7 @@ const main = (bcd: CompatData, tests: Tests) => {
     bcd,
     tests,
     argv.direction,
-    argv.category,
+    argv.path,
     argv.includeAliases,
   );
   console.log(missingEntries.join('\n'));
