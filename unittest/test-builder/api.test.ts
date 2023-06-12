@@ -434,7 +434,7 @@ describe('build (API)', () => {
           code: '"MediaSource" in self',
           exposure: ['Window'],
         },
-        'api.MediaSource.isTypeSupported': {
+        'api.MediaSource.isTypeSupported_static': {
           code: '"MediaSource" in self && "isTypeSupported" in MediaSource',
           exposure: ['Window'],
         },
