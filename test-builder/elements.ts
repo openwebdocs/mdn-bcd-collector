@@ -24,7 +24,6 @@ const categories: {
     startsWith: 'SVG',
   },
   mathml: {
-    // XXX Need to confirm that we can check for MathML support
     namespace: 'http://www.w3.org/1998/Math/MathML',
     default: 'MathMLElement',
     startsWith: 'MathML',
@@ -59,6 +58,11 @@ const build = (specElements, customElements) => {
   }
 
   for (const [category, categoryData] of Object.entries(categories)) {
+    if (category === 'mathml') {
+      // XXX Need to confirm that we can test MathML, skip them for now
+      continue;
+    }
+
     const namespace = categoryData.namespace;
 
     for (const [el, data] of Object.entries(els[category]).sort((a, b) =>
