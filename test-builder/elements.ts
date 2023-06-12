@@ -59,7 +59,8 @@ const build = (specElements, customElements) => {
 
   for (const [category, categoryData] of Object.entries(categories)) {
     if (category === 'mathml') {
-      // XXX Need to confirm that we can test MathML, skip them for now
+      // XXX MathML needs to be specially tested, skip for now
+      // Base code on https://github.com/web-platform-tests/wpt/blob/master/mathml/support/feature-detection.js?
       continue;
     }
 
