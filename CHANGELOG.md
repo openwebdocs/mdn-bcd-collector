@@ -1,1590 +1,516 @@
 # mdn-bcd-collector Changelog
 
-## v9.4.0
-
-### Test Changes
-
-#### Removed
-
-- css.properties.-apple-color-filter
-- css.properties.-apple-pay-button-style
-- css.properties.-apple-pay-button-type
-- css.properties.-apple-trailing-word
-- css.properties.-epub-caption-side
-- css.properties.-epub-text-combine
-- css.properties.-epub-text-emphasis
-- css.properties.-epub-text-emphasis-color
-- css.properties.-epub-text-emphasis-style
-- css.properties.-epub-text-orientation
-- css.properties.-epub-text-transform
-- css.properties.-epub-word-break
-- css.properties.-epub-writing-mode
-- css.properties.-internal-text-autosizing-status
-- css.properties.-moz-animation
-- css.properties.-moz-animation-delay
-- css.properties.-moz-animation-direction
-- css.properties.-moz-animation-duration
-- css.properties.-moz-animation-fill-mode
-- css.properties.-moz-animation-iteration-count
-- css.properties.-moz-animation-name
-- css.properties.-moz-animation-play-state
-- css.properties.-moz-animation-timing-function
-- css.properties.-moz-appearance
-- css.properties.-moz-backface-visibility
-- css.properties.-moz-background-inline-policy
-- css.properties.-moz-binding
-- css.properties.-moz-border-bottom-colors
-- css.properties.-moz-border-end
-- css.properties.-moz-border-end-color
-- css.properties.-moz-border-end-style
-- css.properties.-moz-border-end-width
-- css.properties.-moz-border-image
-- css.properties.-moz-border-left-colors
-- css.properties.-moz-border-radius-bottomleft
-- css.properties.-moz-border-radius-bottomright
-- css.properties.-moz-border-radius-topleft
-- css.properties.-moz-border-radius-topright
-- css.properties.-moz-border-right-colors
-- css.properties.-moz-border-start
-- css.properties.-moz-border-start-color
-- css.properties.-moz-border-start-style
-- css.properties.-moz-border-start-width
-- css.properties.-moz-border-top-colors
-- css.properties.-moz-box-align
-- css.properties.-moz-box-direction
-- css.properties.-moz-box-flex
-- css.properties.-moz-box-ordinal-group
-- css.properties.-moz-box-orient
-- css.properties.-moz-box-pack
-- css.properties.-moz-box-sizing
-- css.properties.-moz-column-count
-- css.properties.-moz-column-fill
-- css.properties.-moz-column-gap
-- css.properties.-moz-column-rule
-- css.properties.-moz-column-rule-color
-- css.properties.-moz-column-rule-style
-- css.properties.-moz-column-rule-width
-- css.properties.-moz-column-span
-- css.properties.-moz-column-width
-- css.properties.-moz-columns
-- css.properties.-moz-context-properties
-- css.properties.-moz-font-feature-settings
-- css.properties.-moz-font-language-override
-- css.properties.-moz-hyphens
-- css.properties.-moz-margin-end
-- css.properties.-moz-margin-start
-- css.properties.-moz-osx-font-smoothing
-- css.properties.-moz-outline-radius
-- css.properties.-moz-outline-radius-bottomleft
-- css.properties.-moz-outline-radius-bottomright
-- css.properties.-moz-outline-radius-topleft
-- css.properties.-moz-outline-radius-topright
-- css.properties.-moz-padding-end
-- css.properties.-moz-padding-start
-- css.properties.-moz-perspective
-- css.properties.-moz-perspective-origin
-- css.properties.-moz-stack-sizing
-- css.properties.-moz-tab-size
-- css.properties.-moz-text-align-last
-- css.properties.-moz-text-size-adjust
-- css.properties.-moz-transform
-- css.properties.-moz-transform-origin
-- css.properties.-moz-transform-style
-- css.properties.-moz-transition
-- css.properties.-moz-transition-delay
-- css.properties.-moz-transition-duration
-- css.properties.-moz-transition-property
-- css.properties.-moz-transition-timing-function
-- css.properties.-moz-user-modify
-- css.properties.-moz-user-select
-- css.properties.-moz-window-dragging
-- css.properties.-webkit-alt
-- css.properties.-webkit-animation-trigger
-- css.properties.-webkit-app-region
-- css.properties.-webkit-aspect-ratio
-- css.properties.-webkit-backdrop-filter
-- css.properties.-webkit-background-composite
-- css.properties.-webkit-border-after
-- css.properties.-webkit-border-after-color
-- css.properties.-webkit-border-after-style
-- css.properties.-webkit-border-after-width
-- css.properties.-webkit-border-before-color
-- css.properties.-webkit-border-before-style
-- css.properties.-webkit-border-before-width
-- css.properties.-webkit-border-end
-- css.properties.-webkit-border-end-color
-- css.properties.-webkit-border-end-style
-- css.properties.-webkit-border-end-width
-- css.properties.-webkit-border-fit
-- css.properties.-webkit-border-horizontal-spacing
-- css.properties.-webkit-border-image
-- css.properties.-webkit-border-start
-- css.properties.-webkit-border-start-color
-- css.properties.-webkit-border-start-style
-- css.properties.-webkit-border-start-width
-- css.properties.-webkit-border-vertical-spacing
-- css.properties.-webkit-box-decoration-break
-- css.properties.-webkit-box-direction
-- css.properties.-webkit-box-flex-group
-- css.properties.-webkit-box-lines
-- css.properties.-webkit-canvas
-- css.properties.-webkit-clip-path
-- css.properties.-webkit-color-correction
-- css.properties.-webkit-column-axis
-- css.properties.-webkit-column-break-after
-- css.properties.-webkit-column-break-before
-- css.properties.-webkit-column-break-inside
-- css.properties.-webkit-column-count
-- css.properties.-webkit-column-fill
-- css.properties.-webkit-column-gap
-- css.properties.-webkit-column-progression
-- css.properties.-webkit-column-rule
-- css.properties.-webkit-column-rule-color
-- css.properties.-webkit-column-rule-style
-- css.properties.-webkit-column-rule-width
-- css.properties.-webkit-column-span
-- css.properties.-webkit-column-width
-- css.properties.-webkit-columns
-- css.properties.-webkit-cursor-visibility
-- css.properties.-webkit-dashboard-region
-- css.properties.-webkit-flow-from
-- css.properties.-webkit-flow-into
-- css.properties.-webkit-font-feature-settings
-- css.properties.-webkit-font-kerning
-- css.properties.-webkit-font-size-delta
-- css.properties.-webkit-font-smoothing
-- css.properties.-webkit-font-variant-ligatures
-- css.properties.-webkit-highlight
-- css.properties.-webkit-hyphenate-character
-- css.properties.-webkit-hyphenate-limit-after
-- css.properties.-webkit-hyphenate-limit-before
-- css.properties.-webkit-hyphenate-limit-lines
-- css.properties.-webkit-hyphens
-- css.properties.-webkit-initial-letter
-- css.properties.-webkit-justify-items
-- css.properties.-webkit-justify-self
-- css.properties.-webkit-line-align
-- css.properties.-webkit-line-box-contain
-- css.properties.-webkit-line-break
-- css.properties.-webkit-line-grid
-- css.properties.-webkit-line-snap
-- css.properties.-webkit-locale
-- css.properties.-webkit-logical-height
-- css.properties.-webkit-logical-width
-- css.properties.-webkit-margin-after
-- css.properties.-webkit-margin-after-collapse
-- css.properties.-webkit-margin-before
-- css.properties.-webkit-margin-before-collapse
-- css.properties.-webkit-margin-bottom-collapse
-- css.properties.-webkit-margin-collapse
-- css.properties.-webkit-margin-end
-- css.properties.-webkit-margin-start
-- css.properties.-webkit-margin-top-collapse
-- css.properties.-webkit-marquee
-- css.properties.-webkit-marquee-direction
-- css.properties.-webkit-marquee-increment
-- css.properties.-webkit-marquee-repetition
-- css.properties.-webkit-marquee-speed
-- css.properties.-webkit-marquee-style
-- css.properties.-webkit-mask-source-type
-- css.properties.-webkit-max-logical-height
-- css.properties.-webkit-max-logical-width
-- css.properties.-webkit-min-logical-height
-- css.properties.-webkit-min-logical-width
-- css.properties.-webkit-nbsp-mode
-- css.properties.-webkit-opacity
-- css.properties.-webkit-padding-after
-- css.properties.-webkit-padding-before
-- css.properties.-webkit-padding-end
-- css.properties.-webkit-padding-start
-- css.properties.-webkit-perspective-origin-x
-- css.properties.-webkit-perspective-origin-y
-- css.properties.-webkit-print-color-adjust
-- css.properties.-webkit-region-break-after
-- css.properties.-webkit-region-break-before
-- css.properties.-webkit-region-break-inside
-- css.properties.-webkit-region-fragment
-- css.properties.-webkit-rtl-ordering
-- css.properties.-webkit-ruby-position
-- css.properties.-webkit-scroll-snap-coordinate
-- css.properties.-webkit-scroll-snap-destination
-- css.properties.-webkit-scroll-snap-points-x
-- css.properties.-webkit-scroll-snap-points-y
-- css.properties.-webkit-scroll-snap-type
-- css.properties.-webkit-shape-image-threshold
-- css.properties.-webkit-shape-margin
-- css.properties.-webkit-shape-outside
-- css.properties.-webkit-svg-shadow
-- css.properties.-webkit-text-combine
-- css.properties.-webkit-text-decoration
-- css.properties.-webkit-text-decoration-color
-- css.properties.-webkit-text-decoration-line
-- css.properties.-webkit-text-decoration-skip
-- css.properties.-webkit-text-decoration-style
-- css.properties.-webkit-text-decorations-in-effect
-- css.properties.-webkit-text-emphasis
-- css.properties.-webkit-text-emphasis-color
-- css.properties.-webkit-text-emphasis-position
-- css.properties.-webkit-text-emphasis-style
-- css.properties.-webkit-text-orientation
-- css.properties.-webkit-text-underline-position
-- css.properties.-webkit-text-zoom
-- css.properties.-webkit-transform-origin-x
-- css.properties.-webkit-transform-origin-y
-- css.properties.-webkit-transform-origin-z
-- css.properties.-webkit-user-drag
-- css.properties.-webkit-user-modify
-- css.properties.-webkit-writing-mode
-
-#### Changed
-
-- api.RTCStatsReport
-- api.XRSystem
-- css.properties.-moz-orient.inline_and_block
-- css.properties.appearance.compat-auto
-- css.properties.background-repeat.round_space
-- css.properties.background-size.contain_and_cover
-- css.properties.caption-side.non_standard_values
-- css.properties.clear.flow_relative_values
-- css.properties.clip-path.fill_and_stroke_box
-- css.properties.cursor.bidirectional_resize
-- css.properties.cursor.unidirectional_resize
-- css.properties.cursor.zoom
-- css.properties.display.display-outside
-- css.properties.display.ruby_values
-- css.properties.display.table_values
-- css.properties.display.xul_box_values
-- css.properties.display.xul_grid_values
-- css.properties.display.xul_inline_grid_stack
-- css.properties.float.flow_relative_values
-- css.properties.font.system_fonts
-- css.properties.list-style-type
-- css.properties.mask-origin.non_standard_values
-- css.properties.resize.flow_relative_support
-- css.properties.text-align.block_alignment_values
-- css.properties.text-align.flow_relative_values_start_and_end
-- css.properties.text-emphasis-position.left_and_right
-- css.properties.text-underline-position.above_below
-- css.properties.text-underline-position.left_right
-- css.properties.touch-action.axis-pan
-- css.properties.touch-action.unidirectional-pan
-- css.properties.transform.3d
-- css.properties.writing-mode.horizontal_vertical_values
-- css.properties.writing-mode.sideways_values
-- css.properties.writing-mode.svg_values
-- javascript.builtins.WebAssembly.Module.customSections
-- javascript.builtins.WebAssembly.Module.exports
-- javascript.builtins.WebAssembly.Module.imports
-
-### Commits
-
-- CSS property values: change "or" to "and"
-- Fix Safari extension UID for NordPass
-- Remove duplicate entries for prefixed CSS properties; add missing
-- Add custom test for list-style-type to disable its tests (for now)
-- Add links to Gooborg Studios + contributors in copyright
-- Improve compatibility of some WebRTC Stats collection ([#432](https://github.com/GooborgStudios/mdn-bcd-collector/pull/432))
-- Add custom test for XRSystem API
-- Fix tests for WebAssembly.Module members
-
-## v9.3.2
+## v10.0.0
 
 ### Test Changes
 
 #### Added
 
-- api.InterestGroupReportingScriptRunnerGlobalScope.registerAdBeacon
-- api.WebTransportSendStream.sendOrder
+- api.AbortSignal.abort_static
+- api.AbortSignal.any_static
+- api.AbortSignal.timeout_static
+- api.AudioDecoder.isConfigSupported_static
+- api.AudioEncoder.isConfigSupported_static
+- api.BarcodeDetector.getSupportedFormats_static
+- api.BluetoothUUID.canonicalUUID_static
+- api.BluetoothUUID.getCharacteristic_static
+- api.BluetoothUUID.getDescriptor_static
+- api.BluetoothUUID.getService_static
+- api.Credential.isConditionalMediationAvailable_static
+- api.CropTarget.fromElement_static
+- api.CSSColorValue.parse_static
+- api.CSSNumericValue.parse_static
+- api.CSSStyleValue.parse_static
+- api.CSSStyleValue.parseAll_static
+- api.DeviceMotionEvent.requestPermission_static
+- api.DeviceOrientationEvent.requestPermission_static
+- api.DOMMatrix.fromFloat32Array_static
+- api.DOMMatrix.fromFloat64Array_static
+- api.DOMMatrix.fromMatrix_static
+- api.DOMMatrixReadOnly.fromFloat32Array_static
+- api.DOMMatrixReadOnly.fromFloat64Array_static
+- api.DOMMatrixReadOnly.fromMatrix_static
+- api.DOMPoint.fromPoint_static
+- api.DOMPointReadOnly.fromPoint_static
+- api.DOMQuad.fromQuad_static
+- api.DOMQuad.fromRect_static
+- api.DOMRect.fromRect_static
+- api.DOMRectReadOnly.fromRect_static
+- api.GeolocationSensor.read_static
+- api.HTMLScriptElement.supports_static
+- api.IDBKeyRange.bound_static
+- api.IDBKeyRange.lowerBound_static
+- api.IDBKeyRange.only_static
+- api.IDBKeyRange.upperBound_static
+- api.IdleDetector.requestPermission_static
+- api.ImageDecoder.isTypeSupported_static
+- api.MediaRecorder.isTypeSupported_static
+- api.MediaSource.canConstructInDedicatedWorker_static
+- api.MediaSource.isTypeSupported_static
+- api.Notification.maxActions_static
+- api.Notification.permission_static
+- api.Notification.requestPermission_static
+- api.PerformanceNavigationTiming.criticalCHRestart
+- api.PerformanceObserver.supportedEntryTypes_static
+- api.PressureObserver.supportedSources_static
+- api.PublicKeyCredential.isConditionalMediationAvailable_static
+- api.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable_static
+- api.PublicKeyCredential.parseCreationOptionsFromJSON_static
+- api.PublicKeyCredential.parseRequestOptionsFromJSON_static
+- api.PushManager.supportedContentEncodings_static
+- api.ReadableStream.from_static
+- api.Response.error_static
+- api.Response.redirect_static
+- api.RTCPeerConnection.generateCertificate_static
+- api.RTCRtpReceiver.getCapabilities_static
+- api.RTCRtpSender.getCapabilities_static
+- api.Sanitizer.getDefaultConfiguration_static
+- api.TaskSignal.any_static
+- api.TrustedHTML.fromLiteral_static
+- api.TrustedScript.fromLiteral_static
+- api.TrustedScriptURL.fromLiteral_static
+- api.URL.canParse_static
+- api.URL.createObjectURL_static
+- api.URL.revokeObjectURL_static
+- api.VideoDecoder.isConfigSupported_static
+- api.VideoEncoder.isConfigSupported_static
+- api.XRWebGLLayer.getNativeFramebufferScaleFactor_static
+- css.properties.position-fallback-bounds
+- css.properties.timeline-scope
+- html.elements.a
+- html.elements.abbr
+- html.elements.acronym
+- html.elements.address
+- html.elements.applet
+- html.elements.area
+- html.elements.article
+- html.elements.aside
+- html.elements.audio
+- html.elements.b
+- html.elements.base
+- html.elements.basefont
+- html.elements.bdi
+- html.elements.bdo
+- html.elements.bgsound
+- html.elements.big
+- html.elements.blink
+- html.elements.blockquote
+- html.elements.body
+- html.elements.br
+- html.elements.button
+- html.elements.canvas
+- html.elements.caption
+- html.elements.center
+- html.elements.cite
+- html.elements.code
+- html.elements.col
+- html.elements.colgroup
+- html.elements.data
+- html.elements.datalist
+- html.elements.dd
+- html.elements.del
+- html.elements.details
+- html.elements.dfn
+- html.elements.dialog
+- html.elements.dir
+- html.elements.discard
+- html.elements.div
+- html.elements.dl
+- html.elements.dt
+- html.elements.em
+- html.elements.embed
+- html.elements.fencedframe
+- html.elements.fieldset
+- html.elements.figcaption
+- html.elements.figure
+- html.elements.font
+- html.elements.footer
+- html.elements.form
+- html.elements.frame
+- html.elements.frameset
+- html.elements.h1
+- html.elements.h2
+- html.elements.h3
+- html.elements.h4
+- html.elements.h5
+- html.elements.h6
+- html.elements.head
+- html.elements.header
+- html.elements.hgroup
+- html.elements.hr
+- html.elements.html
+- html.elements.i
+- html.elements.iframe
+- html.elements.image
+- html.elements.img
+- html.elements.input
+- html.elements.ins
+- html.elements.isindex
+- html.elements.kbd
+- html.elements.keygen
+- html.elements.label
+- html.elements.legend
+- html.elements.li
+- html.elements.link
+- html.elements.listing
+- html.elements.main
+- html.elements.map
+- html.elements.mark
+- html.elements.marquee
+- html.elements.menu
+- html.elements.menuitem
+- html.elements.meta
+- html.elements.meter
+- html.elements.model
+- html.elements.multicol
+- html.elements.nav
+- html.elements.nextid
+- html.elements.nobr
+- html.elements.noembed
+- html.elements.noframes
+- html.elements.noscript
+- html.elements.object
+- html.elements.ol
+- html.elements.optgroup
+- html.elements.option
+- html.elements.output
+- html.elements.p
+- html.elements.param
+- html.elements.picture
+- html.elements.plaintext
+- html.elements.portal
+- html.elements.pre
+- html.elements.progress
+- html.elements.q
+- html.elements.rb
+- html.elements.rp
+- html.elements.rt
+- html.elements.rtc
+- html.elements.ruby
+- html.elements.s
+- html.elements.samp
+- html.elements.script
+- html.elements.search
+- html.elements.section
+- html.elements.select
+- html.elements.slot
+- html.elements.small
+- html.elements.source
+- html.elements.spacer
+- html.elements.span
+- html.elements.strike
+- html.elements.strong
+- html.elements.style
+- html.elements.sub
+- html.elements.summary
+- html.elements.sup
+- html.elements.table
+- html.elements.tbody
+- html.elements.td
+- html.elements.template
+- html.elements.textarea
+- html.elements.tfoot
+- html.elements.th
+- html.elements.thead
+- html.elements.time
+- html.elements.title
+- html.elements.tr
+- html.elements.track
+- html.elements.tt
+- html.elements.u
+- html.elements.ul
+- html.elements.var
+- html.elements.video
+- html.elements.wbr
+- html.elements.xmp
+- svg.elements.a
+- svg.elements.animate
+- svg.elements.animateMotion
+- svg.elements.animateTransform
+- svg.elements.circle
+- svg.elements.clipPath
+- svg.elements.cursor
+- svg.elements.defs
+- svg.elements.desc
+- svg.elements.ellipse
+- svg.elements.feBlend
+- svg.elements.feColorMatrix
+- svg.elements.feComponentTransfer
+- svg.elements.feComposite
+- svg.elements.feConvolveMatrix
+- svg.elements.feDiffuseLighting
+- svg.elements.feDisplacementMap
+- svg.elements.feDistantLight
+- svg.elements.feDropShadow
+- svg.elements.feFlood
+- svg.elements.feFuncA
+- svg.elements.feFuncB
+- svg.elements.feFuncG
+- svg.elements.feFuncR
+- svg.elements.feGaussianBlur
+- svg.elements.feImage
+- svg.elements.feMerge
+- svg.elements.feMergeNode
+- svg.elements.feMorphology
+- svg.elements.feOffset
+- svg.elements.fePointLight
+- svg.elements.feSpecularLighting
+- svg.elements.feSpotLight
+- svg.elements.feTile
+- svg.elements.feTurbulence
+- svg.elements.filter
+- svg.elements.font
+- svg.elements.font-face
+- svg.elements.font-face-format
+- svg.elements.font-face-name
+- svg.elements.font-face-src
+- svg.elements.font-face-uri
+- svg.elements.foreignObject
+- svg.elements.g
+- svg.elements.glyph
+- svg.elements.glyphRef
+- svg.elements.hkern
+- svg.elements.image
+- svg.elements.line
+- svg.elements.linearGradient
+- svg.elements.marker
+- svg.elements.mask
+- svg.elements.metadata
+- svg.elements.missing-glyph
+- svg.elements.mpath
+- svg.elements.path
+- svg.elements.pattern
+- svg.elements.polygon
+- svg.elements.polyline
+- svg.elements.radialGradient
+- svg.elements.rect
+- svg.elements.script
+- svg.elements.set
+- svg.elements.stop
+- svg.elements.style
+- svg.elements.svg
+- svg.elements.switch
+- svg.elements.symbol
+- svg.elements.text
+- svg.elements.textPath
+- svg.elements.title
+- svg.elements.tref
+- svg.elements.tspan
+- svg.elements.use
+- svg.elements.view
+- svg.elements.vkern
+- javascript.builtins.AggregateError.errors
+- javascript.builtins.ArrayBuffer.ArrayBuffer.new_required
+- javascript.builtins.DataView.DataView.new_required
+- javascript.builtins.Float32Array.Float32Array.new_required
+- javascript.builtins.Float32Array.Float32Array.constructor_without_parameters
+- javascript.builtins.Float32Array.Float32Array.iterable_allowed
+- javascript.builtins.Float64Array.Float64Array.new_required
+- javascript.builtins.Float64Array.Float64Array.constructor_without_parameters
+- javascript.builtins.Float64Array.Float64Array.iterable_allowed
+- javascript.builtins.Int16Array.Int16Array.new_required
+- javascript.builtins.Int16Array.Int16Array.constructor_without_parameters
+- javascript.builtins.Int16Array.Int16Array.iterable_allowed
+- javascript.builtins.Int32Array.Int32Array.new_required
+- javascript.builtins.Int32Array.Int32Array.constructor_without_parameters
+- javascript.builtins.Int32Array.Int32Array.iterable_allowed
+- javascript.builtins.Int8Array.Int8Array.new_required
+- javascript.builtins.Int8Array.Int8Array.constructor_without_parameters
+- javascript.builtins.Int8Array.Int8Array.iterable_allowed
+- javascript.builtins.Map.Map.new_required
+- javascript.builtins.Map.Map.iterable_allowed
+- javascript.builtins.Map.Map.null_allowed
+- javascript.builtins.Object.defineGetter
+- javascript.builtins.Object.defineSetter
+- javascript.builtins.Object.lookupGetter
+- javascript.builtins.Object.lookupSetter
+- javascript.builtins.Object.proto
+- javascript.builtins.Set.Set.new_required
+- javascript.builtins.Set.Set.iterable_allowed
+- javascript.builtins.Set.Set.null_allowed
+- javascript.builtins.TypedArray.TypedArray
+- javascript.builtins.TypedArray.constructor_without_parameters
+- javascript.builtins.TypedArray.iterable_in_constructor
+- javascript.builtins.TypedArray.new_required
+- javascript.builtins.Uint16Array.Uint16Array.new_required
+- javascript.builtins.Uint16Array.Uint16Array.constructor_without_parameters
+- javascript.builtins.Uint16Array.Uint16Array.iterable_allowed
+- javascript.builtins.Uint32Array.Uint32Array.new_required
+- javascript.builtins.Uint32Array.Uint32Array.constructor_without_parameters
+- javascript.builtins.Uint32Array.Uint32Array.iterable_allowed
+- javascript.builtins.Uint8Array.Uint8Array.new_required
+- javascript.builtins.Uint8Array.Uint8Array.constructor_without_parameters
+- javascript.builtins.Uint8Array.Uint8Array.iterable_allowed
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.new_required
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.constructor_without_parameters
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.iterable_allowed
+- javascript.builtins.WeakMap.WeakMap.new_required
+- javascript.builtins.WeakMap.WeakMap.iterable_allowed
+- javascript.builtins.WeakMap.WeakMap.null_allowed
+- javascript.builtins.WeakSet.WeakSet.iterable_allowed
+- javascript.builtins.WeakSet.WeakSet.null_allowed
+- javascript.builtins.Intl.DurationFormat
+- javascript.builtins.Intl.Locale.getCalendars
+- javascript.builtins.Intl.Locale.getCollations
+- javascript.builtins.Intl.Locale.getHourCycles
+- javascript.builtins.Intl.Locale.getNumberingSystems
+- javascript.builtins.Intl.Locale.getTextInfo
+- javascript.builtins.Intl.Locale.getTimeZones
+- javascript.builtins.Intl.Locale.getWeekInfo
+- javascript.builtins.WebAssembly.Instance.Instance
+- javascript.builtins.WebAssembly.Module.Module
+- webassembly.features.BigInt-to-i64-integration
+- webassembly.features.bulk-memory-operations
+- webassembly.features.extended-constant-expressions
+- webassembly.features.multi-value
+- webassembly.features.mutable-globals
+- webassembly.features.reference-types
+- webassembly.features.non-trapping-float-to-int-conversions
+- webassembly.features.sign-extension-operations
+- webassembly.features.fixed-width-SIMD
+- webassembly.features.tail-calls
+- webassembly.features.exception-handling
+- webassembly.features.garbage-collection
+- webassembly.features.memory64
+- webassembly.features.relaxed-SIMD
+- webassembly.features.threads-and-atomics
 
 #### Removed
 
-- api.WebGLRenderingContext.commit
-
-#### Changed
-
-- api.DeprecationReportBody.toJSON
-- api.InterventionReportBody.toJSON
-- api.Report
-- api.ReportBody
-- api.SpeechRecognitionAlternative
-- api.SpeechRecognitionErrorEvent
-- api.SpeechRecognitionEvent
-- api.SpeechRecognitionResult
-- api.SpeechRecognitionResultList
-- api.SpeechSynthesisErrorEvent
-- api.SpeechSynthesisEvent
-- api.SpeechSynthesisVoice
-- api.WebGLQuery
-- api.WebGLSampler
-- api.WebGLSync
-- css.properties.list-style-type.string
-- css.properties.list-style-type.symbols
-
-### Commits
-
-- Add custom tests for WebGL 2 interfaces
-- Fix list-style-type.string and list-style-type.symbols ([#440](https://github.com/GooborgStudios/mdn-bcd-collector/pull/440))
-- Remove WebGLRenderingContext.commit()
-- Update all Speech API tests
-- Fix test for SpeechRecognitionErrorEvent
-- Add timeout to SpeechSynthesisVoice test
-- Disable tests for Report and ReportBody
-- Fix disabling tests
-- Mitigate Safari gradient bug
-- Minor variable name changes (rpcConstructor) ([#415](https://github.com/GooborgStudios/mdn-bcd-collector/pull/415))
-- Fix styling on mobile devices
-
-## v9.3.1
-
-## Notable changes
-
-The report schema for problematic extensions has been simplified to be an array of strings to remove redundant complexity. While this would usually be classified as a breaking change, the production server also experienced fatal errors that prevented collection of this data in the first place.
-
-### Commits
-
-- Improve docs overview page
-- Add link to docs page
-- Sort names in footer alphabetically
-- Simplify browser extensions data
-- Fix collection of problematic browser extensions data
-
-## v9.3.0
-
-### Test Changes
-
-#### Added
-
+- api.AbortSignal.abort
 - api.AbortSignal.any
-- api.DocumentPictureInPicture
-- api.DocumentPictureInPictureEvent
-- api.PerformanceResourceTiming.contentType
+- api.AbortSignal.timeout
+- api.AnimationTimeline.getCurrentTime
+- api.AudioDecoder.isConfigSupported
+- api.AudioEncoder.isConfigSupported
+- api.BarcodeDetector.getSupportedFormats
+- api.BluetoothUUID.canonicalUUID
+- api.BluetoothUUID.getCharacteristic
+- api.BluetoothUUID.getDescriptor
+- api.BluetoothUUID.getService
+- api.Credential.isConditionalMediationAvailable
+- api.CropTarget.fromElement
+- api.CSSColorValue.parse
+- api.CSSNumericValue.parse
+- api.CSSStyleValue.parse
+- api.CSSStyleValue.parseAll
+- api.DeviceMotionEvent.requestPermission
+- api.DeviceOrientationEvent.requestPermission
+- api.DOMMatrix.fromFloat32Array
+- api.DOMMatrix.fromFloat64Array
+- api.DOMMatrix.fromMatrix
+- api.DOMMatrixReadOnly.fromFloat32Array
+- api.DOMMatrixReadOnly.fromFloat64Array
+- api.DOMMatrixReadOnly.fromMatrix
+- api.DOMPoint.fromPoint
+- api.DOMPointReadOnly.fromPoint
+- api.DOMQuad.fromQuad
+- api.DOMQuad.fromRect
+- api.DOMRect.fromRect
+- api.DOMRectReadOnly.fromRect
+- api.GeolocationSensor.read
+- api.HTMLScriptElement.supports
+- api.IDBKeyRange.bound
+- api.IDBKeyRange.lowerBound
+- api.IDBKeyRange.only
+- api.IDBKeyRange.upperBound
+- api.IdleDetector.requestPermission
+- api.ImageDecoder.isTypeSupported
+- api.MediaRecorder.isTypeSupported
+- api.MediaSource.canConstructInDedicatedWorker
+- api.MediaSource.isTypeSupported
+- api.Notification.maxActions
+- api.Notification.permission
+- api.Notification.requestPermission
+- api.PerformanceObserver.supportedEntryTypes
+- api.PressureObserver.supportedSources
+- api.PublicKeyCredential.isConditionalMediationAvailable
+- api.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable
+- api.PublicKeyCredential.parseCreationOptionsFromJSON
+- api.PublicKeyCredential.parseRequestOptionsFromJSON
+- api.PushManager.supportedContentEncodings
+- api.Response.error
+- api.Response.redirect
+- api.RTCPeerConnection.generateCertificate
+- api.RTCRtpReceiver.getCapabilities
+- api.RTCRtpSender.getCapabilities
+- api.Sanitizer.getDefaultConfiguration
 - api.TaskSignal.any
-- api.Window.documentPictureInPicture
-- css.properties.scroll-start
-- css.properties.scroll-start-block
-- css.properties.scroll-start-inline
-- css.properties.scroll-start-target
-- css.properties.scroll-start-target-block
-- css.properties.scroll-start-target-inline
-- css.properties.scroll-start-target-x
-- css.properties.scroll-start-target-y
-- css.properties.scroll-start-x
-- css.properties.scroll-start-y
-
-#### Removed
-
-- api.FencedFrameConfig.url
-- api.GPUBufferUsage
-- api.GPUColorWrite
-- api.GPUMapMode
-- api.GPUShaderStage
-- api.GPUTextureUsage
-
-#### Changed
-
-- api.GPU
-- api.GPUAdapter
-- api.GPUBuffer
-- api.GPUCommandEncoder
-- api.GPUComputePassEncoder
-- api.GPUDevice
-- api.GPUQueue
-- api.GPURenderPassEncoder
-- api.GPUTexture
-- api.InputDeviceInfo
-
-### Commits
-
-- Update docs ([#409](https://github.com/GooborgStudios/mdn-bcd-collector/pull/409))
-- Don't generate tests for namespaces with no members
-- Update InputDeviceInfo test to strictly get input device
-- Add custom tests for WebGPU API
-- Add overrides for Sanitizer API
-- Fix font size of code elements inside headers
-- Fix input styling on Firefox
-- Update overrides
-- Clear timeouts on resource loading errors
-- Fix add-new-bcd
-
-## v9.2.2
-
-### Test Changes
-
-#### Changed
-
-- api.MimeType
-
-### Commits
-
-- Fix typo
-- Use compare-versions to compare version numbers
-
-## v9.2.1
-
-### Test Changes
-
-#### Added
-
-- api.WorkerGlobalScope.requestFileSystem
-- api.WorkerGlobalScope.requestFileSystemSync
-- api.WorkerGlobalScope.resolveLocalFileSystemSyncURL
-- api.WorkerGlobalScope.resolveLocalFileSystemURL
-
-#### Removed
-
-- css.properties.-ms-content-zoom-chaining
-- css.properties.-ms-content-zoom-limit
-- css.properties.-ms-content-zoom-limit-max
-- css.properties.-ms-content-zoom-limit-min
-- css.properties.-ms-content-zoom-snap
-- css.properties.-ms-content-zoom-snap-points
-- css.properties.-ms-content-zoom-snap-type
-- css.properties.-ms-content-zooming
-- css.properties.-ms-flex-positive
-- css.properties.-ms-flow-from
-- css.properties.-ms-flow-into
-- css.properties.-ms-font-feature-settings
-- css.properties.-ms-grid-column
-- css.properties.-ms-grid-column-align
-- css.properties.-ms-grid-column-span
-- css.properties.-ms-grid-columns
-- css.properties.-ms-grid-row
-- css.properties.-ms-grid-row-align
-- css.properties.-ms-grid-row-span
-- css.properties.-ms-grid-rows
-- css.properties.-ms-high-contrast-adjust
-- css.properties.-ms-hyphenate-limit-chars
-- css.properties.-ms-hyphenate-limit-lines
-- css.properties.-ms-hyphenate-limit-zone
-- css.properties.-ms-hyphens
-- css.properties.-ms-ime-align
-- css.properties.-ms-layout-grid
-- css.properties.-ms-layout-grid-char
-- css.properties.-ms-layout-grid-line
-- css.properties.-ms-layout-grid-mode
-- css.properties.-ms-layout-grid-type
-- css.properties.-ms-overflow-style
-- css.properties.-ms-scroll-chaining
-- css.properties.-ms-scroll-limit
-- css.properties.-ms-scroll-limit-x-max
-- css.properties.-ms-scroll-limit-x-min
-- css.properties.-ms-scroll-limit-y-max
-- css.properties.-ms-scroll-limit-y-min
-- css.properties.-ms-scroll-rails
-- css.properties.-ms-scroll-snap-points-x
-- css.properties.-ms-scroll-snap-points-y
-- css.properties.-ms-scroll-snap-type
-- css.properties.-ms-scroll-snap-x
-- css.properties.-ms-scroll-snap-y
-- css.properties.-ms-scroll-translation
-- css.properties.-ms-scrollbar-track-color
-- css.properties.-ms-text-combine-horizontal
-- css.properties.-ms-text-size-adjust
-- css.properties.-ms-touch-select
-- css.properties.-ms-user-select
-- css.properties.-ms-wrap-flow
-- css.properties.-ms-wrap-margin
-- css.properties.-ms-wrap-through
-- css.properties.display.-ms-flexbox
-- css.properties.display.-ms-grid
-- css.properties.display.-ms-inline-flexbox
-- css.properties.display.-ms-inline-grid
-
-#### Changed
-
-- api.DeviceMotionEvent
-- api.DeviceMotionEventAcceleration
-- api.DeviceMotionEventRotationRate
-- api.EntrySync
-- api.FileSystem
-- api.FileSystemDirectoryEntry
-- api.FileSystemDirectoryReader
-- api.FileSystemEntry
-- api.FileSystemFileEntry
-- api.FileSystemSync
-- api.HTMLSelectElement.add.index_before_parameter
-- api.InputDeviceInfo
-- api.InstallEvent
-- api.Metadata
-- api.MimeType
-- api.MimeTypeArray
-- api.RTCIdentityAssertion
-- api.SpeechGrammar
-- api.SpeechGrammarList
-- api.VideoPlaybackQuality
-
-### Commits
-
-- Fix ESLint errors
-- Fix add-new-bcd script
-- Update FAQ
-- Update documentation
-- Add styling for blockquote elements
-- Install marked-gfm-heading-id and marked-mangle
-- Make note blocks more consistent
-- Fix link to about.md
-- Add docs list page
-- Reorganize parts in update-bcd doc; fix typo
-- Move About.md to docs/ folder
-- Add custom test for RTCIdentityAssertion
-- Update test for InstallEvent to use real event instead
-- Update test for SpeechGrammarList to include prefixes
-- Fix custom test for api.HTMLSelectElement.add.index_before_parameter
-- Update custom tests for MimeType and MimeTypeArray
-- Add custom test for VideoPlaybackQuality
-- Update custom tests for old file system API
-- Add custom tests for DeviceMotionEvent[Acceleration/RotationRate]
-- Fix changelog links
-- Remove MS-proprietary CSS properties/values
-- Update overrides
-- Add a custom test for \*ReportBody.toJSON to disable it
-- Add support for X+ overrides
-- Add overrides for AudioProcessingEvent
-- Don't replace "preview" with "false"
-- Remove --category argument altogether
-
-## v9.2.0
-
-## Notable changes
-
-- New page styling; styling and design updates have been made to reflect the company that maintains this project
-- More icons, improving aspects of accessibility
-- New about page better describing the project and how to use it
-
-### Test Changes
-
-#### Added
-
-- api.Navigator.storageBuckets
-- api.PerformanceResourceTiming.firstInterimResponseStart
-- api.SharedStorage
-- api.SharedStorageOperation
-- api.SharedStorageRunOperation
-- api.SharedStorageSelectURLOperation
-- api.SharedStorageWorklet
-- api.SharedStorageWorkletGlobalScope
-- api.StorageBucket
-- api.StorageBucketManager
-- api.WindowSharedStorage
-- api.WorkerNavigator.storageBuckets
-- api.WorkletSharedStorage
-- api.XRFrame.detectedMeshs
-- api.XRMesh
-- api.XRMeshSet
-
-#### Removed
-
-- css.properties.scroll-start
-- css.properties.scroll-start-block
-- css.properties.scroll-start-inline
-- css.properties.scroll-start-target
-- css.properties.scroll-start-x
-- css.properties.scroll-start-y
-
-#### Changed
-
-- api.AudioNode.disconnect.destination_parameter
-- api.AudioNode.disconnect.output_parameter
-- api.AudioNode.disconnect.input_parameter
-- javascript.builtins.TypedArray.@@species
-- javascript.builtins.WebAssembly.Module.customSections
-- javascript.builtins.WebAssembly.Module.exports
-- javascript.builtins.WebAssembly.Module.imports
-
-### Commits
-
-- Fix errors
-- Update footer to include copyright info
-- Update About page to include missing details
-- Mention Gooborg Studios by name in title
-- Remove second version directly underneath version in navbar
-- Rearrange nav bar
-- Move old changelog during release process
-- Add support for rendering older changelogs
-- Create common Markdown renderer function
-- Separate changelogs of older major versions
-- Update styling
-- Allow .md in docs URLs
-- Move Run button to other side
-- Highlight codeblocks in Markdown files
-- Add an About page
-- Move update-bcd explanation to its own file
-- Deprecate --category parameter
-- Add a navigation bar
-- Tracked members of WebAssembly.Module are not on the prototype
-- Add custom test for TypedArray.@@species
-- Add rendering for any Markdown file in docs/ folder
-- Overhaul gradient function to allow for more customization
-- Run npm update
-- Disable custom tests for AudioNode.disconnect parameters
-- Improve styling for inputs/buttons
-- Add glowing effects to various parts of the website
-- Don't use error notice on section that's not for an error
-- Improve styling on results page
-- Add icons to test results
-- Add vertical margin to all paper elements
-- Add a small "about" blurb
-- Update copyright notice to mention various contributors
-- Add/update icons
-- Format HTML
-
-## v9.1.1
-
-### Test Changes
-
-#### Added
-
-- api.HTMLFencedFrameElement.allow
-- api.XRCompositionLayer.quality
-
-#### Changed
-
-- api.OES_texture_half_float_linear
-
-### Commits
-
-- Update subtitle
-- Abstract test result clearing timeframe
-- Update caveats list
-- OES_texture_half_float_linear is only available in WebGL 1
-- Mention Firefox's bug with CSS property values
-
-## v9.1.0
-
-### Test Changes
-
-#### Added
-
-- api.CSSImportRule.supportsText
-- api.InterestGroupScriptRunnerGlobalScope
-- api.VisibilityStateEntry
+- api.TrustedHTML.fromLiteral
+- api.TrustedScript.fromLiteral
+- api.TrustedScriptURL.fromLiteral
+- api.URL.canParse
+- api.URL.createObjectURL
+- api.URL.revokeObjectURL
+- api.VideoDecoder.isConfigSupported
+- api.VideoEncoder.isConfigSupported
+- api.XRWebGLLayer.getNativeFramebufferScaleFactor
 - css.properties.scroll-timeline-attachment
 - css.properties.view-timeline-attachment
 
 #### Changed
 
-- api.AudioParamMap.@@iterator
-- api.BluetoothManufacturerDataMap.@@iterator
-- api.BluetoothServiceDataMap.@@iterator
-- api.CSSFontFeatureValuesMap.@@iterator
-- api.CSSNumericArray.@@iterator
-- api.CSSTransformValue.@@iterator
-- api.CSSUnparsedValue.@@iterator
-- api.CustomStateSet.@@iterator
-- api.EventCounts.@@iterator
-- api.FileSystemDirectoryHandle.@@asyncIterator
-- api.FontFacePalette.@@iterator
-- api.FontFacePalettes.@@iterator
-- api.FontFaceVariations.@@iterator
-- api.GPUSupportedFeatures.@@iterator
-- api.Headers.@@iterator
-- api.Highlight.@@iterator
-- api.HighlightRegistry.@@iterator
-- api.KeyboardLayoutMap.@@iterator
-- api.MediaKeyStatusMap.@@iterator
-- api.MIDIInputMap.@@iterator
-- api.MIDIOutputMap.@@iterator
-- api.NamedFlowMap.@@iterator
-- api.StylePropertyMapReadOnly.@@iterator
-- api.WGSLLanguageFeatures.@@iterator
-- api.XRAnchorSet.@@iterator
-- api.XRHand.@@iterator
-- api.XRInputSourceArray.@@iterator
-- javascript.builtins.WebAssembly.Global
-- javascript.builtins.WebAssembly.Instance
-- javascript.builtins.WebAssembly.Memory
-- javascript.builtins.WebAssembly.Module
-- javascript.builtins.WebAssembly.Table
+- api.HTMLCanvasElement.getContext.webgl2_context.options_alpha_parameter
+- api.HTMLCanvasElement.getContext.webgl2_context.options_desynchronized_parameter
+- api.HTMLCanvasElement.getContext.webgl2_context.options_failIfMajorPerformanceCaveat_parameter
+- api.HTMLCanvasElement.getContext.webgl2_context.options_powerPreference_parameter
+- api.MediaQueryList
+- api.ReadableStreamDefaultController
+- api.ReadableStreamDefaultReader
+- api.SpeechSynthesisVoice
+- api.TransformStreamDefaultController
+- css.properties.aspect-ratio
+- javascript.builtins.Intl.Collator.Collator
+- javascript.builtins.Intl.DateTimeFormat.DateTimeFormat
+- javascript.builtins.Intl.DisplayNames.DisplayNames
+- javascript.builtins.Intl.ListFormat.ListFormat
+- javascript.builtins.Intl.Locale.Locale
+- javascript.builtins.Intl.NumberFormat.NumberFormat
+- javascript.builtins.Intl.PluralRules.PluralRules
+- javascript.builtins.Intl.RelativeTimeFormat.RelativeTimeFormat
+- javascript.builtins.Intl.Segmenter.Segmenter
+- javascript.builtins.WebAssembly.CompileError.CompileError
+- javascript.builtins.WebAssembly.Exception.Exception
+- javascript.builtins.WebAssembly.Global.Global
+- javascript.builtins.WebAssembly.LinkError.LinkError
+- javascript.builtins.WebAssembly.Memory.Memory
+- javascript.builtins.WebAssembly.RuntimeError.RuntimeError
+- javascript.builtins.WebAssembly.Table.Table
+- javascript.builtins.WebAssembly.Tag.Tag
 
 ### Commits
 
-- Fix testCSSProperty
-- Update WebAssembly API tests
-- Fix symbol tests for interfaces
-
-## v9.0.4
-
-### Test Changes
-
-#### Changed
-
-- api.CSSStyleDeclaration.@@iterator
-- api.DOMTokenList.@@iterator
-- api.FontFaceSet.@@iterator
-- api.FormData.@@iterator
-- api.NodeList.@@iterator
-- api.ReadableStream.@@asyncIterator
-- api.RTCStatsReport.@@iterator
-- api.URLSearchParams.@@iterator
-- javascript.builtins.AsyncFunction
-- javascript.builtins.AsyncGenerator
-- javascript.builtins.AsyncGeneratorFunction
-- javascript.builtins.AsyncIterator
-- javascript.builtins.Error
-- javascript.builtins.Generator.next
-- javascript.builtins.Generator.return
-- javascript.builtins.Generator.throw
-- javascript.builtins.Iterator
-- javascript.builtins.RegExp
-- javascript.builtins.TypedArray
-- javascript.builtins.Intl.Collator
-- javascript.builtins.Intl.DateTimeFormat
-- javascript.builtins.Intl.DisplayNames
-- javascript.builtins.Intl.ListFormat
-- javascript.builtins.Intl.Locale
-- javascript.builtins.Intl.NumberFormat
-- javascript.builtins.Intl.PluralRules
-- javascript.builtins.Intl.RelativeTimeFormat
-- javascript.builtins.Intl.Segmenter
-- javascript.builtins.Intl.Segments
-- javascript.builtins.WebAssembly.Tag
-
-### Commits
-
-- Add .prototype in JavaScript feature list where needed
-- Sort custom tests
-- Fix when exact custom test match is needed for JavaScript features
-- Fix automatic test generation for Symbol
-
-## v9.0.3
-
-### Test Changes
-
-#### Changed
-
-- api.AudioParamMap.@@iterator
-- api.BluetoothManufacturerDataMap.@@iterator
-- api.BluetoothServiceDataMap.@@iterator
-- api.CSSFontFeatureValuesMap.@@iterator
-- api.CSSNumericArray.@@iterator
-- api.CSSStyleDeclaration.@@iterator
-- api.CSSTransformValue.@@iterator
-- api.CSSUnparsedValue.@@iterator
-- api.CustomStateSet.@@iterator
-- api.DOMTokenList.@@iterator
-- api.EventCounts.@@iterator
-- api.FileSystemDirectoryHandle.@@asyncIterator
-- api.FontFacePalette.@@iterator
-- api.FontFacePalettes.@@iterator
-- api.FontFaceSet.@@iterator
-- api.FontFaceVariations.@@iterator
-- api.FormData.@@iterator
-- api.GPUSupportedFeatures.@@iterator
-- api.Headers.@@iterator
-- api.Highlight.@@iterator
-- api.HighlightRegistry.@@iterator
-- api.HTMLAudioElement.Audio
-- api.HTMLImageElement.Image
-- api.HTMLOptionElement.Option
-- api.KeyboardLayoutMap.@@iterator
-- api.MediaKeyStatusMap.@@iterator
-- api.MIDIInputMap.@@iterator
-- api.MIDIOutputMap.@@iterator
-- api.NamedFlowMap.@@iterator
-- api.NodeList.@@iterator
-- api.ReadableStream.@@asyncIterator
-- api.RTCStatsReport.@@iterator
-- api.SpeechGrammar
-- api.SpeechGrammarList
-- api.StylePropertyMapReadOnly.@@iterator
-- api.URLSearchParams.@@iterator
-- api.WGSLLanguageFeatures.@@iterator
-- api.XRAnchorSet.@@iterator
-- api.XRHand.@@iterator
-- api.XRInputSourceArray.@@iterator
-- javascript.builtins.Array.@@iterator
-- javascript.builtins.Array.@@species
-- javascript.builtins.Array.@@unscopables
-- javascript.builtins.ArrayBuffer.@@species
-- javascript.builtins.AsyncFunction
-- javascript.builtins.AsyncGenerator
-- javascript.builtins.AsyncGeneratorFunction
-- javascript.builtins.AsyncIterator
-- javascript.builtins.Date.@@toPrimitive
-- javascript.builtins.Error
-- javascript.builtins.Generator.next
-- javascript.builtins.Generator.return
-- javascript.builtins.Generator.throw
-- javascript.builtins.Iterator
-- javascript.builtins.Map.@@iterator
-- javascript.builtins.Map.@@species
-- javascript.builtins.Map.@@toStringTag
-- javascript.builtins.RegExp
-- javascript.builtins.Set.@@iterator
-- javascript.builtins.Set.@@species
-- javascript.builtins.String.@@iterator
-- javascript.builtins.Symbol.@@toPrimitive
-- javascript.builtins.TypedArray
-- javascript.builtins.Intl.Collator
-- javascript.builtins.Intl.DateTimeFormat
-- javascript.builtins.Intl.DisplayNames
-- javascript.builtins.Intl.@@toStringTag
-- javascript.builtins.Intl.ListFormat
-- javascript.builtins.Intl.Locale
-- javascript.builtins.Intl.NumberFormat
-- javascript.builtins.Intl.PluralRules
-- javascript.builtins.Intl.RelativeTimeFormat
-- javascript.builtins.Intl.Segmenter
-- javascript.builtins.Intl.Segments
-- javascript.builtins.WebAssembly.Tag
-
-### Commits
-
-- Add custom tests for SpeechGrammar and SpeechGrammarList
-- Add custom tests for Audio/Image/Option constructors
-- Always use index to get if Symbol is present vs. "in" syntax
-- Fix RegExp feature definitions
-- Require exact custom test match for static members of JS builtins
-- Add custom tests for more JavaScript builtins
-- Add custom test for supportedLocalesOf properties
-- Remove export buttons if XHR is not supported
-
-## v9.0.2
-
-### Commits
-
-- Fix export buttons
-- Ignore Edge 79 on SauceLabs in Selenium script
-- Disallow Node.js v20 for now
-
-## v9.0.1
-
-### Test Changes
-
-#### Added
-
-- api.FencedFrameConfig.containerHeight
-- api.FencedFrameConfig.containerWidth
-- api.FencedFrameConfig.contentHeight
-- api.FencedFrameConfig.contentWidth
-- api.FencedFrameConfig.setSharedStorageContext
-- api.GPUSupportedLimits.maxBindGroupsPlusVertexBuffers
-- api.XMLHttpRequest.setAttributionReporting
-
-#### Removed
-
-- api.FencedFrameConfig.FencedFrameConfig
-- api.FencedFrameConfig.height
-- api.FencedFrameConfig.width
-- api.GPUSupportedLimits.maxFragmentCombinedOutputResources
-
-#### Changed
-
-- api.CSPViolationReportBody
-- api.EventSource
-- api.RTCPeerConnection.setLocalDescription.description_parameter_optional
-- api.RTCPeerConnection.setLocalDescription.returns_promise
-- api.RTCPeerConnection.setRemoteDescription.returns_promise
-- api.WebSocket
-- javascript.builtins.Array.@@species
-- javascript.builtins.ArrayBuffer.@@species
-- javascript.builtins.AsyncFunction
-- javascript.builtins.AsyncGenerator
-- javascript.builtins.AsyncGeneratorFunction
-- javascript.builtins.AsyncIterator
-- javascript.builtins.Map.@@species
-- javascript.builtins.Object.constructor
-- javascript.builtins.RegExp
-- javascript.builtins.Set.@@species
-- javascript.builtins.TypedArray
-- javascript.builtins.Intl.Collator
-- javascript.builtins.Intl.DateTimeFormat
-- javascript.builtins.Intl.DisplayNames
-- javascript.builtins.Intl.ListFormat
-- javascript.builtins.Intl.Locale
-- javascript.builtins.Intl.NumberFormat
-- javascript.builtins.Intl.PluralRules
-- javascript.builtins.Intl.RelativeTimeFormat
-- javascript.builtins.Intl.Segmenter
-- javascript.builtins.Intl.Segments
-
-### Commits
-
-- Mitigate a JavaScript bug with setting a variable inside a for loop
-- Improve custom test for CSPViolationReportBody
-- Add additional icons
-- Separate resource loading into its own function
-- Add additional custom tests for JavaScript builtins
-- Always test Symbol.species presence not on prototype
-- Add cleanup functions
-- Add additional error catching to tests
-
-## v9.0.0
-
-### Notable changes
-
-#### Custom tests infrastructure overhauled
-
-The infrastructure to handle custom tests has been overhauled and revamped to consolidate internal code. This provides the following improvements:
-
-- Reusable resources may be used on any category
-- Any feature may define its own `__base`, `__test` and `__additional`, rather than just the top-level features
-  - This allows additional tests to use base code they wouldn't otherwise have access to
-
-#### Internal restructuring
-
-The internals of this project have been significantly restructured to help keep the project root cleaner. All custom data has been moved to `custom/` (including tests, custom IDL, custom CSS and update-bcd overrides), scripts to `scripts/`, all test building to `test-builder/` (and separated into individual files), etc.
-
-#### Documentation updates
-
-The documentation of this project has been updated following recent changes and moved into a `docs/` folder. The DESIGN.md file was separated into multiple files for legibility purposes.
-
-#### JavaScript test code improved
-
-When tests for JavaScript builtins were introduced way back, they were barely touched and the codebase left a lot to be desired. As a part of the custom test infrastructure overhaul, test building code for JavaScript tests has been greatly improved. The `custom` property that was defined in `custom/js.json` is no longer and has been migrated to the custom tests system, which allows for usage of `__base` and `var instance` to reduce duplicate code.
-
-#### Instance resources
-
-Reusable instances have gotten some nice updates as well. They can be callbacks, as well as have their own dependencies for other resources.
-
-### Test Changes
-
-#### Added
-
-- api.Document.requestStorageAccessFor
-- api.Fence.getNestedConfigs
-- api.Fence.setReportEventDataForAutomaticBeacons
-- api.GPU.wgslLanguageFeatures
-- api.InterestGroupBiddingScriptRunnerGlobalScope
-- api.InterestGroupReportingScriptRunnerGlobalScope
-- api.InterestGroupScoringScriptRunnerGlobalScope
-- api.Navigator.leaveAdInterestGroup
-- api.Navigator.updateAdInterestGroups
-- api.RTCStatsReport.type_candidate-pair
-- api.RTCStatsReport.type_certificate
-- api.RTCStatsReport.type_codec
-- api.RTCStatsReport.type_data-channel
-- api.RTCStatsReport.type_inbound-rtp
-- api.RTCStatsReport.type_local-candidate
-- api.RTCStatsReport.type_media-playout
-- api.RTCStatsReport.type_media-source
-- api.RTCStatsReport.type_outbound-rtp
-- api.RTCStatsReport.type_peer-connection
-- api.RTCStatsReport.type_remote-candidate
-- api.RTCStatsReport.type_remote-inbound-rtp
-- api.RTCStatsReport.type_remote-outbound-rtp
-- api.RTCStatsReport.type_transport
-- api.URL.canParse
-- api.WGSLLanguageFeatures
-- css.properties.overlay
-- css.properties.text-box-edge
-- css.properties.text-box-trim
-- css.properties.white-space-trim
-- javascript.builtins.Array.fromAsync
-- javascript.builtins.ArrayBuffer.maxByteLength
-- javascript.builtins.ArrayBuffer.resizable
-- javascript.builtins.ArrayBuffer.resize
-- javascript.builtins.SharedArrayBuffer.grow
-- javascript.builtins.SharedArrayBuffer.growable
-- javascript.builtins.SharedArrayBuffer.maxByteLength
-- javascript.builtins.String.isWellFormed
-- javascript.builtins.String.toWellFormed
-
-#### Removed
-
-- api.BaseAudioContext.decodeAudioData.returns_promise
-- api.Document.contains
-- api.Document.requestStorageAccessForOrigin
-- api.Navigator.clearClientBadge
-- api.Navigator.setClientBadge
-- api.PressureRecord.factors
-- css.properties.leading-trim
-- css.properties.text-edge
-- css.properties.text-space-trim
-- javascript.builtins.Function.displayName
-
-#### Changed
-
-- api.BaseAudioContext.createPeriodicWave.constraints_disableNormalization_parameter
-- api.CSSStyleDeclaration.@@iterator
-- api.Document.createElement.options_parameter
-- api.Document.createElementNS.options_parameter
-- api.DOMPoint.w
-- api.DOMPoint.x
-- api.DOMPoint.y
-- api.DOMPoint.z
-- api.DOMRect.height
-- api.DOMRect.width
-- api.DOMRect.x
-- api.DOMRect.y
-- api.DOMTokenList.@@iterator
-- api.Element.attachShadow.init_delegatesFocus_parameter
-- api.FontFaceSet.@@iterator
-- api.FormData.@@iterator
-- api.HTMLAudioElement.Audio
-- api.HTMLImageElement.Image
-- api.HTMLOptionElement.Option
-- api.MediaStream
-- api.MediaStreamAudioSourceNode
-- api.MediaStreamEvent
-- api.MediaStreamTrack
-- api.MediaStreamTrackAudioSourceNode
-- api.MediaStreamTrackEvent
-- api.NodeList.@@iterator
-- api.ReadableStream
-- api.RTCStatsReport
-- api.URLSearchParams.@@iterator
-- api.URLSearchParams.URLSearchParams.record
-- api.URLSearchParams.URLSearchParams.sequence
-- javascript.builtins.Array.at
-- javascript.builtins.Array.concat
-- javascript.builtins.Array.copyWithin
-- javascript.builtins.Array.entries
-- javascript.builtins.Array.every
-- javascript.builtins.Array.fill
-- javascript.builtins.Array.filter
-- javascript.builtins.Array.find
-- javascript.builtins.Array.findIndex
-- javascript.builtins.Array.findLast
-- javascript.builtins.Array.findLastIndex
-- javascript.builtins.Array.flat
-- javascript.builtins.Array.flatMap
-- javascript.builtins.Array.forEach
-- javascript.builtins.Array.from
-- javascript.builtins.Array.group
-- javascript.builtins.Array.groupToMap
-- javascript.builtins.Array.includes
-- javascript.builtins.Array.indexOf
-- javascript.builtins.Array.isArray
-- javascript.builtins.Array.join
-- javascript.builtins.Array.keys
-- javascript.builtins.Array.lastIndexOf
-- javascript.builtins.Array.length
-- javascript.builtins.Array.map
-- javascript.builtins.Array.of
-- javascript.builtins.Array.pop
-- javascript.builtins.Array.push
-- javascript.builtins.Array.reduce
-- javascript.builtins.Array.reduceRight
-- javascript.builtins.Array.reverse
-- javascript.builtins.Array.shift
-- javascript.builtins.Array.slice
-- javascript.builtins.Array.some
-- javascript.builtins.Array.sort
-- javascript.builtins.Array.splice
-- javascript.builtins.Array.toLocaleString
-- javascript.builtins.Array.toReversed
-- javascript.builtins.Array.toSorted
-- javascript.builtins.Array.toSource
-- javascript.builtins.Array.toSpliced
-- javascript.builtins.Array.toString
-- javascript.builtins.Array.unshift
-- javascript.builtins.Array.values
-- javascript.builtins.Array.with
-- javascript.builtins.Array.@@iterator
-- javascript.builtins.Array.@@species
-- javascript.builtins.Array.@@unscopables
-- javascript.builtins.ArrayBuffer.byteLength
-- javascript.builtins.ArrayBuffer.isView
-- javascript.builtins.ArrayBuffer.slice
-- javascript.builtins.ArrayBuffer.@@species
-- javascript.builtins.AsyncFunction
-- javascript.builtins.AsyncGenerator.next
-- javascript.builtins.AsyncGenerator.return
-- javascript.builtins.AsyncGenerator.throw
-- javascript.builtins.AsyncGeneratorFunction
-- javascript.builtins.AsyncIterator
-- javascript.builtins.Atomics.add
-- javascript.builtins.Atomics.and
-- javascript.builtins.Atomics.compareExchange
-- javascript.builtins.Atomics.exchange
-- javascript.builtins.Atomics.isLockFree
-- javascript.builtins.Atomics.load
-- javascript.builtins.Atomics.notify
-- javascript.builtins.Atomics.or
-- javascript.builtins.Atomics.store
-- javascript.builtins.Atomics.sub
-- javascript.builtins.Atomics.wait
-- javascript.builtins.Atomics.waitAsync
-- javascript.builtins.Atomics.wake
-- javascript.builtins.Atomics.xor
-- javascript.builtins.BigInt.asIntN
-- javascript.builtins.BigInt.asUintN
-- javascript.builtins.BigInt.toLocaleString
-- javascript.builtins.BigInt.toString
-- javascript.builtins.BigInt.valueOf
-- javascript.builtins.Boolean.toSource
-- javascript.builtins.Boolean.toString
-- javascript.builtins.Boolean.valueOf
-- javascript.builtins.DataView.buffer
-- javascript.builtins.DataView.byteLength
-- javascript.builtins.DataView.byteOffset
-- javascript.builtins.DataView.getBigInt64
-- javascript.builtins.DataView.getBigUint64
-- javascript.builtins.DataView.getFloat32
-- javascript.builtins.DataView.getFloat64
-- javascript.builtins.DataView.getInt16
-- javascript.builtins.DataView.getInt32
-- javascript.builtins.DataView.getInt8
-- javascript.builtins.DataView.getUint16
-- javascript.builtins.DataView.getUint32
-- javascript.builtins.DataView.getUint8
-- javascript.builtins.DataView.setBigInt64
-- javascript.builtins.DataView.setBigUint64
-- javascript.builtins.DataView.setFloat32
-- javascript.builtins.DataView.setFloat64
-- javascript.builtins.DataView.setInt16
-- javascript.builtins.DataView.setInt32
-- javascript.builtins.DataView.setInt8
-- javascript.builtins.DataView.setUint16
-- javascript.builtins.DataView.setUint32
-- javascript.builtins.DataView.setUint8
-- javascript.builtins.Date.getDate
-- javascript.builtins.Date.getDay
-- javascript.builtins.Date.getFullYear
-- javascript.builtins.Date.getHours
-- javascript.builtins.Date.getMilliseconds
-- javascript.builtins.Date.getMinutes
-- javascript.builtins.Date.getMonth
-- javascript.builtins.Date.getSeconds
-- javascript.builtins.Date.getTime
-- javascript.builtins.Date.getTimezoneOffset
-- javascript.builtins.Date.getUTCDate
-- javascript.builtins.Date.getUTCDay
-- javascript.builtins.Date.getUTCFullYear
-- javascript.builtins.Date.getUTCHours
-- javascript.builtins.Date.getUTCMilliseconds
-- javascript.builtins.Date.getUTCMinutes
-- javascript.builtins.Date.getUTCMonth
-- javascript.builtins.Date.getUTCSeconds
-- javascript.builtins.Date.getYear
-- javascript.builtins.Date.now
-- javascript.builtins.Date.parse
-- javascript.builtins.Date.setDate
-- javascript.builtins.Date.setFullYear
-- javascript.builtins.Date.setHours
-- javascript.builtins.Date.setMilliseconds
-- javascript.builtins.Date.setMinutes
-- javascript.builtins.Date.setMonth
-- javascript.builtins.Date.setSeconds
-- javascript.builtins.Date.setTime
-- javascript.builtins.Date.setUTCDate
-- javascript.builtins.Date.setUTCFullYear
-- javascript.builtins.Date.setUTCHours
-- javascript.builtins.Date.setUTCMilliseconds
-- javascript.builtins.Date.setUTCMinutes
-- javascript.builtins.Date.setUTCMonth
-- javascript.builtins.Date.setUTCSeconds
-- javascript.builtins.Date.setYear
-- javascript.builtins.Date.toDateString
-- javascript.builtins.Date.toGMTString
-- javascript.builtins.Date.toISOString
-- javascript.builtins.Date.toJSON
-- javascript.builtins.Date.toLocaleDateString
-- javascript.builtins.Date.toLocaleString
-- javascript.builtins.Date.toLocaleTimeString
-- javascript.builtins.Date.toSource
-- javascript.builtins.Date.toString
-- javascript.builtins.Date.toTimeString
-- javascript.builtins.Date.toUTCString
-- javascript.builtins.Date.UTC
-- javascript.builtins.Date.valueOf
-- javascript.builtins.Date.@@toPrimitive
-- javascript.builtins.Error
-- javascript.builtins.FinalizationRegistry.register
-- javascript.builtins.FinalizationRegistry.unregister
-- javascript.builtins.Function.apply
-- javascript.builtins.Function.arguments
-- javascript.builtins.Function.bind
-- javascript.builtins.Function.call
-- javascript.builtins.Function.caller
-- javascript.builtins.Function.length
-- javascript.builtins.Function.name
-- javascript.builtins.Function.toSource
-- javascript.builtins.Function.toString
-- javascript.builtins.Generator
-- javascript.builtins.GeneratorFunction
-- javascript.builtins.Iterator
-- javascript.builtins.JSON.parse
-- javascript.builtins.JSON.stringify
-- javascript.builtins.Map.clear
-- javascript.builtins.Map.delete
-- javascript.builtins.Map.entries
-- javascript.builtins.Map.forEach
-- javascript.builtins.Map.get
-- javascript.builtins.Map.has
-- javascript.builtins.Map.keys
-- javascript.builtins.Map.set
-- javascript.builtins.Map.size
-- javascript.builtins.Map.values
-- javascript.builtins.Map.@@iterator
-- javascript.builtins.Map.@@species
-- javascript.builtins.Map.@@toStringTag
-- javascript.builtins.Math.E
-- javascript.builtins.Math.LN2
-- javascript.builtins.Math.LN10
-- javascript.builtins.Math.LOG2E
-- javascript.builtins.Math.LOG10E
-- javascript.builtins.Math.PI
-- javascript.builtins.Math.SQRT1_2
-- javascript.builtins.Math.SQRT2
-- javascript.builtins.Math.abs
-- javascript.builtins.Math.acos
-- javascript.builtins.Math.acosh
-- javascript.builtins.Math.asin
-- javascript.builtins.Math.asinh
-- javascript.builtins.Math.atan
-- javascript.builtins.Math.atan2
-- javascript.builtins.Math.atanh
-- javascript.builtins.Math.cbrt
-- javascript.builtins.Math.ceil
-- javascript.builtins.Math.clz32
-- javascript.builtins.Math.cos
-- javascript.builtins.Math.cosh
-- javascript.builtins.Math.exp
-- javascript.builtins.Math.expm1
-- javascript.builtins.Math.floor
-- javascript.builtins.Math.fround
-- javascript.builtins.Math.hypot
-- javascript.builtins.Math.imul
-- javascript.builtins.Math.log
-- javascript.builtins.Math.log1p
-- javascript.builtins.Math.log2
-- javascript.builtins.Math.log10
-- javascript.builtins.Math.max
-- javascript.builtins.Math.min
-- javascript.builtins.Math.pow
-- javascript.builtins.Math.random
-- javascript.builtins.Math.round
-- javascript.builtins.Math.sign
-- javascript.builtins.Math.sin
-- javascript.builtins.Math.sinh
-- javascript.builtins.Math.sqrt
-- javascript.builtins.Math.tan
-- javascript.builtins.Math.tanh
-- javascript.builtins.Math.trunc
-- javascript.builtins.Number.EPSILON
-- javascript.builtins.Number.MAX_SAFE_INTEGER
-- javascript.builtins.Number.MAX_VALUE
-- javascript.builtins.Number.MIN_SAFE_INTEGER
-- javascript.builtins.Number.MIN_VALUE
-- javascript.builtins.Number.NaN
-- javascript.builtins.Number.NEGATIVE_INFINITY
-- javascript.builtins.Number.POSITIVE_INFINITY
-- javascript.builtins.Number.isFinite
-- javascript.builtins.Number.isInteger
-- javascript.builtins.Number.isNaN
-- javascript.builtins.Number.isSafeInteger
-- javascript.builtins.Number.parseFloat
-- javascript.builtins.Number.parseInt
-- javascript.builtins.Number.toExponential
-- javascript.builtins.Number.toFixed
-- javascript.builtins.Number.toLocaleString
-- javascript.builtins.Number.toPrecision
-- javascript.builtins.Number.toSource
-- javascript.builtins.Number.toString
-- javascript.builtins.Number.valueOf
-- javascript.builtins.Object.assign
-- javascript.builtins.Object.constructor
-- javascript.builtins.Object.create
-- javascript.builtins.Object.defineProperties
-- javascript.builtins.Object.defineProperty
-- javascript.builtins.Object.entries
-- javascript.builtins.Object.freeze
-- javascript.builtins.Object.fromEntries
-- javascript.builtins.Object.getOwnPropertyDescriptor
-- javascript.builtins.Object.getOwnPropertyDescriptors
-- javascript.builtins.Object.getOwnPropertyNames
-- javascript.builtins.Object.getOwnPropertySymbols
-- javascript.builtins.Object.getPrototypeOf
-- javascript.builtins.Object.hasOwn
-- javascript.builtins.Object.hasOwnProperty
-- javascript.builtins.Object.is
-- javascript.builtins.Object.isExtensible
-- javascript.builtins.Object.isFrozen
-- javascript.builtins.Object.isPrototypeOf
-- javascript.builtins.Object.isSealed
-- javascript.builtins.Object.keys
-- javascript.builtins.Object.preventExtensions
-- javascript.builtins.Object.propertyIsEnumerable
-- javascript.builtins.Object.seal
-- javascript.builtins.Object.setPrototypeOf
-- javascript.builtins.Object.toLocaleString
-- javascript.builtins.Object.toSource
-- javascript.builtins.Object.toString
-- javascript.builtins.Object.valueOf
-- javascript.builtins.Object.values
-- javascript.builtins.Promise.all
-- javascript.builtins.Promise.allSettled
-- javascript.builtins.Promise.any
-- javascript.builtins.Promise.catch
-- javascript.builtins.Promise.finally
-- javascript.builtins.Promise.race
-- javascript.builtins.Promise.reject
-- javascript.builtins.Promise.resolve
-- javascript.builtins.Promise.then
-- javascript.builtins.Proxy.revocable
-- javascript.builtins.Reflect.apply
-- javascript.builtins.Reflect.construct
-- javascript.builtins.Reflect.defineProperty
-- javascript.builtins.Reflect.deleteProperty
-- javascript.builtins.Reflect.get
-- javascript.builtins.Reflect.getOwnPropertyDescriptor
-- javascript.builtins.Reflect.getPrototypeOf
-- javascript.builtins.Reflect.has
-- javascript.builtins.Reflect.isExtensible
-- javascript.builtins.Reflect.ownKeys
-- javascript.builtins.Reflect.preventExtensions
-- javascript.builtins.Reflect.set
-- javascript.builtins.Reflect.setPrototypeOf
-- javascript.builtins.RegExp.compile
-- javascript.builtins.RegExp.dotAll
-- javascript.builtins.RegExp.exec
-- javascript.builtins.RegExp.flags
-- javascript.builtins.RegExp.global
-- javascript.builtins.RegExp.hasIndices
-- javascript.builtins.RegExp.ignoreCase
-- javascript.builtins.RegExp.input
-- javascript.builtins.RegExp.lastIndex
-- javascript.builtins.RegExp.lastMatch
-- javascript.builtins.RegExp.lastParen
-- javascript.builtins.RegExp.leftContext
-- javascript.builtins.RegExp.multiline
-- javascript.builtins.RegExp.n
-- javascript.builtins.RegExp.rightContext
-- javascript.builtins.RegExp.source
-- javascript.builtins.RegExp.sticky
-- javascript.builtins.RegExp.test
-- javascript.builtins.RegExp.toSource
-- javascript.builtins.RegExp.toString
-- javascript.builtins.RegExp.unicode
-- javascript.builtins.RegExp.@@match
-- javascript.builtins.RegExp.@@matchAll
-- javascript.builtins.RegExp.@@replace
-- javascript.builtins.RegExp.@@search
-- javascript.builtins.RegExp.@@species
-- javascript.builtins.RegExp.@@split
-- javascript.builtins.Set.add
-- javascript.builtins.Set.clear
-- javascript.builtins.Set.delete
-- javascript.builtins.Set.entries
-- javascript.builtins.Set.forEach
-- javascript.builtins.Set.has
-- javascript.builtins.Set.keys
-- javascript.builtins.Set.size
-- javascript.builtins.Set.values
-- javascript.builtins.Set.@@iterator
-- javascript.builtins.Set.@@species
-- javascript.builtins.SharedArrayBuffer.byteLength
-- javascript.builtins.SharedArrayBuffer.slice
-- javascript.builtins.String.anchor
-- javascript.builtins.String.at
-- javascript.builtins.String.big
-- javascript.builtins.String.blink
-- javascript.builtins.String.bold
-- javascript.builtins.String.charAt
-- javascript.builtins.String.charCodeAt
-- javascript.builtins.String.codePointAt
-- javascript.builtins.String.concat
-- javascript.builtins.String.contains
-- javascript.builtins.String.endsWith
-- javascript.builtins.String.fixed
-- javascript.builtins.String.fontcolor
-- javascript.builtins.String.fontsize
-- javascript.builtins.String.fromCharCode
-- javascript.builtins.String.fromCodePoint
-- javascript.builtins.String.includes
-- javascript.builtins.String.indexOf
-- javascript.builtins.String.italics
-- javascript.builtins.String.lastIndexOf
-- javascript.builtins.String.length
-- javascript.builtins.String.link
-- javascript.builtins.String.localeCompare
-- javascript.builtins.String.match
-- javascript.builtins.String.matchAll
-- javascript.builtins.String.normalize
-- javascript.builtins.String.padEnd
-- javascript.builtins.String.padStart
-- javascript.builtins.String.raw
-- javascript.builtins.String.repeat
-- javascript.builtins.String.replace
-- javascript.builtins.String.replaceAll
-- javascript.builtins.String.search
-- javascript.builtins.String.slice
-- javascript.builtins.String.small
-- javascript.builtins.String.split
-- javascript.builtins.String.startsWith
-- javascript.builtins.String.strike
-- javascript.builtins.String.sub
-- javascript.builtins.String.substr
-- javascript.builtins.String.substring
-- javascript.builtins.String.sup
-- javascript.builtins.String.toLocaleLowerCase
-- javascript.builtins.String.toLocaleUpperCase
-- javascript.builtins.String.toLowerCase
-- javascript.builtins.String.toSource
-- javascript.builtins.String.toString
-- javascript.builtins.String.toUpperCase
-- javascript.builtins.String.trim
-- javascript.builtins.String.trimEnd
-- javascript.builtins.String.trimLeft
-- javascript.builtins.String.trimRight
-- javascript.builtins.String.trimStart
-- javascript.builtins.String.valueOf
-- javascript.builtins.String.@@iterator
-- javascript.builtins.Symbol.asyncIterator
-- javascript.builtins.Symbol.description
-- javascript.builtins.Symbol.for
-- javascript.builtins.Symbol.hasInstance
-- javascript.builtins.Symbol.isConcatSpreadable
-- javascript.builtins.Symbol.iterator
-- javascript.builtins.Symbol.keyFor
-- javascript.builtins.Symbol.match
-- javascript.builtins.Symbol.matchAll
-- javascript.builtins.Symbol.replace
-- javascript.builtins.Symbol.search
-- javascript.builtins.Symbol.species
-- javascript.builtins.Symbol.split
-- javascript.builtins.Symbol.toPrimitive
-- javascript.builtins.Symbol.toSource
-- javascript.builtins.Symbol.toString
-- javascript.builtins.Symbol.toStringTag
-- javascript.builtins.Symbol.unscopables
-- javascript.builtins.Symbol.valueOf
-- javascript.builtins.Symbol.@@toPrimitive
-- javascript.builtins.Temporal.Calendar
-- javascript.builtins.Temporal.Duration
-- javascript.builtins.Temporal.Instant
-- javascript.builtins.Temporal.PlainDate
-- javascript.builtins.Temporal.PlainDateTime
-- javascript.builtins.Temporal.PlainMonthDay
-- javascript.builtins.Temporal.PlainTime
-- javascript.builtins.Temporal.PlainYearMonth
-- javascript.builtins.Temporal.TimeZone
-- javascript.builtins.Temporal.ZonedDateTime
-- javascript.builtins.Temporal.now
-- javascript.builtins.TypedArray
-- javascript.builtins.WeakMap.clear
-- javascript.builtins.WeakMap.delete
-- javascript.builtins.WeakMap.get
-- javascript.builtins.WeakMap.has
-- javascript.builtins.WeakMap.set
-- javascript.builtins.WeakRef.deref
-- javascript.builtins.WeakSet.add
-- javascript.builtins.WeakSet.delete
-- javascript.builtins.WeakSet.has
-- javascript.builtins.Intl.Collator
-- javascript.builtins.Intl.DateTimeFormat
-- javascript.builtins.Intl.DisplayNames
-- javascript.builtins.Intl.getCanonicalLocales
-- javascript.builtins.Intl.@@toStringTag
-- javascript.builtins.Intl.ListFormat
-- javascript.builtins.Intl.Locale
-- javascript.builtins.Intl.NumberFormat
-- javascript.builtins.Intl.PluralRules
-- javascript.builtins.Intl.RelativeTimeFormat
-- javascript.builtins.Intl.Segmenter
-- javascript.builtins.Intl.Segments
-- javascript.builtins.Intl.supportedValuesOf
-- javascript.builtins.WebAssembly.CompileError
-- javascript.builtins.WebAssembly.Exception
-- javascript.builtins.WebAssembly.Global
-- javascript.builtins.WebAssembly.Instance
-- javascript.builtins.WebAssembly.LinkError
-- javascript.builtins.WebAssembly.Memory
-- javascript.builtins.WebAssembly.Module
-- javascript.builtins.WebAssembly.RuntimeError
-- javascript.builtins.WebAssembly.Table
-- javascript.builtins.WebAssembly.Tag
-- javascript.builtins.WebAssembly.compile
-- javascript.builtins.WebAssembly.compileStreaming
-- javascript.builtins.WebAssembly.instantiate
-- javascript.builtins.WebAssembly.instantiateStreaming
-- javascript.builtins.WebAssembly.validate
-
-### Commits
-
-- Update console errors on reusable instances
-- Use dummy media stream when possible, instead of always using cam/mic
-- Display the reusable instances code as separate reports
-- Add custom tests for RTCStatsReport and stats types
-- Add countdown timer to resource loading timeout
-- Increase resource loading timeout
-- Add cleanup function support
-- Simplify harness.js code
-- Set reusable instance to null when failed to load
-- Check TypeScript errors during test command
-- Allow \_\_additional on any identifier
-- Add resource dependencies
-- Convert MediaStream into reusable instance
-- Allow defining reusable instances that must be obtained in a callback
-- Inherit resources from imported tests
-- Update ReadableStream custom test
-- Add custom test for ReadableStream
-- Add missing JavaScript features
-- Fix some custom tests
-- Fix custom test for api.BaseAudioContext.createPeriodicWave.constraints_disableNormalization_parameter
-- Add custom tests for Iterator and AsyncIterator
-- Update Error JS builtin test
-- Make category argument required
-- Add additional custom tests for JS builtins
-- Allow a "custom" category in getCustomTest
-- Mention what ECMAScript level to use in custom tests
-- Add custom test for JS Error
-- Remove Function.displayName
-- Mention current issues with \_\_additional
-- Use path.resolve for paths in environment variables
-- Ensure highlight.js loads by setting "crossOrigin" to "true"
-- Fix Symbol test generation
-- Completely remove "code" property inside of custom/js.json
-- Utilize getCustomTest() for JavaScript tests
-- Integrate getCustomTestAPI code into getCustomTest
-- Create "CATEGORIES" constant
-- Fix Symbol test generation
-- Use "@@" to determine if a member is a symbol (instead of "type")
-- lib/config -&gt; lib/constants
-- Add custom test for WebAssembly.Exception.stack (closes #265)
-- Improve JavaScript custom tests a bit
-- Fix broken GeneratorFunction constructor test
-- Improve styling
-- Update codecov ignores
-- Add test for Generator builtin
-- Add COOP+COEP headers to allow for testing gated features (JS atomics)
-- Use getCustomTest() for CSS tests
-- Restore checking for bad resources
-- Resolve BCD and results dirs relative to project root
-- Streamline resources lists in tests by de-duplicating resource data
-- Fix generated tests for main API entry points
-- Fix stupid TypeScript error
-- Fix imports
-- Add changelog page
-- Add missing copyright comments
-- Separate build.test.ts
-- Rename custom-tests.ts to common.ts
-- Give all unittest files a .test suffix
-- Fix file references due to moved files
-- Cleanup files
-- Move files into subfolders for better organization
-- Separate build.ts into multiple components (fixes #256)
-- Fix broken tests
-- Improve test code generation
-- Remove getCustomResourcesAPI(); merge into getCustomTest()
-- Separate DESIGN.md into other docs
-- Document resource types
-- Move custom tests documentation to its own doc
-- Add alt. text to image resources
-- Update comments
-- Add more links to WebIDL spec
-- Compile \_\_resources in getCustomTestData()
-- Update documentation for custom tests
-- Remove redundant pre-formatting
-- Fix integration of getCustomTestData() into getCustomTestAPI()
-- Move resources out of API folder (so they can be used by other categories)
-- Rework getCustomSubtestsAPI()
-- Use getCustomTestData() in getCustomTestAPI()
-- Integrate generic getCustomTest() function into compileCustomTest()
-- Implement generic getCustomTest[Data]() functions
-- Results -&gt; reports where needed
-- Implement better custom test support for JavaScript tests
-- Add custom test for AsyncFunction
-- Remove irrelevant custom IDL
-- Update all dependencies
-- Remove IE compatibility meta tags
-- Add custom test for RTCStatsReport
-- Remove custom IDL for Document.contains()
+- Add mustReturnTruthy argument to testOptionParam
+- Decrease SpeechSynthesisVoice timeout
+- Mitigate SpeechSynthesisVoice bug in Firefox
+- Static members are suffixed with "\_static" in BCD feature names
+- Don't generate MathML tests for now
+- Add missing MathML elements and attributes
+- Ensure that all SVG elements have interface names defined
+- Add missing SVG elements and attributes
+- Rework element test building to handle different elements with same name
+- Remove irrelevant "CATEGORIES" constant
+- find-missing-features: convert categories to path
+- Add support for SVG and MathML elements
+- Fix additional attribute names/props
+- Sort HTML elements for better web output
+- HTML: allow attribute name and IDL property to be different
+- Add HTML category support
+- Increase JavaScript test coverage
+- Increase JavaScript test coverage
+- Fix \_\_additional on JavaScript category
+- Traverse all BCD features in find-missing-features
+- Fix release script when releasing new major version
+- Added WebAssembly features ([#452](https://github.com/GooborgStudios/mdn-bcd-collector/pull/452))
+- Increase delay when getting speech synthesis voices
+- Fix custom test for MediaQueryList
+- Add custom test for TransformStreamDefaultController
+- Add custom tests for ReadableStreamDefault[Controller/Reader]
+- Add custom test for aspect-ratio CSS property
 
 ## Older Versions
 
+- [v9.x](./changelog/v9.md)
 - [v8.x](./changelog/v8.md)
 - [v7.x](./changelog/v7.md)
 - [v6.x](./changelog/v6.md)
