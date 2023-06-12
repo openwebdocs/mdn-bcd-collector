@@ -1,7 +1,11 @@
 {
   "elements": {
     "custom": {
-      "image": "HTMLImageElement"
+      "image": {
+        "category": "html",
+        "instanceName": "HTMLImageElement",
+        "attributes": []
+      }
     },
     "attributes": {
       "a": [

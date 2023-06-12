@@ -1,6 +1,6 @@
 //
-// mdn-bcd-collector: test-builder/html.ts
-// Functions directly related to building all of the HTML element tests
+// mdn-bcd-collector: test-builder/elements.ts
+// Functions directly related to building all of the HTML, SVG and MathML element tests
 //
 // © Gooborg Studios
 // See the LICENSE file for copyright details
@@ -8,39 +8,65 @@
 
 import {getCustomTest, compileTest} from './common.js';
 
-const build = (specElements, customHTML) => {
+const categories = {
+  html: {
+    default: 'HTMLElement',
+    startsWith: 'HTML',
+  },
+  svg: {
+    namespace: 'http://www.w3.org/2000/svg',
+    default: 'SVGElement',
+    startsWith: 'SVG',
+  },
+  mathml: {
+    namespace: 'http://www.w3.org/1998/Math/MathML',
+    default: 'MathMLElement',
+    startsWith: 'MathML',
+  },
+};
+
+const build = (specElements, customElements) => {
   const tests = {};
-  const els = {};
+  const els = customElements.elements.custom || {};
 
   for (const data of Object.values(specElements) as any[]) {
     for (const el of data.elements) {
-      if (el.interface?.startsWith('HTML')) {
-        els[el.name] = {
-          interfaceName: el.interface,
-          attributes: customHTML.elements.attributes[el.name] || [],
-        };
+      // Get category of element
+      let category = 'html';
+      for (const [cat, catData] of Object.entries(categories)) {
+        if (el.interface?.startsWith(catData.startsWith)) {
+          category = cat;
+          break;
+        }
       }
-    }
-  }
 
-  for (const [el, interfaceName] of Object.entries(
-    customHTML.elements.custom,
-  ) as any[]) {
-    els[el] = {
-      interfaceName,
-      attributes: customHTML.elements.attributes[el.name] || [],
-    };
+      els[el.name] = {
+        category,
+        interfaceName: el.interface,
+        attributes: customElements.elements.attributes[el.name] || [],
+      };
+    }
   }
 
   for (const [el, data] of Object.entries(els).sort((a, b) =>
     a[0].localeCompare(b[0]),
   ) as any[]) {
-    const bcdPath = `html.elements.${el}`;
+    const bcdPath = `${data.category}.elements.${el}`;
+    const namespace = categories[data.category].namespace || '';
 
-    const customTest = getCustomTest(bcdPath, 'html.elements', true);
+    const customTest = getCustomTest(
+      bcdPath,
+      '${data.category}.elements',
+      true,
+    );
+    const defaultConstructCode = namespace
+      ? `document.createElementNS('${namespace}', '${el}')`
+      : `document.createElement('${el}')`;
     const defaultCode = `(function() {
-  var instance = document.createElement('${el}');
-  return bcd.testObjectName(instance, '${data.interfaceName || 'HTMLElement'}');
+  var instance = ${defaultConstructCode};
+  return bcd.testObjectName(instance, '${
+    data.interfaceName || categories[data.category].default
+  }');
 })()`;
 
     tests[bcdPath] = compileTest({
@@ -71,12 +97,12 @@ const build = (specElements, customHTML) => {
 
       const customAttrTest = getCustomTest(
         `${bcdPath}.${attrName}`,
-        'html.elements',
+        '${data.category}.elements',
         true,
       );
 
       const defaultAttrCode = `(function() {
-  var instance = document.createElement('${el}');
+  var instance = ${defaultConstructCode};
   return !!instance && '${attrProp}' in instance;
 })()`;
 
