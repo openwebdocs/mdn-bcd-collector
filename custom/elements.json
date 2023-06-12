@@ -3,8 +3,110 @@
     "custom": {
       "html": {
         "image": {
-          "instanceName": "HTMLImageElement",
-          "attributes": []
+          "instanceName": "HTMLImageElement"
+        }
+      },
+      "svg": {
+        "cursor": {
+          "attributes": ["href", "x", "xlink_href", "y"]
+        },
+        "font-face-format": {
+          "attributes": ["string"]
+        },
+        "font-face-name": {
+          "attributes": ["name"]
+        },
+        "font-face-src": {},
+        "font-face-uri": {"attributes": ["xlink_href"]},
+        "font-face": {
+          "attributes": [
+            "accent-height",
+            "alphabetic",
+            "ascent",
+            "bbox",
+            "cap-height",
+            "descent",
+            "font-family",
+            "font-size",
+            "font-stretch",
+            "font-style",
+            "font-variant",
+            "font-weight",
+            "hanging",
+            "ideographic",
+            "mathematical",
+            "overline-position",
+            "overline-thickness",
+            "panose-1",
+            "slope",
+            "stemh",
+            "stemv",
+            "strikethrough-position",
+            "strikethrough-thickness",
+            "underline-position",
+            "underline-thickness",
+            "unicode-range",
+            "units-per-em",
+            "v-alphabetic",
+            "v-hanging",
+            "v-ideographic",
+            "v-mathematical",
+            "widths",
+            "x-height"
+          ]
+        },
+        "font": {
+          "attributes": [
+            "horiz-adv-x",
+            "horiz-origin-x",
+            "horiz-origin-y",
+            "vert-adv-y",
+            "vert-origin-x",
+            "vert-origin-y"
+          ]
+        },
+        "glyph": {
+          "attributes": [
+            "arabic-form",
+            "d",
+            "glyph-name",
+            "horiz-adv-x",
+            "lang",
+            "orientation",
+            "unicode",
+            "vert-adv-y",
+            "vert-origin-x",
+            "vert-origin-y"
+          ]
+        },
+        "glyphRef": {
+          "attributes": [
+            "dx",
+            "dy",
+            "format",
+            "glyphRef",
+            "x",
+            "xlink_href",
+            "y"
+          ]
+        },
+        "hkern": {
+          "attributes": ["g1", "g2", "k", "u1", "u2"]
+        },
+        "missing-glyph": {
+          "attributes": [
+            "d",
+            "horiz-adv-x",
+            "vert-adv-y",
+            "vert-origin-x",
+            "vert-origin-y"
+          ]
+        },
+        "tref": {
+          "attributes": ["xlink_href"]
+        },
+        "vkern": {
+          "attributes": ["g1", "g2", "k", "u1", "u2"]
         }
       }
     },
@@ -364,6 +466,209 @@
           "src",
           "width"
         ]
+      },
+      "svg": {
+        "a": [
+          "download",
+          "href",
+          "hreflang",
+          "ping",
+          "referrerpolicy",
+          "rel",
+          "target",
+          "type",
+          "xlink_actuate",
+          "xlink_href",
+          "xlink_show",
+          "xlink_title"
+        ],
+        "animate": [
+          "attributeName",
+          "attributeType",
+          "dur",
+          "from",
+          "repeatCount",
+          "to"
+        ],
+        "animateMotion": ["calcMode", "keyPoints", "origin", "path", "rotate"],
+        "animateTransform": ["by", "from", "to", "type"],
+        "circle": ["cx", "cy", "r"],
+        "clipPath": ["clipPathUnits"],
+        "ellipse": ["cx", "cy", "rx", "ry"],
+        "feBlend": ["in", "in2", "mode"],
+        "feColorMatrix": ["in", "type", "values"],
+        "feComponentTransfer": ["in"],
+        "feComposite": [
+          "in",
+          "in2",
+          "k1",
+          "k2",
+          "k3",
+          "k4",
+          "operator",
+          "operator"
+        ],
+        "feConvolveMatrix": [
+          "bias",
+          "divisor",
+          "edgeMode",
+          "in",
+          "kernelMatrix",
+          "kernelUnitLength",
+          "order",
+          "preserveAlpha",
+          "targetX",
+          "targetY"
+        ],
+        "feDiffuseLighting": [
+          "diffuseConstant",
+          "in",
+          "kernelUnitLength",
+          "surfaceScale"
+        ],
+        "feDisplacementMap": [
+          "in",
+          "in2",
+          "scale",
+          "xChannelSelector",
+          "yChannelSelector"
+        ],
+        "feDistantLight": ["azimuth", "elevation"],
+        "feDropShadow": ["dx", "dy", "in", "stdDeviation"],
+        "feFlood": ["flood-color", "flood-opacity"],
+        "feGaussianBlur": ["edgeMode", "in", "stdDeviation"],
+        "feImage": ["crossorigin", "href", "preserveAspectRatio", "xlink_href"],
+        "feMergeNode": ["in"],
+        "feMorphology": ["in", "operator", "radius"],
+        "feOffset": ["dx", "dy", "in"],
+        "fePointLight": ["x", "y", "z"],
+        "feSpecularLighting": [
+          "in",
+          "kernelUnitLength",
+          "specularConstant",
+          "specularExponent",
+          "surfaceScale"
+        ],
+        "feSpotLight": [
+          "limitingConeAngle",
+          "pointsAtX",
+          "pointsAtY",
+          "pointsAtZ",
+          "specularExponent",
+          "x",
+          "y",
+          "z"
+        ],
+        "feTile": ["in"],
+        "feTurbulence": [
+          "baseFrequency",
+          "numOctaves",
+          "seed",
+          "stitchTiles",
+          "type"
+        ],
+        "filter": [
+          "filterRes",
+          "filterUnits",
+          "height",
+          "primitiveUnits",
+          "width",
+          "x",
+          "xlink_href",
+          "y"
+        ],
+        "foreignObject": ["height", "width", "x", "y"],
+        "image": [
+          "crossorigin",
+          "decoding",
+          "height",
+          "preserveAspectRatio",
+          "width",
+          "x",
+          "xlink_href",
+          "y"
+        ],
+        "line": ["x1", "x2", "y1", "y2"],
+        "linearGradient": [
+          "gradientTransform",
+          "gradientUnits",
+          "spreadMethod",
+          "x1",
+          "x2",
+          "xlink_href",
+          "y1",
+          "y2"
+        ],
+        "marker": [
+          "markerHeight",
+          "markerUnits",
+          "markerWidth",
+          "orient",
+          "refX",
+          "refY",
+          "viewBox"
+        ],
+        "mask": ["height", "maskContentUnits", "maskUnits", "width", "x", "y"],
+        "mpath": ["xlink_href"],
+        "path": ["d"],
+        "pattern": [
+          "height",
+          "href",
+          "patternContentUnits",
+          "patternTransform",
+          "patternUnits",
+          "width",
+          "x",
+          "xlink_href",
+          "y"
+        ],
+        "polygon": ["points"],
+        "polyline": ["points"],
+        "radialGradient": [
+          "cx",
+          "cy",
+          "fr",
+          "fx",
+          "fy",
+          "gradientTransform",
+          "gradientUnits",
+          "href",
+          "r",
+          "spreadMethod",
+          "xlink_href"
+        ],
+        "rect": ["height", "rx", "ry", "width", "x", "y"],
+        "script": ["type", "xlink_href"],
+        "set": ["to"],
+        "stop": ["offset", "stop-color", "stop-opacity"],
+        "style": ["media", "title", "type"],
+        "svg": [
+          "baseProfile",
+          "contentScriptType",
+          "contentStyleType",
+          "height",
+          "preserveAspectRatio",
+          "version",
+          "viewBox",
+          "width",
+          "x",
+          "y",
+          "zoomAndPan"
+        ],
+        "switch": ["allowReorder"],
+        "symbol": ["preserveAspectRatio", "viewBox"],
+        "text": ["dx", "dy", "lengthAdjust", "rotate", "textLength", "x", "y"],
+        "textPath": [
+          "href",
+          "path",
+          "side",
+          "spacing",
+          "startOffset",
+          "xlink_href"
+        ],
+        "tspan": ["dx", "dy", "lengthAdjust", "rotate", "textLength", "x", "y"],
+        "use": ["height", "href", "width", "x", "xlink_href", "y"],
+        "view": ["preserveAspectRatio", "viewBox", "viewTarget", "zoomAndPan"]
       }
     }
   }
