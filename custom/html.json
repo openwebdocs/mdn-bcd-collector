@@ -20,14 +20,14 @@
         "type"
       ],
       "area": [
-        "accesskey",
+        {"name": "accesskey", "prop": "accessKey"},
         "alt",
         "coords",
         "download",
         "href",
         "hreflang",
         "name",
-        "nohref",
+        {"name": "nohref", "prop": "noHref"},
         "ping",
         {"name": "referrerpolicy", "prop": "referrerPolicy"},
         "rel",
