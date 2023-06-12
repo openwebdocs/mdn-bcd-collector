@@ -8,7 +8,13 @@
 
 import {getCustomTest, compileTest} from './common.js';
 
-const categories = {
+const categories: {
+  [name: string]: {
+    namespace?: string;
+    default: string;
+    startsWith: string;
+  };
+} = {
   html: {
     default: 'HTMLElement',
     startsWith: 'HTML',
@@ -27,7 +33,11 @@ const categories = {
 
 const build = (specElements, customElements) => {
   const tests = {};
-  const els = customElements.elements.custom || {};
+  const els = {
+    html: customElements.elements.custom.html || {},
+    svg: customElements.elements.custom.svg || {},
+    mathml: customElements.elements.custom.mathml || {},
+  };
 
   for (const data of Object.values(specElements) as any[]) {
     for (const el of data.elements) {
@@ -40,85 +50,84 @@ const build = (specElements, customElements) => {
         }
       }
 
-      els[el.name] = {
-        category,
+      els[category][el.name] = {
         interfaceName: el.interface,
-        attributes: customElements.elements.attributes[el.name] || [],
+        attributes:
+          (customElements.elements.attributes[category] || {})[el.name] || [],
       };
     }
   }
 
-  for (const [el, data] of Object.entries(els).sort((a, b) =>
-    a[0].localeCompare(b[0]),
-  ) as any[]) {
-    const bcdPath = `${data.category}.elements.${el}`;
-    const namespace = categories[data.category].namespace || '';
+  for (const [category, categoryData] of Object.entries(categories)) {
+    const namespace = categoryData.namespace;
 
-    const customTest = getCustomTest(
-      bcdPath,
-      '${data.category}.elements',
-      true,
-    );
-    const defaultConstructCode = namespace
-      ? `document.createElementNS('${namespace}', '${el}')`
-      : `document.createElement('${el}')`;
-    const defaultCode = `(function() {
+    for (const [el, data] of Object.entries(els[category]).sort((a, b) =>
+      a[0].localeCompare(b[0]),
+    ) as any[]) {
+      const bcdPath = `${category}.elements.${el}`;
+
+      const customTest = getCustomTest(bcdPath, '${category}.elements', true);
+      const defaultConstructCode = namespace
+        ? `document.createElementNS('${namespace}', '${el}')`
+        : `document.createElement('${el}')`;
+      const defaultCode = `(function() {
   var instance = ${defaultConstructCode};
   return bcd.testObjectName(instance, '${
-    data.interfaceName || categories[data.category].default
+    data.interfaceName || categoryData.default
   }');
 })()`;
 
-    tests[bcdPath] = compileTest({
-      raw: {code: customTest.test || defaultCode},
-      exposure: ['Window'],
-    });
-
-    // Add the additional tests
-    for (const [key, code] of Object.entries(customTest.additional)) {
-      tests[`${bcdPath}.${key}`] = compileTest({
-        raw: {code: code},
-        exposure: ['Window'],
-      });
-    }
-
-    // Add tests for the attributes
-    for (const attr of data.attributes || []) {
-      let attrName = '';
-      let attrProp = '';
-
-      if (typeof attr == 'string') {
-        attrName = attr;
-        attrProp = attr;
-      } else {
-        attrName = attr.name;
-        attrProp = attr.prop;
-      }
-
-      const customAttrTest = getCustomTest(
-        `${bcdPath}.${attrName}`,
-        '${data.category}.elements',
-        true,
-      );
-
-      const defaultAttrCode = `(function() {
-  var instance = ${defaultConstructCode};
-  return !!instance && '${attrProp}' in instance;
-})()`;
-
-      tests[`${bcdPath}.${attrName}`] = compileTest({
-        raw: {
-          code: customAttrTest.test || defaultAttrCode,
-        },
+      tests[bcdPath] = compileTest({
+        raw: {code: customTest.test || defaultCode},
         exposure: ['Window'],
       });
 
       // Add the additional tests
       for (const [key, code] of Object.entries(customTest.additional)) {
-        tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
+        tests[`${bcdPath}.${key}`] = compileTest({
           raw: {code: code},
           exposure: ['Window'],
         });
+      }
+
+      // Add tests for the attributes
+      for (const attr of data.attributes || []) {
+        let attrName = '';
+        let attrProp = '';
+
+        if (typeof attr == 'string') {
+          attrName = attr;
+          attrProp = attr;
+        } else {
+          attrName = attr.name;
+          attrProp = attr.prop;
+        }
+
+        const customAttrTest = getCustomTest(
+          `${bcdPath}.${attrName}`,
+          '${category}.elements',
+          true,
+        );
+
+        const defaultAttrCode = `(function() {
+  var instance = ${defaultConstructCode};
+  return !!instance && '${attrProp}' in instance;
+})()`;
+
+        tests[`${bcdPath}.${attrName}`] = compileTest({
+          raw: {
+            code: customAttrTest.test || defaultAttrCode,
+          },
+          exposure: ['Window'],
+        });
+
+        // Add the additional tests
+        for (const [key, code] of Object.entries(customTest.additional)) {
+          tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
+            raw: {code: code},
+            exposure: ['Window'],
+          });
+        }
       }
     }
   }
