@@ -4400,6 +4400,14 @@ api:
     __base: |-
       var el = document.getElementById('resource-video-blank');
       var instance = el.getVideoPlaybackQuality();
+  VRPose:
+    __base: |-
+      if (!('getVRDisplays' in navigator)) {
+        return {result: false, message: 'WebVR 1.1 is not supported'};
+      }
+      // Obtaining an actual instance requires a VR headset to be hooked up,
+      // so we are using the prototype instead
+      var instance = VRPose.prototype;
   VTTCue:
     __resources:
       - video-blank
