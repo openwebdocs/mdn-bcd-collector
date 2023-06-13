@@ -4936,6 +4936,12 @@ javascript:
           }
           var instance = new Intl.DisplayNames(['en'], { type: 'region' });
         supportedLocalesOf: return 'supportedLocalesOf' in Intl.DisplayNames;
+      DurationFormat:
+        __base: |-
+          if (!('Intl' in self && 'DurationFormat' in Intl)) {
+            return {result: false, message: 'Intl.DurationFormat is not defined'};
+          }
+          var instance = new Intl.DurationFormat();
       ListFormat:
         __base: |-
           if (!('Intl' in self && 'ListFormat' in Intl)) {
