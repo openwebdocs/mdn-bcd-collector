@@ -13,8 +13,7 @@ const build = (customWasm) => {
 
   const tests = {};
   for (const [feature, details] of features) {
-    const path = ['webassembly', 'features', feature].join('.');
-    tests[path] = compileTest({
+    tests[`webassembly.${feature}`] = compileTest({
       raw: {
         // 'wfd-key' stands for 'wasm-feature-detect key'
         code: `bcd.testWasmFeature('${details['wfd-key']}')`,
