@@ -4770,6 +4770,16 @@ css:
 # Features defined here also need to be in custom-js.json.
 javascript:
   builtins:
+    AggregateError:
+      __base: |-
+        if (!('AggregateError' in self)) {
+          return {result: false, message: 'AggregateError is not defined'};
+        }
+        var instance = new AggregateError(
+          // An iterable of errors
+          new Set([new Error("some error"), new Error("another error")]),
+          "Multiple errors thrown",
+        );
     AsyncFunction:
       __base: |-
         var func;
