@@ -83,7 +83,10 @@ export const getFilePath = (ident: string[]): string => {
     } else {
       parts.length = 2;
     }
-  } else if (parts.length >= 3 && parts[0] === 'css') {
+  } else if (
+    parts.length >= 3 &&
+    ['css', 'html', 'svg', 'mathml'].includes(parts[0])
+  ) {
     parts.length = 3;
   } else if (
     parts.length >= 3 &&
@@ -105,6 +108,8 @@ export const getFilePath = (ident: string[]): string => {
     } else {
       parts.length = 3;
     }
+  } else if (parts.length >= 2 && parts[0] === 'webassembly') {
+    parts.length = 2;
   } else {
     throw new Error(
       `Cannot determine file path from BCD path: ${ident.join('.')}`,
