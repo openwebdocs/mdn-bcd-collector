@@ -337,7 +337,7 @@
     "custom-property": {},
     "display": {
       "__additional_values": {
-        "display-outside": ["block", "inline", "run-in"],
+        "display-outside": ["block", "inline"],
         "multi-keyword_values": "inline flow",
         "ruby_values": [
           "ruby",
