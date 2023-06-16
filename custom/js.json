@@ -1030,7 +1030,7 @@
     "Intl.DurationFormat.prototype.format": {},
     "Intl.DurationFormat.prototype.formatToParts": {},
     "Intl.DurationFormat.prototype.resolvedOptions": {},
-    "Intl.DurationFormat.prototype.supportedLocalesOf": {},
+    "Intl.DurationFormat.supportedLocalesOf": {},
     "Intl.getCanonicalLocales": {},
     "Intl.@@toStringTag": {},
     "Intl.ListFormat": {

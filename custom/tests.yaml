@@ -4953,6 +4953,7 @@ javascript:
             return {result: false, message: 'Intl.DurationFormat is not defined'};
           }
           var instance = new Intl.DurationFormat();
+        supportedLocalesOf: return 'supportedLocalesOf' in Intl.DurationFormat;
       ListFormat:
         __base: |-
           if (!('Intl' in self && 'ListFormat' in Intl)) {
