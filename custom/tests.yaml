@@ -1952,7 +1952,6 @@ api:
     __base: var instance = document.createElement('button');
     __test: return bcd.testObjectName(instance, 'HTMLButtonElement');
   HTMLCanvasElement:
-    WebGLRenderingContext:
     __resources:
       - webGL1
       - webGL2
@@ -4445,6 +4444,12 @@ api:
     __resources:
       - webGL1
     __base: var instance = reusableInstances.webGL1;
+    makeXRCompatible: |-
+      if (!('xr' in navigator)) {
+        // Safari briefly exposes this when WebXR isn't implemented
+        return {result: false, message: 'navigator.xr is not defined'};
+      }
+      return !!instance && 'makeXRCompatible' in instance;
   WebGL2RenderingContext:
     __resources:
       - webGL2
