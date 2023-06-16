@@ -5140,7 +5140,6 @@ javascript:
             new WeakMap([
               [window, "one"],
               [{}, "two"],
-              [Symbol(), "three"],
             ]);
             return true;
           } catch(e) {
@@ -5157,7 +5156,7 @@ javascript:
       __additional:
         WeakSet.iterable_allowed: |-
           try {
-            new WeakSet([window, {}, Symbol()]);
+            new WeakSet([window, {}]);
             return true;
           } catch(e) {
             return {result: false, message: e.message};
