@@ -4802,6 +4802,7 @@ javascript:
           if (e instanceof TypeError) {
             return {result: false, message: e.message};
           }
+          throw e;
         }
       AsyncFunction: |-
         var AsyncFunction = func.constructor;
@@ -4812,7 +4813,7 @@ javascript:
           new AsyncFunction('return true');
           return true;
         } catch(e) {
-          return false;
+          return {result: false, message: e.message};
         }
     AsyncGenerator:
       __base: <%javascript.builtins.AsyncGeneratorFunction:instance%>
@@ -4830,6 +4831,7 @@ javascript:
           if (e instanceof TypeError) {
             return {result: false, message: e.message};
           }
+          throw e;
         }
       AsyncGeneratorFunction: |-
         var AsyncGeneratorFunction = func.constructor;
@@ -4885,6 +4887,7 @@ javascript:
           if (e instanceof TypeError) {
             return {result: false, message: e.message};
           }
+          throw e;
         }
       __test: return !!instance;
       GeneratorFunction: return !!instance;
@@ -5135,9 +5138,9 @@ javascript:
         WeakMap.iterable_allowed: |-
           try {
             new WeakMap([
-              [1, "one"],
-              [2, "two"],
-              [3, "three"],
+              [window, "one"],
+              [{}, "two"],
+              [Symbol(), "three"],
             ]);
             return true;
           } catch(e) {
@@ -5154,7 +5157,7 @@ javascript:
       __additional:
         WeakSet.iterable_allowed: |-
           try {
-            new WeakSet([1, 2, 3, 4, 5]);
+            new WeakSet([window, {}, Symbol()]);
             return true;
           } catch(e) {
             return {result: false, message: e.message};
