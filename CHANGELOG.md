@@ -1,5 +1,43 @@
 # mdn-bcd-collector Changelog
 
+## v10.0.1
+
+### Test Changes
+
+#### Changed
+
+- api.VRPose
+- javascript.builtins.AggregateError
+- javascript.builtins.AsyncFunction
+- javascript.builtins.AsyncGenerator
+- javascript.builtins.AsyncGeneratorFunction
+- javascript.builtins.AsyncIterator
+- javascript.builtins.Float32Array.Float32Array.iterable_allowed
+- javascript.builtins.Float64Array.Float64Array.iterable_allowed
+- javascript.builtins.Generator
+- javascript.builtins.GeneratorFunction
+- javascript.builtins.Int16Array.Int16Array.iterable_allowed
+- javascript.builtins.Int32Array.Int32Array.iterable_allowed
+- javascript.builtins.Int8Array.Int8Array.iterable_allowed
+- javascript.builtins.TypedArray.iterable_in_constructor
+- javascript.builtins.Uint16Array.Uint16Array.iterable_allowed
+- javascript.builtins.Uint32Array.Uint32Array.iterable_allowed
+- javascript.builtins.Uint8Array.Uint8Array.iterable_allowed
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.iterable_allowed
+- javascript.builtins.WeakMap.WeakMap.iterable_allowed
+- javascript.builtins.WeakSet.WeakSet.iterable_allowed
+- javascript.builtins.Intl.DurationFormat
+
+### Commits
+
+- Fix update-bcd
+- Fix add-new-bcd to handle new categories
+- Improve JavaScript tests
+- Fix a11y with submit button
+- Add custom test for VRPose
+- Add custom test for Intl.DurationFormat
+- Add custom test for AggregateError builtin
+
 ## v10.0.0
 
 ### Notable changes
