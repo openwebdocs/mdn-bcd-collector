@@ -1,4 +1,5 @@
 {
   "loader": "ts-node/esm",
-  "extensions": ["ts", "tsx"]
+  "extensions": ["ts", "tsx"],
+  "exclude": ["unittest/", "./**/node_modules/**/*"]
 }
