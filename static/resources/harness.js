@@ -239,6 +239,7 @@
           "WRONG_ARGUMENTS_ERR",
           "are both null",
           "must be specified",
+          "must be a",
           "is not a valid custom element constructor",
           "constructor takes a",
           "is not a valid argument count",
