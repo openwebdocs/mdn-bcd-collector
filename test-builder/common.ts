@@ -336,7 +336,11 @@ const compileTestCode = (test: any): string => {
       test.owner
     }, "${property}")`;
   }
-  if (test.owner === 'self' || test.owner === 'document.body.style') {
+  if (
+    test.owner === 'self' ||
+    test.owner === 'document.body.style' ||
+    test.skipOwnerCheck
+  ) {
     return `"${property}" in ${test.owner}`;
   }
   return `"${test.owner.replace(

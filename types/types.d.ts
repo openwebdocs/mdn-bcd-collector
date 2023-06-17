@@ -53,6 +53,7 @@ export interface RawTestCodeExpr {
   property: string;
   owner?: string;
   inherit?: boolean;
+  skipOwnerCheck?: boolean;
 }
 
 export interface RawTest {

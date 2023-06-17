@@ -59,13 +59,14 @@ const build = (customJS) => {
       const owner =
         parts.length > 1 ? parts.slice(0, parts.length - 1).join('.') : 'self';
 
-      expr = [{property, owner}];
+      expr = [{property, owner, skipOwnerCheck: isInSubcategory}];
 
       if (isInSubcategory) {
-        if (`"${parts[1]}"` !== property) {
+        if (parts[1] !== property) {
           expr.unshift({property: parts[1], owner: parts[0]});
+        } else if (parts[0] !== property) {
+          expr.unshift({property: parts[0], owner: 'self'});
         }
-        expr.unshift({property: parts[0], owner: 'self'});
       }
 
       tests[bcdPath] = compileTest({
@@ -98,6 +99,11 @@ const build = (customJS) => {
 
         let baseCode = '';
 
+        baseCode += `if (!("${parts[0]}" in self)) {
+      return {result: false, message: '${parts[0]} is not defined'};
+    }
+    `;
+
         if (path.startsWith('Intl')) {
           baseCode += `if (!("${parts[1]}" in Intl)) {
       return {result: false, message: 'Intl.${parts[1]} is not defined'};
@@ -109,11 +115,6 @@ const build = (customJS) => {
     }
     `;
         }
-
-        baseCode += `if (!("${parts[0]}" in self)) {
-      return {result: false, message: '${parts[0]} is not defined'};
-    }
-    `;
 
         const ctorCode = `var instance = ${maybeNew} ${expr};
     return !!instance;`;
