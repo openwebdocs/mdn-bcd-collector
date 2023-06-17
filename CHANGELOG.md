@@ -1,5 +1,97 @@
 # mdn-bcd-collector Changelog
 
+## v10.0.2
+
+### Test Changes
+
+#### Changed
+
+- api.WebGLRenderingContext.makeXRCompatible
+- css.properties.display.display-outside
+- css.properties.list-style-type
+- javascript.builtins.Array
+- javascript.builtins.ArrayBuffer
+- javascript.builtins.Atomics
+- javascript.builtins.BigInt
+- javascript.builtins.BigInt64Array
+- javascript.builtins.BigUint64Array
+- javascript.builtins.Boolean
+- javascript.builtins.DataView
+- javascript.builtins.Date
+- javascript.builtins.EvalError
+- javascript.builtins.FinalizationRegistry
+- javascript.builtins.Float32Array
+- javascript.builtins.Float64Array
+- javascript.builtins.Function
+- javascript.builtins.Infinity
+- javascript.builtins.Int16Array
+- javascript.builtins.Int32Array
+- javascript.builtins.Int8Array
+- javascript.builtins.InternalError
+- javascript.builtins.JSON
+- javascript.builtins.Map
+- javascript.builtins.Math
+- javascript.builtins.NaN
+- javascript.builtins.Number
+- javascript.builtins.Object
+- javascript.builtins.Promise
+- javascript.builtins.Proxy
+- javascript.builtins.RangeError
+- javascript.builtins.ReferenceError
+- javascript.builtins.Reflect
+- javascript.builtins.RegExp.input
+- javascript.builtins.RegExp.lastMatch
+- javascript.builtins.RegExp.lastParen
+- javascript.builtins.RegExp.leftContext
+- javascript.builtins.RegExp.rightContext
+- javascript.builtins.Set
+- javascript.builtins.SharedArrayBuffer
+- javascript.builtins.String
+- javascript.builtins.Symbol
+- javascript.builtins.SyntaxError
+- javascript.builtins.Temporal
+- javascript.builtins.TypeError
+- javascript.builtins.URIError
+- javascript.builtins.Uint16Array
+- javascript.builtins.Uint32Array
+- javascript.builtins.Uint8Array
+- javascript.builtins.Uint8ClampedArray
+- javascript.builtins.WeakMap
+- javascript.builtins.WeakRef
+- javascript.builtins.WeakSet
+- javascript.builtins.decodeURI
+- javascript.builtins.decodeURIComponent
+- javascript.builtins.encodeURI
+- javascript.builtins.encodeURIComponent
+- javascript.builtins.escape
+- javascript.builtins.eval
+- javascript.builtins.globalThis
+- javascript.builtins.isFinite
+- javascript.builtins.isNaN
+- javascript.builtins.parseFloat
+- javascript.builtins.parseInt
+- javascript.builtins.unescape
+- javascript.builtins.uneval
+- javascript.builtins.undefined
+- javascript.builtins.Intl
+- javascript.builtins.WebAssembly
+
+### Commits
+
+- Ensure node_modules is properly ignored
+- Switch back to main branch after release script finishes
+- Don't use .hasOwnProperty() on JavaScript tests
+- Move unittests right beside relevant files
+- Remove custom test for list-style-type (will use overrides instead)
+- Update overrides
+- Update CSS values
+- Update overrides
+- Add custom test for WebGLRenderingContext.makeXRCompatible
+- Remove now-irrelevant overrides
+- Fix overrides
+- Fix test for Intl.DurationFormat.supportedLocalesOf
+- Fix tests for WeakMap/WeakSet
+
 ## v10.0.1
 
 ### Test Changes
