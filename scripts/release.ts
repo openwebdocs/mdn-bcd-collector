@@ -398,9 +398,9 @@ const main = async () => {
     console.error(e);
   }
 
-  // Restore original head when finished
+  // Switch back to main branch when finished
   try {
-    await exec('git switch -');
+    await exec('git switch main');
   } catch (e) {
     // Don't worry if the command fails
   }
