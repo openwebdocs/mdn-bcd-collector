@@ -4929,71 +4929,12 @@ javascript:
             return {result: false, message: e.message};
           }
     Intl:
-      Collator:
-        __base: |-
-          if (!('Intl' in self && 'Collator' in Intl)) {
-            return {result: false, message: 'Intl.Collator is not defined'};
-          }
-          var instance = new Intl.Collator('en');
-      DateTimeFormat:
-        __base: |-
-          if (!('Intl' in self && 'DateTimeFormat' in Intl)) {
-            return {result: false, message: 'Intl.DateTimeFormat is not defined'};
-          }
-          var instance = new Intl.DateTimeFormat('en');
-      DisplayNames:
-        __base: |-
-          if (!('Intl' in self && 'DisplayNames' in Intl)) {
-            return {result: false, message: 'Intl.DisplayNames is not defined'};
-          }
-          var instance = new Intl.DisplayNames(['en'], { type: 'region' });
-      DurationFormat:
-        __base: |-
-          if (!('Intl' in self && 'DurationFormat' in Intl)) {
-            return {result: false, message: 'Intl.DurationFormat is not defined'};
-          }
-          var instance = new Intl.DurationFormat();
-      ListFormat:
-        __base: |-
-          if (!('Intl' in self && 'ListFormat' in Intl)) {
-            return {result: false, message: 'Intl.ListFormat is not defined'};
-          }
-          var instance = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-      Locale:
-        __base: |-
-          if (!('Intl' in self && 'Locale' in Intl)) {
-            return {result: false, message: 'Intl.Locale is not defined'};
-          }
-          var instance = new Intl.Locale('ko', {
-            script: 'Kore', region: 'KR', hourCycle: 'h24', calendar: 'gregory'
-          });
-      NumberFormat:
-        __base: |-
-          if (!('Intl' in self && 'NumberFormat' in Intl)) {
-            return {result: false, message: 'Intl.NumberFormat is not defined'};
-          }
-          var instance = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
-      PluralRules:
-        __base: |-
-          if (!('Intl' in self && 'PluralRules' in Intl)) {
-            return {result: false, message: 'Intl.PluralRules is not defined'};
-          }
-          var instance = new Intl.PluralRules();
-      RelativeTimeFormat:
-        __base: |-
-          if (!('Intl' in self && 'RelativeTimeFormat' in Intl)) {
-            return {result: false, message: 'Intl.RelativeTimeFormat is not defined'};
-          }
-          var instance = new Intl.RelativeTimeFormat('en', { style: 'short' });
-      Segmenter:
+      Segments:
         __base: |-
           if (!('Intl' in self && 'Segmenter' in Intl)) {
             return {result: false, message: 'Intl.Segmenter is not defined'};
           }
-          var instance = new Intl.Segmenter('fr', { granularity: 'word' });
-      Segments:
-        __base: |-
-          <%javascript.builtins.Intl.Segmenter:segmenter%>
+          var segmenter = new Intl.Segmenter('fr', { granularity: 'word' });
           var instance = segmenter.segment('Que ma joie demeure');
     Iterator:
       __base: |-
@@ -5172,56 +5113,3 @@ javascript:
           }
           var instance = new WebAssembly.Exception(tag, [], {traceStack: true});
         __test: return !!instance;
-      Global:
-        __base: "var instance = new WebAssembly.Global({ value: 'i32', mutable: true }, 0);"
-      Instance:
-        __base: |-
-          <%javascript.builtins.WebAssembly.Module:module%>
-          var importObject = {
-            imports: {
-              imported_func(arg) {
-                console.log(arg);
-              },
-            },
-          };
-
-          var promise = module.then(function(m) {
-            return new WebAssembly.Instance(m, importObject);
-          });
-        Instance: |-
-          return promise.then(function(instance) {
-            return !!instance;
-          });
-      Memory:
-        __base: |-
-          var instance = new WebAssembly.Memory({
-            initial: 10,
-            maximum: 100,
-          });
-      Module:
-        __base: |-
-          if (!('WebAssembly' in self && 'Module' in WebAssembly)) {
-            return {result: false, message: 'WebAssembly.Module is not defined'};
-          }
-          var promise = fetch('/resources/custom-tests/wasm/simple.wasm')
-            .then(function(response) {
-              return response.arrayBuffer();
-            }).then(function(bytes) {
-              return new WebAssembly.Module(bytes);
-            });
-        Module: |-
-          return promise.then(function(instance) {
-            return !!instance;
-          });
-      Table:
-        __base: |-
-          var instance = new WebAssembly.Table({
-            initial: 2,
-            element: "anyfunc",
-          });
-      Tag:
-        __base: |-
-          if (!('WebAssembly' in self && 'Tag' in WebAssembly)) {
-            return {result: false, message: 'WebAssembly.Tag is not defined'};
-          }
-          var instance = new WebAssembly.Tag({parameters: ["i32", "i64"]});
