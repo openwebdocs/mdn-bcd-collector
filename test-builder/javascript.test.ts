@@ -43,8 +43,7 @@ describe('build (JavaScript)', () => {
   if (!("AggregateError" in self)) {
     return { result: false, message: "AggregateError is not defined" };
   }
-  var instance = new AggregateError([new Error("message")]);
-  return !!instance;
+  return bcd.testConstructor("AggregateError");
 })();
 `,
         exposure: ['Window'],
@@ -66,8 +65,7 @@ describe('build (JavaScript)', () => {
   if (!("Array" in self)) {
     return { result: false, message: "Array is not defined" };
   }
-  var instance = new Array(2);
-  return !!instance;
+  return bcd.testConstructor("Array");
 })();
 `,
         exposure: ['Window'],
@@ -93,8 +91,7 @@ describe('build (JavaScript)', () => {
   if (!("BigInt" in self)) {
     return { result: false, message: "BigInt is not defined" };
   }
-  var instance = BigInt(1);
-  return !!instance;
+  return bcd.testConstructor("BigInt");
 })();
 `,
         exposure: ['Window'],
