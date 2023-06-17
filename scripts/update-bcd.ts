@@ -637,7 +637,6 @@ export const main = async (
           'javascript',
           'mathml',
           'svg',
-          'webassembly',
           'webdriver',
           'webextensions',
         ].map((cat) => path.join(BCD_DIR, ...cat.split('.'))),
