@@ -35,7 +35,7 @@ describe('build (JavaScript)', () => {
     };
     assert.deepEqual(build(customJS), {
       'javascript.builtins.AggregateError': {
-        code: 'self.hasOwnProperty("AggregateError")',
+        code: '"AggregateError" in self',
         exposure: ['Window'],
       },
       'javascript.builtins.AggregateError.AggregateError': {
@@ -50,7 +50,7 @@ describe('build (JavaScript)', () => {
         exposure: ['Window'],
       },
       'javascript.builtins.Array': {
-        code: 'self.hasOwnProperty("Array")',
+        code: '"Array" in self',
         exposure: ['Window'],
       },
       'javascript.builtins.Array.@@iterator': {
@@ -73,19 +73,19 @@ describe('build (JavaScript)', () => {
         exposure: ['Window'],
       },
       'javascript.builtins.Array.at': {
-        code: '"Array" in self && Object.prototype.hasOwnProperty.call(Array.prototype, "at")',
+        code: '"Array" in self && "at" in Array.prototype',
         exposure: ['Window'],
       },
       'javascript.builtins.Atomics': {
-        code: 'self.hasOwnProperty("Atomics")',
+        code: '"Atomics" in self',
         exposure: ['Window'],
       },
       'javascript.builtins.Atomics.add': {
-        code: '"Atomics" in self && Object.prototype.hasOwnProperty.call(Atomics, "add")',
+        code: '"Atomics" in self && "add" in Atomics',
         exposure: ['Window'],
       },
       'javascript.builtins.BigInt': {
-        code: 'self.hasOwnProperty("BigInt")',
+        code: '"BigInt" in self',
         exposure: ['Window'],
       },
       'javascript.builtins.BigInt.BigInt': {

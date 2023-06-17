@@ -59,7 +59,7 @@ const build = (customJS) => {
       const owner =
         parts.length > 1 ? parts.slice(0, parts.length - 1).join('.') : 'self';
 
-      expr = [{property, owner, inherit: true}];
+      expr = [{property, owner}];
 
       if (isInSubcategory) {
         if (`"${parts[1]}"` !== property) {
