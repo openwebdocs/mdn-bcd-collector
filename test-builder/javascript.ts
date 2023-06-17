@@ -114,7 +114,11 @@ const build = (customJS) => {
     `;
         }
 
-        const ctorCode = `return bcd.testConstructor("${path}")`;
+        const ctorCode =
+          extras.ctor_new === false
+            ? `var instance = ${path}(${ctor_args});
+    return !!instance;`
+            : `bcd.testConstructor("${path}")`;
 
         tests[ctorPath] = compileTest({
           raw: {code: compileCustomTest(baseCode + ctorCode).code},
@@ -123,7 +127,7 @@ const build = (customJS) => {
 
         if (extras.ctor_new === 'required') {
           const ctorNewCode = `try {
-            ${path}(${ctor_args});
+            ${expr};
             return {result: false, message: 'Constructor successful without "new" keyword'};
           } catch(e) {
             return {result: true, message: e.message};
