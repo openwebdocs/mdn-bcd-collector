@@ -505,7 +505,7 @@
     "13.1-16",
     true
   ],
-  "The appearance property is initially prefixed.",
+  "These properties are initially prefixed.",
   ["css.properties.appearance.auto", "chrome", "83", true],
   ["css.properties.appearance.auto", "edge", "83", true],
   ["css.properties.appearance.compat-auto", "chrome", "1-83", true],
@@ -520,5 +520,19 @@
   ["css.properties.appearance.textfield", "chrome", "1-83", true],
   ["css.properties.appearance.textfield", "edge", "12-83", true],
   ["css.properties.appearance.textfield", "firefox", "1-80", true],
-  ["css.properties.appearance.textfield", "safari", "3-15.4", true]
+  ["css.properties.appearance.textfield", "safari", "3-15.4", true],
+  ["css.properties.tab-size.length", "firefox", "53-91", true],
+  [
+    "css.properties.text-emphasis-position.left_and_right",
+    "chrome",
+    "62-99",
+    true
+  ],
+  [
+    "css.properties.text-emphasis-position.left_and_right",
+    "edge",
+    "62-99",
+    true
+  ],
+  ["css.properties.text-orientation.sideways", "safari", "7-14", true]
 ]
