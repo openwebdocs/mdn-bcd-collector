@@ -1,5 +1,101 @@
 # mdn-bcd-collector Changelog
 
+## v10.0.3
+
+### Test Changes
+
+#### Changed
+
+- javascript.builtins.AggregateError.AggregateError
+- javascript.builtins.Array.Array
+- javascript.builtins.ArrayBuffer.ArrayBuffer
+- javascript.builtins.BigInt.BigInt
+- javascript.builtins.BigInt64Array.BigInt64Array
+- javascript.builtins.BigUint64Array.BigUint64Array
+- javascript.builtins.Boolean.Boolean
+- javascript.builtins.DataView.DataView
+- javascript.builtins.Date.Date
+- javascript.builtins.Error.Error
+- javascript.builtins.EvalError.EvalError
+- javascript.builtins.FinalizationRegistry.FinalizationRegistry
+- javascript.builtins.Float32Array.Float32Array
+- javascript.builtins.Float64Array.Float64Array
+- javascript.builtins.Function.Function
+- javascript.builtins.Int16Array.Int16Array
+- javascript.builtins.Int32Array.Int32Array
+- javascript.builtins.Int8Array.Int8Array
+- javascript.builtins.InternalError.InternalError
+- javascript.builtins.Map.Map
+- javascript.builtins.Number.Number
+- javascript.builtins.Object.Object
+- javascript.builtins.Promise.Promise
+- javascript.builtins.Proxy.Proxy
+- javascript.builtins.RangeError.RangeError
+- javascript.builtins.ReferenceError.ReferenceError
+- javascript.builtins.RegExp.RegExp
+- javascript.builtins.Set.Set
+- javascript.builtins.SharedArrayBuffer.SharedArrayBuffer
+- javascript.builtins.String.String
+- javascript.builtins.Symbol.Symbol
+- javascript.builtins.SyntaxError.SyntaxError
+- javascript.builtins.Temporal.Calendar
+- javascript.builtins.Temporal.Duration
+- javascript.builtins.Temporal.Instant
+- javascript.builtins.Temporal.PlainDate
+- javascript.builtins.Temporal.PlainDateTime
+- javascript.builtins.Temporal.PlainMonthDay
+- javascript.builtins.Temporal.PlainTime
+- javascript.builtins.Temporal.PlainYearMonth
+- javascript.builtins.Temporal.TimeZone
+- javascript.builtins.Temporal.ZonedDateTime
+- javascript.builtins.Temporal.now
+- javascript.builtins.TypeError.TypeError
+- javascript.builtins.URIError.URIError
+- javascript.builtins.Uint16Array.Uint16Array
+- javascript.builtins.Uint32Array.Uint32Array
+- javascript.builtins.Uint8Array.Uint8Array
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray
+- javascript.builtins.WeakMap.WeakMap
+- javascript.builtins.WeakRef.WeakRef
+- javascript.builtins.WeakSet.WeakSet
+- javascript.builtins.Intl.Collator
+- javascript.builtins.Intl.DateTimeFormat
+- javascript.builtins.Intl.DisplayNames
+- javascript.builtins.Intl.DurationFormat
+- javascript.builtins.Intl.getCanonicalLocales
+- javascript.builtins.Intl.@@toStringTag
+- javascript.builtins.Intl.ListFormat
+- javascript.builtins.Intl.Locale
+- javascript.builtins.Intl.NumberFormat
+- javascript.builtins.Intl.PluralRules
+- javascript.builtins.Intl.RelativeTimeFormat
+- javascript.builtins.Intl.Segmenter
+- javascript.builtins.Intl.Segments
+- javascript.builtins.Intl.supportedValuesOf
+- javascript.builtins.WebAssembly.CompileError
+- javascript.builtins.WebAssembly.Exception
+- javascript.builtins.WebAssembly.Global
+- javascript.builtins.WebAssembly.Instance
+- javascript.builtins.WebAssembly.LinkError
+- javascript.builtins.WebAssembly.Memory
+- javascript.builtins.WebAssembly.Module
+- javascript.builtins.WebAssembly.RuntimeError
+- javascript.builtins.WebAssembly.Table
+- javascript.builtins.WebAssembly.Tag
+- javascript.builtins.WebAssembly.compile
+- javascript.builtins.WebAssembly.compileStreaming
+- javascript.builtins.WebAssembly.instantiate
+- javascript.builtins.WebAssembly.instantiateStreaming
+- javascript.builtins.WebAssembly.validate
+
+### Commits
+
+- Fix unittests
+- Remove custom JavaScript tests that are no longer needed
+- Simplify JavaScript constructor test generation
+- Fix JavaScript test generation
+- Don't try to load webassembly folder until it has been added
+
 ## v10.0.2
 
 ### Test Changes
