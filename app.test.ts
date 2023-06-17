@@ -12,11 +12,11 @@ chai.use(chaiHttp);
 
 import fs from 'fs-extra';
 
-import {app, version} from '../../app.js';
+import {app, version} from './app.js';
 const agent = chai.request.agent(app);
 
 const tests = Object.entries(
-  await fs.readJson(new URL('../../tests.json', import.meta.url)),
+  await fs.readJson(new URL('./tests.json', import.meta.url)),
 );
 
 describe('/api/results', () => {

@@ -10,7 +10,7 @@ import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-import type {RawTest} from '../../types/types.js';
+import type {RawTest} from './types/types.js';
 
 import {
   compileTestCode,
@@ -19,7 +19,7 @@ import {
   getCustomTest,
   CustomTestData,
   CustomTestResult,
-} from '../../test-builder/common.js';
+} from './common.js';
 
 describe('build (common)', () => {
   describe('getCustomTest(Data)', () => {

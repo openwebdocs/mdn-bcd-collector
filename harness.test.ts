@@ -12,9 +12,9 @@ import {assert} from 'chai';
 import fs from 'fs-extra';
 import puppeteer, {Product} from 'puppeteer';
 
-import {app} from '../../app.js';
+import {app} from './app.js';
 
-const pkg = await fs.readJson(new URL('../../package.json', import.meta.url));
+const pkg = await fs.readJson(new URL('./package.json', import.meta.url));
 
 // Firefox is temporarily disabled due to issues on CI
 const products: Product[] = ['chrome']; // ['chrome', 'firefox'];
@@ -79,7 +79,7 @@ describe('harness.js', () => {
                 scriptId: String(it.scriptId),
                 url: it.url.replace(
                   `http://localhost:${port}/`,
-                  new URL('../../static/', import.meta.url).toString(),
+                  new URL('./static/', import.meta.url).toString(),
                 ),
               },
           )

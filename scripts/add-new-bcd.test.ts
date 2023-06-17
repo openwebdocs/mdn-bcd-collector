@@ -8,7 +8,7 @@
 
 import {assert} from 'chai';
 
-import {recursiveAdd, getFilePath} from '../../scripts/add-new-bcd.js';
+import {recursiveAdd, getFilePath} from './add-new-bcd.js';
 
 describe('add-new-bcd', () => {
   describe('API', () => {

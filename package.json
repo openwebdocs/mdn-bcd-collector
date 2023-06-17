@@ -26,7 +26,7 @@
     "gcp-build": "npm run build",
     "start": "NODE_ENV=production node app.js",
     "dev": "npm i && nodemon -e ts,json,idl,scss,yaml --exec \"npm run build:tests && npm run build:resources && ts-node app.ts\"",
-    "unittest": "NODE_ENV=test c8 mocha --recursive 'unittest/**/*.ts'",
+    "unittest": "NODE_ENV=test c8 mocha --recursive './{,!(node_modules)/**}/*.test.ts' --exclude 'unittest/'",
     "coverage": "npm run coverage:report && npm run coverage:open",
     "coverage:report": "c8 report -r lcov",
     "coverage:open": "open-cli coverage/lcov-report/index.html",

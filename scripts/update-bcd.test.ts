@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import {Report} from '../../types/types.js';
+import {Report} from '../types/types.js';
 
 import {assert} from 'chai';
 import sinon from 'sinon';
@@ -14,7 +14,7 @@ import fs from 'fs-extra';
 import {Minimatch} from 'minimatch';
 import {Browsers} from '@mdn/browser-compat-data/types';
 
-import logger from '../../lib/logger.js';
+import logger from '../lib/logger.js';
 import {
   findEntry,
   getSupportMap,
@@ -22,11 +22,11 @@ import {
   inferSupportStatements,
   splitRange,
   update,
-} from '../../scripts/update-bcd.js';
+} from './update-bcd.js';
 
-import bcd from '../sample/bcd.test.js';
+import bcd from '../unittest/bcd.test.js';
 const overrides = await fs.readJson(
-  new URL('../sample/overrides.test.json', import.meta.url),
+  new URL('../unittest/overrides.test.json', import.meta.url),
 );
 
 const clone = (value) => JSON.parse(JSON.stringify(value));

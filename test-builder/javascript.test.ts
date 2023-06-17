@@ -10,7 +10,7 @@ import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-import {build} from '../../test-builder/javascript.js';
+import {build} from './javascript.js';
 
 describe('build (JavaScript)', () => {
   it('build', () => {

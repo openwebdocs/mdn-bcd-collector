@@ -10,7 +10,7 @@ import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-import {build} from '../../test-builder/css.js';
+import {build} from './css.js';
 
 describe('build (CSS)', () => {
   it('valid input', () => {

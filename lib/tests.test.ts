@@ -8,7 +8,7 @@
 
 import {assert} from 'chai';
 
-import Tests from '../../lib/tests.js';
+import Tests from './tests.js';
 
 const testDatabase = {
   'api.AbortController': {

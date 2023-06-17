@@ -19,7 +19,7 @@ import {
   validateIDL,
   buildIDLTests,
   build,
-} from '../../test-builder/api.js';
+} from './api.js';
 
 describe('build (API)', () => {
   it('build', () => {

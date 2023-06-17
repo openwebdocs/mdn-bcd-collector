@@ -10,14 +10,11 @@ import {assert} from 'chai';
 import sinon from 'sinon';
 import fs from 'fs-extra';
 
-import {
-  traverseFeatures,
-  getMissing,
-} from '../../scripts/find-missing-features.js';
+import {traverseFeatures, getMissing} from './find-missing-features.js';
 
-import bcd from '../sample/bcd.test.js';
+import bcd from '../unittest/bcd.test.js';
 const tests = await fs.readJson(
-  new URL('../sample/tests.test.json', import.meta.url),
+  new URL('../unittest/tests.test.json', import.meta.url),
 );
 
 describe('find-missing-features', () => {
