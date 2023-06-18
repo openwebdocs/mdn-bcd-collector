@@ -91,7 +91,8 @@ describe('build (JavaScript)', () => {
   if (!("BigInt" in self)) {
     return { result: false, message: "BigInt is not defined" };
   }
-  return bcd.testConstructor("BigInt");
+  var instance = BigInt(1);
+  return !!instance;
 })();
 `,
         exposure: ['Window'],
