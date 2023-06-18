@@ -118,7 +118,7 @@ const build = (customJS) => {
           extras.ctor_new === false
             ? `var instance = ${path}(${ctor_args});
     return !!instance;`
-            : `bcd.testConstructor("${path}")`;
+            : `return bcd.testConstructor("${path}")`;
 
         tests[ctorPath] = compileTest({
           raw: {code: compileCustomTest(baseCode + ctorCode).code},
