@@ -534,5 +534,6 @@
     "62-99",
     true
   ],
-  ["css.properties.text-orientation.sideways", "safari", "7-14", true]
+  ["css.properties.text-orientation.sideways", "safari", "7-14", true],
+  ["css.properties.background-clip.text", "chrome", "3+", true]
 ]
