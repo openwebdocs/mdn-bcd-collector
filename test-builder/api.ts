@@ -390,6 +390,7 @@ const validateIDL = (ast) => {
     'long', // https://webidl.spec.whatwg.org/#idl-long
     'object', // https://webidl.spec.whatwg.org/#idl-object
     'octet', // https://webidl.spec.whatwg.org/#idl-octet
+    'SharedArrayBuffer', // https://webidl.spec.whatwg.org/#idl-SharedArrayBuffer
     'short', // https://webidl.spec.whatwg.org/#idl-short
     'symbol', // https://webidl.spec.whatwg.org/#idl-symbol
     'Uint16Array', // https://webidl.spec.whatwg.org/#idl-Uint16Array
