@@ -435,7 +435,8 @@ const buildIDLMemberTests = (
   const handledMemberNames = new Set();
 
   for (const member of members) {
-    const name = member.name + (member.special === 'static' ? '_static' : '');
+    const isStatic = member.special === 'static' || iface.type === 'namespace';
+    const name = member.name + (isStatic ? '_static' : '');
 
     if (handledMemberNames.has(name)) {
       continue;
@@ -452,8 +453,6 @@ const buildIDLMemberTests = (
       // details. In the meantime, ignore event handlers.
       continue;
     }
-
-    const isStatic = member.special === 'static' || iface.type === 'namespace';
 
     let expr: string | RawTestCodeExpr = '';
 
