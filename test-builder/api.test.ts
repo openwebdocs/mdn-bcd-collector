@@ -853,7 +853,7 @@ describe('build (API)', () => {
           code: '"console" in self',
           exposure: ['Window'],
         },
-        'api.console.log': {
+        'api.console.log_static': {
           code: '"console" in self && "log" in console',
           exposure: ['Window'],
         },
@@ -949,7 +949,7 @@ describe('build (API)', () => {
           code: '"CSS" in self',
           exposure: ['Window'],
         },
-        'api.CSS.paintWorklet': {
+        'api.CSS.paintWorklet_static': {
           code: '"CSS" in self && "paintWorklet" in CSS',
           exposure: ['Window'],
         },
@@ -968,7 +968,7 @@ describe('build (API)', () => {
           code: '"CSS" in self',
           exposure: ['Window'],
         },
-        'api.CSS.supports': {
+        'api.CSS.supports_static': {
           code: '"CSS" in self && "supports" in CSS',
           exposure: ['Window'],
         },
@@ -992,12 +992,8 @@ describe('build (API)', () => {
 `,
           exposure: ['Window'],
         },
-        'api.Scope.specialWorklet': {
-          code: `(function () {
-  var scope = Scope;
-  return scope && "specialWorklet" in scope;
-})();
-`,
+        'api.Scope.specialWorklet_static': {
+          code: `"Scope" in self && "specialWorklet" in Scope`,
           exposure: ['Window'],
         },
       });
