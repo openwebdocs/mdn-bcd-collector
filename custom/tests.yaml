@@ -3283,13 +3283,12 @@ api:
           if (!(instance && instance.setLocalDescription)) {
             return {result: false, message: 'instance.setLocalDescription is not defined'};
           }
-          var promise = instance.setLocalDescription().catch(function(e) {
+          return instance.setLocalDescription().then(function() {return true}).catch(function(e) {
             if (e instanceof TypeError || stringIncludes(e.message, ['WRONG_ARGUMENTS_ERR', 'Not enough arguments'])) {
               return {result: false, message: e.message};
             }
             return e;
           });
-          return promise.then(function() {return true});
         returns_promise: |-
           <%api.RTCSessionDescription:description%>
           if (!(instance && instance.setLocalDescription)) {
