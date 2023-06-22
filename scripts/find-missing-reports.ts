@@ -38,42 +38,39 @@ const appVersion = (await fs.readJson('./package.json'))?.version;
 const generateReportMap = (filter: string) => {
   const result: ReportMap = {};
 
-  for (const [browserKey, browserData] of Object.entries(browsers)) {
+  for (const [browser] of Object.keys(browsers)) {
     if (
       filter !== 'all' &&
-      ['ie', 'nodejs', 'deno', 'oculus'].includes(browserKey)
+      ['ie', 'nodejs', 'deno', 'oculus'].includes(browser)
     ) {
       continue;
     }
 
     const releases = filterVersions(
-      browserKey as BrowserName,
+      browser as BrowserName,
       filter === 'all' ? null : new Date(`${filter}-01-01`),
       false,
     );
-    result[browserKey] = releases.sort(compareVersionsSort);
+    result[browser] = releases.sort(compareVersionsSort);
 
     if (filter !== 'all') {
-      if (browserKey == 'safari') {
+      if (browser == 'safari') {
         // Ignore super old Safari releases
-        result[browserKey] = result[browserKey].filter((v) =>
+        result[browser] = result[browser].filter((v) =>
           compareVersions(v, '4', '>='),
         );
-      } else if (browserKey == 'opera') {
+      } else if (browser == 'opera') {
         // Ignore all Opera versions besides 12.1, 15, and the latest stable
-        result[browserKey] = result[browserKey].filter(
+        result[browser] = result[browser].filter(
           (v) =>
             v == '12.1' ||
             v == '15' ||
-            v == result[browserKey][result[browserKey].length - 1],
+            v == result[browser][result[browser].length - 1],
         );
-      } else if (
-        browserKey.includes('_android') ||
-        browserKey.includes('_ios')
-      ) {
+      } else if (browser.includes('_android') || browser.includes('_ios')) {
         // Ignore all mobile browser releases besides the most current
-        result[browserKey] = result[browserKey].filter(
-          (v) => v == result[browserKey][result[browserKey].length - 1],
+        result[browser] = result[browser].filter(
+          (v) => v == result[browser][result[browser].length - 1],
         );
       }
     }

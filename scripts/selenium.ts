@@ -18,7 +18,7 @@ import {
   until,
 } from 'selenium-webdriver';
 import bcd from '@mdn/browser-compat-data' assert {type: 'json'};
-import type {BrowserStatement, BrowserName} from '@mdn/browser-compat-data';
+import type {BrowserName} from '@mdn/browser-compat-data';
 const bcdBrowsers = bcd.browsers;
 import {compare as compareVersions} from 'compare-versions';
 import fetch from 'node-fetch';
