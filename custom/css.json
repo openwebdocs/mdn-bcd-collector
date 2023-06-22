@@ -1092,9 +1092,6 @@
     "transform-origin-x": {},
     "transform-origin-y": {},
     "transform-origin-z": {},
-    "transition": {
-      "__values": ["gradients"]
-    },
     "transition-property": {
       "__values": ["IDENT_value"]
     },
