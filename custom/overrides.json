@@ -539,6 +539,27 @@
   "Only supported in specific OS environments.",
   ["api.OVR_multiview2", "firefox", "71+", true],
   ["api.OVR_multiview2.framebufferTextureMultiviewOVR", "firefox", "71+", true],
+  ["api.WEBGL_compressed_texture_astc", "chrome", "47-92", true],
+  ["api.WEBGL_compressed_texture_astc", "firefox", "53+", true],
+  ["api.WEBGL_compressed_texture_astc", "safari", "12+", true],
+  [
+    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
+    "chrome",
+    "47-92",
+    true
+  ],
+  [
+    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
+    "firefox",
+    "53+",
+    true
+  ],
+  [
+    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
+    "safari",
+    "12+",
+    true
+  ],
   ["api.WEBGL_compressed_texture_etc", "safari", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc", "safari_ios", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc1", "safari", "13.1+", true],
