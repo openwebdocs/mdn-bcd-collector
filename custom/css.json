@@ -686,7 +686,7 @@
     },
     "mask-image": {
       "__additional_values": {
-        "multiple_mask_images": "image(url(mask.png), skyblue), linear-gradient(rgba(0, 0, 0, 1.0), transparent)"
+        "multiple_mask_images": "url(mask.png), url(star.svg)"
       }
     },
     "mask-origin": {
