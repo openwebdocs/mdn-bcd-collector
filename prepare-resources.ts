@@ -12,7 +12,7 @@ import {fileURLToPath} from 'node:url';
 
 import esMain from 'es-main';
 import fs from 'fs-extra';
-import sass from 'sass';
+import * as sass from 'sass';
 
 const generatedDir = fileURLToPath(new URL('./generated', import.meta.url));
 
