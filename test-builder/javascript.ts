@@ -127,7 +127,7 @@ const build = (customJS) => {
 
         if (extras.ctor_new === 'required') {
           const ctorNewCode = `try {
-            ${expr};
+            ${path}(${ctor_args});
             return {result: false, message: 'Constructor successful without "new" keyword'};
           } catch(e) {
             return {result: true, message: e.message};
