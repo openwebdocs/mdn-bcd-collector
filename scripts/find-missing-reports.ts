@@ -33,20 +33,30 @@ const {browsers} = bcd;
 
 const appVersion = (await fs.readJson('./package.json'))?.version;
 
-const generateReportMap = (all: boolean) => {
+const generateReportMap = (filter: string) => {
   const result: ReportMap = {};
 
   for (const [browserKey, browserData] of Object.entries(browsers)) {
-    if (!all && ['ie', 'nodejs', 'deno', 'oculus'].includes(browserKey)) {
+    if (
+      filter !== 'all' &&
+      ['ie', 'nodejs', 'deno', 'oculus'].includes(browserKey)
+    ) {
       continue;
     }
 
-    const releases = Object.entries(browserData.releases)
-      .filter((r) => ['retired', 'current'].includes(r[1].status))
-      .map((r) => r[0]);
-    result[browserKey] = releases.sort(compareVersionsSort);
+    let releases = Object.entries(browserData.releases).filter((r) =>
+      ['retired', 'current'].includes(r[1].status),
+    );
+    if (filter !== 'all') {
+      releases = releases.filter(
+        (r) =>
+          r[1].release_date &&
+          new Date(r[1].release_date) > new Date(`${filter}-01-01`),
+      );
+    }
+    result[browserKey] = releases.map((r) => r[0]).sort(compareVersionsSort);
 
-    if (!all) {
+    if (filter !== 'all') {
       if (browserKey == 'safari') {
         // Ignore super old Safari releases
         result[browserKey] = result[browserKey].filter((v) =>
@@ -77,14 +87,14 @@ const generateReportMap = (all: boolean) => {
 
 const findMissingReports = async (
   reportPaths: string[],
-  all: boolean,
+  filter: string,
   version: string,
 ) => {
   if (version == 'current') {
     version = appVersion;
   }
 
-  const reportMap = generateReportMap(all);
+  const reportMap = generateReportMap(filter);
   const data = await loadJsonFiles(reportPaths);
 
   for (const report of Object.values(data) as Report[]) {
@@ -114,7 +124,7 @@ const findMissingReports = async (
 const main = async (argv) => {
   const missingReports = await findMissingReports(
     argv.reports,
-    argv.all,
+    argv.all ? 'all' : argv.since,
     argv.collectorVersion,
   );
 
@@ -148,6 +158,14 @@ if (esMain(import.meta)) {
           alias: 'a',
           type: 'boolean',
           nargs: 0,
+        })
+        .option('since', {
+          describe:
+            'Limit to browser releases from this year on (ignored by "--all")',
+          alias: 's',
+          type: 'string',
+          default: '2020',
+          nargs: 1,
         });
     },
   );
