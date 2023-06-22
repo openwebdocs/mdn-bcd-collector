@@ -20,10 +20,7 @@ import {
 import bcd from '@mdn/browser-compat-data' assert {type: 'json'};
 import type {BrowserStatement, BrowserName} from '@mdn/browser-compat-data';
 const bcdBrowsers = bcd.browsers;
-import {
-  compare as compareVersions,
-  compareVersions as compareVersionsSort,
-} from 'compare-versions';
+import {compare as compareVersions} from 'compare-versions';
 import fetch from 'node-fetch';
 import esMain from 'es-main';
 import fs from 'fs-extra';
@@ -33,6 +30,7 @@ import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
 import {RESULTS_DIR} from '../lib/constants.js';
+import filterVersionsLib from '../lib/filter-versions.js';
 
 import '../lib/selenium-keepalive.js';
 
@@ -116,23 +114,8 @@ const log = (task, message) => {
 };
 
 const filterVersions = (browser: BrowserName, since: Date, reverse) => {
-  const versions: string[] = [];
-
-  for (const [version, versionData] of Object.entries(
-    (bcdBrowsers[browser] as BrowserStatement).releases,
-  )) {
-    if (
-      (versionData.status == 'current' || versionData.status == 'retired') &&
-      compareVersions(version, earliestBrowserVersions[browser], '>=') &&
-      versionData.release_date &&
-      new Date(versionData.release_date) > since
-    ) {
-      versions.push(version);
-    }
-  }
-
-  return versions.sort((a, b) =>
-    reverse ? compareVersionsSort(a, b) : compareVersionsSort(b, a),
+  return filterVersionsLib(browser, since, reverse).filter((v) =>
+    compareVersions(v, earliestBrowserVersions[browser], '>='),
   );
 };
 

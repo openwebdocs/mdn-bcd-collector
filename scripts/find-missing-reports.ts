@@ -13,6 +13,7 @@ interface ReportMap {
   [k: string]: string[];
 }
 
+import type {BrowserName} from '@mdn/browser-compat-data';
 import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
@@ -23,6 +24,7 @@ import yargs from 'yargs';
 import {hideBin} from 'yargs/helpers';
 
 import {BCD_DIR} from '../lib/constants.js';
+import filterVersions from '../lib/filter-versions.js';
 import {parseUA} from '../lib/ua-parser.js';
 import {loadJsonFiles} from './update-bcd.js';
 
@@ -44,17 +46,12 @@ const generateReportMap = (filter: string) => {
       continue;
     }
 
-    let releases = Object.entries(browserData.releases).filter((r) =>
-      ['retired', 'current'].includes(r[1].status),
+    const releases = filterVersions(
+      browserKey as BrowserName,
+      filter === 'all' ? null : new Date(`${filter}-01-01`),
+      false,
     );
-    if (filter !== 'all') {
-      releases = releases.filter(
-        (r) =>
-          r[1].release_date &&
-          new Date(r[1].release_date) > new Date(`${filter}-01-01`),
-      );
-    }
-    result[browserKey] = releases.map((r) => r[0]).sort(compareVersionsSort);
+    result[browserKey] = releases.sort(compareVersionsSort);
 
     if (filter !== 'all') {
       if (browserKey == 'safari') {
