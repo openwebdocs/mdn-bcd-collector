@@ -1,5 +1,258 @@
 # mdn-bcd-collector Changelog
 
+## v10.0.4
+
+### Test Changes
+
+#### Added
+
+- api.console.assert_static
+- api.console.clear_static
+- api.console.context_static
+- api.console.count_static
+- api.console.countReset_static
+- api.console.debug_static
+- api.console.dir_static
+- api.console.dirxml_static
+- api.console.error_static
+- api.console.exception_static
+- api.console.group_static
+- api.console.groupCollapsed_static
+- api.console.groupEnd_static
+- api.console.info_static
+- api.console.log_static
+- api.console.memory_static
+- api.console.profile_static
+- api.console.profileEnd_static
+- api.console.record_static
+- api.console.recordEnd_static
+- api.console.screenshot_static
+- api.console.table_static
+- api.console.takeHeapSnapshot_static
+- api.console.time_static
+- api.console.timeEnd_static
+- api.console.timeLog_static
+- api.console.timeStamp_static
+- api.console.trace_static
+- api.console.warn_static
+- api.CSS.animationWorklet_static
+- api.CSS.ch_static
+- api.CSS.cm_static
+- api.CSS.cqb_static
+- api.CSS.cqh_static
+- api.CSS.cqi_static
+- api.CSS.cqmax_static
+- api.CSS.cqmin_static
+- api.CSS.cqw_static
+- api.CSS.deg_static
+- api.CSS.dpcm_static
+- api.CSS.dpi_static
+- api.CSS.dppx_static
+- api.CSS.dvb_static
+- api.CSS.dvh_static
+- api.CSS.dvi_static
+- api.CSS.dvmax_static
+- api.CSS.dvmin_static
+- api.CSS.dvw_static
+- api.CSS.elementSources_static
+- api.CSS.em_static
+- api.CSS.escape_static
+- api.CSS.ex_static
+- api.CSS.fr_static
+- api.CSS.grad_static
+- api.CSS.highlights_static
+- api.CSS.Hz_static
+- api.CSS.ic_static
+- api.CSS.in_static
+- api.CSS.kHz_static
+- api.CSS.layoutWorklet_static
+- api.CSS.lh_static
+- api.CSS.lvb_static
+- api.CSS.lvh_static
+- api.CSS.lvi_static
+- api.CSS.lvmax_static
+- api.CSS.lvmin_static
+- api.CSS.lvw_static
+- api.CSS.mm_static
+- api.CSS.ms_static
+- api.CSS.number_static
+- api.CSS.paintWorklet_static
+- api.CSS.parseCommaValueList_static
+- api.CSS.parseDeclaration_static
+- api.CSS.parseDeclarationList_static
+- api.CSS.parseRule_static
+- api.CSS.parseRuleList_static
+- api.CSS.parseStylesheet_static
+- api.CSS.parseValue_static
+- api.CSS.parseValueList_static
+- api.CSS.pc_static
+- api.CSS.percent_static
+- api.CSS.pt_static
+- api.CSS.px_static
+- api.CSS.Q_static
+- api.CSS.rad_static
+- api.CSS.registerProperty_static
+- api.CSS.rem_static
+- api.CSS.rlh_static
+- api.CSS.s_static
+- api.CSS.supports_static
+- api.CSS.svb_static
+- api.CSS.svh_static
+- api.CSS.svi_static
+- api.CSS.svmax_static
+- api.CSS.svmin_static
+- api.CSS.svw_static
+- api.CSS.turn_static
+- api.CSS.vb_static
+- api.CSS.vh_static
+- api.CSS.vi_static
+- api.CSS.vmax_static
+- api.CSS.vmin_static
+- api.CSS.vw_static
+- api.IdentityProvider
+- api.PaymentRequest.isSecurePaymentConfirmationAvailable_static
+- api.TestUtils.gc_static
+- api.WebAssembly.compile_static
+- api.WebAssembly.compileStreaming_static
+- api.WebAssembly.instantiate_static
+- api.WebAssembly.instantiateStreaming_static
+- api.WebAssembly.validate_static
+
+#### Removed
+
+- api.console.assert
+- api.console.clear
+- api.console.context
+- api.console.count
+- api.console.countReset
+- api.console.debug
+- api.console.dir
+- api.console.dirxml
+- api.console.error
+- api.console.exception
+- api.console.group
+- api.console.groupCollapsed
+- api.console.groupEnd
+- api.console.info
+- api.console.log
+- api.console.memory
+- api.console.profile
+- api.console.profileEnd
+- api.console.record
+- api.console.recordEnd
+- api.console.screenshot
+- api.console.table
+- api.console.takeHeapSnapshot
+- api.console.time
+- api.console.timeEnd
+- api.console.timeLog
+- api.console.timeStamp
+- api.console.trace
+- api.console.warn
+- api.CSS.animationWorklet
+- api.CSS.ch
+- api.CSS.cm
+- api.CSS.cqb
+- api.CSS.cqh
+- api.CSS.cqi
+- api.CSS.cqmax
+- api.CSS.cqmin
+- api.CSS.cqw
+- api.CSS.deg
+- api.CSS.dpcm
+- api.CSS.dpi
+- api.CSS.dppx
+- api.CSS.dvb
+- api.CSS.dvh
+- api.CSS.dvi
+- api.CSS.dvmax
+- api.CSS.dvmin
+- api.CSS.dvw
+- api.CSS.elementSources
+- api.CSS.em
+- api.CSS.escape
+- api.CSS.ex
+- api.CSS.fr
+- api.CSS.grad
+- api.CSS.highlights
+- api.CSS.Hz
+- api.CSS.ic
+- api.CSS.in
+- api.CSS.kHz
+- api.CSS.layoutWorklet
+- api.CSS.lh
+- api.CSS.lvb
+- api.CSS.lvh
+- api.CSS.lvi
+- api.CSS.lvmax
+- api.CSS.lvmin
+- api.CSS.lvw
+- api.CSS.mm
+- api.CSS.ms
+- api.CSS.number
+- api.CSS.paintWorklet
+- api.CSS.parseCommaValueList
+- api.CSS.parseDeclaration
+- api.CSS.parseDeclarationList
+- api.CSS.parseRule
+- api.CSS.parseRuleList
+- api.CSS.parseStylesheet
+- api.CSS.parseValue
+- api.CSS.parseValueList
+- api.CSS.pc
+- api.CSS.percent
+- api.CSS.pt
+- api.CSS.px
+- api.CSS.Q
+- api.CSS.rad
+- api.CSS.registerProperty
+- api.CSS.rem
+- api.CSS.rlh
+- api.CSS.s
+- api.CSS.supports
+- api.CSS.svb
+- api.CSS.svh
+- api.CSS.svi
+- api.CSS.svmax
+- api.CSS.svmin
+- api.CSS.svw
+- api.CSS.turn
+- api.CSS.vb
+- api.CSS.vh
+- api.CSS.vi
+- api.CSS.vmax
+- api.CSS.vmin
+- api.CSS.vw
+- api.TestUtils.gc
+- api.WebAssembly.compile
+- api.WebAssembly.compileStreaming
+- api.WebAssembly.instantiate
+- api.WebAssembly.instantiateStreaming
+- api.WebAssembly.validate
+- css.properties.transition.gradients
+
+#### Changed
+
+- api.RTCPeerConnection.setLocalDescription.description_parameter_optional
+- css.properties.mask-image.multiple_mask_images
+- css.properties.text-overflow.string
+- javascript.builtins.BigInt.BigInt
+- javascript.builtins.Symbol.Symbol
+- javascript.builtins.WebAssembly.Exception
+
+### Commits
+
+- Fix test for api.RTCPeerConnection.setLocalDescription.description_parameter_optional
+- Fix test for multiple mask images in mask-image
+- Remove bad test for css.properties.transition.gradients
+- Fix test for WebAssembly.Exception
+- Replace deprecated import statement
+- Fix JavaScript test construction
+- Namespace members will also have \_static suffix
+- Fix test for css.properties.text-overflow.string
+- Fix JavaScript test generation
+- Build constructor tests with ctor_args if `new` keyword unneeded
+
 ## v10.0.3
 
 ### Test Changes
@@ -90,7 +343,6 @@
 
 ### Commits
 
-- Fix unittests
 - Remove custom JavaScript tests that are no longer needed
 - Simplify JavaScript constructor test generation
 - Fix JavaScript test generation
@@ -177,14 +429,10 @@
 - Ensure node_modules is properly ignored
 - Switch back to main branch after release script finishes
 - Don't use .hasOwnProperty() on JavaScript tests
-- Move unittests right beside relevant files
 - Remove custom test for list-style-type (will use overrides instead)
-- Update overrides
+- Move unittests right beside relevant files
 - Update CSS values
-- Update overrides
 - Add custom test for WebGLRenderingContext.makeXRCompatible
-- Remove now-irrelevant overrides
-- Fix overrides
 - Fix test for Intl.DurationFormat.supportedLocalesOf
 - Fix tests for WeakMap/WeakSet
 
@@ -718,10 +966,8 @@ The core for MathML elements is also implemented, but as MathML requires additio
 
 - Simplify WebAssembly feature path
 - Add old changelog during release
-- Add overrides for [has/request]StorageAccess
 - Add mustReturnTruthy argument to testOptionParam
 - Decrease SpeechSynthesisVoice timeout
-- Fix unittests
 - Mitigate SpeechSynthesisVoice bug in Firefox
 - Update XXX comment about MathML
 - Static members are suffixed with "\_static" in BCD feature names
@@ -749,9 +995,6 @@ The core for MathML elements is also implemented, but as MathML requires additio
 - Add custom test for TransformStreamDefaultController
 - Add custom tests for ReadableStreamDefault[Controller/Reader]
 - Add custom test for aspect-ratio CSS property
-- Update overrides
-- Add additional overrides
-- Add overrides for XRSystem API
 - Add override for WEBGL_compressed_texture_pvrtc
 
 ## Older Versions
