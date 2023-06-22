@@ -4282,19 +4282,14 @@ api:
       }
   TransformStreamDefaultController:
     __base: |-
-      var instance;
-      var transformer = {
-        start() {}, // Required
-        async transform(chunk, controller) {
-          instance = controller;
-        }
-      };
-      class AnyToU8Stream extends TransformStream {
-        constructor() {
-          super({ ...transformer, textencoder: new TextEncoder() });
-        }
+      if (!('TransformStream' self)) {
+        return {result: false, message: 'TransformStream is not defined'};
       }
-      new AnyToU8Stream();
+      new TransformStream({
+        start(controller) {
+          callback(controller);
+        },
+      });
   TransitionEvent:
     __base: |-
       var instance;
