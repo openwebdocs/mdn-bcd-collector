@@ -535,5 +535,137 @@
     true
   ],
   ["css.properties.text-orientation.sideways", "safari", "7-14", true],
-  ["css.properties.background-clip.text", "chrome", "3+", true]
+  ["css.properties.background-clip.text", "chrome", "3+", true],
+  "Only supported in specific OS environments.",
+  ["api.OVR_multiview2", "firefox", "71+", true],
+  ["api.OVR_multiview2.framebufferTextureMultiviewOVR", "firefox", "71+", true],
+  ["api.WEBGL_compressed_texture_etc", "safari", "13.1+", true],
+  ["api.WEBGL_compressed_texture_etc", "safari_ios", "13.1+", true],
+  ["api.WEBGL_compressed_texture_etc1", "safari", "13.1+", true],
+  ["api.WEBGL_compressed_texture_etc1", "safari_ios", "13.1+", true],
+  "Chrome/Safari read the value but didn't do anything with it before",
+  ["api.Element.options_composite_parameter", "chrome", "1-84", false],
+  ["api.Element.options_composite_parameter", "edge", "1-84", false],
+  ["api.Element.options_composite_parameter", "safari", "1-16", false],
+  "XXX We need to implement some way of getting a service worker registration in advance.",
+  ["api.ServiceWorkerRegistration.active", "firefox", "44-73", true],
+  ["api.ServiceWorkerRegistration.installing", "firefox", "44-73", true],
+  ["api.ServiceWorkerRegistration.waiting", "firefox", "44-73", true],
+  "Firefox reports support for any value passed for CSS.supports('list-style-type', '...');",
+  ["css.properties.list-style-type.afar", "firefox", "*", false],
+  ["css.properties.list-style-type.amharic", "firefox", "*", false],
+  ["css.properties.list-style-type.amharic-abegede", "firefox", "*", false],
+  ["css.properties.list-style-type.asterisks", "firefox", "*", false],
+  ["css.properties.list-style-type.binary", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-abegede", "firefox", "*", false],
+  [
+    "css.properties.list-style-type.ethiopic-abegede-am-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-abegede-gez",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-abegede-ti-er",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-abegede-ti-et",
+    "firefox",
+    "*",
+    false
+  ],
+  ["css.properties.list-style-type.ethiopic-halehame", "firefox", "*", false],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-aa-er",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-aa-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-am",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-am-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-gez",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-om-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-sid-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-so-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-ti-er",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-ti-et",
+    "firefox",
+    "*",
+    false
+  ],
+  [
+    "css.properties.list-style-type.ethiopic-halehame-tig",
+    "firefox",
+    "*",
+    false
+  ],
+  ["css.properties.list-style-type.footnotes", "firefox", "*", false],
+  ["css.properties.list-style-type.hangul", "firefox", "*", false],
+  ["css.properties.list-style-type.hangul-consonant", "firefox", "*", false],
+  ["css.properties.list-style-type.lower-hexadecimal", "firefox", "*", false],
+  ["css.properties.list-style-type.lower-norwegian", "firefox", "*", false],
+  ["css.properties.list-style-type.oromo", "firefox", "*", false],
+  ["css.properties.list-style-type.octal", "firefox", "*", false],
+  ["css.properties.list-style-type.sidama", "firefox", "*", false],
+  ["css.properties.list-style-type.somali", "firefox", "*", false],
+  ["css.properties.list-style-type.tigre", "firefox", "*", false],
+  ["css.properties.list-style-type.tigrinya-er", "firefox", "*", false],
+  ["css.properties.list-style-type.tigrinya-er-abegede", "firefox", "*", false],
+  ["css.properties.list-style-type.tigrinya-et", "firefox", "*", false],
+  ["css.properties.list-style-type.tigrinya-et-abegede", "firefox", "*", false],
+  ["css.properties.list-style-type.upper-greek", "firefox", "*", false],
+  ["css.properties.list-style-type.upper-hexadecimal", "firefox", "*", false],
+  ["css.properties.list-style-type.upper-norwegian", "firefox", "*", false],
+  ["css.properties.list-style-type.urdu", "firefox", "*", false]
 ]
