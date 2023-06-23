@@ -3129,15 +3129,6 @@ api:
             new Request('', options);
           }
           return bcd.testOptionParam(construct, null, 'referrer', 'no-referrer');
-        navigate_mode: |-
-          try {
-            new Request('', {mode: 'navigate'});
-          } catch(e) {
-            if (e instanceof TypeError) {
-              return {result: false, message: e.message};
-            }
-            return e;
-          }
     mode:
       __additional:
         navigate_mode: |-
