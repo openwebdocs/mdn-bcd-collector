@@ -570,6 +570,7 @@
   ["css.properties.mask-clip.text", "safari", "4+", true],
   "Only supported in specific OS environments.",
   ["api.Touch", "firefox", "52+", true],
+  ["api.Touch.Touch", "firefox", "52+", true],
   ["api.OVR_multiview2", "firefox", "71+", true],
   ["api.OVR_multiview2.framebufferTextureMultiviewOVR", "firefox", "71+", true],
   ["api.WEBGL_compressed_texture_astc", "chrome", "47-92", true],
