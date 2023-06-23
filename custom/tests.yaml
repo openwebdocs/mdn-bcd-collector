@@ -4282,7 +4282,7 @@ api:
       }
   TransformStreamDefaultController:
     __base: |-
-      if (!('TransformStream' self)) {
+      if (!('TransformStream' in self)) {
         return {result: false, message: 'TransformStream is not defined'};
       }
       new TransformStream({
