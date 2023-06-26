@@ -510,6 +510,7 @@
   ["css.properties.appearance.auto", "edge", "83", true],
   ["css.properties.appearance.compat-auto", "chrome", "1-83", true],
   ["css.properties.appearance.compat-auto", "edge", "12-83", true],
+  ["css.properties.appearance.compat-auto", "firefox", "1-79", true],
   ["css.properties.appearance.compat-auto", "safari", "3-15.4", true],
   ["css.properties.appearance.menulist-button", "chrome", "1-83", true],
   ["css.properties.appearance.menulist-button", "edge", "12-83", true],
