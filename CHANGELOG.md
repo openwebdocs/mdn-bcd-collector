@@ -1,5 +1,26 @@
 # mdn-bcd-collector Changelog
 
+## v10.0.5
+
+### Test Changes
+
+#### Removed
+
+- api.Request.Request.navigate_mode
+
+#### Changed
+
+- api.TransformStreamDefaultController
+- css.properties.appearance.compat-auto
+
+### Commits
+
+- Remove custom test for api.Request.Request.navigate_mode
+- Fix custom test for TransformStreamDefaultController
+- Separate filterVersions function for easy reuse
+- find-missing-reports: filter to 2020+ browsers only by default
+- Update values list for css.properties.appearance.compat-auto
+
 ## v10.0.4
 
 ### Test Changes
