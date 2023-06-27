@@ -730,5 +730,27 @@
   ["css.properties.list-style-type.upper-greek", "firefox", "*", false],
   ["css.properties.list-style-type.upper-hexadecimal", "firefox", "*", false],
   ["css.properties.list-style-type.upper-norwegian", "firefox", "*", false],
-  ["css.properties.list-style-type.urdu", "firefox", "*", false]
+  ["css.properties.list-style-type.urdu", "firefox", "*", false],
+  "XXX Chrome and Safari access this parameter before performing a flag check; need to write a test that checks behavior",
+  ["api.Element.animate.options_composite_parameter", "chrome", "1-83", false],
+  ["api.Element.animate.options_composite_parameter", "edge", "12-83", false],
+  [
+    "api.Element.animate.options_composite_parameter",
+    "safari",
+    "1-15.6",
+    false
+  ],
+  "XXX Event interfaces",
+  ["api.SpeechSynthesisEvent", "safari", "7+", true],
+  ["api.SpeechSynthesisEvent.charIndex", "safari", "7+", true],
+  ["api.SpeechSynthesisEvent.elapsedTime", "safari", "7+", true],
+  ["api.SpeechSynthesisEvent.name", "safari", "7+", true],
+  ["api.SpeechSynthesisEvent.utterance", "safari", "7+", true],
+  ["api.SpeechSynthesisErrorEvent", "safari", "7+", true],
+  ["api.SpeechSynthesisErrorEvent.error", "safari", "7+", true],
+  "Has an alternative name",
+  ["api.SpeechRecognitionErrorEvent.error", "chrome", "77+", true],
+  ["api.SpeechRecognitionErrorEvent.error", "edge", "77+", true],
+  ["api.SpeechRecognitionErrorEvent.message", "chrome", "77+", true],
+  ["api.SpeechRecognitionErrorEvent.message", "edge", "77+", true]
 ]
