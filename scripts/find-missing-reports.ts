@@ -38,7 +38,7 @@ const appVersion = (await fs.readJson('./package.json'))?.version;
 const generateReportMap = (filter: string) => {
   const result: ReportMap = {};
 
-  for (const [browser] of Object.keys(browsers)) {
+  for (const browser of Object.keys(browsers)) {
     if (
       filter !== 'all' &&
       ['ie', 'nodejs', 'deno', 'oculus'].includes(browser)
