@@ -752,5 +752,20 @@
   ["api.SpeechRecognitionErrorEvent.error", "chrome", "77+", true],
   ["api.SpeechRecognitionErrorEvent.error", "edge", "77+", true],
   ["api.SpeechRecognitionErrorEvent.message", "chrome", "77+", true],
-  ["api.SpeechRecognitionErrorEvent.message", "edge", "77+", true]
+  ["api.SpeechRecognitionErrorEvent.message", "edge", "77+", true],
+  "XXX Requires an overhaul of harness.js to properly test",
+  ["api.PushManager.hasPermission", "chrome", "42+", true],
+  ["api.PushManager.hasPermission", "edge", "17+", true],
+  ["api.PushManager.hasPermission", "firefox", "44+", true],
+  ["api.PushManager.register", "chrome", "42+", true],
+  ["api.PushManager.register", "edge", "17+", true],
+  ["api.PushManager.register", "firefox", "44+", true],
+  ["api.PushManager.registrations", "chrome", "42+", true],
+  ["api.PushManager.registrations", "edge", "17+", true],
+  ["api.PushManager.registrations", "firefox", "44+", true],
+  ["api.PushManager.unregister", "chrome", "42+", true],
+  ["api.PushManager.unregister", "edge", "17+", true],
+  ["api.PushManager.unregister", "firefox", "44+", true],
+  ["api.PushSubscription.subscriptionId", "chrome", "42+", true],
+  ["api.PushSubscription.subscriptionId", "edge", "17+", true]
 ]
