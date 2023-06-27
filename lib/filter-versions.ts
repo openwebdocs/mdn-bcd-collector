@@ -21,6 +21,10 @@ const filterVersions = (
 ) => {
   const versions: string[] = [];
 
+  if (!(browser in bcdBrowsers)) {
+    throw new Error(`${browser} is not defined as a browser in BCD`);
+  }
+
   const releases = Object.entries(
     (bcdBrowsers[browser] as BrowserStatement).releases,
   ).filter(([, r]) => ['current', 'retired'].includes(r.status));
