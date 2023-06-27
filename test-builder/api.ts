@@ -339,7 +339,10 @@ const validateIDL = (ast) => {
   // XXX https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63342
   const validations = (WebIDL2 as any).validate(ast).filter((v) => {
     // Ignore the [LegacyNoInterfaceObject] rule.
-    return v.ruleName !== 'no-nointerfaceobject';
+    // XXX Also temporarily ignore the "[AllowShared] BufferSource -> AllowSharedBufferSource" rule until specs are fixed.
+    return !['no-nointerfaceobject', 'migrate-allowshared'].includes(
+      v.ruleName,
+    );
   });
   if (validations.length) {
     const message = validations
