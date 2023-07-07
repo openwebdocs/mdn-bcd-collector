@@ -1661,11 +1661,11 @@
           return navigator.serviceWorker
             .getRegistrations()
             .then(function (registrations) {
-              var unregisterPromise = registrations.map(function (
-                registration
-              ) {
-                return registration.unregister();
-              });
+              var unregisterPromise = registrations.map(
+                function (registration) {
+                  return registration.unregister();
+                }
+              );
               return Promise.all(unregisterPromise);
             });
         } else {

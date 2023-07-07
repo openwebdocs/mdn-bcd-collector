@@ -232,7 +232,9 @@ a {
   text-decoration: none;
   @include themedProperty(color, 'link');
   @include themedTextGlow('link', 0px);
-  transition: color 0.2s, text-shadow 0.2s;
+  transition:
+    color 0.2s,
+    text-shadow 0.2s;
 
   &:hover {
     @include themedProperty(color, 'link-hover');
@@ -256,7 +258,10 @@ input {
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  transition: background-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s,
+    outline-color 0.2s;
   padding: 8px;
   outline-color: rgba(0, 0, 0, 0);
   outline-style: none;
