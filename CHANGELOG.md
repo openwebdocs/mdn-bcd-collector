@@ -1,5 +1,196 @@
 # mdn-bcd-collector Changelog
 
+## v10.1.0
+
+Released July 8, 2023
+
+### Test Changes
+
+#### Added
+
+- api.CSSPositionFallbackRule
+- api.CSSStartingStyleRule
+- api.CSSTryRule
+- api.CustomElementRegistry.getName
+- api.NavigateEvent
+- api.Navigation
+- api.NavigationCurrentEntryChangeEvent
+- api.NavigationDestination
+- api.NavigationHistoryEntry
+- api.NavigationTransition
+- api.Window.navigation
+
+#### Removed
+
+- api.Request.mode.navigate_mode
+
+#### Changed
+
+- api.ANGLE_instanced_arrays
+- api.AudioBuffer
+- api.AudioContext.AudioContext.options_latencyHint_parameter
+- api.AudioContext.AudioContext.options_sampleRate_parameter
+- api.AudioContext.AudioContext.options_sinkId_parameter
+- api.AudioWorkletNode
+- api.CanvasCaptureMediaStreamTrack
+- api.CanvasPattern
+- api.CanvasRenderingContext2D.drawImage.ImageBitmap_source_image
+- api.CSPViolationReportBody
+- api.CSSConditionRule
+- api.CSSCounterStyleRule
+- api.CSSFontFaceRule
+- api.CSSFontFeatureValuesRule
+- api.CSSGroupingRule
+- api.CSSImportRule
+- api.CSSKeyframeRule
+- api.CSSKeyframesRule
+- api.CSSMediaRule
+- api.CSSNamespaceRule
+- api.CSSSupportsRule
+- api.Element.animate.options_composite_parameter
+- api.Element.animate.options_id_parameter
+- api.Element.animate.options_iterationComposite_parameter
+- api.Element.animate.options_pseudoElement_parameter
+- api.Element.requestFullscreen.options_navigationUI_parameter
+- api.EXT_color_buffer_float
+- api.EXT_color_buffer_half_float
+- api.EXT_disjoint_timer_query
+- api.EXT_disjoint_timer_query_webgl2
+- api.EXT_shader_texture_lod
+- api.EXT_texture_compression_bptc
+- api.EXT_texture_compression_rgtc
+- api.EXT_texture_filter_anisotropic
+- api.FileSystem
+- api.FileSystemDirectoryEntry
+- api.FileSystemDirectoryReader
+- api.FileSystemEntry
+- api.FileSystemFileEntry
+- api.FileSystemSync
+- api.FontFace
+- api.GeolocationCoordinates
+- api.GeolocationPosition
+- api.HTMLCanvasElement.getContext.webgl_context.options_failIfMajorPerformanceCaveat_parameter
+- api.HTMLCanvasElement.getContext.webgl2_context.options_desynchronized_parameter
+- api.HTMLCanvasElement.getContext.webgl2_context.options_failIfMajorPerformanceCaveat_parameter
+- api.HTMLCanvasElement.getContext.webgl2_context.options_powerPreference_parameter
+- api.ImageBitmap
+- api.KHR_parallel_shader_compile
+- api.MediaList
+- api.MediaStreamAudioSourceNode
+- api.Metadata
+- api.OES_draw_buffers_indexed
+- api.OES_element_index_uint
+- api.OES_standard_derivatives
+- api.OES_texture_float_linear
+- api.OES_texture_half_float
+- api.OES_texture_half_float_linear
+- api.OES_vertex_array_object
+- api.OfflineAudioCompletionEvent
+- api.ProcessingInstruction
+- api.RTCPeerConnection.RTCPeerConnection.configuration_bundlePolicy_parameter
+- api.RTCPeerConnection.RTCPeerConnection.configuration_iceCandidatePoolSize_parameter
+- api.RTCPeerConnection.RTCPeerConnection.configuration_iceTransportPolicy_parameter
+- api.RTCPeerConnection.RTCPeerConnection.configuration_peerIdentity_parameter
+- api.RTCPeerConnection.RTCPeerConnection.configuration_rtcpMuxPolicy_parameter
+- api.SVGAltGlyphDefElement
+- api.SVGAltGlyphElement
+- api.SVGAltGlyphItemElement
+- api.SVGAnimateColorElement
+- api.SVGAnimatedBoolean
+- api.SVGAnimatedInteger
+- api.SVGAnimatedNumberList
+- api.SVGAnimateElement
+- api.SVGAnimateMotionElement
+- api.SVGAnimateTransformElement
+- api.SVGAnimationElement
+- api.SVGCircleElement
+- api.SVGClipPathElement
+- api.SVGComponentTransferFunctionElement
+- api.SVGDiscardElement
+- api.SVGElement
+- api.SVGEllipseElement
+- api.SVGFEBlendElement
+- api.SVGFEColorMatrixElement
+- api.SVGFEComponentTransferElement
+- api.SVGFECompositeElement
+- api.SVGFEConvolveMatrixElement
+- api.SVGFEDiffuseLightingElement
+- api.SVGFEDisplacementMapElement
+- api.SVGFEDistantLightElement
+- api.SVGFEDropShadowElement
+- api.SVGFEFloodElement
+- api.SVGFEFuncAElement
+- api.SVGFEFuncBElement
+- api.SVGFEFuncGElement
+- api.SVGFEFuncRElement
+- api.SVGFEGaussianBlurElement
+- api.SVGFEImageElement
+- api.SVGFEMergeElement
+- api.SVGFEMergeNodeElement
+- api.SVGFEMorphologyElement
+- api.SVGFEOffsetElement
+- api.SVGFEPointLightElement
+- api.SVGFESpecularLightingElement
+- api.SVGFESpotLightElement
+- api.SVGFETileElement
+- api.SVGFETurbulenceElement
+- api.SVGFilterElement
+- api.SVGFontFaceElement
+- api.SVGFontFaceFormatElement
+- api.SVGFontFaceNameElement
+- api.SVGFontFaceSrcElement
+- api.SVGFontFaceUriElement
+- api.SVGForeignObjectElement
+- api.SVGGlyphElement
+- api.SVGGlyphRefElement
+- api.SVGGradientElement
+- api.SVGGraphicsElement
+- api.SVGHKernElement
+- api.SVGImageElement
+- api.SVGLinearGradientElement
+- api.SVGMarkerElement
+- api.SVGMetadataElement
+- api.SVGMissingGlyphElement
+- api.SVGMPathElement
+- api.SVGNumberList
+- api.SVGPatternElement
+- api.SVGPolygonElement
+- api.SVGPolylineElement
+- api.SVGRadialGradientElement
+- api.SVGScriptElement
+- api.SVGStyleElement
+- api.SVGSwitchElement
+- api.SVGSymbolElement
+- api.SVGTextPathElement
+- api.SVGTitleElement
+- api.SVGTSpanElement
+- api.SVGVKernElement
+- api.URLPattern
+- api.WEBGL_blend_equation_advanced_coherent
+- api.WEBGL_color_buffer_float
+- api.WEBGL_compressed_texture_astc
+- api.WEBGL_compressed_texture_etc
+- api.WEBGL_compressed_texture_etc1
+- api.WEBGL_compressed_texture_pvrtc
+- api.WEBGL_compressed_texture_s3tc
+- api.WEBGL_compressed_texture_s3tc_srgb
+- api.WEBGL_debug_renderer_info
+- api.WEBGL_draw_instanced_base_vertex_base_instance
+- api.WEBGL_multi_draw_instanced_base_vertex_base_instance
+- api.WebGLSync
+- javascript.builtins.AggregateError
+- javascript.builtins.AsyncIterator.@@asyncIterator
+- javascript.builtins.WebAssembly.Exception
+
+### Commits
+
+- Add release date to changelog
+- Add custom test for CanvasCaptureMediaStreamTrack
+- RTCStatsReport: capture canvas stream at 60 FPS
+- Make test builder asynchronous
+- Improve error handling
+- Remove custom test for api.Request.mode.navigate_mode
+
 ## v10.0.5
 
 Released June 26, 2023
