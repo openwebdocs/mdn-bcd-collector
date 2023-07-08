@@ -8,7 +8,8 @@
 
 import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
-chai.use(chaiSubset);
+import chaiAsPromised from 'chai-as-promised';
+chai.use(chaiSubset).use(chaiAsPromised);
 
 import type {RawTest} from './types/types.js';
 
@@ -161,18 +162,15 @@ describe('build (common)', () => {
     };
 
     for (const [k, v] of Object.entries(expectedResults)) {
-      it(k, () => {
+      it(k, async () => {
         assert.deepEqual(getCustomTestData(k), v.data);
-        assert.deepEqual(getCustomTest(k, v.category), v.result);
+        assert.deepEqual(await getCustomTest(k, v.category), v.result);
       });
     }
 
-    it('api.badresource (throw error on bad resource reference)', () => {
-      assert.throws(
-        () => {
-          getCustomTest('api.badresource', 'api');
-        },
-        Error,
+    it('api.badresource (throw error on bad resource reference)', async () => {
+      await assert.isRejected(
+        getCustomTest('api.badresource', 'api'),
         'Resource bad-resource is not defined but referenced in api.badresource',
       );
     });

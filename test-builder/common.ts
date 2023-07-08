@@ -10,6 +10,8 @@ import fs from 'fs-extra';
 import prettier from 'prettier';
 import * as YAML from 'yaml';
 
+import replaceAsync from '../lib/replace-async.js';
+
 import type {Test, RawTest} from '../types/types.js';
 
 /* c8 ignore start */
@@ -98,12 +100,12 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
   return result;
 };
 
-const generateCustomTestCode = (
+const generateCustomTestCode = async (
   name: string,
   category: string,
   exactMatchNeeded: boolean,
   data: CustomTestData,
-): {code: string; resources: string[]} | false => {
+): Promise<{code: string; resources: string[]} | false> => {
   let test = data.__test;
 
   if (!data.__test) {
@@ -170,10 +172,10 @@ const generateCustomTestCode = (
       : `return ${returnValue};`;
   }
 
-  return compileCustomTest((data.__base || '') + test);
+  return await compileCustomTest((data.__base || '') + test);
 };
 
-const getCustomTest = (
+const getCustomTest = async (
   name: string,
   category: string,
   exactMatchNeeded = false,
@@ -191,7 +193,7 @@ const getCustomTest = (
 
   // Compile the additional tests
   for (const [key, code] of Object.entries(data.__additional)) {
-    const additionalTest = generateCustomTestCode(
+    const additionalTest = await generateCustomTestCode(
       `${name}.${key}`,
       category,
       exactMatchNeeded,
@@ -203,7 +205,7 @@ const getCustomTest = (
     response.additional[key] = additionalTest.code;
   }
 
-  const customTest = generateCustomTestCode(
+  const customTest = await generateCustomTestCode(
     name,
     category,
     exactMatchNeeded,
@@ -239,15 +241,16 @@ const getCustomTest = (
   return response;
 };
 
-const compileCustomTest = (
+const compileCustomTest = async (
   code: string,
   format = true,
-): {code: string; resources: string[]} => {
+): Promise<{code: string; resources: string[]}> => {
   const resources: string[] = [];
   // Import code from other tests
-  code = code.replace(
+  code = await replaceAsync(
+    code,
     /<%(\w+(?:\.\w+)*):(\w+)%> ?/g,
-    (match, name, instancevar) => {
+    async (match, name, instancevar) => {
       const importedTest = getCustomTestData(name);
       if (!importedTest.__base) {
         const errorMsg = `Test is malformed: ${match} is an invalid import reference`;
@@ -255,10 +258,8 @@ const compileCustomTest = (
         return `throw '${errorMsg}';`;
       }
 
-      const {code: importedCode, resources: newResources} = compileCustomTest(
-        importedTest.__base,
-        false,
-      );
+      const {code: importedCode, resources: newResources} =
+        await compileCustomTest(importedTest.__base, false);
       resources.push(...newResources, ...importedTest.__resources);
       const callback =
         importedCode.match(/callback([(),])/g) ||

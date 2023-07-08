@@ -10,7 +10,7 @@ import {getCustomTest, compileCustomTest, compileTest} from './common.js';
 
 import type {RawTestCodeExpr} from '../types/types.js';
 
-const build = (customJS) => {
+const build = async (customJS) => {
   const tests = {};
 
   for (const [path, extras] of Object.entries(customJS.builtins) as any[]) {
@@ -40,7 +40,7 @@ const build = (customJS) => {
       bcdPath.replace(category, '').split('.').length > 2 &&
       !path.includes('.prototype');
 
-    const customTest = getCustomTest(bcdPath, category, exactMatchNeeded);
+    const customTest = await getCustomTest(bcdPath, category, exactMatchNeeded);
 
     if (customTest.test) {
       tests[bcdPath] = compileTest({
@@ -85,7 +85,7 @@ const build = (customJS) => {
         parts[parts.length - 1],
       ].join('.');
 
-      const customTest = getCustomTest(ctorPath, category, true);
+      const customTest = await getCustomTest(ctorPath, category, true);
 
       if (customTest.test) {
         tests[ctorPath] = compileTest({
@@ -121,7 +121,7 @@ const build = (customJS) => {
             : `return bcd.testConstructor("${path}")`;
 
         tests[ctorPath] = compileTest({
-          raw: {code: compileCustomTest(baseCode + ctorCode).code},
+          raw: {code: (await compileCustomTest(baseCode + ctorCode)).code},
           exposure: ['Window'],
         });
 
@@ -133,7 +133,7 @@ const build = (customJS) => {
             return {result: true, message: e.message};
           }`;
           tests[`${ctorPath}.new_required`] = compileTest({
-            raw: {code: compileCustomTest(baseCode + ctorNewCode).code},
+            raw: {code: (await compileCustomTest(baseCode + ctorNewCode)).code},
             exposure: ['Window'],
           });
         }
@@ -146,7 +146,9 @@ const build = (customJS) => {
             return {result: false, message: e.message};
           }`;
           tests[`${ctorPath}.constructor_without_parameters`] = compileTest({
-            raw: {code: compileCustomTest(baseCode + ctorNoArgsCode).code},
+            raw: {
+              code: (await compileCustomTest(baseCode + ctorNoArgsCode)).code,
+            },
             exposure: ['Window'],
           });
         }

@@ -44,11 +44,11 @@ const build = async (customIDL: IDLFiles, customCSS) => {
 
   const tests = Object.assign(
     {__resources: customTests.__resources},
-    buildAPI(specIDLs, customIDL),
-    buildCSS(specCSS, customCSS),
-    buildElements(specElements, customElements),
-    buildJS(customJS),
-    buildWasm(customWasm),
+    await buildAPI(specIDLs, customIDL),
+    await buildCSS(specCSS, customCSS),
+    await buildElements(specElements, customElements),
+    await buildJS(customJS),
+    await buildWasm(customWasm),
   );
 
   await fs.writeJson(new URL('../tests.json', import.meta.url), tests);

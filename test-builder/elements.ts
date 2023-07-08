@@ -30,7 +30,7 @@ const categories: {
   },
 };
 
-const build = (specElements, customElements) => {
+const build = async (specElements, customElements) => {
   const tests = {};
   const els = {
     html: customElements.elements.custom.html || {},
@@ -76,7 +76,11 @@ const build = (specElements, customElements) => {
         throw new Error(`${bcdPath} is missing an interface name`);
       }
 
-      const customTest = getCustomTest(bcdPath, '${category}.elements', true);
+      const customTest = await getCustomTest(
+        bcdPath,
+        '${category}.elements',
+        true,
+      );
       const defaultConstructCode = namespace
         ? `document.createElementNS('${namespace}', '${el}')`
         : `document.createElement('${el}')`;
@@ -113,7 +117,7 @@ const build = (specElements, customElements) => {
           attrProp = attr.prop;
         }
 
-        const customAttrTest = getCustomTest(
+        const customAttrTest = await getCustomTest(
           `${bcdPath}.${attrName}`,
           '${category}.elements',
           true,

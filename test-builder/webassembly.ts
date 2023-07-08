@@ -8,7 +8,7 @@
 
 import {compileTest} from './common.js';
 
-const build = (customWasm) => {
+const build = async (customWasm) => {
   const features = Object.entries(customWasm.features) as any[];
 
   const tests = {};
