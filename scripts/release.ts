@@ -271,7 +271,7 @@ const doChangelogUpdate = async (ctx) => {
     changelog.substring(0, idx) +
     newChangelogSection +
     changelog.substring(idx, changelog.length);
-  changelog = prettier.format(changelog, {parser: 'markdown'});
+  changelog = await prettier.format(changelog, {parser: 'markdown'});
   await fs.writeFile(filepath, changelog, 'utf8');
 };
 
