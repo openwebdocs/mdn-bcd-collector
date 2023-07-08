@@ -14,8 +14,6 @@ import puppeteer, {Product} from 'puppeteer';
 
 import {app} from './app.js';
 
-const pkg = await fs.readJson(new URL('./package.json', import.meta.url));
-
 // Firefox is temporarily disabled due to issues on CI
 const products: Product[] = ['chrome']; // ['chrome', 'firefox'];
 
@@ -35,17 +33,6 @@ describe('harness.js', () => {
 
   for (const product of products) {
     it(product, async () => {
-      if (
-        product === 'firefox' &&
-        process.platform === 'win32' &&
-        pkg.devDependencies.puppeteer === '5.4.1'
-      ) {
-        // Browser.close() Firefox support is broken on Windows and causes hang
-        // https://github.com/puppeteer/puppeteer/issues/5673
-        /* eslint-disable no-invalid-this */
-        (this as any).skip();
-        return;
-      }
       const browser = await puppeteer.launch({product});
       after(() => browser.close());
 
