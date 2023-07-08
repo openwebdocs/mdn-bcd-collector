@@ -250,7 +250,7 @@ const doChangelogUpdate = async (ctx) => {
     let oldChangelog =
       `# mdn-bcd-collector v${currentMajorVersion}.x Changelog\n\n` +
       changelog.substring(idx, changelog.indexOf(olderVersionsHeader));
-    oldChangelog = prettier.format(oldChangelog, {parser: 'markdown'});
+    oldChangelog = await prettier.format(oldChangelog, {parser: 'markdown'});
     await fs.writeFile(
       new URL(`../changelog/v${currentMajorVersion}.md`, import.meta.url),
       oldChangelog,
