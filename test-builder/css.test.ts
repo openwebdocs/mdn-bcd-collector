@@ -8,12 +8,13 @@
 
 import chai, {assert} from 'chai';
 import chaiSubset from 'chai-subset';
-chai.use(chaiSubset);
+import chaiAsPromised from 'chai-as-promised';
+chai.use(chaiSubset).use(chaiAsPromised);
 
 import {build} from './css.js';
 
 describe('build (CSS)', () => {
-  it('valid input', () => {
+  it('valid input', async () => {
     const webrefCSS = {
       'css-fonts': {
         properties: [{name: 'font-family'}, {name: 'font-weight'}],
@@ -35,7 +36,7 @@ describe('build (CSS)', () => {
       },
     };
 
-    assert.deepEqual(build(webrefCSS, customCSS), {
+    assert.deepEqual(await build(webrefCSS, customCSS), {
       'css.properties.font-family': {
         code: 'bcd.testCSSProperty("font-family")',
         exposure: ['Window'],
@@ -67,14 +68,14 @@ describe('build (CSS)', () => {
     });
   });
 
-  it('with custom test', () => {
+  it('with custom test', async () => {
     const css = {
       'css-dummy': {
         properties: [{name: 'foo'}],
       },
     };
 
-    assert.deepEqual(build(css, {properties: {}}), {
+    assert.deepEqual(await build(css, {properties: {}}), {
       'css.properties.foo': {
         code: `(function () {
   return 1;
@@ -85,26 +86,27 @@ describe('build (CSS)', () => {
     });
   });
 
-  it('double-defined property', () => {
+  it('double-defined property', async () => {
     const css = {
       'css-dummy': {
         properties: [{name: 'foo'}],
       },
     };
 
-    assert.throws(() => {
-      build(css, {properties: {foo: {}}});
-    }, 'Custom CSS property already known: foo');
+    await assert.isRejected(
+      build(css, {properties: {foo: {}}}),
+      'Custom CSS property already known: foo',
+    );
   });
 
-  it('invalid import', () => {
+  it('invalid import', async () => {
     const css = {
       'css-dummy': {
         properties: [{name: 'bar'}],
       },
     };
 
-    assert.deepEqual(build(css, {properties: {}}), {
+    assert.deepEqual(await build(css, {properties: {}}), {
       'css.properties.bar': {
         code: `(function () {
   throw "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";

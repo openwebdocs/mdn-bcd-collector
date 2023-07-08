@@ -426,7 +426,7 @@ const validateIDL = (ast) => {
   }
 };
 
-const buildIDLMemberTests = (
+const buildIDLMemberTests = async (
   members,
   iface,
   exposureSet,
@@ -464,7 +464,7 @@ const buildIDLMemberTests = (
     const customTestExactMatchNeeded =
       isStatic || ['toString', 'toJSON'].includes(member.name as string);
 
-    const customTestMember = getCustomTest(
+    const customTestMember = await getCustomTest(
       `api.${iface.name}.${name}`,
       'api',
       customTestExactMatchNeeded,
@@ -530,7 +530,7 @@ const buildIDLMemberTests = (
   return tests;
 };
 
-const buildIDLTests = (ast, globals, scopes) => {
+const buildIDLTests = async (ast, globals, scopes) => {
   const tests = {};
 
   const interfaces = ast.filter((dfn) => {
@@ -558,7 +558,7 @@ const buildIDLTests = (ast, globals, scopes) => {
       test: customTest,
       resources,
       additional: subtests,
-    } = getCustomTest(`api.${iface.name}`, 'api');
+    } = await getCustomTest(`api.${iface.name}`, 'api');
 
     tests[`api.${iface.name}`] = compileTest({
       raw: {
@@ -568,7 +568,7 @@ const buildIDLTests = (ast, globals, scopes) => {
       resources,
     });
 
-    const memberTests = buildIDLMemberTests(
+    const memberTests = await buildIDLMemberTests(
       members,
       iface,
       exposureSet,
@@ -594,7 +594,7 @@ const buildIDLTests = (ast, globals, scopes) => {
     const exposureSet = new Set(['Window', 'Worker']);
 
     const members = flattenMembers(iface);
-    const memberTests = buildIDLMemberTests(
+    const memberTests = await buildIDLMemberTests(
       members,
       fakeIface,
       exposureSet,
@@ -609,10 +609,10 @@ const buildIDLTests = (ast, globals, scopes) => {
   return tests;
 };
 
-const build = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
+const build = async (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   const {ast, globals, scopes} = flattenIDL(specIDLs, customIDLs);
   validateIDL(ast);
-  return buildIDLTests(ast, globals, scopes);
+  return await buildIDLTests(ast, globals, scopes);
 };
 
 export {flattenIDL, getExposureSet, buildIDLTests, build, validateIDL};

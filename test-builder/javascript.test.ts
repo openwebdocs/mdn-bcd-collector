@@ -13,7 +13,7 @@ chai.use(chaiSubset);
 import {build} from './javascript.js';
 
 describe('build (JavaScript)', () => {
-  it('build', () => {
+  it('build', async () => {
     const customJS = {
       builtins: {
         AggregateError: {
@@ -33,7 +33,7 @@ describe('build (JavaScript)', () => {
         },
       },
     };
-    assert.deepEqual(build(customJS), {
+    assert.deepEqual(await build(customJS), {
       'javascript.builtins.AggregateError': {
         code: '"AggregateError" in self',
         exposure: ['Window'],
