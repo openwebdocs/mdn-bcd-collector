@@ -100,7 +100,7 @@ __resources:
         canvas.width = 640;
         canvas.height = 480;
         var ctx = canvas.getContext('2d');
-        var videoStream = canvas.captureStream();
+        var videoStream = canvas.captureStream(60);
         var count = 0;
         var interval = setInterval(function() {
           ctx.fillStyle = `rgb(${count%255}, ${count*count%255}, ${count%255})`;
