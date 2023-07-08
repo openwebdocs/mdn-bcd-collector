@@ -233,8 +233,12 @@ const doChangelogUpdate = async (ctx) => {
   const filepath = new URL('../CHANGELOG.md', import.meta.url);
   let changelog = await fs.readFile(filepath, 'utf8');
 
+  const now = new Date().toLocaleString('en-US', {
+    dateStyle: 'long',
+  });
+
   const newChangelogSection =
-    `## v${ctx.newVersion}\n\n` +
+    `## v${ctx.newVersion}\n\nReleased ${now}\n\n` +
     (ctx.testChanges === '\n' ? '' : '### Test Changes\n' + ctx.testChanges) +
     '\n### Commits\n\n' +
     ctx.commits +

@@ -2,6 +2,8 @@
 
 ## v10.0.5
 
+Released June 26, 2023
+
 ### Test Changes
 
 #### Removed
@@ -22,6 +24,8 @@
 - Update values list for css.properties.appearance.compat-auto
 
 ## v10.0.4
+
+Released June 22, 2023
 
 ### Test Changes
 
@@ -276,6 +280,8 @@
 
 ## v10.0.3
 
+Released June 17, 2023
+
 ### Test Changes
 
 #### Changed
@@ -371,6 +377,8 @@
 
 ## v10.0.2
 
+Released June 17, 2023
+
 ### Test Changes
 
 #### Changed
@@ -459,6 +467,8 @@
 
 ## v10.0.1
 
+Released June 16, 2023
+
 ### Test Changes
 
 #### Changed
@@ -496,6 +506,8 @@
 - Add custom test for AggregateError builtin
 
 ## v10.0.0
+
+Released June 13, 2023
 
 ### Notable changes
 
