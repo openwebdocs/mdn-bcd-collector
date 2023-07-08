@@ -622,6 +622,13 @@ api:
         return {result: false, message: 'caches is not defined'};
       };
       var instance = caches;
+  CanvasCaptureMediaStreamTrack:
+    __base: |-
+      var canvas = document.createElement('canvas');
+      if (!canvas) {
+        return {result: false, message: 'Could not create canvas element'};
+      };
+      var instance = canvas.captureStream();
   CanvasGradient:
     __base: |-
       <%api.CanvasRenderingContext2D:ctx%>
