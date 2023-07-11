@@ -335,9 +335,7 @@ const getExposureSet = (node, scopes): Set<Exposure> => {
 };
 
 const validateIDL = (ast) => {
-  // XXX Typedefs for WebIDL2 are missing validate function
-  // XXX https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63342
-  const validations = (WebIDL2 as any).validate(ast).filter((v) => {
+  const validations = WebIDL2.validate(ast).filter((v) => {
     // Ignore the [LegacyNoInterfaceObject] rule.
     // XXX Also temporarily ignore the "[AllowShared] BufferSource -> AllowSharedBufferSource" rule until specs are fixed.
     return !['no-nointerfaceobject', 'migrate-allowshared'].includes(
