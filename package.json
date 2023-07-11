@@ -65,7 +65,7 @@
     "ua-parser-js": "1.0.35",
     "unique-string": "3.0.0",
     "wasm-feature-detect": "^1.5.1",
-    "winston": "3.9.0",
+    "winston": "3.10.0",
     "yargs": "17.7.2"
   },
   "devDependencies": {
