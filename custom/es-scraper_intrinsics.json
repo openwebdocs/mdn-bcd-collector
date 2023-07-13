@@ -1,0 +1,6632 @@
+[
+  {
+    "type": "class",
+    "name": "Object",
+    "id": "sec-object-objects",
+    "global": true,
+    "extends": "null",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Object()",
+      "id": "sec-object-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "different"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Object.prototype",
+        "id": "sec-object.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Object.assign()",
+        "id": "sec-object.assign",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Object.create()",
+        "id": "sec-object.create",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.defineProperties()",
+        "id": "sec-object.defineproperties",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.defineProperty()",
+        "id": "sec-object.defineproperty",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.entries()",
+        "id": "sec-object.entries",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.freeze()",
+        "id": "sec-object.freeze",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.fromEntries()",
+        "id": "sec-object.fromentries",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.getOwnPropertyDescriptor()",
+        "id": "sec-object.getownpropertydescriptor",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.getOwnPropertyDescriptors()",
+        "id": "sec-object.getownpropertydescriptors",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.getOwnPropertyNames()",
+        "id": "sec-object.getownpropertynames",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.getOwnPropertySymbols()",
+        "id": "sec-object.getownpropertysymbols",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.getPrototypeOf()",
+        "id": "sec-object.getprototypeof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.hasOwn()",
+        "id": "sec-object.hasown",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.is()",
+        "id": "sec-object.is",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.isExtensible()",
+        "id": "sec-object.isextensible",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.isFrozen()",
+        "id": "sec-object.isfrozen",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.isSealed()",
+        "id": "sec-object.issealed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.keys()",
+        "id": "sec-object.keys",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.preventExtensions()",
+        "id": "sec-object.preventextensions",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.seal()",
+        "id": "sec-object.seal",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.setPrototypeOf()",
+        "id": "sec-object.setprototypeof",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.values()",
+        "id": "sec-object.values",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Object.prototype.constructor",
+        "id": "sec-object.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "Object.prototype.__proto__",
+        "id": "sec-object.prototype.__proto__",
+        "attributes": "gsc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Object.prototype.hasOwnProperty()",
+        "id": "sec-object.prototype.hasownproperty",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.isPrototypeOf()",
+        "id": "sec-object.prototype.isprototypeof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.propertyIsEnumerable()",
+        "id": "sec-object.prototype.propertyisenumerable",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.toLocaleString()",
+        "id": "sec-object.prototype.tolocalestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.toString()",
+        "id": "sec-object.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.valueOf()",
+        "id": "sec-object.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.__defineGetter__()",
+        "id": "sec-object.prototype.__defineGetter__",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.__defineSetter__()",
+        "id": "sec-object.prototype.__defineSetter__",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.__lookupGetter__()",
+        "id": "sec-object.prototype.__lookupGetter__",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Object.prototype.__lookupSetter__()",
+        "id": "sec-object.prototype.__lookupSetter__",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "Function",
+    "id": "sec-function-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Function()",
+      "id": "sec-function-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Function.prototype",
+        "id": "sec-function.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Function.prototype.constructor",
+        "id": "sec-function.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Function.prototype.apply()",
+        "id": "sec-function.prototype.apply",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Function.prototype.bind()",
+        "id": "sec-function.prototype.bind",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": true
+        }
+      },
+      {
+        "type": "method",
+        "name": "Function.prototype.call()",
+        "id": "sec-function.prototype.call",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": true
+        }
+      },
+      {
+        "type": "method",
+        "name": "Function.prototype.toString()",
+        "id": "sec-function.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Function.prototype[@@hasInstance]()",
+        "id": "sec-function.prototype-@@hasinstance",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        },
+        "attributes": ""
+      }
+    ],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "length",
+        "id": "sec-function-instances-length",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "name",
+        "id": "sec-function-instances-name",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "prototype",
+        "id": "sec-function-instances-prototype",
+        "attributes": "w"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Boolean",
+    "id": "sec-boolean-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Boolean()",
+      "id": "sec-boolean-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "different"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Boolean.prototype",
+        "id": "sec-boolean.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Boolean.prototype.constructor",
+        "id": "sec-boolean.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Boolean.prototype.toString()",
+        "id": "sec-boolean.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Boolean.prototype.valueOf()",
+        "id": "sec-boolean.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "Symbol",
+    "id": "sec-symbol-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Symbol()",
+      "id": "sec-symbol-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "call"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Symbol.asyncIterator",
+        "id": "sec-symbol.asynciterator",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.hasInstance",
+        "id": "sec-symbol.hasinstance",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.isConcatSpreadable",
+        "id": "sec-symbol.isconcatspreadable",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.iterator",
+        "id": "sec-symbol.iterator",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.match",
+        "id": "sec-symbol.match",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.matchAll",
+        "id": "sec-symbol.matchall",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.prototype",
+        "id": "sec-symbol.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.replace",
+        "id": "sec-symbol.replace",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.search",
+        "id": "sec-symbol.search",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.species",
+        "id": "sec-symbol.species",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.split",
+        "id": "sec-symbol.split",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.toPrimitive",
+        "id": "sec-symbol.toprimitive",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.toStringTag",
+        "id": "sec-symbol.tostringtag",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.unscopables",
+        "id": "sec-symbol.unscopables",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Symbol.for()",
+        "id": "sec-symbol.for",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Symbol.keyFor()",
+        "id": "sec-symbol.keyfor",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Symbol.prototype.constructor",
+        "id": "sec-symbol.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "Symbol.prototype.description",
+        "id": "sec-symbol.prototype.description",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "Symbol.prototype[@@toStringTag]",
+        "id": "sec-symbol.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Symbol.prototype.toString()",
+        "id": "sec-symbol.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Symbol.prototype.valueOf()",
+        "id": "sec-symbol.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Symbol.prototype[@@toPrimitive]()",
+        "id": "sec-symbol.prototype-@@toprimitive",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        },
+        "attributes": "c"
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "Error",
+    "id": "sec-error-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Error()",
+      "id": "sec-error-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Error.prototype",
+        "id": "sec-error.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Error.prototype.constructor",
+        "id": "sec-error.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "Error.prototype.message",
+        "id": "sec-error.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "Error.prototype.name",
+        "id": "sec-error.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Error.prototype.toString()",
+        "id": "sec-error.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "EvalError",
+    "id": "sec-nativeerror-object-structure",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_NativeError_()",
+      "id": "sec-nativeerror-constructors",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "EvalError.prototype",
+        "id": "sec-nativeerror.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "EvalError.prototype.constructor",
+        "id": "sec-nativeerror.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "EvalError.prototype.message",
+        "id": "sec-nativeerror.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "EvalError.prototype.name",
+        "id": "sec-nativeerror.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "RangeError",
+    "id": "sec-nativeerror-object-structure",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_NativeError_()",
+      "id": "sec-nativeerror-constructors",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "RangeError.prototype",
+        "id": "sec-nativeerror.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "RangeError.prototype.constructor",
+        "id": "sec-nativeerror.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "RangeError.prototype.message",
+        "id": "sec-nativeerror.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "RangeError.prototype.name",
+        "id": "sec-nativeerror.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "ReferenceError",
+    "id": "sec-nativeerror-object-structure",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_NativeError_()",
+      "id": "sec-nativeerror-constructors",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "ReferenceError.prototype",
+        "id": "sec-nativeerror.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "ReferenceError.prototype.constructor",
+        "id": "sec-nativeerror.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "ReferenceError.prototype.message",
+        "id": "sec-nativeerror.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "ReferenceError.prototype.name",
+        "id": "sec-nativeerror.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "SyntaxError",
+    "id": "sec-nativeerror-object-structure",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_NativeError_()",
+      "id": "sec-nativeerror-constructors",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "SyntaxError.prototype",
+        "id": "sec-nativeerror.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "SyntaxError.prototype.constructor",
+        "id": "sec-nativeerror.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "SyntaxError.prototype.message",
+        "id": "sec-nativeerror.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "SyntaxError.prototype.name",
+        "id": "sec-nativeerror.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "TypeError",
+    "id": "sec-nativeerror-object-structure",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_NativeError_()",
+      "id": "sec-nativeerror-constructors",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "TypeError.prototype",
+        "id": "sec-nativeerror.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "TypeError.prototype.constructor",
+        "id": "sec-nativeerror.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "TypeError.prototype.message",
+        "id": "sec-nativeerror.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "TypeError.prototype.name",
+        "id": "sec-nativeerror.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "URIError",
+    "id": "sec-nativeerror-object-structure",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_NativeError_()",
+      "id": "sec-nativeerror-constructors",
+      "parameters": {
+        "required": 1,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "URIError.prototype",
+        "id": "sec-nativeerror.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "URIError.prototype.constructor",
+        "id": "sec-nativeerror.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "URIError.prototype.message",
+        "id": "sec-nativeerror.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "URIError.prototype.name",
+        "id": "sec-nativeerror.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "AggregateError",
+    "id": "sec-aggregate-error-objects",
+    "global": true,
+    "extends": "Error",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "AggregateError()",
+      "id": "sec-aggregate-error-constructor",
+      "parameters": {
+        "required": 2,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "AggregateError.prototype",
+        "id": "sec-aggregate-error.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "AggregateError.prototype.constructor",
+        "id": "sec-aggregate-error.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "AggregateError.prototype.message",
+        "id": "sec-aggregate-error.prototype.message",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "AggregateError.prototype.name",
+        "id": "sec-aggregate-error.prototype.name",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "Number",
+    "id": "sec-number-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Number()",
+      "id": "sec-number-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "different"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Number.EPSILON",
+        "id": "sec-number.epsilon",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.MAX_SAFE_INTEGER",
+        "id": "sec-number.max_safe_integer",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.MAX_VALUE",
+        "id": "sec-number.max_value",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.MIN_SAFE_INTEGER",
+        "id": "sec-number.min_safe_integer",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.MIN_VALUE",
+        "id": "sec-number.min_value",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.NaN",
+        "id": "sec-number.nan",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.NEGATIVE_INFINITY",
+        "id": "sec-number.negative_infinity",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.POSITIVE_INFINITY",
+        "id": "sec-number.positive_infinity",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Number.prototype",
+        "id": "sec-number.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Number.isFinite()",
+        "id": "sec-number.isfinite",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.isInteger()",
+        "id": "sec-number.isinteger",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.isNaN()",
+        "id": "sec-number.isnan",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.isSafeInteger()",
+        "id": "sec-number.issafeinteger",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.parseFloat()",
+        "id": "sec-number.parsefloat",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.parseInt()",
+        "id": "sec-number.parseint",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Number.prototype.constructor",
+        "id": "sec-number.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Number.prototype.toExponential()",
+        "id": "sec-number.prototype.toexponential",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.prototype.toFixed()",
+        "id": "sec-number.prototype.tofixed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.prototype.toLocaleString()",
+        "id": "sec-number.prototype.tolocalestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.prototype.toPrecision()",
+        "id": "sec-number.prototype.toprecision",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Number.prototype.toString()",
+        "id": "sec-number.prototype.tostring",
+        "parameters": {
+          "required": 0,
+          "optional": 1,
+          "rest": false
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "Number.prototype.valueOf()",
+        "id": "sec-number.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "BigInt",
+    "id": "sec-bigint-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "BigInt()",
+      "id": "sec-bigint-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "call"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "BigInt.prototype",
+        "id": "sec-bigint.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "BigInt.asIntN()",
+        "id": "sec-bigint.asintn",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "BigInt.asUintN()",
+        "id": "sec-bigint.asuintn",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "BigInt.prototype.constructor",
+        "id": "sec-bigint.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "BigInt.prototype[@@toStringTag]",
+        "id": "sec-bigint.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "BigInt.prototype.toLocaleString()",
+        "id": "sec-bigint.prototype.tolocalestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "BigInt.prototype.toString()",
+        "id": "sec-bigint.prototype.tostring",
+        "parameters": {
+          "required": 0,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "BigInt.prototype.valueOf()",
+        "id": "sec-bigint.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "namespace",
+    "name": "Math",
+    "id": "sec-math-object",
+    "global": true,
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Math.E",
+        "id": "sec-math.e",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.LN10",
+        "id": "sec-math.ln10",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.LN2",
+        "id": "sec-math.ln2",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.LOG10E",
+        "id": "sec-math.log10e",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.LOG2E",
+        "id": "sec-math.log2e",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.PI",
+        "id": "sec-math.pi",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.SQRT1_2",
+        "id": "sec-math.sqrt1_2",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math.SQRT2",
+        "id": "sec-math.sqrt2",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Math[@@toStringTag]",
+        "id": "sec-math-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Math.abs()",
+        "id": "sec-math.abs",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.acos()",
+        "id": "sec-math.acos",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.acosh()",
+        "id": "sec-math.acosh",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.asin()",
+        "id": "sec-math.asin",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.asinh()",
+        "id": "sec-math.asinh",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.atan()",
+        "id": "sec-math.atan",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.atanh()",
+        "id": "sec-math.atanh",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.atan2()",
+        "id": "sec-math.atan2",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.cbrt()",
+        "id": "sec-math.cbrt",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.ceil()",
+        "id": "sec-math.ceil",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.clz32()",
+        "id": "sec-math.clz32",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.cos()",
+        "id": "sec-math.cos",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.cosh()",
+        "id": "sec-math.cosh",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.exp()",
+        "id": "sec-math.exp",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.expm1()",
+        "id": "sec-math.expm1",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.floor()",
+        "id": "sec-math.floor",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.fround()",
+        "id": "sec-math.fround",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.hypot()",
+        "id": "sec-math.hypot",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Math.imul()",
+        "id": "sec-math.imul",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.log()",
+        "id": "sec-math.log",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.log1p()",
+        "id": "sec-math.log1p",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.log10()",
+        "id": "sec-math.log10",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.log2()",
+        "id": "sec-math.log2",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.max()",
+        "id": "sec-math.max",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Math.min()",
+        "id": "sec-math.min",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Math.pow()",
+        "id": "sec-math.pow",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.random()",
+        "id": "sec-math.random",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.round()",
+        "id": "sec-math.round",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.sign()",
+        "id": "sec-math.sign",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.sin()",
+        "id": "sec-math.sin",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.sinh()",
+        "id": "sec-math.sinh",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.sqrt()",
+        "id": "sec-math.sqrt",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.tan()",
+        "id": "sec-math.tan",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.tanh()",
+        "id": "sec-math.tanh",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Math.trunc()",
+        "id": "sec-math.trunc",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Date",
+    "id": "sec-date-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Date()",
+      "id": "sec-date-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "different"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Date.prototype",
+        "id": "sec-date.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Date.now()",
+        "id": "sec-date.now",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.parse()",
+        "id": "sec-date.parse",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.UTC()",
+        "id": "sec-date.utc",
+        "parameters": {
+          "required": 1,
+          "optional": 6,
+          "rest": false
+        },
+        "length": 7
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Date.prototype.constructor",
+        "id": "sec-date.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Date.prototype.getDate()",
+        "id": "sec-date.prototype.getdate",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getDay()",
+        "id": "sec-date.prototype.getday",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getFullYear()",
+        "id": "sec-date.prototype.getfullyear",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getHours()",
+        "id": "sec-date.prototype.gethours",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getMilliseconds()",
+        "id": "sec-date.prototype.getmilliseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getMinutes()",
+        "id": "sec-date.prototype.getminutes",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getMonth()",
+        "id": "sec-date.prototype.getmonth",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getSeconds()",
+        "id": "sec-date.prototype.getseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getTime()",
+        "id": "sec-date.prototype.gettime",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getTimezoneOffset()",
+        "id": "sec-date.prototype.gettimezoneoffset",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCDate()",
+        "id": "sec-date.prototype.getutcdate",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCDay()",
+        "id": "sec-date.prototype.getutcday",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCFullYear()",
+        "id": "sec-date.prototype.getutcfullyear",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCHours()",
+        "id": "sec-date.prototype.getutchours",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCMilliseconds()",
+        "id": "sec-date.prototype.getutcmilliseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCMinutes()",
+        "id": "sec-date.prototype.getutcminutes",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCMonth()",
+        "id": "sec-date.prototype.getutcmonth",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getUTCSeconds()",
+        "id": "sec-date.prototype.getutcseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setDate()",
+        "id": "sec-date.prototype.setdate",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setFullYear()",
+        "id": "sec-date.prototype.setfullyear",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        },
+        "length": 3
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setHours()",
+        "id": "sec-date.prototype.sethours",
+        "parameters": {
+          "required": 1,
+          "optional": 3,
+          "rest": false
+        },
+        "length": 4
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setMilliseconds()",
+        "id": "sec-date.prototype.setmilliseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setMinutes()",
+        "id": "sec-date.prototype.setminutes",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        },
+        "length": 3
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setMonth()",
+        "id": "sec-date.prototype.setmonth",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setSeconds()",
+        "id": "sec-date.prototype.setseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setTime()",
+        "id": "sec-date.prototype.settime",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCDate()",
+        "id": "sec-date.prototype.setutcdate",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCFullYear()",
+        "id": "sec-date.prototype.setutcfullyear",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        },
+        "length": 3
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCHours()",
+        "id": "sec-date.prototype.setutchours",
+        "parameters": {
+          "required": 1,
+          "optional": 3,
+          "rest": false
+        },
+        "length": 4
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCMilliseconds()",
+        "id": "sec-date.prototype.setutcmilliseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCMinutes()",
+        "id": "sec-date.prototype.setutcminutes",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        },
+        "length": 3
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCMonth()",
+        "id": "sec-date.prototype.setutcmonth",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setUTCSeconds()",
+        "id": "sec-date.prototype.setutcseconds",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toDateString()",
+        "id": "sec-date.prototype.todatestring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toISOString()",
+        "id": "sec-date.prototype.toisostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toJSON()",
+        "id": "sec-date.prototype.tojson",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toLocaleDateString()",
+        "id": "sec-date.prototype.tolocaledatestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toLocaleString()",
+        "id": "sec-date.prototype.tolocalestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toLocaleTimeString()",
+        "id": "sec-date.prototype.tolocaletimestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toString()",
+        "id": "sec-date.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toTimeString()",
+        "id": "sec-date.prototype.totimestring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toUTCString()",
+        "id": "sec-date.prototype.toutcstring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.valueOf()",
+        "id": "sec-date.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype[@@toPrimitive]()",
+        "id": "sec-date.prototype-@@toprimitive",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        },
+        "attributes": "c"
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.getYear()",
+        "id": "sec-date.prototype.getyear",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.setYear()",
+        "id": "sec-date.prototype.setyear",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Date.prototype.toGMTString()",
+        "id": "sec-date.prototype.togmtstring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "String",
+    "id": "sec-string-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "String()",
+      "id": "sec-string-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "different"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "String.prototype",
+        "id": "sec-string.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "String.fromCharCode()",
+        "id": "sec-string.fromcharcode",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "String.fromCodePoint()",
+        "id": "sec-string.fromcodepoint",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "String.raw()",
+        "id": "sec-string.raw",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": true
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "String.prototype.constructor",
+        "id": "sec-string.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "String.prototype.at()",
+        "id": "sec-string.prototype.at",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.charAt()",
+        "id": "sec-string.prototype.charat",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.charCodeAt()",
+        "id": "sec-string.prototype.charcodeat",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.codePointAt()",
+        "id": "sec-string.prototype.codepointat",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.concat()",
+        "id": "sec-string.prototype.concat",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.endsWith()",
+        "id": "sec-string.prototype.endswith",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.includes()",
+        "id": "sec-string.prototype.includes",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.indexOf()",
+        "id": "sec-string.prototype.indexof",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.isWellFormed()",
+        "id": "sec-string.prototype.iswellformed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.lastIndexOf()",
+        "id": "sec-string.prototype.lastindexof",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.localeCompare()",
+        "id": "sec-string.prototype.localecompare",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.match()",
+        "id": "sec-string.prototype.match",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.matchAll()",
+        "id": "sec-string.prototype.matchall",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.normalize()",
+        "id": "sec-string.prototype.normalize",
+        "parameters": {
+          "required": 0,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.padEnd()",
+        "id": "sec-string.prototype.padend",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.padStart()",
+        "id": "sec-string.prototype.padstart",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.repeat()",
+        "id": "sec-string.prototype.repeat",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.replace()",
+        "id": "sec-string.prototype.replace",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.replaceAll()",
+        "id": "sec-string.prototype.replaceall",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.search()",
+        "id": "sec-string.prototype.search",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.slice()",
+        "id": "sec-string.prototype.slice",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.split()",
+        "id": "sec-string.prototype.split",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.startsWith()",
+        "id": "sec-string.prototype.startswith",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.substring()",
+        "id": "sec-string.prototype.substring",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.toLocaleLowerCase()",
+        "id": "sec-string.prototype.tolocalelowercase",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.toLocaleUpperCase()",
+        "id": "sec-string.prototype.tolocaleuppercase",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.toLowerCase()",
+        "id": "sec-string.prototype.tolowercase",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.toString()",
+        "id": "sec-string.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.toUpperCase()",
+        "id": "sec-string.prototype.touppercase",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.toWellFormed()",
+        "id": "sec-string.prototype.towellformed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.trim()",
+        "id": "sec-string.prototype.trim",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.trimEnd()",
+        "id": "sec-string.prototype.trimend",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.trimStart()",
+        "id": "sec-string.prototype.trimstart",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.valueOf()",
+        "id": "sec-string.prototype.valueof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype[@@iterator]()",
+        "id": "sec-string.prototype-@@iterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.substr()",
+        "id": "sec-string.prototype.substr",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.anchor()",
+        "id": "sec-string.prototype.anchor",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.big()",
+        "id": "sec-string.prototype.big",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.blink()",
+        "id": "sec-string.prototype.blink",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.bold()",
+        "id": "sec-string.prototype.bold",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.fixed()",
+        "id": "sec-string.prototype.fixed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.fontcolor()",
+        "id": "sec-string.prototype.fontcolor",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.fontsize()",
+        "id": "sec-string.prototype.fontsize",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.italics()",
+        "id": "sec-string.prototype.italics",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.link()",
+        "id": "sec-string.prototype.link",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.small()",
+        "id": "sec-string.prototype.small",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.strike()",
+        "id": "sec-string.prototype.strike",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.sub()",
+        "id": "sec-string.prototype.sub",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.sup()",
+        "id": "sec-string.prototype.sup",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.trimLeft()",
+        "id": "String.prototype.trimleft",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "String.prototype.trimRight()",
+        "id": "String.prototype.trimright",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "length",
+        "id": "sec-properties-of-string-instances-length",
+        "attributes": ""
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "RegExp",
+    "id": "sec-regexp-regular-expression-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "RegExp()",
+      "id": "sec-regexp-constructor",
+      "parameters": {
+        "required": 2,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "different"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "RegExp.prototype",
+        "id": "sec-regexp.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp[@@species]",
+        "id": "sec-get-regexp-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "RegExp.prototype.constructor",
+        "id": "sec-regexp.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.dotAll",
+        "id": "sec-get-regexp.prototype.dotAll",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.flags",
+        "id": "sec-get-regexp.prototype.flags",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.global",
+        "id": "sec-get-regexp.prototype.global",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.hasIndices",
+        "id": "sec-get-regexp.prototype.hasIndices",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.ignoreCase",
+        "id": "sec-get-regexp.prototype.ignorecase",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.multiline",
+        "id": "sec-get-regexp.prototype.multiline",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.source",
+        "id": "sec-get-regexp.prototype.source",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.sticky",
+        "id": "sec-get-regexp.prototype.sticky",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.unicode",
+        "id": "sec-get-regexp.prototype.unicode",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "RegExp.prototype.unicodeSets",
+        "id": "sec-get-regexp.prototype.unicodesets",
+        "attributes": "gc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "RegExp.prototype.exec()",
+        "id": "sec-regexp.prototype.exec",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype[@@match]()",
+        "id": "sec-regexp.prototype-@@match",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype[@@matchAll]()",
+        "id": "sec-regexp-prototype-matchall",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype[@@replace]()",
+        "id": "sec-regexp.prototype-@@replace",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype[@@search]()",
+        "id": "sec-regexp.prototype-@@search",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype[@@split]()",
+        "id": "sec-regexp.prototype-@@split",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype.test()",
+        "id": "sec-regexp.prototype.test",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype.toString()",
+        "id": "sec-regexp.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "RegExp.prototype.compile()",
+        "id": "sec-regexp.prototype.compile",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "lastIndex",
+        "id": "sec-lastindex",
+        "attributes": "wc"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Array",
+    "id": "sec-array-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Array()",
+      "id": "sec-array-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Array.prototype",
+        "id": "sec-array.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "Array[@@species]",
+        "id": "sec-get-array-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Array.from()",
+        "id": "sec-array.from",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.isArray()",
+        "id": "sec-array.isarray",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.of()",
+        "id": "sec-array.of",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Array.prototype.constructor",
+        "id": "sec-array.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "Array.prototype[@@unscopables]",
+        "id": "sec-array.prototype-@@unscopables",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Array.prototype.at()",
+        "id": "sec-array.prototype.at",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.concat()",
+        "id": "sec-array.prototype.concat",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.copyWithin()",
+        "id": "sec-array.prototype.copywithin",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.entries()",
+        "id": "sec-array.prototype.entries",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.every()",
+        "id": "sec-array.prototype.every",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.fill()",
+        "id": "sec-array.prototype.fill",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.filter()",
+        "id": "sec-array.prototype.filter",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.find()",
+        "id": "sec-array.prototype.find",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.findIndex()",
+        "id": "sec-array.prototype.findindex",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.findLast()",
+        "id": "sec-array.prototype.findlast",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.findLastIndex()",
+        "id": "sec-array.prototype.findlastindex",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.flat()",
+        "id": "sec-array.prototype.flat",
+        "parameters": {
+          "required": 0,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.flatMap()",
+        "id": "sec-array.prototype.flatmap",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.forEach()",
+        "id": "sec-array.prototype.foreach",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.includes()",
+        "id": "sec-array.prototype.includes",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.indexOf()",
+        "id": "sec-array.prototype.indexof",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.join()",
+        "id": "sec-array.prototype.join",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.keys()",
+        "id": "sec-array.prototype.keys",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.lastIndexOf()",
+        "id": "sec-array.prototype.lastindexof",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.map()",
+        "id": "sec-array.prototype.map",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.pop()",
+        "id": "sec-array.prototype.pop",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.push()",
+        "id": "sec-array.prototype.push",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.reduce()",
+        "id": "sec-array.prototype.reduce",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.reduceRight()",
+        "id": "sec-array.prototype.reduceright",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.reverse()",
+        "id": "sec-array.prototype.reverse",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.shift()",
+        "id": "sec-array.prototype.shift",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.slice()",
+        "id": "sec-array.prototype.slice",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.some()",
+        "id": "sec-array.prototype.some",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.sort()",
+        "id": "sec-array.prototype.sort",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.splice()",
+        "id": "sec-array.prototype.splice",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": true
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.toLocaleString()",
+        "id": "sec-array.prototype.tolocalestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.toReversed()",
+        "id": "sec-array.prototype.toreversed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.toSorted()",
+        "id": "sec-array.prototype.tosorted",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.toSpliced()",
+        "id": "sec-array.prototype.tospliced",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": true
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.toString()",
+        "id": "sec-array.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.unshift()",
+        "id": "sec-array.prototype.unshift",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        },
+        "length": 1
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.values()",
+        "id": "sec-array.prototype.values",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype.with()",
+        "id": "sec-array.prototype.with",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Array.prototype[@@iterator]()",
+        "id": "sec-array.prototype-@@iterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "length",
+        "id": "sec-properties-of-array-instances-length",
+        "attributes": "w"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "TypedArray",
+    "id": "sec-typedarray-objects",
+    "global": false,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "%TypedArray%()",
+      "id": "sec-%typedarray%-intrinsic-object",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "none"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "%TypedArray%.prototype",
+        "id": "sec-%typedarray%.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "%TypedArray%[@@species]",
+        "id": "sec-get-%typedarray%-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "%TypedArray%.from()",
+        "id": "sec-%typedarray%.from",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.of()",
+        "id": "sec-%typedarray%.of",
+        "parameters": {
+          "required": 0,
+          "optional": 0,
+          "rest": true
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "accessor-property",
+        "name": "%TypedArray%.prototype.buffer",
+        "id": "sec-get-%typedarray%.prototype.buffer",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "%TypedArray%.prototype.byteLength",
+        "id": "sec-get-%typedarray%.prototype.bytelength",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "%TypedArray%.prototype.byteOffset",
+        "id": "sec-get-%typedarray%.prototype.byteoffset",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "%TypedArray%.prototype.constructor",
+        "id": "sec-%typedarray%.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "%TypedArray%.prototype.length",
+        "id": "sec-get-%typedarray%.prototype.length",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "%TypedArray%.prototype[@@toStringTag]",
+        "id": "sec-get-%typedarray%.prototype-@@tostringtag",
+        "attributes": "gc"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.at()",
+        "id": "sec-%typedarray%.prototype.at",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.copyWithin()",
+        "id": "sec-%typedarray%.prototype.copywithin",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.entries()",
+        "id": "sec-%typedarray%.prototype.entries",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.every()",
+        "id": "sec-%typedarray%.prototype.every",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.fill()",
+        "id": "sec-%typedarray%.prototype.fill",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.filter()",
+        "id": "sec-%typedarray%.prototype.filter",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.find()",
+        "id": "sec-%typedarray%.prototype.find",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.findIndex()",
+        "id": "sec-%typedarray%.prototype.findindex",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.findLast()",
+        "id": "sec-%typedarray%.prototype.findlast",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.findLastIndex()",
+        "id": "sec-%typedarray%.prototype.findlastindex",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.forEach()",
+        "id": "sec-%typedarray%.prototype.foreach",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.includes()",
+        "id": "sec-%typedarray%.prototype.includes",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.indexOf()",
+        "id": "sec-%typedarray%.prototype.indexof",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.join()",
+        "id": "sec-%typedarray%.prototype.join",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.keys()",
+        "id": "sec-%typedarray%.prototype.keys",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.lastIndexOf()",
+        "id": "sec-%typedarray%.prototype.lastindexof",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.map()",
+        "id": "sec-%typedarray%.prototype.map",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.reduce()",
+        "id": "sec-%typedarray%.prototype.reduce",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.reduceRight()",
+        "id": "sec-%typedarray%.prototype.reduceright",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.reverse()",
+        "id": "sec-%typedarray%.prototype.reverse",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.set()",
+        "id": "sec-%typedarray%.prototype.set",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.slice()",
+        "id": "sec-%typedarray%.prototype.slice",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.some()",
+        "id": "sec-%typedarray%.prototype.some",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.sort()",
+        "id": "sec-%typedarray%.prototype.sort",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.subarray()",
+        "id": "sec-%typedarray%.prototype.subarray",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.toLocaleString()",
+        "id": "sec-%typedarray%.prototype.tolocalestring",
+        "parameters": {
+          "required": 0,
+          "optional": 2,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.toReversed()",
+        "id": "sec-%typedarray%.prototype.toreversed",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.toSorted()",
+        "id": "sec-%typedarray%.prototype.tosorted",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.toString()",
+        "id": "sec-%typedarray%.prototype.tostring",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.values()",
+        "id": "sec-%typedarray%.prototype.values",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype.with()",
+        "id": "sec-%typedarray%.prototype.with",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "%TypedArray%.prototype[@@iterator]()",
+        "id": "sec-%typedarray%.prototype-@@iterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "Int8Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Int8Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Int8Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Int8Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Int8Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Uint8Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint8Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint8Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint8Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint8Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Uint8ClampedArray",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint8ClampedArray.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint8ClampedArray.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint8ClampedArray.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint8ClampedArray.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Int16Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Int16Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Int16Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Int16Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Int16Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Uint16Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint16Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint16Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint16Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint16Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Int32Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Int32Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Int32Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Int32Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Int32Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Uint32Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint32Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint32Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Uint32Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Uint32Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "BigInt64Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "BigInt64Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "BigInt64Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "BigInt64Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "BigInt64Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "BigUint64Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "BigUint64Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "BigUint64Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "BigUint64Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "BigUint64Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Float32Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Float32Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Float32Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Float32Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Float32Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Float64Array",
+    "id": "sec-typedarray-objects",
+    "global": true,
+    "extends": "TypedArray",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "_TypedArray_()",
+      "id": "sec-typedarray-constructors",
+      "parameters": {
+        "required": 0,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Float64Array.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Float64Array.prototype",
+        "id": "sec-typedarray.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Float64Array.prototype.BYTES_PER_ELEMENT",
+        "id": "sec-typedarray.prototype.bytes_per_element",
+        "attributes": ""
+      },
+      {
+        "type": "data-property",
+        "name": "Float64Array.prototype.constructor",
+        "id": "sec-typedarray.prototype.constructor",
+        "attributes": "wc"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [],
+    "constructor": {
+      "name": "Object"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Map",
+    "id": "sec-map-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Map()",
+      "id": "sec-map-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Map.prototype",
+        "id": "sec-map.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "Map[@@species]",
+        "id": "sec-get-map-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Map.prototype.constructor",
+        "id": "sec-map.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "Map.prototype.size",
+        "id": "sec-get-map.prototype.size",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "Map.prototype[@@toStringTag]",
+        "id": "sec-map.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Map.prototype.clear()",
+        "id": "sec-map.prototype.clear",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.delete()",
+        "id": "sec-map.prototype.delete",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.entries()",
+        "id": "sec-map.prototype.entries",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.forEach()",
+        "id": "sec-map.prototype.foreach",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.get()",
+        "id": "sec-map.prototype.get",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.has()",
+        "id": "sec-map.prototype.has",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.keys()",
+        "id": "sec-map.prototype.keys",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.set()",
+        "id": "sec-map.prototype.set",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype.values()",
+        "id": "sec-map.prototype.values",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Map.prototype[@@iterator]()",
+        "id": "sec-map.prototype-@@iterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "Set",
+    "id": "sec-set-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Set()",
+      "id": "sec-set-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Set.prototype",
+        "id": "sec-set.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "Set[@@species]",
+        "id": "sec-get-set-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Set.prototype.constructor",
+        "id": "sec-set.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "Set.prototype.size",
+        "id": "sec-get-set.prototype.size",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "Set.prototype[@@toStringTag]",
+        "id": "sec-set.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Set.prototype.add()",
+        "id": "sec-set.prototype.add",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.clear()",
+        "id": "sec-set.prototype.clear",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.delete()",
+        "id": "sec-set.prototype.delete",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.entries()",
+        "id": "sec-set.prototype.entries",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.forEach()",
+        "id": "sec-set.prototype.foreach",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.has()",
+        "id": "sec-set.prototype.has",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.keys()",
+        "id": "sec-set.prototype.keys",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype.values()",
+        "id": "sec-set.prototype.values",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Set.prototype[@@iterator]()",
+        "id": "sec-set.prototype-@@iterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "WeakMap",
+    "id": "sec-weakmap-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "WeakMap()",
+      "id": "sec-weakmap-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "WeakMap.prototype",
+        "id": "sec-weakmap.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "WeakMap.prototype.constructor",
+        "id": "sec-weakmap.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "WeakMap.prototype[@@toStringTag]",
+        "id": "sec-weakmap.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "WeakMap.prototype.delete()",
+        "id": "sec-weakmap.prototype.delete",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "WeakMap.prototype.get()",
+        "id": "sec-weakmap.prototype.get",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "WeakMap.prototype.has()",
+        "id": "sec-weakmap.prototype.has",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "WeakMap.prototype.set()",
+        "id": "sec-weakmap.prototype.set",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "WeakSet",
+    "id": "sec-weakset-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "WeakSet()",
+      "id": "sec-weakset-constructor",
+      "parameters": {
+        "required": 0,
+        "optional": 1,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "WeakSet.prototype",
+        "id": "sec-weakset.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "WeakSet.prototype.constructor",
+        "id": "sec-weakset.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "WeakSet.prototype[@@toStringTag]",
+        "id": "sec-weakset.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "WeakSet.prototype.add()",
+        "id": "sec-weakset.prototype.add",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "WeakSet.prototype.delete()",
+        "id": "sec-weakset.prototype.delete",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "WeakSet.prototype.has()",
+        "id": "sec-weakset.prototype.has",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "ArrayBuffer",
+    "id": "sec-arraybuffer-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "ArrayBuffer()",
+      "id": "sec-arraybuffer-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "ArrayBuffer.prototype",
+        "id": "sec-arraybuffer.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "ArrayBuffer[@@species]",
+        "id": "sec-get-arraybuffer-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "ArrayBuffer.isView()",
+        "id": "sec-arraybuffer.isview",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "accessor-property",
+        "name": "ArrayBuffer.prototype.byteLength",
+        "id": "sec-get-arraybuffer.prototype.bytelength",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "ArrayBuffer.prototype.constructor",
+        "id": "sec-arraybuffer.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "ArrayBuffer.prototype[@@toStringTag]",
+        "id": "sec-arraybuffer.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "ArrayBuffer.prototype.slice()",
+        "id": "sec-arraybuffer.prototype.slice",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "SharedArrayBuffer",
+    "id": "sec-sharedarraybuffer-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "SharedArrayBuffer()",
+      "id": "sec-sharedarraybuffer-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "SharedArrayBuffer.prototype",
+        "id": "sec-sharedarraybuffer.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "SharedArrayBuffer[@@species]",
+        "id": "sec-sharedarraybuffer-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "accessor-property",
+        "name": "SharedArrayBuffer.prototype.byteLength",
+        "id": "sec-get-sharedarraybuffer.prototype.bytelength",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "SharedArrayBuffer.prototype.constructor",
+        "id": "sec-sharedarraybuffer.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "SharedArrayBuffer.prototype[@@toStringTag]",
+        "id": "sec-sharedarraybuffer.prototype.toString",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "SharedArrayBuffer.prototype.slice()",
+        "id": "sec-sharedarraybuffer.prototype.slice",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "DataView",
+    "id": "sec-dataview-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "DataView()",
+      "id": "sec-dataview-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 2,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "DataView.prototype",
+        "id": "sec-dataview.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "accessor-property",
+        "name": "DataView.prototype.buffer",
+        "id": "sec-get-dataview.prototype.buffer",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "DataView.prototype.byteLength",
+        "id": "sec-get-dataview.prototype.bytelength",
+        "attributes": "gc"
+      },
+      {
+        "type": "accessor-property",
+        "name": "DataView.prototype.byteOffset",
+        "id": "sec-get-dataview.prototype.byteoffset",
+        "attributes": "gc"
+      },
+      {
+        "type": "data-property",
+        "name": "DataView.prototype.constructor",
+        "id": "sec-dataview.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "DataView.prototype[@@toStringTag]",
+        "id": "sec-dataview.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "DataView.prototype.getBigInt64()",
+        "id": "sec-dataview.prototype.getbigint64",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getBigUint64()",
+        "id": "sec-dataview.prototype.getbiguint64",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getFloat32()",
+        "id": "sec-dataview.prototype.getfloat32",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getFloat64()",
+        "id": "sec-dataview.prototype.getfloat64",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getInt8()",
+        "id": "sec-dataview.prototype.getint8",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getInt16()",
+        "id": "sec-dataview.prototype.getint16",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getInt32()",
+        "id": "sec-dataview.prototype.getint32",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getUint8()",
+        "id": "sec-dataview.prototype.getuint8",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getUint16()",
+        "id": "sec-dataview.prototype.getuint16",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.getUint32()",
+        "id": "sec-dataview.prototype.getuint32",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setBigInt64()",
+        "id": "sec-dataview.prototype.setbigint64",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setBigUint64()",
+        "id": "sec-dataview.prototype.setbiguint64",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setFloat32()",
+        "id": "sec-dataview.prototype.setfloat32",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setFloat64()",
+        "id": "sec-dataview.prototype.setfloat64",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setInt8()",
+        "id": "sec-dataview.prototype.setint8",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setInt16()",
+        "id": "sec-dataview.prototype.setint16",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setInt32()",
+        "id": "sec-dataview.prototype.setint32",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setUint8()",
+        "id": "sec-dataview.prototype.setuint8",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setUint16()",
+        "id": "sec-dataview.prototype.setuint16",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "DataView.prototype.setUint32()",
+        "id": "sec-dataview.prototype.setuint32",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "namespace",
+    "name": "Atomics",
+    "id": "sec-atomics-object",
+    "global": true,
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "WaiterRecord",
+        "id": "sec-waiter-record",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "WaiterListRecords",
+        "id": "sec-waiterlist-records",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "Atomics[@@toStringTag]",
+        "id": "sec-atomics-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Atomics.add()",
+        "id": "sec-atomics.add",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.and()",
+        "id": "sec-atomics.and",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.compareExchange()",
+        "id": "sec-atomics.compareexchange",
+        "parameters": {
+          "required": 4,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.exchange()",
+        "id": "sec-atomics.exchange",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.isLockFree()",
+        "id": "sec-atomics.islockfree",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.load()",
+        "id": "sec-atomics.load",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.or()",
+        "id": "sec-atomics.or",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.store()",
+        "id": "sec-atomics.store",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.sub()",
+        "id": "sec-atomics.sub",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.wait()",
+        "id": "sec-atomics.wait",
+        "parameters": {
+          "required": 4,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.waitAsync()",
+        "id": "sec-atomics.waitasync",
+        "parameters": {
+          "required": 4,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.notify()",
+        "id": "sec-atomics.notify",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Atomics.xor()",
+        "id": "sec-atomics.xor",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ]
+  },
+  {
+    "type": "namespace",
+    "name": "JSON",
+    "id": "sec-json-object",
+    "global": true,
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "JSON[@@toStringTag]",
+        "id": "sec-json-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "JSON.parse()",
+        "id": "sec-json.parse",
+        "parameters": {
+          "required": 1,
+          "optional": 1,
+          "rest": false
+        },
+        "length": 2
+      },
+      {
+        "type": "method",
+        "name": "JSON.stringify()",
+        "id": "sec-json.stringify",
+        "parameters": {
+          "required": 1,
+          "optional": 2,
+          "rest": false
+        },
+        "length": 3
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "WeakRef",
+    "id": "sec-weak-ref-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "WeakRef()",
+      "id": "sec-weak-ref-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "WeakRef.prototype",
+        "id": "sec-weak-ref.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "WeakRef.prototype.constructor",
+        "id": "sec-weak-ref.prototype.constructor",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "WeakRef.prototype[@@toStringTag]",
+        "id": "sec-weak-ref.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "WeakRef.prototype.deref()",
+        "id": "sec-weak-ref.prototype.deref",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "FinalizationRegistry",
+    "id": "sec-finalization-registry-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "FinalizationRegistry()",
+      "id": "sec-finalization-registry-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "FinalizationRegistry.prototype",
+        "id": "sec-finalization-registry.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "FinalizationRegistry.prototype.constructor",
+        "id": "sec-finalization-registry.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "FinalizationRegistry.prototype[@@toStringTag]",
+        "id": "sec-finalization-registry.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "FinalizationRegistry.prototype.register()",
+        "id": "sec-finalization-registry.prototype.register",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "FinalizationRegistry.prototype.unregister()",
+        "id": "sec-finalization-registry.prototype.unregister",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "namespace",
+    "name": "%IteratorPrototype%",
+    "id": "sec-%iteratorprototype%-object",
+    "global": false,
+    "staticProperties": [],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "%IteratorPrototype%[@@iterator]()",
+        "id": "sec-%iteratorprototype%-@@iterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ]
+  },
+  {
+    "type": "namespace",
+    "name": "%AsyncIteratorPrototype%",
+    "id": "sec-asynciteratorprototype",
+    "global": false,
+    "staticProperties": [],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "%AsyncIteratorPrototype%[@@asyncIterator]()",
+        "id": "sec-asynciteratorprototype-asynciterator",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Promise",
+    "id": "sec-promise-objects",
+    "global": true,
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Promise()",
+      "id": "sec-promise-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Promise.prototype",
+        "id": "sec-promise.prototype",
+        "attributes": ""
+      },
+      {
+        "type": "accessor-property",
+        "name": "Promise[@@species]",
+        "id": "sec-get-promise-@@species",
+        "attributes": "gc"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Promise.all()",
+        "id": "sec-promise.all",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.allSettled()",
+        "id": "sec-promise.allsettled",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.any()",
+        "id": "sec-promise.any",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.race()",
+        "id": "sec-promise.race",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.reject()",
+        "id": "sec-promise.reject",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.resolve()",
+        "id": "sec-promise.resolve",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Promise.prototype.constructor",
+        "id": "sec-promise.prototype.constructor",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "Promise.prototype[@@toStringTag]",
+        "id": "sec-promise.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Promise.prototype.catch()",
+        "id": "sec-promise.prototype.catch",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.prototype.finally()",
+        "id": "sec-promise.prototype.finally",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Promise.prototype.then()",
+        "id": "sec-promise.prototype.then",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "GeneratorFunction",
+    "id": "sec-generatorfunction-objects",
+    "global": false,
+    "extends": "Function",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "GeneratorFunction()",
+      "id": "sec-generatorfunction-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "GeneratorFunction.prototype",
+        "id": "sec-generatorfunction.prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "GeneratorFunction.prototype.constructor",
+        "id": "sec-generatorfunction.prototype.constructor",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "GeneratorFunction.prototype.prototype",
+        "id": "sec-generatorfunction.prototype.prototype",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "GeneratorFunction.prototype[@@toStringTag]",
+        "id": "sec-generatorfunction.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "length",
+        "id": "sec-generatorfunction-instances-length",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "name",
+        "id": "sec-generatorfunction-instances-name",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "prototype",
+        "id": "sec-generatorfunction-instances-prototype",
+        "attributes": "w"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "AsyncGeneratorFunction",
+    "id": "sec-asyncgeneratorfunction-objects",
+    "global": false,
+    "extends": "Function",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "AsyncGeneratorFunction()",
+      "id": "sec-asyncgeneratorfunction-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "AsyncGeneratorFunction.prototype",
+        "id": "sec-asyncgeneratorfunction-prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "AsyncGeneratorFunction.prototype.constructor",
+        "id": "sec-asyncgeneratorfunction-prototype-constructor",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "AsyncGeneratorFunction.prototype.prototype",
+        "id": "sec-asyncgeneratorfunction-prototype-prototype",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "AsyncGeneratorFunction.prototype[@@toStringTag]",
+        "id": "sec-asyncgeneratorfunction-prototype-tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "length",
+        "id": "sec-asyncgeneratorfunction-instance-length",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "name",
+        "id": "sec-asyncgeneratorfunction-instance-name",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "prototype",
+        "id": "sec-asyncgeneratorfunction-instance-prototype",
+        "attributes": "w"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Generator",
+    "id": "sec-generator-objects",
+    "global": false,
+    "extends": "%IteratorPrototype%",
+    "classConstructor": null,
+    "staticProperties": [],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "Generator.prototype.constructor",
+        "id": "sec-generator.prototype.constructor",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "Generator.prototype[@@toStringTag]",
+        "id": "sec-generator.prototype-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "Generator.prototype.next()",
+        "id": "sec-generator.prototype.next",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Generator.prototype.return()",
+        "id": "sec-generator.prototype.return",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Generator.prototype.throw()",
+        "id": "sec-generator.prototype.throw",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "AsyncGenerator",
+    "id": "sec-asyncgenerator-objects",
+    "global": false,
+    "extends": "%AsyncIteratorPrototype%",
+    "classConstructor": null,
+    "staticProperties": [],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "AsyncGenerator.prototype.constructor",
+        "id": "sec-asyncgenerator-prototype-constructor",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "AsyncGenerator.prototype[@@toStringTag]",
+        "id": "sec-asyncgenerator-prototype-tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [
+      {
+        "type": "method",
+        "name": "AsyncGenerator.prototype.next()",
+        "id": "sec-asyncgenerator-prototype-next",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "AsyncGenerator.prototype.return()",
+        "id": "sec-asyncgenerator-prototype-return",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "AsyncGenerator.prototype.throw()",
+        "id": "sec-asyncgenerator-prototype-throw",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "instanceProperties": []
+  },
+  {
+    "type": "class",
+    "name": "AsyncFunction",
+    "id": "sec-async-function-objects",
+    "global": false,
+    "extends": "Function",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "AsyncFunction()",
+      "id": "sec-async-function-constructor",
+      "parameters": {
+        "required": 1,
+        "optional": 0,
+        "rest": true
+      },
+      "usage": "equivalent"
+    },
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "AsyncFunction.prototype",
+        "id": "sec-async-function-constructor-prototype",
+        "attributes": ""
+      }
+    ],
+    "staticMethods": [],
+    "prototypeProperties": [
+      {
+        "type": "data-property",
+        "name": "AsyncFunction.prototype.constructor",
+        "id": "sec-async-function-prototype-properties-constructor",
+        "attributes": "c"
+      },
+      {
+        "type": "data-property",
+        "name": "AsyncFunction.prototype[@@toStringTag]",
+        "id": "sec-async-function-prototype-properties-toStringTag",
+        "attributes": "c"
+      }
+    ],
+    "instanceMethods": [],
+    "instanceProperties": [
+      {
+        "type": "data-property",
+        "name": "length",
+        "id": "sec-async-function-instances-length",
+        "attributes": "wc"
+      },
+      {
+        "type": "data-property",
+        "name": "name",
+        "id": "sec-async-function-instances-name",
+        "attributes": "wc"
+      }
+    ]
+  },
+  {
+    "type": "namespace",
+    "name": "Reflect",
+    "id": "sec-reflect-object",
+    "global": true,
+    "staticProperties": [
+      {
+        "type": "data-property",
+        "name": "Reflect[@@toStringTag]",
+        "id": "sec-reflect-@@tostringtag",
+        "attributes": "c"
+      }
+    ],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Reflect.apply()",
+        "id": "sec-reflect.apply",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.construct()",
+        "id": "sec-reflect.construct",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.defineProperty()",
+        "id": "sec-reflect.defineproperty",
+        "parameters": {
+          "required": 3,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.deleteProperty()",
+        "id": "sec-reflect.deleteproperty",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.get()",
+        "id": "sec-reflect.get",
+        "parameters": {
+          "required": 2,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.getOwnPropertyDescriptor()",
+        "id": "sec-reflect.getownpropertydescriptor",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.getPrototypeOf()",
+        "id": "sec-reflect.getprototypeof",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.has()",
+        "id": "sec-reflect.has",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.isExtensible()",
+        "id": "sec-reflect.isextensible",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.ownKeys()",
+        "id": "sec-reflect.ownkeys",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.preventExtensions()",
+        "id": "sec-reflect.preventextensions",
+        "parameters": {
+          "required": 1,
+          "optional": 0,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.set()",
+        "id": "sec-reflect.set",
+        "parameters": {
+          "required": 3,
+          "optional": 1,
+          "rest": false
+        }
+      },
+      {
+        "type": "method",
+        "name": "Reflect.setPrototypeOf()",
+        "id": "sec-reflect.setprototypeof",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Proxy",
+    "id": "sec-proxy-objects",
+    "global": true,
+    "extends": "N/A",
+    "classConstructor": {
+      "type": "constructor",
+      "name": "Proxy()",
+      "id": "sec-proxy-constructor",
+      "parameters": {
+        "required": 2,
+        "optional": 0,
+        "rest": false
+      },
+      "usage": "construct"
+    },
+    "staticProperties": [],
+    "staticMethods": [
+      {
+        "type": "method",
+        "name": "Proxy.revocable()",
+        "id": "sec-proxy.revocable",
+        "parameters": {
+          "required": 2,
+          "optional": 0,
+          "rest": false
+        }
+      }
+    ],
+    "prototypeProperties": [],
+    "instanceMethods": [],
+    "instanceProperties": []
+  },
+  {
+    "type": "global-property",
+    "name": "globalThis",
+    "id": "sec-globalthis",
+    "attributes": "wc"
+  },
+  {
+    "type": "global-property",
+    "name": "Infinity",
+    "id": "sec-value-properties-of-the-global-object-infinity",
+    "attributes": ""
+  },
+  {
+    "type": "global-property",
+    "name": "NaN",
+    "id": "sec-value-properties-of-the-global-object-nan",
+    "attributes": ""
+  },
+  {
+    "type": "global-property",
+    "name": "undefined",
+    "id": "sec-undefined",
+    "attributes": ""
+  },
+  {
+    "type": "function",
+    "name": "eval()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-eval-x",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "isFinite()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-isfinite-number",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "isNaN()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-isnan-number",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "parseFloat()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-parsefloat-string",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "parseInt()",
+    "parameters": {
+      "required": 2,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-parseint-string-radix",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "decodeURI()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-decodeuri-encodeduri",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "decodeURIComponent()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-decodeuricomponent-encodeduricomponent",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "encodeURI()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-encodeuri-uri",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "encodeURIComponent()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-encodeuricomponent-uricomponent",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "escape()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-escape-string",
+    "global": true
+  },
+  {
+    "type": "function",
+    "name": "unescape()",
+    "parameters": {
+      "required": 1,
+      "optional": 0,
+      "rest": false
+    },
+    "id": "sec-unescape-string",
+    "global": true
+  }
+]

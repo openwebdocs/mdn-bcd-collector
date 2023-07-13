@@ -10,7 +10,7 @@ import {getCustomTest, compileCustomTest, compileTest} from "./common.js";
 
 import type {RawTestCodeExpr} from "../types/types.js";
 
-const build = async (customJS) => {
+const build = async (specJS, customJS) => {
   const tests = {};
 
   for (const [path, extras] of Object.entries(customJS.builtins) as any[]) {

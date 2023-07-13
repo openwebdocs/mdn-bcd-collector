@@ -23,6 +23,11 @@ import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
 
+// XXX Grab directly from es-scraper inside https://github.com/jc-verse/mdn-checker
+const specJS = await fs.readJson(
+  new URL('../custom/es-scraper_intrinsics.json', import.meta.url),
+);
+
 const customCSS = await fs.readJson(
   new URL("../custom/css.json", import.meta.url),
 );
@@ -47,7 +52,7 @@ const build = async (customIDL: IDLFiles, customCSS) => {
     await buildAPI(specIDLs, customIDL),
     await buildCSS(specCSS, customCSS),
     await buildElements(specElements, customElements),
-    await buildJS(customJS),
+    await buildJS(specJS, customJS),
     await buildWasm(customWasm),
   );
 
