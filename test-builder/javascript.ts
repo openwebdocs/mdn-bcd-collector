@@ -12,7 +12,7 @@ import type {RawTestCodeExpr} from "../types/types.js";
 
 const stripAttrName = (name, featureName) =>
   name
-    .replace(/\%(\w+)Prototype\%/g, '$1')
+    .replace(/%(\w+)Prototype%/g, '$1')
     .replace(`%${featureName}%`, featureName)
     .replace(`${featureName}.prototype.`, '')
     .replace(`${featureName}.`, '')
@@ -29,7 +29,7 @@ const buildTestList = (specJS, customJS) => {
   for (const feat of specJS.sort((f) => f.name) as any[]) {
     const featureName = feat.name
       .replace('()', '')
-      .replace(/\%(\w+)Prototype\%/g, '$1');
+      .replace(/%(\w+)Prototype%/g, '$1');
 
     if (['function', 'global-property'].includes(feat.type)) {
       // Functions and global properties will not have members or any other data we need to pull
@@ -226,13 +226,6 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   }
 
   if (data.use_new) {
-    const ctorNoArgsCode = `try {
-            ${iface}();
-            return false;
-          } catch(e) {
-            if (e)
-            return {result: false, message: e.message};
-          }`;
     tests[`${path}.new_required`] = compileTest({
       raw: {
         code: (

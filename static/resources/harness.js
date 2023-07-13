@@ -283,8 +283,6 @@
    * returns (TestResult): The result of the test
    */
   function testConstructorNewRequired(iface) {
-    var result = {};
-
     try {
       if (typeof iface == "string") {
         eval(iface + "()");
@@ -309,8 +307,6 @@
           stringify(err)
       };
     }
-
-    return result;
   }
 
   /**
