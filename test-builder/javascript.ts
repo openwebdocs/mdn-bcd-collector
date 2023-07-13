@@ -82,7 +82,7 @@ const buildTestList = (specJS, customJS) => {
     }
   }
 
-  for (const [feat, data] of Object.entries(customJS) as any[]) {
+  for (const [feat, data] of Object.entries(customJS.builtins) as any[]) {
     if (!(feat in features)) {
       features[feat] = data;
       continue;
