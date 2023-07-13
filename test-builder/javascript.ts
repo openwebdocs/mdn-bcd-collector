@@ -71,8 +71,11 @@ const buildTestList = (specJS, customJS) => {
         continue;
       }
 
-      if (!attr.name.startsWith(feat.name)) {
-        // Skip anything that's not actually defined on the object
+      if (
+        feat.name === 'Atomics' &&
+        ['WaiterRecord', 'WaiterListRecords'].includes(attr.name)
+      ) {
+        // The spec defines WaiterRecord/WaiterListRecords as if they were members of Atomics
         continue;
       }
 
