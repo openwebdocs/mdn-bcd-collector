@@ -4772,6 +4772,7 @@ javascript:
           new Set([new Error("some error"), new Error("another error")]),
           "Multiple errors thrown",
         );
+      AggregateError: return !!instance;
     AsyncFunction:
       __base: |-
         var func;
