@@ -487,8 +487,8 @@ const buildIDLMemberTests = async (
             };
           }
           break;
-        case "constructor":
-          expr = {property: `constructor.${member.name}`, owner: iface.name};
+        case 'constructor':
+          expr = `bcd.testConstructor('${member.name}')`;
           break;
         case "symbol":
           // eslint-disable-next-line no-case-declarations

@@ -181,19 +181,8 @@ describe("build (common)", () => {
       assert.equal(compileTestCode("a string"), "a string");
     });
 
-    it("constructor", () => {
-      const test = {
-        property: "constructor.AudioContext",
-        owner: "AudioContext",
-      };
-      assert.equal(
-        compileTestCode(test),
-        'bcd.testConstructor("AudioContext");',
-      );
-    });
-
-    it("Symbol", () => {
-      const test = {property: "Symbol.iterator", owner: "DOMMatrixReadOnly"};
+    it('Symbol', () => {
+      const test = {property: 'Symbol.iterator', owner: 'DOMMatrixReadOnly'};
       assert.equal(
         compileTestCode(test),
         '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])',
