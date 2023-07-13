@@ -38,7 +38,8 @@ const buildTestList = (specJS, customJS) => {
     // If there is a constructor, determine parameters
     if (feat.type === 'class' && feat.classConstructor) {
       features[featureName].ctor = {
-        new_required: feat.classConstructor.usage !== 'call',
+        use_new: feat.classConstructor.usage !== 'call',
+        optional_args: feat.classConstructor.parameters.required === 0,
       };
     }
 

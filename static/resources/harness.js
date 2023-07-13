@@ -200,18 +200,27 @@
    * determine if it's supported or an illegal constructor.
    *
    * iface (function): The constructor to test
+   * useNew (boolean): Whether to use "new" during construction
    *
    * returns (TestResult): The result of the test
    */
-  function testConstructor(iface) {
+  function testConstructor(iface, useNew = true) {
     var result = {};
 
     try {
       if (typeof iface == "string") {
-        eval("new " + iface + "()");
+        if (useNew) {
+          eval("new " + iface + "()");
+        } else {
+          eval(iface + "()");
+        }
       } else {
-        // eslint-disable-next-line new-cap
-        new iface();
+        if (useNew) {
+          // eslint-disable-next-line new-cap
+          new iface();
+        } else {
+          iface();
+        }
       }
       result.result = true;
       result.message = "Constructor passed with no errors";
@@ -245,6 +254,7 @@
           "is not a valid argument count",
           "Missing required",
           "Cannot read property",
+          "cannot read property",
           "event name must be provided",
           "requires a single argument",
           "requires at least"
@@ -260,6 +270,44 @@
       }
 
       result.message = "threw " + stringify(err);
+    }
+
+    return result;
+  }
+
+  /**
+   * Test a constructor to see if the `new` keyword is required
+   *
+   * iface (function): The constructor to test
+   *
+   * returns (TestResult): The result of the test
+   */
+  function testConstructorNewRequired(iface) {
+    var result = {};
+
+    try {
+      if (typeof iface == "string") {
+        eval(iface + "()");
+      } else {
+        // eslint-disable-next-line new-cap
+        iface();
+      }
+
+      return {
+        result: false,
+        message: "Constructor passed without 'new' keyword"
+      };
+    } catch (err) {
+      if (stringIncludes(err.message, ["requires 'new'"])) {
+        return { result: true, message: stringify(err) };
+      }
+
+      return {
+        result: false,
+        message:
+          "Error thrown was not related to requiring 'new' keyword; threw " +
+          stringify(err)
+      };
     }
 
     return result;
@@ -1686,6 +1734,7 @@
   global.reusableInstances = reusableInstances;
   global.bcd = {
     testConstructor: testConstructor,
+    testConstructorNewRequired: testConstructorNewRequired,
     testObjectName: testObjectName,
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
