@@ -72,160 +72,206 @@ const buildTestList = (specJS, customJS) => {
     }
   }
 
+  // XXX Iterate through custom data here
+
   return features;
+};
+
+const getCategory = (pathParts: string[]) => {
+  let category = 'javascript.builtins';
+  const isInSubcategory =
+    pathParts.length > 1 &&
+    ['Intl', 'WebAssembly', 'Temporal'].includes(pathParts[0]);
+
+  if (isInSubcategory) {
+    category += '.' + pathParts[0];
+  }
+
+  return category;
+};
+
+const buildTest = async (
+  tests,
+  path: string,
+  data: {static?: boolean} = {},
+) => {
+  const basePath = 'javascript.builtins';
+  const parts = path.replace(basePath, '').split('.');
+  const category = getCategory(parts);
+  const isInSubcategory = category !== basePath;
+
+  let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = '';
+
+  // We should be looking for an exact match if we're checking for a subfeature not
+  // defined on the object prototype (in other words, static members and functions)
+  const exactMatchNeeded =
+    path.replace(category, '').split('.').length < 2 || data.static;
+
+  const customTest = await getCustomTest(path, category, exactMatchNeeded);
+
+  if (customTest.test) {
+    tests[path] = compileTest({
+      raw: {code: customTest.test},
+      exposure: ['Window'],
+    });
+  } else {
+    // Get the last part as the property and everything else as the expression
+    // we should test for existence in, or "self" if there's just one part.
+    let property = parts[parts.length - 1];
+
+    if (property.startsWith('@@')) {
+      property = `Symbol.${property.substr(2)}`;
+    }
+
+    const owner =
+      parts.length > 1
+        ? parts.slice(0, parts.length - 1).join('.') +
+          (data.static === false ? '.prototype' : '')
+        : 'self';
+
+    expr = [{property, owner, skipOwnerCheck: isInSubcategory}];
+
+    if (isInSubcategory) {
+      if (parts[1] !== property) {
+        expr.unshift({property: parts[1], owner: parts[0]});
+      } else if (parts[0] !== property) {
+        expr.unshift({property: parts[0], owner: 'self'});
+      }
+    }
+
+    tests[path] = compileTest({
+      raw: {code: expr},
+      exposure: ['Window'],
+    });
+
+    // Add the additional tests
+    for (const [key, code] of Object.entries(customTest.additional)) {
+      tests[`${path}.${key}`] = compileTest({
+        raw: {code: code},
+        exposure: ['Window'],
+      });
+    }
+  }
+};
+
+const buildConstructorTests = async (tests, path: string, data: any = {}) => {
+  const parts = path.split('.');
+  const iface = parts[parts.length - 1];
+  const category = getCategory(parts);
+
+  const customTest = await getCustomTest(path, category, true);
+
+  let baseCode = '';
+
+  baseCode += `if (!("${parts[2]}" in self)) {
+    return {result: false, message: '${parts[2]} is not defined'};
+  }
+  `;
+
+  if (path.startsWith('Intl')) {
+    baseCode += `if (!("${parts[3]}" in Intl)) {
+    return {result: false, message: 'Intl.${parts[3]} is not defined'};
+  }
+  `;
+  } else if (path.startsWith('WebAssembly')) {
+    baseCode += `if (!("${parts[3]}" in WebAssembly)) {
+    return {result: false, message: 'WebAssembly.${parts[3]} is not defined'};
+  }
+  `;
+  }
+
+  if (customTest.test) {
+    tests[path] = compileTest({
+      raw: {code: customTest.test},
+      exposure: ['Window'],
+    });
+  } else {
+    tests[path] = compileTest({
+      raw: {
+        code: (
+          await compileCustomTest(
+            baseCode +
+              `return bcd.testConstructor("${iface}", {useNew: ${data.use_new}})`,
+          )
+        ).code,
+      },
+      exposure: ['Window'],
+    });
+  }
+
+  if (data.use_new) {
+    const ctorNoArgsCode = `try {
+            ${iface}();
+            return false;
+          } catch(e) {
+            if (e)
+            return {result: false, message: e.message};
+          }`;
+    tests[`${path}.new_required`] = compileTest({
+      raw: {
+        code: (
+          await compileCustomTest(
+            baseCode + `return bcd.testConstructorNewRequired("${iface}")`,
+          )
+        ).code,
+      },
+      exposure: ['Window'],
+    });
+  }
+
+  if (data.optional_args) {
+    tests[`${path}.constructor_without_parameters`] = compileTest({
+      raw: {
+        code: (
+          await compileCustomTest(
+            baseCode +
+              `try {
+            new ${iface}();
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }`,
+          )
+        ).code,
+      },
+      exposure: ['Window'],
+    });
+  }
+
+  // Add the additional tests
+  for (const [key, code] of Object.entries(customTest.additional)) {
+    tests[`${path}.${key}`] = compileTest({
+      raw: {code: code},
+      exposure: ['Window'],
+    });
+  }
 };
 
 const build = async (specJS, customJS) => {
   const tests = {};
 
-  for (const [path, extras] of Object.entries(customJS.builtins) as any[]) {
-    const parts = path.split(".");
+  const features = buildTestList(specJS, customJS);
 
-    const bcdPath = [
-      "javascript",
-      "builtins",
-      // The "prototype" part is not part of the BCD paths.
-      ...parts.filter((p) => p != "prototype"),
-    ].join(".");
+  for (const [featureName, featureData] of Object.entries(features) as any[]) {
+    const bcdPath = ['javascript', 'builtins', featureName].join('.');
+    await buildTest(tests, bcdPath);
 
-    let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = "";
-
-    let category = "javascript.builtins";
-    const isInSubcategory =
-      parts.length > 1 &&
-      ["Intl", "WebAssembly", "Temporal"].includes(parts[0]);
-
-    if (isInSubcategory) {
-      category += "." + parts[0];
+    if (featureData.ctor) {
+      await buildConstructorTests(
+        tests,
+        `${bcdPath}.${featureName}`,
+        featureData.ctor,
+      );
     }
 
-    // We should be looking for an exact match if we're checking for a subfeature not
-    // defined on the object prototype (in other words, static members and functions)
-    const exactMatchNeeded =
-      bcdPath.replace(category, "").split(".").length > 2 &&
-      !path.includes(".prototype");
-
-    const customTest = await getCustomTest(bcdPath, category, exactMatchNeeded);
-
-    if (customTest.test) {
-      tests[bcdPath] = compileTest({
-        raw: {code: customTest.test},
-        exposure: ["Window"],
-      });
-    } else {
-      // Get the last part as the property and everything else as the expression
-      // we should test for existence in, or "self" if there's just one part.
-      let property = parts[parts.length - 1];
-
-      if (property.startsWith("@@")) {
-        property = `Symbol.${property.substr(2)}`;
+    if (featureData.members) {
+      for (const sm of featureData.members.static) {
+        await buildTest(tests, `${bcdPath}.${sm}`, {static: true});
       }
 
-      const owner =
-        parts.length > 1 ? parts.slice(0, parts.length - 1).join(".") : "self";
-
-      expr = [{property, owner, skipOwnerCheck: isInSubcategory}];
-
-      if (isInSubcategory) {
-        if (parts[1] !== property) {
-          expr.unshift({property: parts[1], owner: parts[0]});
-        } else if (parts[0] !== property) {
-          expr.unshift({property: parts[0], owner: "self"});
-        }
+      for (const im of featureData.members.instance) {
+        await buildTest(tests, `${bcdPath}.${im}`, {static: false});
       }
-
-      tests[bcdPath] = compileTest({
-        raw: {code: expr},
-        exposure: ["Window"],
-      });
-    }
-
-    // Constructors
-    if ("ctor_args" in extras) {
-      const ctorPath = [
-        "javascript",
-        "builtins",
-        ...parts,
-        // Repeat the last part of the path
-        parts[parts.length - 1],
-      ].join(".");
-
-      const customTest = await getCustomTest(ctorPath, category, true);
-
-      if (customTest.test) {
-        tests[ctorPath] = compileTest({
-          raw: {code: customTest.test},
-          exposure: ["Window"],
-        });
-      } else {
-        const ctor_args = extras.ctor_args.args || extras.ctor_args || "";
-
-        let baseCode = "";
-
-        baseCode += `if (!("${parts[0]}" in self)) {
-      return {result: false, message: '${parts[0]} is not defined'};
-    }
-    `;
-
-        if (path.startsWith("Intl")) {
-          baseCode += `if (!("${parts[1]}" in Intl)) {
-      return {result: false, message: 'Intl.${parts[1]} is not defined'};
-    }
-    `;
-        } else if (path.startsWith("WebAssembly")) {
-          baseCode += `if (!("${parts[1]}" in WebAssembly)) {
-      return {result: false, message: 'WebAssembly.${parts[1]} is not defined'};
-    }
-    `;
-        }
-
-        const ctorCode =
-          extras.ctor_new === false
-            ? `var instance = ${path}(${ctor_args});
-    return !!instance;`
-            : `return bcd.testConstructor("${path}")`;
-
-        tests[ctorPath] = compileTest({
-          raw: {code: (await compileCustomTest(baseCode + ctorCode)).code},
-          exposure: ["Window"],
-        });
-
-        if (extras.ctor_new === "required") {
-          const ctorNewCode = `try {
-            ${path}(${ctor_args});
-            return {result: false, message: 'Constructor successful without "new" keyword'};
-          } catch(e) {
-            return {result: true, message: e.message};
-          }`;
-          tests[`${ctorPath}.new_required`] = compileTest({
-            raw: {code: (await compileCustomTest(baseCode + ctorNewCode)).code},
-            exposure: ["Window"],
-          });
-        }
-
-        if (extras.ctor_args.optional) {
-          const ctorNoArgsCode = `try {
-            new ${path}();
-            return true;
-          } catch(e) {
-            return {result: false, message: e.message};
-          }`;
-          tests[`${ctorPath}.constructor_without_parameters`] = compileTest({
-            raw: {
-              code: (await compileCustomTest(baseCode + ctorNoArgsCode)).code,
-            },
-            exposure: ["Window"],
-          });
-        }
-      }
-    }
-
-    // Add the additional tests
-    for (const [key, code] of Object.entries(customTest.additional)) {
-      tests[`${bcdPath}.${key}`] = compileTest({
-        raw: {code: code},
-        exposure: ["Window"],
-      });
     }
   }
 
