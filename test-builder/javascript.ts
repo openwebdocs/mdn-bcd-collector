@@ -160,10 +160,10 @@ const buildTest = async (
     expr = [{property, owner, skipOwnerCheck: isInSubcategory}];
 
     if (isInSubcategory) {
-      if (parts[3] !== property) {
-        expr.unshift({property: parts[3], owner: parts[2]});
-      } else if (parts[2] !== property) {
-        expr.unshift({property: parts[2], owner: 'self'});
+      if (parts[1] !== property) {
+        expr.unshift({property: parts[1], owner: parts[0]});
+      } else if (parts[0] !== property) {
+        expr.unshift({property: parts[0], owner: 'self'});
       }
     }
 
@@ -184,8 +184,8 @@ const buildTest = async (
 
 const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   const parts = path.split('.');
-  const iface = parts[parts.length - 1];
   const category = getCategory(parts);
+  const iface = parts.slice(2, parts.length - 1).join('.');
 
   const customTest = await getCustomTest(path, category, true);
 
@@ -196,14 +196,9 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   }
   `;
 
-  if (path.startsWith('Intl')) {
-    baseCode += `if (!("${parts[3]}" in Intl)) {
-    return {result: false, message: 'Intl.${parts[3]} is not defined'};
-  }
-  `;
-  } else if (path.startsWith('WebAssembly')) {
-    baseCode += `if (!("${parts[3]}" in WebAssembly)) {
-    return {result: false, message: 'WebAssembly.${parts[3]} is not defined'};
+  if (['Intl', 'Temporal', 'WebAssembly'].includes(parts[2])) {
+    baseCode += `if (!("${parts[3]}" in ${parts[2]})) {
+    return {result: false, message: '${parts[2]}.${parts[3]} is not defined'};
   }
   `;
   }
@@ -219,7 +214,9 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
         code: (
           await compileCustomTest(
             baseCode +
-              `return bcd.testConstructor("${iface}", {useNew: ${data.use_new}})`,
+              `return bcd.testConstructor("${iface}", {useNew: ${
+                data.use_new || false
+              }})`,
           )
         ).code,
       },
@@ -287,17 +284,17 @@ const build = async (specJS, customJS) => {
     if (featureData.ctor) {
       await buildConstructorTests(
         tests,
-        `${bcdPath}.${featureName}`,
+        `${bcdPath}.${featureName.split('.')[1]}`,
         featureData.ctor,
       );
     }
 
     if (featureData.members) {
-      for (const sm of featureData.members.static) {
+      for (const sm of featureData.members.static || []) {
         await buildTest(tests, `${bcdPath}.${sm}`, {static: true});
       }
 
-      for (const im of featureData.members.instance) {
+      for (const im of featureData.members.instance || []) {
         await buildTest(tests, `${bcdPath}.${im}`, {static: false});
       }
     }
