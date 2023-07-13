@@ -12,39 +12,39 @@ chai.use(chaiSubset);
 
 import {build} from "./javascript.js";
 
-describe('build (JavaScript)', () => {
-  it('build', async () => {
+describe("build (JavaScript)", () => {
+  it("build", async () => {
     const specJS = [
       {
-        type: 'class',
-        name: 'Object',
-        id: 'sec-object-objects',
+        type: "class",
+        name: "Object",
+        id: "sec-object-objects",
         global: true,
-        extends: 'null',
+        extends: "null",
         classConstructor: {
-          type: 'constructor',
-          name: 'Object()',
-          id: 'sec-object-constructor',
+          type: "constructor",
+          name: "Object()",
+          id: "sec-object-constructor",
           parameters: {
             required: 0,
             optional: 1,
             rest: false,
           },
-          usage: 'different',
+          usage: "different",
         },
         staticProperties: [
           {
-            type: 'data-property',
-            name: 'Object.prototype',
-            id: 'sec-object.prototype',
-            attributes: '',
+            type: "data-property",
+            name: "Object.prototype",
+            id: "sec-object.prototype",
+            attributes: "",
           },
         ],
         staticMethods: [
           {
-            type: 'method',
-            name: 'Object.assign()',
-            id: 'sec-object.assign',
+            type: "method",
+            name: "Object.assign()",
+            id: "sec-object.assign",
             parameters: {
               required: 1,
               optional: 0,
@@ -53,9 +53,9 @@ describe('build (JavaScript)', () => {
             length: 2,
           },
           {
-            type: 'method',
-            name: 'Object.create()',
-            id: 'sec-object.create',
+            type: "method",
+            name: "Object.create()",
+            id: "sec-object.create",
             parameters: {
               required: 2,
               optional: 0,
@@ -65,23 +65,23 @@ describe('build (JavaScript)', () => {
         ],
         prototypeProperties: [
           {
-            type: 'data-property',
-            name: 'Object.prototype.constructor',
-            id: 'sec-object.prototype.constructor',
-            attributes: 'wc',
+            type: "data-property",
+            name: "Object.prototype.constructor",
+            id: "sec-object.prototype.constructor",
+            attributes: "wc",
           },
           {
-            type: 'accessor-property',
-            name: 'Object.prototype.__proto__',
-            id: 'sec-object.prototype.__proto__',
-            attributes: 'gsc',
+            type: "accessor-property",
+            name: "Object.prototype.__proto__",
+            id: "sec-object.prototype.__proto__",
+            attributes: "gsc",
           },
         ],
         instanceMethods: [
           {
-            type: 'method',
-            name: 'Object.prototype.hasOwnProperty()',
-            id: 'sec-object.prototype.hasownproperty',
+            type: "method",
+            name: "Object.prototype.hasOwnProperty()",
+            id: "sec-object.prototype.hasownproperty",
             parameters: {
               required: 1,
               optional: 0,
@@ -89,9 +89,9 @@ describe('build (JavaScript)', () => {
             },
           },
           {
-            type: 'method',
-            name: 'Object.prototype.__defineGetter__()',
-            id: 'sec-object.prototype.__defineGetter__',
+            type: "method",
+            name: "Object.prototype.__defineGetter__()",
+            id: "sec-object.prototype.__defineGetter__",
             parameters: {
               required: 2,
               optional: 0,
@@ -110,10 +110,10 @@ describe('build (JavaScript)', () => {
         },
         Array: {
           ctor: {},
-          members: {static: ['@@species'], instance: ['at', '@@iterator']},
+          members: {static: ["@@species"], instance: ["at", "@@iterator"]},
         },
         Atomics: {
-          members: {static: ['add']},
+          members: {static: ["add"]},
         },
         BigInt: {
           ctor: {
@@ -124,47 +124,47 @@ describe('build (JavaScript)', () => {
     };
 
     assert.deepEqual(await build(specJS, customJS), {
-      'javascript.builtins.Object': {
+      "javascript.builtins.Object": {
         code: '"Object" in self',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.Object': {
+      "javascript.builtins.Object.Object": {
         code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  return bcd.testConstructor("Object", { noNew: false });\n})();\n',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.Object.new_required': {
+      "javascript.builtins.Object.Object.new_required": {
         code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  return bcd.testConstructorNewRequired("Object");\n})();\n',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.Object.constructor_without_parameters': {
+      "javascript.builtins.Object.Object.constructor_without_parameters": {
         code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  try {\n    new Object();\n    return true;\n  } catch (e) {\n    return { result: false, message: e.message };\n  }\n})();\n',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.assign': {
+      "javascript.builtins.Object.assign": {
         code: '"Object" in self && "assign" in Object',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.create': {
+      "javascript.builtins.Object.create": {
         code: '"Object" in self && "create" in Object',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.constructor': {
+      "javascript.builtins.Object.constructor": {
         code: '"Object" in self && "constructor" in Object.prototype',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.proto': {
+      "javascript.builtins.Object.proto": {
         code: '"Object" in self && "proto" in Object.prototype',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.hasOwnProperty': {
+      "javascript.builtins.Object.hasOwnProperty": {
         code: '"Object" in self && "hasOwnProperty" in Object.prototype',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Object.defineGetter': {
+      "javascript.builtins.Object.defineGetter": {
         code: '"Object" in self && "defineGetter" in Object.prototype',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.AggregateError': {
+      "javascript.builtins.AggregateError": {
         code: '"AggregateError" in self',
         exposure: ["Window"],
       },
@@ -178,11 +178,11 @@ describe('build (JavaScript)', () => {
 `,
         exposure: ["Window"],
       },
-      'javascript.builtins.AggregateError.AggregateError.new_required': {
+      "javascript.builtins.AggregateError.AggregateError.new_required": {
         code: '(function () {\n  if (!("AggregateError" in self)) {\n    return { result: false, message: "AggregateError is not defined" };\n  }\n  return bcd.testConstructorNewRequired("AggregateError");\n})();\n',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array': {
+      "javascript.builtins.Array": {
         code: '"Array" in self',
         exposure: ["Window"],
       },
@@ -204,11 +204,11 @@ describe('build (JavaScript)', () => {
 `,
         exposure: ["Window"],
       },
-      'javascript.builtins.Array.Array.new_required': {
+      "javascript.builtins.Array.Array.new_required": {
         code: '(function () {\n  if (!("Array" in self)) {\n    return { result: false, message: "Array is not defined" };\n  }\n  return bcd.testConstructorNewRequired("Array");\n})();\n',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array.at': {
+      "javascript.builtins.Array.at": {
         code: '"Array" in self && "at" in Array.prototype',
         exposure: ["Window"],
       },

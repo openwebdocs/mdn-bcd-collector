@@ -181,8 +181,8 @@ describe("build (common)", () => {
       assert.equal(compileTestCode("a string"), "a string");
     });
 
-    it('Symbol', () => {
-      const test = {property: 'Symbol.iterator', owner: 'DOMMatrixReadOnly'};
+    it("Symbol", () => {
+      const test = {property: "Symbol.iterator", owner: "DOMMatrixReadOnly"};
       assert.equal(
         compileTestCode(test),
         '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])',

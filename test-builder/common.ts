@@ -312,10 +312,10 @@ const compileTestCode = (test: any): string => {
     return parts.join(` && `);
   }
 
-  const property = test.property.replace(/(Symbol\.|@@)/, '');
+  const property = test.property.replace(/(Symbol\.|@@)/, "");
 
-  if (test.property.startsWith('Symbol.') || test.property.startsWith('@@')) {
-    if (test.owner === 'instance') {
+  if (test.property.startsWith("Symbol.") || test.property.startsWith("@@")) {
+    if (test.owner === "instance") {
       return `"Symbol" in self && "${property}" in Symbol && !!(${test.owner}[Symbol.${property}])`;
     }
     return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(

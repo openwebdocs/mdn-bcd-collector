@@ -12,14 +12,14 @@ import type {RawTestCodeExpr} from "../types/types.js";
 
 const stripAttrName = (name, featureName) =>
   name
-    .replace(/%(\w+)Prototype%/g, '$1')
+    .replace(/%(\w+)Prototype%/g, "$1")
     .replace(`%${featureName}%`, featureName)
-    .replace(`${featureName}.prototype.`, '')
-    .replace(`${featureName}.`, '')
-    .replace('()', '')
-    .replace(`${featureName}[`, 'prototype[')
-    .replace(/prototype\[@@(\w+)\]/g, '@@$1')
-    .replace(/__(\w+)__/g, '$1');
+    .replace(`${featureName}.prototype.`, "")
+    .replace(`${featureName}.`, "")
+    .replace("()", "")
+    .replace(`${featureName}[`, "prototype[")
+    .replace(/prototype\[@@(\w+)\]/g, "@@$1")
+    .replace(/__(\w+)__/g, "$1");
 
 const buildTestList = (specJS, customJS) => {
   const features = {};
@@ -28,10 +28,10 @@ const buildTestList = (specJS, customJS) => {
   // XXX use proper typedef instead of any[] once the package is used
   for (const feat of specJS.sort((f) => f.name) as any[]) {
     const featureName = feat.name
-      .replace('()', '')
-      .replace(/%(\w+)Prototype%/g, '$1');
+      .replace("()", "")
+      .replace(/%(\w+)Prototype%/g, "$1");
 
-    if (['function', 'global-property'].includes(feat.type)) {
+    if (["function", "global-property"].includes(feat.type)) {
       // Functions and global properties will not have members or any other data we need to pull
       features[featureName] = {};
       continue;
@@ -40,9 +40,9 @@ const buildTestList = (specJS, customJS) => {
     features[featureName] = {members: {static: [], instance: []}};
 
     // If there is a constructor, determine parameters
-    if (feat.type === 'class' && feat.classConstructor) {
+    if (feat.type === "class" && feat.classConstructor) {
       features[featureName].ctor = {
-        no_new: feat.classConstructor.usage === 'call',
+        no_new: feat.classConstructor.usage === "call",
         optional_args: feat.classConstructor.parameters.required === 0,
       };
     }
@@ -72,14 +72,14 @@ const buildTestList = (specJS, customJS) => {
       }
 
       if (
-        feat.name === 'Atomics' &&
-        ['WaiterRecord', 'WaiterListRecords'].includes(attr.name)
+        feat.name === "Atomics" &&
+        ["WaiterRecord", "WaiterListRecords"].includes(attr.name)
       ) {
         // The spec defines WaiterRecord/WaiterListRecords as if they were members of Atomics
         continue;
       }
 
-      features[featureName].members[attr.static ? 'static' : 'instance'].push(
+      features[featureName].members[attr.static ? "static" : "instance"].push(
         stripAttrName(attr.name, featureName),
       );
     }
@@ -92,7 +92,7 @@ const buildTestList = (specJS, customJS) => {
     }
 
     if (data.ctor) {
-      if (!('ctor' in features[feat])) {
+      if (!("ctor" in features[feat])) {
         features[feat].ctor = data.ctor;
       } else {
         Object.assign(features[feat].ctor, data.ctor);
@@ -109,13 +109,13 @@ const buildTestList = (specJS, customJS) => {
 };
 
 const getCategory = (pathParts: string[]) => {
-  let category = 'javascript.builtins';
+  let category = "javascript.builtins";
   const isInSubcategory =
     pathParts.length > 1 &&
-    ['Intl', 'WebAssembly', 'Temporal'].includes(pathParts[0]);
+    ["Intl", "WebAssembly", "Temporal"].includes(pathParts[0]);
 
   if (isInSubcategory) {
-    category += '.' + pathParts[0];
+    category += "." + pathParts[0];
   }
 
   return category;
@@ -126,39 +126,39 @@ const buildTest = async (
   path: string,
   data: {static?: boolean} = {},
 ) => {
-  const basePath = 'javascript.builtins';
-  const parts = path.replace(`${basePath}.`, '').split('.');
+  const basePath = "javascript.builtins";
+  const parts = path.replace(`${basePath}.`, "").split(".");
   const category = getCategory(parts);
   const isInSubcategory = category !== basePath;
 
-  let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = '';
+  let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = "";
 
   // We should be looking for an exact match if we're checking for a subfeature not
   // defined on the object prototype (in other words, static members and functions)
   const exactMatchNeeded =
-    path.replace(category, '').split('.').length < 2 || data.static;
+    path.replace(category, "").split(".").length < 2 || data.static;
 
   const customTest = await getCustomTest(path, category, exactMatchNeeded);
 
   if (customTest.test) {
     tests[path] = compileTest({
       raw: {code: customTest.test},
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   } else {
     // Get the last part as the property and everything else as the expression
     // we should test for existence in, or "self" if there's just one part.
     let property = parts[parts.length - 1];
 
-    if (property.startsWith('@@')) {
+    if (property.startsWith("@@")) {
       property = `Symbol.${property.substr(2)}`;
     }
 
     const owner =
       parts.length > 1
-        ? parts.slice(0, parts.length - 1).join('.') +
-          (data.static === false ? '.prototype' : '')
-        : 'self';
+        ? parts.slice(0, parts.length - 1).join(".") +
+          (data.static === false ? ".prototype" : "")
+        : "self";
 
     expr = [{property, owner, skipOwnerCheck: isInSubcategory}];
 
@@ -166,13 +166,13 @@ const buildTest = async (
       if (parts[1] !== property) {
         expr.unshift({property: parts[1], owner: parts[0]});
       } else if (parts[0] !== property) {
-        expr.unshift({property: parts[0], owner: 'self'});
+        expr.unshift({property: parts[0], owner: "self"});
       }
     }
 
     tests[path] = compileTest({
       raw: {code: expr},
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   }
 
@@ -180,26 +180,26 @@ const buildTest = async (
   for (const [key, code] of Object.entries(customTest.additional)) {
     tests[`${path}.${key}`] = compileTest({
       raw: {code: code},
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   }
 };
 
 const buildConstructorTests = async (tests, path: string, data: any = {}) => {
-  const parts = path.split('.');
+  const parts = path.split(".");
   const category = getCategory(parts);
-  const iface = parts.slice(2, parts.length - 1).join('.');
+  const iface = parts.slice(2, parts.length - 1).join(".");
 
   const customTest = await getCustomTest(path, category, true);
 
-  let baseCode = '';
+  let baseCode = "";
 
   baseCode += `if (!("${parts[2]}" in self)) {
     return {result: false, message: '${parts[2]} is not defined'};
   }
   `;
 
-  if (['Intl', 'Temporal', 'WebAssembly'].includes(parts[2])) {
+  if (["Intl", "Temporal", "WebAssembly"].includes(parts[2])) {
     baseCode += `if (!("${parts[3]}" in ${parts[2]})) {
     return {result: false, message: '${parts[2]}.${parts[3]} is not defined'};
   }
@@ -209,7 +209,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   if (customTest.test) {
     tests[path] = compileTest({
       raw: {code: customTest.test},
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   } else {
     tests[path] = compileTest({
@@ -221,7 +221,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
           )
         ).code,
       },
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   }
 
@@ -234,7 +234,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
           )
         ).code,
       },
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   }
 
@@ -253,7 +253,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
           )
         ).code,
       },
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   }
 
@@ -261,7 +261,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   for (const [key, code] of Object.entries(customTest.additional)) {
     tests[`${path}.${key}`] = compileTest({
       raw: {code: code},
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
   }
 };
@@ -272,11 +272,11 @@ const build = async (specJS, customJS) => {
   const features = buildTestList(specJS, customJS);
 
   for (const [featureName, featureData] of Object.entries(features) as any[]) {
-    const bcdPath = ['javascript', 'builtins', featureName].join('.');
+    const bcdPath = ["javascript", "builtins", featureName].join(".");
     await buildTest(tests, bcdPath);
 
     if (featureData.ctor) {
-      const pathParts = bcdPath.split('.');
+      const pathParts = bcdPath.split(".");
       await buildConstructorTests(
         tests,
         `${bcdPath}.${pathParts[pathParts.length - 1]}`,

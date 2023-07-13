@@ -487,7 +487,7 @@ const buildIDLMemberTests = async (
             };
           }
           break;
-        case 'constructor':
+        case "constructor":
           expr = `bcd.testConstructor('${member.name}')`;
           break;
         case "symbol":
