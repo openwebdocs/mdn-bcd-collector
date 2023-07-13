@@ -4949,11 +4949,11 @@ javascript:
       constructor: |-
         var instance = {};
         return !!instance.constructor;
-      defineGetter: return '__defineGetter__' in instance;
-      defineSetter: return '__defineSetter__' in instance;
-      lookupGetter: return '__lookupGetter__' in instance;
-      lookupSetter: return '__lookupSetter__' in instance;
-      proto: return '__proto__' in instance;
+      defineGetter: return '__defineGetter__' in {};
+      defineSetter: return '__defineSetter__' in {};
+      lookupGetter: return '__lookupGetter__' in {};
+      lookupSetter: return '__lookupSetter__' in {};
+      proto: return '__proto__' in {};
     RegExp:
       __base: |-
         if (!('RegExp' in self)) {
