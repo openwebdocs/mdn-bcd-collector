@@ -174,14 +174,14 @@ const buildTest = async (
       raw: {code: expr},
       exposure: ['Window'],
     });
+  }
 
-    // Add the additional tests
-    for (const [key, code] of Object.entries(customTest.additional)) {
-      tests[`${path}.${key}`] = compileTest({
-        raw: {code: code},
-        exposure: ['Window'],
-      });
-    }
+  // Add the additional tests
+  for (const [key, code] of Object.entries(customTest.additional)) {
+    tests[`${path}.${key}`] = compileTest({
+      raw: {code: code},
+      exposure: ['Window'],
+    });
   }
 };
 
