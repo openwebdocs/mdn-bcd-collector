@@ -42,7 +42,7 @@ const buildTestList = (specJS, customJS) => {
     // If there is a constructor, determine parameters
     if (feat.type === 'class' && feat.classConstructor) {
       features[featureName].ctor = {
-        use_new: feat.classConstructor.usage !== 'call',
+        no_new: feat.classConstructor.usage === 'call',
         optional_args: feat.classConstructor.parameters.required === 0,
       };
     }
@@ -217,9 +217,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
         code: (
           await compileCustomTest(
             baseCode +
-              `return bcd.testConstructor("${iface}", {noNew: ${
-                data.use_new === false
-              }})`,
+              `return bcd.testConstructor("${iface}", {noNew: ${!!data.no_new}})`,
           )
         ).code,
       },
@@ -227,7 +225,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
     });
   }
 
-  if (data.use_new) {
+  if (!data.no_new) {
     tests[`${path}.new_required`] = compileTest({
       raw: {
         code: (
