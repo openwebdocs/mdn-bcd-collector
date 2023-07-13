@@ -36,7 +36,7 @@ const buildTestList = (specJS, customJS) => {
     features[featureName] = {members: {static: [], instance: []}};
 
     // If there is a constructor, determine parameters
-    if (feat.classConstructor) {
+    if (feat.type === 'class' && feat.classConstructor) {
       features[featureName].ctor = {
         new_required: feat.classConstructor.usage !== 'call',
       };
