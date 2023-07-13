@@ -72,7 +72,25 @@ const buildTestList = (specJS, customJS) => {
     }
   }
 
-  // XXX Iterate through custom data here
+  for (const [feat, data] of Object.entries(customJS) as any[]) {
+    if (!(feat in features)) {
+      features[feat] = data;
+      continue;
+    }
+
+    if (data.ctor) {
+      if (!('ctor' in features[feat])) {
+        features[feat].ctor = data.ctor;
+      } else {
+        Object.assign(features[feat].ctor, data.ctor);
+      }
+    }
+
+    if (data.members) {
+      features[feat].members.static.push(...(data.members.static || []));
+      features[feat].members.instance.push(...(data.members.instance || []));
+    }
+  }
 
   return features;
 };
@@ -96,7 +114,7 @@ const buildTest = async (
   data: {static?: boolean} = {},
 ) => {
   const basePath = 'javascript.builtins';
-  const parts = path.replace(basePath, '').split('.');
+  const parts = path.replace(`${basePath}.`, '').split('.');
   const category = getCategory(parts);
   const isInSubcategory = category !== basePath;
 
@@ -132,10 +150,10 @@ const buildTest = async (
     expr = [{property, owner, skipOwnerCheck: isInSubcategory}];
 
     if (isInSubcategory) {
-      if (parts[1] !== property) {
-        expr.unshift({property: parts[1], owner: parts[0]});
-      } else if (parts[0] !== property) {
-        expr.unshift({property: parts[0], owner: 'self'});
+      if (parts[3] !== property) {
+        expr.unshift({property: parts[3], owner: parts[2]});
+      } else if (parts[2] !== property) {
+        expr.unshift({property: parts[2], owner: 'self'});
       }
     }
 
