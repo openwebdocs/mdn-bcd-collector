@@ -595,9 +595,9 @@ describe("build (API)", () => {
           code: '"Number" in self',
           exposure: ["Window"],
         },
-        "api.Number.Number": {
-          code: 'bcd.testConstructor("Number");',
-          exposure: ["Window"],
+        'api.Number.Number': {
+          code: "bcd.testConstructor('Number')",
+          exposure: ['Window'],
         },
       });
     });
@@ -1013,9 +1013,9 @@ describe("build (API)", () => {
           code: '"HTMLImageElement" in self',
           exposure: ["Window"],
         },
-        "api.HTMLImageElement.Image": {
-          code: 'bcd.testConstructor("Image");',
-          exposure: ["Window"],
+        'api.HTMLImageElement.Image': {
+          code: "bcd.testConstructor('Image')",
+          exposure: ['Window'],
         },
       });
     });
