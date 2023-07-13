@@ -282,9 +282,10 @@ const build = async (specJS, customJS) => {
     await buildTest(tests, bcdPath);
 
     if (featureData.ctor) {
+      const pathParts = bcdPath.split('.');
       await buildConstructorTests(
         tests,
-        `${bcdPath}.${featureName.split('.')[1]}`,
+        `${bcdPath}.${pathParts[pathParts.length - 1]}`,
         featureData.ctor,
       );
     }
