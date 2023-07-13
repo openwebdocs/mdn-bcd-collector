@@ -24,7 +24,7 @@ const buildTestList = (specJS, customJS) => {
 
   // Iterate through the spec data
   // XXX use proper typedef instead of any[] once the package is used
-  for (const feat of specJS as any[]) {
+  for (const feat of specJS.sort((f) => f.name) as any[]) {
     const featureName = feat.name.replace('()', '');
 
     if (['function', 'global-property'].includes(feat.type)) {
