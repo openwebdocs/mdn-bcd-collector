@@ -10,6 +10,70 @@ import {getCustomTest, compileCustomTest, compileTest} from "./common.js";
 
 import type {RawTestCodeExpr} from "../types/types.js";
 
+const stripAttrName = (name, featureName) =>
+  name
+    .replace(`%${featureName}%`, featureName)
+    .replace(`${featureName}.prototype.`, '')
+    .replace(`${featureName}.`, '')
+    .replace('()', '')
+    .replace(`${featureName}[`, 'prototype[')
+    .replace(/prototype\[@@(\w+)\]/g, '@@$1');
+
+const buildTestList = (specJS, customJS) => {
+  const features = {};
+
+  // Iterate through the spec data
+  // XXX use proper typedef instead of any[] once the package is used
+  for (const feat of specJS as any[]) {
+    const featureName = feat.name.replace('()', '');
+
+    if (['function', 'global-property'].includes(feat.type)) {
+      // Functions and global properties will not have members or any other data we need to pull
+      features[featureName] = {};
+      continue;
+    }
+
+    features[featureName] = {members: {static: [], instance: []}};
+
+    // If there is a constructor, determine parameters
+    if (feat.classConstructor) {
+      features[featureName].ctor = {
+        new_required: feat.classConstructor.usage !== 'call',
+      };
+    }
+
+    // Collect static attributes
+    const staticAttrs = [
+      ...(feat.staticProperties || []),
+      ...(feat.staticMethods || []),
+    ];
+
+    // Collect instance attributes
+    const instanceAttrs = [
+      ...(feat.prototypeProperties || []),
+      ...(feat.instanceMethods || []),
+      ...(feat.instanceProperties || []),
+    ];
+
+    // Collect names of all attributes
+    for (const attr of [
+      ...staticAttrs.map((a) => ({...a, static: true})),
+      ...instanceAttrs,
+    ]) {
+      const prototypeString = `${featureName}.prototype`;
+      if (attr.name === prototypeString) {
+        continue;
+      }
+
+      features[featureName].members[attr.static ? 'static' : 'instance'].push(
+        stripAttrName(attr.name, featureName),
+      );
+    }
+  }
+
+  return features;
+};
+
 const build = async (specJS, customJS) => {
   const tests = {};
 
