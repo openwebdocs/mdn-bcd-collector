@@ -200,26 +200,26 @@
    * determine if it's supported or an illegal constructor.
    *
    * iface (function): The constructor to test
-   * useNew (boolean): Whether to use "new" during construction
+   * noNew (boolean): Whether not to use "new" during construction
    *
    * returns (TestResult): The result of the test
    */
-  function testConstructor(iface, useNew = true) {
+  function testConstructor(iface, noNew) {
     var result = {};
 
     try {
       if (typeof iface == "string") {
-        if (useNew) {
-          eval("new " + iface + "()");
-        } else {
+        if (noNew) {
           eval(iface + "()");
+        } else {
+          eval("new " + iface + "()");
         }
       } else {
-        if (useNew) {
+        if (noNew) {
+          iface();
+        } else {
           // eslint-disable-next-line new-cap
           new iface();
-        } else {
-          iface();
         }
       }
       result.result = true;
