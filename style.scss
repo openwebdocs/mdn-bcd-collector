@@ -6,8 +6,8 @@
 // See the LICENSE file for copyright details
 //
 
-@use 'sass:map';
-@use 'sass:list';
+@use "sass:map";
+@use "sass:list";
 
 // Variables, Functions, Mixins
 
@@ -99,26 +99,26 @@ $colors: (
 }
 
 @mixin themedProperty($property, $color, $opacity: 1) {
-  #{$property}: rgba(map.get($colors, $color, 'dark'), $opacity);
+  #{$property}: rgba(map.get($colors, $color, "dark"), $opacity);
 
   @media (prefers-color-scheme: light) {
-    #{$property}: rgba(map.get($colors, $color, 'light'), $opacity);
+    #{$property}: rgba(map.get($colors, $color, "light"), $opacity);
   }
 }
 
 @mixin themedTextGlow($color, $size: 10px, $opacity: 0.75) {
-  text-shadow: 0 0 $size rgba(map.get($colors, $color, 'dark'), $opacity);
+  text-shadow: 0 0 $size rgba(map.get($colors, $color, "dark"), $opacity);
 
   @media (prefers-color-scheme: light) {
-    text-shadow: 0 0 $size rgba(map.get($colors, $color, 'light'), $opacity);
+    text-shadow: 0 0 $size rgba(map.get($colors, $color, "light"), $opacity);
   }
 }
 
 @mixin themedBoxShadow($color, $size: 10px, $opacity: 0.75) {
-  box-shadow: 0 0 $size rgba(map.get($colors, $color, 'dark'), $opacity);
+  box-shadow: 0 0 $size rgba(map.get($colors, $color, "dark"), $opacity);
 
   @media (prefers-color-scheme: light) {
-    box-shadow: 0 0 $size rgba(map.get($colors, $color, 'light'), $opacity);
+    box-shadow: 0 0 $size rgba(map.get($colors, $color, "light"), $opacity);
   }
 }
 
@@ -154,14 +154,14 @@ $colors: (
       );
 
     @if $value {
-      $dark-colors: list.append($dark-colors, map.get($color, 'dark') $value);
+      $dark-colors: list.append($dark-colors, map.get($color, "dark") $value);
       $light-colors: list.append(
         $light-colors,
-        map.get($color, 'light') $value
+        map.get($color, "light") $value
       );
     } @else {
-      $dark-colors: list.append($dark-colors, map.get($color, 'dark'));
-      $light-colors: list.append($light-colors, map.get($color, 'light'));
+      $dark-colors: list.append($dark-colors, map.get($color, "dark"));
+      $light-colors: list.append($light-colors, map.get($color, "light"));
     }
   }
 
@@ -177,37 +177,37 @@ $colors: (
   $generated-colors: map-gradient-colors($gradient-colors);
   @include gradient-base(
     $direction,
-    list.zip(map.get($generated-colors, 'dark'))
+    list.zip(map.get($generated-colors, "dark"))
   );
 
   @media (prefers-color-scheme: light) {
     @include gradient-base(
       $direction,
-      list.zip(map.get($generated-colors, 'light'))
+      list.zip(map.get($generated-colors, "light"))
     );
   }
 }
 
 // End Variables, Functions, Mixins
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@500&display=swap");
 
 :root {
   color-scheme: light dark;
 }
 
 html {
-  @include themedProperty(background, 'background');
+  @include themedProperty(background, "background");
 }
 
 body {
-  font-family: 'Roboto', Arial, sans-serif;
-  @include themedProperty(color, 'text');
+  font-family: "Roboto", Arial, sans-serif;
+  @include themedProperty(color, "text");
   @include gradient(
     15deg,
-    'background' 0%,
-    'background-2' 90%,
-    'background-3' 100%
+    "background" 0%,
+    "background-2" 90%,
+    "background-3" 100%
   );
   min-height: 100vh;
   margin: 0;
@@ -230,29 +230,29 @@ h3 {
 
 a {
   text-decoration: none;
-  @include themedProperty(color, 'link');
-  @include themedTextGlow('link', 0px);
+  @include themedProperty(color, "link");
+  @include themedTextGlow("link", 0px);
   transition:
     color 0.2s,
     text-shadow 0.2s;
 
   &:hover {
-    @include themedProperty(color, 'link-hover');
-    @include themedTextGlow('link');
+    @include themedProperty(color, "link-hover");
+    @include themedTextGlow("link");
   }
 }
 
 code {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 12px;
 }
 
 button,
 select,
 input {
-  @include themedProperty(background, 'input-bg');
-  @include themedProperty(color, 'input-fg');
-  @include themedBoxShadow('input-bg', 0px);
+  @include themedProperty(background, "input-bg");
+  @include themedProperty(color, "input-fg");
+  @include themedBoxShadow("input-bg", 0px);
   border: none;
   text-align: center;
   text-decoration: none;
@@ -270,14 +270,14 @@ input {
   &:hover,
   &:hover:focus {
     cursor: pointer;
-    @include themedProperty(background, 'input-hover-bg');
-    @include themedBoxShadow('input-bg', 15px);
+    @include themedProperty(background, "input-hover-bg");
+    @include themedBoxShadow("input-bg", 15px);
   }
 
   &:focus {
-    @include themedProperty(background, 'input-focus-bg');
-    @include themedBoxShadow('input-bg', 15px);
-    @include themedProperty(outline-color, 'main');
+    @include themedProperty(background, "input-focus-bg");
+    @include themedBoxShadow("input-bg", 15px);
+    @include themedProperty(outline-color, "main");
   }
 
   &:focus-visible {
@@ -288,8 +288,8 @@ input {
   &:disabled,
   &:disabled:hover {
     cursor: not-allowed;
-    @include themedProperty(background, 'input-disabled-bg');
-    @include themedProperty(color, 'input-placeholder');
+    @include themedProperty(background, "input-disabled-bg");
+    @include themedProperty(color, "input-placeholder");
   }
 }
 
@@ -298,7 +298,7 @@ input {
   margin-left: -2px;
 
   &::placeholder {
-    @include themedProperty(color, 'input-placeholder');
+    @include themedProperty(color, "input-placeholder");
   }
 }
 
@@ -306,8 +306,8 @@ nav#navbar {
   display: block;
   @include gradient(
     180deg,
-    'background-3' 0%,
-    'background-3' 75%,
+    "background-3" 0%,
+    "background-3" 75%,
     transparent 100%
   );
   margin: -8px;
@@ -319,8 +319,8 @@ nav#navbar {
     // Mitigate Safari bug
     @include gradient(
       180deg,
-      'background-3' 0%,
-      'background-3' 75%,
+      "background-3" 0%,
+      "background-3" 75%,
       rgba(255, 255, 255, 0) 100%
     );
   }
@@ -369,7 +369,7 @@ hr {
 }
 
 blockquote {
-  @include themedProperty(background, 'paper-bg');
+  @include themedProperty(background, "paper-bg");
   padding: 0.25em 1em;
   box-shadow: 0 0 10px black;
   border-radius: 8px;
@@ -377,7 +377,7 @@ blockquote {
 }
 
 .paper {
-  @include themedProperty(background, 'paper-bg');
+  @include themedProperty(background, "paper-bg");
   padding: 1em 8px;
   box-shadow: 0 0 10px black;
   border-radius: 8px;
@@ -385,18 +385,18 @@ blockquote {
 }
 
 .error-notice {
-  @include themedProperty(color, 'error');
-  @include themedTextGlow('error');
+  @include themedProperty(color, "error");
+  @include themedTextGlow("error");
 }
 
 .warning-notice {
-  @include themedProperty(color, 'warning');
-  @include themedTextGlow('warning');
+  @include themedProperty(color, "warning");
+  @include themedTextGlow("warning");
 }
 
 .success-notice {
-  @include themedProperty(color, 'success');
-  @include themedTextGlow('success');
+  @include themedProperty(color, "success");
+  @include themedTextGlow("success");
 }
 
 .hidden {
@@ -405,14 +405,14 @@ blockquote {
 
 .mdi:before {
   /* Ensure that *something* shows up on older browsers */
-  content: '\FFFD';
+  content: "\FFFD";
 }
 
 /* Homepage */
 
 #title {
-  @include themedProperty(color, 'main');
-  @include themedTextGlow('main', 20px);
+  @include themedProperty(color, "main");
+  @include themedTextGlow("main", 20px);
   font-family: Montserrat;
   font-size: 36pt;
   font-weight: 500;
@@ -525,7 +525,7 @@ blockquote {
 
 #known-caveats,
 #extension-warnings {
-  @include themedProperty(background, 'error-bg', 0.05);
+  @include themedProperty(background, "error-bg", 0.05);
   width: intrinsic;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -537,7 +537,7 @@ blockquote {
   list-style-position: inside;
 
   #known-caveats-file-issue {
-    @include themedProperty(color, 'error');
+    @include themedProperty(color, "error");
     font-weight: bold;
   }
 }
@@ -546,12 +546,12 @@ blockquote {
   margin-top: 1em;
 
   h2 {
-    @include themedTextGlow('error', 20px);
+    @include themedTextGlow("error", 20px);
   }
 
   h2,
   h3 {
-    @include themedProperty(color, 'error');
+    @include themedProperty(color, "error");
   }
 
   h3 {
@@ -585,18 +585,18 @@ blockquote {
     font-weight: bold;
 
     &.result-value-true {
-      @include themedProperty(color, 'success');
-      @include themedTextGlow('success', 10px, 0.5);
+      @include themedProperty(color, "success");
+      @include themedTextGlow("success", 10px, 0.5);
     }
 
     &.result-value-false {
-      @include themedProperty(color, 'error');
-      @include themedTextGlow('error', 10px, 0.5);
+      @include themedProperty(color, "error");
+      @include themedTextGlow("error", 10px, 0.5);
     }
 
     &.result-value-null {
-      @include themedProperty(color, 'input-placeholder');
-      @include themedTextGlow('input-placeholder', 10px, 0.5);
+      @include themedProperty(color, "input-placeholder");
+      @include themedTextGlow("input-placeholder", 10px, 0.5);
     }
   }
 

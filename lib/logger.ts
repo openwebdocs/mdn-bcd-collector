@@ -6,8 +6,8 @@
 // See the LICENSE file for copyright details
 //
 
-import winston from 'winston';
-import {LoggingWinston} from '@google-cloud/logging-winston';
+import winston from "winston";
+import {LoggingWinston} from "@google-cloud/logging-winston";
 
 const getTransport = () => {
   /* c8 ignore next 3 */
@@ -24,9 +24,9 @@ const getTransport = () => {
 };
 
 const logger = winston.createLogger({
-  level: 'info',
+  level: "info",
   transports: [getTransport()],
-  silent: process.env.NODE_ENV === 'test',
+  silent: process.env.NODE_ENV === "test",
 });
 
 export default logger;

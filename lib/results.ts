@@ -6,10 +6,10 @@
 // See the LICENSE file for copyright details
 //
 
-import type {TestResult, Exposure} from '../types/types.js';
+import type {TestResult, Exposure} from "../types/types.js";
 
 const parseShortString = (value, desc) => {
-  if (typeof value !== 'string') {
+  if (typeof value !== "string") {
     throw new Error(`${desc} should be a string; got ${typeof value}`);
   }
   if (value.length > 1000) {
@@ -24,16 +24,16 @@ const parseResults = (url, results) => {
   try {
     url = new URL(url).toString();
   } catch (e) {
-    throw new Error('invalid URL');
+    throw new Error("invalid URL");
   }
 
   if (!Array.isArray(results)) {
-    throw new Error('results should be an array');
+    throw new Error("results should be an array");
   }
 
   results = results
     .map((v, i) => {
-      if (!v || typeof v !== 'object') {
+      if (!v || typeof v !== "object") {
         throw new Error(`results[${i}] should be an object; got ${v}`);
       }
       const copy: any = {};

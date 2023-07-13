@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import {getCustomTest, compileTest} from './common.js';
+import {getCustomTest, compileTest} from "./common.js";
 
 const categories: {
   [name: string]: {
@@ -16,17 +16,17 @@ const categories: {
   };
 } = {
   html: {
-    default: 'HTMLElement',
-    startsWith: 'HTML',
+    default: "HTMLElement",
+    startsWith: "HTML",
   },
   svg: {
-    namespace: 'http://www.w3.org/2000/svg',
-    startsWith: 'SVG',
+    namespace: "http://www.w3.org/2000/svg",
+    startsWith: "SVG",
   },
   mathml: {
-    namespace: 'http://www.w3.org/1998/Math/MathML',
-    default: 'MathMLElement',
-    startsWith: 'MathML',
+    namespace: "http://www.w3.org/1998/Math/MathML",
+    default: "MathMLElement",
+    startsWith: "MathML",
   },
 };
 
@@ -41,7 +41,7 @@ const build = async (specElements, customElements) => {
   for (const data of Object.values(specElements) as any[]) {
     for (const el of data.elements) {
       // Get category of element
-      let category = 'html';
+      let category = "html";
       for (const [cat, catData] of Object.entries(categories)) {
         if (el.interface?.startsWith(catData.startsWith)) {
           category = cat;
@@ -58,7 +58,7 @@ const build = async (specElements, customElements) => {
   }
 
   for (const [category, categoryData] of Object.entries(categories)) {
-    if (category === 'mathml') {
+    if (category === "mathml") {
       // XXX MathML needs to be specially tested, skip for now
       // Base code on https://github.com/web-platform-tests/wpt/blob/master/mathml/support/feature-detection.js?
       continue;
@@ -78,7 +78,7 @@ const build = async (specElements, customElements) => {
 
       const customTest = await getCustomTest(
         bcdPath,
-        '${category}.elements',
+        "${category}.elements",
         true,
       );
       const defaultConstructCode = namespace
@@ -93,23 +93,23 @@ const build = async (specElements, customElements) => {
 
       tests[bcdPath] = compileTest({
         raw: {code: customTest.test || defaultCode},
-        exposure: ['Window'],
+        exposure: ["Window"],
       });
 
       // Add the additional tests
       for (const [key, code] of Object.entries(customTest.additional)) {
         tests[`${bcdPath}.${key}`] = compileTest({
           raw: {code: code},
-          exposure: ['Window'],
+          exposure: ["Window"],
         });
       }
 
       // Add tests for the attributes
       for (const attr of data.attributes || []) {
-        let attrName = '';
-        let attrProp = '';
+        let attrName = "";
+        let attrProp = "";
 
-        if (typeof attr == 'string') {
+        if (typeof attr == "string") {
           attrName = attr;
           attrProp = attr;
         } else {
@@ -119,7 +119,7 @@ const build = async (specElements, customElements) => {
 
         const customAttrTest = await getCustomTest(
           `${bcdPath}.${attrName}`,
-          '${category}.elements',
+          "${category}.elements",
           true,
         );
 
@@ -132,14 +132,14 @@ const build = async (specElements, customElements) => {
           raw: {
             code: customAttrTest.test || defaultAttrCode,
           },
-          exposure: ['Window'],
+          exposure: ["Window"],
         });
 
         // Add the additional tests
         for (const [key, code] of Object.entries(customTest.additional)) {
           tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
             raw: {code: code},
-            exposure: ['Window'],
+            exposure: ["Window"],
           });
         }
       }

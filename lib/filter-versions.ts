@@ -6,13 +6,13 @@
 // See the LICENSE file for copyright details
 //
 
-import bcd from '@mdn/browser-compat-data' assert {type: 'json'};
-import type {BrowserStatement, BrowserName} from '@mdn/browser-compat-data';
+import bcd from "@mdn/browser-compat-data" assert {type: "json"};
+import type {BrowserStatement, BrowserName} from "@mdn/browser-compat-data";
 const bcdBrowsers = bcd.browsers;
 import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
-} from 'compare-versions';
+} from "compare-versions";
 
 const filterVersions = (
   browser: BrowserName,
@@ -27,11 +27,11 @@ const filterVersions = (
 
   const releases = Object.entries(
     (bcdBrowsers[browser] as BrowserStatement).releases,
-  ).filter(([, r]) => ['current', 'retired'].includes(r.status));
+  ).filter(([, r]) => ["current", "retired"].includes(r.status));
 
   for (const [version, versionData] of releases) {
-    if (typeof since === 'string') {
-      if (compareVersions(version, since, '>=')) {
+    if (typeof since === "string") {
+      if (compareVersions(version, since, ">=")) {
         versions.push(version);
       }
     } else if (since instanceof Date) {

@@ -6,10 +6,10 @@
 // See the LICENSE file for copyright details
 //
 
-import assert from 'node:assert/strict';
+import assert from "node:assert/strict";
 
-import fs from 'fs-extra';
-import {Storage, Bucket} from '@google-cloud/storage';
+import fs from "fs-extra";
+import {Storage, Bucket} from "@google-cloud/storage";
 
 class CloudStorage {
   _bucket: Bucket;
@@ -21,7 +21,7 @@ class CloudStorage {
     appVersion: string,
   ) {
     const storageOpts =
-      typeof projectIdOrCreds === 'string'
+      typeof projectIdOrCreds === "string"
         ? {projectId: projectIdOrCreds}
         : {
             projectId: projectIdOrCreds.projectId,
@@ -72,14 +72,14 @@ class CloudStorage {
   }
 
   async saveFile(filename, data) {
-    assert(!filename.includes('..'));
+    assert(!filename.includes(".."));
     const name = `${this._version}/files/${filename}`;
     const file = this._bucket.file(name);
     await file.save(data);
   }
 
   async readFile(filename) {
-    assert(!filename.includes('..'));
+    assert(!filename.includes(".."));
     const name = `${this._version}/files/${filename}`;
     const file = this._bucket.file(name);
     return (await file.download())[0];
@@ -130,7 +130,7 @@ class MemoryStorage {
       await fs.mkdir(downloadsPath);
     }
 
-    assert(!filename.includes('..'));
+    assert(!filename.includes(".."));
     await fs.writeFile(
       new URL(`../download/${filename}`, import.meta.url),
       data,
@@ -138,7 +138,7 @@ class MemoryStorage {
   }
 
   async readFile(filename) {
-    assert(!filename.includes('..'));
+    assert(!filename.includes(".."));
     return await fs.readFile(
       new URL(`../download/${filename}`, import.meta.url),
     );
@@ -150,14 +150,14 @@ const getStorage = (appVersion) => {
   const gaeproject = process.env.GOOGLE_CLOUD_PROJECT;
   if (gaeproject) {
     // Use GCLOUD_STORAGE_BUCKET from app.yaml.
-    const bucketName = process.env.GCLOUD_STORAGE_BUCKET || '';
+    const bucketName = process.env.GCLOUD_STORAGE_BUCKET || "";
     return new CloudStorage(gaeproject, bucketName, appVersion);
   }
 
   // Use CloudStorage on Heroku + HDrive (Google Cloud).
-  const hdrive = JSON.parse(process.env.HDRIVE_GOOGLE_JSON_KEY || 'null');
+  const hdrive = JSON.parse(process.env.HDRIVE_GOOGLE_JSON_KEY || "null");
   if (hdrive) {
-    const bucketName = process.env.HDRIVE_GOOGLE_BUCKET || '';
+    const bucketName = process.env.HDRIVE_GOOGLE_BUCKET || "";
     return new CloudStorage(hdrive, bucketName, appVersion);
   }
 

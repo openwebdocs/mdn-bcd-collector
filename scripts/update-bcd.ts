@@ -10,7 +10,7 @@ import {
   Browsers,
   SimpleSupportStatement,
   Identifier,
-} from '@mdn/browser-compat-data/types';
+} from "@mdn/browser-compat-data/types";
 import {
   Report,
   TestResultValue,
@@ -18,25 +18,25 @@ import {
   BrowserSupportMap,
   Overrides,
   InternalSupportStatement,
-} from '../types/types.js';
+} from "../types/types.js";
 
-import assert from 'node:assert';
-import path from 'node:path';
+import assert from "node:assert";
+import path from "node:path";
 
 import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
-} from 'compare-versions';
-import esMain from 'es-main';
-import fs from 'fs-extra';
-import klaw from 'klaw';
-import {Minimatch} from 'minimatch';
-import yargs from 'yargs';
-import {hideBin} from 'yargs/helpers';
+} from "compare-versions";
+import esMain from "es-main";
+import fs from "fs-extra";
+import klaw from "klaw";
+import {Minimatch} from "minimatch";
+import yargs from "yargs";
+import {hideBin} from "yargs/helpers";
 
-import {BCD_DIR} from '../lib/constants.js';
-import logger from '../lib/logger.js';
-import {parseUA} from '../lib/ua-parser.js';
+import {BCD_DIR} from "../lib/constants.js";
+import logger from "../lib/logger.js";
+import {parseUA} from "../lib/ua-parser.js";
 
 const {default: mirror} = await import(`${BCD_DIR}/scripts/release/mirror.js`);
 
@@ -47,7 +47,7 @@ export const findEntry = (
   if (!ident) {
     return null;
   }
-  const keys: string[] = ident.split('.');
+  const keys: string[] = ident.split(".");
   let entry: any = bcd;
   while (entry && keys.length) {
     entry = entry[keys.shift() as string];
@@ -80,7 +80,7 @@ const combineResults = (results: TestResultValue[]): TestResultValue => {
 // Create a string represenation of a version range, optimized for human
 // legibility.
 const joinRange = (lower: string, upper: string) =>
-  lower === '0' ? `≤${upper}` : `${lower}> ≤${upper}`;
+  lower === "0" ? `≤${upper}` : `${lower}> ≤${upper}`;
 
 // Parse a version range string produced by `joinRange` into a lower and upper
 // boundary.
@@ -89,7 +89,7 @@ export const splitRange = (range: string) => {
   if (!match) {
     throw new Error(`Unrecognized version range value: "${range}"`);
   }
-  return {lower: match[1] || '0', upper: match[2]};
+  return {lower: match[1] || "0", upper: match[2]};
 };
 
 // Get support map from BCD path to test result (null/true/false) for a single
@@ -120,7 +120,7 @@ export const getSupportMap = (report: Report): BrowserSupportMap => {
       // If the parent feature support is false, copy that.
       // TODO: This  assumes that the parent feature came first when iterating
       // the report, which isn't guaranteed. Move this to a second phase.
-      const parentName = name.split('.').slice(0, -1).join('.');
+      const parentName = name.split(".").slice(0, -1).join(".");
       const parentSupport = supportMap.get(parentName);
       if (parentSupport === false) {
         supported = false;
@@ -199,25 +199,25 @@ export const getSupportMatrix = (
       continue;
     }
 
-    if (version === '*') {
+    if (version === "*") {
       // All versions of a browser
       for (const v of versionMap.keys()) {
         versionMap.set(v, supported);
       }
-    } else if (version.includes('+')) {
+    } else if (version.includes("+")) {
       // Browser versions from x onwards (inclusive)
       for (const v of versionMap.keys()) {
-        if (compareVersions(version.replace('+', ''), v, '<=')) {
+        if (compareVersions(version.replace("+", ""), v, "<=")) {
           versionMap.set(v, supported);
         }
       }
-    } else if (version.includes('-')) {
+    } else if (version.includes("-")) {
       // Browser versions between x and y (inclusive)
-      const versions = version.split('-');
+      const versions = version.split("-");
       for (const v of versionMap.keys()) {
         if (
-          compareVersions(versions[0], v, '<=') &&
-          compareVersions(versions[1], v, '>=')
+          compareVersions(versions[0], v, "<=") &&
+          compareVersions(versions[1], v, ">=")
         ) {
           versionMap.set(v, supported);
         }
@@ -238,7 +238,7 @@ export const inferSupportStatements = (
 
   const statements: SimpleSupportStatement[] = [];
   const lastKnown: {version: string; support: TestResultValue} = {
-    version: '0',
+    version: "0",
     support: null,
   };
   let lastWasNull = false;
@@ -348,37 +348,37 @@ export const update = (
         const filterMatch =
           filter.release && filter.release.match(/([\d.]+)-([\d.]+)/);
         if (filterMatch) {
-          if (typeof inferredStatement.version_added !== 'string') {
+          if (typeof inferredStatement.version_added !== "string") {
             // If the version_added is not a string, it must be false and won't
             // match our
             continue;
           }
           if (
             compareVersions(
-              inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ''),
+              inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ""),
               filterMatch[1],
-              '<',
+              "<",
             ) ||
             compareVersions(
-              inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ''),
+              inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ""),
               filterMatch[2],
-              '>',
+              ">",
             )
           ) {
             // If version_added is outside of filter range
             continue;
           }
           if (
-            typeof inferredStatement.version_removed === 'string' &&
+            typeof inferredStatement.version_removed === "string" &&
             (compareVersions(
-              inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ''),
+              inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ""),
               filterMatch[1],
-              '<',
+              "<",
             ) ||
               compareVersions(
-                inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ''),
+                inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ""),
                 filterMatch[2],
-                '>',
+                ">",
               ))
           ) {
             // If version_removed and it's outside of filter range
@@ -405,10 +405,10 @@ export const update = (
         if (filter.exactOnly) {
           for (const statement of statements) {
             if (
-              (typeof statement.version_added === 'string' &&
-                statement.version_added.includes('≤')) ||
-              (typeof statement.version_removed === 'string' &&
-                statement.version_removed.includes('≤'))
+              (typeof statement.version_added === "string" &&
+                statement.version_added.includes("≤")) ||
+              (typeof statement.version_removed === "string" &&
+                statement.version_removed.includes("≤"))
             ) {
               return;
             }
@@ -420,7 +420,7 @@ export const update = (
       };
 
       let allStatements =
-        (support[browser] as InternalSupportStatement) === 'mirror'
+        (support[browser] as InternalSupportStatement) === "mirror"
           ? mirror(browser, originalSupport)
           : // Although non-mirrored support data could be modified in-place,
             // working with a cloned version forces the subsequent code to
@@ -438,10 +438,10 @@ export const update = (
       // Filter to the statements representing the feature being enabled by
       // default under the default name and no flags.
       const defaultStatements = allStatements.filter((statement) => {
-        if ('flags' in statement) {
+        if ("flags" in statement) {
           return false;
         }
-        if ('prefix' in statement || 'alternative_name' in statement) {
+        if ("prefix" in statement || "alternative_name" in statement) {
           // TODO: map the results for aliases to these statements.
           return false;
         }
@@ -460,7 +460,7 @@ export const update = (
         //
         // See https://github.com/mdn/browser-compat-data/pull/16637
         const nonFlagStatements = allStatements.filter(
-          (statement) => !('flags' in statement),
+          (statement) => !("flags" in statement),
         );
         persist([inferredStatement, ...nonFlagStatements]);
 
@@ -489,9 +489,9 @@ export const update = (
       // our data is not older than BCD (ex. BCD says 79 but we have results for 40-78)
       if (
         inferredStatement.version_added === false &&
-        typeof simpleStatement.version_added === 'string'
+        typeof simpleStatement.version_added === "string"
       ) {
-        let latestNonNullVersion = '';
+        let latestNonNullVersion = "";
 
         for (const [version, result] of Array.from(
           versionMap.entries(),
@@ -503,18 +503,18 @@ export const update = (
 
           if (
             !latestNonNullVersion ||
-            compareVersions(version, latestNonNullVersion, '>')
+            compareVersions(version, latestNonNullVersion, ">")
           ) {
             latestNonNullVersion = version;
           }
         }
 
         if (
-          simpleStatement.version_added === 'preview' ||
+          simpleStatement.version_added === "preview" ||
           compareVersions(
             latestNonNullVersion,
-            simpleStatement.version_added.replace('≤', ''),
-            '<',
+            simpleStatement.version_added.replace("≤", ""),
+            "<",
           )
         ) {
           logger.warn(
@@ -525,23 +525,23 @@ export const update = (
       }
 
       if (
-        typeof simpleStatement.version_added === 'string' &&
-        typeof inferredStatement.version_added === 'string' &&
-        inferredStatement.version_added.includes('≤')
+        typeof simpleStatement.version_added === "string" &&
+        typeof inferredStatement.version_added === "string" &&
+        inferredStatement.version_added.includes("≤")
       ) {
         const {lower, upper} = splitRange(inferredStatement.version_added);
-        const simpleAdded = simpleStatement.version_added.replace('≤', '');
+        const simpleAdded = simpleStatement.version_added.replace("≤", "");
         if (
-          simpleStatement.version_added === 'preview' ||
-          compareVersions(simpleAdded, lower, '<=') ||
-          compareVersions(simpleAdded, upper, '>')
+          simpleStatement.version_added === "preview" ||
+          compareVersions(simpleAdded, lower, "<=") ||
+          compareVersions(simpleAdded, upper, ">")
         ) {
           simpleStatement.version_added = inferredStatement.version_added;
           persist(allStatements);
         }
       } else if (
         !(
-          typeof simpleStatement.version_added === 'string' &&
+          typeof simpleStatement.version_added === "string" &&
           inferredStatement.version_added === true
         ) &&
         simpleStatement.version_added !== inferredStatement.version_added
@@ -563,7 +563,7 @@ export const update = (
         }
       }
 
-      if (typeof inferredStatement.version_removed === 'string') {
+      if (typeof inferredStatement.version_removed === "string") {
         simpleStatement.version_removed = inferredStatement.version_removed;
         persist(allStatements);
       }
@@ -582,7 +582,7 @@ export const loadJsonFiles = async (
   // Ignores .DS_Store, .git, etc.
   const dotFilter = (item) => {
     const basename = path.basename(item);
-    return basename === '.' || basename[0] !== '.';
+    return basename === "." || basename[0] !== ".";
   };
 
   const jsonFiles: string[] = [];
@@ -590,13 +590,13 @@ export const loadJsonFiles = async (
   for (const p of paths) {
     await new Promise((resolve, reject) => {
       klaw(p, {filter: dotFilter})
-        .on('data', (item) => {
-          if (item.path.endsWith('.json')) {
+        .on("data", (item) => {
+          if (item.path.endsWith(".json")) {
             jsonFiles.push(item.path);
           }
         })
-        .on('error', reject)
-        .on('end', resolve);
+        .on("error", reject)
+        .on("end", resolve);
     });
   }
 
@@ -617,29 +617,29 @@ export const main = async (
   overrides: Overrides,
 ): Promise<void> => {
   // Replace filter.path with a minimatch object.
-  if (filter.path && filter.path.includes('*')) {
+  if (filter.path && filter.path.includes("*")) {
     filter.path = new Minimatch(filter.path);
   }
 
-  if (filter.release === 'false') {
+  if (filter.release === "false") {
     filter.release = false;
   }
 
   const bcdFiles = (await loadJsonFiles(
     filter.addNewFeatures
-      ? [path.join(BCD_DIR, '__missing')]
+      ? [path.join(BCD_DIR, "__missing")]
       : [
-          'api',
-          'browsers',
-          'css',
-          'html',
-          'http',
-          'javascript',
-          'mathml',
-          'svg',
-          'webdriver',
-          'webextensions',
-        ].map((cat) => path.join(BCD_DIR, ...cat.split('.'))),
+          "api",
+          "browsers",
+          "css",
+          "html",
+          "http",
+          "javascript",
+          "mathml",
+          "svg",
+          "webdriver",
+          "webextensions",
+        ].map((cat) => path.join(BCD_DIR, ...cat.split("."))),
   )) as {[key: string]: Identifier};
 
   const reports = Object.values(await loadJsonFiles(reportPaths)) as Report[];
@@ -657,7 +657,7 @@ export const main = async (
       continue;
     }
     logger.info(`Updating ${path.relative(BCD_DIR, file)}`);
-    const json = JSON.stringify(data, null, '  ') + '\n';
+    const json = JSON.stringify(data, null, "  ") + "\n";
     await fs.writeFile(file, json);
   }
 };
@@ -667,46 +667,46 @@ if (esMain(import.meta)) {
     default: {browsers},
   } = await import(`${BCD_DIR}/index.js`);
   const overrides = await fs.readJson(
-    new URL('../custom/overrides.json', import.meta.url),
+    new URL("../custom/overrides.json", import.meta.url),
   );
 
   const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
-    '$0 [reports..]',
-    'Update BCD from a specified set of report files',
+    "$0 [reports..]",
+    "Update BCD from a specified set of report files",
     (yargs) => {
       yargs
-        .positional('reports', {
-          describe: 'The report files to update from (also accepts folders)',
-          type: 'string',
+        .positional("reports", {
+          describe: "The report files to update from (also accepts folders)",
+          type: "string",
           array: true,
-          default: ['../mdn-bcd-results/'],
+          default: ["../mdn-bcd-results/"],
         })
-        .option('path', {
-          alias: 'p',
+        .option("path", {
+          alias: "p",
           describe:
             'The BCD path to update (includes children, ex. "api.Document" will also update "api.Document.body")',
-          type: 'string',
+          type: "string",
           default: null,
         })
-        .option('browser', {
-          alias: 'b',
-          describe: 'The browser to update',
-          type: 'array',
+        .option("browser", {
+          alias: "b",
+          describe: "The browser to update",
+          type: "array",
           choices: Object.keys(browsers),
           default: [],
         })
-        .option('release', {
-          alias: 'r',
+        .option("release", {
+          alias: "r",
           describe:
-            'Only update when version_added or version_removed is set to the given value (can be an inclusive range, ex. xx-yy, or `false` for changes that set no support)',
-          type: 'string',
+            "Only update when version_added or version_removed is set to the given value (can be an inclusive range, ex. xx-yy, or `false` for changes that set no support)",
+          type: "string",
           default: null,
         })
-        .option('exact-only', {
-          alias: 'e',
+        .option("exact-only", {
+          alias: "e",
           describe:
             'Only update when versions are a specific number (or "false"), disallowing ranges',
-          type: 'boolean',
+          type: "boolean",
           default: false,
         });
     },

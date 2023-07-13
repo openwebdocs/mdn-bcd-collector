@@ -6,24 +6,24 @@
 // See the LICENSE file for copyright details
 //
 
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath} from "node:url";
 
-import {assert} from 'chai';
-import fs from 'fs-extra';
-import puppeteer, {Product} from 'puppeteer';
+import {assert} from "chai";
+import fs from "fs-extra";
+import puppeteer, {Product} from "puppeteer";
 
-import {app} from './app.js';
+import {app} from "./app.js";
 
 // Firefox is temporarily disabled due to issues on CI
-const products: Product[] = ['chrome']; // ['chrome', 'firefox'];
+const products: Product[] = ["chrome"]; // ['chrome', 'firefox'];
 
 // Workaround for https://github.com/puppeteer/puppeteer/issues/6255
 const consoleLogType = {
-  chrome: 'log',
-  firefox: 'verbose',
+  chrome: "log",
+  firefox: "verbose",
 };
 
-describe('harness.js', () => {
+describe("harness.js", () => {
   const port = process.env.PORT || 8081;
   let server;
   before(() => {
@@ -37,23 +37,23 @@ describe('harness.js', () => {
       after(() => browser.close());
 
       const page = await browser.newPage();
-      if (product == 'chrome') {
+      if (product == "chrome") {
         await page.coverage.startJSCoverage({includeRawScriptCoverage: true});
       }
 
       const reportPromise = new Promise((resolve, reject) => {
-        page.on('console', (msg) => {
+        page.on("console", (msg) => {
           if (msg.type() === consoleLogType[product]) {
             resolve(JSON.parse(msg.text()));
           }
         });
-        page.on('error', reject);
+        page.on("error", reject);
       });
 
       await page.goto(`http://localhost:${port}/unittest/#reporter=json`);
       const report: any = await reportPromise;
 
-      if (product == 'chrome') {
+      if (product == "chrome") {
         const jsCoverage = await page.coverage.stopJSCoverage();
 
         // Adjust coverage reports to point to original files
@@ -66,7 +66,7 @@ describe('harness.js', () => {
                 scriptId: String(it.scriptId),
                 url: it.url.replace(
                   `http://localhost:${port}/`,
-                  new URL('./static/', import.meta.url).toString(),
+                  new URL("./static/", import.meta.url).toString(),
                 ),
               },
           )

@@ -6,9 +6,9 @@
 // See the LICENSE file for copyright details
 //
 
-import didYouMean from 'didyoumean';
+import didYouMean from "didyoumean";
 
-import type {Resources} from '../types/types.js';
+import type {Resources} from "../types/types.js";
 
 interface Endpoints {
   [key: string]: string[];
@@ -29,18 +29,18 @@ class Tests {
 
   buildEndpoints() {
     const endpoints: Endpoints = {
-      '': [],
+      "": [],
     };
 
     for (const ident of Object.keys(this.tests)) {
-      if (ident === '__resources') {
+      if (ident === "__resources") {
         continue;
       }
-      endpoints[''].push(ident);
+      endpoints[""].push(ident);
 
-      let endpoint = '';
-      for (const part of ident.split('.')) {
-        endpoint += (endpoint ? '.' : '') + part;
+      let endpoint = "";
+      for (const part of ident.split(".")) {
+        endpoint += (endpoint ? "." : "") + part;
 
         if (!(endpoint in endpoints)) {
           endpoints[endpoint] = [];

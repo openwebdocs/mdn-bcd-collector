@@ -272,14 +272,14 @@ api:
 
 ```javascript
 bcd.addTest(
-  'api.AudioContext',
-  '(function() {var instance = new (window.AudioContext || window.webkitAudioContext)();})()',
-  'Window',
+  "api.AudioContext",
+  "(function() {var instance = new (window.AudioContext || window.webkitAudioContext)();})()",
+  "Window",
 );
 bcd.addTest(
-  'api.AudioDestinationNode',
-  '(function() {var instance = new (window.AudioContext || window.webkitAudioContext)(); if (!audioCtx) {return false}; var instance = audioCtx.destination;})()',
-  'Window',
+  "api.AudioDestinationNode",
+  "(function() {var instance = new (window.AudioContext || window.webkitAudioContext)(); if (!audioCtx) {return false}; var instance = audioCtx.destination;})()",
+  "Window",
 );
 ```
 

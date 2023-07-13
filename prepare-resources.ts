@@ -7,43 +7,43 @@
 // See the LICENSE file for copyright details
 //
 
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import path from "node:path";
+import {fileURLToPath} from "node:url";
 
-import esMain from 'es-main';
-import fs from 'fs-extra';
-import * as sass from 'sass';
+import esMain from "es-main";
+import fs from "fs-extra";
+import * as sass from "sass";
 
-const generatedDir = fileURLToPath(new URL('./generated', import.meta.url));
+const generatedDir = fileURLToPath(new URL("./generated", import.meta.url));
 
 const copyResources = async () => {
   const resources = [
-    ['json3/lib/json3.min.js', 'resources'],
-    ['chai/chai.js', 'unittest'],
-    ['mocha/mocha.css', 'unittest'],
-    ['mocha/mocha.js', 'unittest'],
-    ['mocha/mocha.js.map', 'unittest'],
-    ['sinon/pkg/sinon.js', 'unittest'],
-    ['@browser-logos/chrome/chrome_64x64.png', 'browser-logos', 'chrome.png'],
-    ['@browser-logos/edge/edge_64x64.png', 'browser-logos', 'edge.png'],
+    ["json3/lib/json3.min.js", "resources"],
+    ["chai/chai.js", "unittest"],
+    ["mocha/mocha.css", "unittest"],
+    ["mocha/mocha.js", "unittest"],
+    ["mocha/mocha.js.map", "unittest"],
+    ["sinon/pkg/sinon.js", "unittest"],
+    ["@browser-logos/chrome/chrome_64x64.png", "browser-logos", "chrome.png"],
+    ["@browser-logos/edge/edge_64x64.png", "browser-logos", "edge.png"],
     [
-      '@browser-logos/firefox/firefox_64x64.png',
-      'browser-logos',
-      'firefox.png',
+      "@browser-logos/firefox/firefox_64x64.png",
+      "browser-logos",
+      "firefox.png",
     ],
-    ['@browser-logos/opera/opera_64x64.png', 'browser-logos', 'opera.png'],
-    ['@browser-logos/safari/safari_64x64.png', 'browser-logos', 'safari.png'],
-    ['@mdi/font/css/materialdesignicons.min.css', 'resources'],
-    ['@mdi/font/fonts/materialdesignicons-webfont.eot', 'fonts'],
-    ['@mdi/font/fonts/materialdesignicons-webfont.ttf', 'fonts'],
-    ['@mdi/font/fonts/materialdesignicons-webfont.woff', 'fonts'],
-    ['@mdi/font/fonts/materialdesignicons-webfont.woff2', 'fonts'],
-    ['highlight.js/styles/stackoverflow-dark.css', 'resources/highlight.js'],
-    ['highlight.js/styles/stackoverflow-light.css', 'resources/highlight.js'],
+    ["@browser-logos/opera/opera_64x64.png", "browser-logos", "opera.png"],
+    ["@browser-logos/safari/safari_64x64.png", "browser-logos", "safari.png"],
+    ["@mdi/font/css/materialdesignicons.min.css", "resources"],
+    ["@mdi/font/fonts/materialdesignicons-webfont.eot", "fonts"],
+    ["@mdi/font/fonts/materialdesignicons-webfont.ttf", "fonts"],
+    ["@mdi/font/fonts/materialdesignicons-webfont.woff", "fonts"],
+    ["@mdi/font/fonts/materialdesignicons-webfont.woff2", "fonts"],
+    ["highlight.js/styles/stackoverflow-dark.css", "resources/highlight.js"],
+    ["highlight.js/styles/stackoverflow-light.css", "resources/highlight.js"],
     [
-      'wasm-feature-detect/dist/umd/index.js',
-      'resources',
-      'wasm-feature-detect.js',
+      "wasm-feature-detect/dist/umd/index.js",
+      "resources",
+      "wasm-feature-detect.js",
     ],
   ];
   for (const [srcInModules, destInGenerated, newFilename] of resources) {
@@ -61,10 +61,10 @@ const copyResources = async () => {
 };
 
 const generateCSS = async () => {
-  const scssPath = fileURLToPath(new URL('./style.scss', import.meta.url));
-  const outPath = path.join(generatedDir, 'resources', 'style.css');
+  const scssPath = fileURLToPath(new URL("./style.scss", import.meta.url));
+  const outPath = path.join(generatedDir, "resources", "style.css");
   const result = sass.renderSync({file: scssPath});
-  await fs.writeFile(outPath, result.css.toString(), 'utf8');
+  await fs.writeFile(outPath, result.css.toString(), "utf8");
 };
 
 const prepareResources = async () => {

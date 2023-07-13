@@ -4831,7 +4831,7 @@ javascript:
         }
     AsyncIterator:
       __base: <%javascript.builtins.AsyncGeneratorFunction:instance%>
-      '@@asyncIterator': |-
+      "@@asyncIterator": |-
         const AsyncIteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(instance)));
         return !!instance && "Symbol" in self && "asyncIterator" in Symbol && Symbol.asyncIterator in AsyncIteratorPrototype;
     Error:
@@ -4987,7 +4987,7 @@ javascript:
       from: return 'from' in Int8Array;
       name: return 'name' in Int8Array;
       of: return 'of' in Int8Array;
-      '@@species': return "Symbol" in self && "species" in Symbol && !!Int8Array[Symbol.species];
+      "@@species": return "Symbol" in self && "species" in Symbol && !!Int8Array[Symbol.species];
       __additional:
         constructor_without_parameters: |-
           try {

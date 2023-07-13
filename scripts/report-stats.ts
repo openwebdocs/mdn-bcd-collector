@@ -6,30 +6,30 @@
 // See the LICENSE file for copyright details
 //
 
-import path from 'node:path';
-import {Stats} from 'node:fs';
+import path from "node:path";
+import {Stats} from "node:fs";
 
-import chalk from 'chalk-template';
-import esMain from 'es-main';
-import fs from 'fs-extra';
-import yargs from 'yargs';
-import {hideBin} from 'yargs/helpers';
-import {CompatData} from '@mdn/browser-compat-data/types';
+import chalk from "chalk-template";
+import esMain from "es-main";
+import fs from "fs-extra";
+import yargs from "yargs";
+import {hideBin} from "yargs/helpers";
+import {CompatData} from "@mdn/browser-compat-data/types";
 
-import {Report} from '../types/types.js';
-import {BCD_DIR} from '../lib/constants.js';
-import {parseUA} from '../lib/ua-parser.js';
-import {findMissing} from './find-missing-features.js';
+import {Report} from "../types/types.js";
+import {BCD_DIR} from "../lib/constants.js";
+import {parseUA} from "../lib/ua-parser.js";
+import {findMissing} from "./find-missing-features.js";
 
 const {default: bcd}: {default: CompatData} = await import(
   `${BCD_DIR}/index.js`
 );
 
 const tests = Object.keys(
-  await fs.readJson(new URL('../tests.json', import.meta.url)),
+  await fs.readJson(new URL("../tests.json", import.meta.url)),
 );
 
-const statuses = {Supported: 'green', Unsupported: 'red', Unknown: 'yellow'};
+const statuses = {Supported: "green", Unsupported: "red", Unknown: "yellow"};
 
 const dedupeArray = (array: Array<any>): Array<any> => {
   return array.filter((item, index) => array.indexOf(item) === index);
@@ -57,7 +57,7 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   }
 
   // Check if file is a file and ends in .json
-  if (!(fsStats.isFile() && path.extname(file) === '.json')) {
+  if (!(fsStats.isFile() && path.extname(file) === ".json")) {
     console.error(chalk`{red File {bold ${file}} is not a JSON file!}`);
     return;
   }
@@ -73,7 +73,7 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   }
 
   // Check to make sure it's a valid report file
-  if (!('__version' in data && 'results' in data && 'userAgent' in data)) {
+  if (!("__version" in data && "results" in data && "userAgent" in data)) {
     console.error(
       chalk`{red File {bold ${file}} does not seem to be a collector report file!  Expected "__version", "results" and "userAgent" keys.}`,
     );
@@ -106,10 +106,10 @@ const getStats = (data: Report, featureQuery: string[]): any => {
         .map((r) => ({
           ...r,
           status: r.result
-            ? 'Supported'
+            ? "Supported"
             : r.result === false
-            ? 'Unsupported'
-            : 'Unknown',
+            ? "Unsupported"
+            : "Unknown",
         }));
       featuresQueried.push(
         ...featuresFound.sort((a, b) => a.name.localeCompare(b.name)),
@@ -151,7 +151,7 @@ const printStats = (stats: any, verboseNull: boolean): void => {
   }
 
   console.log(
-    chalk`{bold URLs Run:}\n${stats.urls.map((u) => ` - ${u}`).join('\n')}`,
+    chalk`{bold URLs Run:}\n${stats.urls.map((u) => ` - ${u}`).join("\n")}`,
   );
 
   const totalTests = stats.testResults.total;
@@ -187,18 +187,18 @@ const printStats = (stats: any, verboseNull: boolean): void => {
   );
 
   if (stats.featuresQueried.length) {
-    console.log('Feature Query:');
+    console.log("Feature Query:");
     for (const feature of stats.featuresQueried) {
       console.log(
         chalk` - ${feature.name} ({bold ${feature.exposure}} exposure): {${
-          statuses[feature.status] || 'bold'
+          statuses[feature.status] || "bold"
         } ${feature.status}}` +
-          (feature.message ? ` - ${feature.message}` : ''),
+          (feature.message ? ` - ${feature.message}` : ""),
       );
     }
   }
 
-  console.log('\n');
+  console.log("\n");
 };
 
 const main = async (
@@ -220,26 +220,26 @@ const main = async (
 /* c8 ignore start */
 if (esMain(import.meta)) {
   const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
-    '$0 <files..>',
-    '',
+    "$0 <files..>",
+    "",
     (yargs) => {
       yargs
-        .positional('files', {
-          describe: 'The report file(s) to generate statistics for',
-          type: 'string',
+        .positional("files", {
+          describe: "The report file(s) to generate statistics for",
+          type: "string",
           array: true,
         })
-        .option('feature', {
-          alias: 'f',
-          describe: 'A specific feature identifier to query support for',
-          type: 'string',
+        .option("feature", {
+          alias: "f",
+          describe: "A specific feature identifier to query support for",
+          type: "string",
           array: true,
         })
-        .option('null', {
-          alias: 'n',
+        .option("null", {
+          alias: "n",
           describe:
-            'Enable this flag to print the list of features with unknown support',
-          type: 'boolean',
+            "Enable this flag to print the list of features with unknown support",
+          type: "boolean",
         });
     },
   );

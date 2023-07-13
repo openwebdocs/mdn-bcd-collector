@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import {getCustomTest, compileTest} from './common.js';
+import {getCustomTest, compileTest} from "./common.js";
 
 const build = async (specCSS, customCSS) => {
   const properties = new Map();
@@ -18,9 +18,9 @@ const build = async (specCSS, customCSS) => {
   }
 
   for (const [name, data] of Object.entries(customCSS.properties) as any[]) {
-    const values = '__values' in data ? data['__values'] : [];
+    const values = "__values" in data ? data["__values"] : [];
     const additionalValues =
-      '__additional_values' in data ? data['__additional_values'] : {};
+      "__additional_values" in data ? data["__additional_values"] : {};
 
     const mergedValues = new Map(Object.entries(additionalValues));
     for (const value of values) {
@@ -41,12 +41,12 @@ const build = async (specCSS, customCSS) => {
 
   for (const name of Array.from(properties.keys()).sort()) {
     const ident = `css.properties.${name}`;
-    const customTest = await getCustomTest(ident, 'css.properties', true);
+    const customTest = await getCustomTest(ident, "css.properties", true);
 
     // Test for the property itself
     tests[ident] = compileTest({
       raw: {code: customTest.test || `bcd.testCSSProperty("${name}")`},
-      exposure: ['Window'],
+      exposure: ["Window"],
     });
 
     // Tests for values
@@ -56,16 +56,16 @@ const build = async (specCSS, customCSS) => {
       const valueIdent = `${ident}.${key}`;
       const customValueTest = await getCustomTest(
         valueIdent,
-        'css.properties',
+        "css.properties",
         true,
       );
       const values = Array.isArray(value) ? value : [value];
       const code = values
         .map((value) => `bcd.testCSSProperty("${name}", "${value}")`)
-        .join(' && ');
+        .join(" && ");
       tests[valueIdent] = compileTest({
         raw: {code: customValueTest.test || code},
-        exposure: ['Window'],
+        exposure: ["Window"],
       });
     }
 
@@ -73,7 +73,7 @@ const build = async (specCSS, customCSS) => {
     for (const [key, code] of Object.entries(customTest.additional)) {
       tests[`${ident}.${key}`] = compileTest({
         raw: {code: code},
-        exposure: ['Window'],
+        exposure: ["Window"],
       });
     }
   }

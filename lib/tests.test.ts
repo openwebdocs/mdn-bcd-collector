@@ -6,56 +6,56 @@
 // See the LICENSE file for copyright details
 //
 
-import {assert} from 'chai';
+import {assert} from "chai";
 
-import Tests from './tests.js';
+import Tests from "./tests.js";
 
 const testDatabase = {
-  'api.AbortController': {
+  "api.AbortController": {
     code: '"AbortController" in self',
-    exposure: ['Window', 'Worker', 'ServiceWorker'],
+    exposure: ["Window", "Worker", "ServiceWorker"],
   },
-  'api.AbortController.signal': {
+  "api.AbortController.signal": {
     code: '"AbortController" in self && "signal" in AbortController.prototype',
-    resources: ['audio-blip'],
-    exposure: ['Window', 'Worker'],
+    resources: ["audio-blip"],
+    exposure: ["Window", "Worker"],
   },
-  'css.properties.font-family': {
+  "css.properties.font-family": {
     code: '"fontFamily" in document.body.style || "font-family" in document.body.style',
-    exposure: ['Window'],
+    exposure: ["Window"],
   },
-  'javascript.builtins.array': {
-    code: '[1, 2, 3]',
-    exposure: ['JavaScript'],
+  "javascript.builtins.array": {
+    code: "[1, 2, 3]",
+    exposure: ["JavaScript"],
   },
 };
 
-describe('Tests', () => {
+describe("Tests", () => {
   const tests = new Tests({
     tests: testDatabase,
-    host: 'host.test',
+    host: "host.test",
   });
 
-  it('buildEndpoints', () => {
+  it("buildEndpoints", () => {
     const expectedEndpoints = {
-      '': [
-        'api.AbortController',
-        'api.AbortController.signal',
-        'css.properties.font-family',
-        'javascript.builtins.array',
+      "": [
+        "api.AbortController",
+        "api.AbortController.signal",
+        "css.properties.font-family",
+        "javascript.builtins.array",
       ],
-      api: ['api.AbortController', 'api.AbortController.signal'],
-      'api.AbortController': [
-        'api.AbortController',
-        'api.AbortController.signal',
+      api: ["api.AbortController", "api.AbortController.signal"],
+      "api.AbortController": [
+        "api.AbortController",
+        "api.AbortController.signal",
       ],
-      'api.AbortController.signal': ['api.AbortController.signal'],
-      css: ['css.properties.font-family'],
-      'css.properties': ['css.properties.font-family'],
-      'css.properties.font-family': ['css.properties.font-family'],
-      javascript: ['javascript.builtins.array'],
-      'javascript.builtins': ['javascript.builtins.array'],
-      'javascript.builtins.array': ['javascript.builtins.array'],
+      "api.AbortController.signal": ["api.AbortController.signal"],
+      css: ["css.properties.font-family"],
+      "css.properties": ["css.properties.font-family"],
+      "css.properties.font-family": ["css.properties.font-family"],
+      javascript: ["javascript.builtins.array"],
+      "javascript.builtins": ["javascript.builtins.array"],
+      "javascript.builtins.array": ["javascript.builtins.array"],
     };
 
     const endpoints = tests.buildEndpoints();
@@ -63,95 +63,95 @@ describe('Tests', () => {
     assert.deepEqual(endpoints, expectedEndpoints);
   });
 
-  it('listEndpoints', () => {
+  it("listEndpoints", () => {
     assert.deepEqual(tests.listEndpoints(), [
-      '',
-      'api',
-      'api.AbortController',
-      'api.AbortController.signal',
-      'css',
-      'css.properties',
-      'css.properties.font-family',
-      'javascript',
-      'javascript.builtins',
-      'javascript.builtins.array',
+      "",
+      "api",
+      "api.AbortController",
+      "api.AbortController.signal",
+      "css",
+      "css.properties",
+      "css.properties.font-family",
+      "javascript",
+      "javascript.builtins",
+      "javascript.builtins.array",
     ]);
   });
 
-  describe('getTests', () => {
-    it('individual endpoint', () => {
-      assert.deepEqual(tests.getTests('api.AbortController'), [
+  describe("getTests", () => {
+    it("individual endpoint", () => {
+      assert.deepEqual(tests.getTests("api.AbortController"), [
         {
-          ident: 'api.AbortController',
+          ident: "api.AbortController",
           tests: [{code: '"AbortController" in self'}],
-          exposure: 'Window',
+          exposure: "Window",
           resources: [],
         },
         {
-          ident: 'api.AbortController',
+          ident: "api.AbortController",
           tests: [{code: '"AbortController" in self'}],
-          exposure: 'Worker',
+          exposure: "Worker",
           resources: [],
         },
         {
-          ident: 'api.AbortController',
+          ident: "api.AbortController",
           tests: [{code: '"AbortController" in self'}],
-          exposure: 'ServiceWorker',
+          exposure: "ServiceWorker",
           resources: [],
         },
         {
-          ident: 'api.AbortController.signal',
+          ident: "api.AbortController.signal",
           tests: [
             {
               code: '"AbortController" in self && "signal" in AbortController.prototype',
             },
           ],
-          exposure: 'Window',
-          resources: ['audio-blip'],
+          exposure: "Window",
+          resources: ["audio-blip"],
         },
         {
-          ident: 'api.AbortController.signal',
+          ident: "api.AbortController.signal",
           tests: [
             {
               code: '"AbortController" in self && "signal" in AbortController.prototype',
             },
           ],
-          exposure: 'Worker',
-          resources: ['audio-blip'],
+          exposure: "Worker",
+          resources: ["audio-blip"],
         },
       ]);
     });
 
-    it('limited scope', () => {
-      assert.deepEqual(tests.getTests('api.AbortController', 'Window'), [
+    it("limited scope", () => {
+      assert.deepEqual(tests.getTests("api.AbortController", "Window"), [
         {
-          ident: 'api.AbortController',
+          ident: "api.AbortController",
           tests: [{code: '"AbortController" in self'}],
-          exposure: 'Window',
+          exposure: "Window",
           resources: [],
         },
         {
-          ident: 'api.AbortController.signal',
+          ident: "api.AbortController.signal",
           tests: [
             {
               code: '"AbortController" in self && "signal" in AbortController.prototype',
             },
           ],
-          exposure: 'Window',
-          resources: ['audio-blip'],
+          exposure: "Window",
+          resources: ["audio-blip"],
         },
       ]);
     });
 
-    it('filtering out ignored tests', () => {
+    it("filtering out ignored tests", () => {
       // Filter out a single test.
       assert.deepEqual(
-        tests.getTests('api', 'Window', ['api.AbortController.signal']),
+        tests.getTests("api", "Window", ["api.AbortController.signal"]),
         [
           {
-            ident: 'api.AbortController',
+            ident: "api.AbortController",
             tests: [{code: '"AbortController" in self'}],
-            exposure: 'Window',
+            exposure: "Window",
             resources: [],
           },
         ],
@@ -159,27 +159,27 @@ describe('Tests', () => {
 
       // Filter out a tests recursively.
       assert.deepEqual(
-        tests.getTests('api', 'Window', ['api.AbortController']),
+        tests.getTests("api", "Window", ["api.AbortController"]),
         [],
       );
 
       // Matching prefix does not ignore a test.
-      assert.deepEqual(tests.getTests('api', 'Window', ['api.Abort']), [
+      assert.deepEqual(tests.getTests("api", "Window", ["api.Abort"]), [
         {
-          ident: 'api.AbortController',
+          ident: "api.AbortController",
           tests: [{code: '"AbortController" in self'}],
-          exposure: 'Window',
+          exposure: "Window",
           resources: [],
         },
         {
-          ident: 'api.AbortController.signal',
+          ident: "api.AbortController.signal",
           tests: [
             {
               code: '"AbortController" in self && "signal" in AbortController.prototype',
             },
           ],
-          exposure: 'Window',
-          resources: ['audio-blip'],
+          exposure: "Window",
+          resources: ["audio-blip"],
         },
       ]);
     });

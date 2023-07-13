@@ -6,24 +6,24 @@
 // See the LICENSE file for copyright details
 //
 
-import fs from 'fs-extra';
-import prettier from 'prettier';
-import * as YAML from 'yaml';
+import fs from "fs-extra";
+import prettier from "prettier";
+import * as YAML from "yaml";
 
-import replaceAsync from '../lib/replace-async.js';
+import replaceAsync from "../lib/replace-async.js";
 
-import type {Test, RawTest} from '../types/types.js';
+import type {Test, RawTest} from "../types/types.js";
 
 /* c8 ignore start */
 export const customTests = YAML.parse(
   await fs.readFile(
     new URL(
-      process.env.NODE_ENV === 'test'
-        ? '../unittest/custom-tests.test.yaml'
-        : '../custom/tests.yaml',
+      process.env.NODE_ENV === "test"
+        ? "../unittest/custom-tests.test.yaml"
+        : "../custom/tests.yaml",
       import.meta.url,
     ),
-    'utf8',
+    "utf8",
   ),
 );
 /* c8 ignore stop */
@@ -56,7 +56,7 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
     __additional: {},
   };
 
-  const parts = name.split('.');
+  const parts = name.split(".");
 
   const data = customTestData[parts[0]];
 
@@ -65,7 +65,7 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
     return result;
   }
 
-  if (typeof data === 'string') {
+  if (typeof data === "string") {
     if (parts.length > 1) {
       // We can't search deeper if the test is a simple string, so stop here
       return result;
@@ -85,11 +85,11 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
 
   if (parts.length > 1) {
     // We've still got to look through the data
-    const subdata = getCustomTestData(parts.slice(1).join('.'), data);
+    const subdata = getCustomTestData(parts.slice(1).join("."), data);
 
     if (subdata.__base) {
       result.__base =
-        (result.__base ? result.__base + '\n' : '') + subdata.__base;
+        (result.__base ? result.__base + "\n" : "") + subdata.__base;
     }
 
     result.__test = subdata.__test;
@@ -119,12 +119,12 @@ const generateCustomTestCode = async (
       return false;
     }
 
-    const promise = data.__base.includes('var promise');
+    const promise = data.__base.includes("var promise");
     const callback =
       data.__base.match(/callback([(),])/g) ||
-      data.__base.includes(':callback%>');
+      data.__base.includes(":callback%>");
 
-    const parts = name.replace(`${category}.`, '').split('.');
+    const parts = name.replace(`${category}.`, "").split(".");
 
     if (parts.length > 2) {
       // Grandchildren features must have an exact test match
@@ -133,20 +133,20 @@ const generateCustomTestCode = async (
       return false;
     }
 
-    const member = parts.length > 1 ? parts[1] : '';
+    const member = parts.length > 1 ? parts[1] : "";
 
     if (member === parts[0]) {
       // Constructors must have an exact test match
       return false;
     }
 
-    let returnValue = '!!instance';
+    let returnValue = "!!instance";
     if (member) {
-      if (member.includes('@@')) {
+      if (member.includes("@@")) {
         // The member is a symbol
         returnValue = `!!instance && ${compileTestCode({
           property: member,
-          owner: 'instance',
+          owner: "instance",
         })}`;
       } else {
         returnValue = `!!instance && "${member}" in instance`;
@@ -172,7 +172,7 @@ const generateCustomTestCode = async (
       : `return ${returnValue};`;
   }
 
-  return await compileCustomTest((data.__base || '') + test);
+  return await compileCustomTest((data.__base || "") + test);
 };
 
 const getCustomTest = async (
@@ -263,14 +263,14 @@ const compileCustomTest = async (
       resources.push(...newResources, ...importedTest.__resources);
       const callback =
         importedCode.match(/callback([(),])/g) ||
-        importedCode.includes(':callback%>');
+        importedCode.includes(":callback%>");
 
       let response = importedCode
         .replace(/var (instance|promise)/g, `var ${instancevar}`)
         .replace(/callback([(),])/g, `${instancevar}$1`)
         .replace(/promise\.then/g, `${instancevar}.then`)
         .replace(/(instance|promise) = /g, `${instancevar} = `);
-      if (!(['instance', 'promise'].includes(instancevar) || callback)) {
+      if (!(["instance", "promise"].includes(instancevar) || callback)) {
         response += `\n  if (!${instancevar}) {\n    return {result: false, message: '${instancevar} is falsy'};\n  }`;
       }
       return response;
@@ -283,7 +283,7 @@ const compileCustomTest = async (
 
     try {
       // Use Prettier to format code
-      code = await prettier.format(code, {parser: 'babel'});
+      code = await prettier.format(code, {parser: "babel"});
     } catch (e) {
       if (e instanceof SyntaxError) {
         const errorMsg = `Test is malformed: ${e.message}`;
@@ -303,7 +303,7 @@ const compileCustomTest = async (
 };
 
 const compileTestCode = (test: any): string => {
-  if (typeof test === 'string') {
+  if (typeof test === "string") {
     return test;
   }
 
@@ -312,41 +312,41 @@ const compileTestCode = (test: any): string => {
     return parts.join(` && `);
   }
 
-  const property = test.property.replace(/((Symbol|constructor)\.|@@)/, '');
+  const property = test.property.replace(/((Symbol|constructor)\.|@@)/, "");
 
-  if (test.property.startsWith('constructor')) {
+  if (test.property.startsWith("constructor")) {
     return `bcd.testConstructor("${property}");`;
   }
-  if (test.property.startsWith('Symbol.') || test.property.startsWith('@@')) {
-    if (test.owner === 'instance') {
+  if (test.property.startsWith("Symbol.") || test.property.startsWith("@@")) {
+    if (test.owner === "instance") {
       return `"Symbol" in self && "${property}" in Symbol && !!(${test.owner}[Symbol.${property}])`;
     }
     return `"Symbol" in self && "${property}" in Symbol && "${test.owner.replace(
-      '.prototype',
-      '',
+      ".prototype",
+      "",
     )}" in self && !!(${test.owner}[Symbol.${property}])`;
   }
   if (test.inherit) {
-    if (test.owner === 'self') {
+    if (test.owner === "self") {
       return `self.hasOwnProperty("${property}")`;
     }
     return `"${test.owner.replace(
-      '.prototype',
-      '',
+      ".prototype",
+      "",
     )}" in self && Object.prototype.hasOwnProperty.call(${
       test.owner
     }, "${property}")`;
   }
   if (
-    test.owner === 'self' ||
-    test.owner === 'document.body.style' ||
+    test.owner === "self" ||
+    test.owner === "document.body.style" ||
     test.skipOwnerCheck
   ) {
     return `"${property}" in ${test.owner}`;
   }
   return `"${test.owner.replace(
-    '.prototype',
-    '',
+    ".prototype",
+    "",
   )}" in self && "${property}" in ${test.owner}`;
 };
 
@@ -354,7 +354,7 @@ const compileTest = (test: RawTest): Test => {
   let code;
   if (Array.isArray(test.raw.code)) {
     const parts = test.raw.code.map(compileTestCode);
-    code = parts.join(` ${test.raw.combinator || '&&'} `);
+    code = parts.join(` ${test.raw.combinator || "&&"} `);
   } else {
     code = compileTestCode(test.raw.code);
   }

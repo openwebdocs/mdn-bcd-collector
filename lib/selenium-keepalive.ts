@@ -6,13 +6,13 @@
 // See the LICENSE file for copyright details
 //
 
-import http from 'node:http';
-import https from 'node:https';
+import http from "node:http";
+import https from "node:https";
 
 // set the time (in seconds) for connection to be alive
 const keepAliveTimeout = 30 * 1000;
 
-if (http.globalAgent && 'keepAlive' in http.globalAgent) {
+if (http.globalAgent && "keepAlive" in http.globalAgent) {
   (http.globalAgent as any).keepAlive = true;
   (https.globalAgent as any).keepAlive = true;
   (http.globalAgent as any).keepAliveMsecs = keepAliveTimeout;
@@ -32,11 +32,11 @@ if (http.globalAgent && 'keepAlive' in http.globalAgent) {
   const httpsRequest = https.request;
 
   http.request = (options, callback) => {
-    if (options.protocol == 'https:') {
-      options['agent'] = secureAgent;
+    if (options.protocol == "https:") {
+      options["agent"] = secureAgent;
       return httpsRequest(options, callback);
     }
-    options['agent'] = agent;
+    options["agent"] = agent;
     return httpRequest(options, callback);
   };
 }

@@ -6,21 +6,21 @@
 // See the LICENSE file for copyright details
 //
 
-import {Identifier} from '@mdn/browser-compat-data/types';
+import {Identifier} from "@mdn/browser-compat-data/types";
 
-import path from 'node:path';
-import {execSync} from 'node:child_process';
+import path from "node:path";
+import {execSync} from "node:child_process";
 
-import fs from 'fs-extra';
-import esMain from 'es-main';
+import fs from "fs-extra";
+import esMain from "es-main";
 
-import {BCD_DIR} from '../lib/constants.js';
-import {getMissing} from './find-missing-features.js';
-import {main as updateBcd} from './update-bcd.js';
+import {BCD_DIR} from "../lib/constants.js";
+import {getMissing} from "./find-missing-features.js";
+import {main as updateBcd} from "./update-bcd.js";
 
-const tests = await fs.readJson(new URL('../tests.json', import.meta.url));
+const tests = await fs.readJson(new URL("../tests.json", import.meta.url));
 const overrides = await fs.readJson(
-  new URL('../custom/overrides.json', import.meta.url),
+  new URL("../custom/overrides.json", import.meta.url),
 );
 
 const {default: bcd} = await import(`${BCD_DIR}/index.js`);
@@ -30,18 +30,18 @@ const template = {
   __compat: {
     support: {
       chrome: {version_added: null},
-      chrome_android: 'mirror',
-      edge: 'mirror',
+      chrome_android: "mirror",
+      edge: "mirror",
       firefox: {version_added: null},
-      firefox_android: 'mirror',
+      firefox_android: "mirror",
       ie: {version_added: false},
-      oculus: 'mirror',
-      opera: 'mirror',
-      opera_android: 'mirror',
+      oculus: "mirror",
+      opera: "mirror",
+      opera_android: "mirror",
       safari: {version_added: null},
-      safari_ios: 'mirror',
-      samsunginternet_android: 'mirror',
-      webview_android: 'mirror',
+      safari_ios: "mirror",
+      samsunginternet_android: "mirror",
+      webview_android: "mirror",
     },
     status: {experimental: true, standard_track: true, deprecated: false},
   },
@@ -75,26 +75,26 @@ export const getFilePath = (ident: string[]): string => {
   // Shorten or modify the path depending on the section of BCD. Make a copy
   // of ident so that it can be freely modified.
   let parts = ident.slice();
-  if (parts.length >= 2 && parts[0] === 'api') {
+  if (parts.length >= 2 && parts[0] === "api") {
     // Assume a global if it starts with a lower case character, otherwise
     // an interface with members.
     if (startsWithLowerCase(parts[1])) {
-      parts = [parts[0], '_globals', parts[1]];
+      parts = [parts[0], "_globals", parts[1]];
     } else {
       parts.length = 2;
     }
   } else if (
     parts.length >= 3 &&
-    ['css', 'html', 'svg', 'mathml'].includes(parts[0])
+    ["css", "html", "svg", "mathml"].includes(parts[0])
   ) {
     parts.length = 3;
   } else if (
     parts.length >= 3 &&
-    parts[0] === 'javascript' &&
-    parts[1] === 'builtins'
+    parts[0] === "javascript" &&
+    parts[1] === "builtins"
   ) {
     if (startsWithLowerCase(parts[2])) {
-      return 'javascript/builtins/globals.json';
+      return "javascript/builtins/globals.json";
     }
     // For cases that look like namespaces like Intl and WebAssembly there
     // should be an additional level or directory.
@@ -108,14 +108,14 @@ export const getFilePath = (ident: string[]): string => {
     } else {
       parts.length = 3;
     }
-  } else if (parts.length >= 2 && parts[0] === 'webassembly') {
+  } else if (parts.length >= 2 && parts[0] === "webassembly") {
     parts.length = 2;
   } else {
     throw new Error(
-      `Cannot determine file path from BCD path: ${ident.join('.')}`,
+      `Cannot determine file path from BCD path: ${ident.join(".")}`,
     );
   }
-  parts[parts.length - 1] += '.json';
+  parts[parts.length - 1] += ".json";
   return path.join(...parts);
 };
 
@@ -132,7 +132,7 @@ const writeFile = async (ident: string[], obj: any): Promise<void> => {
 
   await fs.writeJSON(
     filepath,
-    recursiveAdd(ident.concat(['__compat']), 0, data, obj.__compat),
+    recursiveAdd(ident.concat(["__compat"]), 0, data, obj.__compat),
     {spaces: 2, replacer: orderFeatures},
   );
 };
@@ -143,7 +143,7 @@ export const traverseFeatures = async (
   identifier: string[],
 ): Promise<any> => {
   for (const i in obj) {
-    if (!!obj[i] && typeof obj[i] == 'object' && i !== '__compat') {
+    if (!!obj[i] && typeof obj[i] == "object" && i !== "__compat") {
       const thisIdent = identifier.concat([i]);
       const support = obj[i]?.__compat?.support;
       if (support) {
@@ -166,9 +166,9 @@ export const traverseFeatures = async (
 export const collectMissing = async (filepath: string): Promise<void> => {
   const missing = {};
 
-  for (const entry of getMissing(bcd, tests, 'bcd-from-collector')
+  for (const entry of getMissing(bcd, tests, "bcd-from-collector")
     .missingEntries) {
-    recursiveAdd(entry.split('.'), 0, missing, template);
+    recursiveAdd(entry.split("."), 0, missing, template);
   }
 
   await fs.writeJSON(filepath, missing, {spaces: 2});
@@ -177,27 +177,27 @@ export const collectMissing = async (filepath: string): Promise<void> => {
 /* c8 ignore start */
 const main = async (): Promise<void> => {
   const filepath = path.resolve(
-    path.join(BCD_DIR, '__missing', '__missing.json'),
+    path.join(BCD_DIR, "__missing", "__missing.json"),
   );
 
-  console.log('Generating missing BCD...');
+  console.log("Generating missing BCD...");
   await collectMissing(filepath);
   await updateBcd(
-    ['../mdn-bcd-results/'],
+    ["../mdn-bcd-results/"],
     {addNewFeatures: true},
     bcd.browsers,
     overrides,
   );
 
-  console.log('Injecting BCD...');
+  console.log("Injecting BCD...");
   const data = await fs.readJSON(filepath);
   await traverseFeatures(data, []);
 
-  console.log('Cleaning up...');
+  console.log("Cleaning up...");
   await fs.remove(filepath);
-  execSync('npm run fix', {cwd: BCD_DIR});
+  execSync("npm run fix", {cwd: BCD_DIR});
 
-  console.log('Done!');
+  console.log("Done!");
 };
 
 if (esMain(import.meta)) {

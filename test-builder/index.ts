@@ -6,34 +6,34 @@
 // See the LICENSE file for copyright details
 //
 
-import esMain from 'es-main';
-import fs from 'fs-extra';
-import idl from '@webref/idl';
-import css from '@webref/css';
-import elements from '@webref/elements';
+import esMain from "es-main";
+import fs from "fs-extra";
+import idl from "@webref/idl";
+import css from "@webref/css";
+import elements from "@webref/elements";
 
-import customIDL from '../custom/idl/index.js';
+import customIDL from "../custom/idl/index.js";
 
-import {build as buildAPI} from './api.js';
-import {build as buildCSS} from './css.js';
-import {build as buildElements} from './elements.js';
-import {build as buildJS} from './javascript.js';
-import {build as buildWasm} from './webassembly.js';
-import {customTests} from './common.js';
+import {build as buildAPI} from "./api.js";
+import {build as buildCSS} from "./css.js";
+import {build as buildElements} from "./elements.js";
+import {build as buildJS} from "./javascript.js";
+import {build as buildWasm} from "./webassembly.js";
+import {customTests} from "./common.js";
 
-import type {IDLFiles} from '../types/types.js';
+import type {IDLFiles} from "../types/types.js";
 
 const customCSS = await fs.readJson(
-  new URL('../custom/css.json', import.meta.url),
+  new URL("../custom/css.json", import.meta.url),
 );
 const customElements = await fs.readJson(
-  new URL('../custom/elements.json', import.meta.url),
+  new URL("../custom/elements.json", import.meta.url),
 );
 const customJS = await fs.readJson(
-  new URL('../custom/js.json', import.meta.url),
+  new URL("../custom/js.json", import.meta.url),
 );
 const customWasm = await fs.readJson(
-  new URL('../custom/wasm.json', import.meta.url),
+  new URL("../custom/wasm.json", import.meta.url),
 );
 
 /* c8 ignore start */
@@ -51,7 +51,7 @@ const build = async (customIDL: IDLFiles, customCSS) => {
     await buildWasm(customWasm),
   );
 
-  await fs.writeJson(new URL('../tests.json', import.meta.url), tests);
+  await fs.writeJson(new URL("../tests.json", import.meta.url), tests);
 };
 
 if (esMain(import.meta)) {

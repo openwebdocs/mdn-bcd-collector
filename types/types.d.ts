@@ -6,25 +6,25 @@
 // See the LICENSE file for copyright details
 //
 
-import {BrowserName} from '@mdn/browser-compat-data/types';
-import type * as WebIDL2 from 'webidl2';
+import {BrowserName} from "@mdn/browser-compat-data/types";
+import type * as WebIDL2 from "webidl2";
 
-export type InternalSupportStatement = SupportStatement | 'mirror';
+export type InternalSupportStatement = SupportStatement | "mirror";
 
 export type Exposure =
-  | 'Window'
-  | 'Worker'
-  | 'SharedWorker'
-  | 'ServiceWorker'
-  | 'WebAssembly';
+  | "Window"
+  | "Worker"
+  | "SharedWorker"
+  | "ServiceWorker"
+  | "WebAssembly";
 
 export type Resource =
   | {
-      type: 'instance';
+      type: "instance";
       src: string;
     }
   | {
-      type: 'audio' | 'video';
+      type: "audio" | "video";
       src: string[];
       subtitles?: {
         label: string;
@@ -33,7 +33,7 @@ export type Resource =
       };
     }
   | {
-      type: 'image';
+      type: "image";
       src: string;
     };
 

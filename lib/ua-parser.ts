@@ -9,15 +9,15 @@
 import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
-} from 'compare-versions';
-import uaParser from 'ua-parser-js';
+} from "compare-versions";
+import uaParser from "ua-parser-js";
 
 const getMajorVersion = (version) => {
-  return version.split('.')[0];
+  return version.split(".")[0];
 };
 
 const getMajorMinorVersion = (version) => {
-  const [major, minor] = version.split('.');
+  const [major, minor] = version.split(".");
   return `${major}.${minor || 0}`;
 };
 
@@ -30,10 +30,10 @@ const parseUA = (userAgent, browsers) => {
     os: {name: string; version: string};
     inBcd: boolean | undefined;
   } = {
-    browser: {id: '', name: ''},
-    version: '',
-    fullVersion: '',
-    os: {name: '', version: ''},
+    browser: {id: "", name: ""},
+    version: "",
+    fullVersion: "",
+    os: {name: "", version: ""},
     inBcd: undefined,
   };
 
@@ -41,41 +41,41 @@ const parseUA = (userAgent, browsers) => {
     return data;
   }
 
-  data.browser.id = ua.browser.name.toLowerCase().replace(/ /g, '_');
+  data.browser.id = ua.browser.name.toLowerCase().replace(/ /g, "_");
   data.browser.name = ua.browser.name;
-  data.os.name = ua.os.name || '';
-  data.os.version = ua.os.version || '';
+  data.os.name = ua.os.name || "";
+  data.os.version = ua.os.version || "";
 
   switch (data.browser.id) {
-    case 'mobile_safari':
-      data.browser.id = 'safari';
+    case "mobile_safari":
+      data.browser.id = "safari";
       break;
-    case 'oculus_browser':
-      data.browser.id = 'oculus';
+    case "oculus_browser":
+      data.browser.id = "oculus";
       break;
-    case 'samsung_browser':
-      data.browser.id = 'samsunginternet';
+    case "samsung_browser":
+      data.browser.id = "samsunginternet";
       break;
-    case 'android_browser':
-    case 'chrome_webview':
-      data.browser.id = 'webview';
+    case "android_browser":
+    case "chrome_webview":
+      data.browser.id = "webview";
       break;
   }
 
   const os = data.os.name.toLowerCase();
-  if (os === 'android' && data.browser.id !== 'oculus') {
-    data.browser.id += '_android';
-    data.browser.name += ' Android';
+  if (os === "android" && data.browser.id !== "oculus") {
+    data.browser.id += "_android";
+    data.browser.name += " Android";
 
-    if (ua.browser.name === 'Android Browser') {
+    if (ua.browser.name === "Android Browser") {
       // For early WebView Android, use the OS version
-      data.fullVersion = compareVersions(ua.os.version, '5.0', '<')
+      data.fullVersion = compareVersions(ua.os.version, "5.0", "<")
         ? ua.os.version
         : ua.engine.version;
     }
-  } else if (os === 'ios') {
-    data.browser.id += '_ios';
-    data.browser.name += ' iOS';
+  } else if (os === "ios") {
+    data.browser.id += "_ios";
+    data.browser.name += " iOS";
 
     // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines.md#safari-for-ios-versioning
     data.fullVersion = ua.os.version;
@@ -98,11 +98,11 @@ const parseUA = (userAgent, browsers) => {
   // differs from 4.4, and the code below will strip out the patch versions from
   // our version numbers.
   if (
-    data.browser.id === 'webview_android' &&
-    compareVersions(data.fullVersion, '4.4.3', '>=') &&
-    compareVersions(data.fullVersion, '5.0', '<')
+    data.browser.id === "webview_android" &&
+    compareVersions(data.fullVersion, "4.4.3", ">=") &&
+    compareVersions(data.fullVersion, "5.0", "<")
   ) {
-    data.version = '4.4.3';
+    data.version = "4.4.3";
     data.inBcd = true;
     return data;
   }
@@ -111,8 +111,8 @@ const parseUA = (userAgent, browsers) => {
   // features, particularly ones involving OS integration. We are explicitly
   // marking these versions as "not in BCD" to avoid confusion.
   if (
-    data.browser.id === 'safari' &&
-    ['4.1', '6.1', '6.2', '7.1'].includes(data.version)
+    data.browser.id === "safari" &&
+    ["4.1", "6.1", "6.2", "7.1"].includes(data.version)
   ) {
     return data;
   }
@@ -126,8 +126,8 @@ const parseUA = (userAgent, browsers) => {
     const current = versions[i];
     const next = versions[i + 1];
     if (
-      compareVersions(data.version, current, '>=') &&
-      compareVersions(data.version, next, '<')
+      compareVersions(data.version, current, ">=") &&
+      compareVersions(data.version, next, "<")
     ) {
       data.inBcd = true;
       data.version = current;
@@ -141,8 +141,8 @@ const parseUA = (userAgent, browsers) => {
   // major and minor version are significant.
   let normalize = getMajorVersion;
   if (
-    data.browser.id.startsWith('safari') ||
-    data.browser.id === 'samsunginternet_android'
+    data.browser.id.startsWith("safari") ||
+    data.browser.id === "samsunginternet_android"
   ) {
     normalize = getMajorMinorVersion;
   }

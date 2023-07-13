@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import {compileTest} from './common.js';
+import {compileTest} from "./common.js";
 
 const build = async (customWasm) => {
   const features = Object.entries(customWasm.features) as any[];
@@ -16,9 +16,9 @@ const build = async (customWasm) => {
     tests[`webassembly.${feature}`] = compileTest({
       raw: {
         // 'wfd-key' stands for 'wasm-feature-detect key'
-        code: `bcd.testWasmFeature('${details['wfd-key']}')`,
+        code: `bcd.testWasmFeature('${details["wfd-key"]}')`,
       },
-      exposure: ['WebAssembly'],
+      exposure: ["WebAssembly"],
     });
   }
   return tests;

@@ -6,39 +6,39 @@
 // See the LICENSE file for copyright details
 //
 
-import chai, {assert} from 'chai';
-import chaiSubset from 'chai-subset';
+import chai, {assert} from "chai";
+import chaiSubset from "chai-subset";
 chai.use(chaiSubset);
 
-import {build} from './javascript.js';
+import {build} from "./javascript.js";
 
-describe('build (JavaScript)', () => {
-  it('build', async () => {
+describe("build (JavaScript)", () => {
+  it("build", async () => {
     const customJS = {
       builtins: {
         AggregateError: {
           ctor_args: "[new Error('message')]",
         },
         Array: {
-          ctor_args: '2',
+          ctor_args: "2",
         },
-        'Array.prototype.at': {},
-        'Array.prototype.@@iterator': {},
-        'Array.@@species': {},
+        "Array.prototype.at": {},
+        "Array.prototype.@@iterator": {},
+        "Array.@@species": {},
         Atomics: {},
-        'Atomics.add': {},
+        "Atomics.add": {},
         BigInt: {
-          ctor_args: '1',
+          ctor_args: "1",
           ctor_new: false,
         },
       },
     };
     assert.deepEqual(await build(customJS), {
-      'javascript.builtins.AggregateError': {
+      "javascript.builtins.AggregateError": {
         code: '"AggregateError" in self',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.AggregateError.AggregateError': {
+      "javascript.builtins.AggregateError.AggregateError": {
         code: `(function () {
   if (!("AggregateError" in self)) {
     return { result: false, message: "AggregateError is not defined" };
@@ -46,21 +46,21 @@ describe('build (JavaScript)', () => {
   return bcd.testConstructor("AggregateError");
 })();
 `,
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array': {
+      "javascript.builtins.Array": {
         code: '"Array" in self',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array.@@iterator': {
+      "javascript.builtins.Array.@@iterator": {
         code: '"Symbol" in self && "iterator" in Symbol && "Array" in self && !!(Array.prototype[Symbol.iterator])',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array.@@species': {
+      "javascript.builtins.Array.@@species": {
         code: '"Symbol" in self && "species" in Symbol && "Array" in self && !!(Array[Symbol.species])',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array.Array': {
+      "javascript.builtins.Array.Array": {
         code: `(function () {
   if (!("Array" in self)) {
     return { result: false, message: "Array is not defined" };
@@ -68,25 +68,25 @@ describe('build (JavaScript)', () => {
   return bcd.testConstructor("Array");
 })();
 `,
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Array.at': {
+      "javascript.builtins.Array.at": {
         code: '"Array" in self && "at" in Array.prototype',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Atomics': {
+      "javascript.builtins.Atomics": {
         code: '"Atomics" in self',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.Atomics.add': {
+      "javascript.builtins.Atomics.add": {
         code: '"Atomics" in self && "add" in Atomics',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.BigInt': {
+      "javascript.builtins.BigInt": {
         code: '"BigInt" in self',
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
-      'javascript.builtins.BigInt.BigInt': {
+      "javascript.builtins.BigInt.BigInt": {
         code: `(function () {
   if (!("BigInt" in self)) {
     return { result: false, message: "BigInt is not defined" };
@@ -95,7 +95,7 @@ describe('build (JavaScript)', () => {
   return !!instance;
 })();
 `,
-        exposure: ['Window'],
+        exposure: ["Window"],
       },
     });
   });

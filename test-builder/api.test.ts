@@ -6,11 +6,11 @@
 // See the LICENSE file for copyright details
 //
 
-import chai, {assert} from 'chai';
-import chaiSubset from 'chai-subset';
+import chai, {assert} from "chai";
+import chaiSubset from "chai-subset";
 chai.use(chaiSubset);
 
-import * as WebIDL2 from 'webidl2';
+import * as WebIDL2 from "webidl2";
 // import sinon from 'sinon';
 
 import {
@@ -19,10 +19,10 @@ import {
   validateIDL,
   buildIDLTests,
   build,
-} from './api.js';
+} from "./api.js";
 
-describe('build (API)', () => {
-  it('build', async () => {
+describe("build (API)", () => {
+  it("build", async () => {
     const specIDLs = {
       first: WebIDL2.parse(
         `[Global=Window, Exposed=Window] interface Window {};
@@ -38,16 +38,16 @@ describe('build (API)', () => {
     };
 
     const tests = await build(specIDLs, customIDLs);
-    assert.containsAllKeys(tests, ['api.XSLTProcessor.reset']);
+    assert.containsAllKeys(tests, ["api.XSLTProcessor.reset"]);
   });
 
-  describe('flattenIDL', () => {
+  describe("flattenIDL", () => {
     const customIDLs = {
       first: WebIDL2.parse(`[Exposed=Window] interface DOMError {};`),
       second: WebIDL2.parse(`[Exposed=Window] interface XSLTProcessor {};`),
     };
 
-    it('interface + mixin', () => {
+    it("interface + mixin", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=Window]
@@ -67,26 +67,26 @@ describe('build (API)', () => {
       const {ast} = flattenIDL(specIDLs, customIDLs);
 
       const interfaces = ast.filter(
-        (dfn) => dfn.type === 'interface',
+        (dfn) => dfn.type === "interface",
       ) as WebIDL2.InterfaceType[];
       assert.lengthOf(interfaces, 3);
 
-      assert.equal(interfaces[0].name, 'DummyError');
+      assert.equal(interfaces[0].name, "DummyError");
       assert.lengthOf(interfaces[0].members, 2);
       (assert as any).containSubset(interfaces[0].members[0], {
-        type: 'attribute',
-        name: 'imadumdum',
+        type: "attribute",
+        name: "imadumdum",
       });
       (assert as any).containSubset(interfaces[0].members[1], {
-        type: 'operation',
-        name: 'geterror',
+        type: "operation",
+        name: "geterror",
       });
 
-      assert.equal(interfaces[1].name, 'DOMError');
-      assert.equal(interfaces[2].name, 'XSLTProcessor');
+      assert.equal(interfaces[1].name, "DOMError");
+      assert.equal(interfaces[2].name, "XSLTProcessor");
     });
 
-    it('namespace + partial namespace', () => {
+    it("namespace + partial namespace", () => {
       const specIDLs = {
         cssom: WebIDL2.parse(
           `[Exposed=Window]
@@ -103,26 +103,26 @@ describe('build (API)', () => {
       const {ast} = flattenIDL(specIDLs, customIDLs);
 
       const namespaces = ast.filter(
-        (dfn) => dfn.type === 'namespace',
+        (dfn) => dfn.type === "namespace",
       ) as WebIDL2.NamespaceType[];
       assert.lengthOf(namespaces, 1);
       const [namespace] = namespaces;
-      assert.equal(namespace.name, 'CSS');
+      assert.equal(namespace.name, "CSS");
       assert.lengthOf(namespace.members, 2);
       (assert as any).containSubset(namespace.members[0], {
-        type: 'operation',
-        name: 'supports',
+        type: "operation",
+        name: "supports",
       });
       (assert as any).containSubset(namespace.members[1], {
-        type: 'attribute',
-        name: 'paintWorklet',
+        type: "attribute",
+        name: "paintWorklet",
       });
 
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       assert.lengthOf(interfaces, 2);
     });
 
-    it('WindowOrWorkerGlobalScope remains separate', () => {
+    it("WindowOrWorkerGlobalScope remains separate", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=Window]
@@ -150,15 +150,15 @@ describe('build (API)', () => {
       // in this case; WindowOrWorkerGlobalScope remaps to _globals
       assert.lengthOf(ast[0].members, 1);
 
-      assert.equal(globals[0].name, 'WindowOrWorkerGlobalScope');
+      assert.equal(globals[0].name, "WindowOrWorkerGlobalScope");
       assert.lengthOf(globals[0].members, 1);
       (assert as any).containSubset(globals[0].members[0], {
-        type: 'operation',
-        name: 'atob',
+        type: "operation",
+        name: "atob",
       });
     });
 
-    it('mixin missing', () => {
+    it("mixin missing", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `interface mixin DummyErrorHelper {
@@ -170,10 +170,10 @@ describe('build (API)', () => {
 
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, 'Target DummyError not found for interface mixin DummyErrorHelper');
+      }, "Target DummyError not found for interface mixin DummyErrorHelper");
     });
 
-    it('interface missing', () => {
+    it("interface missing", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=Window]
@@ -186,10 +186,10 @@ describe('build (API)', () => {
 
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, 'Interface mixin DummyErrorHelper not found for target DummyError');
+      }, "Interface mixin DummyErrorHelper not found for target DummyError");
     });
 
-    it('Operation overloading', () => {
+    it("Operation overloading", () => {
       const specIDLs = {
         cssom: WebIDL2.parse(
           `[Exposed=Window]
@@ -210,10 +210,10 @@ describe('build (API)', () => {
       };
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, 'Duplicate definition of CSS.supports');
+      }, "Duplicate definition of CSS.supports");
     });
 
-    it('Partial missing main', () => {
+    it("Partial missing main", () => {
       const specIDLs = {
         paint: WebIDL2.parse(
           `partial namespace CSS {
@@ -223,23 +223,23 @@ describe('build (API)', () => {
       };
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, 'Original definition not found for partial namespace CSS');
+      }, "Original definition not found for partial namespace CSS");
     });
   });
 
-  describe('getExposureSet', () => {
+  describe("getExposureSet", () => {
     // Combining spec and custom IDL is not important to these tests.
     const customIDLs = {};
     const scopes = new Set([
-      'Window',
-      'Worker',
-      'SharedWorker',
-      'ServiceWorker',
-      'AudioWorklet',
-      'RTCIdentityProvider',
+      "Window",
+      "Worker",
+      "SharedWorker",
+      "ServiceWorker",
+      "AudioWorklet",
+      "RTCIdentityProvider",
     ]);
 
-    it('no defined exposure set', () => {
+    it("no defined exposure set", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `interface Dummy {
@@ -248,17 +248,17 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       assert.throws(
         () => {
           getExposureSet(interfaces[0], scopes);
         },
         Error,
-        'Exposed extended attribute not found on interface Dummy',
+        "Exposed extended attribute not found on interface Dummy",
       );
     });
 
-    it('invalid exposure set', () => {
+    it("invalid exposure set", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=40]
@@ -268,7 +268,7 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       assert.throws(
         () => {
           getExposureSet(interfaces[0], []);
@@ -278,7 +278,7 @@ describe('build (API)', () => {
       );
     });
 
-    it('single exposure', () => {
+    it("single exposure", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=Worker]
@@ -288,12 +288,12 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ['Worker']);
+      assert.hasAllKeys(exposureSet, ["Worker"]);
     });
 
-    it('multiple exposure', () => {
+    it("multiple exposure", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=(Window,Worker)]
@@ -303,12 +303,12 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ['Window', 'Worker']);
+      assert.hasAllKeys(exposureSet, ["Window", "Worker"]);
     });
 
-    it('wildcard exposure', () => {
+    it("wildcard exposure", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=*]
@@ -318,12 +318,12 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
       assert.hasAllKeys(exposureSet, [...scopes]);
     });
 
-    it('DedicatedWorker remaps to Worker', () => {
+    it("DedicatedWorker remaps to Worker", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=DedicatedWorker]
@@ -333,12 +333,12 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ['Worker']);
+      assert.hasAllKeys(exposureSet, ["Worker"]);
     });
 
-    it('Special case for RTCIdentityProviderGlobalScope', () => {
+    it("Special case for RTCIdentityProviderGlobalScope", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=RTCIdentityProviderGlobalScope]
@@ -348,12 +348,12 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ['RTCIdentityProvider']);
+      assert.hasAllKeys(exposureSet, ["RTCIdentityProvider"]);
     });
 
-    it('invalid exposure', () => {
+    it("invalid exposure", () => {
       const specIDLs = {
         first: WebIDL2.parse(
           `[Exposed=SomeWrongScope]
@@ -363,27 +363,27 @@ describe('build (API)', () => {
         ),
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === 'interface');
+      const interfaces = ast.filter((dfn) => dfn.type === "interface");
       assert.throws(
         () => {
           getExposureSet(interfaces[0], scopes);
         },
         Error,
-        'interface Dummy is exposed on SomeWrongScope but SomeWrongScope is not a valid scope',
+        "interface Dummy is exposed on SomeWrongScope but SomeWrongScope is not a valid scope",
       );
     });
   });
 
-  describe('buildIDLTests', () => {
+  describe("buildIDLTests", () => {
     const scopes = new Set([
-      'Window',
-      'Worker',
-      'SharedWorker',
-      'ServiceWorker',
-      'AudioWorklet',
+      "Window",
+      "Worker",
+      "SharedWorker",
+      "ServiceWorker",
+      "AudioWorklet",
     ]);
 
-    it('interface with attribute', async () => {
+    it("interface with attribute", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Attr {
@@ -391,18 +391,18 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Attr': {
+        "api.Attr": {
           code: '"Attr" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Attr.name': {
+        "api.Attr.name": {
           code: '"Attr" in self && "name" in Attr.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with method', async () => {
+    it("interface with method", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Node {
@@ -410,18 +410,18 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Node': {
+        "api.Node": {
           code: '"Node" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Node.contains': {
+        "api.Node.contains": {
           code: '"Node" in self && "contains" in Node.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with static method', async () => {
+    it("interface with static method", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface MediaSource {
@@ -430,18 +430,18 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.MediaSource': {
+        "api.MediaSource": {
           code: '"MediaSource" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.MediaSource.isTypeSupported_static': {
+        "api.MediaSource.isTypeSupported_static": {
           code: '"MediaSource" in self && "isTypeSupported" in MediaSource',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with const', async () => {
+    it("interface with const", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Window {
@@ -450,14 +450,14 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Window': {
+        "api.Window": {
           code: '"Window" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with event handler', async () => {
+    it("interface with event handler", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Foo {
@@ -465,14 +465,14 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Foo': {
+        "api.Foo": {
           code: '"Foo" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with custom test', async () => {
+    it("interface with custom test", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface ANGLE_instanced_arrays {
@@ -498,7 +498,7 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.ANGLE_instanced_arrays': {
+        "api.ANGLE_instanced_arrays": {
           code: `(function () {
   var canvas = document.createElement("canvas");
   var gl = canvas.getContext("webgl");
@@ -506,9 +506,9 @@ describe('build (API)', () => {
   return !!instance;
 })();
 `,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.ANGLE_instanced_arrays.drawArraysInstancedANGLE': {
+        "api.ANGLE_instanced_arrays.drawArraysInstancedANGLE": {
           code: `(function () {
   var canvas = document.createElement("canvas");
   var gl = canvas.getContext("webgl");
@@ -516,9 +516,9 @@ describe('build (API)', () => {
   return true && instance && "drawArraysInstancedANGLE" in instance;
 })();
 `,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.ANGLE_instanced_arrays.drawElementsInstancedANGLE': {
+        "api.ANGLE_instanced_arrays.drawElementsInstancedANGLE": {
           code: `(function () {
   var canvas = document.createElement("canvas");
   var gl = canvas.getContext("webgl");
@@ -526,34 +526,34 @@ describe('build (API)', () => {
   return !!instance && "drawElementsInstancedANGLE" in instance;
 })();
 `,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Document': {
+        "api.Document": {
           code: '"Document" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Document.characterSet': {
+        "api.Document.characterSet": {
           code: `(function () {
   return document.characterSet == "UTF-8";
 })();
 `,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Document.loaded': {
+        "api.Document.loaded": {
           code: '"Document" in self && "loaded" in Document.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Document.loaded.loaded_is_boolean': {
+        "api.Document.loaded.loaded_is_boolean": {
           code: `(function () {
   return typeof document.loaded === "boolean";
 })();
 `,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with legacy namespace', async () => {
+    it("interface with legacy namespace", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window, LegacyNamespace]
            interface Legacy {};`,
@@ -561,7 +561,7 @@ describe('build (API)', () => {
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {});
     });
 
-    it('global interface', async () => {
+    it("global interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Worker, Global=Worker]
            interface WorkerGlobalScope {
@@ -571,18 +571,18 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.WorkerGlobalScope': {
+        "api.WorkerGlobalScope": {
           code: '"WorkerGlobalScope" in self',
-          exposure: ['Worker'],
+          exposure: ["Worker"],
         },
-        'api.WorkerGlobalScope.isLoaded': {
+        "api.WorkerGlobalScope.isLoaded": {
           code: '"isLoaded" in self',
-          exposure: ['Worker'],
+          exposure: ["Worker"],
         },
       });
     });
 
-    it('interface with constructor operation', async () => {
+    it("interface with constructor operation", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Number {
@@ -591,18 +591,18 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Number': {
+        "api.Number": {
           code: '"Number" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Number.Number': {
+        "api.Number.Number": {
           code: 'bcd.testConstructor("Number");',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with [HTMLConstructor] constructor operation', async () => {
+    it("interface with [HTMLConstructor] constructor operation", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface HTMLButtonElement {
@@ -611,15 +611,15 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.HTMLButtonElement': {
+        "api.HTMLButtonElement": {
           code: '"HTMLButtonElement" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
         // no constructor test
       });
     });
 
-    it('iterable interface', async () => {
+    it("iterable interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface DoubleList {
@@ -627,34 +627,34 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.DoubleList': {
+        "api.DoubleList": {
           code: '"DoubleList" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleList.@@iterator': {
+        "api.DoubleList.@@iterator": {
           code: '"Symbol" in self && "iterator" in Symbol && "DoubleList" in self && !!(DoubleList.prototype[Symbol.iterator])',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleList.entries': {
+        "api.DoubleList.entries": {
           code: '"DoubleList" in self && "entries" in DoubleList.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleList.forEach': {
+        "api.DoubleList.forEach": {
           code: '"DoubleList" in self && "forEach" in DoubleList.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleList.keys': {
+        "api.DoubleList.keys": {
           code: '"DoubleList" in self && "keys" in DoubleList.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleList.values': {
+        "api.DoubleList.values": {
           code: '"DoubleList" in self && "values" in DoubleList.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('async iterable interface', async () => {
+    it("async iterable interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface ReadableStream {
@@ -662,22 +662,22 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.ReadableStream': {
+        "api.ReadableStream": {
           code: '"ReadableStream" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.ReadableStream.@@asyncIterator': {
+        "api.ReadableStream.@@asyncIterator": {
           code: '"Symbol" in self && "asyncIterator" in Symbol && "ReadableStream" in self && !!(ReadableStream.prototype[Symbol.asyncIterator])',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.ReadableStream.values': {
+        "api.ReadableStream.values": {
           code: '"ReadableStream" in self && "values" in ReadableStream.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('pair async iterable interface', async () => {
+    it("pair async iterable interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface AsyncMap {
@@ -685,30 +685,30 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.AsyncMap': {
+        "api.AsyncMap": {
           code: '"AsyncMap" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.AsyncMap.@@asyncIterator': {
+        "api.AsyncMap.@@asyncIterator": {
           code: '"Symbol" in self && "asyncIterator" in Symbol && "AsyncMap" in self && !!(AsyncMap.prototype[Symbol.asyncIterator])',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.AsyncMap.values': {
+        "api.AsyncMap.values": {
           code: '"AsyncMap" in self && "values" in AsyncMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.AsyncMap.entries': {
+        "api.AsyncMap.entries": {
           code: '"AsyncMap" in self && "entries" in AsyncMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.AsyncMap.keys': {
+        "api.AsyncMap.keys": {
           code: '"AsyncMap" in self && "keys" in AsyncMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('maplike interface', async () => {
+    it("maplike interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface DoubleMap {
@@ -716,58 +716,58 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.DoubleMap': {
+        "api.DoubleMap": {
           code: '"DoubleMap" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.@@iterator': {
+        "api.DoubleMap.@@iterator": {
           code: '"Symbol" in self && "iterator" in Symbol && "DoubleMap" in self && !!(DoubleMap.prototype[Symbol.iterator])',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.clear': {
+        "api.DoubleMap.clear": {
           code: '"DoubleMap" in self && "clear" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.delete': {
+        "api.DoubleMap.delete": {
           code: '"DoubleMap" in self && "delete" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.entries': {
+        "api.DoubleMap.entries": {
           code: '"DoubleMap" in self && "entries" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.forEach': {
+        "api.DoubleMap.forEach": {
           code: '"DoubleMap" in self && "forEach" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.get': {
+        "api.DoubleMap.get": {
           code: '"DoubleMap" in self && "get" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.has': {
+        "api.DoubleMap.has": {
           code: '"DoubleMap" in self && "has" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.keys': {
+        "api.DoubleMap.keys": {
           code: '"DoubleMap" in self && "keys" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.set': {
+        "api.DoubleMap.set": {
           code: '"DoubleMap" in self && "set" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.size': {
+        "api.DoubleMap.size": {
           code: '"DoubleMap" in self && "size" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleMap.values': {
+        "api.DoubleMap.values": {
           code: '"DoubleMap" in self && "values" in DoubleMap.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('setlike interface', async () => {
+    it("setlike interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface DoubleSet {
@@ -775,54 +775,54 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.DoubleSet': {
+        "api.DoubleSet": {
           code: '"DoubleSet" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.@@iterator': {
+        "api.DoubleSet.@@iterator": {
           code: '"Symbol" in self && "iterator" in Symbol && "DoubleSet" in self && !!(DoubleSet.prototype[Symbol.iterator])',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.add': {
+        "api.DoubleSet.add": {
           code: '"DoubleSet" in self && "add" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.clear': {
+        "api.DoubleSet.clear": {
           code: '"DoubleSet" in self && "clear" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.delete': {
+        "api.DoubleSet.delete": {
           code: '"DoubleSet" in self && "delete" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.entries': {
+        "api.DoubleSet.entries": {
           code: '"DoubleSet" in self && "entries" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.forEach': {
+        "api.DoubleSet.forEach": {
           code: '"DoubleSet" in self && "forEach" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.has': {
+        "api.DoubleSet.has": {
           code: '"DoubleSet" in self && "has" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.keys': {
+        "api.DoubleSet.keys": {
           code: '"DoubleSet" in self && "keys" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.size': {
+        "api.DoubleSet.size": {
           code: '"DoubleSet" in self && "size" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.DoubleSet.values': {
+        "api.DoubleSet.values": {
           code: '"DoubleSet" in self && "values" in DoubleSet.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with getter/setter', async () => {
+    it("interface with getter/setter", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface GetMe {
@@ -831,14 +831,14 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.GetMe': {
+        "api.GetMe": {
           code: '"GetMe" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('varied exposure', async () => {
+    it("varied exposure", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window] interface Worker {};
            [Exposed=Worker] interface WorkerSync {};
@@ -849,30 +849,30 @@ describe('build (API)', () => {
            [Exposed=Window] namespace GPUBufferUsage {};`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.console': {
+        "api.console": {
           code: '"console" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.console.log_static': {
+        "api.console.log_static": {
           code: '"console" in self && "log" in console',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.MessageChannel': {
+        "api.MessageChannel": {
           code: '"MessageChannel" in self',
-          exposure: ['Window', 'Worker'],
+          exposure: ["Window", "Worker"],
         },
-        'api.Worker': {
+        "api.Worker": {
           code: '"Worker" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.WorkerSync': {
+        "api.WorkerSync": {
           code: '"WorkerSync" in self',
-          exposure: ['Worker'],
+          exposure: ["Worker"],
         },
       });
     });
 
-    it('interface with stringifier', async () => {
+    it("interface with stringifier", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Number {
@@ -881,18 +881,18 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Number': {
+        "api.Number": {
           code: '"Number" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Number.toString': {
+        "api.Number.toString": {
           code: '"Number" in self && "toString" in Number.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with named stringifier', async () => {
+    it("interface with named stringifier", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface HTMLAreaElement {
@@ -901,22 +901,22 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.HTMLAreaElement': {
+        "api.HTMLAreaElement": {
           code: '"HTMLAreaElement" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.HTMLAreaElement.href': {
+        "api.HTMLAreaElement.href": {
           code: '"HTMLAreaElement" in self && "href" in HTMLAreaElement.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.HTMLAreaElement.toString': {
+        "api.HTMLAreaElement.toString": {
           code: '"HTMLAreaElement" in self && "toString" in HTMLAreaElement.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('operator variations', async () => {
+    it("operator variations", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface AudioNode : EventTarget {
@@ -926,18 +926,18 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.AudioNode': {
+        "api.AudioNode": {
           code: '"AudioNode" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.AudioNode.disconnect': {
+        "api.AudioNode.disconnect": {
           code: '"AudioNode" in self && "disconnect" in AudioNode.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('namespace with attribute', async () => {
+    it("namespace with attribute", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            namespace CSS {
@@ -945,18 +945,18 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.CSS': {
+        "api.CSS": {
           code: '"CSS" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.CSS.paintWorklet_static': {
+        "api.CSS.paintWorklet_static": {
           code: '"CSS" in self && "paintWorklet" in CSS',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('namespace with method', async () => {
+    it("namespace with method", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            namespace CSS {
@@ -964,18 +964,18 @@ describe('build (API)', () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.CSS': {
+        "api.CSS": {
           code: '"CSS" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.CSS.supports_static': {
+        "api.CSS.supports_static": {
           code: '"CSS" in self && "supports" in CSS',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('namespace with custom test', async () => {
+    it("namespace with custom test", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            namespace Scope {
@@ -984,22 +984,22 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.Scope': {
+        "api.Scope": {
           code: `(function () {
   var scope = Scope;
   return !!scope;
 })();
 `,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Scope.specialWorklet_static': {
+        "api.Scope.specialWorklet_static": {
           code: `"Scope" in self && "specialWorklet" in Scope`,
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('interface with legacy factory function', async () => {
+    it("interface with legacy factory function", async () => {
       const ast = WebIDL2.parse(
         `[
              Exposed=Window,
@@ -1009,18 +1009,18 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        'api.HTMLImageElement': {
+        "api.HTMLImageElement": {
           code: '"HTMLImageElement" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.HTMLImageElement.Image': {
+        "api.HTMLImageElement.Image": {
           code: 'bcd.testConstructor("Image");',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
       });
     });
 
-    it('Globals', async () => {
+    it("Globals", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Dummy {
@@ -1035,24 +1035,24 @@ describe('build (API)', () => {
       );
 
       assert.deepEqual(await buildIDLTests(ast, globals, scopes), {
-        'api.Dummy': {
+        "api.Dummy": {
           code: '"Dummy" in self',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.Dummy.imadumdum': {
+        "api.Dummy.imadumdum": {
           code: '"Dummy" in self && "imadumdum" in Dummy.prototype',
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
-        'api.atob': {
+        "api.atob": {
           code: '"atob" in self',
-          exposure: ['Window', 'Worker'],
+          exposure: ["Window", "Worker"],
         },
       });
     });
   });
 
-  describe('validateIDL', () => {
-    it('valid idl', () => {
+  describe("validateIDL", () => {
+    it("valid idl", () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Node {
@@ -1064,7 +1064,7 @@ describe('build (API)', () => {
       });
     });
 
-    it('invalid idl', () => {
+    it("invalid idl", () => {
       const ast = WebIDL2.parse(`interface Invalid {};`);
       assert.throws(
         () => {
@@ -1077,7 +1077,7 @@ interface Invalid {};
       );
     });
 
-    it('unknown types', () => {
+    it("unknown types", () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Dummy {
@@ -1086,10 +1086,10 @@ interface Invalid {};
       );
       assert.throws(() => {
         validateIDL(ast);
-      }, 'Unknown type Dumdum');
+      }, "Unknown type Dumdum");
     });
 
-    it('ignored unknown types', () => {
+    it("ignored unknown types", () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface Dummy {
@@ -1101,7 +1101,7 @@ interface Invalid {};
       });
     });
 
-    it('allow LegacyNoInterfaceObject', () => {
+    it("allow LegacyNoInterfaceObject", () => {
       const ast = WebIDL2.parse(
         `[Exposed=(Window,Worker), LegacyNoInterfaceObject]
            interface ANGLE_instanced_arrays {};`,

@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import childProcess from 'node:child_process';
+import childProcess from "node:child_process";
 
 const exec = async (cmd, env?: any, pipe = true) => {
   env = {...process.env, ...env};
@@ -17,7 +17,7 @@ const exec = async (cmd, env?: any, pipe = true) => {
   /* c8 ignore stop */
   const output = childProcess.execSync(cmd, {
     env,
-    stdio: pipe ? 'pipe' : 'inherit',
+    stdio: pipe ? "pipe" : "inherit",
   });
   return String(output);
 };

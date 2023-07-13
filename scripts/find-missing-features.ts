@@ -6,22 +6,22 @@
 // See the LICENSE file for copyright details
 //
 
-import {CompatData, CompatStatement} from '@mdn/browser-compat-data/types';
-import {Tests} from '../types/types.js';
+import {CompatData, CompatStatement} from "@mdn/browser-compat-data/types";
+import {Tests} from "../types/types.js";
 
-import chalk from 'chalk-template';
-import esMain from 'es-main';
-import fs from 'fs-extra';
-import yargs from 'yargs';
-import {hideBin} from 'yargs/helpers';
+import chalk from "chalk-template";
+import esMain from "es-main";
+import fs from "fs-extra";
+import yargs from "yargs";
+import {hideBin} from "yargs/helpers";
 
-import {BCD_DIR} from '../lib/constants.js';
+import {BCD_DIR} from "../lib/constants.js";
 
 const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
   const features: string[] = [];
 
   for (const id of Object.keys(obj)) {
-    if (!obj[id] || typeof obj[id] !== 'object') {
+    if (!obj[id] || typeof obj[id] !== "object") {
       continue;
     }
 
@@ -29,7 +29,7 @@ const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
     if (compat) {
       features.push(`${path}${id}`);
 
-      if (includeAliases && !id.endsWith('_event')) {
+      if (includeAliases && !id.endsWith("_event")) {
         const aliases = new Set();
         for (let statements of Object.values(compat.support)) {
           if (!Array.isArray(statements)) {
@@ -44,7 +44,7 @@ const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
             }
             if (statement.prefix) {
               let name = id;
-              if (path.startsWith('api.')) {
+              if (path.startsWith("api.")) {
                 name = name[0].toUpperCase() + name.substr(1);
               }
               aliases.add(statement.prefix + name);
@@ -59,7 +59,7 @@ const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
     }
 
     features.push(
-      ...traverseFeatures(obj[id], path + id + '.', includeAliases),
+      ...traverseFeatures(obj[id], path + id + ".", includeAliases),
     );
   }
 
@@ -81,7 +81,7 @@ const findMissing = (entries: string[], allEntries: string[]) => {
 const getMissing = (
   bcd: CompatData,
   tests: Tests,
-  direction = 'collector-from-bcd',
+  direction = "collector-from-bcd",
   pathFilter: string[] = [],
   includeAliases = false,
 ) => {
@@ -92,20 +92,20 @@ const getMissing = (
     );
   };
 
-  const bcdEntries = traverseFeatures(bcd, '', includeAliases).filter(
+  const bcdEntries = traverseFeatures(bcd, "", includeAliases).filter(
     filterPath,
   );
   const collectorEntries = Object.keys(tests).filter(filterPath);
 
   switch (direction) {
-    case 'bcd-from-collector':
+    case "bcd-from-collector":
       return findMissing(bcdEntries, collectorEntries);
     default:
       console.log(
         `Direction '${direction}' is unknown; defaulting to collector <- bcd`,
       );
     // eslint-disable-next-line no-fallthrough
-    case 'collector-from-bcd':
+    case "collector-from-bcd":
       return findMissing(collectorEntries, bcdEntries);
   }
 };
@@ -113,35 +113,35 @@ const getMissing = (
 /* c8 ignore start */
 const main = (bcd: CompatData, tests: Tests) => {
   const {argv}: any = yargs(hideBin(process.argv)).command(
-    '$0 [--direction]',
-    'Find missing entries between BCD and the collector tests',
+    "$0 [--direction]",
+    "Find missing entries between BCD and the collector tests",
     (yargs) => {
       yargs
-        .option('include-aliases', {
-          alias: 'a',
-          describe: 'Include BCD entries using prefix or alternative_name',
-          type: 'boolean',
+        .option("include-aliases", {
+          alias: "a",
+          describe: "Include BCD entries using prefix or alternative_name",
+          type: "boolean",
           default: false,
         })
-        .option('direction', {
-          alias: 'd',
+        .option("direction", {
+          alias: "d",
           describe:
             'Which direction to find missing entries from ("a-from-b" will check what is missing in a but present in b)',
-          choices: ['bcd-from-collector', 'collector-from-bcd'],
+          choices: ["bcd-from-collector", "collector-from-bcd"],
           nargs: 1,
-          type: 'string',
-          default: 'collector-from-bcd',
+          type: "string",
+          default: "collector-from-bcd",
         })
-        .option('path', {
-          alias: 'p',
-          describe: 'The path(s) to filter for',
-          type: 'array',
+        .option("path", {
+          alias: "p",
+          describe: "The path(s) to filter for",
+          type: "array",
           default: [],
         });
     },
   );
 
-  const direction = argv.direction.split('-from-');
+  const direction = argv.direction.split("-from-");
   console.log(
     chalk`{yellow Finding entries that are missing in {red.bold ${direction[0]}} but present in {green.bold ${direction[1]}}...}\n`,
   );
@@ -153,7 +153,7 @@ const main = (bcd: CompatData, tests: Tests) => {
     argv.path,
     argv.includeAliases,
   );
-  console.log(missingEntries.join('\n'));
+  console.log(missingEntries.join("\n"));
   console.log(
     chalk`\n{cyan ${missingEntries.length}/${total} (${(
       (missingEntries.length / total) *
@@ -167,10 +167,10 @@ const main = (bcd: CompatData, tests: Tests) => {
 if (esMain(import.meta)) {
   const {default: bcd} = await import(`${BCD_DIR}/index.js`);
 
-  const testsPath = new URL('../tests.json', import.meta.url);
+  const testsPath = new URL("../tests.json", import.meta.url);
   if (!fs.existsSync(testsPath)) {
     throw new Error(
-      'The tests must be built using `npm run build:tests` before this script can be run.',
+      "The tests must be built using `npm run build:tests` before this script can be run.",
     );
   }
   const tests = await fs.readJson(testsPath);

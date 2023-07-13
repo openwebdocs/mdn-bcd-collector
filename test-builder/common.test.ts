@@ -6,12 +6,12 @@
 // See the LICENSE file for copyright details
 //
 
-import chai, {assert} from 'chai';
-import chaiSubset from 'chai-subset';
-import chaiAsPromised from 'chai-as-promised';
+import chai, {assert} from "chai";
+import chaiSubset from "chai-subset";
+import chaiAsPromised from "chai-as-promised";
 chai.use(chaiSubset).use(chaiAsPromised);
 
-import type {RawTest} from './types/types.js';
+import type {RawTest} from "./types/types.js";
 
 import {
   compileTestCode,
@@ -20,10 +20,10 @@ import {
   getCustomTest,
   CustomTestData,
   CustomTestResult,
-} from './common.js';
+} from "./common.js";
 
-describe('build (common)', () => {
-  describe('getCustomTest(Data)', () => {
+describe("build (common)", () => {
+  describe("getCustomTest(Data)", () => {
     const expectedResults: {
       [k: string]: {
         category: string;
@@ -31,8 +31,8 @@ describe('build (common)', () => {
         result: CustomTestResult;
       };
     } = {
-      'api.FooBar': {
-        category: 'api',
+      "api.FooBar": {
+        category: "api",
         data: {
           __base: "'hello world';",
           __test: "return 'hello world!';",
@@ -45,8 +45,8 @@ describe('build (common)', () => {
           additional: {},
         },
       },
-      'api.FooBar.foo': {
-        category: 'api',
+      "api.FooBar.foo": {
+        category: "api",
         data: {
           __base: "'hello world';",
           __test: "return 'hi, world!';",
@@ -59,8 +59,8 @@ describe('build (common)', () => {
           additional: {},
         },
       },
-      'api.FooBar.foo.pear': {
-        category: 'api',
+      "api.FooBar.foo.pear": {
+        category: "api",
         data: {
           __base: "'hello world';",
           __test: false,
@@ -73,8 +73,8 @@ describe('build (common)', () => {
           additional: {},
         },
       },
-      'api.FooBar.bar': {
-        category: 'api',
+      "api.FooBar.bar": {
+        category: "api",
         data: {
           __base: "'hello world';\n'goodbye world';",
           __test: "return 'farewell world!';",
@@ -92,8 +92,8 @@ describe('build (common)', () => {
           },
         },
       },
-      'api.FooBar.baz': {
-        category: 'api',
+      "api.FooBar.baz": {
+        category: "api",
         data: {
           __base: "'hello world';",
           __test: false,
@@ -106,8 +106,8 @@ describe('build (common)', () => {
           additional: {},
         },
       },
-      'api.FooBar.FooBar': {
-        category: 'api',
+      "api.FooBar.FooBar": {
+        category: "api",
         data: {
           __base: "'hello world';",
           __test: false,
@@ -120,8 +120,8 @@ describe('build (common)', () => {
           additional: {},
         },
       },
-      'api.nonexistent': {
-        category: 'api',
+      "api.nonexistent": {
+        category: "api",
         data: {
           __base: false,
           __test: false,
@@ -130,32 +130,32 @@ describe('build (common)', () => {
         },
         result: {test: false, resources: [], additional: {}},
       },
-      'api.audiocontext': {
-        category: 'api',
+      "api.audiocontext": {
+        category: "api",
         data: {
           __base: false,
-          __test: 'return false;',
-          __resources: ['audio-blip'],
+          __test: "return false;",
+          __resources: ["audio-blip"],
           __additional: {},
         },
         result: {
-          test: '(function () {\n  return false;\n})();\n',
-          resources: ['audio-blip'],
+          test: "(function () {\n  return false;\n})();\n",
+          resources: ["audio-blip"],
           additional: {},
         },
       },
-      'api.WebGLRenderingContext': {
-        category: 'api',
+      "api.WebGLRenderingContext": {
+        category: "api",
         data: {
-          __base: 'var instance = reusableInstances.webGL;',
+          __base: "var instance = reusableInstances.webGL;",
           __test: false,
-          __resources: ['webGL'],
+          __resources: ["webGL"],
           __additional: {},
         },
         result: {
           // XXX Not accurate
-          test: '(function () {\n  var instance = reusableInstances.webGL;\n  return !!instance;\n})();\n',
-          resources: ['webGL'],
+          test: "(function () {\n  var instance = reusableInstances.webGL;\n  return !!instance;\n})();\n",
+          resources: ["webGL"],
           additional: {},
         },
       },
@@ -168,23 +168,23 @@ describe('build (common)', () => {
       });
     }
 
-    it('api.badresource (throw error on bad resource reference)', async () => {
+    it("api.badresource (throw error on bad resource reference)", async () => {
       await assert.isRejected(
-        getCustomTest('api.badresource', 'api'),
-        'Resource bad-resource is not defined but referenced in api.badresource',
+        getCustomTest("api.badresource", "api"),
+        "Resource bad-resource is not defined but referenced in api.badresource",
       );
     });
   });
 
-  describe('compileTestCode', () => {
-    it('string', () => {
-      assert.equal(compileTestCode('a string'), 'a string');
+  describe("compileTestCode", () => {
+    it("string", () => {
+      assert.equal(compileTestCode("a string"), "a string");
     });
 
-    it('constructor', () => {
+    it("constructor", () => {
       const test = {
-        property: 'constructor.AudioContext',
-        owner: 'AudioContext',
+        property: "constructor.AudioContext",
+        owner: "AudioContext",
       };
       assert.equal(
         compileTestCode(test),
@@ -192,26 +192,26 @@ describe('build (common)', () => {
       );
     });
 
-    it('Symbol', () => {
-      const test = {property: 'Symbol.iterator', owner: 'DOMMatrixReadOnly'};
+    it("Symbol", () => {
+      const test = {property: "Symbol.iterator", owner: "DOMMatrixReadOnly"};
       assert.equal(
         compileTestCode(test),
         '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])',
       );
     });
 
-    it('namespace', () => {
-      const test = {property: 'log', owner: 'console'};
+    it("namespace", () => {
+      const test = {property: "log", owner: "console"};
       assert.equal(
         compileTestCode(test),
         '"console" in self && "log" in console',
       );
     });
 
-    it('constructor', () => {
+    it("constructor", () => {
       const test = {
-        property: 'm11',
-        owner: 'DOMMatrix.prototype',
+        property: "m11",
+        owner: "DOMMatrix.prototype",
         inherit: true,
       };
       assert.equal(
@@ -221,120 +221,120 @@ describe('build (common)', () => {
     });
   });
 
-  describe('compileTest', () => {
-    it('main', () => {
+  describe("compileTest", () => {
+    it("main", () => {
       const rawTest: RawTest = {
         raw: {
-          code: {property: 'body', owner: `Document.prototype`},
+          code: {property: "body", owner: `Document.prototype`},
         },
-        resources: ['audio-blip'],
-        exposure: ['Window'],
+        resources: ["audio-blip"],
+        exposure: ["Window"],
       };
 
       assert.deepEqual(compileTest(rawTest), {
         code: '"Document" in self && "body" in Document.prototype',
-        exposure: ['Window'],
-        resources: ['audio-blip'],
+        exposure: ["Window"],
+        resources: ["audio-blip"],
       });
     });
 
-    describe('custom tests', () => {
-      it('one item', () => {
+    describe("custom tests", () => {
+      it("one item", () => {
         const rawTest: RawTest = {
           raw: {
-            code: 'foo',
-            combinator: '&&',
+            code: "foo",
+            combinator: "&&",
           },
           resources: [],
           additional: {},
-          exposure: ['Window'],
+          exposure: ["Window"],
         };
 
         assert.deepEqual(compileTest(rawTest), {
-          code: 'foo',
-          exposure: ['Window'],
+          code: "foo",
+          exposure: ["Window"],
         });
       });
 
-      it('two items', () => {
+      it("two items", () => {
         const rawTest: RawTest = {
           raw: {
-            code: ['foo', 'foo'],
-            combinator: '&&',
+            code: ["foo", "foo"],
+            combinator: "&&",
           },
           resources: [],
           additional: {},
-          exposure: ['Window'],
+          exposure: ["Window"],
         };
 
         assert.deepEqual(compileTest(rawTest), {
-          code: 'foo && foo',
-          exposure: ['Window'],
+          code: "foo && foo",
+          exposure: ["Window"],
         });
       });
     });
 
-    it('no-repeated test code', () => {
+    it("no-repeated test code", () => {
       const rawTests: RawTest[] = [
         {
           raw: {
-            code: 'true',
-            combinator: '&&',
+            code: "true",
+            combinator: "&&",
           },
           resources: [],
           additional: {},
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
         {
           raw: {
-            code: ['true', 'true'],
-            combinator: '||',
+            code: ["true", "true"],
+            combinator: "||",
           },
           resources: [],
           additional: {},
-          exposure: ['Window'],
+          exposure: ["Window"],
         },
         {
           raw: {
-            code: ['true', 'true'],
-            combinator: '&&',
+            code: ["true", "true"],
+            combinator: "&&",
           },
           resources: [],
           additional: {},
-          exposure: ['Worker'],
+          exposure: ["Worker"],
         },
       ];
 
       assert.deepEqual(compileTest(rawTests[0]), {
-        code: 'true',
-        exposure: ['Window'],
+        code: "true",
+        exposure: ["Window"],
       });
       assert.deepEqual(compileTest(rawTests[1]), {
-        code: 'true || true',
-        exposure: ['Window'],
+        code: "true || true",
+        exposure: ["Window"],
       });
       assert.deepEqual(compileTest(rawTests[2]), {
-        code: 'true && true',
-        exposure: ['Worker'],
+        code: "true && true",
+        exposure: ["Worker"],
       });
     });
 
-    it('CSS', () => {
+    it("CSS", () => {
       const rawTest: RawTest = {
         raw: {
           code: [
-            {property: 'fontFamily', owner: 'document.body.style'},
-            {property: 'font-family', owner: 'document.body.style'},
+            {property: "fontFamily", owner: "document.body.style"},
+            {property: "font-family", owner: "document.body.style"},
           ],
-          combinator: '||',
+          combinator: "||",
         },
         resources: [],
-        exposure: ['Window'],
+        exposure: ["Window"],
       };
 
       assert.deepEqual(compileTest(rawTest), {
         code: '"fontFamily" in document.body.style || "font-family" in document.body.style',
-        exposure: ['Window'],
+        exposure: ["Window"],
       });
     });
   });
