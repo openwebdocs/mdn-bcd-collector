@@ -12,12 +12,14 @@ import type {RawTestCodeExpr} from "../types/types.js";
 
 const stripAttrName = (name, featureName) =>
   name
+    .replace(/\%(\w+)Prototype\%/g, '$1')
     .replace(`%${featureName}%`, featureName)
     .replace(`${featureName}.prototype.`, '')
     .replace(`${featureName}.`, '')
     .replace('()', '')
     .replace(`${featureName}[`, 'prototype[')
-    .replace(/prototype\[@@(\w+)\]/g, '@@$1');
+    .replace(/prototype\[@@(\w+)\]/g, '@@$1')
+    .replace(/__(\w+)__/g, '$1');
 
 const buildTestList = (specJS, customJS) => {
   const features = {};
@@ -25,7 +27,9 @@ const buildTestList = (specJS, customJS) => {
   // Iterate through the spec data
   // XXX use proper typedef instead of any[] once the package is used
   for (const feat of specJS.sort((f) => f.name) as any[]) {
-    const featureName = feat.name.replace('()', '');
+    const featureName = feat.name
+      .replace('()', '')
+      .replace(/\%(\w+)Prototype\%/g, '$1');
 
     if (['function', 'global-property'].includes(feat.type)) {
       // Functions and global properties will not have members or any other data we need to pull
@@ -63,6 +67,12 @@ const buildTestList = (specJS, customJS) => {
     ]) {
       const prototypeString = `${featureName}.prototype`;
       if (attr.name === prototypeString) {
+        // Skip the prototype itself
+        continue;
+      }
+
+      if (!attr.name.startsWith(feat.name)) {
+        // Skip anything that's not actually defined on the object
         continue;
       }
 
