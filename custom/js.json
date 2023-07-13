@@ -8,7 +8,7 @@
     "Array": {
       "members": {
         "static": ["fromAsync"],
-        "instance": ["group", "groupToMap", "toSource"]
+        "instance": ["group", "groupToMap", "length", "toSource"]
       }
     },
     "ArrayBuffer": {
@@ -34,9 +34,11 @@
       }
     },
     "Function": {
-      "members": {"instance": ["arguments", "caller", "toSource"]}
+      "members": {"instance": ["arguments", "caller", "length", "toSource"]}
     },
-    "InternalError": {},
+    "InternalError": {
+      "ctor": {}
+    },
     "Number": {
       "members": {"instance": ["toSource"]}
     },
@@ -47,6 +49,7 @@
       "members": {
         "static": [
           "input",
+          "lastIndex",
           "lastMatch",
           "lastParen",
           "leftContext",
@@ -59,7 +62,7 @@
       "members": {"instance": ["grow", "growable", "maxByteLength"]}
     },
     "String": {
-      "members": {"instance": ["contains", "toSource"]}
+      "members": {"instance": ["contains", "length", "toSource"]}
     },
     "Symbol": {
       "members": {"instance": ["toSource"]}
@@ -75,7 +78,7 @@
     "Intl": {
       "__comment": "XXX Intl is defined in another specification that the es-scraper does not load data from.",
       "members": {
-        "static": ["getCanonicalLocales", "@@toStringTag", "supportedLocalesOf"]
+        "static": ["getCanonicalLocales", "@@toStringTag", "supportedValuesOf"]
       }
     },
     "Intl.Collator": {
