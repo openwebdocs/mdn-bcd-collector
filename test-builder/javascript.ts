@@ -100,8 +100,19 @@ const buildTestList = (specJS, customJS) => {
     }
 
     if (data.members) {
-      features[feat].members.static.push(...(data.members.static || []));
-      features[feat].members.instance.push(...(data.members.instance || []));
+      features[feat].members.static = [
+        ...new Set([
+          ...features[feat].members.static,
+          ...(data.members.static || []),
+        ]),
+      ];
+
+      features[feat].members.instance = [
+        ...new Set([
+          ...features[feat].members.instance,
+          ...(data.members.instance || []),
+        ]),
+      ];
     }
   }
 
