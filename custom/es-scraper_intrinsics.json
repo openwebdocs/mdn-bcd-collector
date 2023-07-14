@@ -5,7 +5,7 @@
     "id": "sec-object-objects",
     "global": true,
     "extends": "null",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Object()",
       "id": "sec-object-constructor",
@@ -370,7 +370,7 @@
     "name": "Function",
     "id": "sec-function-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Function()",
       "id": "sec-function-constructor",
@@ -477,7 +477,7 @@
     "name": "Boolean",
     "id": "sec-boolean-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Boolean()",
       "id": "sec-boolean-constructor",
@@ -534,7 +534,7 @@
     "name": "Symbol",
     "id": "sec-symbol-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Symbol()",
       "id": "sec-symbol-constructor",
@@ -713,7 +713,7 @@
     "name": "Error",
     "id": "sec-error-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Error()",
       "id": "sec-error-constructor",
@@ -773,7 +773,7 @@
     "id": "sec-nativeerror-object-structure",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_NativeError_()",
       "id": "sec-nativeerror-constructors",
@@ -825,7 +825,7 @@
     "id": "sec-nativeerror-object-structure",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_NativeError_()",
       "id": "sec-nativeerror-constructors",
@@ -877,7 +877,7 @@
     "id": "sec-nativeerror-object-structure",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_NativeError_()",
       "id": "sec-nativeerror-constructors",
@@ -929,7 +929,7 @@
     "id": "sec-nativeerror-object-structure",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_NativeError_()",
       "id": "sec-nativeerror-constructors",
@@ -981,7 +981,7 @@
     "id": "sec-nativeerror-object-structure",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_NativeError_()",
       "id": "sec-nativeerror-constructors",
@@ -1033,7 +1033,7 @@
     "id": "sec-nativeerror-object-structure",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_NativeError_()",
       "id": "sec-nativeerror-constructors",
@@ -1085,7 +1085,7 @@
     "id": "sec-aggregate-error-objects",
     "global": true,
     "extends": "Error",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "AggregateError()",
       "id": "sec-aggregate-error-constructor",
@@ -1133,7 +1133,7 @@
     "name": "Number",
     "id": "sec-number-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Number()",
       "id": "sec-number-constructor",
@@ -1340,7 +1340,7 @@
     "name": "BigInt",
     "id": "sec-bigint-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "BigInt()",
       "id": "sec-bigint-constructor",
@@ -1851,7 +1851,7 @@
     "name": "Date",
     "id": "sec-date-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Date()",
       "id": "sec-date-constructor",
@@ -2401,7 +2401,7 @@
     "name": "String",
     "id": "sec-string-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "String()",
       "id": "sec-string-constructor",
@@ -2989,7 +2989,7 @@
     "name": "RegExp",
     "id": "sec-regexp-regular-expression-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "RegExp()",
       "id": "sec-regexp-constructor",
@@ -3189,7 +3189,7 @@
     "name": "Array",
     "id": "sec-array-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Array()",
       "id": "sec-array-constructor",
@@ -3669,7 +3669,7 @@
     "name": "TypedArray",
     "id": "sec-typedarray-objects",
     "global": false,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "%TypedArray%()",
       "id": "sec-%typedarray%-intrinsic-object",
@@ -4084,7 +4084,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4136,7 +4136,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4188,7 +4188,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4240,7 +4240,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4292,7 +4292,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4344,7 +4344,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4396,7 +4396,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4448,7 +4448,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4500,7 +4500,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4552,7 +4552,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4604,7 +4604,7 @@
     "id": "sec-typedarray-objects",
     "global": true,
     "extends": "TypedArray",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "_TypedArray_()",
       "id": "sec-typedarray-constructors",
@@ -4655,7 +4655,7 @@
     "name": "Map",
     "id": "sec-map-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Map()",
       "id": "sec-map-constructor",
@@ -4810,7 +4810,7 @@
     "name": "Set",
     "id": "sec-set-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Set()",
       "id": "sec-set-constructor",
@@ -4955,7 +4955,7 @@
     "name": "WeakMap",
     "id": "sec-weakmap-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "WeakMap()",
       "id": "sec-weakmap-constructor",
@@ -5038,7 +5038,7 @@
     "name": "WeakSet",
     "id": "sec-weakset-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "WeakSet()",
       "id": "sec-weakset-constructor",
@@ -5111,7 +5111,7 @@
     "name": "ArrayBuffer",
     "id": "sec-arraybuffer-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "ArrayBuffer()",
       "id": "sec-arraybuffer-constructor",
@@ -5187,7 +5187,7 @@
     "name": "SharedArrayBuffer",
     "id": "sec-sharedarraybuffer-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "SharedArrayBuffer()",
       "id": "sec-sharedarraybuffer-constructor",
@@ -5252,7 +5252,7 @@
     "name": "DataView",
     "id": "sec-dataview-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "DataView()",
       "id": "sec-dataview-constructor",
@@ -5709,7 +5709,7 @@
     "name": "WeakRef",
     "id": "sec-weak-ref-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "WeakRef()",
       "id": "sec-weak-ref-constructor",
@@ -5762,7 +5762,7 @@
     "name": "FinalizationRegistry",
     "id": "sec-finalization-registry-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "FinalizationRegistry()",
       "id": "sec-finalization-registry-constructor",
@@ -5863,7 +5863,7 @@
     "name": "Promise",
     "id": "sec-promise-objects",
     "global": true,
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Promise()",
       "id": "sec-promise-constructor",
@@ -6004,7 +6004,7 @@
     "id": "sec-generatorfunction-objects",
     "global": false,
     "extends": "Function",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "GeneratorFunction()",
       "id": "sec-generatorfunction-constructor",
@@ -6072,7 +6072,7 @@
     "id": "sec-asyncgeneratorfunction-objects",
     "global": false,
     "extends": "Function",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "AsyncGeneratorFunction()",
       "id": "sec-asyncgeneratorfunction-constructor",
@@ -6140,7 +6140,7 @@
     "id": "sec-generator-objects",
     "global": false,
     "extends": "%IteratorPrototype%",
-    "classConstructor": null,
+    "ctor": null,
     "staticProperties": [],
     "staticMethods": [],
     "prototypeProperties": [
@@ -6197,7 +6197,7 @@
     "id": "sec-asyncgenerator-objects",
     "global": false,
     "extends": "%AsyncIteratorPrototype%",
-    "classConstructor": null,
+    "ctor": null,
     "staticProperties": [],
     "staticMethods": [],
     "prototypeProperties": [
@@ -6254,7 +6254,7 @@
     "id": "sec-async-function-objects",
     "global": false,
     "extends": "Function",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "AsyncFunction()",
       "id": "sec-async-function-constructor",
@@ -6456,7 +6456,7 @@
     "id": "sec-proxy-objects",
     "global": true,
     "extends": "N/A",
-    "classConstructor": {
+    "ctor": {
       "type": "constructor",
       "name": "Proxy()",
       "id": "sec-proxy-constructor",
