@@ -43,7 +43,7 @@
     "@google-cloud/logging-winston": "5.3.0",
     "@google-cloud/storage": "6.12.0",
     "@mdi/font": "7.2.96",
-    "@mdn/browser-compat-data": "5.3.2",
+    "@mdn/browser-compat-data": "5.3.3",
     "@octokit/rest": "20.0.1",
     "@webref/elements": "^2.2.2",
     "compare-versions": "6.0.0",
