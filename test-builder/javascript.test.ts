@@ -21,7 +21,7 @@ describe("build (JavaScript)", () => {
         id: "sec-object-objects",
         global: true,
         extends: "null",
-        classConstructor: {
+        ctor: {
           type: "constructor",
           name: "Object()",
           id: "sec-object-constructor",
