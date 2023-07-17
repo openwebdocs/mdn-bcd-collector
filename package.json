@@ -102,7 +102,7 @@
     "enquirer": "2.3.6",
     "eslint": "8.45.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
+    "eslint-plugin-unicorn": "^48.0.0",
     "fdir": "6.0.1",
     "json3": "3.3.3",
     "klaw": "4.1.0",
