@@ -14,13 +14,3 @@ partial interface MediaStreamTrack {
   // https://github.com/w3c/mediacapture-main/pull/576
   attribute EventHandler onoverconstrained;
 };
-
-// https://github.com/w3c/mediacapture-main/pull/576
-[Exposed=Window]
-interface OverconstrainedErrorEvent : Event {
-  readonly attribute OverconstrainedError? error;
-};
-
-dictionary OverconstrainedErrorEventInit : EventInit {
-  OverconstrainedError? error = null;
-};
