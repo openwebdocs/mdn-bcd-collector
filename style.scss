@@ -1,10 +1,10 @@
-//
-// mdn-bcd-collector: style.scss
-// Styling for the web app
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
+/*
+ * mdn-bcd-collector: style.scss
+ * Styling for the web app
+ *
+ * © Gooborg Studios, Google LLC
+ * See the LICENSE file for copyright details
+ */
 
 @use "sass:map";
 @use "sass:list";
@@ -362,8 +362,10 @@ footer {
 
 hr {
   width: calc(
-    100% - max(0px, env(safe-area-inset-left)) -
-      max(0px, env(safe-area-inset-right))
+    100% - max(0px, env(safe-area-inset-left)) - max(
+        0px,
+        env(safe-area-inset-right)
+      )
   );
   margin-left: min(0px, calc(env(safe-area-inset-left) * -1));
 }
