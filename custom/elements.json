@@ -183,14 +183,16 @@
         ],
         "br": ["clear"],
         "button": [
+          {
+            "formaction": "formAction",
+            "formenctype": "formEnctype",
+            "formmethod": "formMethod",
+            "formnovalidate": "formNoValidate",
+            "formtarget": "formTarget"
+          },
           "autocomplete",
           "disabled",
           "form",
-          "formaction",
-          "formenctype",
-          "formmethod",
-          "formnovalidate",
-          "formtarget",
           "name",
           "type",
           "value"
@@ -294,6 +296,13 @@
           "width"
         ],
         "input": [
+          {
+            "formaction": "formAction",
+            "formenctype": "formEnctype",
+            "formmethod": "formMethod",
+            "formnovalidate": "formNoValidate",
+            "formtarget": "formTarget"
+          },
           "accept",
           "align",
           "alt",
@@ -302,11 +311,6 @@
           "dirname",
           "disabled",
           "form",
-          "formaction",
-          "formenctype",
-          "formmethod",
-          "formnovalidate",
-          "formtarget",
           "list",
           "max",
           "maxlength",
