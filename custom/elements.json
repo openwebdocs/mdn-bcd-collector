@@ -151,7 +151,8 @@
           {
             "accesskey": "accessKey",
             "nohref": "noHref",
-            "referrerpolicy": "referrerPolicy"
+            "referrerpolicy": "referrerPolicy",
+            "tabindex": "tabIndex"
           },
           "alt",
           "coords",
@@ -162,7 +163,6 @@
           "ping",
           "rel",
           "shape",
-          "tabindex",
           "target",
           "type"
         ],
@@ -200,25 +200,23 @@
         "canvas": ["height", "width"],
         "caption": ["align"],
         "col": [
-          {"bgcolor": "bgColor"},
+          {"bgcolor": "bgColor", "valign": "vAlign"},
           "align",
           "char",
           "charoff",
           "span",
-          "valign",
           "width"
         ],
         "colgroup": [
-          {"bgcolor": "bgColor"},
+          {"bgcolor": "bgColor", "valign": "vAlign"},
           "align",
           "char",
           "charoff",
           "span",
-          "valign",
           "width"
         ],
         "dd": ["nowrap"],
-        "del": ["cite", "datetime"],
+        "del": [{"datetime": "dateTime"}, "cite"],
         "details": ["open"],
         "dialog": ["open"],
         "dir": ["compact", "align"],
@@ -226,44 +224,47 @@
         "fieldset": ["disabled", "form", "name"],
         "font": ["color", "face", "size"],
         "form": [
+          {"accept-charset": "acceptCharset", "novalidate": "noValidate"},
           "accept",
-          "accept-charset",
           "action",
           "autocapitalize",
           "autocomplete",
           "enctype",
           "method",
           "name",
-          "novalidate",
           "rel",
           "target"
         ],
         "frame": [
-          "frameborder",
-          "marginheight",
-          "marginwidth",
+          {
+            "frameborder": "frameBorder",
+            "marginheight": "marginHeight",
+            "marginwidth": "marginWidth",
+            "noresize": "noResize"
+          },
           "name",
-          "noresize",
           "scrolling",
           "src"
         ],
         "frameset": ["cols", "rows"],
         "head": ["profile"],
-        "hr": ["align", "color", "noshade", "size", "width"],
+        "hr": [{"noshade": "noShade"}, "align", "color", "size", "width"],
         "html": ["manifest", "version", "xmlns"],
         "iframe": [
-          {"referrerpolicy": "referrerPolicy"},
+          {
+            "allowfullscreen": "allowFullscreen",
+            "allowpaymentrequest": "allowPaymentRequest",
+            "frameborder": "frameBorder",
+            "longdesc": "longDesc",
+            "marginheight": "marginHeight",
+            "marginwidth": "marginWidth",
+            "referrerpolicy": "referrerPolicy"
+          },
           "align",
           "allow",
-          "allowfullscreen",
-          "allowpaymentrequest",
           "credentialless",
-          "frameborder",
           "height",
           "loading",
-          "longdesc",
-          "marginheight",
-          "marginwidth",
           "name",
           "sandbox",
           "scrolling",
@@ -275,7 +276,10 @@
           {
             "crossorigin": "crossOrigin",
             "fetchpriority": "fetchPriority",
-            "referrerpolicy": "referrerPolicy"
+            "referrerpolicy": "referrerPolicy",
+            "ismap": "isMap",
+            "longdesc": "longDesc",
+            "usemap": "useMap"
           },
           "align",
           "alt",
@@ -283,15 +287,12 @@
           "decoding",
           "height",
           "hspace",
-          "ismap",
           "loading",
-          "longdesc",
           "name",
           "onerror",
           "sizes",
           "src",
           "srcset",
-          "usemap",
           "vspace",
           "width"
         ],
@@ -301,32 +302,32 @@
             "formenctype": "formEnctype",
             "formmethod": "formMethod",
             "formnovalidate": "formNoValidate",
-            "formtarget": "formTarget"
+            "formtarget": "formTarget",
+            "dirname": "dirName",
+            "maxlength": "maxLength",
+            "minlength": "minLength",
+            "readonly": "readOnly",
+            "usemap": "useMap"
           },
           "accept",
           "align",
           "alt",
           "capture",
           "checked",
-          "dirname",
           "disabled",
           "form",
           "list",
           "max",
-          "maxlength",
           "min",
-          "minlength",
           "multiple",
           "name",
           "pattern",
           "placeholder",
-          "readonly",
           "src",
-          "step",
-          "usemap"
+          "step"
         ],
-        "ins": ["cite", "datetime"],
-        "label": ["for"],
+        "ins": [{"datetime": "dateTime"}, "cite"],
+        "label": {"for": "htmlFor"},
         "legend": ["align"],
         "li": ["type", "value"],
         "link": [
@@ -355,57 +356,61 @@
         ],
         "map": ["name"],
         "marquee": [
-          {"bgcolor": "bgColor"},
+          {
+            "bgcolor": "bgColor",
+            "scrollamount": "scrollAmount",
+            "scrolldelay": "scrollDelay",
+            "truespeed": "trueSpeed"
+          },
           "behavior",
           "direction",
           "height",
           "hspace",
           "loop",
-          "scrollamount",
-          "scrolldelay",
-          "truespeed",
           "vspace",
           "width"
         ],
         "menu": ["label"],
-        "meta": ["charset", "content", "http-equiv", "name"],
+        "meta": [{"http-equiv": "httpEquiv"}, "charset", "content", "name"],
         "meter": ["form", "high", "low", "max", "min", "optimum", "value"],
         "object": [
+          {
+            "codebase": "codeBase",
+            "codetype": "codeType",
+            "tabindex": "tabIndex",
+            "usemap": "useMap"
+          },
           "archive",
           "border",
           "classid",
-          "codebase",
-          "codetype",
           "data",
           "declare",
           "form",
           "height",
           "name",
           "standby",
-          "tabindex",
           "type",
-          "usemap",
           "width"
         ],
         "ol": ["compact", "reversed", "start", "type"],
         "optgroup": ["disabled", "label"],
         "option": ["disabled", "label", "selected", "value"],
-        "output": ["for", "form", "name"],
-        "param": ["name", "type", "value", "valuetype"],
+        "output": [{"for": "htmlFor"}, "form", "name"],
+        "param": [{"valuetype": "valueType"}, "name", "type", "value"],
         "pre": ["cols", "width", "wrap"],
         "progress": ["max", "value"],
         "script": [
           {
             "crossorigin": "crossOrigin",
             "fetchpriority": "fetchPriority",
-            "referrerpolicy": "referrerPolicy"
+            "referrerpolicy": "referrerPolicy",
+            "nomodule": "noModule"
           },
           "async",
           "blocking",
           "defer",
           "integrity",
           "language",
-          "nomodule",
           "src",
           "text",
           "type"
@@ -423,65 +428,93 @@
         ],
         "style": ["blocking", "media", "title", "type"],
         "table": [
-          {"bgcolor": "bgColor"},
+          {
+            "bgcolor": "bgColor",
+            "cellpadding": "cellPadding",
+            "cellspacing": "cellSpacing"
+          },
           "align",
           "border",
-          "cellpadding",
-          "cellspacing",
           "frame",
           "rules",
           "summary",
           "width"
         ],
-        "tbody": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
+        "tbody": [
+          {"bgcolor": "bgColor", "charoff": "chOff", "valign": "vAlign"},
+          "align",
+          "char"
+        ],
         "td": [
-          {"bgcolor": "bgColor"},
+          {
+            "bgcolor": "bgColor",
+            "charoff": "chOff",
+            "colspan": "colSpan",
+            "rowspan": "rowSpan",
+            "valign": "vAlign"
+          },
           "abbr",
           "align",
           "axis",
           "char",
-          "charoff",
-          "colspan",
           "headers",
-          "rowspan",
           "scope",
-          "valign",
           "width"
         ],
-        "template": ["shadowrootmode"],
+        "template": {"shadowrootmode": "shadowRootMode"},
         "textarea": [
+          {
+            "dirname": "dirName",
+            "maxlength": "maxLength",
+            "minlength": "minLength",
+            "readonly": "readOnly"
+          },
           "autocomplete",
           "cols",
-          "dirname",
           "disabled",
           "form",
-          "maxlength",
-          "minlength",
           "name",
           "placeholder",
-          "readonly",
           "required",
           "rows",
           "spellcheck",
           "wrap"
         ],
-        "tfoot": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
+        "tfoot": [
+          {
+            "bgcolor": "bgColor",
+            "charoff": "chOff",
+            "valign": "vAlign"
+          },
+          "align",
+          "char"
+        ],
         "th": [
-          {"bgcolor": "bgColor"},
+          {
+            "bgcolor": "bgColor",
+            "charoff": "chOff",
+            "colspan": "colSpan",
+            "rowspan": "rowSpan",
+            "valign": "vAlign"
+          },
           "abbr",
           "align",
           "axis",
           "char",
-          "charoff",
-          "colspan",
           "headers",
-          "rowspan",
           "scope",
-          "valign",
           "width"
         ],
-        "thead": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
-        "time": ["datetime"],
+        "thead": [
+          {
+            "bgcolor": "bgColor",
+            "charoff": "chOff",
+            "valign": "vAlign"
+          },
+          "align",
+          "char"
+        ],
+        "time": {"datetime": "dateTime"},
         "tr": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
         "track": ["default", "kind", "label", "src", "srclang"],
         "ul": ["compact", "type"],
