@@ -197,7 +197,7 @@
           "type",
           "value"
         ],
-        "canvas": ["height", "width", "moz-opaque"],
+        "canvas": ["height", "width"],
         "caption": ["align"],
         "col": [
           {"bgcolor": "bgColor"},
@@ -323,8 +323,7 @@
           "readonly",
           "src",
           "step",
-          "usemap",
-          "x-moz-errormessage"
+          "usemap"
         ],
         "ins": ["cite", "datetime"],
         "label": ["for"],
