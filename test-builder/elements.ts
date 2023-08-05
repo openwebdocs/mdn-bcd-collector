@@ -105,42 +105,42 @@ const build = async (specElements, customElements) => {
       }
 
       // Add tests for the attributes
-      for (const attr of data.attributes || []) {
-        let attrName = "";
-        let attrProp = "";
+      if (data.attributes) {
+        const attributes = Array.isArray(data.attributes)
+          ? [
+              ...data.attributes.filter((a) => typeof a == "object"),
+              ...data.attributes
+                .filter((a) => typeof a == "string")
+                .map((a) => ({[a]: a})),
+            ].reduce((acc, cv) => ({...acc, ...cv}), {})
+          : data.attributes;
 
-        if (typeof attr == "string") {
-          attrName = attr;
-          attrProp = attr;
-        } else {
-          attrName = attr.name;
-          attrProp = attr.prop;
-        }
+        for (const [attrName, attrProp] of Object.entries(attributes)) {
+          const customAttrTest = await getCustomTest(
+            `${bcdPath}.${attrName}`,
+            "${category}.elements",
+            true,
+          );
 
-        const customAttrTest = await getCustomTest(
-          `${bcdPath}.${attrName}`,
-          "${category}.elements",
-          true,
-        );
+          const defaultAttrCode = `(function() {
+    var instance = ${defaultConstructCode};
+    return !!instance && '${attrProp}' in instance;
+  })()`;
 
-        const defaultAttrCode = `(function() {
-  var instance = ${defaultConstructCode};
-  return !!instance && '${attrProp}' in instance;
-})()`;
-
-        tests[`${bcdPath}.${attrName}`] = compileTest({
-          raw: {
-            code: customAttrTest.test || defaultAttrCode,
-          },
-          exposure: ["Window"],
-        });
-
-        // Add the additional tests
-        for (const [key, code] of Object.entries(customTest.additional)) {
-          tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
-            raw: {code: code},
+          tests[`${bcdPath}.${attrName}`] = compileTest({
+            raw: {
+              code: customAttrTest.test || defaultAttrCode,
+            },
             exposure: ["Window"],
           });
+
+          // Add the additional tests
+          for (const [key, code] of Object.entries(customTest.additional)) {
+            tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
+              raw: {code: code},
+              exposure: ["Window"],
+            });
+          }
         }
       }
     }

@@ -133,6 +133,7 @@
     "attributes": {
       "html": {
         "a": [
+          {"referrerpolicy": "referrerPolicy"},
           "charset",
           "coords",
           "download",
@@ -140,7 +141,6 @@
           "hreflang",
           "name",
           "ping",
-          {"name": "referrerpolicy", "prop": "referrerPolicy"},
           "rel",
           "rev",
           "shape",
@@ -148,16 +148,18 @@
           "type"
         ],
         "area": [
-          {"name": "accesskey", "prop": "accessKey"},
+          {
+            "accesskey": "accessKey",
+            "nohref": "noHref",
+            "referrerpolicy": "referrerPolicy"
+          },
           "alt",
           "coords",
           "download",
           "href",
           "hreflang",
           "name",
-          {"name": "nohref", "prop": "noHref"},
           "ping",
-          {"name": "referrerpolicy", "prop": "referrerPolicy"},
           "rel",
           "shape",
           "tabindex",
@@ -168,9 +170,9 @@
         "base": ["href", "target"],
         "blockquote": ["cite"],
         "body": [
+          {"bgcolor": "bgColor"},
           "alink",
           "background",
-          {"name": "bgcolor", "prop": "bgColor"},
           "bottommargin",
           "leftmargin",
           "link",
@@ -196,8 +198,8 @@
         "canvas": ["height", "width", "moz-opaque"],
         "caption": ["align"],
         "col": [
+          {"bgcolor": "bgColor"},
           "align",
-          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "span",
@@ -205,8 +207,8 @@
           "width"
         ],
         "colgroup": [
+          {"bgcolor": "bgColor"},
           "align",
-          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "span",
@@ -248,6 +250,7 @@
         "hr": ["align", "color", "noshade", "size", "width"],
         "html": ["manifest", "version", "xmlns"],
         "iframe": [
+          {"referrerpolicy": "referrerPolicy"},
           "align",
           "allow",
           "allowfullscreen",
@@ -260,7 +263,6 @@
           "marginheight",
           "marginwidth",
           "name",
-          {"name": "referrerpolicy", "prop": "referrerPolicy"},
           "sandbox",
           "scrolling",
           "src",
@@ -268,12 +270,15 @@
           "width"
         ],
         "img": [
+          {
+            "crossorigin": "crossOrigin",
+            "fetchpriority": "fetchPriority",
+            "referrerpolicy": "referrerPolicy"
+          },
           "align",
           "alt",
           "border",
-          {"name": "crossorigin", "prop": "crossOrigin"},
           "decoding",
-          {"name": "fetchpriority", "prop": "fetchPriority"},
           "height",
           "hspace",
           "ismap",
@@ -281,7 +286,6 @@
           "longdesc",
           "name",
           "onerror",
-          {"name": "referrerpolicy", "prop": "referrerPolicy"},
           "sizes",
           "src",
           "srcset",
@@ -323,20 +327,22 @@
         "legend": ["align"],
         "li": ["type", "value"],
         "link": [
+          {
+            "crossorigin": "crossOrigin",
+            "fetchpriority": "fetchPriority",
+            "imagesizes": "imageSizes",
+            "imagesrcset": "imageSrcset",
+            "referrerpolicy": "referrerPolicy"
+          },
           "blocking",
           "charset",
-          {"name": "crossorigin", "prop": "crossOrigin"},
           "disabled",
-          {"name": "fetchpriority", "prop": "fetchPriority"},
           "href",
           "hreflang",
-          {"name": "imagesizes", "prop": "imageSizes"},
-          {"name": "imagesrcset", "prop": "imageSrcset"},
           "integrity",
           "media",
           "methods",
           "prefetch",
-          {"name": "referrerpolicy", "prop": "referrerPolicy"},
           "rel",
           "rev",
           "sizes",
@@ -346,8 +352,8 @@
         ],
         "map": ["name"],
         "marquee": [
+          {"bgcolor": "bgColor"},
           "behavior",
-          {"name": "bgcolor", "prop": "bgColor"},
           "direction",
           "height",
           "hspace",
@@ -386,15 +392,17 @@
         "pre": ["cols", "width", "wrap"],
         "progress": ["max", "value"],
         "script": [
+          {
+            "crossorigin": "crossOrigin",
+            "fetchpriority": "fetchPriority",
+            "referrerpolicy": "referrerPolicy"
+          },
           "async",
           "blocking",
-          {"name": "crossorigin", "prop": "crossOrigin"},
           "defer",
-          {"name": "fetchpriority", "prop": "fetchPriority"},
           "integrity",
           "language",
           "nomodule",
-          {"name": "referrerpolicy", "prop": "referrerPolicy"},
           "src",
           "text",
           "type"
@@ -412,8 +420,8 @@
         ],
         "style": ["blocking", "media", "title", "type"],
         "table": [
+          {"bgcolor": "bgColor"},
           "align",
-          {"name": "bgcolor", "prop": "bgColor"},
           "border",
           "cellpadding",
           "cellspacing",
@@ -422,18 +430,12 @@
           "summary",
           "width"
         ],
-        "tbody": [
-          "align",
-          {"name": "bgcolor", "prop": "bgColor"},
-          "char",
-          "charoff",
-          "valign"
-        ],
+        "tbody": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
         "td": [
+          {"bgcolor": "bgColor"},
           "abbr",
           "align",
           "axis",
-          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "colspan",
@@ -460,18 +462,12 @@
           "spellcheck",
           "wrap"
         ],
-        "tfoot": [
-          "align",
-          {"name": "bgcolor", "prop": "bgColor"},
-          "char",
-          "charoff",
-          "valign"
-        ],
+        "tfoot": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
         "th": [
+          {"bgcolor": "bgColor"},
           "abbr",
           "align",
           "axis",
-          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "colspan",
@@ -481,27 +477,15 @@
           "valign",
           "width"
         ],
-        "thead": [
-          "align",
-          {"name": "bgcolor", "prop": "bgColor"},
-          "char",
-          "charoff",
-          "valign"
-        ],
+        "thead": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
         "time": ["datetime"],
-        "tr": [
-          "align",
-          {"name": "bgcolor", "prop": "bgColor"},
-          "char",
-          "charoff",
-          "valign"
-        ],
+        "tr": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
         "track": ["default", "kind", "label", "src", "srclang"],
         "ul": ["compact", "type"],
         "video": [
+          {"crossorigin": "crossOrigin"},
           "autoplay",
           "controls",
-          {"name": "crossorigin", "prop": "crossOrigin"},
           "height",
           "loop",
           "muted",
