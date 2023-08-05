@@ -170,7 +170,7 @@
         "body": [
           "alink",
           "background",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "bottommargin",
           "leftmargin",
           "link",
@@ -197,7 +197,7 @@
         "caption": ["align"],
         "col": [
           "align",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "span",
@@ -206,7 +206,7 @@
         ],
         "colgroup": [
           "align",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "span",
@@ -347,7 +347,7 @@
         "map": ["name"],
         "marquee": [
           "behavior",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "direction",
           "height",
           "hspace",
@@ -413,7 +413,7 @@
         "style": ["blocking", "media", "title", "type"],
         "table": [
           "align",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "border",
           "cellpadding",
           "cellspacing",
@@ -422,12 +422,18 @@
           "summary",
           "width"
         ],
-        "tbody": ["align", "bgcolor", "char", "charoff", "valign"],
+        "tbody": [
+          "align",
+          {"name": "bgcolor", "prop": "bgColor"},
+          "char",
+          "charoff",
+          "valign"
+        ],
         "td": [
           "abbr",
           "align",
           "axis",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "colspan",
@@ -454,12 +460,18 @@
           "spellcheck",
           "wrap"
         ],
-        "tfoot": ["align", "bgcolor", "char", "charoff", "valign"],
+        "tfoot": [
+          "align",
+          {"name": "bgcolor", "prop": "bgColor"},
+          "char",
+          "charoff",
+          "valign"
+        ],
         "th": [
           "abbr",
           "align",
           "axis",
-          "bgcolor",
+          {"name": "bgcolor", "prop": "bgColor"},
           "char",
           "charoff",
           "colspan",
@@ -469,9 +481,21 @@
           "valign",
           "width"
         ],
-        "thead": ["align", "bgcolor", "char", "charoff", "valign"],
+        "thead": [
+          "align",
+          {"name": "bgcolor", "prop": "bgColor"},
+          "char",
+          "charoff",
+          "valign"
+        ],
         "time": ["datetime"],
-        "tr": ["align", "bgcolor", "char", "charoff", "valign"],
+        "tr": [
+          "align",
+          {"name": "bgcolor", "prop": "bgColor"},
+          "char",
+          "charoff",
+          "valign"
+        ],
         "track": ["default", "kind", "label", "src", "srclang"],
         "ul": ["compact", "type"],
         "video": [
