@@ -546,9 +546,9 @@
           "xlink_title"
         ],
         "animate": [
+          {"dur": "getSimpleDuration"},
           "attributeName",
           "attributeType",
-          "dur",
           "from",
           "repeatCount",
           "to"
