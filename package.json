@@ -60,7 +60,7 @@
     "marked": "^5.1.2",
     "marked-gfm-heading-id": "^3.0.6",
     "marked-highlight": "^2.0.4",
-    "marked-mangle": "^1.1.1",
+    "marked-mangle": "^1.1.2",
     "slugify": "1.6.6",
     "ua-parser-js": "1.0.35",
     "unique-string": "3.0.0",
