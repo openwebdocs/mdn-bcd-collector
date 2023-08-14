@@ -103,7 +103,7 @@
     "eslint": "8.47.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^48.0.1",
-    "fdir": "6.0.2",
+    "fdir": "6.1.0",
     "json3": "3.3.3",
     "klaw": "4.1.0",
     "listr2": "6.6.1",
