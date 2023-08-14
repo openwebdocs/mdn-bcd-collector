@@ -100,7 +100,7 @@
     "chalk-template": "1.1.0",
     "ejs-lint": "2.0.0",
     "enquirer": "2.4.1",
-    "eslint": "8.46.0",
+    "eslint": "8.47.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^48.0.1",
     "fdir": "6.0.2",
