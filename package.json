@@ -11,33 +11,34 @@
     "url": "https://github.com/GooborgStudios/mdn-bcd-collector.git"
   },
   "engines": {
-    "node": ">=18 <20"
+    "node": ">=18"
   },
   "scripts": {
-    "prepare": "ts-node prepare.ts",
+    "prepare": "npm run ts-node prepare.ts",
     "format": "eslint . && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\" --color && ejslint views/*",
     "format:fix": "eslint --fix . && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\"",
     "fix": "npm run format:fix",
     "clean": "rm -rf .nyc_output coverage generated tests.json",
     "build": "npm run build:compile && npm run build:tests && npm run build:resources",
     "build:compile": "tsc -p .",
-    "build:tests": "ts-node test-builder/index.ts",
-    "build:resources": "ts-node prepare-resources.ts",
+    "build:tests": "npm run ts-node test-builder/index.ts",
+    "build:resources": "npm run ts-node prepare-resources.ts",
     "gcp-build": "npm run build",
     "start": "NODE_ENV=production node app.js",
-    "dev": "npm i && nodemon -e ts,json,idl,scss,yaml --exec \"npm run build:tests && npm run build:resources && ts-node app.ts\"",
+    "dev": "npm i && nodemon -e ts,json,idl,scss,yaml --exec \"npm run build:tests && npm run build:resources && npm run ts-node app.ts\"",
     "unittest": "NODE_ENV=test c8 mocha --recursive './**/*.test.ts'",
     "coverage": "npm run coverage:report && npm run coverage:open",
     "coverage:report": "c8 report -r lcov",
     "coverage:open": "open-cli coverage/lcov-report/index.html",
     "test": "npm run format && tsc -p . --noEmit && npm run unittest",
-    "selenium": "ts-node scripts/selenium.ts",
-    "update-bcd": "ts-node scripts/update-bcd.ts",
-    "find-missing-features": "ts-node scripts/find-missing-features.ts",
-    "find-missing-reports": "ts-node scripts/find-missing-reports.ts",
-    "add-new-bcd": "ts-node scripts/add-new-bcd.ts",
-    "release": "ts-node scripts/release.ts",
-    "report-stats": "ts-node scripts/report-stats.ts"
+    "selenium": "npm run ts-node scripts/selenium.ts",
+    "update-bcd": "npm run ts-node scripts/update-bcd.ts",
+    "find-missing-features": "npm run ts-node scripts/find-missing-features.ts",
+    "find-missing-reports": "npm run ts-node scripts/find-missing-reports.ts",
+    "add-new-bcd": "npm run ts-node scripts/add-new-bcd.ts",
+    "release": "npm run ts-node scripts/release.ts",
+    "report-stats": "npm run ts-node scripts/report-stats.ts",
+    "ts-node": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "6.0.0",
