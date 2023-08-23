@@ -296,7 +296,13 @@
         message: "Constructor passed without 'new' keyword"
       };
     } catch (err) {
-      if (stringIncludes(err.message, ["requires 'new'"])) {
+      if (
+        stringIncludes(err.message, [
+          "requires 'new'",
+          "constructor without new is forbidden",
+          "constructor without new is invalid"
+        ])
+      ) {
         return { result: true, message: stringify(err) };
       }
 
