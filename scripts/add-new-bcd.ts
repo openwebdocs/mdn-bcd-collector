@@ -172,6 +172,7 @@ export const collectMissing = async (filepath: string): Promise<void> => {
     recursiveAdd(entry.split("."), 0, missing, template);
   }
 
+  await fs.ensureFile(filepath);
   await fs.writeJSON(filepath, missing, {spaces: 2});
 };
 
