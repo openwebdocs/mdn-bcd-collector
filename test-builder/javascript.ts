@@ -81,6 +81,11 @@ const buildTestList = (specJS, customJS) => {
         continue;
       }
 
+      if (attr.name.endsWith(".constructor")) {
+        // Skip all constructor properties; it can be assumed all objects have this
+        continue;
+      }
+
       features[featureName].members[attr.static ? "static" : "instance"].push(
         stripAttrName(attr.name, featureName),
       );
