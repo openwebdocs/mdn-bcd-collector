@@ -228,7 +228,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
         code: (
           await compileCustomTest(
             baseCode +
-              `return bcd.testConstructor("${iface}", {noNew: ${!!data.no_new}})`,
+              `return bcd.testConstructor("${iface}", ${!!data.no_new})`,
           )
         ).code,
       },
