@@ -10,6 +10,8 @@ import {getCustomTest, compileCustomTest, compileTest} from "./common.js";
 
 import type {RawTestCodeExpr} from "../types/types.js";
 
+export const namespaces = ["Intl", "WebAssembly", "Temporal"];
+
 const stripAttrName = (name, featureName) =>
   name
     .replace(/%(\w+)Prototype%/g, "$1")
@@ -122,8 +124,7 @@ const buildTestList = (specJS, customJS) => {
 const getCategory = (pathParts: string[]) => {
   let category = "javascript.builtins";
   const isInSubcategory =
-    pathParts.length > 1 &&
-    ["Intl", "WebAssembly", "Temporal"].includes(pathParts[0]);
+    pathParts.length > 1 && namespaces.includes(pathParts[0]);
 
   if (isInSubcategory) {
     category += "." + pathParts[0];

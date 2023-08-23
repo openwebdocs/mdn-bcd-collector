@@ -17,6 +17,7 @@ import esMain from "es-main";
 import {BCD_DIR} from "../lib/constants.js";
 import {getMissing} from "./find-missing-features.js";
 import {main as updateBcd} from "./update-bcd.js";
+import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
 const tests = await fs.readJson(new URL("../tests.json", import.meta.url));
 const overrides = await fs.readJson(
@@ -101,7 +102,7 @@ export const getFilePath = (ident: string[]): string => {
     if (
       parts.length >= 4 &&
       parts[2] !== parts[3] &&
-      startsWithUpperCase(parts[2]) &&
+      jsNamespaces.includes(parts[2]) &&
       startsWithUpperCase(parts[3])
     ) {
       parts.length = 4;
