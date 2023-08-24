@@ -129,7 +129,7 @@ describe("build (JavaScript)", () => {
         exposure: ["Window"],
       },
       "javascript.builtins.Object.Object": {
-        code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  return bcd.testConstructor("Object", { noNew: false });\n})();\n',
+        code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  return bcd.testConstructor("Object", false);\n})();\n',
         exposure: ["Window"],
       },
       "javascript.builtins.Object.Object.new_required": {
@@ -146,10 +146,6 @@ describe("build (JavaScript)", () => {
       },
       "javascript.builtins.Object.create": {
         code: '"Object" in self && "create" in Object',
-        exposure: ["Window"],
-      },
-      "javascript.builtins.Object.constructor": {
-        code: '"Object" in self && "constructor" in Object.prototype',
         exposure: ["Window"],
       },
       "javascript.builtins.Object.proto": {
@@ -173,7 +169,7 @@ describe("build (JavaScript)", () => {
   if (!("AggregateError" in self)) {
     return { result: false, message: "AggregateError is not defined" };
   }
-  return bcd.testConstructor("AggregateError", { noNew: false });
+  return bcd.testConstructor("AggregateError", false);
 })();
 `,
         exposure: ["Window"],
@@ -199,7 +195,7 @@ describe("build (JavaScript)", () => {
   if (!("Array" in self)) {
     return { result: false, message: "Array is not defined" };
   }
-  return bcd.testConstructor("Array", { noNew: false });
+  return bcd.testConstructor("Array", false);
 })();
 `,
         exposure: ["Window"],
@@ -229,7 +225,7 @@ describe("build (JavaScript)", () => {
   if (!("BigInt" in self)) {
     return { result: false, message: "BigInt is not defined" };
   }
-  return bcd.testConstructor("BigInt", { noNew: true });
+  return bcd.testConstructor("BigInt", true);
 })();
 `,
         exposure: ["Window"],
