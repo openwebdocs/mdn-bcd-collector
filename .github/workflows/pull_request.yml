@@ -46,10 +46,7 @@ jobs:
       - run: npm run unittest
       # ensure we can start the server without dev dependencies
       - name: Production smoke test
-        # XXX SWC 1.3.44 is specified due to a bug in 1.3.45; remove version number
-        # once https://github.com/swc-project/swc/issues/7203 is resolved
         run: |
-          npm i -g ts-node @swc/core@1.3.44
           npm ci --production
           npm start &
           npx wait-on -t 10000 -v http://localhost:8080
