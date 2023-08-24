@@ -1,5 +1,141 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.2
+
+Released August 24, 2023
+
+### Test Changes
+
+#### Removed
+
+- javascript.builtins.Object.constructor
+- javascript.builtins.Function.constructor
+- javascript.builtins.Boolean.constructor
+- javascript.builtins.Symbol.constructor
+- javascript.builtins.Error.constructor
+- javascript.builtins.EvalError.constructor
+- javascript.builtins.RangeError.constructor
+- javascript.builtins.ReferenceError.constructor
+- javascript.builtins.SyntaxError.constructor
+- javascript.builtins.TypeError.constructor
+- javascript.builtins.URIError.constructor
+- javascript.builtins.AggregateError.constructor
+- javascript.builtins.Number.constructor
+- javascript.builtins.BigInt.constructor
+- javascript.builtins.Date.constructor
+- javascript.builtins.String.constructor
+- javascript.builtins.RegExp.constructor
+- javascript.builtins.Array.constructor
+- javascript.builtins.TypedArray.constructor
+- javascript.builtins.Int8Array.constructor
+- javascript.builtins.Uint8Array.constructor
+- javascript.builtins.Uint8ClampedArray.constructor
+- javascript.builtins.Int16Array.constructor
+- javascript.builtins.Uint16Array.constructor
+- javascript.builtins.Int32Array.constructor
+- javascript.builtins.Uint32Array.constructor
+- javascript.builtins.BigInt64Array.constructor
+- javascript.builtins.BigUint64Array.constructor
+- javascript.builtins.Float32Array.constructor
+- javascript.builtins.Float64Array.constructor
+- javascript.builtins.Map.constructor
+- javascript.builtins.Set.constructor
+- javascript.builtins.WeakMap.constructor
+- javascript.builtins.WeakSet.constructor
+- javascript.builtins.ArrayBuffer.constructor
+- javascript.builtins.SharedArrayBuffer.constructor
+- javascript.builtins.DataView.constructor
+- javascript.builtins.WeakRef.constructor
+- javascript.builtins.FinalizationRegistry.constructor
+- javascript.builtins.Promise.constructor
+- javascript.builtins.GeneratorFunction.constructor
+- javascript.builtins.AsyncGeneratorFunction.constructor
+- javascript.builtins.Generator.constructor
+- javascript.builtins.AsyncGenerator.constructor
+- javascript.builtins.AsyncFunction.constructor
+
+#### Changed
+
+- javascript.builtins.Object.Object
+- javascript.builtins.Function.Function
+- javascript.builtins.Boolean.Boolean
+- javascript.builtins.Symbol.Symbol
+- javascript.builtins.Error.Error
+- javascript.builtins.EvalError.EvalError
+- javascript.builtins.RangeError.RangeError
+- javascript.builtins.ReferenceError.ReferenceError
+- javascript.builtins.SyntaxError.SyntaxError
+- javascript.builtins.TypeError.TypeError
+- javascript.builtins.URIError.URIError
+- javascript.builtins.Number.Number
+- javascript.builtins.BigInt.BigInt
+- javascript.builtins.Date.Date
+- javascript.builtins.String.String
+- javascript.builtins.RegExp.RegExp
+- javascript.builtins.Array.Array
+- javascript.builtins.Int8Array.Int8Array
+- javascript.builtins.Uint8Array.Uint8Array
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray
+- javascript.builtins.Int16Array.Int16Array
+- javascript.builtins.Uint16Array.Uint16Array
+- javascript.builtins.Int32Array.Int32Array
+- javascript.builtins.Uint32Array.Uint32Array
+- javascript.builtins.BigInt64Array.BigInt64Array
+- javascript.builtins.BigUint64Array.BigUint64Array
+- javascript.builtins.Float32Array.Float32Array
+- javascript.builtins.Float64Array.Float64Array
+- javascript.builtins.Map.Map
+- javascript.builtins.Set.Set
+- javascript.builtins.WeakMap.WeakMap
+- javascript.builtins.WeakSet.WeakSet
+- javascript.builtins.ArrayBuffer.ArrayBuffer
+- javascript.builtins.SharedArrayBuffer.SharedArrayBuffer
+- javascript.builtins.DataView.DataView
+- javascript.builtins.WeakRef.WeakRef
+- javascript.builtins.FinalizationRegistry.FinalizationRegistry
+- javascript.builtins.Promise.Promise
+- javascript.builtins.Proxy.Proxy
+- javascript.builtins.InternalError.InternalError
+- javascript.builtins.Intl.Collator.Collator
+- javascript.builtins.Intl.DateTimeFormat.DateTimeFormat
+- javascript.builtins.Intl.DisplayNames.DisplayNames
+- javascript.builtins.Intl.DurationFormat.DurationFormat
+- javascript.builtins.Intl.ListFormat.ListFormat
+- javascript.builtins.Intl.Locale.Locale
+- javascript.builtins.Intl.NumberFormat.NumberFormat
+- javascript.builtins.Intl.PluralRules.PluralRules
+- javascript.builtins.Intl.RelativeTimeFormat.RelativeTimeFormat
+- javascript.builtins.Intl.Segmenter.Segmenter
+- javascript.builtins.Temporal.Calendar.Calendar
+- javascript.builtins.Temporal.Duration.Duration
+- javascript.builtins.Temporal.Instant.Instant
+- javascript.builtins.Temporal.PlainDate.PlainDate
+- javascript.builtins.Temporal.PlainDateTime.PlainDateTime
+- javascript.builtins.Temporal.PlainMonthDay.PlainMonthDay
+- javascript.builtins.Temporal.PlainTime.PlainTime
+- javascript.builtins.Temporal.PlainYearMonth.PlainYearMonth
+- javascript.builtins.Temporal.TimeZone.TimeZone
+- javascript.builtins.Temporal.ZonedDateTime.ZonedDateTime
+- javascript.builtins.WebAssembly.CompileError.CompileError
+- javascript.builtins.WebAssembly.Exception.Exception
+- javascript.builtins.WebAssembly.Global.Global
+- javascript.builtins.WebAssembly.Instance.Instance
+- javascript.builtins.WebAssembly.LinkError.LinkError
+- javascript.builtins.WebAssembly.Memory.Memory
+- javascript.builtins.WebAssembly.Module.Module
+- javascript.builtins.WebAssembly.RuntimeError.RuntimeError
+- javascript.builtins.WebAssembly.Table.Table
+- javascript.builtins.WebAssembly.Tag.Tag
+
+### Commits
+
+- Ignore "constructor" attributes
+- add-new-bcd: Ensure that the file path exists before attempting to write file
+- Add support for Node.js v20
+- Fix addition of new JavaScript features regarding symbols
+- JavaScript tests: fix noNew argument passed to testConstructor()
+- Fix testConstructorNewRequired() for Firefox and Safari
+
 ## v10.2.1
 
 Released August 13, 2023
