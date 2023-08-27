@@ -10,7 +10,7 @@ import {getCustomTest, compileCustomTest, compileTest} from "./common.js";
 
 import type {RawTestCodeExpr} from "../types/types.js";
 
-export const namespaces = ["Intl", "WebAssembly", "Temporal"];
+export const namespaces = ["Intl", "Temporal"];
 
 const stripAttrName = (name, featureName) =>
   name
@@ -216,7 +216,7 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   }
   `;
 
-  if (["Intl", "Temporal", "WebAssembly"].includes(parts[2])) {
+  if (namespaces.includes(parts[2])) {
     baseCode += `if (!("${parts[3]}" in ${parts[2]})) {
     return {result: false, message: '${parts[2]}.${parts[3]} is not defined'};
   }

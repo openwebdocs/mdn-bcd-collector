@@ -428,8 +428,8 @@ const buildIDLMemberTests = async (
   members,
   iface,
   exposureSet,
-  isGlobal,
   resources,
+  settings,
 ) => {
   const tests = {};
   // Avoid generating duplicate tests for operations.
@@ -455,7 +455,7 @@ const buildIDLMemberTests = async (
       continue;
     }
 
-    let expr: string | RawTestCodeExpr = "";
+    let expr: string | RawTestCodeExpr | RawTestCodeExpr[] = "";
 
     // Constructors, constants, and static attributes should not have
     // auto-generated custom tests
@@ -463,19 +463,44 @@ const buildIDLMemberTests = async (
       isStatic || ["toString", "toJSON"].includes(member.name as string);
 
     const customTestMember = await getCustomTest(
-      `api.${iface.name}.${name}`,
+      `${settings.path}.${name}`,
       "api",
       customTestExactMatchNeeded,
     );
 
     if (customTestMember.test) {
       expr = customTestMember.test;
+    } else if (settings.legacyNamespace) {
+      expr = [{property: iface.name, owner: settings.legacyNamespace}];
+      switch (member.type) {
+        case "attribute":
+        case "operation":
+        case "field":
+          if (isStatic) {
+            expr.push({
+              property: member.name,
+              owner: `${settings.legacyNamespace}.${iface.name}`,
+              skipOwnerCheck: true,
+            });
+          } else {
+            expr.push({
+              property: member.name,
+              owner: `${settings.legacyNamespace}.${iface.name}.prototype`,
+              inherit: member.special === "inherit",
+              skipOwnerCheck: true,
+            });
+          }
+          break;
+        case "constructor":
+          expr = `bcd.testConstructor('${settings.legacyNamespace}.${member.name}')`;
+          break;
+      }
     } else {
       switch (member.type) {
         case "attribute":
         case "operation":
         case "field":
-          if (isGlobal) {
+          if (settings.isGlobal) {
             expr = {property: member.name, owner: "self"};
           } else if (isStatic) {
             expr = {property: member.name, owner: iface.name};
@@ -537,12 +562,14 @@ const buildIDLTests = async (ast, globals, scopes) => {
   interfaces.sort((a, b) => a.name.localeCompare(b.name));
 
   for (const iface of interfaces) {
-    const legacyNamespace = getExtAttr(iface, "LegacyNamespace");
+    let path = `api.${iface.name}`;
+    const legacyNamespace = getExtAttr(iface, "LegacyNamespace")?.rhs.value;
     if (legacyNamespace) {
-      // TODO: handle WebAssembly, which is partly defined using Web IDL but is
-      // under javascript.builtins.WebAssembly in BCD, not api.WebAssembly.
-      continue;
+      path = `api.${legacyNamespace}.${iface.name}`;
     }
+
+    // Remap WebAssembly API to javascript.builtins.WebAssembly
+    path = path.replace("api.WebAssembly", "javascript.builtins.WebAssembly");
 
     const members = flattenMembers(iface);
     if (iface.type === "namespace" && members.length === 0) {
@@ -556,11 +583,22 @@ const buildIDLTests = async (ast, globals, scopes) => {
       test: customTest,
       resources,
       additional: subtests,
-    } = await getCustomTest(`api.${iface.name}`, "api");
+    } = await getCustomTest(path, "api");
 
-    tests[`api.${iface.name}`] = compileTest({
+    tests[path] = compileTest({
       raw: {
-        code: customTest || {property: iface.name, owner: "self"},
+        code:
+          customTest ||
+          (legacyNamespace
+            ? [
+                {property: legacyNamespace, owner: "self"},
+                {
+                  property: iface.name,
+                  owner: legacyNamespace,
+                  skipOwnerCheck: true,
+                },
+              ]
+            : {property: iface.name, owner: "self"}),
       },
       exposure: Array.from(exposureSet),
       resources,
@@ -570,15 +608,19 @@ const buildIDLTests = async (ast, globals, scopes) => {
       members,
       iface,
       exposureSet,
-      isGlobal,
       resources,
+      {
+        path,
+        isGlobal,
+        legacyNamespace,
+      },
     );
     for (const [k, v] of Object.entries(memberTests)) {
-      tests[`api.${iface.name}.${k}`] = v;
+      tests[`${path}.${k}`] = v;
     }
 
     for (const [subtestName, subtestData] of Object.entries(subtests)) {
-      tests[`api.${iface.name}.${subtestName}`] = compileTest({
+      tests[`${path}.${subtestName}`] = compileTest({
         raw: {code: subtestData},
         exposure: Array.from(exposureSet),
         resources,
@@ -596,8 +638,11 @@ const buildIDLTests = async (ast, globals, scopes) => {
       members,
       fakeIface,
       exposureSet,
-      true,
       {},
+      {
+        path: "api",
+        isGlobal: true,
+      },
     );
     for (const [k, v] of Object.entries(memberTests)) {
       tests[`api.${k}`] = v;

@@ -555,10 +555,40 @@ describe("build (API)", () => {
 
     it("interface with legacy namespace", async () => {
       const ast = WebIDL2.parse(
-        `[Exposed=Window, LegacyNamespace]
-           interface Legacy {};`,
+        `[Exposed=Window, LegacyNamespace=Thing]
+           interface Legacy {
+             readonly attribute string foo;
+           };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {});
+      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+        "api.Thing.Legacy": {
+          code: '"Thing" in self && "Legacy" in Thing',
+          exposure: ["Window"],
+        },
+        "api.Thing.Legacy.foo": {
+          code: '"Thing" in self && "Legacy" in Thing && "foo" in Thing.Legacy.prototype',
+          exposure: ["Window"],
+        },
+      });
+    });
+
+    it("interface with WebAssembly namespace", async () => {
+      const ast = WebIDL2.parse(
+        `[Exposed=Window, LegacyNamespace=WebAssembly]
+           interface Exception {
+             readonly attribute string stack;
+           };`,
+      );
+      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+        "javascript.builtins.WebAssembly.Exception": {
+          code: '"WebAssembly" in self && "Exception" in WebAssembly',
+          exposure: ["Window"],
+        },
+        "javascript.builtins.WebAssembly.Exception.stack": {
+          code: '"WebAssembly" in self && "Exception" in WebAssembly && "stack" in WebAssembly.Exception.prototype',
+          exposure: ["Window"],
+        },
+      });
     });
 
     it("global interface", async () => {
