@@ -628,7 +628,9 @@ api:
       if (!canvas) {
         return {result: false, message: 'Could not create canvas element'};
       };
-      var instance = canvas.captureStream();
+      var stream = canvas.captureStream();
+      var tracks = stream.getTracks();
+      var instance = tracks[0];
   CanvasGradient:
     __base: |-
       <%api.CanvasRenderingContext2D:ctx%>
