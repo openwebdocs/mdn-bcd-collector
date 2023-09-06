@@ -33,7 +33,9 @@
   var debugmode =
     "location" in self &&
     "search" in location &&
-    stringIncludes(location.search, "debug=true");
+    stringIncludes(location.search, "debug=full")
+      ? "full"
+      : stringIncludes(location.search, "debug=true");
 
   /* c8 ignore start */
   // Non-invasive polyfills
