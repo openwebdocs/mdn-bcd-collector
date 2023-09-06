@@ -1,5 +1,86 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.3
+
+Released September 6, 2023
+
+### Test Changes
+
+#### Added
+
+- api.CSS.cap_static
+- api.CSS.rcap_static
+- api.CSS.rch_static
+- api.CSS.rex_static
+- api.CSS.ric_static
+- javascript.builtins.WebAssembly.Module.customSections_static
+- javascript.builtins.WebAssembly.Module.exports_static
+- javascript.builtins.WebAssembly.Module.imports_static
+- api.NavigateEvent.hasUAVisualTransition
+- api.PopStateEvent.hasUAVisualTransition
+- api.RestrictionTarget
+- api.SharedStorageWorkletGlobalScope.sharedStorage
+- javascript.builtins.WebAssembly.compile_static
+- javascript.builtins.WebAssembly.compileStreaming_static
+- javascript.builtins.WebAssembly.instantiate_static
+- javascript.builtins.WebAssembly.instantiateStreaming_static
+- javascript.builtins.WebAssembly.validate_static
+- api.Window.sharedStorage
+- api.XRFrame.detectedMeshes
+- css.properties.font-synthesis-position
+- css.properties.text-wrap-mode
+- css.properties.text-wrap-style
+- css.properties.transition-behavior
+- css.properties.word-space-transform
+
+#### Removed
+
+- api.CloseWatcher
+- api.Navigator.globalPrivacyControl
+- api.TextFormat.backgroundColor
+- api.TextFormat.textColor
+- api.TextFormat.underlineColor
+- api.WebAssembly
+- api.WorkerNavigator.globalPrivacyControl
+- api.XRFrame.detectedMeshs
+- css.properties.word-boundary-detection
+- css.properties.word-boundary-expansion
+- javascript.builtins.WebAssembly.compile
+- javascript.builtins.WebAssembly.compileStreaming
+- javascript.builtins.WebAssembly.instantiate
+- javascript.builtins.WebAssembly.instantiateStreaming
+- javascript.builtins.WebAssembly.validate
+- javascript.builtins.WebAssembly.CompileError.CompileError
+- javascript.builtins.WebAssembly.Exception.Exception.new_required
+- javascript.builtins.WebAssembly.Global.Global.new_required
+- javascript.builtins.WebAssembly.Instance.Instance.new_required
+- javascript.builtins.WebAssembly.LinkError.LinkError
+- javascript.builtins.WebAssembly.Memory.Memory.new_required
+- javascript.builtins.WebAssembly.Module.Module.new_required
+- javascript.builtins.WebAssembly.Module.customSections
+- javascript.builtins.WebAssembly.Module.exports
+- javascript.builtins.WebAssembly.Module.imports
+- javascript.builtins.WebAssembly.RuntimeError.RuntimeError
+- javascript.builtins.WebAssembly.Table.Table.new_required
+- javascript.builtins.WebAssembly.Tag.Tag.new_required
+
+#### Changed
+
+- api.CanvasCaptureMediaStreamTrack
+- javascript.builtins.WebAssembly.Exception
+- javascript.builtins.WebAssembly.Global.Global
+- javascript.builtins.WebAssembly.Instance.Instance
+- javascript.builtins.WebAssembly.Memory.Memory
+- javascript.builtins.WebAssembly.Module.Module
+- javascript.builtins.WebAssembly.Table.Table
+- javascript.builtins.WebAssembly.Tag.Tag
+- api.crypto
+
+### Commits
+
+- Generate tests for WebAssembly API using API test builder
+- Fix custom test for CanvasCaptureMediaStreamTrack
+
 ## v10.2.2
 
 Released August 24, 2023
