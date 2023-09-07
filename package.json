@@ -82,7 +82,7 @@
     "@browser-logos/opera": "1.1.11",
     "@browser-logos/safari": "2.1.0",
     "@swc/cli": "^0.1.62",
-    "@swc/helpers": "^0.5.0",
+    "@swc/helpers": "^0.5.2",
     "@types/fs-extra": "^11.0.1",
     "@types/mocha": "10.0.1",
     "@types/node": "20.5.9",
