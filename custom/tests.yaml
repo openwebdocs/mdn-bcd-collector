@@ -4934,6 +4934,7 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
+      "@@iterator": return !!instance && "Symbol" in self && "iterator" in Symbol && !!(instance[Symbol.iterator]);
     Map:
       __additional:
         Map.iterable_allowed: |-
