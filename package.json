@@ -83,7 +83,7 @@
     "@browser-logos/safari": "2.1.0",
     "@swc/cli": "^0.1.62",
     "@swc/helpers": "^0.5.2",
-    "@types/fs-extra": "^11.0.1",
+    "@types/fs-extra": "^11.0.2",
     "@types/mocha": "10.0.1",
     "@types/node": "20.6.1",
     "@types/superagent": "^4.1.18",
