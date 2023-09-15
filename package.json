@@ -118,7 +118,7 @@
     "puppeteer": "21.1.1",
     "sass": "1.67.0",
     "selenium-webdriver": "4.12.0",
-    "sinon": "15.2.0",
+    "sinon": "16.0.0",
     "typescript": "5.2.2",
     "webidl2": "24.4.1",
     "yaml": "2.3.2"
