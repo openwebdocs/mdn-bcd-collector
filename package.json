@@ -75,7 +75,7 @@
     "@babel/core": "7.22.17",
     "@babel/eslint-parser": "7.22.15",
     "@babel/plugin-syntax-import-assertions": "7.22.5",
-    "@babel/preset-env": "7.22.15",
+    "@babel/preset-env": "7.22.20",
     "@browser-logos/chrome": "2.0.0",
     "@browser-logos/edge": "2.0.7",
     "@browser-logos/firefox": "3.0.10",
