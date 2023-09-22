@@ -1,5 +1,31 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.4
+
+Released September 22, 2023
+
+### Test Changes
+
+#### Removed
+
+- api.HTMLCanvasElement.getContext.webgpu_context
+
+#### Changed
+
+- javascript.builtins.WebAssembly.Exception.stack
+- javascript.builtins.Iterator.@@iterator
+
+### Commits
+
+- Update overrides
+- Fix test for Iterator.@@iterator
+- Update harness.js to handle more Safari constructor errors
+- Add custom test for WebAssembly.Exception.stack
+- Update harness.js to handle Safari constructor error
+- Don't allow exporting if there are no results
+- Temporarily disable test for WebGPU rendering context
+- Fix debugmode variable
+
 ## v10.2.3
 
 Released September 6, 2023
