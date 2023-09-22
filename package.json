@@ -11,7 +11,8 @@
     "url": "https://github.com/GooborgStudios/mdn-bcd-collector.git"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "scripts": {
     "prepare": "npm run ts-node prepare.ts",
