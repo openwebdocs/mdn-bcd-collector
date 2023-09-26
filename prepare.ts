@@ -28,7 +28,7 @@ const prepare = async () => {
     } catch (e) {
       return;
     }
-    await exec("node install.js", {PUPPETEER_PRODUCT: "firefox"}, false);
+    await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
   }
 };
 
