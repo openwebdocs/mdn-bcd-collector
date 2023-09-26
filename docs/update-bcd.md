@@ -5,12 +5,12 @@ In this repository, the `update-bcd` and `add-new-bcd` scripts can be used to up
 - An understanding of the [compat data JSON schema](https://github.com/mdn/browser-compat-data/blob/main/schemas/compat-data-schema.md#mirroring-data)
   - An understanding of [ranged versions](https://github.com/mdn/browser-compat-data/blob/main/schemas/compat-data-schema.md#ranged-versions) in BCD
 - A local checkout of:
-  - [This repository](https://github.com/GooborgStudios/mdn-bcd-collector)
+  - [This repository](https://github.com/openwebdocs/mdn-bcd-collector)
   - [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data) at `../browser-compat-data` (or the path set as the `BCD_DIR` environment variable)
-  - Recommended: [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results), preferably at `../mdn-bcd-results`
+  - Recommended: [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results), preferably at `../mdn-bcd-results`
     - This repository contains the reports that have been exported to GitHub, but you may use your own reports if desired
 
-By default, the following scripts generate results based on pre-collected reports stored in the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repository. The reports in this repository are collected on every new release of the collector for almost every release of Chrome, Edge, Firefox and Safari since January 2020, and for the latest release of mobile browsers. With these reports, most contributors will not need access to their own browser library or CT platform in order to update BCD.
+By default, the following scripts generate results based on pre-collected reports stored in the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository. The reports in this repository are collected on every new release of the collector for almost every release of Chrome, Edge, Firefox and Safari since January 2020, and for the latest release of mobile browsers. With these reports, most contributors will not need access to their own browser library or CT platform in order to update BCD.
 
 ## `update-bcd`
 

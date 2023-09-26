@@ -13,6 +13,6 @@ jobs:
   auto-merge:
     uses: mdn/workflows/.github/workflows/auto-merge.yml@main
     with:
-      target-repo: "GooborgStudios/mdn-bcd-collector"
+      target-repo: "openwebdocs/mdn-bcd-collector"
     secrets:
       GH_TOKEN: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}

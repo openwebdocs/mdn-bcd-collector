@@ -1,8 +1,8 @@
 # About the mdn-bcd-collector
 
-This project's goal is to help keep MDN's [browser-compat-data (BCD)](https://github.com/mdn/browser-compat-data) as up-to-date and as accurate as possible, by running predefined JavaScript code in browsers to determine what features are and are not supported. This project was started by [Philip Jägenstedt](https://foolip.org/) at Google, who later contracted [Vinyl Da.i'gyu-Kazotetsu](https://www.queengoob.org) to help develop the project further. Vinyl has since forked the project and has been maintaining her own version under her own company, [Gooborg Studios](https://www.gooborg.com).
+This project's goal is to help keep MDN's [browser-compat-data (BCD)](https://github.com/mdn/browser-compat-data) as up-to-date and as accurate as possible, by running predefined JavaScript code in browsers to determine what features are and are not supported. This project was started by [Philip Jägenstedt](https://foolip.org/) at Google, who later contracted [Vinyl Da.i'gyu-Kazotetsu](https://www.queengoob.org) to help develop the project further. Vinyl had since forked the project and had been maintaining her own version under her own company, [Gooborg Studios](https://www.gooborg.com). The project now lives under [Open Web Docs](https://www.openwebdocs.org) ownership.
 
-Feature detection tests are generated based on machine readable data (Web IDL, CSS definitions, etc.) from web standards, with support for custom tests and custom data where needed. Tests are then run within browsers (either manually or via a Selenium WebDriver script), generating a results file that can either be downloaded locally or submitted to the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repository.
+Feature detection tests are generated based on machine readable data (Web IDL, CSS definitions, etc.) from web standards, with support for custom tests and custom data where needed. Tests are then run within browsers (either manually or via a Selenium WebDriver script), generating a results file that can either be downloaded locally or submitted to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
 
 ## How to Use
 
@@ -30,7 +30,7 @@ The workflow for the collector's process looks something like this:
 - After running through all browser and browser versions...
   - The `update-bcd` script is run to create changes to BCD
 
-> **Note:** on every new release of the collector, the first part is automatically run on all browsers released in 2020 and later, using Selenium WebDriver on [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute). These results are saved to the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repository for easy use by BCD contributors.
+> **Note:** on every new release of the collector, the first part is automatically run on all browsers released in 2020 and later, using Selenium WebDriver on [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute). These results are saved to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository for easy use by BCD contributors.
 
 ### The Website
 
@@ -40,7 +40,7 @@ The "website" encompasses everything involved with the web interface. This inclu
 - The web interface
 - The [HTTP API](./http-api.md)
 
-The role of the website is to act as a backend during the results collection process, serving files and test code to the browser to determine what features are and are not supported in that browser. It then receives the results from the browser so that it may be compiled into a JSON results file and either downloaded or exported to GitHub in the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repository.
+The role of the website is to act as a backend during the results collection process, serving files and test code to the browser to determine what features are and are not supported in that browser. It then receives the results from the browser so that it may be compiled into a JSON results file and either downloaded or exported to GitHub in the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
 
 ### The update scripts
 
@@ -80,6 +80,6 @@ WPT.live is a great resource to test support for various features, but like MDN 
 
 ## Copyright
 
-© 2023 [Gooborg Studios](https://www.gooborg.com/) + [various contributors](https://github.com/GooborgStudios/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
+© 2023 [Gooborg Studios](https://www.gooborg.com/) + [Open Web Docs](https://www.openwebdocs.org) + [various contributors](https://github.com/openwebdocs/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
 
 This project is under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) license.

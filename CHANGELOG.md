@@ -2843,7 +2843,7 @@ The core for MathML elements is also implemented, but as MathML requires additio
 - Fix \_\_additional on JavaScript category
 - Traverse all BCD features in find-missing-features
 - Fix release script when releasing new major version
-- Added WebAssembly features ([#452](https://github.com/GooborgStudios/mdn-bcd-collector/pull/452))
+- Added WebAssembly features ([#452](https://github.com/openwebdocs/mdn-bcd-collector/pull/452))
 - Increase delay when getting speech synthesis voices
 - Fix custom test for MediaQueryList
 - Add custom test for TransformStreamDefaultController
