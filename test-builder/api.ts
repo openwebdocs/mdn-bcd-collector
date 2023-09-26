@@ -450,7 +450,7 @@ const buildIDLMemberTests = async (
 
     if (isEventHandler) {
       // XXX Tests for events will be added with another package, see
-      // https://github.com/GooborgStudios/mdn-bcd-collector/issues/133 for
+      // https://github.com/openwebdocs/mdn-bcd-collector/issues/133 for
       // details. In the meantime, ignore event handlers.
       continue;
     }

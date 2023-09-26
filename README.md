@@ -2,13 +2,13 @@
 
 Data collection service for MDN's [browser-compat-data](https://github.com/mdn/browser-compat-data). Live at https://mdn-bcd-collector.gooborg.com/.
 
-Feature detection tests are generated based on machine readable data (Web IDL and CSS definitions) from web standards, with support for custom tests where needed. Results are submitted to the [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) repository.
+Feature detection tests are generated based on machine readable data (Web IDL and CSS definitions) from web standards, with support for custom tests where needed. Results are submitted to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
 
 This service is part of an effort to [assist BCD updates with automation](https://github.com/mdn/browser-compat-data/issues/3308), and exists to run lots of small tests in browsers to determine the support status of a feature in a browser, and save those results.
 
 ## Copyright
 
-© 2023 [Gooborg Studios](https://www.gooborg.com/) + [various contributors](https://github.com/GooborgStudios/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
+© 2023 [Gooborg Studios](https://www.gooborg.com/) + [Open Web Docs](https://www.openwebdocs.org) + [various contributors](https://github.com/openwebdocs/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
 
 This project is under the Apache License 2.0 license. See the LICENSE file for more details.
 
@@ -46,7 +46,7 @@ npm run dev -- --https-cert=my-cert.pem --https-key=my-cert.key
 
 A script has been provided which will collect all of the results for nearly all of the browsers, using the Selenium WebDriver to control your CTs, and download them to your computer (which can then be submitted as a PR). To run this script, you'll need a few prerequisites:
 
-- A clone of [mdn-bcd-results](https://github.com/GooborgStudios/mdn-bcd-results) adjacent to this folder's repository (or at least a folder at `../mdn-bcd-results`)
+- A clone of [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) adjacent to this folder's repository (or at least a folder at `../mdn-bcd-results`)
 - At least one Selenium remote (ex. BrowserStack, SauceLabs, etc.)
 
 ### Define Selenium Hosts

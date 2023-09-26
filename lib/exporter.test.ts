@@ -135,7 +135,7 @@ describe("GitHub export", () => {
           .resolves({
             data: {
               html_url:
-                "https://github.com/GooborgStudios/mdn-bcd-results/pull/42",
+                "https://github.com/openwebdocs/mdn-bcd-results/pull/42",
             },
           });
 
@@ -143,7 +143,7 @@ describe("GitHub export", () => {
 
         assert.deepEqual(result, {
           filename: `${expected.slug}.json`,
-          url: "https://github.com/GooborgStudios/mdn-bcd-results/pull/42",
+          url: "https://github.com/openwebdocs/mdn-bcd-results/pull/42",
         });
       });
     }
