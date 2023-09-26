@@ -7,10 +7,10 @@
 //
 
 import chalk from "chalk-template";
-import enquirer from "enquirer";
 import esMain from "es-main";
 import fs from "fs-extra";
 import {Listr, ListrTask} from "listr2";
+import { ListrEnquirerPromptAdapter } from '@listr2/prompt-adapter-enquirer';
 import prettier from "prettier";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -80,7 +80,7 @@ const getNewVersion = async (ctx, task) => {
     return;
   }
 
-  ctx.newVersion = await task.prompt([
+  ctx.newVersion = await task.prompt(ListrEnquirerPromptAdapter).run([
     {
       type: "select",
       name: "newVersion",
@@ -355,7 +355,7 @@ const main = async () => {
       {
         title: "Get confirmation to continue",
         task: async (ctx, task) => {
-          const confirm = await task.prompt([
+          const confirm = await task.prompt(ListrEnquirerPromptAdapter).run([
             {
               type: "confirm",
               name: "confirm",
@@ -385,8 +385,6 @@ const main = async () => {
     ],
     {
       showErrorMessage: true,
-      // Mitigates https://github.com/cenk1cenk2/listr2/issues/631
-      injectWrapper: {enquirer},
       ctx: {
         skipFetch: argv["no-fetch"],
         skipPrompt: argv["no-prompt"],
