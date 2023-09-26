@@ -8,7 +8,7 @@
   "author": "Gooborg Studios (https://www.gooborg.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GooborgStudios/mdn-bcd-collector.git"
+    "url": "https://github.com/openwebdocs/mdn-bcd-collector.git"
   },
   "engines": {
     "node": ">=18",
@@ -61,7 +61,7 @@
     "highlight.js": "^11.8.0",
     "json-stable-stringify": "1.0.2",
     "marked": "^9.0.3",
-    "marked-gfm-heading-id": "^3.0.8",
+    "marked-gfm-heading-id": "^3.1.0",
     "marked-highlight": "^2.0.6",
     "marked-mangle": "^1.1.4",
     "slugify": "1.6.6",
@@ -73,7 +73,7 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@babel/core": "7.22.20",
+    "@babel/core": "7.23.0",
     "@babel/eslint-parser": "7.22.15",
     "@babel/plugin-syntax-import-assertions": "7.22.5",
     "@babel/preset-env": "7.22.20",
@@ -86,7 +86,7 @@
     "@swc/helpers": "^0.5.2",
     "@types/fs-extra": "^11.0.2",
     "@types/mocha": "10.0.1",
-    "@types/node": "20.6.3",
+    "@types/node": "20.7.0",
     "@types/superagent": "^4.1.18",
     "@types/webidl2": "^24.4.0",
     "@types/yargs": "17.0.24",
@@ -103,7 +103,7 @@
     "chalk-template": "1.1.0",
     "ejs-lint": "2.0.0",
     "enquirer": "2.4.1",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^48.0.1",
     "fdir": "6.1.0",
@@ -118,7 +118,7 @@
     "prettier": "3.0.3",
     "puppeteer": "21.3.4",
     "sass": "1.68.0",
-    "selenium-webdriver": "4.12.0",
+    "selenium-webdriver": "4.13.0",
     "sinon": "16.0.0",
     "typescript": "5.2.2",
     "webidl2": "24.4.1",
