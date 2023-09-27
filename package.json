@@ -88,7 +88,7 @@
     "@types/mocha": "10.0.2",
     "@types/node": "20.7.0",
     "@types/superagent": "^4.1.19",
-    "@types/webidl2": "^24.4.0",
+    "@types/webidl2": "^24.4.1",
     "@types/yargs": "17.0.25",
     "@typescript-eslint/eslint-plugin": "6.7.3",
     "@webref/css": "6.7.1",
