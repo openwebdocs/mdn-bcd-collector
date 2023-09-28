@@ -1,5 +1,18 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.5
+
+Released September 27, 2023
+
+### Notable changes
+
+The collector project has now been transferred to Open Web Docs ownership! For the time being, the collector will remain under Gooborg Studios' domain.
+
+### Commits
+
+- Point to new repository owner (GooborgStudios -&gt; openwebdocs)
+- Add NPM version to package.json engines
+
 ## v10.2.4
 
 Released September 22, 2023
