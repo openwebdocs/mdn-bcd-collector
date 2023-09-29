@@ -89,7 +89,7 @@
     "@types/node": "20.7.1",
     "@types/superagent": "^4.1.19",
     "@types/webidl2": "^24.4.1",
-    "@types/yargs": "17.0.25",
+    "@types/yargs": "17.0.26",
     "@typescript-eslint/eslint-plugin": "6.7.3",
     "@webref/css": "6.8.0",
     "@webref/idl": "3.38.2",
