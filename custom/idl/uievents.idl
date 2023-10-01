@@ -28,12 +28,6 @@ partial interface KeyboardEvent {
   readonly attribute DOMString keyIdentifier;
 };
 
-partial interface MouseEvent {
-  // https://chromium.googlesource.com/chromium/src/+/6ad4130faeeead16d8bf620c4387283da143ac09/third_party/blink/renderer/core/events/mouse_event.idl#75
-  readonly attribute long layerX;
-  readonly attribute long layerY;
-};
-
 [Exposed=Window]
 interface MouseScrollEvent : Event {
 };
