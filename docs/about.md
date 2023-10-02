@@ -12,9 +12,9 @@ The collector project has two main parts:
   - Run a specific test on a specific browser to check if the browser supports that feature
   - Run all tests in a specific browser to determine what that browser does and does not support
   - Check to see what code was run to determine support or lack of, often during reviews of BCD PRs based on collector data
-- The BCD updater scripts
-  - `update-bcd` updates BCD based on results collected from the website
-  - `add-new-bcd` adds data for new standard features that BCD does not yet track, also based on results collected from the website
+- The collector results (https://github.com/openwebdocs/mdn-bcd-results)
+  - Results generated from collector runs
+  - BCD has [scripts](https://github.com/mdn/browser-compat-data/blob/main/docs/bcd-collector.md) to update data based on result files
 
 These parts work in tandem to ultimately help ensure that BCD is as accurate as possible. Depending on what your end goal is, you may use these these components together, separately, or in other ways than outlined above.
 
@@ -28,7 +28,7 @@ The workflow for the collector's process looks something like this:
   - Once tests are completed, they are exported
   - Rinse and repeat for every browser and browser version results are desired for
 - After running through all browser and browser versions...
-  - The `update-bcd` script is run to create changes to BCD
+  - The mdn-bcd-results files can be consumed by BCD to update its data.
 
 > **Note:** on every new release of the collector, the first part is automatically run on all browsers released in 2020 and later, using Selenium WebDriver on [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute). These results are saved to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository for easy use by BCD contributors.
 
@@ -41,15 +41,6 @@ The "website" encompasses everything involved with the web interface. This inclu
 - The [HTTP API](./http-api.md)
 
 The role of the website is to act as a backend during the results collection process, serving files and test code to the browser to determine what features are and are not supported in that browser. It then receives the results from the browser so that it may be compiled into a JSON results file and either downloaded or exported to GitHub in the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
-
-### The update scripts
-
-The update scripts take the results collected from the website, compiles them, and then makes changes to the files in BCD to synchronize them with the collector's results. For BCD contributors, this is the primary interaction they will have with the collector. There are two scripts involved in updating BCD:
-
-- `update-bcd` -- this updates the data for features tracked by BCD
-- `add-new-bcd` -- this adds features that are not currently tracked by BCD
-
-See [docs/update-bcd.md](./update-bcd.md) for information on how to use the `update-bcd` and `add-new-bcd` scripts.
 
 ## FAQ
 

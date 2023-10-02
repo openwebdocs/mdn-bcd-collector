@@ -1,7 +1,7 @@
 //
 // mdn-bcd-collector: lib/exporter.ts
 // This module is responsible for getting results/reports out of the collector
-// web service into JSON files that can be used by update-bcd.ts.
+// web service into JSON files.
 //
 // © Gooborg Studios, Google LLC
 // See the LICENSE file for copyright details

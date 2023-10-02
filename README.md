@@ -22,7 +22,7 @@ npm install
 
 ## Updating BCD using the results
 
-See [docs/update-bcd.md](./docs/update-bcd.md) for information on how to use the `update-bcd` script.
+See the [Updating BCD from mdn-bcd-collector results](https://github.com/mdn/browser-compat-data/blob/main/docs/bcd-collector.md) for information on how to use the `update` script within BCD.
 
 ## Reviewing BCD changes
 

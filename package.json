@@ -33,7 +33,6 @@
     "coverage:open": "open-cli coverage/lcov-report/index.html",
     "test": "npm run format && tsc -p . --noEmit && npm run unittest",
     "selenium": "npm run ts-node scripts/selenium.ts",
-    "update-bcd": "npm run ts-node scripts/update-bcd.ts",
     "find-missing-features": "npm run ts-node scripts/find-missing-features.ts",
     "find-missing-reports": "npm run ts-node scripts/find-missing-reports.ts",
     "add-new-bcd": "npm run ts-node scripts/add-new-bcd.ts",
