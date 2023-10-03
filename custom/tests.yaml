@@ -912,8 +912,30 @@ api:
       var instance = reusableInstances.audioContext.createConvolver();
   CookieStore:
     __additional:
-      delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'foo'});"
-      set.partitioned_option: "return bcd.testOptionParam(cookieStore, 'set', 'partitioned', true, {'name': 'foo', 'value': 'bar'});"
+      delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'one'});"
+      set.partitioned_option: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'two', 'partitioned': true});  
+        });
+        return bcd.testOptionParam(cookieStore, 'set', 'partitioned', true, {'name': 'two', 'value': 'bar'});
+      get.partitioned_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'three', 'partitioned': true});  
+        });
+        return cookieStore.set({'name': 'three', 'value': 'bar', 'partitioned': true}).then(function() {
+          return cookieStore.get('three');
+        }).then(function(cookie) {
+          return 'partitioned' in cookie;
+        });
+      getAll.partitioned_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'four', 'partitioned': true});  
+        });
+        return cookieStore.set({'name': 'four', 'value': 'bar', 'partitioned': true}).then(function() {
+          return cookieStore.getAll();
+        }).then(function(cookies) {
+          return 'partitioned' in cookies[0];
+        });
   CountQueuingStrategy:
     __base: |-
       if (!('CountQueuingStrategy' in self)) {
