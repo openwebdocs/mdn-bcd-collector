@@ -329,7 +329,7 @@ api:
   _globals:
     crypto: return !!self.crypto;
   AbortSignal:
-    abort:
+    abort_static:
       __additional:
         reason_parameter: |-
           if (!('AbortSignal' in self)) {
@@ -553,15 +553,15 @@ api:
             instance.createPeriodicWave(real, imag, constraints);
           }
           return bcd.testOptionParam(create, null, 'disableNormalization', true);
-      decodeAudioData:
-        __additional:
-          returns_promise: |-
-            <%api.BaseAudioContext:ctx%>
-            if (!(instance && instance.decodeAudioData)) {
-              return {result: false, message: 'instance.decodeAudioData is not defined'};
-            }
-            var value = instance.decodeAudioData(new ArrayBuffer());
-            return 'then' in value;
+    decodeAudioData:
+      __additional:
+        returns_promise: |-
+          <%api.BaseAudioContext:ctx%>
+          if (!(instance && instance.decodeAudioData)) {
+            return {result: false, message: 'instance.decodeAudioData is not defined'};
+          }
+          var value = instance.decodeAudioData(new ArrayBuffer());
+          return 'then' in value;
   BatteryManager:
     __base: |-
       if (!('getBattery' in navigator)) {
@@ -3153,6 +3153,8 @@ api:
       var instance = new Response('');
     Response:
       __additional:
+        json_static: |-
+          return 'Response' in self && 'json' in Response;
         body_parameter_optional: |-
           try {
             new Response();
