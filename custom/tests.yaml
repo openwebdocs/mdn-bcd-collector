@@ -910,6 +910,10 @@ api:
         return {result: false, message: 'audioContext.createConvolver is not defined'};
       }
       var instance = reusableInstances.audioContext.createConvolver();
+  CookieStore:
+    __additional:
+      delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'foo'});"
+      set.partitioned_option: "return bcd.testOptionParam(cookieStore, 'set', 'partitioned', true, {'name': 'foo', 'value': 'bar'});"
   CountQueuingStrategy:
     __base: |-
       if (!('CountQueuingStrategy' in self)) {
@@ -917,7 +921,12 @@ api:
       }
       var instance = new CountQueuingStrategy({ highWaterMark: 1 });
   CredentialsContainer:
+    __resources:
+      - cryptoKey
     __base: var instance = navigator.credentials;
+    create:
+      __additional:
+        publicKey_option: return bcd.testOptionParam(instance, 'create', 'publicKey', reusableInstances.cryptoKey);
     get:
       __additional:
         identity_option: return bcd.testOptionParam(instance, 'get', 'identity', 'use');
