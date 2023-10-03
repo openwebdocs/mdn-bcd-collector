@@ -1,5 +1,36 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.6
+
+Released October 3, 2023
+
+### Test Changes
+
+#### Added
+
+- api.AbortSignal.abort_static.reason_parameter
+- api.AudioSession
+- api.AudioWorkletGlobalScope.renderQuantumSize
+- api.BaseAudioContext.decodeAudioData.returns_promise
+- api.BaseAudioContext.renderQuantumSize
+- api.ClipboardItem.supports_static
+- api.CSSStyleRule.cssRules
+- api.CSSStyleRule.deleteRule
+- api.CSSStyleRule.insertRule
+- api.HTMLIFrameElement.sharedStorageWritable
+- api.HTMLImageElement.sharedStorageWritable
+- api.InterestGroupReportingScriptRunnerGlobalScope.registerAdMacro
+- api.IntersectionObserver.scrollMargin
+- api.Navigator.audioSession
+- api.Navigator.deprecatedReplaceInURN
+- api.PageRevealEvent
+- api.Response.Response.json_static
+
+### Commits
+
+- Add missing features for CSSStyleRule API
+- Fix custom tests
+
 ## v10.2.5
 
 Released September 27, 2023
