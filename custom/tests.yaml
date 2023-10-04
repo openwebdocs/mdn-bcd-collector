@@ -942,6 +942,24 @@ api:
         return {result: false, message: 'CountQueuingStrategy is not defined'};
       }
       var instance = new CountQueuingStrategy({ highWaterMark: 1 });
+  createImageBitmap:
+    __resources:
+      - image-black
+    __base: |-
+      if (!('createImageBitmap' in self)) {
+        return {result: false, message: 'createImageBitmap is not defined'};
+      }
+      function create(options) {
+        return createImageBitmap(document.getElementById('resource-image-black'), options);
+      }
+    __test: return true;
+    __additional:
+      options_colorSpaceConversion_parameter: return bcd.testOptionParam(create, null, 'colorSpaceConversion', 'default');
+      options_imageOrientation_parameter: return bcd.testOptionParam(create, null, 'imageOrientation', 'none');
+      options_premultiplyAlpha_parameter: return bcd.testOptionParam(create, null, 'premultiplyAlpha', 'default');
+      options_resizeHeight_parameter: return bcd.testOptionParam(create, null, 'resizeHeight', '100');
+      options_resizeQuality_parameter: return bcd.testOptionParam(create, null, 'resizeQuality', 'high');
+      options_resizeWidth_parameter: return bcd.testOptionParam(create, null, 'resizeWidth', '100');
   CredentialsContainer:
     __resources:
       - cryptoKey
