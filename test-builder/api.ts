@@ -537,7 +537,7 @@ const buildIDLMemberTests = async (
         code: expr,
       },
       exposure: Array.from(exposureSet),
-      resources,
+      resources: [...resources, ...customTestMember.resources],
     });
     handledMemberNames.add(name);
 
@@ -547,7 +547,7 @@ const buildIDLMemberTests = async (
       tests[`${name}.${subtestName}`] = compileTest({
         raw: {code: subtestData},
         exposure: Array.from(exposureSet),
-        resources,
+        resources: [...resources, ...customTestMember.resources],
       });
     }
   }
@@ -640,7 +640,7 @@ const buildIDLTests = async (ast, globals, scopes) => {
       members,
       fakeIface,
       exposureSet,
-      {},
+      [],
       {
         path: "api",
         isGlobal: true,
