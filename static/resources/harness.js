@@ -516,11 +516,14 @@
       returnValue = instance(options);
     }
 
-    if (mustReturnTruthy) {
-      return !!returnValue && accessed;
+    // Method is a promise
+    if ("then" in returnValue) {
+      return returnValue.then(function (value) {
+        return (mustReturnTruthy ? !!returnValue : true) && accessed;
+      });
     }
 
-    return accessed;
+    return (mustReturnTruthy ? !!returnValue : true) && accessed;
   }
 
   /**
