@@ -144,6 +144,24 @@ describe("build (common)", () => {
           additional: {},
         },
       },
+      "api.createImageBitmap": {
+        category: "api",
+        data: {
+          __base:
+            "if (!('createImageBitmap' in self)) {\n  return {result: false, message: 'createImageBitmap is not defined'};\n}\nfunction create(options) {\n  return createImageBitmap(document.getElementById('resource-image-black'), options);\n}",
+          __test: "return true;",
+          __resources: ["image-black"],
+          __additional: {
+            options_colorSpaceConversion_parameter:
+              "return bcd.testOptionParam(create, null, 'colorSpaceConversion', 'default');",
+          },
+        },
+        result: {
+          test: "(function () {\n  return false;\n})();\n",
+          resources: ["audio-blip"],
+          additional: {},
+        },
+      },
       "api.WebGLRenderingContext": {
         category: "api",
         data: {
