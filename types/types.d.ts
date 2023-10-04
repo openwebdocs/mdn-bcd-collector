@@ -90,8 +90,9 @@ export type BrowserSupportMap = Map<string, TestResultValue>;
 export type SupportMap = Map<BrowserName, BrowserSupportMap>;
 export type SupportMatrix = Map<string, SupportMap>;
 
+export type OverrideTuple = [string, string, string, TestResultValue];
 export type Overrides = Array<
-  string | Array<string, string, string, TestResultValue>
+  string | OverrideTuple
 >;
 
 export interface IDLFiles {

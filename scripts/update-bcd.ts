@@ -18,6 +18,7 @@ import {
   BrowserSupportMap,
   Overrides,
   InternalSupportStatement,
+  OverrideTuple,
 } from "../types/types.js";
 
 import assert from "node:assert";
@@ -137,7 +138,7 @@ export const getSupportMap = (report: Report): BrowserSupportMap => {
 export const getSupportMatrix = (
   reports: Report[],
   browsers: Browsers,
-  overrides: Overrides,
+  overrides: OverrideTuple[],
 ): SupportMatrix => {
   const supportMatrix = new Map();
 
@@ -646,7 +647,7 @@ export const main = async (
   const supportMatrix = getSupportMatrix(
     reports,
     browsers,
-    overrides.filter(Array.isArray),
+    overrides.filter(Array.isArray as (item: unknown) => item is OverrideTuple),
   );
 
   // Should match https://github.com/mdn/browser-compat-data/blob/f10bf2cc7d1b001a390e70b7854cab9435ffb443/test/linter/test-style.js#L63
