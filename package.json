@@ -108,7 +108,6 @@
     "eslint-plugin-unicorn": "^48.0.1",
     "fdir": "6.1.0",
     "json3": "3.3.3",
-    "klaw": "4.1.0",
     "listr2": "6.6.1",
     "minimatch": "9.0.3",
     "mocha": "10.2.0",
