@@ -1,5 +1,21 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.8
+
+Released October 6, 2023
+
+### Test Changes
+
+#### Changed
+
+- api.CookieStore
+
+### Commits
+
+- Handle cleanup function errors
+- Fix tests for CookieStore API
+- Add report json schema ([#744](https://github.com/openwebdocs/mdn-bcd-collector/pull/744))
+
 ## v10.2.7
 
 Released October 6, 2023
