@@ -12,6 +12,10 @@ __resources:
     src:
       - /media/blip.mp3
       - /media/blip.ogg
+  image-black:
+    type: image
+    src: /media/black.png
+    alt: A blank image
   webGL:
     type: instance
     src: |-
@@ -108,6 +112,19 @@ api:
       __test: return 'farewell world!';
       __additional:
         cinnamon: return 'snickerdoodle';
+  createImageBitmap:
+    __resources:
+      - image-black
+    __base: |-
+      if (!('createImageBitmap' in self)) {
+        return {result: false, message: 'createImageBitmap is not defined'};
+      }
+      function create(options) {
+        return createImageBitmap(document.getElementById('resource-image-black'), options);
+      }
+    __test: return true;
+    __additional:
+      options_colorSpaceConversion_parameter: return bcd.testOptionParam(create, null, 'colorSpaceConversion', 'default');
 css:
   properties:
     foo: return 1;

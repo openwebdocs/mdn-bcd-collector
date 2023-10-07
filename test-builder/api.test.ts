@@ -883,7 +883,7 @@ describe("build (API)", () => {
           code: '"console" in self',
           exposure: ["Window"],
         },
-        "api.console.log_static": {
+        "api.console.log": {
           code: '"console" in self && "log" in console',
           exposure: ["Window"],
         },
