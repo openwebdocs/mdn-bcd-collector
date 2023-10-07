@@ -1,7 +1,6 @@
 # The report JSON schema
 
-This document details the structure of reports produced by
-https://mdn-bcd-collector.appspot.com/ and potentially other tooling.
+This document details the structure of reports produced by https://mdn-bcd-collector.gooborg.com/.
 
 ## JSON structure
 
@@ -11,7 +10,7 @@ Below is an example of the report data:
 {
   "__version": "10.2.4",
   "results": {
-    "https://mdn-bcd-collector.example/tests/": [
+    "https://mdn-bcd-collector.gooborg.com/tests/": [
       {
         "exposure": "ServiceWorker",
         "name": "api.AbortController.AbortController",
