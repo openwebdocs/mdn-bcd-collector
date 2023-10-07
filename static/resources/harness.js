@@ -1300,7 +1300,12 @@
       clearTimeout(timeout);
 
       for (var i = 0; i < cleanupFunctions.length; i++) {
-        cleanupFunctions[i]();
+        try {
+          cleanupFunctions[i]();
+        } catch (e) {
+          // If a cleanup function fails, don't crash
+          consoleError(e);
+        }
       }
 
       if ("serviceWorker" in navigator) {
