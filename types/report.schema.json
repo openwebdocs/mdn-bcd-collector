@@ -4,7 +4,13 @@
   "definitions": {
     "exposure": {
       "type": "string",
-      "enum": ["ServiceWorker", "SharedWorker", "Window", "Worker", "WebAssembly"]
+      "enum": [
+        "ServiceWorker",
+        "SharedWorker",
+        "Window",
+        "Worker",
+        "WebAssembly"
+      ]
     },
 
     "feature_name": {
@@ -23,10 +29,10 @@
         {
           "type": "object",
           "properties": {
-            "exposure": { "$ref": "#/definitions/exposure" },
-            "message": { "$ref": "#/definitions/result_message" },
-            "name": { "$ref": "#/definitions/feature_name" },
-            "result": { "type": "boolean" }
+            "exposure": {"$ref": "#/definitions/exposure"},
+            "message": {"$ref": "#/definitions/result_message"},
+            "name": {"$ref": "#/definitions/feature_name"},
+            "result": {"type": "boolean"}
           },
           "additionalProperties": false,
           "required": ["exposure", "name", "result"]
@@ -34,10 +40,10 @@
         {
           "type": "object",
           "properties": {
-            "exposure": { "$ref": "#/definitions/exposure" },
-            "message": { "$ref": "#/definitions/result_message" },
-            "name": { "$ref": "#/definitions/feature_name" },
-            "result": { "type": "null" }
+            "exposure": {"$ref": "#/definitions/exposure"},
+            "message": {"$ref": "#/definitions/result_message"},
+            "name": {"$ref": "#/definitions/feature_name"},
+            "result": {"type": "null"}
           },
           "additionalProperties": false,
           "required": ["exposure", "message", "name", "result"]
