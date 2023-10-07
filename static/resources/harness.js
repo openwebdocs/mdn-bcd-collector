@@ -519,7 +519,7 @@
     // Method is a promise
     if ("then" in returnValue) {
       return returnValue.then(function (value) {
-        return (mustReturnTruthy ? !!returnValue : true) && accessed;
+        return (mustReturnTruthy ? !!value : true) && accessed;
       });
     }
 
