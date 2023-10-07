@@ -7,7 +7,6 @@
 //
 
 import chalk from "chalk-template";
-import enquirer from "enquirer";
 import esMain from "es-main";
 import fs from "fs-extra";
 import {Listr, ListrTask} from "listr2";
