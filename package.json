@@ -108,7 +108,7 @@
     "eslint-plugin-unicorn": "^48.0.1",
     "fdir": "6.1.0",
     "json3": "3.3.3",
-    "listr2": "6.6.1",
+    "listr2": "7.0.1",
     "minimatch": "9.0.3",
     "mocha": "10.2.0",
     "node-fetch": "3.3.2",
