@@ -769,5 +769,9 @@
   ["api.PushSubscription.subscriptionId", "chrome", "42+", true],
   ["api.PushSubscription.subscriptionId", "edge", "17+", true],
   "https://github.com/mdn/browser-compat-data/pull/20263",
-  ["css.properties.background-image.image-set", "safari", "6-13.1", false]
+  ["css.properties.background-image.image-set", "safari", "6-13.1", false],
+  "Only supported in installed web apps",
+  ["api.Navigator.clearAppBadge", "safari", "17+", true],
+  ["api.Navigator.setAppBadge", "safari", "17+", true],
+  ["api.Notification.badge", "safari", "17+", true]
 ]
