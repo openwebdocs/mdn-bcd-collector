@@ -773,5 +773,18 @@
   "Only supported in installed web apps",
   ["api.Navigator.clearAppBadge", "safari", "17+", true],
   ["api.Navigator.setAppBadge", "safari", "17+", true],
-  ["api.Notification.badge", "safari", "17+", true]
+  ["api.Notification.badge", "safari", "17+", true],
+  "https://bugzil.la/1517786#c8",
+  [
+    "api.HTMLCanvasElement.getCanvasRenderingContext.2d_context.options_colorSpace_parameter",
+    "firefox",
+    "117+",
+    false
+  ],
+  [
+    "api.HTMLCanvasElement.getCanvasRenderingContext.2d_context.options_desynchronized_parameter",
+    "firefox",
+    "117+",
+    false
+  ]
 ]
