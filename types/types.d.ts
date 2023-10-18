@@ -91,9 +91,7 @@ export type SupportMap = Map<BrowserName, BrowserSupportMap>;
 export type SupportMatrix = Map<string, SupportMap>;
 
 export type OverrideTuple = [string, string, string, TestResultValue];
-export type Overrides = Array<
-  string | OverrideTuple
->;
+export type Overrides = Array<string | OverrideTuple>;
 
 export interface IDLFiles {
   [filename: string]: WebIDL2.IDLRootType[];
