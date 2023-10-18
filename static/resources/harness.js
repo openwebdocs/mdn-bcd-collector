@@ -260,7 +260,8 @@
           "event name must be provided",
           "requires a single argument",
           "requires at least",
-          "first argument"
+          "first argument",
+          "expects exactly"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
@@ -1300,7 +1301,12 @@
       clearTimeout(timeout);
 
       for (var i = 0; i < cleanupFunctions.length; i++) {
-        cleanupFunctions[i]();
+        try {
+          cleanupFunctions[i]();
+        } catch (e) {
+          // If a cleanup function fails, don't crash
+          consoleError(e);
+        }
       }
 
       if ("serviceWorker" in navigator) {

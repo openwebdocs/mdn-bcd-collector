@@ -911,6 +911,11 @@ api:
       }
       var instance = reusableInstances.audioContext.createConvolver();
   CookieStore:
+    __base: |-
+      if (!('cookieStore' in self)) {
+        return {result: false, message: 'cookieStore is not defined'};
+      }
+      var instance = cookieStore;
     __additional:
       delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'one'});"
       set.partitioned_option: |-

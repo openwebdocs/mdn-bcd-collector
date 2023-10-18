@@ -1,5 +1,169 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.9
+
+Released October 17, 2023
+
+### Test Changes
+
+#### Added
+
+- api.CSSViewTransitionRule
+- api.Document.parseHTMLUnsafe_static
+- api.Element.setHTMLUnsafe
+- api.PerformanceEntry.id
+- api.PerformanceEntry.navigationId
+- api.RevealEvent
+- api.ShadowRoot.setHTMLUnsafe
+- api.WebTransport.createSendGroup
+- api.WebTransportSendGroup
+- api.WebTransportSendStream.sendGroup
+
+#### Removed
+
+- api.PageRevealEvent
+
+### Commits
+
+- Update overrides
+- Update overrides
+
+## v10.2.8
+
+Released October 6, 2023
+
+### Test Changes
+
+#### Changed
+
+- api.CookieStore
+
+### Commits
+
+- Handle cleanup function errors
+- Fix tests for CookieStore API
+- Add report json schema ([#744](https://github.com/openwebdocs/mdn-bcd-collector/pull/744))
+
+## v10.2.7
+
+Released October 6, 2023
+
+### Test Changes
+
+#### Added
+
+- api.console.assert
+- api.console.clear
+- api.console.context
+- api.console.count
+- api.console.countReset
+- api.console.debug
+- api.console.dir
+- api.console.dirxml
+- api.console.error
+- api.console.exception
+- api.console.group
+- api.console.groupCollapsed
+- api.console.groupEnd
+- api.console.info
+- api.console.log
+- api.console.memory
+- api.console.profile
+- api.console.profileEnd
+- api.console.record
+- api.console.recordEnd
+- api.console.screenshot
+- api.console.table
+- api.console.takeHeapSnapshot
+- api.console.time
+- api.console.timeEnd
+- api.console.timeLog
+- api.console.timeStamp
+- api.console.trace
+- api.console.warn
+- api.CookieStore.delete.partitioned_option
+- api.CookieStore.set.partitioned_option
+- api.CookieStore.get.partitioned_return_property
+- api.CookieStore.getAll.partitioned_return_property
+- api.CredentialsContainer.create.publicKey_option
+- api.CredentialsContainer.get.identity_option.context_option
+- api.CredentialsContainer.get.identity_option.loginHint
+- api.CredentialsContainer.get.otp_option
+- api.CredentialsContainer.get.publicKey_option
+- api.Element.animate.options_rangeEnd_parameter
+- api.Element.animate.options_rangeStart_parameter
+- api.Element.animate.options_timeline_parameter
+- api.EventTarget.addEventListener.options_parameter.options_capture_parameter
+- api.EventTarget.addEventListener.options_parameter.options_once_parameter
+- api.EventTarget.addEventListener.options_parameter.options_passive_parameter
+- api.EventTarget.addEventListener.options_parameter.options_signal_parameter
+- api.HTMLDetailsElement.name
+- api.createImageBitmap.options_colorSpaceConversion_parameter
+- api.createImageBitmap.options_imageOrientation_parameter
+- api.createImageBitmap.options_premultiplyAlpha_parameter
+- api.createImageBitmap.options_resizeHeight_parameter
+- api.createImageBitmap.options_resizeQuality_parameter
+- api.createImageBitmap.options_resizeWidth_parameter
+
+#### Removed
+
+- api.console.assert_static
+- api.console.clear_static
+- api.console.context_static
+- api.console.count_static
+- api.console.countReset_static
+- api.console.debug_static
+- api.console.dir_static
+- api.console.dirxml_static
+- api.console.error_static
+- api.console.exception_static
+- api.console.group_static
+- api.console.groupCollapsed_static
+- api.console.groupEnd_static
+- api.console.info_static
+- api.console.log_static
+- api.console.memory_static
+- api.console.profile_static
+- api.console.profileEnd_static
+- api.console.record_static
+- api.console.recordEnd_static
+- api.console.screenshot_static
+- api.console.table_static
+- api.console.takeHeapSnapshot_static
+- api.console.time_static
+- api.console.timeEnd_static
+- api.console.timeLog_static
+- api.console.timeStamp_static
+- api.console.trace_static
+- api.console.warn_static
+- api.FontFace.variant
+- api.RTCEncodedAudioFrame.timestamp
+- api.RTCEncodedVideoFrame.timestamp
+- api.StorageBucket.durability
+
+#### Changed
+
+- api.CredentialsContainer.get.identity_option
+- api.Element.animate
+- api.EventTarget
+- api.createImageBitmap
+
+### Commits
+
+- update-bcd: Replace klaw with fdir ([#742](https://github.com/openwebdocs/mdn-bcd-collector/pull/742))
+- Fix testOptionParam mustReturnTruthy with promises
+- Exporter: point to new repository
+- Add custom tests for createImageBitmap
+- Fix resource list when member has resources the parent doesn't
+- Allow testOptionParam to handle promises
+- Fix and update unittests
+- Fix test for CredentialsContainer.get.identity_option
+- Add more custom tests
+- Add additional custom tests for CredentialsContainer
+- Handle console not using "\_static" suffix
+- Add more custom tests for CookieStore API
+- Add additional custom tests
+
 ## v10.2.6
 
 Released October 3, 2023
