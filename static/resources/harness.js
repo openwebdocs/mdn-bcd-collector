@@ -260,7 +260,8 @@
           "event name must be provided",
           "requires a single argument",
           "requires at least",
-          "first argument"
+          "first argument",
+          "expects exactly"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
