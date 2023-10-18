@@ -86,7 +86,7 @@
     "@swc/cli": "^0.1.62",
     "@swc/helpers": "^0.5.2",
     "@types/fs-extra": "^11.0.2",
-    "@types/mocha": "10.0.2",
+    "@types/mocha": "10.0.3",
     "@types/node": "20.8.7",
     "@types/superagent": "^4.1.19",
     "@types/webidl2": "^24.4.1",
