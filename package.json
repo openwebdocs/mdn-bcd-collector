@@ -87,7 +87,7 @@
     "@swc/helpers": "^0.5.2",
     "@types/fs-extra": "^11.0.2",
     "@types/mocha": "10.0.2",
-    "@types/node": "20.8.6",
+    "@types/node": "20.8.7",
     "@types/superagent": "^4.1.19",
     "@types/webidl2": "^24.4.1",
     "@types/yargs": "17.0.28",
