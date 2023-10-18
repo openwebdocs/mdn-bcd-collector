@@ -1,5 +1,33 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.9
+
+Released October 17, 2023
+
+### Test Changes
+
+#### Added
+
+- api.CSSViewTransitionRule
+- api.Document.parseHTMLUnsafe_static
+- api.Element.setHTMLUnsafe
+- api.PerformanceEntry.id
+- api.PerformanceEntry.navigationId
+- api.RevealEvent
+- api.ShadowRoot.setHTMLUnsafe
+- api.WebTransport.createSendGroup
+- api.WebTransportSendGroup
+- api.WebTransportSendStream.sendGroup
+
+#### Removed
+
+- api.PageRevealEvent
+
+### Commits
+
+- Update overrides
+- Update overrides
+
 ## v10.2.8
 
 Released October 6, 2023
