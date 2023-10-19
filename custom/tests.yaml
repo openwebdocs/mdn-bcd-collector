@@ -3207,8 +3207,6 @@ api:
       var instance = new Response('');
     Response:
       __additional:
-        json_static: |-
-          return 'Response' in self && 'json' in Response;
         body_parameter_optional: |-
           try {
             new Response();
@@ -3219,6 +3217,9 @@ api:
             }
             return e;
           }
+    __additional:
+      json_static: |-
+        return 'Response' in self && 'json' in Response;
   RTCDataChannel:
     __base: |-
       <%api.RTCPeerConnection:connection%>
