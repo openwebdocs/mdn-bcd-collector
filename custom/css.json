@@ -74,9 +74,6 @@
     },
     "background-image": {
       "__additional_values": {
-        "-moz-element": "-moz-element(#foo)",
-        "-moz-image-rect": "-moz-image-rect(url(test.png), 0%, 50%, 50%, 0%)",
-        "-webkit-image-set": "image-set(url(small-balloons.jpg) 1x, url(large-balloons.jpg) 2x)",
         "element": "element(#foo)",
         "gradients": "linear-gradient(#f69d3c, #3f87a6)",
         "image-rect": "image-rect(url(test.png), 0%, 50%, 50%, 0%)",
@@ -121,15 +118,7 @@
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "fit-content",
-        "max-content",
-        "min-content"
-      ]
+      "__values": ["fit-content", "max-content", "min-content"]
     },
     "border-bottom-left-radius": {
       "__additional_values": {
@@ -260,7 +249,7 @@
     "color-profile": {},
     "color-rendering": {},
     "color-scheme": {
-      "__values": ["only", "only_dark", "only_light"]
+      "__values": ["only_dark", "only_light"]
     },
     "column-fill": {
       "__values": ["balance-all"]
@@ -303,9 +292,7 @@
         "zoom": ["zoom-in", "zoom-out"]
       },
       "__values": [
-        "-moz-grab",
         "-moz-zoom",
-        "-webkit-grab",
         "-webkit-zoom",
         "alias",
         "all-scroll",
@@ -361,8 +348,6 @@
         "xul_stack_value": "-moz-stack"
       },
       "__values": [
-        "-webkit-flex",
-        "-webkit-inline-flex",
         "contents",
         "flex",
         "flow-root",
@@ -378,9 +363,6 @@
     "enable-background": {},
     "flex-basis": {
       "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
         "-webkit-auto",
         "auto",
         "content",
@@ -409,7 +391,7 @@
     },
     "font-display": {},
     "font-family": {
-      "__values": ["-apple-system", "system_ui"]
+      "__values": ["system-ui"]
     },
     "font-size": {
       "__additional_values": {
@@ -473,16 +455,7 @@
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "-webkit-fit-content",
-        "fit-content",
-        "max-content",
-        "min-content",
-        "stretch"
-      ]
+      "__values": ["fit-content", "max-content", "min-content", "stretch"]
     },
     "image-orientation": {
       "__additional_values": {
@@ -491,8 +464,6 @@
     },
     "image-rendering": {
       "__values": [
-        "-moz-crisp-edges",
-        "-webkit-optimize-contrast",
         "crisp-edges",
         "optimizeQuality",
         "optimizeSpeed",
@@ -505,15 +476,7 @@
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "fit-content",
-        "max-content",
-        "min-content"
-      ]
+      "__values": ["fit-content", "max-content", "min-content"]
     },
     "kerning": {},
     "layout-grid": {},
@@ -529,37 +492,6 @@
     },
     "list-style-type": {
       "__values": [
-        "-moz-arabic-indic",
-        "-moz-bengali",
-        "-moz-cjk-earthly-branch",
-        "-moz-cjk-heavenly-stem",
-        "-moz-devanagari",
-        "-moz-ethiopic-halehame",
-        "-moz-ethiopic-halehame-am",
-        "-moz-ethiopic-halehame-ti-er",
-        "-moz-ethiopic-halehame-ti-et",
-        "-moz-ethiopic-numeric",
-        "-moz-gujarati",
-        "-moz-gurmukhi",
-        "-moz-hangul",
-        "-moz-hangul-consonant",
-        "-moz-japanese-formal",
-        "-moz-japanese-informal",
-        "-moz-kannada",
-        "-moz-khmer",
-        "-moz-lao",
-        "-moz-malayalam",
-        "-moz-myanmar",
-        "-moz-oriya",
-        "-moz-persian",
-        "-moz-simp-chinese-formal",
-        "-moz-simp-chinese-informal",
-        "-moz-tamil",
-        "-moz-telugu",
-        "-moz-thai",
-        "-moz-trad-chinese-formal",
-        "-moz-trad-chinese-informal",
-        "-moz-urdu",
         "afar",
         "amharic",
         "amharic-abegede",
@@ -704,96 +636,40 @@
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "fit-content",
-        "max-content",
-        "min-content"
-      ]
+      "__values": ["fit-content", "max-content", "min-content"]
     },
     "max-height": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "-webkit-fit-content",
-        "-webkit-max-content",
-        "-webkit-min-content",
-        "fit-content",
-        "intrinsic",
-        "max-content",
-        "min-content",
-        "stretch"
-      ]
+      "__values": ["fit-content", "max-content", "min-content", "stretch"]
     },
     "max-inline-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "fit-content",
-        "max-content",
-        "min-content"
-      ]
+      "__values": ["fit-content", "max-content", "min-content"]
     },
     "max-width": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "-webkit-fit-content",
-        "-webkit-max-content",
-        "-webkit-min-content",
-        "fit-content",
-        "intrinsic",
-        "max-content",
-        "min-content",
-        "stretch"
-      ]
+      "__values": ["fit-content", "max-content", "min-content", "stretch"]
     },
     "max-zoom": {},
     "min-block-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "fit-content",
-        "max-content",
-        "min-content"
-      ]
+      "__values": ["fit-content", "max-content", "min-content"]
     },
     "min-height": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
       "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "-webkit-fit-content",
-        "-webkit-max-content",
-        "-webkit-min-content",
         "auto",
         "fit-content",
-        "intrinsic",
         "max-content",
         "min-content",
         "stretch"
@@ -803,34 +679,17 @@
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
-      "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "fit-content",
-        "max-content",
-        "min-content"
-      ]
+      "__values": ["fit-content", "max-content", "min-content"]
     },
     "min-width": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
       },
       "__values": [
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "-webkit-fit-content",
-        "-webkit-max-content",
-        "-webkit-min-content",
         "auto",
         "fit-content",
-        "intrinsic",
         "max-content",
         "min-content",
-        "min-intrinsic",
         "stretch"
       ]
     },
@@ -853,8 +712,8 @@
     "offset-inline-start": {},
     "offset-path": {
       "__additional_values": {
-        "path-support": "path('M20,20 L50,80 L80,20')",
-        "ray-support": "ray(45deg closest-side contain)"
+        "path": "path('M20,20 L50,80 L80,20')",
+        "ray": "ray(45deg closest-side contain)"
       }
     },
     "offset-rotation": {},
@@ -874,7 +733,7 @@
       "__additional_values": {
         "multiple_keywords": "hidden visible"
       },
-      "__values": ["-moz-hidden-unscrollable", "clip"]
+      "__values": ["clip"]
     },
     "overflow-clip-box": {},
     "overflow-clip-box-block": {},
@@ -883,10 +742,10 @@
       "__values": ["anywhere", "break-word"]
     },
     "overflow-x": {
-      "__values": ["-moz-hidden-unscrollable", "clip"]
+      "__values": ["clip"]
     },
     "overflow-y": {
-      "__values": ["-moz-hidden-unscrollable", "clip"]
+      "__values": ["clip"]
     },
     "page-orientation": {},
     "pen-action": {},
@@ -898,7 +757,7 @@
     "perspective-origin-x": {},
     "perspective-origin-y": {},
     "position": {
-      "__values": ["-webkit-sticky", "fixed", "sticky"]
+      "__values": ["fixed", "sticky"]
     },
     "quotes": {
       "__additional_values": {
@@ -1098,32 +957,14 @@
       }
     },
     "unicode-bidi": {
-      "__values": [
-        "-moz-isolate",
-        "-moz-isolate-override",
-        "-moz-plaintext",
-        "-webkit-isolate",
-        "-webkit-isolate-override",
-        "-webkit-plaintext",
-        "isolate",
-        "isolate-override",
-        "plaintext"
-      ]
+      "__values": ["isolate", "isolate-override", "plaintext"]
     },
     "unicode-range": {},
     "user-modify": {
       "__values": ["read-write-plaintext-only"]
     },
     "user-select": {
-      "__values": [
-        "-moz-none",
-        "all",
-        "auto",
-        "contain",
-        "element",
-        "none",
-        "text"
-      ]
+      "__values": ["all", "auto", "contain", "element", "none", "text"]
     },
     "user-zoom": {},
     "viewport-fit": {},
@@ -1145,19 +986,10 @@
         "fit-content_function": "fit-content(10px)"
       },
       "__values": [
-        "-moz-available",
-        "-moz-fit-content",
-        "-moz-max-content",
-        "-moz-min-content",
-        "-webkit-fill-available",
-        "-webkit-fit-content",
-        "-webkit-max-content",
         "fill",
         "fit-content",
-        "intrinsic",
         "max-content",
         "min-content",
-        "min-intrinsic",
         "stretch"
       ]
     },
