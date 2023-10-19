@@ -14,6 +14,7 @@
         "optional": 1,
         "rest": false
       },
+      "length": 1,
       "usage": "different"
     },
     "staticProperties": [
@@ -307,7 +308,7 @@
         "name": "Object.prototype.toString()",
         "id": "sec-object.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -317,7 +318,7 @@
         "name": "Object.prototype.valueOf()",
         "id": "sec-object.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -379,6 +380,7 @@
         "optional": 0,
         "rest": true
       },
+      "length": 1,
       "usage": "equivalent"
     },
     "staticProperties": [
@@ -434,7 +436,7 @@
         "name": "Function.prototype.toString()",
         "id": "sec-function.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -511,7 +513,7 @@
         "name": "Boolean.prototype.toString()",
         "id": "sec-boolean.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -521,7 +523,7 @@
         "name": "Boolean.prototype.valueOf()",
         "id": "sec-boolean.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -679,7 +681,7 @@
         "name": "Symbol.prototype.toString()",
         "id": "sec-symbol.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -689,7 +691,7 @@
         "name": "Symbol.prototype.valueOf()",
         "id": "sec-symbol.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -759,7 +761,7 @@
         "name": "Error.prototype.toString()",
         "id": "sec-error.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -775,7 +777,7 @@
     "extends": "Error",
     "ctor": {
       "type": "constructor",
-      "name": "_NativeError_()",
+      "name": "EvalError()",
       "id": "sec-nativeerror-constructors",
       "parameters": {
         "required": 1,
@@ -814,10 +816,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -827,7 +826,7 @@
     "extends": "Error",
     "ctor": {
       "type": "constructor",
-      "name": "_NativeError_()",
+      "name": "RangeError()",
       "id": "sec-nativeerror-constructors",
       "parameters": {
         "required": 1,
@@ -866,10 +865,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -879,7 +875,7 @@
     "extends": "Error",
     "ctor": {
       "type": "constructor",
-      "name": "_NativeError_()",
+      "name": "ReferenceError()",
       "id": "sec-nativeerror-constructors",
       "parameters": {
         "required": 1,
@@ -918,10 +914,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -931,7 +924,7 @@
     "extends": "Error",
     "ctor": {
       "type": "constructor",
-      "name": "_NativeError_()",
+      "name": "SyntaxError()",
       "id": "sec-nativeerror-constructors",
       "parameters": {
         "required": 1,
@@ -970,10 +963,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -983,7 +973,7 @@
     "extends": "Error",
     "ctor": {
       "type": "constructor",
-      "name": "_NativeError_()",
+      "name": "TypeError()",
       "id": "sec-nativeerror-constructors",
       "parameters": {
         "required": 1,
@@ -1022,10 +1012,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -1035,7 +1022,7 @@
     "extends": "Error",
     "ctor": {
       "type": "constructor",
-      "name": "_NativeError_()",
+      "name": "URIError()",
       "id": "sec-nativeerror-constructors",
       "parameters": {
         "required": 1,
@@ -1074,10 +1061,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -1327,7 +1311,7 @@
         "name": "Number.prototype.valueOf()",
         "id": "sec-number.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1421,7 +1405,7 @@
         "name": "BigInt.prototype.valueOf()",
         "id": "sec-bigint.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1759,7 +1743,7 @@
         "name": "Math.random()",
         "id": "sec-math.random",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1860,6 +1844,7 @@
         "optional": 0,
         "rest": true
       },
+      "length": 7,
       "usage": "different"
     },
     "staticProperties": [
@@ -1876,7 +1861,7 @@
         "name": "Date.now()",
         "id": "sec-date.now",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1917,7 +1902,7 @@
         "name": "Date.prototype.getDate()",
         "id": "sec-date.prototype.getdate",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1927,7 +1912,7 @@
         "name": "Date.prototype.getDay()",
         "id": "sec-date.prototype.getday",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1937,7 +1922,7 @@
         "name": "Date.prototype.getFullYear()",
         "id": "sec-date.prototype.getfullyear",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1947,7 +1932,7 @@
         "name": "Date.prototype.getHours()",
         "id": "sec-date.prototype.gethours",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1957,7 +1942,7 @@
         "name": "Date.prototype.getMilliseconds()",
         "id": "sec-date.prototype.getmilliseconds",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1967,7 +1952,7 @@
         "name": "Date.prototype.getMinutes()",
         "id": "sec-date.prototype.getminutes",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1977,7 +1962,7 @@
         "name": "Date.prototype.getMonth()",
         "id": "sec-date.prototype.getmonth",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1987,7 +1972,7 @@
         "name": "Date.prototype.getSeconds()",
         "id": "sec-date.prototype.getseconds",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -1997,7 +1982,7 @@
         "name": "Date.prototype.getTime()",
         "id": "sec-date.prototype.gettime",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2007,7 +1992,7 @@
         "name": "Date.prototype.getTimezoneOffset()",
         "id": "sec-date.prototype.gettimezoneoffset",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2017,7 +2002,7 @@
         "name": "Date.prototype.getUTCDate()",
         "id": "sec-date.prototype.getutcdate",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2027,7 +2012,7 @@
         "name": "Date.prototype.getUTCDay()",
         "id": "sec-date.prototype.getutcday",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2037,7 +2022,7 @@
         "name": "Date.prototype.getUTCFullYear()",
         "id": "sec-date.prototype.getutcfullyear",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2047,7 +2032,7 @@
         "name": "Date.prototype.getUTCHours()",
         "id": "sec-date.prototype.getutchours",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2057,7 +2042,7 @@
         "name": "Date.prototype.getUTCMilliseconds()",
         "id": "sec-date.prototype.getutcmilliseconds",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2067,7 +2052,7 @@
         "name": "Date.prototype.getUTCMinutes()",
         "id": "sec-date.prototype.getutcminutes",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2077,7 +2062,7 @@
         "name": "Date.prototype.getUTCMonth()",
         "id": "sec-date.prototype.getutcmonth",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2087,7 +2072,7 @@
         "name": "Date.prototype.getUTCSeconds()",
         "id": "sec-date.prototype.getutcseconds",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2257,7 +2242,7 @@
         "name": "Date.prototype.toDateString()",
         "id": "sec-date.prototype.todatestring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2267,7 +2252,7 @@
         "name": "Date.prototype.toISOString()",
         "id": "sec-date.prototype.toisostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2317,7 +2302,7 @@
         "name": "Date.prototype.toString()",
         "id": "sec-date.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2327,7 +2312,7 @@
         "name": "Date.prototype.toTimeString()",
         "id": "sec-date.prototype.totimestring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2337,7 +2322,7 @@
         "name": "Date.prototype.toUTCString()",
         "id": "sec-date.prototype.toutcstring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2347,7 +2332,7 @@
         "name": "Date.prototype.valueOf()",
         "id": "sec-date.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2368,7 +2353,7 @@
         "name": "Date.prototype.getYear()",
         "id": "sec-date.prototype.getyear",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2388,7 +2373,7 @@
         "name": "Date.prototype.toGMTString()",
         "id": "sec-date.prototype.togmtstring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2549,7 +2534,7 @@
         "name": "String.prototype.isWellFormed()",
         "id": "sec-string.prototype.iswellformed",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2729,7 +2714,7 @@
         "name": "String.prototype.toLowerCase()",
         "id": "sec-string.prototype.tolowercase",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2739,7 +2724,7 @@
         "name": "String.prototype.toString()",
         "id": "sec-string.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2749,7 +2734,7 @@
         "name": "String.prototype.toUpperCase()",
         "id": "sec-string.prototype.touppercase",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2759,7 +2744,7 @@
         "name": "String.prototype.toWellFormed()",
         "id": "sec-string.prototype.towellformed",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2769,7 +2754,7 @@
         "name": "String.prototype.trim()",
         "id": "sec-string.prototype.trim",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2779,7 +2764,7 @@
         "name": "String.prototype.trimEnd()",
         "id": "sec-string.prototype.trimend",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2789,7 +2774,7 @@
         "name": "String.prototype.trimStart()",
         "id": "sec-string.prototype.trimstart",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2799,7 +2784,7 @@
         "name": "String.prototype.valueOf()",
         "id": "sec-string.prototype.valueof",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2809,7 +2794,7 @@
         "name": "String.prototype[@@iterator]()",
         "id": "sec-string.prototype-@@iterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2839,7 +2824,7 @@
         "name": "String.prototype.big()",
         "id": "sec-string.prototype.big",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2849,7 +2834,7 @@
         "name": "String.prototype.blink()",
         "id": "sec-string.prototype.blink",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2859,7 +2844,7 @@
         "name": "String.prototype.bold()",
         "id": "sec-string.prototype.bold",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2869,7 +2854,7 @@
         "name": "String.prototype.fixed()",
         "id": "sec-string.prototype.fixed",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2899,7 +2884,7 @@
         "name": "String.prototype.italics()",
         "id": "sec-string.prototype.italics",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2919,7 +2904,7 @@
         "name": "String.prototype.small()",
         "id": "sec-string.prototype.small",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2929,7 +2914,7 @@
         "name": "String.prototype.strike()",
         "id": "sec-string.prototype.strike",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2939,7 +2924,7 @@
         "name": "String.prototype.sub()",
         "id": "sec-string.prototype.sub",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2949,7 +2934,7 @@
         "name": "String.prototype.sup()",
         "id": "sec-string.prototype.sup",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2959,7 +2944,7 @@
         "name": "String.prototype.trimLeft()",
         "id": "String.prototype.trimleft",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2969,7 +2954,7 @@
         "name": "String.prototype.trimRight()",
         "id": "String.prototype.trimright",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -2998,7 +2983,7 @@
         "optional": 0,
         "rest": false
       },
-      "usage": "different"
+      "usage": "call"
     },
     "staticProperties": [
       {
@@ -3159,7 +3144,7 @@
         "name": "RegExp.prototype.toString()",
         "id": "sec-regexp.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3198,6 +3183,7 @@
         "optional": 0,
         "rest": true
       },
+      "length": 1,
       "usage": "equivalent"
     },
     "staticProperties": [
@@ -3297,7 +3283,7 @@
         "name": "Array.prototype.entries()",
         "id": "sec-array.prototype.entries",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3437,7 +3423,7 @@
         "name": "Array.prototype.keys()",
         "id": "sec-array.prototype.keys",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3467,7 +3453,7 @@
         "name": "Array.prototype.pop()",
         "id": "sec-array.prototype.pop",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3508,7 +3494,7 @@
         "name": "Array.prototype.reverse()",
         "id": "sec-array.prototype.reverse",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3518,7 +3504,7 @@
         "name": "Array.prototype.shift()",
         "id": "sec-array.prototype.shift",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3578,7 +3564,7 @@
         "name": "Array.prototype.toReversed()",
         "id": "sec-array.prototype.toreversed",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3608,7 +3594,7 @@
         "name": "Array.prototype.toString()",
         "id": "sec-array.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3629,7 +3615,7 @@
         "name": "Array.prototype.values()",
         "id": "sec-array.prototype.values",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3649,7 +3635,7 @@
         "name": "Array.prototype[@@iterator]()",
         "id": "sec-array.prototype-@@iterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3674,7 +3660,7 @@
       "name": "%TypedArray%()",
       "id": "sec-%typedarray%-intrinsic-object",
       "parameters": {
-        "required": 1,
+        "required": 0,
         "optional": 0,
         "rest": false
       },
@@ -3780,7 +3766,7 @@
         "name": "%TypedArray%.prototype.entries()",
         "id": "sec-%typedarray%.prototype.entries",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3900,7 +3886,7 @@
         "name": "%TypedArray%.prototype.keys()",
         "id": "sec-%typedarray%.prototype.keys",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -3950,7 +3936,7 @@
         "name": "%TypedArray%.prototype.reverse()",
         "id": "sec-%typedarray%.prototype.reverse",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4020,7 +4006,7 @@
         "name": "%TypedArray%.prototype.toReversed()",
         "id": "sec-%typedarray%.prototype.toreversed",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4040,7 +4026,7 @@
         "name": "%TypedArray%.prototype.toString()",
         "id": "sec-%typedarray%.prototype.tostring",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4050,7 +4036,7 @@
         "name": "%TypedArray%.prototype.values()",
         "id": "sec-%typedarray%.prototype.values",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4070,7 +4056,7 @@
         "name": "%TypedArray%.prototype[@@iterator]()",
         "id": "sec-%typedarray%.prototype-@@iterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4086,13 +4072,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Int8Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4125,10 +4112,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4138,13 +4122,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Uint8Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4177,10 +4162,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4190,13 +4172,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Uint8ClampedArray()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4229,10 +4212,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4242,13 +4222,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Int16Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4281,10 +4262,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4294,13 +4272,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Uint16Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4333,10 +4312,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4346,13 +4322,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Int32Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4385,10 +4362,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4398,13 +4372,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Uint32Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4437,10 +4412,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4450,13 +4422,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "BigInt64Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4489,10 +4462,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4502,13 +4472,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "BigUint64Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4541,10 +4512,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4554,13 +4522,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Float32Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4593,10 +4562,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4606,13 +4572,14 @@
     "extends": "TypedArray",
     "ctor": {
       "type": "constructor",
-      "name": "_TypedArray_()",
+      "name": "Float64Array()",
       "id": "sec-typedarray-constructors",
       "parameters": {
         "required": 0,
         "optional": 0,
         "rest": true
       },
+      "length": 3,
       "usage": "construct"
     },
     "staticProperties": [
@@ -4645,10 +4612,7 @@
       }
     ],
     "instanceMethods": [],
-    "instanceProperties": [],
-    "constructor": {
-      "name": "Object"
-    }
+    "instanceProperties": []
   },
   {
     "type": "class",
@@ -4707,7 +4671,7 @@
         "name": "Map.prototype.clear()",
         "id": "sec-map.prototype.clear",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4727,7 +4691,7 @@
         "name": "Map.prototype.entries()",
         "id": "sec-map.prototype.entries",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4767,7 +4731,7 @@
         "name": "Map.prototype.keys()",
         "id": "sec-map.prototype.keys",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4787,7 +4751,7 @@
         "name": "Map.prototype.values()",
         "id": "sec-map.prototype.values",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4797,7 +4761,7 @@
         "name": "Map.prototype[@@iterator]()",
         "id": "sec-map.prototype-@@iterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4872,7 +4836,7 @@
         "name": "Set.prototype.clear()",
         "id": "sec-set.prototype.clear",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4892,7 +4856,7 @@
         "name": "Set.prototype.entries()",
         "id": "sec-set.prototype.entries",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4922,7 +4886,7 @@
         "name": "Set.prototype.keys()",
         "id": "sec-set.prototype.keys",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4932,7 +4896,7 @@
         "name": "Set.prototype.values()",
         "id": "sec-set.prototype.values",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -4942,7 +4906,7 @@
         "name": "Set.prototype[@@iterator]()",
         "id": "sec-set.prototype-@@iterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -5516,18 +5480,6 @@
     "staticProperties": [
       {
         "type": "data-property",
-        "name": "WaiterRecord",
-        "id": "sec-waiter-record",
-        "attributes": "wc"
-      },
-      {
-        "type": "data-property",
-        "name": "WaiterListRecords",
-        "id": "sec-waiterlist-records",
-        "attributes": "wc"
-      },
-      {
-        "type": "data-property",
         "name": "Atomics[@@toStringTag]",
         "id": "sec-atomics-@@tostringtag",
         "attributes": "c"
@@ -5749,7 +5701,7 @@
         "name": "WeakRef.prototype.deref()",
         "id": "sec-weak-ref.prototype.deref",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -5832,7 +5784,7 @@
         "name": "%IteratorPrototype%[@@iterator]()",
         "id": "sec-%iteratorprototype%-@@iterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -5851,7 +5803,7 @@
         "name": "%AsyncIteratorPrototype%[@@asyncIterator]()",
         "id": "sec-asynciteratorprototype-asynciterator",
         "parameters": {
-          "required": 1,
+          "required": 0,
           "optional": 0,
           "rest": false
         }
@@ -6013,6 +5965,7 @@
         "optional": 0,
         "rest": true
       },
+      "length": 1,
       "usage": "equivalent"
     },
     "staticProperties": [
@@ -6081,6 +6034,7 @@
         "optional": 0,
         "rest": true
       },
+      "length": 1,
       "usage": "equivalent"
     },
     "staticProperties": [
@@ -6263,6 +6217,7 @@
         "optional": 0,
         "rest": true
       },
+      "length": 1,
       "usage": "equivalent"
     },
     "staticProperties": [
