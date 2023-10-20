@@ -798,5 +798,17 @@
     "111-114",
     false
   ],
-  ["api.Element.animate.options_rangeEnd_parameter", "chrome", "111-114", false]
+  [
+    "api.Element.animate.options_rangeEnd_parameter",
+    "chrome",
+    "111-114",
+    false
+  ],
+  [
+    "api.Element.animate.options_rangeStart_parameter",
+    "edge",
+    "111-114",
+    false
+  ],
+  ["api.Element.animate.options_rangeEnd_parameter", "edge", "111-114", false]
 ]
