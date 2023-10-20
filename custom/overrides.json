@@ -786,5 +786,9 @@
     "firefox",
     "117+",
     false
-  ]
+  ],
+  "Voices don't appear to be loaded in BrowserStack before Safari 14",
+  ["api.SpeechSynthesisVoice", "safari", "7-14", true],
+  ["api.SpeechSynthesisVoice.default", "safari", "7-14", true],
+  ["api.SpeechSynthesisVoice.lang", "safari", "7-14", true]
 ]
