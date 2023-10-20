@@ -1,5 +1,176 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.10
+
+Released October 20, 2023
+
+### Test Changes
+
+#### Added
+
+- api.Response.json_static
+- css.properties.font-family.system-ui
+- css.properties.offset-path.path
+- css.properties.offset-path.ray
+- javascript.builtins.TypedArray.TypedArray.constructor_without_parameters
+
+#### Removed
+
+- api.console.context
+- api.console.memory
+- api.console.record
+- api.console.recordEnd
+- api.console.screenshot
+- api.console.takeHeapSnapshot
+- api.Document.getCSSCanvasContext
+- api.Response.Response.json_static
+- css.properties.background-image.-moz-element
+- css.properties.background-image.-moz-image-rect
+- css.properties.background-image.-webkit-image-set
+- css.properties.block-size.-moz-fit-content
+- css.properties.block-size.-moz-max-content
+- css.properties.block-size.-moz-min-content
+- css.properties.block-size.-webkit-fill-available
+- css.properties.color-scheme.only
+- css.properties.cursor.-moz-grab
+- css.properties.cursor.-webkit-grab
+- css.properties.display.-webkit-flex
+- css.properties.display.-webkit-inline-flex
+- css.properties.flex-basis.-moz-fit-content
+- css.properties.flex-basis.-moz-max-content
+- css.properties.flex-basis.-moz-min-content
+- css.properties.font-family.-apple-system
+- css.properties.font-family.system_ui
+- css.properties.height.-moz-max-content
+- css.properties.height.-moz-min-content
+- css.properties.height.-webkit-fill-available
+- css.properties.height.-webkit-fit-content
+- css.properties.image-rendering.-moz-crisp-edges
+- css.properties.image-rendering.-webkit-optimize-contrast
+- css.properties.inline-size.-moz-fit-content
+- css.properties.inline-size.-moz-max-content
+- css.properties.inline-size.-moz-min-content
+- css.properties.inline-size.-webkit-fill-available
+- css.properties.list-style-type.-moz-arabic-indic
+- css.properties.list-style-type.-moz-bengali
+- css.properties.list-style-type.-moz-cjk-earthly-branch
+- css.properties.list-style-type.-moz-cjk-heavenly-stem
+- css.properties.list-style-type.-moz-devanagari
+- css.properties.list-style-type.-moz-ethiopic-halehame
+- css.properties.list-style-type.-moz-ethiopic-halehame-am
+- css.properties.list-style-type.-moz-ethiopic-halehame-ti-er
+- css.properties.list-style-type.-moz-ethiopic-halehame-ti-et
+- css.properties.list-style-type.-moz-ethiopic-numeric
+- css.properties.list-style-type.-moz-gujarati
+- css.properties.list-style-type.-moz-gurmukhi
+- css.properties.list-style-type.-moz-hangul
+- css.properties.list-style-type.-moz-hangul-consonant
+- css.properties.list-style-type.-moz-japanese-formal
+- css.properties.list-style-type.-moz-japanese-informal
+- css.properties.list-style-type.-moz-kannada
+- css.properties.list-style-type.-moz-khmer
+- css.properties.list-style-type.-moz-lao
+- css.properties.list-style-type.-moz-malayalam
+- css.properties.list-style-type.-moz-myanmar
+- css.properties.list-style-type.-moz-oriya
+- css.properties.list-style-type.-moz-persian
+- css.properties.list-style-type.-moz-simp-chinese-formal
+- css.properties.list-style-type.-moz-simp-chinese-informal
+- css.properties.list-style-type.-moz-tamil
+- css.properties.list-style-type.-moz-telugu
+- css.properties.list-style-type.-moz-thai
+- css.properties.list-style-type.-moz-trad-chinese-formal
+- css.properties.list-style-type.-moz-trad-chinese-informal
+- css.properties.list-style-type.-moz-urdu
+- css.properties.max-block-size.-moz-max-content
+- css.properties.max-block-size.-moz-min-content
+- css.properties.max-block-size.-webkit-fill-available
+- css.properties.max-height.-moz-fit-content
+- css.properties.max-height.-moz-max-content
+- css.properties.max-height.-moz-min-content
+- css.properties.max-height.-webkit-fill-available
+- css.properties.max-height.-webkit-fit-content
+- css.properties.max-height.-webkit-max-content
+- css.properties.max-height.-webkit-min-content
+- css.properties.max-height.intrinsic
+- css.properties.max-inline-size.-moz-fit-content
+- css.properties.max-inline-size.-moz-max-content
+- css.properties.max-inline-size.-moz-min-content
+- css.properties.max-inline-size.-webkit-fill-available
+- css.properties.max-width.-moz-fit-content
+- css.properties.max-width.-moz-max-content
+- css.properties.max-width.-moz-min-content
+- css.properties.max-width.-webkit-fill-available
+- css.properties.max-width.-webkit-fit-content
+- css.properties.max-width.-webkit-max-content
+- css.properties.max-width.-webkit-min-content
+- css.properties.max-width.intrinsic
+- css.properties.min-block-size.-moz-max-content
+- css.properties.min-block-size.-moz-min-content
+- css.properties.min-block-size.-webkit-fill-available
+- css.properties.min-height.-moz-fit-content
+- css.properties.min-height.-moz-max-content
+- css.properties.min-height.-moz-min-content
+- css.properties.min-height.-webkit-fill-available
+- css.properties.min-height.-webkit-fit-content
+- css.properties.min-height.-webkit-max-content
+- css.properties.min-height.-webkit-min-content
+- css.properties.min-height.intrinsic
+- css.properties.min-inline-size.-moz-fit-content
+- css.properties.min-inline-size.-moz-max-content
+- css.properties.min-inline-size.-moz-min-content
+- css.properties.min-inline-size.-webkit-fill-available
+- css.properties.min-width.-moz-fit-content
+- css.properties.min-width.-moz-max-content
+- css.properties.min-width.-moz-min-content
+- css.properties.min-width.-webkit-fill-available
+- css.properties.min-width.-webkit-fit-content
+- css.properties.min-width.-webkit-max-content
+- css.properties.min-width.-webkit-min-content
+- css.properties.min-width.intrinsic
+- css.properties.min-width.min-intrinsic
+- css.properties.offset-path.path-support
+- css.properties.offset-path.ray-support
+- css.properties.overflow.-moz-hidden-unscrollable
+- css.properties.overflow-x.-moz-hidden-unscrollable
+- css.properties.overflow-y.-moz-hidden-unscrollable
+- css.properties.position.-webkit-sticky
+- css.properties.unicode-bidi.-moz-isolate
+- css.properties.unicode-bidi.-moz-isolate-override
+- css.properties.unicode-bidi.-moz-plaintext
+- css.properties.unicode-bidi.-webkit-isolate
+- css.properties.unicode-bidi.-webkit-isolate-override
+- css.properties.unicode-bidi.-webkit-plaintext
+- css.properties.user-select.-moz-none
+- css.properties.width.-moz-available
+- css.properties.width.-moz-fit-content
+- css.properties.width.-moz-max-content
+- css.properties.width.-moz-min-content
+- css.properties.width.-webkit-fill-available
+- css.properties.width.-webkit-fit-content
+- css.properties.width.-webkit-max-content
+- css.properties.width.intrinsic
+- css.properties.width.min-intrinsic
+- javascript.builtins.RegExp.RegExp.new_required
+
+#### Changed
+
+- api.CanvasCaptureMediaStreamTrack
+- javascript.builtins.RegExp.RegExp
+
+### Commits
+
+- Clean up changelog for v10.2.9
+- Fix testOptionParam when return value is falsy
+- Update test for CanvasCaptureMediaStreamTrack API
+- Update overrides
+- Update es-scraper data
+- Remove redundant entries for prefixed CSS values
+- Remove non-standard console namespace members
+- Fix test for api.Response.json_static
+- Catch additional constructor Safari error message
+- Remove unneeded custom IDL
+
 ## v10.2.9
 
 Released October 17, 2023
