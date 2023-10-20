@@ -12,6 +12,11 @@ const build = async (specCSS, customCSS) => {
   const properties = new Map();
 
   for (const data of Object.values(specCSS) as any[]) {
+    if (data.spec.url == "https://compat.spec.whatwg.org/") {
+      // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
+      continue;
+    }
+
     for (const prop of data.properties) {
       properties.set(prop.name, new Map());
     }
