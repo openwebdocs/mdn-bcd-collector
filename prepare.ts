@@ -25,10 +25,22 @@ const prepare = async () => {
     // Install Firefox for Puppeteer
     try {
       process.chdir("node_modules/puppeteer");
+      await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
+      process.chdir("../..");
     } catch (e) {
-      return;
+      console.error(`Failure preparing Puppeteer Firefox: ${e}`);
     }
-    await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
+  }
+
+  // Run mdn-checker: es-scraper
+  try {
+    process.chdir("mdn-checker");
+    await exec("npm i");
+    await exec("npm run es:sync", {}, false);
+    await exec("npm run es:scrape", {}, false);
+    process.chdir("..");
+  } catch (e) {
+    console.error(`Failure preparing mdn-checker: ${e}`);
   }
 };
 

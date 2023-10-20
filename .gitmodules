@@ -1,0 +1,3 @@
+[submodule "mdn-checker"]
+	path = mdn-checker
+	url = https://github.com/queengooborg/mdn-checker
