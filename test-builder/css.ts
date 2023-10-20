@@ -18,6 +18,10 @@ const build = async (specCSS, customCSS) => {
     }
 
     for (const prop of data.properties) {
+      if (["-webkit-appearance", "-webkit-user-select"].includes(prop.name)) {
+        // CSS Basic User Interface Module Level 4 defines prefixed aliases for two properties, ignore them
+        continue;
+      }
       properties.set(prop.name, new Map());
     }
   }
