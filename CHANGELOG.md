@@ -163,7 +163,6 @@ Released October 20, 2023
 - Clean up changelog for v10.2.9
 - Fix testOptionParam when return value is falsy
 - Update test for CanvasCaptureMediaStreamTrack API
-- Update overrides
 - Update es-scraper data
 - Remove redundant entries for prefixed CSS values
 - Remove non-standard console namespace members
@@ -193,10 +192,6 @@ Released October 17, 2023
 #### Removed
 
 - api.PageRevealEvent
-
-### Commits
-
-- Update overrides
 
 ## v10.2.8
 
@@ -395,7 +390,6 @@ Released September 22, 2023
 
 ### Commits
 
-- Update overrides
 - Fix test for Iterator.@@iterator
 - Update harness.js to handle more Safari constructor errors
 - Add custom test for WebAssembly.Exception.stack
