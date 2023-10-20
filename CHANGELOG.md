@@ -26,7 +26,6 @@ Released October 17, 2023
 ### Commits
 
 - Update overrides
-- Update overrides
 
 ## v10.2.8
 
