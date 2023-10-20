@@ -790,5 +790,13 @@
   "Voices don't appear to be loaded in BrowserStack before Safari 14",
   ["api.SpeechSynthesisVoice", "safari", "7-14", true],
   ["api.SpeechSynthesisVoice.default", "safari", "7-14", true],
-  ["api.SpeechSynthesisVoice.lang", "safari", "7-14", true]
+  ["api.SpeechSynthesisVoice.lang", "safari", "7-14", true],
+  "Read by Chrome before support was implemented",
+  [
+    "api.Element.animate.options_rangeStart_parameter",
+    "chrome",
+    "111-114",
+    false
+  ],
+  ["api.Element.animate.options_rangeEnd_parameter", "chrome", "111-114", false]
 ]
