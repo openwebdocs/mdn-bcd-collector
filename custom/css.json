@@ -107,8 +107,6 @@
         "round_space": ["space", "round"]
       }
     },
-    "background-repeat-x": {},
-    "background-repeat-y": {},
     "background-size": {
       "__additional_values": {
         "contain_and_cover": ["contain", "cover"]
@@ -222,7 +220,6 @@
         "avoid-region"
       ]
     },
-    "buffered-rendering": {},
     "caption-side": {
       "__additional_values": {
         "non_standard_values": [
@@ -247,7 +244,6 @@
       }
     },
     "color-profile": {},
-    "color-rendering": {},
     "color-scheme": {
       "__values": ["only_dark", "only_light"]
     },
