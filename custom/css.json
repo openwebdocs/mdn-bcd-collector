@@ -432,7 +432,6 @@
         "number": "451"
       }
     },
-    "glyph-orientation-horizontal": {},
     "grid-template-columns": {
       "__additional_values": {
         "fit-content": "fit-content(40%)",
@@ -474,7 +473,6 @@
       },
       "__values": ["fit-content", "max-content", "min-content"]
     },
-    "kerning": {},
     "layout-grid": {},
     "layout-grid-char": {},
     "layout-grid-line": {},
@@ -743,15 +741,12 @@
     "overflow-y": {
       "__values": ["clip"]
     },
-    "page-orientation": {},
     "pen-action": {},
     "perspective-origin": {
       "__additional_values": {
         "three_value_syntax": "left top 15px"
       }
     },
-    "perspective-origin-x": {},
-    "perspective-origin-y": {},
     "position": {
       "__values": ["fixed", "sticky"]
     },
@@ -775,11 +770,6 @@
     },
     "scroll-snap-coordinate": {},
     "scroll-snap-destination": {},
-    "scroll-snap-margin": {},
-    "scroll-snap-margin-bottom": {},
-    "scroll-snap-margin-left": {},
-    "scroll-snap-margin-right": {},
-    "scroll-snap-margin-top": {},
     "scroll-snap-points-x": {},
     "scroll-snap-points-y": {},
     "scroll-snap-type-x": {},
@@ -807,18 +797,7 @@
         "three_value_syntax": "left top 15px"
       }
     },
-    "size": {},
-    "speak-as": {
-      "__values": [
-        "digits",
-        "literal-punctuation",
-        "no-punctuation",
-        "normal",
-        "spell-out"
-      ]
-    },
     "src": {},
-    "supported-color-schemes": {},
     "tab-size": {
       "__additional_values": {
         "length": "20px"
@@ -941,9 +920,6 @@
         "three_value_syntax": "left top 15px"
       }
     },
-    "transform-origin-x": {},
-    "transform-origin-y": {},
-    "transform-origin-z": {},
     "transition-property": {
       "__values": ["IDENT_value"]
     },
