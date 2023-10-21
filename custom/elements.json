@@ -170,16 +170,18 @@
         "base": ["href", "target"],
         "blockquote": ["cite"],
         "body": [
-          {"bgcolor": "bgColor"},
-          "alink",
+          {
+            "alink": "aLink",
+            "bgcolor": "bgColor",
+            "vlink": "vLink"
+          },
           "background",
           "bottommargin",
           "leftmargin",
           "link",
           "rightmargin",
           "text",
-          "topmargin",
-          "vlink"
+          "topmargin"
         ],
         "br": ["clear"],
         "button": [
