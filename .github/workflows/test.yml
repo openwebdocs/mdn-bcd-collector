@@ -27,9 +27,11 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Clone collector
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Clone browser-compat-data
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: mdn/browser-compat-data
           path: browser-compat-data
