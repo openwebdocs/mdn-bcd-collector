@@ -126,7 +126,7 @@ const getBrowsersToTest = (
 ) => {
   let browsersToTest: {[browser: string]: string[]} = {
     chrome: filterVersions("chrome", since, reverse),
-    edge: filterVersions("edge", since, reverse),
+    // edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
     safari: filterVersions("safari", since, reverse),
   };
@@ -586,7 +586,7 @@ if (esMain(import.meta)) {
           describe: "Limit the browser(s) to test",
           alias: "b",
           type: "string",
-          choices: ["chrome", "edge", "firefox", "safari"],
+          choices: ["chrome", "firefox", "safari"],
         })
         .option("since", {
           describe: "Limit to browser releases from this year on",
