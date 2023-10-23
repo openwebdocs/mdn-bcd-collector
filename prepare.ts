@@ -21,17 +21,6 @@ const prepare = async () => {
     fs.copyFileSync(secretsSamplePath, secretsPath);
   }
 
-  if (process.env.NODE_ENV !== "production") {
-    // Install Firefox for Puppeteer
-    process.chdir("node_modules/puppeteer");
-    try {
-      await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
-    } catch (e) {
-      console.error(`Failure preparing Puppeteer Firefox: ${e}`);
-    }
-    process.chdir("../..");
-  }
-
   // Run mdn-checker: es-scraper
   process.chdir("mdn-checker");
   try {
@@ -42,6 +31,17 @@ const prepare = async () => {
     console.error(`Failure preparing mdn-checker: ${e}`);
   }
   process.chdir("..");
+
+  if (process.env.NODE_ENV !== "production") {
+    // Install Firefox for Puppeteer
+    process.chdir("node_modules/puppeteer");
+    try {
+      await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
+    } catch (e) {
+      console.error(`Failure preparing Puppeteer Firefox: ${e}`);
+    }
+    process.chdir("../..");
+  }
 };
 
 if (esMain(import.meta)) {
