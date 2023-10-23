@@ -24,10 +24,7 @@ import {customTests} from "./common.js";
 import type {IDLFiles} from "../types/types.js";
 
 const specJS = await fs.readJson(
-  new URL(
-    "../mdn-checker/packages/es-scraper/generated/intrinsics.json",
-    import.meta.url,
-  ),
+  new URL("../es-scraper/generated/intrinsics.json", import.meta.url),
 );
 
 const customCSS = await fs.readJson(

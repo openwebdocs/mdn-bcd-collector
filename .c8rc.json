@@ -7,7 +7,7 @@
     "**/coverage/**",
     "**/resources/custom-tests/**",
     "**/types/**",
-    "**/mdn-checker/**",
+    "**/es-scraper/**",
     "**/*.test.ts",
     "custom/idl/index.ts",
     "lib/selenium-keepalive.ts",

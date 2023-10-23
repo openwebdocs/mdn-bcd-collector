@@ -21,14 +21,14 @@ const prepare = async () => {
     fs.copyFileSync(secretsSamplePath, secretsPath);
   }
 
-  // Run mdn-checker: es-scraper
-  process.chdir("mdn-checker");
+  // Run es-scraper
+  process.chdir("es-scraper");
   try {
-    await exec("npm i");
-    await exec("npm run es:sync", {}, false);
-    await exec("npm run es:scrape", {}, false);
+    await exec("npm ci");
+    await exec("npm run sync", {}, false);
+    await exec("npm run scrape", {}, false);
   } catch (e) {
-    console.error(`Failure preparing mdn-checker: ${e}`);
+    console.error(`Failure preparing es-scraper: ${e}`);
   }
   process.chdir("..");
 

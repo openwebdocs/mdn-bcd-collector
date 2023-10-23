@@ -3,7 +3,7 @@ coverage/
 download/
 generated/
 node_modules/
-mdn-checker/
+es-scraper/
 browser-compat-data/
 tests.json
 tests.old.json
