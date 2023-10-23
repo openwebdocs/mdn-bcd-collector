@@ -17,9 +17,17 @@ describe("build (CSS)", () => {
   it("valid input", async () => {
     const webrefCSS = {
       "css-fonts": {
+        spec: {
+          title: "CSS Fonts Fake",
+          url: "",
+        },
         properties: [{name: "font-family"}, {name: "font-weight"}],
       },
       "css-grid": {
+        spec: {
+          title: "CSS Grid Fake",
+          url: "",
+        },
         properties: [{name: "grid"}],
       },
     };
@@ -71,6 +79,10 @@ describe("build (CSS)", () => {
   it("with custom test", async () => {
     const css = {
       "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
         properties: [{name: "foo"}],
       },
     };
@@ -89,6 +101,10 @@ describe("build (CSS)", () => {
   it("double-defined property", async () => {
     const css = {
       "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
         properties: [{name: "foo"}],
       },
     };
@@ -102,6 +118,10 @@ describe("build (CSS)", () => {
   it("invalid import", async () => {
     const css = {
       "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
         properties: [{name: "bar"}],
       },
     };
