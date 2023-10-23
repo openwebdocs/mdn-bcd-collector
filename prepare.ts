@@ -23,25 +23,25 @@ const prepare = async () => {
 
   if (process.env.NODE_ENV !== "production") {
     // Install Firefox for Puppeteer
+    process.chdir("node_modules/puppeteer");
     try {
-      process.chdir("node_modules/puppeteer");
       await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
-      process.chdir("../..");
     } catch (e) {
       console.error(`Failure preparing Puppeteer Firefox: ${e}`);
     }
+    process.chdir("../..");
   }
 
   // Run mdn-checker: es-scraper
+  process.chdir("mdn-checker");
   try {
-    process.chdir("mdn-checker");
     await exec("npm i");
     await exec("npm run es:sync", {}, false);
     await exec("npm run es:scrape", {}, false);
-    process.chdir("..");
   } catch (e) {
     console.error(`Failure preparing mdn-checker: ${e}`);
   }
+  process.chdir("..");
 };
 
 if (esMain(import.meta)) {
