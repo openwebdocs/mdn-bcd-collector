@@ -113,7 +113,11 @@ const log = (task, message) => {
   // task.output = new Date(Date.now()).toLocaleTimeString(undefined, {hour12: false}) + ': ' + message;
 };
 
-const filterVersions = (browser: BrowserName, since: Date, reverse) => {
+const filterVersions = (
+  browser: BrowserName,
+  since: Date,
+  reverse: boolean,
+) => {
   return filterVersionsLib(browser, since, reverse).filter((v) =>
     compareVersions(v, earliestBrowserVersions[browser], ">="),
   );
@@ -128,7 +132,10 @@ const getBrowsersToTest = (
     chrome: filterVersions("chrome", since, reverse),
     // edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
-    safari: filterVersions("safari", since, reverse),
+    safari: filterVersions("safari", since, reverse).filter((v) =>
+      // CIs don't have good coverage of Safari 15 and above
+      compareVersions(v, "16", "<"),
+    ),
   };
 
   if (limitBrowsers) {
