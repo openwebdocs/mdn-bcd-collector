@@ -21,13 +21,6 @@ const prepare = async () => {
     fs.copyFileSync(secretsSamplePath, secretsPath);
   }
 
-  // Initialize submodules
-  try {
-    await exec("git submodule init", {}, false);
-  } catch (e) {
-    console.error(`Failure preparing submodules: ${e}`);
-  }
-
   // Run es-scraper
   process.chdir("es-scraper");
   try {
