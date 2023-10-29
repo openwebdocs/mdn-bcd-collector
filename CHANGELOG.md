@@ -1,5 +1,24 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.12
+
+Released October 29, 2023
+
+### Test Changes
+
+#### Removed
+
+- css.properties.all.revert
+
+### Commits
+
+- Remove all: revert CSS value
+- Run git submodule init command from package.json
+- Initialize submodules during preparation script
+- Remove "ts-node" script; propogate command to other scripts
+- update-bcd: fix getSupportMatrix overrides param type ([#743](https://github.com/openwebdocs/mdn-bcd-collector/pull/743))
+- Selenium: limit Safari versions to 14.x and lower
+
 ## v10.2.11
 
 Released October 23, 2023
