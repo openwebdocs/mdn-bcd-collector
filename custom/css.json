@@ -27,9 +27,6 @@
     "-webkit-tap-highlight-color": {},
     "-webkit-text-security": {},
     "-webkit-touch-callout": {},
-    "all": {
-      "__values": ["revert"]
-    },
     "alt": {},
     "animation-direction": {
       "__values": ["alternate-reverse", "reverse"]
