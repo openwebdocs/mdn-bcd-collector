@@ -299,8 +299,6 @@ export const inferSupportStatements = (
   return statements;
 };
 
-type CompatSupport = Exclude<Identifier["__compat"], undefined>["support"];
-
 /** Values that can be logged for further analysis. */
 interface UpdateLog {
   allStatements: SimpleSupportStatement[];
@@ -321,6 +319,8 @@ interface UpdateState extends UpdateLog {
 interface UpdateInternal extends UpdateState {
   debug: UpdateDebug;
 }
+
+type CompatSupport = Exclude<Identifier["__compat"], undefined>["support"];
 
 /** Values shared by multiple updates or too large to log. */
 interface UpdateShared {
@@ -349,6 +349,21 @@ const reason = (
   message: string,
   args: Omit<SkipReason, "message"> = {},
 ): SkipReason => ({message, ...args});
+
+const compose = (...funcs: any[]) =>
+  funcs.reduce(
+    (last, next, index, array) => {
+      if (!last) {
+        throw new Error(
+          `[${array.indexOf(next)}] last undefined: ${String(last)}`,
+        );
+      }
+      return next(last);
+    },
+    function* () {
+      yield {};
+    },
+  ) as () => Generator<UpdateInternal>;
 
 const expand = (
   step: string,
@@ -384,6 +399,10 @@ const expand = (
     };
 };
 
+const passthrough = expand("passthrough", function* () {
+  yield;
+});
+
 const provide = <S extends keyof UpdateState>(
   key: S,
   op: (value: UpdateState) => UpdateState[S] | undefined,
@@ -408,53 +427,36 @@ const provideStatements = (
     yield {statements: op(value)};
   });
 
-const passthrough = expand("passthrough", function* () {
-  yield;
-});
-
-const filter = (
+const provideReason = (
   step: string,
-  condition: (value: UpdateState) => boolean,
-  message: (value: UpdateState) => string | SkipReason,
+  op: (value: UpdateState) => SkipReason | undefined,
 ) =>
-  expand(`filter_${step}`, function* (value) {
-    if (!condition(value)) {
-      const reason = message(value);
-      if (typeof reason === "string") {
-        yield {
-          reason: {step: `filter_${step}`, message: reason},
-        };
-      } else {
-        yield {reason: {step: `filter_${step}`, ...reason}};
-      }
+  expand(`reason_${step}`, function* (value) {
+    const reason = op(value);
+    if (reason) {
+      yield {reason: {step, ...reason}};
     }
   });
 
 const skip = (
   step: string,
   condition: (value: UpdateState) => SkipReason | undefined,
+) => provideReason(`skip_${step}`, condition);
+
+const filter = (
+  step: string,
+  condition: (value: UpdateState) => boolean,
+  message: (value: UpdateState) => string | SkipReason,
 ) =>
-  expand(`skip_${step}`, function* (value) {
-    const reason = condition(value);
-    if (reason) {
-      yield {reason: {step: `skip_${step}`, ...reason}};
+  provideReason(`filter_${step}`, (value) => {
+    if (!condition(value)) {
+      const reason = message(value);
+      if (typeof reason === "string") {
+        return {step: `filter_${step}`, message: reason};
+      }
+      return {step: `filter_${step}`, ...reason};
     }
   });
-
-const compose = (...funcs: any[]) =>
-  funcs.reduce(
-    (last, next, index, array) => {
-      if (!last) {
-        throw new Error(
-          `[${array.indexOf(next)}] last undefined: ${String(last)}`,
-        );
-      }
-      return next(last);
-    },
-    function* () {
-      yield {};
-    },
-  ) as () => Generator<UpdateInternal>;
 
 const filterPath = (pathFilter: Minimatch | string) => {
   if (
@@ -684,6 +686,45 @@ const persistRemoved = provideStatements(
   },
 );
 
+const provideAllStatements = provide(
+  "allStatements",
+  ({browser, shared: {support}}) => {
+    const allStatements =
+      (support[browser] as InternalSupportStatement) === "mirror"
+        ? mirror(browser, clone(support))
+        : // Although non-mirrored support data could be modified in-place,
+          // working with a cloned version forces the subsequent code to
+          // explicitly assign it back to the originating data structure.
+          // This reduces the likelihood of inconsistencies in the handling
+          // of mirrored and non-mirrored support data.
+          clone(support[browser] || null);
+
+    if (!allStatements) {
+      return [];
+    } else if (!Array.isArray(allStatements)) {
+      return [allStatements];
+    }
+  },
+);
+
+const provideDefaultStatements = provide(
+  "defaultStatements",
+  ({allStatements}) => {
+    // Filter to the statements representing the feature being enabled by
+    // default under the default name and no flags.
+    return allStatements.filter((statement) => {
+      if ("flags" in statement) {
+        return false;
+      }
+      if ("prefix" in statement || "alternative_name" in statement) {
+        // TODO: map the results for aliases to these statements.
+        return false;
+      }
+      return true;
+    });
+  },
+);
+
 const pickLog = <T extends UpdateLog>({
   allStatements,
   browser,
@@ -740,37 +781,8 @@ export const update = (
         `${path} skipped for ${browser} due to multiple inferred statements`,
     ),
     filterRelease(options.release),
-    provide("allStatements", ({shared: {support}, browser}) => {
-      const allStatements =
-        (support[browser] as InternalSupportStatement) === "mirror"
-          ? mirror(browser, clone(support))
-          : // Although non-mirrored support data could be modified in-place,
-            // working with a cloned version forces the subsequent code to
-            // explicitly assign it back to the originating data structure.
-            // This reduces the likelihood of inconsistencies in the handling
-            // of mirrored and non-mirrored support data.
-            clone(support[browser] || null);
-
-      if (!allStatements) {
-        return [];
-      } else if (!Array.isArray(allStatements)) {
-        return [allStatements];
-      }
-    }),
-    provide("defaultStatements", ({allStatements}) => {
-      // Filter to the statements representing the feature being enabled by
-      // default under the default name and no flags.
-      return allStatements.filter((statement) => {
-        if ("flags" in statement) {
-          return false;
-        }
-        if ("prefix" in statement || "alternative_name" in statement) {
-          // TODO: map the results for aliases to these statements.
-          return false;
-        }
-        return true;
-      });
-    }),
+    provideAllStatements,
+    provideDefaultStatements,
     filter(
       "defaultStatements",
       ({inferredStatements: [inferredStatement], defaultStatements}) =>
