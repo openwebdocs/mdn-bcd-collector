@@ -21,14 +21,26 @@ const prepare = async () => {
     fs.copyFileSync(secretsSamplePath, secretsPath);
   }
 
+  // Run es-scraper
+  process.chdir("es-scraper");
+  try {
+    await exec("npm ci");
+    await exec("npm run sync", {}, false);
+    await exec("npm run scrape", {}, false);
+  } catch (e) {
+    console.error(`Failure preparing es-scraper: ${e}`);
+  }
+  process.chdir("..");
+
   if (process.env.NODE_ENV !== "production") {
     // Install Firefox for Puppeteer
+    process.chdir("node_modules/puppeteer");
     try {
-      process.chdir("node_modules/puppeteer");
+      await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
     } catch (e) {
-      return;
+      console.error(`Failure preparing Puppeteer Firefox: ${e}`);
     }
-    await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
+    process.chdir("../..");
   }
 };
 

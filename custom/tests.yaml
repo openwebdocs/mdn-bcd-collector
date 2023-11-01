@@ -628,9 +628,14 @@ api:
       if (!canvas) {
         return {result: false, message: 'Could not create canvas element'};
       };
-      var stream = canvas.captureStream();
+      var stream = canvas.captureStream(60);
       var tracks = stream.getTracks();
       var instance = tracks[0];
+
+      var nameResult = bcd.testObjectName(instance, 'CanvasCaptureMediaStreamTrack');
+      if (!(nameResult.result)) {
+        return nameResult
+      }
   CanvasGradient:
     __base: |-
       <%api.CanvasRenderingContext2D:ctx%>
@@ -3207,8 +3212,6 @@ api:
       var instance = new Response('');
     Response:
       __additional:
-        json_static: |-
-          return 'Response' in self && 'json' in Response;
         body_parameter_optional: |-
           try {
             new Response();
@@ -3219,6 +3222,9 @@ api:
             }
             return e;
           }
+    __additional:
+      json_static: |-
+        return 'Response' in self && 'json' in Response;
   RTCDataChannel:
     __base: |-
       <%api.RTCPeerConnection:connection%>

@@ -13,7 +13,7 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "exclude": ["build", "**/*.test.ts"],
+  "exclude": ["build", "**/*.test.ts", "es-scraper"],
   "typeRoots": ["./node_modules/@types", "./types"],
   "ts-node": {
     "esm": true,

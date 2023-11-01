@@ -1,5 +1,5 @@
 {
   "loader": "ts-node/esm",
   "extensions": ["ts", "tsx"],
-  "exclude": ["unittest/", "./**/node_modules/**/*"]
+  "exclude": ["unittest/", "./**/node_modules/**/*", "es-scraper/"]
 }

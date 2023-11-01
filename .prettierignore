@@ -3,6 +3,7 @@ coverage/
 download/
 generated/
 node_modules/
+es-scraper/
 browser-compat-data/
 tests.json
 tests.old.json

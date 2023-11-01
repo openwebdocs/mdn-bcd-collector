@@ -23,9 +23,8 @@ import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
 
-// XXX Grab directly from es-scraper inside https://github.com/jc-verse/mdn-checker
 const specJS = await fs.readJson(
-  new URL("../custom/es-scraper_intrinsics.json", import.meta.url),
+  new URL("../es-scraper/generated/intrinsics.json", import.meta.url),
 );
 
 const customCSS = await fs.readJson(

@@ -14,7 +14,7 @@ This project is under the Apache License 2.0 license. See the LICENSE file for m
 
 ## Setup
 
-This project requires Node.js 18 or 19. Node.js 20 is currently unsupported due to a [breaking change that impacts `ts-node`](https://github.com/TypeStrong/ts-node/issues/1997).
+This project requires Node.js 18 through 20.
 
 ```sh
 npm install
