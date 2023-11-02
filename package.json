@@ -59,7 +59,7 @@
     "fs-extra": "11.1.1",
     "highlight.js": "^11.9.0",
     "json-stable-stringify": "1.0.2",
-    "marked": "^9.1.4",
+    "marked": "^9.1.5",
     "marked-gfm-heading-id": "^3.1.0",
     "marked-highlight": "^2.0.6",
     "marked-mangle": "^1.1.4",
