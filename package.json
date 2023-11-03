@@ -67,7 +67,7 @@
     "ts-node": "10.9.1",
     "ua-parser-js": "1.0.37",
     "unique-string": "3.0.0",
-    "wasm-feature-detect": "^1.6.0",
+    "wasm-feature-detect": "^1.6.1",
     "winston": "3.11.0",
     "yargs": "17.7.2"
   },
