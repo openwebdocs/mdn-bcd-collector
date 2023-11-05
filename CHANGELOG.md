@@ -1,5 +1,19 @@
 # mdn-bcd-collector Changelog
 
+## v10.2.13
+
+Released November 4, 2023
+
+### Test Changes
+
+#### Changed
+
+- css.properties.list-style.symbols
+
+### Commits
+
+- Fix custom test for css.properties.list-style.symbols
+
 ## v10.2.12
 
 Released October 29, 2023
