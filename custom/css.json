@@ -479,7 +479,9 @@
       "__values": ["-moz-block-height"]
     },
     "list-style": {
-      "__values": ["symbols"]
+      "__additional_values": {
+        "symbols": "symbols(cyclic '*' '†' '‡')"
+      }
     },
     "list-style-type": {
       "__values": [
