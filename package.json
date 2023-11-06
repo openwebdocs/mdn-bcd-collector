@@ -106,7 +106,7 @@
     "eslint": "8.52.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^49.0.0",
-    "fdir": "6.1.0",
+    "fdir": "6.1.1",
     "json3": "3.3.3",
     "listr2": "7.0.2",
     "minimatch": "9.0.3",
