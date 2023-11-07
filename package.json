@@ -15,7 +15,7 @@
     "npm": ">=9"
   },
   "scripts": {
-    "prepare": "git submodule update --init --recursive && node --loader=ts-node/esm --no-warnings=ExperimentalWarning prepare.ts",
+    "prepare": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning prepare.ts",
     "format": "eslint . && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\" --color && ejslint views/*",
     "format:fix": "eslint --fix . && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\"",
     "fix": "npm run format:fix",
@@ -101,6 +101,8 @@
     "chai-subset": "1.6.0",
     "chalk": "5.3.0",
     "chalk-template": "1.1.0",
+    "cheerio": "^1.0.0-rc.12",
+    "core-js": "^3.33.1",
     "ejs-lint": "2.0.0",
     "enquirer": "2.4.1",
     "eslint": "8.53.0",

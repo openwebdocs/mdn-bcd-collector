@@ -12,6 +12,9 @@ import idl from "@webref/idl";
 import css from "@webref/css";
 import elements from "@webref/elements";
 
+import jsScrape from "./es-scraper/scripts/scrape.js";
+import jsSync from "./es-scraper/scripts/sync.js";
+
 import customIDL from "../custom/idl/index.js";
 
 import {build as buildAPI} from "./api.js";
@@ -22,10 +25,6 @@ import {build as buildWasm} from "./webassembly.js";
 import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
-
-const specJS = await fs.readJson(
-  new URL("../es-scraper/generated/intrinsics.json", import.meta.url),
-);
 
 const customCSS = await fs.readJson(
   new URL("../custom/css.json", import.meta.url),
@@ -40,11 +39,21 @@ const customWasm = await fs.readJson(
   new URL("../custom/wasm.json", import.meta.url),
 );
 
+const getSpecJS = async () => {
+  await jsScrape(true);
+  await jsSync(true);
+
+  return await fs.readJson(
+    new URL("./es-scraper/generated/intrinsics.json", import.meta.url),
+  );
+};
+
 /* c8 ignore start */
 const build = async (customIDL: IDLFiles, customCSS) => {
   const specIDLs: IDLFiles = await idl.parseAll();
   const specCSS = await css.listAll();
   const specElements = await elements.listAll();
+  const specJS = await getSpecJS();
 
   const tests = Object.assign(
     {__resources: customTests.__resources},
