@@ -435,6 +435,8 @@ const provideReason = (
     const reason = op(value);
     if (reason) {
       yield {reason: {step, ...reason}};
+    } else {
+      yield {};
     }
   });
 
@@ -467,20 +469,20 @@ const filterPath = (pathFilter: Minimatch | string) => {
     return filter(
       "pathMatchesPattern",
       ({path}) => pathFilter.match(path),
-      ({path}) => `${path} does not match path pattern`,
+      ({path}) => reason(`${path} does not match path pattern`, {quiet: true}),
     );
   } else if (pathFilter) {
     return filter(
       "pathMatchesPrefix",
       ({path}) => path === pathFilter || path.startsWith(`${pathFilter}.`),
-      ({path}) => `${path} does not match path prefix`,
+      ({path}) => reason(`${path} does not match path prefix`, {quiet: true}),
     );
   }
   return passthrough;
 };
 
 const filterBrowser = (browserFilter: BrowserName[]) =>
-  browserFilter
+  browserFilter?.length
     ? filter(
         "browserMatchesFilter",
         ({browser}) => browserFilter.includes(browser),
@@ -583,6 +585,7 @@ const filterCurrentBeforeSupport = skip("currentBeforeSupport", ({
         "",
       );
     if (
+      simpleStatement.version_added === 'preview' ||
       compareVersions(
         latestNonNullVersion,
         simpleStatement.version_added.replace("≤", ""),
@@ -704,6 +707,7 @@ const provideAllStatements = provide(
     } else if (!Array.isArray(allStatements)) {
       return [allStatements];
     }
+    return allStatements;
   },
 );
 
