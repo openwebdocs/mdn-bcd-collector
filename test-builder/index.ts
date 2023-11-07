@@ -12,9 +12,6 @@ import idl from "@webref/idl";
 import css from "@webref/css";
 import elements from "@webref/elements";
 
-import jsScrape from "./es-scraper/scripts/scrape.js";
-import jsSync from "./es-scraper/scripts/sync.js";
-
 import customIDL from "../custom/idl/index.js";
 
 import {build as buildAPI} from "./api.js";
@@ -40,8 +37,11 @@ const customWasm = await fs.readJson(
 );
 
 const getSpecJS = async () => {
-  await jsScrape(true);
+  const {default: jsSync} = await import("./es-scraper/scripts/sync.js");
   await jsSync(true);
+
+  const {default: jsScrape} = await import("./es-scraper/scripts/scrape.js");
+  await jsScrape(true);
 
   return await fs.readJson(
     new URL("./es-scraper/generated/intrinsics.json", import.meta.url),
