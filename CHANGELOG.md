@@ -1,5 +1,150 @@
 # mdn-bcd-collector Changelog
 
+## v10.3.0
+
+Released November 7, 2023
+
+### Notable Changes
+
+Originally, the JavaScript spec was manually scraped using https://github.com/jc-verse/mdn-checker every once in a while, as there was no NPM package available. Now, the relevant code has been obtained from the [es-scraper](https://github.com/jc-verse/mdn-checker/tree/master/packages/es-scraper) package in the repository and integrated directly into the JavaScript test generation. Once an NPM package version is available, we will switch to using the package instead.
+
+### Test Changes
+
+#### Added
+
+- javascript.builtins.RegExp.RegExp.new_required
+
+#### Removed
+
+- css.properties.-webkit-align-content
+- css.properties.-webkit-align-items
+- css.properties.-webkit-align-self
+- css.properties.-webkit-animation
+- css.properties.-webkit-animation-delay
+- css.properties.-webkit-animation-direction
+- css.properties.-webkit-animation-duration
+- css.properties.-webkit-animation-fill-mode
+- css.properties.-webkit-animation-iteration-count
+- css.properties.-webkit-animation-name
+- css.properties.-webkit-animation-play-state
+- css.properties.-webkit-animation-timing-function
+- css.properties.-webkit-appearance
+- css.properties.-webkit-backface-visibility
+- css.properties.-webkit-background-clip
+- css.properties.-webkit-background-origin
+- css.properties.-webkit-background-size
+- css.properties.-webkit-border-bottom-left-radius
+- css.properties.-webkit-border-bottom-right-radius
+- css.properties.-webkit-border-radius
+- css.properties.-webkit-border-top-left-radius
+- css.properties.-webkit-border-top-right-radius
+- css.properties.-webkit-box-align
+- css.properties.-webkit-box-flex
+- css.properties.-webkit-box-ordinal-group
+- css.properties.-webkit-box-orient
+- css.properties.-webkit-box-pack
+- css.properties.-webkit-box-shadow
+- css.properties.-webkit-box-sizing
+- css.properties.-webkit-filter
+- css.properties.-webkit-flex
+- css.properties.-webkit-flex-basis
+- css.properties.-webkit-flex-direction
+- css.properties.-webkit-flex-flow
+- css.properties.-webkit-flex-grow
+- css.properties.-webkit-flex-shrink
+- css.properties.-webkit-flex-wrap
+- css.properties.-webkit-justify-content
+- css.properties.-webkit-mask
+- css.properties.-webkit-mask-box-image
+- css.properties.-webkit-mask-box-image-outset
+- css.properties.-webkit-mask-box-image-repeat
+- css.properties.-webkit-mask-box-image-slice
+- css.properties.-webkit-mask-box-image-source
+- css.properties.-webkit-mask-box-image-width
+- css.properties.-webkit-mask-clip
+- css.properties.-webkit-mask-composite
+- css.properties.-webkit-mask-image
+- css.properties.-webkit-mask-origin
+- css.properties.-webkit-mask-position
+- css.properties.-webkit-mask-repeat
+- css.properties.-webkit-mask-size
+- css.properties.-webkit-order
+- css.properties.-webkit-perspective
+- css.properties.-webkit-perspective-origin
+- css.properties.-webkit-text-fill-color
+- css.properties.-webkit-text-size-adjust
+- css.properties.-webkit-text-stroke
+- css.properties.-webkit-text-stroke-color
+- css.properties.-webkit-text-stroke-width
+- css.properties.-webkit-transform
+- css.properties.-webkit-transform-origin
+- css.properties.-webkit-transform-style
+- css.properties.-webkit-transition
+- css.properties.-webkit-transition-delay
+- css.properties.-webkit-transition-duration
+- css.properties.-webkit-transition-property
+- css.properties.-webkit-transition-timing-function
+- css.properties.-webkit-user-select
+- css.properties.all.revert
+- css.properties.background-repeat-x
+- css.properties.background-repeat-y
+- css.properties.buffered-rendering
+- css.properties.color-rendering
+- css.properties.glyph-orientation-horizontal
+- css.properties.kerning
+- css.properties.page-orientation
+- css.properties.perspective-origin-x
+- css.properties.perspective-origin-y
+- css.properties.scroll-snap-margin
+- css.properties.scroll-snap-margin-bottom
+- css.properties.scroll-snap-margin-left
+- css.properties.scroll-snap-margin-right
+- css.properties.scroll-snap-margin-top
+- css.properties.size
+- css.properties.speak-as.digits
+- css.properties.speak-as.literal-punctuation
+- css.properties.speak-as.no-punctuation
+- css.properties.speak-as.normal
+- css.properties.speak-as.spell-out
+- css.properties.supported-color-schemes
+- css.properties.transform-origin-x
+- css.properties.transform-origin-y
+- css.properties.transform-origin-z
+
+#### Changed
+
+- css.properties.list-style.symbols
+- html.elements.body.alink
+- html.elements.body.vlink
+- javascript.builtins.RegExp.RegExp
+
+### Commits
+
+- Import es-scraper directly (no submodules)
+- Fix custom test for css.properties.list-style.symbols
+- Remove all: revert CSS value
+- Run git submodule init command from package.json
+- Initialize submodules during preparation script
+- Remove "ts-node" script; propogate command to other scripts
+- update-bcd: fix getSupportMatrix overrides param type ([#743](https://github.com/openwebdocs/mdn-bcd-collector/pull/743))
+- Selenium: limit Safari versions to 14.x and lower
+- Run test workflow on any branch
+- Ensure GitHub actions initializes submodules
+- Replace mdn-checker with cherry-picked es-scraper
+- Rename test workflow file
+- Prepare mdn-checker results first
+- Prepare script: perform chdir outside of try-catch block
+- Ignore mdn-checker submodule in linting
+- Selenium: don't collect results for Edge
+- Fix tests for some body element attributes
+- Remove untracked CSS properties (part 2)
+- Add mdn-checker as a submodule
+- Remove untracked CSS properties
+- Ignore two prefixed aliases in specs for CSS properties
+- Don't generate CSS tests from the Compatibility Standard
+- Remove mention of overrides from changelog
+- Node.js 21 is not supported
+
 ## v10.2.10
 
 Released October 20, 2023
