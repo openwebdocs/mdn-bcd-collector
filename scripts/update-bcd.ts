@@ -822,6 +822,11 @@ export const update = (
     persistAddedOver,
     persistRemoved,
     filterExactOnly(options.exactOnly),
+    skip('noStatement', ({browser, path, statements}) => {
+      if (!statements || !statements.length) {
+        return reason(`${path} skipped for ${browser}: no reason identified`);
+      }
+    }),
   )()) {
     changes.push(pickLog(state));
     if (!state.reason) {
