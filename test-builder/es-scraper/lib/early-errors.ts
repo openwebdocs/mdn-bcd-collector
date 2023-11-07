@@ -7,7 +7,7 @@ const $ = await getSpec();
 type EarlyErrorRecord = Awaited<ReturnType<typeof getEarlyErrors>>;
 
 export function collectEarlyErrors(toc: Section[]): EarlyErrorRecord {
-  const earlyErrorIDs = [];
+  const earlyErrorIDs: string[] = [];
 
   (function findEarlyErrorIDs(sections: Section[]) {
     for (const section of sections) {

@@ -10,8 +10,8 @@ import type {
   JSProperty,
   Parameters,
   DataAttributes,
-} from "../src/types.js";
-import { type Section } from "./types.js";
+  Section
+} from "./types.js";
 
 const $ = await getSpec();
 
@@ -171,7 +171,7 @@ function makeClass(s: Section): JSClass {
     return (
       sections
         .filter((p) => p.title.endsWith(")") === method)
-        // @ts-expect-error: this is because of weak inference
+        // @ts-ignore: this is because of weak inference
         .map(method ? makeMethod : makeProperty)
     );
   }
