@@ -585,6 +585,7 @@ const filterCurrentBeforeSupport = skip("currentBeforeSupport", ({
         "",
       );
     if (
+      simpleStatement.version_added === "preview" &&
       compareVersions(
         latestNonNullVersion,
         simpleStatement.version_added.replace("≤", ""),
@@ -789,9 +790,9 @@ export const update = (
     filter(
       "defaultStatements",
       ({inferredStatements: [inferredStatement], defaultStatements}) =>
-        defaultStatements.length > 0 ||
+        defaultStatements.length === 0 &&
         inferredStatement.version_added !== false,
-      ({path}) => `${path} has no default statement or inferred == false`,
+      ({browser, path}) => reason(`${path} skipped for ${browser} has no default statement or inferred statement`, {quiet: true}),
     ),
     persistNonDefault,
     filter(
@@ -807,25 +808,18 @@ export const update = (
       ({path, browser}) =>
         `${path} skipped for ${browser} due to added+removed statement`,
     ),
-    filter(
-      "currentPreview",
-      ({defaultStatements: [simpleStatement], inferredStatements: [inferredStatement]}) =>
-        inferredStatement.version_added === false &&
-        simpleStatement.version_added === "preview",
-      ({path, browser}) =>
-        `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
-    ),
     filterCurrentBeforeSupport,
     persistInferredRange,
     persistAddedOverPartial,
     persistAddedOver,
     persistRemoved,
     filterExactOnly(options.exactOnly),
-    skip('noStatement', ({browser, path, statements}) => {
-      if (!statements || !statements.length) {
-        return reason(`${path} skipped for ${browser}: no reason identified`);
-      }
-    }),
+    filter(
+      "noStatement",
+      ({statements}) => Boolean(statements?.length),
+      ({browser, path}) =>
+        reason(`${path} skipped for ${browser}: no reason identified`, {quiet: true}),
+    ),
   )()) {
     changes.push(pickLog(state));
     if (!state.reason) {
