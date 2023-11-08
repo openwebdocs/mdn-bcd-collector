@@ -1,27 +1,12 @@
 # mdn-bcd-collector Changelog
 
-## v10.2.12
+## v10.3.0
 
-Released October 29, 2023
+Released November 7, 2023
 
-### Test Changes
+### Notable Changes
 
-#### Removed
-
-- css.properties.all.revert
-
-### Commits
-
-- Remove all: revert CSS value
-- Run git submodule init command from package.json
-- Initialize submodules during preparation script
-- Remove "ts-node" script; propogate command to other scripts
-- update-bcd: fix getSupportMatrix overrides param type ([#743](https://github.com/openwebdocs/mdn-bcd-collector/pull/743))
-- Selenium: limit Safari versions to 14.x and lower
-
-## v10.2.11
-
-Released October 23, 2023
+Originally, the JavaScript spec was manually scraped using https://github.com/jc-verse/mdn-checker every once in a while, as there was no NPM package available. Now, the relevant code has been obtained from the [es-scraper](https://github.com/jc-verse/mdn-checker/tree/master/packages/es-scraper) package in the repository and integrated directly into the JavaScript test generation. Once an NPM package version is available, we will switch to using the package instead.
 
 ### Test Changes
 
@@ -100,6 +85,7 @@ Released October 23, 2023
 - css.properties.-webkit-transition-property
 - css.properties.-webkit-transition-timing-function
 - css.properties.-webkit-user-select
+- css.properties.all.revert
 - css.properties.background-repeat-x
 - css.properties.background-repeat-y
 - css.properties.buffered-rendering
@@ -127,12 +113,24 @@ Released October 23, 2023
 
 #### Changed
 
+- css.properties.list-style.symbols
 - html.elements.body.alink
 - html.elements.body.vlink
 - javascript.builtins.RegExp.RegExp
 
 ### Commits
 
+- Import es-scraper scripts one at a time
+- Exclude BCD repo from TypeScript compilation
+- Fix TypeScript errors in es-scraper package
+- Import es-scraper directly (no submodules)
+- Fix custom test for css.properties.list-style.symbols
+- Remove all: revert CSS value
+- Run git submodule init command from package.json
+- Initialize submodules during preparation script
+- Remove "ts-node" script; propogate command to other scripts
+- update-bcd: fix getSupportMatrix overrides param type ([#743](https://github.com/openwebdocs/mdn-bcd-collector/pull/743))
+- Selenium: limit Safari versions to 14.x and lower
 - Run test workflow on any branch
 - Ensure GitHub actions initializes submodules
 - Replace mdn-checker with cherry-picked es-scraper
@@ -142,17 +140,13 @@ Released October 23, 2023
 - Fix unittests
 - Ignore mdn-checker submodule in linting
 - Selenium: don't collect results for Edge
-- Update overrides for fetchpriority attribute
 - Fix tests for some body element attributes
 - Remove untracked CSS properties (part 2)
 - Add mdn-checker as a submodule
 - Remove untracked CSS properties
 - Ignore two prefixed aliases in specs for CSS properties
 - Don't generate CSS tests from the Compatibility Standard
-- Update overrides
 - Remove mention of overrides from changelog
-- Add overrides for api.Element.animate.options_range[Start/End]\_parameter
-- Update overrides
 - Node.js 21 is not supported
 
 ## v10.2.10
