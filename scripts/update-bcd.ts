@@ -585,7 +585,6 @@ const filterCurrentBeforeSupport = skip("currentBeforeSupport", ({
         "",
       );
     if (
-      simpleStatement.version_added === 'preview' ||
       compareVersions(
         latestNonNullVersion,
         simpleStatement.version_added.replace("≤", ""),
@@ -810,8 +809,8 @@ export const update = (
     ),
     filter(
       "currentPreview",
-      ({defaultStatements: [simpleStatement]}) =>
-        typeof simpleStatement.version_added === "string" &&
+      ({defaultStatements: [simpleStatement], inferredStatements: [inferredStatement]}) =>
+        inferredStatement.version_added === false &&
         simpleStatement.version_added === "preview",
       ({path, browser}) =>
         `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
