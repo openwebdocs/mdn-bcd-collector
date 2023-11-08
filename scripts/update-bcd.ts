@@ -405,7 +405,7 @@ const passthrough = expand("passthrough", function* () {
 
 const provide = <S extends keyof UpdateState>(
   key: S,
-  op: (value: UpdateState) => UpdateState[S] | undefined,
+  op: (value: UpdateState) => UpdateState[S],
 ) =>
   expand(`provide_${key}`, function* (value) {
     yield {[key]: op(value)};
@@ -413,7 +413,7 @@ const provide = <S extends keyof UpdateState>(
 
 const provideShared = <S extends keyof UpdateShared>(
   key: S,
-  op: (value: UpdateState) => UpdateShared[S] | undefined,
+  op: (value: UpdateState) => UpdateShared[S],
 ) =>
   expand(`provide_shared_${key}`, function* (value) {
     yield {shared: {[key]: op(value)}};
@@ -421,7 +421,7 @@ const provideShared = <S extends keyof UpdateShared>(
 
 const provideStatements = (
   step: string,
-  op: (value: UpdateState) => UpdateState["statements"] | undefined,
+  op: (value: UpdateState) => UpdateState["statements"],
 ) =>
   expand(`provide_statements_${step}`, function* (value) {
     yield {statements: op(value)};
@@ -557,13 +557,14 @@ const persistNonDefault = provideStatements(
     inferredStatements: [inferredStatement],
     allStatements,
     defaultStatements,
+    statements,
   }) =>
     defaultStatements.length === 0
       ? [
           inferredStatement,
           ...allStatements.filter((statement) => !("flags" in statement)),
         ]
-      : undefined,
+      : statements,
 );
 
 const filterCurrentBeforeSupport = skip("currentBeforeSupport", ({
@@ -605,6 +606,7 @@ const persistInferredRange = provideStatements(
     inferredStatements: [inferredStatement],
     defaultStatements: [simpleStatement],
     allStatements,
+    statements,
   }) => {
     if (
       typeof simpleStatement.version_added === "string" &&
@@ -622,6 +624,7 @@ const persistInferredRange = provideStatements(
         return allStatements;
       }
     }
+    return statements;
   },
 );
 
@@ -630,6 +633,7 @@ const persistAddedOverPartial = provideStatements(
   ({
     defaultStatements: [simpleStatement],
     inferredStatements: [inferredStatement],
+    statements,
   }) => {
     if (
       !(
@@ -648,6 +652,7 @@ const persistAddedOverPartial = provideStatements(
         return [{version_added: false}];
       }
     }
+    return statements;
   },
 );
 
@@ -657,6 +662,7 @@ const persistAddedOver = provideStatements(
     defaultStatements: [simpleStatement],
     inferredStatements: [inferredStatement],
     allStatements,
+    statements,
   }) => {
     if (
       !(
@@ -672,6 +678,7 @@ const persistAddedOver = provideStatements(
         return allStatements;
       }
     }
+    return statements;
   },
 );
 
@@ -681,11 +688,13 @@ const persistRemoved = provideStatements(
     inferredStatements: [inferredStatement],
     defaultStatements: [simpleStatement],
     allStatements,
+    statements,
   }) => {
     if (typeof inferredStatement.version_removed === "string") {
       simpleStatement.version_removed = inferredStatement.version_removed;
       return allStatements;
     }
+    return statements;
   },
 );
 
@@ -762,13 +771,13 @@ export const update = (
       }
     }),
     filterPath(options.path),
-    provideShared("entry", ({path}) => findEntry(bcd, path)),
+    provideShared("entry", ({path, shared: {entry}}) => findEntry(bcd, path) ?? entry),
     filter(
       "entryExists",
       ({shared: {entry}}) => Boolean(entry && entry.__compat),
       ({path}) => reason(`entry for ${path} does not exist`, {quiet: true}),
     ),
-    provideShared("support", ({shared: {entry}}) => entry.__compat?.support),
+    provideShared("support", ({shared: {entry, support}}) => entry.__compat?.support ?? support),
     expand("browser", function* ({shared: {browserMap}}) {
       for (const [browser, versionMap] of browserMap.entries()) {
         yield {browser, shared: {versionMap}};
