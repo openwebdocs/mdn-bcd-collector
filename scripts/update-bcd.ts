@@ -46,9 +46,9 @@ const {default: mirror} = await import(`${BCD_DIR}/scripts/release/mirror.js`);
 export const findEntry = (
   bcd: Identifier,
   ident: string,
-): Identifier | undefined => {
+): Identifier | null => {
   if (!ident) {
-    return undefined;
+    return null;
   }
   const keys: string[] = ident.split(".");
   let entry: any = bcd;
@@ -492,7 +492,7 @@ const provideStatements = (
   op: (
     value: UpdateState,
   ) =>
-    | [UpdateState["statements"], string | SkipReason | SkipReasonFactory]
+    | [UpdateState["statements"] | undefined, string | SkipReason | SkipReasonFactory]
     | void,
 ) =>
   map(`provide_statements_${step}`, (value) => {
@@ -529,30 +529,15 @@ const skip = (
   ) => string | SkipReason | SkipReasonFactory | void,
 ) => provideReason(`skip_${step}`, condition);
 
-const filter = (
-  step: string,
-  condition: (value: UpdateState) => boolean,
-  message: (value: UpdateState) => string | SkipReason,
-) =>
-  provideReason(`filter_${step}`, (value) => {
-    if (!condition(value)) {
-      const reason = message(value);
-      if (typeof reason === "string") {
-        return {step: `filter_${step}`, message: reason};
-      }
-      return {step: `filter_${step}`, ...reason};
-    }
-  });
-
-const filterPath = (pathFilter: Minimatch | string) => {
+const skipPathMismatch = (pathFilter: Minimatch | string) => {
   if (
     typeof pathFilter === "object" &&
     pathFilter !== null &&
     pathFilter.constructor === Minimatch
   ) {
-    return map("reason_pathMatchesPattern", ({path}) => {
+    return skip("pathMatchesPattern", ({path}) => {
       if (!pathFilter.match(path)) {
-        throw reason(`${path} does not match path pattern`, {quiet: true});
+        return reason(`${path} does not match path pattern`, {quiet: true});
       }
     });
     // return filter(
@@ -561,9 +546,9 @@ const filterPath = (pathFilter: Minimatch | string) => {
     //   ({path}) => reason(`${path} does not match path pattern`, {quiet: true}),
     // );
   } else if (pathFilter) {
-    return map("reason_pathMatchesPrefix", ({path}) => {
+    return skip("pathMatchesPrefix", ({path}) => {
       if (path !== pathFilter && !path.startsWith(`${pathFilter}.`)) {
-        throw reason(`${path} does not match path prefix`, {quiet: true});
+        return reason(`${path} does not match path prefix`, {quiet: true});
       }
     });
     // return filter(
@@ -575,11 +560,11 @@ const filterPath = (pathFilter: Minimatch | string) => {
   return passthrough;
 };
 
-const filterBrowser = (browserFilter: BrowserName[]) =>
+const skipBrowserMismatch = (browserFilter: BrowserName[]) =>
   browserFilter?.length
-    ? map("reason_browserMatchesFilter", ({browser}) => {
+    ? skip("browserMatchesFilter", ({browser}) => {
         if (!browserFilter.includes(browser)) {
-          throw reason(`${browser} does not match browser filter`, {
+          return reason(`${browser} does not match browser filter`, {
             quiet: true,
           });
         }
@@ -591,7 +576,7 @@ const filterBrowser = (browserFilter: BrowserName[]) =>
       //   )
       passthrough;
 
-const filterRelease = (releaseFilter: string | false) => {
+const skipReleaseMismatch = (releaseFilter: string | false) => {
   if (releaseFilter || releaseFilter === false) {
     const releaseFilterMatch =
       releaseFilter && releaseFilter.match(/([\d.]+)-([\d.]+)/);
@@ -624,21 +609,26 @@ const filterRelease = (releaseFilter: string | false) => {
         }
       });
     }
-    return filter(
-      "inferredReleaseNotEqualFilter",
-      ({inferredStatements: [inferredStatement]}) =>
+    return skip("inferredReleaseNotEqualFilter", ({
+      inferredStatements: [inferredStatement],
+    }) => {
+      if (
         releaseFilter === inferredStatement.version_added &&
         (!inferredStatement.version_removed ||
-          releaseFilter === inferredStatement.version_removed),
-      () => `inferred version does not exactly match release filter`,
-    );
+          releaseFilter === inferredStatement.version_removed)
+      ) {
+        return reason(
+          () => `inferred version does not exactly match release filter`,
+        );
+      }
+    });
   }
   return passthrough;
 };
 
-const filterExactOnly = (exactOnly: boolean) =>
+const clearNonExact = (exactOnly: boolean) =>
   exactOnly
-    ? map("reason_exactOnly", ({statements}) => {
+    ? provideStatements("exactOnly", ({statements}) => {
         if (
           statements.every(
             (statement) =>
@@ -648,7 +638,7 @@ const filterExactOnly = (exactOnly: boolean) =>
                 statement.version_removed.includes("≤")),
           )
         ) {
-          throw "versionExactOnly";
+          return [undefined, reason(({path, browser}) => `${path} skipped for ${browser} because exact only filter is set`)];
         }
       })
     : // ? filter(
@@ -684,40 +674,37 @@ const persistNonDefault = provideStatements(
   },
 );
 
-const filterCurrentBeforeSupport = map(
-  "reason_currentBeforeSupport",
-  ({
-    shared: {versionMap},
-    defaultStatements: [simpleStatement],
-    inferredStatements: [inferredStatement],
-  }) => {
+const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
+  shared: {versionMap},
+  defaultStatements: [simpleStatement],
+  inferredStatements: [inferredStatement],
+}) => {
+  if (
+    inferredStatement.version_added === false &&
+    typeof simpleStatement.version_added === "string"
+  ) {
+    const latestNonNullVersion = Array.from(versionMap.entries())
+      .filter(([, result]) => result !== null)
+      .reduceRight(
+        (latest, [version]) =>
+          !latest || compareVersions(version, latest, ">") ? version : latest,
+        "",
+      );
     if (
-      inferredStatement.version_added === false &&
-      typeof simpleStatement.version_added === "string"
+      simpleStatement.version_added === "preview" ||
+      compareVersions(
+        latestNonNullVersion,
+        simpleStatement.version_added.replace("≤", ""),
+        "<",
+      )
     ) {
-      const latestNonNullVersion = Array.from(versionMap.entries())
-        .filter(([, result]) => result !== null)
-        .reduceRight(
-          (latest, [version]) =>
-            !latest || compareVersions(version, latest, ">") ? version : latest,
-          "",
-        );
-      if (
-        simpleStatement.version_added === "preview" ||
-        compareVersions(
-          latestNonNullVersion,
-          simpleStatement.version_added.replace("≤", ""),
-          "<",
-        )
-      ) {
-        throw reason(
-          ({path, browser}) =>
-            `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
-        );
-      }
+      return reason(
+        ({path, browser}) =>
+          `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
+      );
     }
-  },
-);
+  }
+});
 
 const persistInferredRange = provideStatements(
   "inferredRange",
@@ -770,7 +757,10 @@ const persistAddedOverPartial = provideStatements(
         !inferredStatement.version_added &&
         simpleStatement.partial_implementation
       ) {
-        return [[{version_added: false}], reason("addedOverPartial", {skip: false})];
+        return [
+          [{version_added: false}],
+          reason("addedOverPartial", {skip: false}),
+        ];
       }
     }
   },
@@ -905,14 +895,14 @@ export const update = (
         yield {path, shared: {bcd, browserMap}};
       }
     }),
-    filterPath(options.path),
+    skipPathMismatch(options.path),
     provideShared(
       "entry",
       ({path, shared: {entry}}) => findEntry(bcd, path) ?? entry,
     ),
-    map("reason_entryExists", ({shared: {entry}}) => {
+    skip("missingEntry", ({shared: {entry}}) => {
       if (!entry || !entry.__compat) {
-        throw reason(({path}) => `entry for ${path} does not exist`, {
+        return reason(({path}) => `entry for ${path} does not exist`, {
           quiet: true,
         });
       }
@@ -926,60 +916,62 @@ export const update = (
         yield {browser, shared: {versionMap}};
       }
     }),
-    filterBrowser(options.browser),
+    skipBrowserMismatch(options.browser),
     provide("inferredStatements", ({shared: {versionMap}}) =>
       inferSupportStatements(versionMap),
     ),
-    map("reason_onlyOneInferredStatements", ({inferredStatements}) => {
+    skip("tooManyInferredStatements", ({inferredStatements}) => {
       if (inferredStatements.length !== 1) {
-        throw reason(
+        return reason(
           ({path, browser}) =>
             `${path} skipped for ${browser} due to multiple inferred statements`,
         );
       }
     }),
-    filterRelease(options.release),
+    skipReleaseMismatch(options.release),
     provideAllStatements,
     provideDefaultStatements,
-    map(
-      "reason_defaultStatements",
-      ({inferredStatements: [inferredStatement], defaultStatements}) => {
-        if (
-          defaultStatements.length === 0 &&
-          inferredStatement.version_added === false
-        ) {
-          throw reason(
-            ({browser, path}) =>
-              `${path} skipped for ${browser} has no default statement or inferred statement`,
-            {quiet: true},
-          );
-        }
-      },
-    ),
-    filterExactOnly(options.exactOnly),
-    persistNonDefault,
-    map("reason_defaultStatements2", ({defaultStatements}) => {
-      if (defaultStatements.length !== 1) {
-        throw ({path, browser}) =>
-          `${path} skipped for ${browser} due to multiple default statements`;
+    skip("zeroDefaultStatements", ({
+      inferredStatements: [inferredStatement],
+      defaultStatements,
+    }) => {
+      if (
+        defaultStatements.length === 0 &&
+        inferredStatement.version_added === false
+      ) {
+        return reason(
+          ({browser, path}) =>
+            `${path} skipped for ${browser} has no default statement or inferred statement`,
+          {quiet: true},
+        );
       }
     }),
-    map("reason_defaultRemoved", ({defaultStatements: [simpleStatement]}) => {
+    persistNonDefault,
+    skip("tooManyDefaultStatements", ({defaultStatements}) => {
+      if (defaultStatements.length !== 1) {
+        return reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser} due to multiple default statements`,
+        );
+      }
+    }),
+    skip("defaultRemoved", ({defaultStatements: [simpleStatement]}) => {
       if (simpleStatement.version_removed) {
-        throw reason(
+        return reason(
           ({path, browser}) =>
             `${path} skipped for ${browser} due to added+removed statement`,
         );
       }
     }),
-    filterCurrentBeforeSupport,
+    skipCurrentBeforeSupport,
     persistInferredRange,
     persistAddedOverPartial,
     persistAddedOver,
     persistRemoved,
-    map("reason_noStatement", ({statements}) => {
+    clearNonExact(options.exactOnly),
+    skip("noStatement", ({statements}) => {
       if (!statements?.length) {
-        throw reason(
+        return reason(
           ({browser, path}) =>
             `${path} skipped for ${browser}: no reason identified`,
           {
