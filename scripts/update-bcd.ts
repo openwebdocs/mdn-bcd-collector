@@ -492,7 +492,10 @@ const provideStatements = (
   op: (
     value: UpdateState,
   ) =>
-    | [UpdateState["statements"] | undefined, string | SkipReason | SkipReasonFactory]
+    | [
+        UpdateState["statements"] | undefined,
+        string | SkipReason | SkipReasonFactory,
+      ]
     | void,
 ) =>
   map(`provide_statements_${step}`, (value) => {
@@ -612,13 +615,17 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
     return skip("inferredReleaseNotEqualFilter", ({
       inferredStatements: [inferredStatement],
     }) => {
-      if (
-        releaseFilter === inferredStatement.version_added &&
-        (!inferredStatement.version_removed ||
-          releaseFilter === inferredStatement.version_removed)
+      if (releaseFilter !== inferredStatement.version_added) {
+        return reason(
+          () => `inferred added version does not exactly match release filter`,
+        );
+      } else if (
+        inferredStatement.version_removed &&
+        releaseFilter !== inferredStatement.version_removed
       ) {
         return reason(
-          () => `inferred version does not exactly match release filter`,
+          () =>
+            `inferred removed version does not exactly match release filter`,
         );
       }
     });
@@ -638,7 +645,13 @@ const clearNonExact = (exactOnly: boolean) =>
                 statement.version_removed.includes("≤")),
           )
         ) {
-          return [undefined, reason(({path, browser}) => `${path} skipped for ${browser} because exact only filter is set`)];
+          return [
+            undefined,
+            reason(
+              ({path, browser}) =>
+                `${path} skipped for ${browser} because exact only filter is set`,
+            ),
+          ];
         }
       })
     : // ? filter(
@@ -716,7 +729,7 @@ const persistInferredRange = provideStatements(
     if (
       typeof simpleStatement.version_added === "string" &&
       typeof inferredStatement.version_added === "string" &&
-      inferredStatement.version_added.includes("<=")
+      inferredStatement.version_added.includes("≤")
     ) {
       const {lower, upper} = splitRange(inferredStatement.version_added);
       const simpleAdded = simpleStatement.version_added.replace("≤", "");
