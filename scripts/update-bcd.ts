@@ -339,16 +339,71 @@ type UpdateYield = Partial<UpdateLog> & {
   shared?: Partial<UpdateShared>;
 };
 
+type UpdateYieldFactory = (value: UpdateState) => UpdateYield;
+
 interface SkipReason {
   step?: string;
   message?: string;
+  skip?: boolean;
   quiet?: boolean;
 }
 
+interface SkipReasonMessageFactory {
+  (value: UpdateState): string;
+}
+
+interface SkipReasonFactory {
+  (value: UpdateState): SkipReason;
+}
+
 const reason = (
-  message: string,
+  message: string | SkipReasonMessageFactory,
   args: Omit<SkipReason, "message"> = {},
-): SkipReason => ({message, ...args});
+): SkipReason | SkipReasonFactory => {
+  if (typeof message === "string") {
+    return {message, skip: true, ...args};
+  }
+  return (value) => ({message: message(value), skip: true, ...args});
+};
+
+const isReason = (value: unknown): value is SkipReason => {
+  return typeof value === "object" && value !== null && "message" in value;
+};
+
+type WithReason<T, R extends string | SkipReason | SkipReasonFactory> = [T, R];
+
+const withReason = <T, R extends string | SkipReason | SkipReasonFactory>(
+  value: T,
+  maybeReason: R,
+): WithReason<T, R> => {
+  return [value, maybeReason];
+};
+
+const isReasonFactory = (
+  maybeFactory: unknown,
+): maybeFactory is SkipReasonFactory => typeof maybeFactory === "function";
+
+const handleReasonFactory = (
+  factory: string | SkipReason | SkipReasonFactory,
+  value: UpdateState,
+): SkipReason => {
+  if (typeof factory === "string") {
+    return reason(factory)(value);
+  } else if (isReasonFactory(factory)) {
+    return factory(value);
+  }
+  return factory;
+};
+
+const handleUpdate = (
+  update: UpdateYield | UpdateYieldFactory,
+  value: UpdateState,
+): UpdateYield => {
+  if (typeof update === "function") {
+    return update(value);
+  }
+  return update;
+};
 
 const compose = (...funcs: any[]) =>
   funcs.reduce(
@@ -367,7 +422,7 @@ const compose = (...funcs: any[]) =>
 
 const expand = (
   step: string,
-  generator: (value: UpdateState) => Generator<UpdateYield | undefined>,
+  generator: (value: UpdateState) => Generator<UpdateYield | void>,
 ) => {
   return (last: () => Generator<UpdateInternal>) =>
     function* (): Generator<UpdateInternal> {
@@ -375,20 +430,24 @@ const expand = (
         if (value === undefined) {
           continue;
         }
-        if (value.reason) {
+        if (value.reason?.skip) {
           yield value;
           continue;
         }
+
         for (const props of generator(value)) {
           if (props) {
             const {shared: propsShared, ...propsPicked} = props;
+            // yield Object.assign({} as UpdateState, value, propsPicked, {
+            //   debug: {
+            //     stack: [
+            //       ...(value.debug?.stack ?? []),
+            //       {step, result: propsPicked},
+            //     ],
+            //   },
+            //   shared: {...value.shared, ...propsShared},
+            // });
             yield Object.assign({} as UpdateState, value, propsPicked, {
-              debug: {
-                stack: [
-                  ...(value.debug?.stack ?? []),
-                  {step, result: propsPicked},
-                ],
-              },
               shared: {...value.shared, ...propsShared},
             });
           } else {
@@ -399,50 +458,75 @@ const expand = (
     };
 };
 
-const passthrough = expand("passthrough", function* () {
-  yield;
-});
+const map = (step: string, op: (value: UpdateState) => UpdateYield | void) =>
+  expand(step, function* (value: UpdateState): Generator<UpdateYield | void> {
+    try {
+      yield op(value);
+    } catch (thrown) {
+      if (typeof thrown === "string") {
+        yield {reason: {step, message: thrown}};
+      } else if (isReasonFactory(thrown)) {
+        yield {reason: {step, ...thrown(value)}};
+      } else if (isReason(thrown)) {
+        yield {reason: {step, ...thrown}};
+      } else {
+        throw thrown;
+      }
+    }
+  });
+
+const passthrough = map("passthrough", () => {});
 
 const provide = <S extends keyof UpdateState>(
   key: S,
   op: (value: UpdateState) => UpdateState[S],
-) =>
-  expand(`provide_${key}`, function* (value) {
-    yield {[key]: op(value)};
-  });
+) => map(`provide_${key}`, (value) => ({[key]: op(value)}));
 
 const provideShared = <S extends keyof UpdateShared>(
   key: S,
   op: (value: UpdateState) => UpdateShared[S],
-) =>
-  expand(`provide_shared_${key}`, function* (value) {
-    yield {shared: {[key]: op(value)}};
-  });
+) => map(`provide_shared_${key}`, (value) => ({shared: {[key]: op(value)}}));
 
 const provideStatements = (
   step: string,
-  op: (value: UpdateState) => UpdateState["statements"],
+  op: (
+    value: UpdateState,
+  ) =>
+    | [UpdateState["statements"], string | SkipReason | SkipReasonFactory]
+    | void,
 ) =>
-  expand(`provide_statements_${step}`, function* (value) {
-    yield {statements: op(value)};
+  map(`provide_statements_${step}`, (value) => {
+    const result = op(value);
+    if (result) {
+      const [statements, reason] = result;
+      return {
+        statements,
+        reason: {
+          step: `provide_statements_${step}`,
+          ...handleReasonFactory(reason, value),
+        },
+      };
+    }
   });
 
 const provideReason = (
   step: string,
-  op: (value: UpdateState) => SkipReason | undefined,
+  op: (value: UpdateState) => string | SkipReason | SkipReasonFactory | void,
 ) =>
-  expand(`reason_${step}`, function* (value) {
+  map(`reason_${step}`, (value) => {
     const reason = op(value);
     if (reason) {
-      yield {reason: {step, ...reason}};
-    } else {
-      yield {};
+      return {
+        reason: {step: `reason_${step}`, ...handleReasonFactory(reason, value)},
+      };
     }
   });
 
 const skip = (
   step: string,
-  condition: (value: UpdateState) => SkipReason | undefined,
+  condition: (
+    value: UpdateState,
+  ) => string | SkipReason | SkipReasonFactory | void,
 ) => provideReason(`skip_${step}`, condition);
 
 const filter = (
@@ -466,29 +550,46 @@ const filterPath = (pathFilter: Minimatch | string) => {
     pathFilter !== null &&
     pathFilter.constructor === Minimatch
   ) {
-    return filter(
-      "pathMatchesPattern",
-      ({path}) => pathFilter.match(path),
-      ({path}) => reason(`${path} does not match path pattern`, {quiet: true}),
-    );
+    return map("reason_pathMatchesPattern", ({path}) => {
+      if (!pathFilter.match(path)) {
+        throw reason(`${path} does not match path pattern`, {quiet: true});
+      }
+    });
+    // return filter(
+    //   "pathMatchesPattern",
+    //   ({path}) => pathFilter.match(path),
+    //   ({path}) => reason(`${path} does not match path pattern`, {quiet: true}),
+    // );
   } else if (pathFilter) {
-    return filter(
-      "pathMatchesPrefix",
-      ({path}) => path === pathFilter || path.startsWith(`${pathFilter}.`),
-      ({path}) => reason(`${path} does not match path prefix`, {quiet: true}),
-    );
+    return map("reason_pathMatchesPrefix", ({path}) => {
+      if (path !== pathFilter && !path.startsWith(`${pathFilter}.`)) {
+        throw reason(`${path} does not match path prefix`, {quiet: true});
+      }
+    });
+    // return filter(
+    //   "pathMatchesPrefix",
+    //   ({path}) => path === pathFilter || path.startsWith(`${pathFilter}.`),
+    //   ({path}) => reason(`${path} does not match path prefix`, {quiet: true}),
+    // );
   }
   return passthrough;
 };
 
 const filterBrowser = (browserFilter: BrowserName[]) =>
   browserFilter?.length
-    ? filter(
-        "browserMatchesFilter",
-        ({browser}) => browserFilter.includes(browser),
-        ({browser}) => `${browser} does not match browser filter`,
-      )
-    : passthrough;
+    ? map("reason_browserMatchesFilter", ({browser}) => {
+        if (!browserFilter.includes(browser)) {
+          throw reason(`${browser} does not match browser filter`, {
+            quiet: true,
+          });
+        }
+      })
+    : // ? filter(
+      //     "browserMatchesFilter",
+      //     ({browser}) => browserFilter.includes(browser),
+      //     ({browser}) => `${browser} does not match browser filter`,
+      //   )
+      passthrough;
 
 const filterRelease = (releaseFilter: string | false) => {
   if (releaseFilter || releaseFilter === false) {
@@ -537,19 +638,32 @@ const filterRelease = (releaseFilter: string | false) => {
 
 const filterExactOnly = (exactOnly: boolean) =>
   exactOnly
-    ? filter(
-        "exactOnly",
-        ({statements}) =>
+    ? map("reason_exactOnly", ({statements}) => {
+        if (
           statements.every(
             (statement) =>
-              (typeof statement.version_added !== "string" ||
-                !statement.version_added.includes("≤")) &&
-              (typeof statement.version_removed !== "string" ||
-                !statement.version_removed.includes("≤")),
-          ),
-        () => "versionExactOnly",
-      )
-    : passthrough;
+              (typeof statement.version_added === "string" &&
+                statement.version_added.includes("≤")) ||
+              (typeof statement.version_removed === "string" &&
+                statement.version_removed.includes("≤")),
+          )
+        ) {
+          throw "versionExactOnly";
+        }
+      })
+    : // ? filter(
+      //     "exactOnly",
+      //     ({statements}) =>
+      //       statements.every(
+      //         (statement) =>
+      //           (typeof statement.version_added !== "string" ||
+      //             !statement.version_added.includes("≤")) &&
+      //           (typeof statement.version_removed !== "string" ||
+      //             !statement.version_removed.includes("≤")),
+      //       ),
+      //     () => "versionExactOnly",
+      //   )
+      passthrough;
 
 const persistNonDefault = provideStatements(
   "nonDefault",
@@ -557,48 +671,53 @@ const persistNonDefault = provideStatements(
     inferredStatements: [inferredStatement],
     allStatements,
     defaultStatements,
-    statements,
-  }) =>
-    defaultStatements.length === 0
-      ? [
+  }) => {
+    if (defaultStatements.length === 0) {
+      return [
+        [
           inferredStatement,
           ...allStatements.filter((statement) => !("flags" in statement)),
-        ]
-      : statements,
+        ],
+        reason("nonDefault", {skip: true}),
+      ];
+    }
+  },
 );
 
-const filterCurrentBeforeSupport = skip("currentBeforeSupport", ({
-  path,
-  browser,
-  shared: {versionMap},
-  defaultStatements: [simpleStatement],
-  inferredStatements: [inferredStatement],
-}) => {
-  if (
-    inferredStatement.version_added === false &&
-    typeof simpleStatement.version_added === "string"
-  ) {
-    const latestNonNullVersion = Array.from(versionMap.entries())
-      .filter(([, result]) => result !== null)
-      .reduceRight(
-        (latest, [version]) =>
-          !latest || compareVersions(version, latest, ">") ? version : latest,
-        "",
-      );
+const filterCurrentBeforeSupport = map(
+  "reason_currentBeforeSupport",
+  ({
+    shared: {versionMap},
+    defaultStatements: [simpleStatement],
+    inferredStatements: [inferredStatement],
+  }) => {
     if (
-      simpleStatement.version_added === "preview" &&
-      compareVersions(
-        latestNonNullVersion,
-        simpleStatement.version_added.replace("≤", ""),
-        "<",
-      )
+      inferredStatement.version_added === false &&
+      typeof simpleStatement.version_added === "string"
     ) {
-      return reason(
-        `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
-      );
+      const latestNonNullVersion = Array.from(versionMap.entries())
+        .filter(([, result]) => result !== null)
+        .reduceRight(
+          (latest, [version]) =>
+            !latest || compareVersions(version, latest, ">") ? version : latest,
+          "",
+        );
+      if (
+        simpleStatement.version_added === "preview" ||
+        compareVersions(
+          latestNonNullVersion,
+          simpleStatement.version_added.replace("≤", ""),
+          "<",
+        )
+      ) {
+        throw reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
+        );
+      }
     }
-  }
-});
+  },
+);
 
 const persistInferredRange = provideStatements(
   "inferredRange",
@@ -606,7 +725,6 @@ const persistInferredRange = provideStatements(
     inferredStatements: [inferredStatement],
     defaultStatements: [simpleStatement],
     allStatements,
-    statements,
   }) => {
     if (
       typeof simpleStatement.version_added === "string" &&
@@ -621,10 +739,9 @@ const persistInferredRange = provideStatements(
         compareVersions(simpleAdded, upper, ">")
       ) {
         simpleStatement.version_added = inferredStatement.version_added;
-        return allStatements;
+        return [allStatements, reason("inferredRange", {skip: false})];
       }
     }
-    return statements;
   },
 );
 
@@ -633,9 +750,13 @@ const persistAddedOverPartial = provideStatements(
   ({
     defaultStatements: [simpleStatement],
     inferredStatements: [inferredStatement],
-    statements,
   }) => {
     if (
+      !(
+        typeof simpleStatement.version_added === "string" &&
+        typeof inferredStatement.version_added === "string" &&
+        inferredStatement.version_added.includes("≤")
+      ) &&
       !(
         typeof simpleStatement.version_added === "string" &&
         inferredStatement.version_added === true
@@ -649,36 +770,52 @@ const persistAddedOverPartial = provideStatements(
         !inferredStatement.version_added &&
         simpleStatement.partial_implementation
       ) {
-        return [{version_added: false}];
+        return [[{version_added: false}], reason("addedOverPartial", {skip: false})];
       }
     }
-    return statements;
   },
 );
 
 const persistAddedOver = provideStatements(
   "addedOver",
   ({
+    browser,
+    path,
     defaultStatements: [simpleStatement],
     inferredStatements: [inferredStatement],
     allStatements,
-    statements,
   }) => {
+    // console.log(
+    //   path,
+    //   browser,
+    //   simpleStatement,
+    //   inferredStatement,
+    //   allStatements,
+    // );
     if (
+      !(
+        typeof simpleStatement.version_added === "string" &&
+        typeof inferredStatement.version_added === "string" &&
+        inferredStatement.version_added.includes("≤")
+      ) &&
       !(
         typeof simpleStatement.version_added === "string" &&
         inferredStatement.version_added === true
       ) &&
-      simpleStatement.version_added !== inferredStatement.version_added
+      simpleStatement.version_added !== inferredStatement.version_added &&
+      !(
+        !inferredStatement.version_added &&
+        simpleStatement.partial_implementation
+      )
     ) {
       // Positive test results do not conclusively indicate that a partial
       // implementation has been completed.
       if (!simpleStatement.partial_implementation) {
+        // console.log('make change');
         simpleStatement.version_added = inferredStatement.version_added;
-        return allStatements;
+        return [allStatements, reason("addedOver", {skip: false})];
       }
     }
-    return statements;
   },
 );
 
@@ -688,13 +825,11 @@ const persistRemoved = provideStatements(
     inferredStatements: [inferredStatement],
     defaultStatements: [simpleStatement],
     allStatements,
-    statements,
   }) => {
     if (typeof inferredStatement.version_removed === "string") {
       simpleStatement.version_removed = inferredStatement.version_removed;
-      return allStatements;
+      return [allStatements, reason("removed", {skip: false})];
     }
-    return statements;
   },
 );
 
@@ -771,13 +906,21 @@ export const update = (
       }
     }),
     filterPath(options.path),
-    provideShared("entry", ({path, shared: {entry}}) => findEntry(bcd, path) ?? entry),
-    filter(
-      "entryExists",
-      ({shared: {entry}}) => Boolean(entry && entry.__compat),
-      ({path}) => reason(`entry for ${path} does not exist`, {quiet: true}),
+    provideShared(
+      "entry",
+      ({path, shared: {entry}}) => findEntry(bcd, path) ?? entry,
     ),
-    provideShared("support", ({shared: {entry, support}}) => entry.__compat?.support ?? support),
+    map("reason_entryExists", ({shared: {entry}}) => {
+      if (!entry || !entry.__compat) {
+        throw reason(({path}) => `entry for ${path} does not exist`, {
+          quiet: true,
+        });
+      }
+    }),
+    provideShared(
+      "support",
+      ({shared: {entry, support}}) => entry.__compat?.support ?? support,
+    ),
     expand("browser", function* ({shared: {browserMap}}) {
       for (const [browser, versionMap] of browserMap.entries()) {
         yield {browser, shared: {versionMap}};
@@ -787,59 +930,82 @@ export const update = (
     provide("inferredStatements", ({shared: {versionMap}}) =>
       inferSupportStatements(versionMap),
     ),
-    filter(
-      "onlyOneInferredStatements",
-      ({inferredStatements}) => inferredStatements.length === 1,
-      ({path, browser}) =>
-        `${path} skipped for ${browser} due to multiple inferred statements`,
-    ),
+    map("reason_onlyOneInferredStatements", ({inferredStatements}) => {
+      if (inferredStatements.length !== 1) {
+        throw reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser} due to multiple inferred statements`,
+        );
+      }
+    }),
     filterRelease(options.release),
     provideAllStatements,
     provideDefaultStatements,
-    filter(
-      "defaultStatements",
-      ({inferredStatements: [inferredStatement], defaultStatements}) =>
-        defaultStatements.length === 0 &&
-        inferredStatement.version_added !== false,
-      ({browser, path}) => reason(`${path} skipped for ${browser} has no default statement or inferred statement`, {quiet: true}),
+    map(
+      "reason_defaultStatements",
+      ({inferredStatements: [inferredStatement], defaultStatements}) => {
+        if (
+          defaultStatements.length === 0 &&
+          inferredStatement.version_added === false
+        ) {
+          throw reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} has no default statement or inferred statement`,
+            {quiet: true},
+          );
+        }
+      },
     ),
+    filterExactOnly(options.exactOnly),
     persistNonDefault,
-    filter(
-      "defaultStatements2",
-      ({defaultStatements}) => defaultStatements.length === 1,
-      ({path, browser}) =>
-        `${path} skipped for ${browser} due to multiple default statements`,
-    ),
-    filter(
-      "defaultRemoved",
-      ({defaultStatements: [simpleStatement]}) =>
-        !simpleStatement.version_removed,
-      ({path, browser}) =>
-        `${path} skipped for ${browser} due to added+removed statement`,
-    ),
+    map("reason_defaultStatements2", ({defaultStatements}) => {
+      if (defaultStatements.length !== 1) {
+        throw ({path, browser}) =>
+          `${path} skipped for ${browser} due to multiple default statements`;
+      }
+    }),
+    map("reason_defaultRemoved", ({defaultStatements: [simpleStatement]}) => {
+      if (simpleStatement.version_removed) {
+        throw reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser} due to added+removed statement`,
+        );
+      }
+    }),
     filterCurrentBeforeSupport,
     persistInferredRange,
     persistAddedOverPartial,
     persistAddedOver,
     persistRemoved,
-    filterExactOnly(options.exactOnly),
-    filter(
-      "noStatement",
-      ({statements}) => Boolean(statements?.length),
-      ({browser, path}) =>
-        reason(`${path} skipped for ${browser}: no reason identified`, {quiet: true}),
-    ),
+    map("reason_noStatement", ({statements}) => {
+      if (!statements?.length) {
+        throw reason(
+          ({browser, path}) =>
+            `${path} skipped for ${browser}: no reason identified`,
+          {
+            quiet: true,
+          },
+        );
+      }
+    }),
   )()) {
     changes.push(pickLog(state));
-    if (!state.reason) {
+    if (state.statements) {
+      // console.log('change made', state.path, state.browser, state.statements);
       state.shared.support[state.browser] =
         state.statements.length === 1 ? state.statements[0] : state.statements;
-    } else if (state.reason && !state.reason.quiet) {
+    }
+    if (
+      state.reason &&
+      !state.reason.quiet
+      // state.reason.step !== "filter_pathMatchesPrefix" &&
+      // state.reason.step !== "filter_entryExists"
+    ) {
       logger.warn(state.reason.message);
     }
   }
   // TODO: Serialize changes to a file
-  return changes.some(({reason}) => !reason);
+  return changes.some(({statements}) => Boolean(statements));
 };
 
 // |paths| can be files or directories. Returns an object mapping
