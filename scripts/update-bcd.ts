@@ -307,7 +307,7 @@ interface UpdateLog {
   inferredStatements: SimpleSupportStatement[];
   path: string;
   statements: SimpleSupportStatement[];
-  reason: SkipReason;
+  reason: Reason;
 }
 
 /** Values available in operations. */
@@ -340,70 +340,50 @@ type UpdateYield = Partial<UpdateLog> & {
   shared?: Partial<UpdateShared>;
 };
 
-type UpdateYieldFactory = (value: UpdateState) => UpdateYield;
-
-interface SkipReason {
+interface Reason {
   step?: string;
   message?: string;
   skip?: boolean;
   quiet?: boolean;
 }
 
-interface SkipReasonMessageFactory {
+interface ReasonMessageFactory {
   (value: UpdateState): string;
 }
 
-interface SkipReasonFactory {
-  (value: UpdateState): SkipReason;
+interface ReasonFactory {
+  (value: UpdateState): Reason;
 }
 
 const reason = (
-  message: string | SkipReasonMessageFactory,
-  args: Omit<SkipReason, "message"> = {},
-): SkipReason | SkipReasonFactory => {
-  if (typeof message === "string") {
-    return {message, skip: true, ...args};
-  }
+  message: ReasonMessageFactory,
+  args: Omit<Reason, "message"> = {},
+): ReasonFactory => {
   return (value) => ({message: message(value), skip: true, ...args});
 };
 
-const isReason = (value: unknown): value is SkipReason => {
+const isReason = (value: unknown): value is Reason => {
   return typeof value === "object" && value !== null && "message" in value;
-};
-
-type WithReason<T, R extends string | SkipReason | SkipReasonFactory> = [T, R];
-
-const withReason = <T, R extends string | SkipReason | SkipReasonFactory>(
-  value: T,
-  maybeReason: R,
-): WithReason<T, R> => {
-  return [value, maybeReason];
 };
 
 const isReasonFactory = (
   maybeFactory: unknown,
-): maybeFactory is SkipReasonFactory => typeof maybeFactory === "function";
+): maybeFactory is ReasonFactory => typeof maybeFactory === "function";
 
-const handleReasonFactory = (
-  factory: string | SkipReason | SkipReasonFactory,
+const isReasonable = (maybeReason: unknown): maybeReason is string | Reason | ReasonFactory => {
+  return typeof maybeReason === 'string' || isReason(maybeReason) || isReasonFactory(maybeReason);
+}
+
+const handleReasonable = (
+  factory: string | Reason | ReasonFactory,
   value: UpdateState,
-): SkipReason => {
+): Reason => {
   if (typeof factory === "string") {
-    return reason(factory)(value);
+    return reason(() => factory)(value);
   } else if (isReasonFactory(factory)) {
     return factory(value);
   }
   return factory;
-};
-
-const handleUpdate = (
-  update: UpdateYield | UpdateYieldFactory,
-  value: UpdateState,
-): UpdateYield => {
-  if (typeof update === "function") {
-    return update(value);
-  }
-  return update;
 };
 
 const compose = (...funcs: any[]) =>
@@ -460,19 +440,7 @@ const expand = (
 
 const map = (step: string, op: (value: UpdateState) => UpdateYield | void) =>
   expand(step, function* (value: UpdateState): Generator<UpdateYield | void> {
-    try {
-      yield op(value);
-    } catch (thrown) {
-      if (typeof thrown === "string") {
-        yield {reason: {step, message: thrown}};
-      } else if (isReasonFactory(thrown)) {
-        yield {reason: {step, ...thrown(value)}};
-      } else if (isReason(thrown)) {
-        yield {reason: {step, ...thrown}};
-      } else {
-        throw thrown;
-      }
-    }
+    yield op(value);
   });
 
 const passthrough = map("passthrough", () => {});
@@ -494,7 +462,7 @@ const provideStatements = (
   ) =>
     | [
         UpdateState["statements"] | undefined,
-        string | SkipReason | SkipReasonFactory,
+        string | Reason | ReasonFactory,
       ]
     | void,
 ) =>
@@ -506,7 +474,7 @@ const provideStatements = (
         statements,
         reason: {
           step: `provide_statements_${step}`,
-          ...handleReasonFactory(reason, value),
+          ...handleReasonable(reason, value),
         },
       };
     }
@@ -514,13 +482,13 @@ const provideStatements = (
 
 const provideReason = (
   step: string,
-  op: (value: UpdateState) => string | SkipReason | SkipReasonFactory | void,
+  op: (value: UpdateState) => string | Reason | ReasonFactory | void,
 ) =>
   map(`reason_${step}`, (value) => {
     const reason = op(value);
     if (reason) {
       return {
-        reason: {step: `reason_${step}`, ...handleReasonFactory(reason, value)},
+        reason: {step: `reason_${step}`, ...handleReasonable(reason, value)},
       };
     }
   });
@@ -529,7 +497,7 @@ const skip = (
   step: string,
   condition: (
     value: UpdateState,
-  ) => string | SkipReason | SkipReasonFactory | void,
+  ) => string | Reason | ReasonFactory | void,
 ) => provideReason(`skip_${step}`, condition);
 
 const skipPathMismatch = (pathFilter: Minimatch | string) => {
@@ -540,13 +508,17 @@ const skipPathMismatch = (pathFilter: Minimatch | string) => {
   ) {
     return skip("pathMatchesPattern", ({path}) => {
       if (!pathFilter.match(path)) {
-        return reason(`${path} does not match path pattern`, {quiet: true});
+        return reason(({path}) => `${path} does not match path pattern`, {
+          quiet: true,
+        });
       }
     });
   } else if (pathFilter) {
     return skip("pathMatchesPrefix", ({path}) => {
       if (path !== pathFilter && !path.startsWith(`${pathFilter}.`)) {
-        return reason(`${path} does not match path prefix`, {quiet: true});
+        return reason(({path}) => `${path} does not match path prefix`, {
+          quiet: true,
+        });
       }
     });
   }
@@ -557,9 +529,13 @@ const skipBrowserMismatch = (browserFilter: BrowserName[]) =>
   browserFilter?.length
     ? skip("browserMatchesFilter", ({browser}) => {
         if (!browserFilter.includes(browser)) {
-          return reason(`${browser} does not match browser filter`, {
-            quiet: true,
-          });
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} does not match browser filter`,
+            {
+              quiet: true,
+            },
+          );
         }
       })
     : passthrough;
@@ -571,7 +547,11 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
     if (releaseFilterMatch) {
       return skip("release", ({inferredStatements: [inferredStatement]}) => {
         if (typeof inferredStatement.version_added !== "string") {
-          return reason("inferredReleaseFilterNonString");
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} due to non string inferred version`,
+            {quiet: true},
+          );
         }
         const inferredAdded = inferredStatement.version_added.replace(
           /(([\d.]+)> )?≤/,
@@ -581,7 +561,11 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
           compareVersions(inferredAdded, releaseFilterMatch[1], "<") ||
           compareVersions(inferredAdded, releaseFilterMatch[2], ">")
         ) {
-          return reason("inferredAddedOutsideFilterRange");
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} due to inferred added outside release range`,
+            {quiet: true},
+          );
         }
         if (typeof inferredStatement.version_removed === "string") {
           const inferredRemoved = inferredStatement.version_removed.replace(
@@ -592,7 +576,11 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
             compareVersions(inferredRemoved, releaseFilterMatch[1], "<") ||
             compareVersions(inferredRemoved, releaseFilterMatch[2], ">")
           ) {
-            return reason("inferredRemovedOutsideFilterRange");
+            return reason(
+              ({browser, path}) =>
+                `${path} skipped for ${browser} due to inferred removed outside release range`,
+              {quiet: true},
+            );
           }
         }
       });
@@ -602,15 +590,18 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
     }) => {
       if (releaseFilter !== inferredStatement.version_added) {
         return reason(
-          () => `inferred added version does not exactly match release filter`,
+          ({browser, path}) =>
+            `${path} skipped for ${browser} inferred added version does not exactly match release filter`,
+          {quiet: true},
         );
       } else if (
         inferredStatement.version_removed &&
         releaseFilter !== inferredStatement.version_removed
       ) {
         return reason(
-          () =>
-            `inferred removed version does not exactly match release filter`,
+          ({browser, path}) =>
+            `${path} skipped for ${browser} inferred removed version does not exactly match release filter`,
+          {quiet: true},
         );
       }
     });
