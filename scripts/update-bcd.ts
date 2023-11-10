@@ -646,6 +646,7 @@ const clearNonExact = (exactOnly: boolean) =>
           )
         ) {
           return [
+            // Overwrite the current statements
             undefined,
             reason(
               ({path, browser}) =>
