@@ -326,6 +326,7 @@ type CompatSupport = Exclude<Identifier["__compat"], undefined>["support"];
 interface UpdateShared {
   bcd: Identifier;
   browserMap: SupportMap;
+  unmodifiedSupport: CompatSupport;
   entry: Identifier;
   support: CompatSupport;
   versionMap: BrowserSupportMap;
@@ -438,16 +439,13 @@ const expand = (
         for (const props of generator(value)) {
           if (props) {
             const {shared: propsShared, ...propsPicked} = props;
-            // yield Object.assign({} as UpdateState, value, propsPicked, {
-            //   debug: {
-            //     stack: [
-            //       ...(value.debug?.stack ?? []),
-            //       {step, result: propsPicked},
-            //     ],
-            //   },
-            //   shared: {...value.shared, ...propsShared},
-            // });
             yield Object.assign({} as UpdateState, value, propsPicked, {
+              debug: {
+                stack: [
+                  ...(value.debug?.stack ?? []),
+                  {step, result: propsPicked},
+                ],
+              },
               shared: {...value.shared, ...propsShared},
             });
           } else {
@@ -543,22 +541,12 @@ const skipPathMismatch = (pathFilter: Minimatch | string) => {
         return reason(`${path} does not match path pattern`, {quiet: true});
       }
     });
-    // return filter(
-    //   "pathMatchesPattern",
-    //   ({path}) => pathFilter.match(path),
-    //   ({path}) => reason(`${path} does not match path pattern`, {quiet: true}),
-    // );
   } else if (pathFilter) {
     return skip("pathMatchesPrefix", ({path}) => {
       if (path !== pathFilter && !path.startsWith(`${pathFilter}.`)) {
         return reason(`${path} does not match path prefix`, {quiet: true});
       }
     });
-    // return filter(
-    //   "pathMatchesPrefix",
-    //   ({path}) => path === pathFilter || path.startsWith(`${pathFilter}.`),
-    //   ({path}) => reason(`${path} does not match path prefix`, {quiet: true}),
-    // );
   }
   return passthrough;
 };
@@ -572,12 +560,7 @@ const skipBrowserMismatch = (browserFilter: BrowserName[]) =>
           });
         }
       })
-    : // ? filter(
-      //     "browserMatchesFilter",
-      //     ({browser}) => browserFilter.includes(browser),
-      //     ({browser}) => `${browser} does not match browser filter`,
-      //   )
-      passthrough;
+    : passthrough;
 
 const skipReleaseMismatch = (releaseFilter: string | false) => {
   if (releaseFilter || releaseFilter === false) {
@@ -655,19 +638,7 @@ const clearNonExact = (exactOnly: boolean) =>
           ];
         }
       })
-    : // ? filter(
-      //     "exactOnly",
-      //     ({statements}) =>
-      //       statements.every(
-      //         (statement) =>
-      //           (typeof statement.version_added !== "string" ||
-      //             !statement.version_added.includes("≤")) &&
-      //           (typeof statement.version_removed !== "string" ||
-      //             !statement.version_removed.includes("≤")),
-      //       ),
-      //     () => "versionExactOnly",
-      //   )
-      passthrough;
+    : passthrough;
 
 const persistNonDefault = provideStatements(
   "nonDefault",
@@ -821,7 +792,6 @@ const persistAddedOver = provideStatements(
       // Positive test results do not conclusively indicate that a partial
       // implementation has been completed.
       if (!simpleStatement.partial_implementation) {
-        // console.log('make change');
         simpleStatement.version_added = inferredStatement.version_added;
         return [
           allStatements,
@@ -859,10 +829,10 @@ const persistRemoved = provideStatements(
 
 const provideAllStatements = provide(
   "allStatements",
-  ({browser, shared: {support}}) => {
+  ({browser, shared: {unmodifiedSupport, support}}) => {
     const allStatements =
       (support[browser] as InternalSupportStatement) === "mirror"
-        ? mirror(browser, clone(support))
+        ? mirror(browser, unmodifiedSupport)
         : // Although non-mirrored support data could be modified in-place,
           // working with a cloned version forces the subsequent code to
           // explicitly assign it back to the originating data structure.
@@ -945,6 +915,7 @@ export const update = (
       "support",
       ({shared: {entry, support}}) => entry.__compat?.support ?? support,
     ),
+    provideShared("unmodifiedSupport", ({shared: {support}}) => clone(support)),
     expand("browser", function* ({shared: {browserMap}}) {
       for (const [browser, versionMap] of browserMap.entries()) {
         yield {browser, shared: {versionMap}};
@@ -1017,16 +988,10 @@ export const update = (
   )()) {
     changes.push(pickLog(state));
     if (state.statements) {
-      // console.log('change made', state.path, state.browser, state.statements);
       state.shared.support[state.browser] =
         state.statements.length === 1 ? state.statements[0] : state.statements;
     }
-    if (
-      state.reason &&
-      !state.reason.quiet
-      // state.reason.step !== "filter_pathMatchesPrefix" &&
-      // state.reason.step !== "filter_entryExists"
-    ) {
+    if (state.reason && !state.reason.quiet) {
       logger.warn(state.reason.message);
     }
   }
