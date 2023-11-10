@@ -681,7 +681,11 @@ const persistNonDefault = provideStatements(
           inferredStatement,
           ...allStatements.filter((statement) => !("flags" in statement)),
         ],
-        reason("nonDefault", {skip: true}),
+        reason(
+          ({path, browser}) =>
+            `${path} applied for ${browser} because there is no default statement`,
+          {skip: true},
+        ),
       ];
     }
   },
@@ -739,7 +743,14 @@ const persistInferredRange = provideStatements(
         compareVersions(simpleAdded, upper, ">")
       ) {
         simpleStatement.version_added = inferredStatement.version_added;
-        return [allStatements, reason("inferredRange", {skip: false})];
+        return [
+          allStatements,
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} inferred range in place of preview, lower version than range or higher version than range`,
+            {skip: false},
+          ),
+        ];
       }
     }
   },
@@ -772,7 +783,11 @@ const persistAddedOverPartial = provideStatements(
       ) {
         return [
           [{version_added: false}],
-          reason("addedOverPartial", {skip: false}),
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} with false in place of partial implementation`,
+            {skip: false},
+          ),
         ];
       }
     }
@@ -782,19 +797,10 @@ const persistAddedOverPartial = provideStatements(
 const persistAddedOver = provideStatements(
   "addedOver",
   ({
-    browser,
-    path,
     defaultStatements: [simpleStatement],
     inferredStatements: [inferredStatement],
     allStatements,
   }) => {
-    // console.log(
-    //   path,
-    //   browser,
-    //   simpleStatement,
-    //   inferredStatement,
-    //   allStatements,
-    // );
     if (
       !(
         typeof simpleStatement.version_added === "string" &&
@@ -816,7 +822,14 @@ const persistAddedOver = provideStatements(
       if (!simpleStatement.partial_implementation) {
         // console.log('make change');
         simpleStatement.version_added = inferredStatement.version_added;
-        return [allStatements, reason("addedOver", {skip: false})];
+        return [
+          allStatements,
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} inferred ${inferredStatement.version_added} in place of not partial implementation`,
+            {skip: false},
+          ),
+        ];
       }
     }
   },
@@ -831,7 +844,14 @@ const persistRemoved = provideStatements(
   }) => {
     if (typeof inferredStatement.version_removed === "string") {
       simpleStatement.version_removed = inferredStatement.version_removed;
-      return [allStatements, reason("removed", {skip: false})];
+      return [
+        allStatements,
+        reason(
+          ({browser, path}) =>
+            `${path} applied for ${browser} replacing removed with ${inferredStatement.version_removed}`,
+          {skip: false},
+        ),
+      ];
     }
   },
 );
