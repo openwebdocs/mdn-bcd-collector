@@ -439,7 +439,9 @@ const expand = (
         for (const props of generator(value)) {
           if (props) {
             const {shared: propsShared, ...propsPicked} = props;
-            yield Object.assign({} as UpdateState, value, propsPicked, {
+            yield {
+              ...value,
+              ...propsPicked,
               debug: {
                 stack: [
                   ...(value.debug?.stack ?? []),
@@ -447,7 +449,7 @@ const expand = (
                 ],
               },
               shared: {...value.shared, ...propsShared},
-            });
+            } as UpdateInternal;
           } else {
             yield value;
           }
