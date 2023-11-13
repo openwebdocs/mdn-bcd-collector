@@ -370,9 +370,15 @@ const isReasonFactory = (
   maybeFactory: unknown,
 ): maybeFactory is ReasonFactory => typeof maybeFactory === "function";
 
-const isReasonable = (maybeReason: unknown): maybeReason is string | Reason | ReasonFactory => {
-  return typeof maybeReason === 'string' || isReason(maybeReason) || isReasonFactory(maybeReason);
-}
+const isReasonable = (
+  maybeReason: unknown,
+): maybeReason is string | Reason | ReasonFactory => {
+  return (
+    typeof maybeReason === "string" ||
+    isReason(maybeReason) ||
+    isReasonFactory(maybeReason)
+  );
+};
 
 const handleReasonable = (
   factory: string | Reason | ReasonFactory,
@@ -460,10 +466,7 @@ const provideStatements = (
   op: (
     value: UpdateState,
   ) =>
-    | [
-        UpdateState["statements"] | undefined,
-        string | Reason | ReasonFactory,
-      ]
+    | [UpdateState["statements"] | undefined, string | Reason | ReasonFactory]
     | void,
 ) =>
   map(`provide_statements_${step}`, (value) => {
@@ -495,9 +498,7 @@ const provideReason = (
 
 const skip = (
   step: string,
-  condition: (
-    value: UpdateState,
-  ) => string | Reason | ReasonFactory | void,
+  condition: (value: UpdateState) => string | Reason | ReasonFactory | void,
 ) => provideReason(`skip_${step}`, condition);
 
 const skipPathMismatch = (pathFilter: Minimatch | string) => {
