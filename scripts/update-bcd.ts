@@ -6,6 +6,10 @@
 // See the LICENSE file for copyright details
 //
 
+// Base eslint no-unused-vars misunderstands typescript function types as having
+// unused variables. Replace with @typescript-eslint/no-unused-vars for this file.
+/* eslint no-unused-vars: "off", @typescript-eslint/no-unused-vars: "error" */
+
 import {
   Browsers,
   SimpleSupportStatement,
