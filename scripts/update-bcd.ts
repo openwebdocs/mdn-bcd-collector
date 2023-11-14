@@ -366,23 +366,9 @@ const reason = (
   return (value) => ({message: message(value), skip: true, ...args});
 };
 
-const isReason = (value: unknown): value is Reason => {
-  return typeof value === "object" && value !== null && "message" in value;
-};
-
 const isReasonFactory = (
   maybeFactory: unknown,
 ): maybeFactory is ReasonFactory => typeof maybeFactory === "function";
-
-const isReasonable = (
-  maybeReason: unknown,
-): maybeReason is string | Reason | ReasonFactory => {
-  return (
-    typeof maybeReason === "string" ||
-    isReason(maybeReason) ||
-    isReasonFactory(maybeReason)
-  );
-};
 
 const handleReasonable = (
   factory: string | Reason | ReasonFactory,
