@@ -142,13 +142,14 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
 const flattenMembers = (iface) => {
   const members = iface.members
     .filter((member) => member.name && member.type !== "const")
-    // Filter alt. names for standard features within the standard IDL
+    // Ignore alternate names for standard features within the standard IDL
     .filter(
       (member) =>
         !(
           (iface.name === "Document" &&
             ["charset", "inputEncoding"].includes(member.name)) ||
-          (iface.name === "Window" && member.name === "clientInformation")
+          (iface.name === "Window" && member.name === "clientInformation") ||
+          (iface.name === "Element" && member.name === "webkitMatchesSelector")
         ),
     );
   for (const member of iface.members.filter((member) => !member.name)) {
