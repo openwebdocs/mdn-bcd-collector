@@ -438,8 +438,7 @@ const buildIDLMemberTests = async (
 
   for (const member of members) {
     const isStatic = member.special === "static" || iface.type === "namespace";
-    const name =
-      member.name + (isStatic ? "_static" : "");
+    const name = member.name + (isStatic ? "_static" : "");
 
     if (handledMemberNames.has(name)) {
       continue;
