@@ -1230,11 +1230,42 @@ api:
       }
       var instance = reusableInstances.audioContext.createDelay();
   DeprecationReportBody:
+    __resources:
+      - image-black
     __base: |-
-      // XXX Obtaining an instance of this interface is much like triggering an event.
-      // See http://developer.mozilla.org/docs/Web/API/DeprecationReportBody#examples
-      return {result: null, message: 'Testing DeprecationReportBody is not yet implemented'};
-    toJSON: return null;
+      // Note: the Content-Security-Policy header is already configured on this website
+      if (!('ReportingObserver' in self)) {
+        return {result: false, message: 'ReportingObserver is not defined'};
+      }
+
+      // Create the observer
+      var observer = new ReportingObserver(
+        function(reports, observer) {
+          console.log(reports) 
+          var instance = reports.length && reports[0].body;
+          callback(instance);
+          observer.disconnect();
+        },
+        {
+          types: ["deprecation"],
+          buffered: true,
+        }
+      );
+
+      // Start observing
+      observer.observe();
+
+      // call a deprecated createImageBitmap parameter
+      createImageBitmap(document.getElementById('resource-image-black'), { imageOrientation: 'none'});
+    toJSON: |-
+      function callback(instance) {
+        try {
+          success(!!instance && 'toJSON' in instance);
+        } catch(e) {
+          fail(e);
+        }
+      }
+      return 'callback';
   DeviceMotionEvent:
     __base: |-
       var instance;
