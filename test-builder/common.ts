@@ -161,7 +161,7 @@ const generateCustomTestCode = async (
     return ${returnValue};
   });`
       : callback
-      ? `function callback(instance) {
+        ? `function callback(instance) {
     try {
       success(${returnValue});
     } catch(e) {
@@ -169,7 +169,7 @@ const generateCustomTestCode = async (
     }
   };
   return "callback";`
-      : `return ${returnValue};`;
+        : `return ${returnValue};`;
   }
 
   return await compileCustomTest((data.__base || "") + test);

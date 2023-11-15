@@ -108,8 +108,8 @@ const getStats = (data: Report, featureQuery: string[]): any => {
           status: r.result
             ? "Supported"
             : r.result === false
-            ? "Unsupported"
-            : "Unknown",
+              ? "Unsupported"
+              : "Unknown",
         }));
       featuresQueried.push(
         ...featuresFound.sort((a, b) => a.name.localeCompare(b.name)),
