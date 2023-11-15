@@ -1,5 +1,74 @@
 # mdn-bcd-collector Changelog
 
+## v10.4.0
+
+Released November 14, 2023
+
+### Test Changes
+
+#### Added
+
+- api.Bluetooth.requestLEScan
+- api.BluetoothDataFilter
+- api.BluetoothLEScan
+- api.BluetoothLEScanFilter
+- api.BluetoothLEScanPermissionResult
+- api.BluetoothManufacturerDataFilter
+- api.BluetoothServiceDataFilter
+- api.CloseWatcher
+- api.CSSViewTransitionRule.navigation
+- api.CSSViewTransitionRule.type
+- api.HTMLTemplateElement.shadowRootDelegatesFocus
+- api.HTMLTemplateElement.shadowRootMode
+- api.IdentityProvider.close_static
+- api.Navigator.clearOriginJoinedAdInterestGroups
+- api.Navigator.createAuctionNonce
+- api.Navigator.login
+- api.Navigator.managed
+- api.NavigatorLogin
+- api.NavigatorManagedData
+- api.PageRevealEvent
+- webassembly.api
+- api.XRFrame.detectedPlanes
+- api.XRPlane
+- api.XRPlaneSet
+- api.XRSession.initiateRoomCapture
+- css.properties.field-sizing
+
+#### Removed
+
+- api.CSSViewTransitionRule.navigationConditionText
+- api.CSSViewTransitionRule.trigger
+- api.EditContext.compositionRangeEnd
+- api.EditContext.compositionRangeStart
+- api.EditContext.controlBounds
+- api.EditContext.isComposing
+- api.EditContext.selectionBounds
+- api.Element.webkitMatchesSelector
+- api.RevealEvent
+- api.TextUpdateEvent.compositionEnd
+- api.TextUpdateEvent.compositionStart
+- javascript.builtins.WebAssembly
+- css.properties.align-tracks
+- css.properties.justify-tracks
+- css.properties.text-decoration.blink
+
+#### Changed
+
+- api.FileSystem
+- api.FileSystemDirectoryEntry
+- api.FileSystemDirectoryReader
+- api.FileSystemEntry
+- api.FileSystemFileEntry
+- api.FileSystemSync
+- api.Metadata
+
+### Commits
+
+- Move WebAssembly API to `webassembly.api` ([#647](https://github.com/openwebdocs/mdn-bcd-collector/pull/647))
+- Ignore Element.webkitMatchesSelector
+- Remove test for css.properties.text-decoration.blink
+
 ## v10.3.0
 
 Released November 7, 2023
