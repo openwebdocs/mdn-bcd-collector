@@ -53,7 +53,7 @@ const parseUA = (userAgent, browsers) => {
     case "oculus_browser":
       data.browser.id = "oculus";
       break;
-    case "samsung_browser":
+    case "samsung_internet":
       data.browser.id = "samsunginternet";
       break;
     case "android_browser":

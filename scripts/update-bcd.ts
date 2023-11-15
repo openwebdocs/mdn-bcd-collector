@@ -18,6 +18,7 @@ import {
   BrowserSupportMap,
   Overrides,
   InternalSupportStatement,
+  OverrideTuple,
 } from "../types/types.js";
 
 import assert from "node:assert";
@@ -29,7 +30,7 @@ import {
 } from "compare-versions";
 import esMain from "es-main";
 import fs from "fs-extra";
-import klaw from "klaw";
+import {fdir} from "fdir";
 import {Minimatch} from "minimatch";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -137,7 +138,7 @@ export const getSupportMap = (report: Report): BrowserSupportMap => {
 export const getSupportMatrix = (
   reports: Report[],
   browsers: Browsers,
-  overrides: Overrides,
+  overrides: OverrideTuple[],
 ): SupportMatrix => {
   const supportMatrix = new Map();
 
@@ -579,25 +580,21 @@ export const update = (
 export const loadJsonFiles = async (
   paths: string[],
 ): Promise<{[filename: string]: any}> => {
-  // Ignores .DS_Store, .git, etc.
-  const dotFilter = (item) => {
-    const basename = path.basename(item);
-    return basename === "." || basename[0] !== ".";
-  };
+  const jsonCrawler = new fdir()
+    .withFullPaths()
+    .filter((item) => {
+      // Ignores .DS_Store, .git, etc.
+      const basename = path.basename(item);
+      return basename === "." || basename[0] !== ".";
+    })
+    .filter((item) => item.endsWith(".json"));
 
   const jsonFiles: string[] = [];
 
   for (const p of paths) {
-    await new Promise((resolve, reject) => {
-      klaw(p, {filter: dotFilter})
-        .on("data", (item) => {
-          if (item.path.endsWith(".json")) {
-            jsonFiles.push(item.path);
-          }
-        })
-        .on("error", reject)
-        .on("end", resolve);
-    });
+    for (const item of await jsonCrawler.crawl(p).withPromise()) {
+      jsonFiles.push(item);
+    }
   }
 
   const entries = await Promise.all(
@@ -646,7 +643,7 @@ export const main = async (
   const supportMatrix = getSupportMatrix(
     reports,
     browsers,
-    overrides.filter(Array.isArray),
+    overrides.filter(Array.isArray as (item: unknown) => item is OverrideTuple),
   );
 
   // Should match https://github.com/mdn/browser-compat-data/blob/f10bf2cc7d1b001a390e70b7854cab9435ffb443/test/linter/test-style.js#L63

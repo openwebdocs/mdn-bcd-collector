@@ -329,7 +329,7 @@ api:
   _globals:
     crypto: return !!self.crypto;
   AbortSignal:
-    abort:
+    abort_static:
       __additional:
         reason_parameter: |-
           if (!('AbortSignal' in self)) {
@@ -553,15 +553,15 @@ api:
             instance.createPeriodicWave(real, imag, constraints);
           }
           return bcd.testOptionParam(create, null, 'disableNormalization', true);
-      decodeAudioData:
-        __additional:
-          returns_promise: |-
-            <%api.BaseAudioContext:ctx%>
-            if (!(instance && instance.decodeAudioData)) {
-              return {result: false, message: 'instance.decodeAudioData is not defined'};
-            }
-            var value = instance.decodeAudioData(new ArrayBuffer());
-            return 'then' in value;
+    decodeAudioData:
+      __additional:
+        returns_promise: |-
+          <%api.BaseAudioContext:ctx%>
+          if (!(instance && instance.decodeAudioData)) {
+            return {result: false, message: 'instance.decodeAudioData is not defined'};
+          }
+          var value = instance.decodeAudioData(new ArrayBuffer());
+          return 'then' in value;
   BatteryManager:
     __base: |-
       if (!('getBattery' in navigator)) {
@@ -628,9 +628,14 @@ api:
       if (!canvas) {
         return {result: false, message: 'Could not create canvas element'};
       };
-      var stream = canvas.captureStream();
+      var stream = canvas.captureStream(60);
       var tracks = stream.getTracks();
       var instance = tracks[0];
+
+      var nameResult = bcd.testObjectName(instance, 'CanvasCaptureMediaStreamTrack');
+      if (!(nameResult.result)) {
+        return nameResult
+      }
   CanvasGradient:
     __base: |-
       <%api.CanvasRenderingContext2D:ctx%>
@@ -910,17 +915,83 @@ api:
         return {result: false, message: 'audioContext.createConvolver is not defined'};
       }
       var instance = reusableInstances.audioContext.createConvolver();
+  CookieStore:
+    __base: |-
+      if (!('cookieStore' in self)) {
+        return {result: false, message: 'cookieStore is not defined'};
+      }
+      var instance = cookieStore;
+    __additional:
+      delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'one'});"
+      set.partitioned_option: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'two', 'partitioned': true});  
+        });
+        return bcd.testOptionParam(cookieStore, 'set', 'partitioned', true, {'name': 'two', 'value': 'bar'});
+      get.partitioned_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'three', 'partitioned': true});  
+        });
+        return cookieStore.set({'name': 'three', 'value': 'bar', 'partitioned': true}).then(function() {
+          return cookieStore.get('three');
+        }).then(function(cookie) {
+          return 'partitioned' in cookie;
+        });
+      getAll.partitioned_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'four', 'partitioned': true});  
+        });
+        return cookieStore.set({'name': 'four', 'value': 'bar', 'partitioned': true}).then(function() {
+          return cookieStore.getAll();
+        }).then(function(cookies) {
+          return 'partitioned' in cookies[0];
+        });
   CountQueuingStrategy:
     __base: |-
       if (!('CountQueuingStrategy' in self)) {
         return {result: false, message: 'CountQueuingStrategy is not defined'};
       }
       var instance = new CountQueuingStrategy({ highWaterMark: 1 });
+  createImageBitmap:
+    __resources:
+      - image-black
+    __base: |-
+      if (!('createImageBitmap' in self)) {
+        return {result: false, message: 'createImageBitmap is not defined'};
+      }
+      function create(options) {
+        return createImageBitmap(document.getElementById('resource-image-black'), options);
+      }
+    __test: return true;
+    __additional:
+      options_colorSpaceConversion_parameter: return bcd.testOptionParam(create, null, 'colorSpaceConversion', 'default');
+      options_imageOrientation_parameter: return bcd.testOptionParam(create, null, 'imageOrientation', 'none');
+      options_premultiplyAlpha_parameter: return bcd.testOptionParam(create, null, 'premultiplyAlpha', 'default');
+      options_resizeHeight_parameter: return bcd.testOptionParam(create, null, 'resizeHeight', '100');
+      options_resizeQuality_parameter: return bcd.testOptionParam(create, null, 'resizeQuality', 'high');
+      options_resizeWidth_parameter: return bcd.testOptionParam(create, null, 'resizeWidth', '100');
   CredentialsContainer:
+    __resources:
+      - cryptoKey
     __base: var instance = navigator.credentials;
+    create:
+      __additional:
+        publicKey_option: return bcd.testOptionParam(instance, 'create', 'publicKey', reusableInstances.cryptoKey);
     get:
       __additional:
-        identity_option: return bcd.testOptionParam(instance, 'get', 'identity', 'use');
+        identity_option: "return bcd.testOptionParam(instance, null, 'get', 'identity');"
+        identity_option.context_option: |-
+          function get(identity) {
+            instance.get({identity: identity});
+          }
+          return bcd.testOptionParam(get, null, 'context', 'use');
+        identity_option.loginHint: |-
+          function get(provider) {
+            instance.get({identity: {providers: [provider]}});
+          }
+          return bcd.testOptionParam(get, null, 'loginHint', 'foo', {configURL: '', clientId: ''});
+        otp_option: "return bcd.testOptionParam(instance, 'get', 'otp', {transport: 'sms'});"
+        publicKey_option: return bcd.testOptionParam(instance, 'get', 'publicKey', reusableInstances.cryptoKey);
   Crypto:
     __base: |-
       if (!('crypto' in self)) {
@@ -1416,63 +1487,27 @@ api:
         instance = document.createElement('b');
       }
     animate:
+      __base: |-
+        if (!(instance && instance.animate)) {
+          return {result: false, message: 'instance.animate is not defined'};
+        }
+        function animate(options) {
+          instance.animate(
+            [
+              { transform: 'rotate(0) scale(1)' },
+              { transform: 'rotate(360deg) scale(0)' }
+            ],
+            options
+          )
+        }
       __additional:
-        options_composite_parameter: |-
-          if (!(instance && instance.animate)) {
-            return {result: false, message: 'instance.animate is not defined'};
-          }
-          function animate(options) {
-            instance.animate(
-              [
-                { transform: 'rotate(0) scale(1)' },
-                { transform: 'rotate(360deg) scale(0)' }
-              ],
-              options
-            )
-          }
-          return bcd.testOptionParam(animate, null, 'composite', 'replace');
-        options_id_parameter: |-
-          if (!(instance && instance.animate)) {
-            return {result: false, message: 'instance.animate is not defined'};
-          }
-          function animate(options) {
-            instance.animate(
-              [
-                { transform: 'rotate(0) scale(1)' },
-                { transform: 'rotate(360deg) scale(0)' }
-              ],
-              options
-            )
-          }
-          return bcd.testOptionParam(animate, null, 'id', '');
-        options_iterationComposite_parameter: |-
-          if (!(instance && instance.animate)) {
-            return {result: false, message: 'instance.animate is not defined'};
-          }
-          function animate(options) {
-            instance.animate(
-              [
-                { transform: 'rotate(0) scale(1)' },
-                { transform: 'rotate(360deg) scale(0)' }
-              ],
-              options
-            )
-          }
-          return bcd.testOptionParam(animate, null, 'iterationComposite', '');
-        options_pseudoElement_parameter: |-
-          if (!(instance && instance.animate)) {
-            return {result: false, message: 'instance.animate is not defined'};
-          }
-          function animate(options) {
-            instance.animate(
-              [
-                { transform: 'rotate(0) scale(1)' },
-                { transform: 'rotate(360deg) scale(0)' }
-              ],
-              options
-            )
-          }
-          return bcd.testOptionParam(animate, null, 'pseudoElement', '');
+        options_composite_parameter: return bcd.testOptionParam(animate, null, 'composite', 'replace');
+        options_id_parameter: return bcd.testOptionParam(animate, null, 'id', '');
+        options_iterationComposite_parameter: return bcd.testOptionParam(animate, null, 'iterationComposite', '');
+        options_pseudoElement_parameter: return bcd.testOptionParam(animate, null, 'pseudoElement', '');
+        options_rangeEnd_parameter: return bcd.testOptionParam(animate, null, 'rangeEnd', 'normal');
+        options_rangeStart_parameter: return bcd.testOptionParam(animate, null, 'rangeStart', 'normal');
+        options_timeline_parameter: return bcd.testOptionParam(animate, null, 'timeline', document.timeline);
     attachShadow:
       __additional:
         init_delegatesFocus_parameter: |-
@@ -1568,7 +1603,31 @@ api:
       });
     EventSource: return !!instance;
   EventTarget:
-    __base: <%api.Element:instance%>
+    __base: |-
+      var instance;
+      try {
+        instance = new EventTarget();
+      } catch(e) {
+        // XXX Determine a way to get an event target in worker contexts if EventTarget() isn't a constructor
+        <%api.Element:el%>
+        instance = el;
+      }
+    addEventListener:
+      __base: |-
+        function addEventListener(options) {
+          instance.addEventListener('click', function() {}, options);
+        }
+      __additional:
+        options_parameter.options_capture_parameter: return bcd.testOptionParam(addEventListener, null, 'capture', true);
+        options_parameter.options_once_parameter: return bcd.testOptionParam(addEventListener, null, 'once', true);
+        options_parameter.options_passive_parameter: return bcd.testOptionParam(addEventListener, null, 'passive', true);
+        options_parameter.options_signal_parameter: |-
+          if (!('AbortController' in self)) {
+            return {result: false, message: 'AbortController is not defined'};
+          }
+          var controller = new AbortController();
+          var signal = controller.signal;
+          return bcd.testOptionParam(addEventListener, null, 'signal', signal);
   EXT_blend_minmax:
     __resources:
       - webGL1
@@ -2096,12 +2155,13 @@ api:
             return instance.getContext('2d', options);
           }
           return bcd.testOptionParam(createContext, null, 'willReadFrequently', true);
-        webgpu_context: |-
-          if (!(instance && instance.getContext)) {
-            return {result: false, message: 'instance.getContext is not defined'};
-          }
-          var ctx = instance.getContext('webgpu');
-          return !!ctx;
+        # XXX Crashes Safari 16.5
+        # webgpu_context: |-
+        #   if (!(instance && instance.getContext)) {
+        #     return {result: false, message: 'instance.getContext is not defined'};
+        #   }
+        #   var ctx = instance.getContext('webgpu');
+        #   return !!ctx;
   HTMLCollection:
     __base: var instance = document.forms;
   HTMLContentElement:
@@ -3162,6 +3222,9 @@ api:
             }
             return e;
           }
+    __additional:
+      json_static: |-
+        return 'Response' in self && 'json' in Response;
   RTCDataChannel:
     __base: |-
       <%api.RTCPeerConnection:connection%>
@@ -4933,6 +4996,7 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
+      "@@iterator": return !!instance && "Symbol" in self && "iterator" in Symbol && !!(instance[Symbol.iterator]);
     Map:
       __additional:
         Map.iterable_allowed: |-
@@ -5094,17 +5158,15 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
-
-webassembly:
-  api:
-    Exception:
-      __base: |-
-        if (!('WebAssembly' in self && 'Exception' in WebAssembly)) {
-          return {result: false, message: 'WebAssembly.Exception is not defined'};
-        }
-        var instance = new WebAssembly.Exception(
-          new WebAssembly.Tag({parameters: ["i32", "i64"]}),
-          [],
-          {traceStack: true}
-        );
-      __test: return !!instance;
+    WebAssembly:
+      Exception:
+        stack: |-
+          if (!('WebAssembly' in self && 'Exception' in WebAssembly)) {
+            return {result: false, message: 'WebAssembly.Exception is not defined'};
+          }
+          var instance = new WebAssembly.Exception(
+            new WebAssembly.Tag({parameters: ["i32", "i64"]}),
+            ["i32", BigInt(64)],
+            {traceStack: true}
+          );
+          return !!instance && "stack" in instance;

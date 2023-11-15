@@ -5,3 +5,10 @@ interface CSSPositionValue : CSSStyleValue {
   attribute CSSNumericValue x;
   attribute CSSNumericValue y;
 };
+
+// Removed from CSS Nesting Module Level 1
+partial interface CSSStyleRule {
+  [SameObject] readonly attribute CSSRuleList cssRules;
+  unsigned long insertRule(CSSOMString rule, optional unsigned long index = 0);
+  undefined deleteRule(unsigned long index);
+};

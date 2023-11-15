@@ -1,5 +1,633 @@
 # mdn-bcd-collector Changelog
 
+## v10.3.0
+
+Released November 7, 2023
+
+### Notable Changes
+
+Originally, the JavaScript spec was manually scraped using https://github.com/jc-verse/mdn-checker every once in a while, as there was no NPM package available. Now, the relevant code has been obtained from the [es-scraper](https://github.com/jc-verse/mdn-checker/tree/master/packages/es-scraper) package in the repository and integrated directly into the JavaScript test generation. Once an NPM package version is available, we will switch to using the package instead.
+
+### Test Changes
+
+#### Added
+
+- javascript.builtins.RegExp.RegExp.new_required
+
+#### Removed
+
+- css.properties.-webkit-align-content
+- css.properties.-webkit-align-items
+- css.properties.-webkit-align-self
+- css.properties.-webkit-animation
+- css.properties.-webkit-animation-delay
+- css.properties.-webkit-animation-direction
+- css.properties.-webkit-animation-duration
+- css.properties.-webkit-animation-fill-mode
+- css.properties.-webkit-animation-iteration-count
+- css.properties.-webkit-animation-name
+- css.properties.-webkit-animation-play-state
+- css.properties.-webkit-animation-timing-function
+- css.properties.-webkit-appearance
+- css.properties.-webkit-backface-visibility
+- css.properties.-webkit-background-clip
+- css.properties.-webkit-background-origin
+- css.properties.-webkit-background-size
+- css.properties.-webkit-border-bottom-left-radius
+- css.properties.-webkit-border-bottom-right-radius
+- css.properties.-webkit-border-radius
+- css.properties.-webkit-border-top-left-radius
+- css.properties.-webkit-border-top-right-radius
+- css.properties.-webkit-box-align
+- css.properties.-webkit-box-flex
+- css.properties.-webkit-box-ordinal-group
+- css.properties.-webkit-box-orient
+- css.properties.-webkit-box-pack
+- css.properties.-webkit-box-shadow
+- css.properties.-webkit-box-sizing
+- css.properties.-webkit-filter
+- css.properties.-webkit-flex
+- css.properties.-webkit-flex-basis
+- css.properties.-webkit-flex-direction
+- css.properties.-webkit-flex-flow
+- css.properties.-webkit-flex-grow
+- css.properties.-webkit-flex-shrink
+- css.properties.-webkit-flex-wrap
+- css.properties.-webkit-justify-content
+- css.properties.-webkit-mask
+- css.properties.-webkit-mask-box-image
+- css.properties.-webkit-mask-box-image-outset
+- css.properties.-webkit-mask-box-image-repeat
+- css.properties.-webkit-mask-box-image-slice
+- css.properties.-webkit-mask-box-image-source
+- css.properties.-webkit-mask-box-image-width
+- css.properties.-webkit-mask-clip
+- css.properties.-webkit-mask-composite
+- css.properties.-webkit-mask-image
+- css.properties.-webkit-mask-origin
+- css.properties.-webkit-mask-position
+- css.properties.-webkit-mask-repeat
+- css.properties.-webkit-mask-size
+- css.properties.-webkit-order
+- css.properties.-webkit-perspective
+- css.properties.-webkit-perspective-origin
+- css.properties.-webkit-text-fill-color
+- css.properties.-webkit-text-size-adjust
+- css.properties.-webkit-text-stroke
+- css.properties.-webkit-text-stroke-color
+- css.properties.-webkit-text-stroke-width
+- css.properties.-webkit-transform
+- css.properties.-webkit-transform-origin
+- css.properties.-webkit-transform-style
+- css.properties.-webkit-transition
+- css.properties.-webkit-transition-delay
+- css.properties.-webkit-transition-duration
+- css.properties.-webkit-transition-property
+- css.properties.-webkit-transition-timing-function
+- css.properties.-webkit-user-select
+- css.properties.all.revert
+- css.properties.background-repeat-x
+- css.properties.background-repeat-y
+- css.properties.buffered-rendering
+- css.properties.color-rendering
+- css.properties.glyph-orientation-horizontal
+- css.properties.kerning
+- css.properties.page-orientation
+- css.properties.perspective-origin-x
+- css.properties.perspective-origin-y
+- css.properties.scroll-snap-margin
+- css.properties.scroll-snap-margin-bottom
+- css.properties.scroll-snap-margin-left
+- css.properties.scroll-snap-margin-right
+- css.properties.scroll-snap-margin-top
+- css.properties.size
+- css.properties.speak-as.digits
+- css.properties.speak-as.literal-punctuation
+- css.properties.speak-as.no-punctuation
+- css.properties.speak-as.normal
+- css.properties.speak-as.spell-out
+- css.properties.supported-color-schemes
+- css.properties.transform-origin-x
+- css.properties.transform-origin-y
+- css.properties.transform-origin-z
+
+#### Changed
+
+- css.properties.list-style.symbols
+- html.elements.body.alink
+- html.elements.body.vlink
+- javascript.builtins.RegExp.RegExp
+
+### Commits
+
+- Import es-scraper scripts one at a time
+- Exclude BCD repo from TypeScript compilation
+- Fix TypeScript errors in es-scraper package
+- Import es-scraper directly (no submodules)
+- Fix custom test for css.properties.list-style.symbols
+- Remove all: revert CSS value
+- Run git submodule init command from package.json
+- Initialize submodules during preparation script
+- Remove "ts-node" script; propogate command to other scripts
+- update-bcd: fix getSupportMatrix overrides param type ([#743](https://github.com/openwebdocs/mdn-bcd-collector/pull/743))
+- Selenium: limit Safari versions to 14.x and lower
+- Run test workflow on any branch
+- Ensure GitHub actions initializes submodules
+- Replace mdn-checker with cherry-picked es-scraper
+- Rename test workflow file
+- Prepare mdn-checker results first
+- Prepare script: perform chdir outside of try-catch block
+- Fix unittests
+- Ignore mdn-checker submodule in linting
+- Selenium: don't collect results for Edge
+- Fix tests for some body element attributes
+- Remove untracked CSS properties (part 2)
+- Add mdn-checker as a submodule
+- Remove untracked CSS properties
+- Ignore two prefixed aliases in specs for CSS properties
+- Don't generate CSS tests from the Compatibility Standard
+- Remove mention of overrides from changelog
+- Node.js 21 is not supported
+
+## v10.2.10
+
+Released October 20, 2023
+
+### Test Changes
+
+#### Added
+
+- api.Response.json_static
+- css.properties.font-family.system-ui
+- css.properties.offset-path.path
+- css.properties.offset-path.ray
+- javascript.builtins.TypedArray.TypedArray.constructor_without_parameters
+
+#### Removed
+
+- api.console.context
+- api.console.memory
+- api.console.record
+- api.console.recordEnd
+- api.console.screenshot
+- api.console.takeHeapSnapshot
+- api.Document.getCSSCanvasContext
+- api.Response.Response.json_static
+- css.properties.background-image.-moz-element
+- css.properties.background-image.-moz-image-rect
+- css.properties.background-image.-webkit-image-set
+- css.properties.block-size.-moz-fit-content
+- css.properties.block-size.-moz-max-content
+- css.properties.block-size.-moz-min-content
+- css.properties.block-size.-webkit-fill-available
+- css.properties.color-scheme.only
+- css.properties.cursor.-moz-grab
+- css.properties.cursor.-webkit-grab
+- css.properties.display.-webkit-flex
+- css.properties.display.-webkit-inline-flex
+- css.properties.flex-basis.-moz-fit-content
+- css.properties.flex-basis.-moz-max-content
+- css.properties.flex-basis.-moz-min-content
+- css.properties.font-family.-apple-system
+- css.properties.font-family.system_ui
+- css.properties.height.-moz-max-content
+- css.properties.height.-moz-min-content
+- css.properties.height.-webkit-fill-available
+- css.properties.height.-webkit-fit-content
+- css.properties.image-rendering.-moz-crisp-edges
+- css.properties.image-rendering.-webkit-optimize-contrast
+- css.properties.inline-size.-moz-fit-content
+- css.properties.inline-size.-moz-max-content
+- css.properties.inline-size.-moz-min-content
+- css.properties.inline-size.-webkit-fill-available
+- css.properties.list-style-type.-moz-arabic-indic
+- css.properties.list-style-type.-moz-bengali
+- css.properties.list-style-type.-moz-cjk-earthly-branch
+- css.properties.list-style-type.-moz-cjk-heavenly-stem
+- css.properties.list-style-type.-moz-devanagari
+- css.properties.list-style-type.-moz-ethiopic-halehame
+- css.properties.list-style-type.-moz-ethiopic-halehame-am
+- css.properties.list-style-type.-moz-ethiopic-halehame-ti-er
+- css.properties.list-style-type.-moz-ethiopic-halehame-ti-et
+- css.properties.list-style-type.-moz-ethiopic-numeric
+- css.properties.list-style-type.-moz-gujarati
+- css.properties.list-style-type.-moz-gurmukhi
+- css.properties.list-style-type.-moz-hangul
+- css.properties.list-style-type.-moz-hangul-consonant
+- css.properties.list-style-type.-moz-japanese-formal
+- css.properties.list-style-type.-moz-japanese-informal
+- css.properties.list-style-type.-moz-kannada
+- css.properties.list-style-type.-moz-khmer
+- css.properties.list-style-type.-moz-lao
+- css.properties.list-style-type.-moz-malayalam
+- css.properties.list-style-type.-moz-myanmar
+- css.properties.list-style-type.-moz-oriya
+- css.properties.list-style-type.-moz-persian
+- css.properties.list-style-type.-moz-simp-chinese-formal
+- css.properties.list-style-type.-moz-simp-chinese-informal
+- css.properties.list-style-type.-moz-tamil
+- css.properties.list-style-type.-moz-telugu
+- css.properties.list-style-type.-moz-thai
+- css.properties.list-style-type.-moz-trad-chinese-formal
+- css.properties.list-style-type.-moz-trad-chinese-informal
+- css.properties.list-style-type.-moz-urdu
+- css.properties.max-block-size.-moz-max-content
+- css.properties.max-block-size.-moz-min-content
+- css.properties.max-block-size.-webkit-fill-available
+- css.properties.max-height.-moz-fit-content
+- css.properties.max-height.-moz-max-content
+- css.properties.max-height.-moz-min-content
+- css.properties.max-height.-webkit-fill-available
+- css.properties.max-height.-webkit-fit-content
+- css.properties.max-height.-webkit-max-content
+- css.properties.max-height.-webkit-min-content
+- css.properties.max-height.intrinsic
+- css.properties.max-inline-size.-moz-fit-content
+- css.properties.max-inline-size.-moz-max-content
+- css.properties.max-inline-size.-moz-min-content
+- css.properties.max-inline-size.-webkit-fill-available
+- css.properties.max-width.-moz-fit-content
+- css.properties.max-width.-moz-max-content
+- css.properties.max-width.-moz-min-content
+- css.properties.max-width.-webkit-fill-available
+- css.properties.max-width.-webkit-fit-content
+- css.properties.max-width.-webkit-max-content
+- css.properties.max-width.-webkit-min-content
+- css.properties.max-width.intrinsic
+- css.properties.min-block-size.-moz-max-content
+- css.properties.min-block-size.-moz-min-content
+- css.properties.min-block-size.-webkit-fill-available
+- css.properties.min-height.-moz-fit-content
+- css.properties.min-height.-moz-max-content
+- css.properties.min-height.-moz-min-content
+- css.properties.min-height.-webkit-fill-available
+- css.properties.min-height.-webkit-fit-content
+- css.properties.min-height.-webkit-max-content
+- css.properties.min-height.-webkit-min-content
+- css.properties.min-height.intrinsic
+- css.properties.min-inline-size.-moz-fit-content
+- css.properties.min-inline-size.-moz-max-content
+- css.properties.min-inline-size.-moz-min-content
+- css.properties.min-inline-size.-webkit-fill-available
+- css.properties.min-width.-moz-fit-content
+- css.properties.min-width.-moz-max-content
+- css.properties.min-width.-moz-min-content
+- css.properties.min-width.-webkit-fill-available
+- css.properties.min-width.-webkit-fit-content
+- css.properties.min-width.-webkit-max-content
+- css.properties.min-width.-webkit-min-content
+- css.properties.min-width.intrinsic
+- css.properties.min-width.min-intrinsic
+- css.properties.offset-path.path-support
+- css.properties.offset-path.ray-support
+- css.properties.overflow.-moz-hidden-unscrollable
+- css.properties.overflow-x.-moz-hidden-unscrollable
+- css.properties.overflow-y.-moz-hidden-unscrollable
+- css.properties.position.-webkit-sticky
+- css.properties.unicode-bidi.-moz-isolate
+- css.properties.unicode-bidi.-moz-isolate-override
+- css.properties.unicode-bidi.-moz-plaintext
+- css.properties.unicode-bidi.-webkit-isolate
+- css.properties.unicode-bidi.-webkit-isolate-override
+- css.properties.unicode-bidi.-webkit-plaintext
+- css.properties.user-select.-moz-none
+- css.properties.width.-moz-available
+- css.properties.width.-moz-fit-content
+- css.properties.width.-moz-max-content
+- css.properties.width.-moz-min-content
+- css.properties.width.-webkit-fill-available
+- css.properties.width.-webkit-fit-content
+- css.properties.width.-webkit-max-content
+- css.properties.width.intrinsic
+- css.properties.width.min-intrinsic
+- javascript.builtins.RegExp.RegExp.new_required
+
+#### Changed
+
+- api.CanvasCaptureMediaStreamTrack
+- javascript.builtins.RegExp.RegExp
+
+### Commits
+
+- Clean up changelog for v10.2.9
+- Fix testOptionParam when return value is falsy
+- Update test for CanvasCaptureMediaStreamTrack API
+- Update es-scraper data
+- Remove redundant entries for prefixed CSS values
+- Remove non-standard console namespace members
+- Fix test for api.Response.json_static
+- Catch additional constructor Safari error message
+- Remove unneeded custom IDL
+
+## v10.2.9
+
+Released October 17, 2023
+
+### Test Changes
+
+#### Added
+
+- api.CSSViewTransitionRule
+- api.Document.parseHTMLUnsafe_static
+- api.Element.setHTMLUnsafe
+- api.PerformanceEntry.id
+- api.PerformanceEntry.navigationId
+- api.RevealEvent
+- api.ShadowRoot.setHTMLUnsafe
+- api.WebTransport.createSendGroup
+- api.WebTransportSendGroup
+- api.WebTransportSendStream.sendGroup
+
+#### Removed
+
+- api.PageRevealEvent
+
+## v10.2.8
+
+Released October 6, 2023
+
+### Test Changes
+
+#### Changed
+
+- api.CookieStore
+
+### Commits
+
+- Handle cleanup function errors
+- Fix tests for CookieStore API
+- Add report json schema ([#744](https://github.com/openwebdocs/mdn-bcd-collector/pull/744))
+
+## v10.2.7
+
+Released October 6, 2023
+
+### Test Changes
+
+#### Added
+
+- api.console.assert
+- api.console.clear
+- api.console.context
+- api.console.count
+- api.console.countReset
+- api.console.debug
+- api.console.dir
+- api.console.dirxml
+- api.console.error
+- api.console.exception
+- api.console.group
+- api.console.groupCollapsed
+- api.console.groupEnd
+- api.console.info
+- api.console.log
+- api.console.memory
+- api.console.profile
+- api.console.profileEnd
+- api.console.record
+- api.console.recordEnd
+- api.console.screenshot
+- api.console.table
+- api.console.takeHeapSnapshot
+- api.console.time
+- api.console.timeEnd
+- api.console.timeLog
+- api.console.timeStamp
+- api.console.trace
+- api.console.warn
+- api.CookieStore.delete.partitioned_option
+- api.CookieStore.set.partitioned_option
+- api.CookieStore.get.partitioned_return_property
+- api.CookieStore.getAll.partitioned_return_property
+- api.CredentialsContainer.create.publicKey_option
+- api.CredentialsContainer.get.identity_option.context_option
+- api.CredentialsContainer.get.identity_option.loginHint
+- api.CredentialsContainer.get.otp_option
+- api.CredentialsContainer.get.publicKey_option
+- api.Element.animate.options_rangeEnd_parameter
+- api.Element.animate.options_rangeStart_parameter
+- api.Element.animate.options_timeline_parameter
+- api.EventTarget.addEventListener.options_parameter.options_capture_parameter
+- api.EventTarget.addEventListener.options_parameter.options_once_parameter
+- api.EventTarget.addEventListener.options_parameter.options_passive_parameter
+- api.EventTarget.addEventListener.options_parameter.options_signal_parameter
+- api.HTMLDetailsElement.name
+- api.createImageBitmap.options_colorSpaceConversion_parameter
+- api.createImageBitmap.options_imageOrientation_parameter
+- api.createImageBitmap.options_premultiplyAlpha_parameter
+- api.createImageBitmap.options_resizeHeight_parameter
+- api.createImageBitmap.options_resizeQuality_parameter
+- api.createImageBitmap.options_resizeWidth_parameter
+
+#### Removed
+
+- api.console.assert_static
+- api.console.clear_static
+- api.console.context_static
+- api.console.count_static
+- api.console.countReset_static
+- api.console.debug_static
+- api.console.dir_static
+- api.console.dirxml_static
+- api.console.error_static
+- api.console.exception_static
+- api.console.group_static
+- api.console.groupCollapsed_static
+- api.console.groupEnd_static
+- api.console.info_static
+- api.console.log_static
+- api.console.memory_static
+- api.console.profile_static
+- api.console.profileEnd_static
+- api.console.record_static
+- api.console.recordEnd_static
+- api.console.screenshot_static
+- api.console.table_static
+- api.console.takeHeapSnapshot_static
+- api.console.time_static
+- api.console.timeEnd_static
+- api.console.timeLog_static
+- api.console.timeStamp_static
+- api.console.trace_static
+- api.console.warn_static
+- api.FontFace.variant
+- api.RTCEncodedAudioFrame.timestamp
+- api.RTCEncodedVideoFrame.timestamp
+- api.StorageBucket.durability
+
+#### Changed
+
+- api.CredentialsContainer.get.identity_option
+- api.Element.animate
+- api.EventTarget
+- api.createImageBitmap
+
+### Commits
+
+- update-bcd: Replace klaw with fdir ([#742](https://github.com/openwebdocs/mdn-bcd-collector/pull/742))
+- Fix testOptionParam mustReturnTruthy with promises
+- Exporter: point to new repository
+- Add custom tests for createImageBitmap
+- Fix resource list when member has resources the parent doesn't
+- Allow testOptionParam to handle promises
+- Fix and update unittests
+- Fix test for CredentialsContainer.get.identity_option
+- Add more custom tests
+- Add additional custom tests for CredentialsContainer
+- Handle console not using "\_static" suffix
+- Add more custom tests for CookieStore API
+- Add additional custom tests
+
+## v10.2.6
+
+Released October 3, 2023
+
+### Test Changes
+
+#### Added
+
+- api.AbortSignal.abort_static.reason_parameter
+- api.AudioSession
+- api.AudioWorkletGlobalScope.renderQuantumSize
+- api.BaseAudioContext.decodeAudioData.returns_promise
+- api.BaseAudioContext.renderQuantumSize
+- api.ClipboardItem.supports_static
+- api.CSSStyleRule.cssRules
+- api.CSSStyleRule.deleteRule
+- api.CSSStyleRule.insertRule
+- api.HTMLIFrameElement.sharedStorageWritable
+- api.HTMLImageElement.sharedStorageWritable
+- api.InterestGroupReportingScriptRunnerGlobalScope.registerAdMacro
+- api.IntersectionObserver.scrollMargin
+- api.Navigator.audioSession
+- api.Navigator.deprecatedReplaceInURN
+- api.PageRevealEvent
+- api.Response.Response.json_static
+
+### Commits
+
+- Add missing features for CSSStyleRule API
+- Fix custom tests
+
+## v10.2.5
+
+Released September 27, 2023
+
+### Notable changes
+
+The collector project has now been transferred to Open Web Docs ownership! For the time being, the collector will remain under Gooborg Studios' domain.
+
+### Commits
+
+- Point to new repository owner (GooborgStudios -&gt; openwebdocs)
+- Add NPM version to package.json engines
+
+## v10.2.4
+
+Released September 22, 2023
+
+### Test Changes
+
+#### Removed
+
+- api.HTMLCanvasElement.getContext.webgpu_context
+
+#### Changed
+
+- javascript.builtins.WebAssembly.Exception.stack
+- javascript.builtins.Iterator.@@iterator
+
+### Commits
+
+- Fix test for Iterator.@@iterator
+- Update harness.js to handle more Safari constructor errors
+- Add custom test for WebAssembly.Exception.stack
+- Update harness.js to handle Safari constructor error
+- Don't allow exporting if there are no results
+- Temporarily disable test for WebGPU rendering context
+- Fix debugmode variable
+
+## v10.2.3
+
+Released September 6, 2023
+
+### Test Changes
+
+#### Added
+
+- api.CSS.cap_static
+- api.CSS.rcap_static
+- api.CSS.rch_static
+- api.CSS.rex_static
+- api.CSS.ric_static
+- javascript.builtins.WebAssembly.Module.customSections_static
+- javascript.builtins.WebAssembly.Module.exports_static
+- javascript.builtins.WebAssembly.Module.imports_static
+- api.NavigateEvent.hasUAVisualTransition
+- api.PopStateEvent.hasUAVisualTransition
+- api.RestrictionTarget
+- api.SharedStorageWorkletGlobalScope.sharedStorage
+- javascript.builtins.WebAssembly.compile_static
+- javascript.builtins.WebAssembly.compileStreaming_static
+- javascript.builtins.WebAssembly.instantiate_static
+- javascript.builtins.WebAssembly.instantiateStreaming_static
+- javascript.builtins.WebAssembly.validate_static
+- api.Window.sharedStorage
+- api.XRFrame.detectedMeshes
+- css.properties.font-synthesis-position
+- css.properties.text-wrap-mode
+- css.properties.text-wrap-style
+- css.properties.transition-behavior
+- css.properties.word-space-transform
+
+#### Removed
+
+- api.CloseWatcher
+- api.Navigator.globalPrivacyControl
+- api.TextFormat.backgroundColor
+- api.TextFormat.textColor
+- api.TextFormat.underlineColor
+- api.WebAssembly
+- api.WorkerNavigator.globalPrivacyControl
+- api.XRFrame.detectedMeshs
+- css.properties.word-boundary-detection
+- css.properties.word-boundary-expansion
+- javascript.builtins.WebAssembly.compile
+- javascript.builtins.WebAssembly.compileStreaming
+- javascript.builtins.WebAssembly.instantiate
+- javascript.builtins.WebAssembly.instantiateStreaming
+- javascript.builtins.WebAssembly.validate
+- javascript.builtins.WebAssembly.CompileError.CompileError
+- javascript.builtins.WebAssembly.Exception.Exception.new_required
+- javascript.builtins.WebAssembly.Global.Global.new_required
+- javascript.builtins.WebAssembly.Instance.Instance.new_required
+- javascript.builtins.WebAssembly.LinkError.LinkError
+- javascript.builtins.WebAssembly.Memory.Memory.new_required
+- javascript.builtins.WebAssembly.Module.Module.new_required
+- javascript.builtins.WebAssembly.Module.customSections
+- javascript.builtins.WebAssembly.Module.exports
+- javascript.builtins.WebAssembly.Module.imports
+- javascript.builtins.WebAssembly.RuntimeError.RuntimeError
+- javascript.builtins.WebAssembly.Table.Table.new_required
+- javascript.builtins.WebAssembly.Tag.Tag.new_required
+
+#### Changed
+
+- api.CanvasCaptureMediaStreamTrack
+- javascript.builtins.WebAssembly.Exception
+- javascript.builtins.WebAssembly.Global.Global
+- javascript.builtins.WebAssembly.Instance.Instance
+- javascript.builtins.WebAssembly.Memory.Memory
+- javascript.builtins.WebAssembly.Module.Module
+- javascript.builtins.WebAssembly.Table.Table
+- javascript.builtins.WebAssembly.Tag.Tag
+- api.crypto
+
+### Commits
+
+- Generate tests for WebAssembly API using API test builder
+- Fix custom test for CanvasCaptureMediaStreamTrack
+
 ## v10.2.2
 
 Released August 24, 2023
@@ -2736,7 +3364,7 @@ The core for MathML elements is also implemented, but as MathML requires additio
 - Fix \_\_additional on JavaScript category
 - Traverse all BCD features in find-missing-features
 - Fix release script when releasing new major version
-- Added WebAssembly features ([#452](https://github.com/GooborgStudios/mdn-bcd-collector/pull/452))
+- Added WebAssembly features ([#452](https://github.com/openwebdocs/mdn-bcd-collector/pull/452))
 - Increase delay when getting speech synthesis voices
 - Fix custom test for MediaQueryList
 - Add custom test for TransformStreamDefaultController

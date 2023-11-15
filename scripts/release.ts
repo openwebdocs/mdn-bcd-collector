@@ -7,10 +7,10 @@
 //
 
 import chalk from "chalk-template";
-import enquirer from "enquirer";
 import esMain from "es-main";
 import fs from "fs-extra";
 import {Listr, ListrTask} from "listr2";
+import {ListrEnquirerPromptAdapter} from "@listr2/prompt-adapter-enquirer";
 import prettier from "prettier";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -80,32 +80,30 @@ const getNewVersion = async (ctx, task) => {
     return;
   }
 
-  ctx.newVersion = await task.prompt([
-    {
-      type: "select",
-      name: "newVersion",
-      message: "How should we bump the version?",
-      choices: [
-        {
-          message: chalk`Major {blue (${newVersions[0]})}`,
-          name: newVersions[0],
-        },
-        {
-          message: chalk`Minor {blue (${newVersions[1]})}`,
-          name: newVersions[1],
-        },
-        {
-          message: chalk`Patch {blue (${newVersions[2]})}`,
-          name: newVersions[2],
-        },
-        {
-          message: chalk`{yellow Cancel}`,
-          name: "cancel",
-        },
-      ],
-      initial: 2,
-    },
-  ]);
+  ctx.newVersion = await task.prompt(ListrEnquirerPromptAdapter).run({
+    type: "select",
+    name: "newVersion",
+    message: "How should we bump the version?",
+    choices: [
+      {
+        message: chalk`Major {blue (${newVersions[0]})}`,
+        name: newVersions[0],
+      },
+      {
+        message: chalk`Minor {blue (${newVersions[1]})}`,
+        name: newVersions[1],
+      },
+      {
+        message: chalk`Patch {blue (${newVersions[2]})}`,
+        name: newVersions[2],
+      },
+      {
+        message: chalk`{yellow Cancel}`,
+        name: "cancel",
+      },
+    ],
+    initial: 2,
+  });
 
   if (ctx.newVersion === "cancel") {
     throw new Error(chalk`{yellow Release cancelled by user}`);
@@ -223,7 +221,7 @@ const getGitChanges = async (ctx) => {
       // Link to pull requests
       summary.replace(
         /\(#(\d+)\)/g,
-        "([#$1](https://github.com/GooborgStudios/mdn-bcd-collector/pull/$1))",
+        "([#$1](https://github.com/openwebdocs/mdn-bcd-collector/pull/$1))",
       ),
     )
     .join("\n");
@@ -355,14 +353,14 @@ const main = async () => {
       {
         title: "Get confirmation to continue",
         task: async (ctx, task) => {
-          const confirm = await task.prompt([
-            {
+          const confirm = await task
+            .prompt(ListrEnquirerPromptAdapter)
+            .run<boolean>({
               type: "confirm",
               name: "confirm",
               message: `Ready to release ${ctx.newVersion}?`,
               initial: true,
-            },
-          ]);
+            });
 
           if (!confirm) {
             throw new Error(
@@ -384,16 +382,16 @@ const main = async () => {
       },
     ],
     {
-      showErrorMessage: true,
-      // Mitigates https://github.com/cenk1cenk2/listr2/issues/631
-      injectWrapper: {enquirer},
+      rendererOptions: {
+        showErrorMessage: true,
+      },
       ctx: {
         skipFetch: argv["no-fetch"],
         skipPrompt: argv["no-prompt"],
         skipPR: argv["no-pr"],
         newVersion: null,
       },
-    } as any,
+    },
   );
 
   try {

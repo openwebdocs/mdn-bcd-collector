@@ -142,13 +142,14 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
 const flattenMembers = (iface) => {
   const members = iface.members
     .filter((member) => member.name && member.type !== "const")
-    // Filter alt. names for standard features within the standard IDL
+    // Ignore alternate names for standard features within the standard IDL
     .filter(
       (member) =>
         !(
           (iface.name === "Document" &&
             ["charset", "inputEncoding"].includes(member.name)) ||
-          (iface.name === "Window" && member.name === "clientInformation")
+          (iface.name === "Window" && member.name === "clientInformation") ||
+          (iface.name === "Element" && member.name === "webkitMatchesSelector")
         ),
     );
   for (const member of iface.members.filter((member) => !member.name)) {
@@ -437,7 +438,9 @@ const buildIDLMemberTests = async (
 
   for (const member of members) {
     const isStatic = member.special === "static" || iface.type === "namespace";
-    const name = member.name + (isStatic ? "_static" : "");
+    // XXX console shouldn't be special-cased, needs to be fixed in BCD
+    const name =
+      member.name + (iface.name !== "console" && isStatic ? "_static" : "");
 
     if (handledMemberNames.has(name)) {
       continue;
@@ -450,7 +453,7 @@ const buildIDLMemberTests = async (
 
     if (isEventHandler) {
       // XXX Tests for events will be added with another package, see
-      // https://github.com/GooborgStudios/mdn-bcd-collector/issues/133 for
+      // https://github.com/openwebdocs/mdn-bcd-collector/issues/133 for
       // details. In the meantime, ignore event handlers.
       continue;
     }
@@ -535,7 +538,7 @@ const buildIDLMemberTests = async (
         code: expr,
       },
       exposure: Array.from(exposureSet),
-      resources,
+      resources: [...resources, ...customTestMember.resources],
     });
     handledMemberNames.add(name);
 
@@ -545,7 +548,7 @@ const buildIDLMemberTests = async (
       tests[`${name}.${subtestName}`] = compileTest({
         raw: {code: subtestData},
         exposure: Array.from(exposureSet),
-        resources,
+        resources: [...resources, ...customTestMember.resources],
       });
     }
   }
@@ -638,7 +641,7 @@ const buildIDLTests = async (ast, globals, scopes) => {
       members,
       fakeIface,
       exposureSet,
-      {},
+      [],
       {
         path: "api",
         isGlobal: true,

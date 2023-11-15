@@ -99,9 +99,6 @@ dictionary ElementRegistrationOptions {
 };
 
 partial interface Document {
-  // https://chromium.googlesource.com/chromium/src.git/+/24e58b0d8fab28fa20e69f191d833fe97aaff75d
-  any getCSSCanvasContext(DOMString contextId, DOMString name, long width, long height);
-
   // https://github.com/whatwg/html/pull/1103
   attribute EventHandler onafterscriptexecute;
   attribute EventHandler onbeforescriptexecute;

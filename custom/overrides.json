@@ -767,5 +767,55 @@
   ["api.PushManager.unregister", "edge", "17+", true],
   ["api.PushManager.unregister", "firefox", "44+", true],
   ["api.PushSubscription.subscriptionId", "chrome", "42+", true],
-  ["api.PushSubscription.subscriptionId", "edge", "17+", true]
+  ["api.PushSubscription.subscriptionId", "edge", "17+", true],
+  "https://github.com/mdn/browser-compat-data/pull/20263",
+  ["css.properties.background-image.image-set", "safari", "6-13.1", false],
+  "Only supported in installed web apps",
+  ["api.Navigator.clearAppBadge", "safari", "17+", true],
+  ["api.Navigator.setAppBadge", "safari", "17+", true],
+  ["api.Notification.badge", "safari", "17+", true],
+  "https://bugzil.la/1517786#c8",
+  [
+    "api.HTMLCanvasElement.getContext.2d_context.options_colorSpace_parameter",
+    "firefox",
+    "117+",
+    false
+  ],
+  [
+    "api.HTMLCanvasElement.getContext.2d_context.options_desynchronized_parameter",
+    "firefox",
+    "117+",
+    false
+  ],
+  "Voices don't appear to be loaded in BrowserStack before Safari 14",
+  ["api.SpeechSynthesisVoice", "safari", "7-14", true],
+  ["api.SpeechSynthesisVoice.default", "safari", "7-14", true],
+  ["api.SpeechSynthesisVoice.lang", "safari", "7-14", true],
+  "Read by Chrome before support was implemented",
+  [
+    "api.Element.animate.options_rangeStart_parameter",
+    "chrome",
+    "111-114",
+    false
+  ],
+  [
+    "api.Element.animate.options_rangeEnd_parameter",
+    "chrome",
+    "111-114",
+    false
+  ],
+  [
+    "api.Element.animate.options_rangeStart_parameter",
+    "edge",
+    "111-114",
+    false
+  ],
+  ["api.Element.animate.options_rangeEnd_parameter", "edge", "111-114", false],
+  "fetchPriority was fetchpriority for just one Chrome version",
+  ["html.elements.img.fetchpriority", "chrome", "101", true],
+  ["html.elements.img.fetchpriority", "edge", "101", true],
+  ["html.elements.link.fetchpriority", "chrome", "101", true],
+  ["html.elements.link.fetchpriority", "edge", "101", true],
+  ["html.elements.script.fetchpriority", "chrome", "101", true],
+  ["html.elements.script.fetchpriority", "edge", "101", true]
 ]

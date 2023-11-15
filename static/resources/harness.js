@@ -33,7 +33,9 @@
   var debugmode =
     "location" in self &&
     "search" in location &&
-    stringIncludes(location.search, "debug=true");
+    stringIncludes(location.search, "debug=full")
+      ? "full"
+      : stringIncludes(location.search, "debug=true");
 
   /* c8 ignore start */
   // Non-invasive polyfills
@@ -257,7 +259,9 @@
           "cannot read property",
           "event name must be provided",
           "requires a single argument",
-          "requires at least"
+          "requires at least",
+          "first argument",
+          "expects exactly"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
@@ -513,11 +517,14 @@
       returnValue = instance(options);
     }
 
-    if (mustReturnTruthy) {
-      return !!returnValue && accessed;
+    // Method is a promise
+    if (!!returnValue && "then" in returnValue) {
+      return returnValue.then(function (value) {
+        return (mustReturnTruthy ? !!value : true) && accessed;
+      });
     }
 
-    return accessed;
+    return (mustReturnTruthy ? !!returnValue : true) && accessed;
   }
 
   /**
@@ -1294,7 +1301,12 @@
       clearTimeout(timeout);
 
       for (var i = 0; i < cleanupFunctions.length; i++) {
-        cleanupFunctions[i]();
+        try {
+          cleanupFunctions[i]();
+        } catch (e) {
+          // If a cleanup function fails, don't crash
+          consoleError(e);
+        }
       }
 
       if ("serviceWorker" in navigator) {

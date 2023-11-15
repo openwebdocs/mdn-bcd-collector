@@ -340,6 +340,15 @@ app.all("/export", async (req, res, next) => {
   const github = !!req.body.github;
   const results = await storage.getAll(req.sessionID);
 
+  if (!results) {
+    res.status(400).render("export", {
+      title: "Export Failed",
+      description:
+        "Export failed because there were no results for your session.",
+      url: null,
+    });
+  }
+
   try {
     const report = createReport(results, req);
     if (github) {

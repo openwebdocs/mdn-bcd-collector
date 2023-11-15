@@ -23,12 +23,13 @@ const prepare = async () => {
 
   if (process.env.NODE_ENV !== "production") {
     // Install Firefox for Puppeteer
+    process.chdir("node_modules/puppeteer");
     try {
-      process.chdir("node_modules/puppeteer");
+      await exec("node install.mjs", {PUPPETEER_PRODUCT: "firefox"}, false);
     } catch (e) {
-      return;
+      console.error(`Failure preparing Puppeteer Firefox: ${e}`);
     }
-    await exec("node install.js", {PUPPETEER_PRODUCT: "firefox"}, false);
+    process.chdir("../..");
   }
 };
 

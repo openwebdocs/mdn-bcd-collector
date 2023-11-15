@@ -144,6 +144,27 @@ describe("build (common)", () => {
           additional: {},
         },
       },
+      "api.createImageBitmap": {
+        category: "api",
+        data: {
+          __base:
+            "if (!('createImageBitmap' in self)) {\n  return {result: false, message: 'createImageBitmap is not defined'};\n}\nfunction create(options) {\n  return createImageBitmap(document.getElementById('resource-image-black'), options);\n}",
+          __test: "return true;",
+          __resources: ["image-black"],
+          __additional: {
+            options_colorSpaceConversion_parameter:
+              "return bcd.testOptionParam(create, null, 'colorSpaceConversion', 'default');",
+          },
+        },
+        result: {
+          test: '(function () {\n  if (!("createImageBitmap" in self)) {\n    return { result: false, message: "createImageBitmap is not defined" };\n  }\n  function create(options) {\n    return createImageBitmap(\n      document.getElementById("resource-image-black"),\n      options,\n    );\n  }\n  return true;\n})();\n',
+          resources: ["image-black"],
+          additional: {
+            options_colorSpaceConversion_parameter:
+              '(function () {\n  if (!("createImageBitmap" in self)) {\n    return { result: false, message: "createImageBitmap is not defined" };\n  }\n  function create(options) {\n    return createImageBitmap(\n      document.getElementById("resource-image-black"),\n      options,\n    );\n  }\n  return bcd.testOptionParam(create, null, "colorSpaceConversion", "default");\n})();\n',
+          },
+        },
+      },
       "api.WebGLRenderingContext": {
         category: "api",
         data: {
