@@ -580,11 +580,11 @@ describe("build (API)", () => {
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        "javascript.builtins.WebAssembly.Exception": {
+        "webassembly.api.Exception": {
           code: '"WebAssembly" in self && "Exception" in WebAssembly',
           exposure: ["Window"],
         },
-        "javascript.builtins.WebAssembly.Exception.stack": {
+        "webassembly.api.Exception.stack": {
           code: '"WebAssembly" in self && "Exception" in WebAssembly && "stack" in WebAssembly.Exception.prototype',
           exposure: ["Window"],
         },

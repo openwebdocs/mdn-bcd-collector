@@ -571,8 +571,8 @@ const buildIDLTests = async (ast, globals, scopes) => {
       path = `api.${legacyNamespace}.${iface.name}`;
     }
 
-    // Remap WebAssembly API to javascript.builtins.WebAssembly
-    path = path.replace("api.WebAssembly", "javascript.builtins.WebAssembly");
+    // Remap WebAssembly API to webassembly.api
+    path = path.replace("api.WebAssembly", "webassembly.api");
 
     const members = flattenMembers(iface);
     if (iface.type === "namespace" && members.length === 0) {
