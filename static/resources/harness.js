@@ -1429,18 +1429,18 @@
       !!instance && instance !== "callback"
         ? "true"
         : instance === false
-        ? "false"
-        : "null";
+          ? "false"
+          : "null";
     var resultValueEl = document.createElement("span");
     resultValueEl.className = "result-value result-value-" + resultValue;
     resultValueEl.innerHTML =
       resultValue === "true"
         ? '<span class="mdi mdi-check-bold"></span> Loaded'
         : resultValue === "false"
-        ? '<span class="mdi mdi-close-thick"></span> Not Loaded, Unsupported'
-        : resultValue === "null"
-        ? '<span class="mdi mdi-exclamation-thick"></span> Failed to Load'
-        : resultValue;
+          ? '<span class="mdi mdi-close-thick"></span> Not Loaded, Unsupported'
+          : resultValue === "null"
+            ? '<span class="mdi mdi-exclamation-thick"></span> Failed to Load'
+            : resultValue;
     resultSummaryEl.appendChild(resultValueEl);
     resultEl.appendChild(resultSummaryEl);
 
@@ -1509,10 +1509,10 @@
       resultValue === "true"
         ? '<span class="mdi mdi-check-bold"></span> Supported'
         : resultValue === "false"
-        ? '<span class="mdi mdi-close-thick"></span> No Support'
-        : resultValue === "null"
-        ? '<span class="mdi mdi-help"></span> Support Unknown'
-        : resultValue;
+          ? '<span class="mdi mdi-close-thick"></span> No Support'
+          : resultValue === "null"
+            ? '<span class="mdi mdi-help"></span> Support Unknown'
+            : resultValue;
     resultSummaryEl.appendChild(resultValueEl);
     resultEl.appendChild(resultSummaryEl);
 
