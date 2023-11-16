@@ -86,6 +86,23 @@ const buildTestList = (specJS, customJS) => {
         continue;
       }
 
+      const errorSubclasses = [
+        "AggregateError",
+        "EvalError",
+        "RangeError",
+        "ReferenceError",
+        "SyntaxError",
+        "TypeError",
+        "URIError",
+      ];
+      if (
+        (attr.name.endsWith(".message") || attr.name.endsWith(".name")) &&
+        errorSubclasses.includes(feat.name)
+      ) {
+        // The .message and .name properties are not documented for on Error subclasses
+        continue;
+      }
+
       features[featureName].members[attr.static ? "static" : "instance"].push(
         stripAttrName(attr.name, featureName),
       );
