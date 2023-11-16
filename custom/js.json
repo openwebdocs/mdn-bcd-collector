@@ -78,7 +78,7 @@
     "Intl": {
       "__comment": "XXX Intl is defined in another specification that the es-scraper does not load data from.",
       "members": {
-        "static": ["getCanonicalLocales", "@@toStringTag", "supportedValuesOf"]
+        "static": ["getCanonicalLocales", "supportedValuesOf"]
       }
     },
     "Intl.Collator": {

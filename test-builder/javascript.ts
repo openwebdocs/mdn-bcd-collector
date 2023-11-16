@@ -86,6 +86,11 @@ const buildTestList = (specJS, customJS) => {
         continue;
       }
 
+      if (attr.name.endsWith("[@@toStringTag]")) {
+        // Skip all @@toStringTag Symbols properties; they aren't recorded.
+        continue;
+      }
+
       features[featureName].members[attr.static ? "static" : "instance"].push(
         stripAttrName(attr.name, featureName),
       );
