@@ -132,14 +132,6 @@ describe("build (JavaScript)", () => {
         code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  return bcd.testConstructor("Object", false);\n})();\n',
         exposure: ["Window"],
       },
-      "javascript.builtins.Object.Object.new_required": {
-        code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  return bcd.testConstructorNewRequired("Object");\n})();\n',
-        exposure: ["Window"],
-      },
-      "javascript.builtins.Object.Object.constructor_without_parameters": {
-        code: '(function () {\n  if (!("Object" in self)) {\n    return { result: false, message: "Object is not defined" };\n  }\n  try {\n    new Object();\n    return true;\n  } catch (e) {\n    return { result: false, message: e.message };\n  }\n})();\n',
-        exposure: ["Window"],
-      },
       "javascript.builtins.Object.assign": {
         code: '"Object" in self && "assign" in Object',
         exposure: ["Window"],
@@ -174,10 +166,6 @@ describe("build (JavaScript)", () => {
 `,
         exposure: ["Window"],
       },
-      "javascript.builtins.AggregateError.AggregateError.new_required": {
-        code: '(function () {\n  if (!("AggregateError" in self)) {\n    return { result: false, message: "AggregateError is not defined" };\n  }\n  return bcd.testConstructorNewRequired("AggregateError");\n})();\n',
-        exposure: ["Window"],
-      },
       "javascript.builtins.Array": {
         code: '"Array" in self',
         exposure: ["Window"],
@@ -198,10 +186,6 @@ describe("build (JavaScript)", () => {
   return bcd.testConstructor("Array", false);
 })();
 `,
-        exposure: ["Window"],
-      },
-      "javascript.builtins.Array.Array.new_required": {
-        code: '(function () {\n  if (!("Array" in self)) {\n    return { result: false, message: "Array is not defined" };\n  }\n  return bcd.testConstructorNewRequired("Array");\n})();\n',
         exposure: ["Window"],
       },
       "javascript.builtins.Array.at": {
