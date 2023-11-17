@@ -92,7 +92,7 @@
     "@types/yargs": "17.0.31",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@webref/css": "6.9.0",
-    "@webref/idl": "3.40.0",
+    "@webref/idl": "3.41.0",
     "c8": "8.0.1",
     "chai": "4.3.10",
     "chai-as-promised": "7.1.1",
