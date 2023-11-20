@@ -887,7 +887,6 @@
     },
     "text-underline-position": {
       "__additional_values": {
-        "above_below": ["above", "below"]
       },
       "__values": ["auto-pos", "from-font", "left", "right", "under"]
     },
