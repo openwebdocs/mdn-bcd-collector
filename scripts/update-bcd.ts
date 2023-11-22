@@ -876,9 +876,9 @@ export const walkEntries = function* (
   entry: Identifier,
 ): Generator<[string, Identifier]> {
   for (const key in entry) {
-    if (key === '__compat') {
+    if (key === "__compat") {
       yield [prefix.slice(0, -1), entry];
-    } else if (typeof entry[key] === 'object') {
+    } else if (typeof entry[key] === "object") {
       yield* walkEntries(`${prefix}${key}.`, entry[key]);
     }
   }
