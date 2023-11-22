@@ -871,6 +871,19 @@ const pickLog = <T extends UpdateLog>({
   };
 };
 
+export const walkEntries = function* (
+  prefix: string,
+  entry: Identifier,
+): Generator<[string, Identifier]> {
+  for (const key in entry) {
+    if (key === '__compat') {
+      yield [prefix.slice(0, -1), entry];
+    } else if (typeof entry[key] === 'object') {
+      yield* walkEntries(`${prefix}${key}.`, entry[key]);
+    }
+  }
+};
+
 export const update = (
   bcd: Identifier,
   supportMatrix: SupportMatrix,
@@ -878,21 +891,21 @@ export const update = (
 ): boolean => {
   const changes: UpdateLog[] = [];
   for (const state of compose(
-    expand("path", function* () {
-      for (const [path, browserMap] of supportMatrix.entries()) {
-        yield {path, shared: {bcd, browserMap}};
+    expand("entry", function* () {
+      for (const [path, entry] of walkEntries("", bcd)) {
+        yield {path, shared: {bcd, entry}};
       }
     }),
     skipPathMismatch(options.path),
-    provideShared(
-      "entry",
-      ({path, shared: {entry}}) => findEntry(bcd, path) ?? entry,
-    ),
-    skip("missingEntry", ({shared: {entry}}) => {
-      if (!entry || !entry.__compat) {
-        return reason(({path}) => `entry for ${path} does not exist`, {
-          quiet: true,
-        });
+    provideShared("browserMap", ({path, shared: {browserMap}}) => {
+      return supportMatrix.get(path) ?? browserMap;
+    }),
+    skip("noBrowserMap", ({shared: {browserMap}}) => {
+      if (!browserMap) {
+        return reason(
+          ({path}) => `${path} skipped due to no results in reports`,
+          {quiet: true},
+        );
       }
     }),
     provideShared(
