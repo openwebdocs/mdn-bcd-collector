@@ -14,7 +14,6 @@
     "ArrayBuffer": {
       "members": {"instance": ["maxByteLength", "resizable", "resize"]}
     },
-    "Atomics": {"members": {"static": ["wake"]}},
     "Boolean": {
       "members": {"instance": ["toSource"]}
     },
@@ -128,10 +127,8 @@
         "instance": [
           "baseName",
           "calendar",
-          "calendars",
           "caseFirst",
           "collation",
-          "collations",
           "getCalendars",
           "getCollations",
           "getHourCycles",
@@ -140,19 +137,14 @@
           "getTimeZones",
           "getWeekInfo",
           "hourCycle",
-          "hourCycles",
           "language",
           "maximize",
           "minimize",
           "numberingSystem",
-          "numberingSystems",
           "numeric",
           "region",
           "script",
-          "textInfo",
-          "timeZones",
-          "toString",
-          "weekInfo"
+          "toString"
         ]
       }
     },

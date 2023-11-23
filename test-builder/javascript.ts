@@ -24,25 +24,17 @@ const stripAttrName = (name, featureName) =>
     .replace(/__(\w+)__/g, "$1");
 
 const shouldIgnoreAttr = (featureName: string, attrName: string) => {
-  const prototypeString = `${featureName}.prototype`;
-  if (attrName === prototypeString) {
+  const ignoreList = [
+    "String.prototype.trimLeft()",
+    "String.prototype.trimRight()",
+  ];
+
+  if (ignoreList.includes(attrName)) {
+    return true;
+  }
+
+  if (attrName === `${featureName}.prototype`) {
     // Skip the prototype itself
-    return true;
-  }
-
-  if (
-    featureName === "Atomics" &&
-    ["WaiterRecord", "WaiterListRecords"].includes(attrName)
-  ) {
-    // The spec defines WaiterRecord/WaiterListRecords as if they were members of Atomics
-    return true;
-  }
-
-  if (
-    featureName === "String" &&
-    ["trimLeft", "trimRight"].includes(attrName)
-  ) {
-    // The spec defines these deprecated aliases for trimStart and trimEnd
     return true;
   }
 
