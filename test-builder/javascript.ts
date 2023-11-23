@@ -261,35 +261,68 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   }
 
   if (!data.no_new) {
-    tests[`${path}.new_required`] = compileTest({
-      raw: {
-        code: (
-          await compileCustomTest(
-            baseCode + `return bcd.testConstructorNewRequired("${iface}")`,
-          )
-        ).code,
-      },
-      exposure: ["Window"],
-    });
+    const relevantCtors = [
+      "ArrayBuffer",
+      "DataView",
+      "Float32Array",
+      "Float64Array",
+      "Int16Array",
+      "Int32Array",
+      "Int8Array",
+      "Map",
+      "Set",
+      "TypedArray",
+      "Uint16Array",
+      "Uint32Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+      "WeakMap",
+    ];
+    if (relevantCtors.includes(iface)) {
+      tests[`${path}.new_required`] = compileTest({
+        raw: {
+          code: (
+            await compileCustomTest(
+              baseCode + `return bcd.testConstructorNewRequired("${iface}")`,
+            )
+          ).code,
+        },
+        exposure: ["Window"],
+      });
+    }
   }
 
   if (data.optional_args) {
-    tests[`${path}.constructor_without_parameters`] = compileTest({
-      raw: {
-        code: (
-          await compileCustomTest(
-            baseCode +
-              `try {
+    const relevantCtors = [
+      "Float32Array",
+      "Float64Array",
+      "Int16Array",
+      "Int32Array",
+      "Int8Array",
+      "TypedArray",
+      "Uint16Array",
+      "Uint32Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+    ];
+    if (relevantCtors.includes(iface)) {
+      tests[`${path}.constructor_without_parameters`] = compileTest({
+        raw: {
+          code: (
+            await compileCustomTest(
+              baseCode +
+                `try {
             new ${iface}();
             return true;
           } catch(e) {
             return {result: false, message: e.message};
           }`,
-          )
-        ).code,
-      },
-      exposure: ["Window"],
-    });
+            )
+          ).code,
+        },
+        exposure: ["Window"],
+      });
+    }
   }
 
   // Add the additional tests
