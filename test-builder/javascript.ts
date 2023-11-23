@@ -23,6 +23,55 @@ const stripAttrName = (name, featureName) =>
     .replace(/prototype\[@@(\w+)\]/g, "@@$1")
     .replace(/__(\w+)__/g, "$1");
 
+const shouldIgnoreAttr = (featureName: string, attrName: string) => {
+  const prototypeString = `${featureName}.prototype`;
+  if (attrName === prototypeString) {
+    // Skip the prototype itself
+    return true;
+  }
+
+  if (
+    featureName === "Atomics" &&
+    ["WaiterRecord", "WaiterListRecords"].includes(attrName)
+  ) {
+    // The spec defines WaiterRecord/WaiterListRecords as if they were members of Atomics
+    return true;
+  }
+
+  if (
+    featureName === "String" &&
+    ["trimLeft", "trimRight"].includes(attrName)
+  ) {
+    // The spec defines these deprecated aliases for trimStart and trimEnd
+    return true;
+  }
+
+  if (attrName.endsWith(".constructor")) {
+    // Skip all constructor properties; it can be assumed all objects have this
+    return true;
+  }
+
+  if (attrName.endsWith("[@@toStringTag]")) {
+    // Skip all @@toStringTag Symbols properties; they aren't recorded.
+    return true;
+  }
+
+  if (attrName.endsWith("BYTES_PER_ELEMENT")) {
+    // BYTES_PER_ELEMENT is only documented once on TypedArray; ignore it
+    return true;
+  }
+
+  if (
+    (attrName.endsWith(".message") || attrName.endsWith(".name")) &&
+    featureName.endsWith("Error")
+  ) {
+    // The .message and .name properties are not documented for on Error subclasses
+    return true;
+  }
+
+  return false;
+};
+
 const buildTestList = (specJS, customJS) => {
   const features = {};
 
@@ -67,48 +116,7 @@ const buildTestList = (specJS, customJS) => {
       ...staticAttrs.map((a) => ({...a, static: true})),
       ...instanceAttrs,
     ]) {
-      const prototypeString = `${featureName}.prototype`;
-      if (attr.name === prototypeString) {
-        // Skip the prototype itself
-        continue;
-      }
-
-      if (
-        feat.name === "Atomics" &&
-        ["WaiterRecord", "WaiterListRecords"].includes(attr.name)
-      ) {
-        // The spec defines WaiterRecord/WaiterListRecords as if they were members of Atomics
-        continue;
-      }
-
-      if (
-        feat.name === "String" &&
-        ["trimLeft", "trimRight"].includes(attr.name)
-      ) {
-        // The spec defines these deprecated aliases for trimStart and trimEnd
-        continue;
-      }
-
-      if (attr.name.endsWith(".constructor")) {
-        // Skip all constructor properties; it can be assumed all objects have this
-        continue;
-      }
-
-      if (attr.name.endsWith("[@@toStringTag]")) {
-        // Skip all @@toStringTag Symbols properties; they aren't recorded.
-        continue;
-      }
-
-      if (attr.name.endsWith("BYTES_PER_ELEMENT")) {
-        // BYTES_PER_ELEMENT is only documented once on TypedArray; ignore it
-        continue;
-      }
-
-      if (
-        (attr.name.endsWith(".message") || attr.name.endsWith(".name")) &&
-        feat.name.endsWith("Error")
-      ) {
-        // The .message and .name properties are not documented for on Error subclasses
+      if (shouldIgnoreAttr(featureName, attr.name)) {
         continue;
       }
 
