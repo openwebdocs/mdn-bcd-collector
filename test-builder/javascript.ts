@@ -86,6 +86,11 @@ const buildTestList = (specJS, customJS) => {
         continue;
       }
 
+      if (attr.name.endsWith("BYTES_PER_ELEMENT")) {
+        // BYTES_PER_ELEMENT is only documented once on TypedArray; ignore it
+        continue;
+      }
+      
       const errorSubclasses = [
         "AggregateError",
         "EvalError",
