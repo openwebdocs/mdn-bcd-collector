@@ -841,7 +841,10 @@
       "__values": ["over", "under"]
     },
     "text-indent": {
-      "__values": ["each-line", "hanging"]
+      "__additional_values": {
+        "each-line": "4em each-line",
+        "hanging": "4em hanging"
+      }
     },
     "text-kashida": {},
     "text-kashida-space": {},
