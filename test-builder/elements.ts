@@ -40,20 +40,22 @@ const build = async (specElements, customElements) => {
 
   for (const data of Object.values(specElements) as any[]) {
     for (const el of data.elements) {
-      // Get category of element
-      let category = "html";
-      for (const [cat, catData] of Object.entries(categories)) {
-        if (el.interface?.startsWith(catData.startsWith)) {
-          category = cat;
-          break;
+      if (el.obsolete !== true) {
+        // Get category of element
+        let category = "html";
+        for (const [cat, catData] of Object.entries(categories)) {
+          if (el.interface?.startsWith(catData.startsWith)) {
+            category = cat;
+            break;
+          }
         }
-      }
 
-      els[category][el.name] = {
-        interfaceName: el.interface,
-        attributes:
-          (customElements.elements.attributes[category] || {})[el.name] || [],
-      };
+        els[category][el.name] = {
+          interfaceName: el.interface,
+          attributes:
+            (customElements.elements.attributes[category] || {})[el.name] || [],
+        };
+      }
     }
   }
 

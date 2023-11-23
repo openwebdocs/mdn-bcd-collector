@@ -90,6 +90,19 @@ const buildTestList = (specJS, customJS) => {
         // Skip all @@toStringTag Symbols properties; they aren't recorded.
         continue;
       }
+      
+      if (attr.name.endsWith("BYTES_PER_ELEMENT")) {
+        // BYTES_PER_ELEMENT is only documented once on TypedArray; ignore it
+        continue;
+      }
+
+      if (
+        (attr.name.endsWith(".message") || attr.name.endsWith(".name")) &&
+        feat.name.endsWith("Error")
+      ) {
+        // The .message and .name properties are not documented for on Error subclasses
+        continue;
+      }
 
       features[featureName].members[attr.static ? "static" : "instance"].push(
         stripAttrName(attr.name, featureName),
