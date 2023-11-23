@@ -438,9 +438,7 @@ const buildIDLMemberTests = async (
 
   for (const member of members) {
     const isStatic = member.special === "static" || iface.type === "namespace";
-    // XXX console shouldn't be special-cased, needs to be fixed in BCD
-    const name =
-      member.name + (iface.name !== "console" && isStatic ? "_static" : "");
+    const name = member.name + (isStatic ? "_static" : "");
 
     if (handledMemberNames.has(name)) {
       continue;
