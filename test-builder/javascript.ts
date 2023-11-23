@@ -81,6 +81,14 @@ const buildTestList = (specJS, customJS) => {
         continue;
       }
 
+      if (
+        feat.name === "String" &&
+        ["trimLeft", "trimRight"].includes(attr.name)
+      ) {
+        // The spec defines these deprecated aliases for trimStart and trimEnd
+        continue;
+      }
+
       if (attr.name.endsWith(".constructor")) {
         // Skip all constructor properties; it can be assumed all objects have this
         continue;
