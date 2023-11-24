@@ -88,6 +88,12 @@ const buildTestList = (specJS, customJS) => {
       continue;
     }
 
+    // %TypedArray% is an abstract class and there is no constructor
+    if (feat.name === "TypedArray") {
+      delete feat.ctor;
+      continue;
+    }
+
     features[featureName] = {members: {static: [], instance: []}};
 
     // If there is a constructor, determine parameters
