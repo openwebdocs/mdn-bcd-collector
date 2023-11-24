@@ -6,10 +6,15 @@
 // See the LICENSE file for copyright details
 //
 
+// Base eslint no-unused-vars misunderstands typescript function types as having
+// unused variables. Replace with @typescript-eslint/no-unused-vars for this file.
+/* eslint no-unused-vars: "off", @typescript-eslint/no-unused-vars: "error" */
+
 import {
   Browsers,
   SimpleSupportStatement,
   Identifier,
+  BrowserName,
 } from "@mdn/browser-compat-data/types";
 import {
   Report,
@@ -19,6 +24,7 @@ import {
   Overrides,
   InternalSupportStatement,
   OverrideTuple,
+  SupportMap,
 } from "../types/types.js";
 
 import assert from "node:assert";
@@ -297,281 +303,697 @@ export const inferSupportStatements = (
   return statements;
 };
 
-export const update = (
-  bcd: Identifier,
-  supportMatrix: SupportMatrix,
-  filter: any,
-): boolean => {
-  let modified = false;
+/** Values that can be logged for further analysis. */
+interface UpdateLog {
+  allStatements: SimpleSupportStatement[];
+  browser: BrowserName;
+  defaultStatements: SimpleSupportStatement[];
+  inferredStatements: SimpleSupportStatement[];
+  path: string;
+  statements: SimpleSupportStatement[];
+  reason: Reason;
+}
 
-  for (const [path, browserMap] of supportMatrix.entries()) {
-    if (filter.path) {
-      if (filter.path.constructor === Minimatch) {
-        if (!filter.path.match(path)) {
-          // If filter.path does not match glob
+/** Values available in operations. */
+interface UpdateState extends UpdateLog {
+  shared: UpdateShared;
+}
+
+/** Internal values restricted to expand() and update(). */
+interface UpdateInternal extends UpdateState {
+  debug: UpdateDebug;
+}
+
+type CompatSupport = Exclude<Identifier["__compat"], undefined>["support"];
+
+/** Values shared by multiple updates or too large to log. */
+interface UpdateShared {
+  bcd: Identifier;
+  browserMap: SupportMap;
+  unmodifiedSupport: CompatSupport;
+  entry: Identifier;
+  support: CompatSupport;
+  versionMap: BrowserSupportMap;
+}
+
+interface UpdateDebug {
+  stack: {step: string; result: UpdateYield}[];
+}
+
+type UpdateYield = Partial<UpdateLog> & {
+  shared?: Partial<UpdateShared>;
+};
+
+interface Reason {
+  step?: string;
+  message?: string;
+  skip?: boolean;
+  quiet?: boolean;
+}
+
+interface ReasonMessageFactory {
+  (value: UpdateState): string;
+}
+
+interface ReasonFactory {
+  (value: UpdateState): Reason;
+}
+
+const reason = (
+  message: ReasonMessageFactory,
+  args: Omit<Reason, "message"> = {},
+): ReasonFactory => {
+  return (value) => ({message: message(value), skip: true, ...args});
+};
+
+const isReasonFactory = (
+  maybeFactory: unknown,
+): maybeFactory is ReasonFactory => typeof maybeFactory === "function";
+
+const handleReasonable = (
+  factory: string | Reason | ReasonFactory,
+  value: UpdateState,
+): Reason => {
+  if (typeof factory === "string") {
+    return reason(() => factory)(value);
+  } else if (isReasonFactory(factory)) {
+    return factory(value);
+  }
+  return factory;
+};
+
+const compose = (...funcs: any[]) =>
+  funcs.reduce(
+    (last, next, index, array) => {
+      if (!last) {
+        throw new Error(
+          `[${array.indexOf(next)}] last undefined: ${String(last)}`,
+        );
+      }
+      return next(last);
+    },
+    function* () {
+      yield {};
+    },
+  ) as () => Generator<UpdateInternal>;
+
+const expand = (
+  step: string,
+  generator: (value: UpdateState) => Generator<UpdateYield | void>,
+) => {
+  return (last: () => Generator<UpdateInternal>) =>
+    function* (): Generator<UpdateInternal> {
+      for (const value of last()) {
+        if (value === undefined) {
           continue;
         }
-      } else if (path !== filter.path && !path.startsWith(`${filter.path}.`)) {
-        continue;
-      }
-    }
+        if (value.reason?.skip) {
+          yield value;
+          continue;
+        }
 
-    const entry = findEntry(bcd, path);
-    if (!entry || !entry.__compat) {
-      continue;
-    }
-
-    const support = entry.__compat.support;
-    // Stringified then parsed to deep clone the support statements
-    const originalSupport = clone(support);
-
-    for (const [browser, versionMap] of browserMap.entries()) {
-      if (
-        filter.browser &&
-        filter.browser.length &&
-        !filter.browser.includes(browser)
-      ) {
-        continue;
-      }
-      const inferredStatements = inferSupportStatements(versionMap);
-      if (inferredStatements.length !== 1) {
-        // TODO: handle more complicated scenarios
-        logger.warn(
-          `${path} skipped for ${browser} due to multiple inferred statements`,
-        );
-        continue;
-      }
-
-      const inferredStatement = inferredStatements[0];
-
-      // If there's a version number filter
-      if (filter.release || filter.release === false) {
-        const filterMatch =
-          filter.release && filter.release.match(/([\d.]+)-([\d.]+)/);
-        if (filterMatch) {
-          if (typeof inferredStatement.version_added !== "string") {
-            // If the version_added is not a string, it must be false and won't
-            // match our
-            continue;
-          }
-          if (
-            compareVersions(
-              inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ""),
-              filterMatch[1],
-              "<",
-            ) ||
-            compareVersions(
-              inferredStatement.version_added.replace(/(([\d.]+)> )?≤/, ""),
-              filterMatch[2],
-              ">",
-            )
-          ) {
-            // If version_added is outside of filter range
-            continue;
-          }
-          if (
-            typeof inferredStatement.version_removed === "string" &&
-            (compareVersions(
-              inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ""),
-              filterMatch[1],
-              "<",
-            ) ||
-              compareVersions(
-                inferredStatement.version_removed.replace(/(([\d.]+)> )?≤/, ""),
-                filterMatch[2],
-                ">",
-              ))
-          ) {
-            // If version_removed and it's outside of filter range
-            continue;
-          }
-        } else {
-          if (filter.release !== inferredStatement.version_added) {
-            // If version_added doesn't match filter
-            continue;
-          }
-          if (
-            inferredStatement.version_removed &&
-            filter.release !== inferredStatement.version_removed
-          ) {
-            // If version_removed and it doesn't match filter
-            continue;
+        for (const props of generator(value)) {
+          if (props) {
+            const {shared: propsShared, ...propsPicked} = props;
+            yield {
+              ...value,
+              ...propsPicked,
+              debug: {
+                stack: [
+                  ...(value.debug?.stack ?? []),
+                  {step, result: propsPicked},
+                ],
+              },
+              shared: {...value.shared, ...propsShared},
+            } as UpdateInternal;
+          } else {
+            yield value;
           }
         }
       }
+    };
+};
 
-      // Update the support data with a new value.
-      const persist = (statements: SimpleSupportStatement[]) => {
-        // Check for ranges and ignore them if we specify `exact-only` argument
-        if (filter.exactOnly) {
-          for (const statement of statements) {
-            if (
+const map = (step: string, op: (value: UpdateState) => UpdateYield | void) =>
+  expand(step, function* (value: UpdateState): Generator<UpdateYield | void> {
+    yield op(value);
+  });
+
+const passthrough = map("passthrough", () => {});
+
+const provide = <S extends keyof UpdateState>(
+  key: S,
+  op: (value: UpdateState) => UpdateState[S],
+) => map(`provide_${key}`, (value) => ({[key]: op(value)}));
+
+const provideShared = <S extends keyof UpdateShared>(
+  key: S,
+  op: (value: UpdateState) => UpdateShared[S],
+) => map(`provide_shared_${key}`, (value) => ({shared: {[key]: op(value)}}));
+
+const provideStatements = (
+  step: string,
+  op: (
+    value: UpdateState,
+  ) =>
+    | [UpdateState["statements"] | undefined, string | Reason | ReasonFactory]
+    | void,
+) =>
+  map(`provide_statements_${step}`, (value) => {
+    const result = op(value);
+    if (result) {
+      const [statements, reason] = result;
+      return {
+        statements,
+        reason: {
+          step: `provide_statements_${step}`,
+          ...handleReasonable(reason, value),
+        },
+      };
+    }
+  });
+
+const provideReason = (
+  step: string,
+  op: (value: UpdateState) => string | Reason | ReasonFactory | void,
+) =>
+  map(`reason_${step}`, (value) => {
+    const reason = op(value);
+    if (reason) {
+      return {
+        reason: {step: `reason_${step}`, ...handleReasonable(reason, value)},
+      };
+    }
+  });
+
+const skip = (
+  step: string,
+  condition: (value: UpdateState) => string | Reason | ReasonFactory | void,
+) => provideReason(`skip_${step}`, condition);
+
+const skipPathMismatch = (pathFilter: Minimatch | string) => {
+  if (
+    typeof pathFilter === "object" &&
+    pathFilter !== null &&
+    pathFilter.constructor === Minimatch
+  ) {
+    return skip("pathMatchesPattern", ({path}) => {
+      if (!pathFilter.match(path)) {
+        return reason(({path}) => `${path} does not match path pattern`, {
+          quiet: true,
+        });
+      }
+    });
+  } else if (pathFilter) {
+    return skip("pathMatchesPrefix", ({path}) => {
+      if (path !== pathFilter && !path.startsWith(`${pathFilter}.`)) {
+        return reason(({path}) => `${path} does not match path prefix`, {
+          quiet: true,
+        });
+      }
+    });
+  }
+  return passthrough;
+};
+
+const skipBrowserMismatch = (browserFilter: BrowserName[]) =>
+  browserFilter?.length
+    ? skip("browserMatchesFilter", ({browser}) => {
+        if (!browserFilter.includes(browser)) {
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} does not match browser filter`,
+            {
+              quiet: true,
+            },
+          );
+        }
+      })
+    : passthrough;
+
+const skipReleaseMismatch = (releaseFilter: string | false) => {
+  if (releaseFilter || releaseFilter === false) {
+    const releaseFilterMatch =
+      releaseFilter && releaseFilter.match(/([\d.]+)-([\d.]+)/);
+    if (releaseFilterMatch) {
+      return skip("release", ({inferredStatements: [inferredStatement]}) => {
+        if (typeof inferredStatement.version_added !== "string") {
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} due to non string inferred version`,
+            {quiet: true},
+          );
+        }
+        const inferredAdded = inferredStatement.version_added.replace(
+          /(([\d.]+)> )?≤/,
+          "",
+        );
+        if (
+          compareVersions(inferredAdded, releaseFilterMatch[1], "<") ||
+          compareVersions(inferredAdded, releaseFilterMatch[2], ">")
+        ) {
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} due to inferred added outside release range`,
+            {quiet: true},
+          );
+        }
+        if (typeof inferredStatement.version_removed === "string") {
+          const inferredRemoved = inferredStatement.version_removed.replace(
+            /(([\d.]+)> )?≤/,
+            "",
+          );
+          if (
+            compareVersions(inferredRemoved, releaseFilterMatch[1], "<") ||
+            compareVersions(inferredRemoved, releaseFilterMatch[2], ">")
+          ) {
+            return reason(
+              ({browser, path}) =>
+                `${path} skipped for ${browser} due to inferred removed outside release range`,
+              {quiet: true},
+            );
+          }
+        }
+      });
+    }
+    return skip("inferredReleaseNotEqualFilter", ({
+      inferredStatements: [inferredStatement],
+    }) => {
+      if (releaseFilter !== inferredStatement.version_added) {
+        return reason(
+          ({browser, path}) =>
+            `${path} skipped for ${browser} inferred added version does not exactly match release filter`,
+          {quiet: true},
+        );
+      } else if (
+        inferredStatement.version_removed &&
+        releaseFilter !== inferredStatement.version_removed
+      ) {
+        return reason(
+          ({browser, path}) =>
+            `${path} skipped for ${browser} inferred removed version does not exactly match release filter`,
+          {quiet: true},
+        );
+      }
+    });
+  }
+  return passthrough;
+};
+
+const clearNonExact = (exactOnly: boolean) =>
+  exactOnly
+    ? provideStatements("exactOnly", ({statements}) => {
+        if (
+          statements.every(
+            (statement) =>
               (typeof statement.version_added === "string" &&
                 statement.version_added.includes("≤")) ||
               (typeof statement.version_removed === "string" &&
-                statement.version_removed.includes("≤"))
-            ) {
-              return;
-            }
-          }
-        }
-
-        support[browser] = statements.length === 1 ? statements[0] : statements;
-        modified = true;
-      };
-
-      let allStatements =
-        (support[browser] as InternalSupportStatement) === "mirror"
-          ? mirror(browser, originalSupport)
-          : // Although non-mirrored support data could be modified in-place,
-            // working with a cloned version forces the subsequent code to
-            // explicitly assign it back to the originating data structure.
-            // This reduces the likelihood of inconsistencies in the handling
-            // of mirrored and non-mirrored support data.
-            clone(support[browser] || null);
-
-      if (!allStatements) {
-        allStatements = [];
-      } else if (!Array.isArray(allStatements)) {
-        allStatements = [allStatements];
-      }
-
-      // Filter to the statements representing the feature being enabled by
-      // default under the default name and no flags.
-      const defaultStatements = allStatements.filter((statement) => {
-        if ("flags" in statement) {
-          return false;
-        }
-        if ("prefix" in statement || "alternative_name" in statement) {
-          // TODO: map the results for aliases to these statements.
-          return false;
-        }
-        return true;
-      });
-
-      if (defaultStatements.length === 0) {
-        // Prepend |inferredStatement| to |allStatements|, since there were no
-        // relevant statements to begin with...
-        if (inferredStatement.version_added === false) {
-          // ... but not if the new statement just claims no support, since
-          // that is implicit in no statement.
-          continue;
-        }
-        // Remove flag data for features which are enabled by default.
-        //
-        // See https://github.com/mdn/browser-compat-data/pull/16637
-        const nonFlagStatements = allStatements.filter(
-          (statement) => !("flags" in statement),
-        );
-        persist([inferredStatement, ...nonFlagStatements]);
-
-        continue;
-      }
-
-      if (defaultStatements.length !== 1) {
-        // TODO: handle more complicated scenarios
-        logger.warn(
-          `${path} skipped for ${browser} due to multiple default statements`,
-        );
-        continue;
-      }
-
-      const simpleStatement = defaultStatements[0];
-
-      if (simpleStatement.version_removed) {
-        // TODO: handle updating existing added+removed entries.
-        logger.warn(
-          `${path} skipped for ${browser} due to added+removed statement`,
-        );
-        continue;
-      }
-
-      // If we infer no support but BCD currently has a version number, check to make sure
-      // our data is not older than BCD (ex. BCD says 79 but we have results for 40-78)
-      if (
-        inferredStatement.version_added === false &&
-        typeof simpleStatement.version_added === "string"
-      ) {
-        let latestNonNullVersion = "";
-
-        for (const [version, result] of Array.from(
-          versionMap.entries(),
-        ).reverse()) {
-          if (result === null) {
-            // Ignore null values
-            continue;
-          }
-
-          if (
-            !latestNonNullVersion ||
-            compareVersions(version, latestNonNullVersion, ">")
-          ) {
-            latestNonNullVersion = version;
-          }
-        }
-
-        if (
-          simpleStatement.version_added === "preview" ||
-          compareVersions(
-            latestNonNullVersion,
-            simpleStatement.version_added.replace("≤", ""),
-            "<",
+                statement.version_removed.includes("≤")),
           )
         ) {
-          logger.warn(
-            `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
-          );
-          continue;
+          return [
+            // Overwrite the current statements
+            undefined,
+            reason(
+              ({path, browser}) =>
+                `${path} skipped for ${browser} because exact only filter is set`,
+            ),
+          ];
         }
-      }
+      })
+    : passthrough;
 
+const persistNonDefault = provideStatements(
+  "nonDefault",
+  ({
+    inferredStatements: [inferredStatement],
+    allStatements,
+    defaultStatements,
+  }) => {
+    if (defaultStatements.length === 0) {
+      return [
+        [
+          inferredStatement,
+          ...allStatements.filter((statement) => !("flags" in statement)),
+        ],
+        reason(
+          ({path, browser}) =>
+            `${path} applied for ${browser} because there is no default statement`,
+          {skip: true},
+        ),
+      ];
+    }
+  },
+);
+
+const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
+  shared: {versionMap},
+  defaultStatements: [simpleStatement],
+  inferredStatements: [inferredStatement],
+}) => {
+  if (
+    inferredStatement.version_added === false &&
+    typeof simpleStatement.version_added === "string"
+  ) {
+    const latestNonNullVersion = Array.from(versionMap.entries())
+      .filter(([, result]) => result !== null)
+      .reduceRight(
+        (latest, [version]) =>
+          !latest || compareVersions(version, latest, ">") ? version : latest,
+        "",
+      );
+    if (
+      simpleStatement.version_added === "preview" ||
+      compareVersions(
+        latestNonNullVersion,
+        simpleStatement.version_added.replace("≤", ""),
+        "<",
+      )
+    ) {
+      return reason(
+        ({path, browser}) =>
+          `${path} skipped for ${browser}; BCD says support was added in a version newer than there are results for`,
+      );
+    }
+  }
+});
+
+const persistInferredRange = provideStatements(
+  "inferredRange",
+  ({
+    inferredStatements: [inferredStatement],
+    defaultStatements: [simpleStatement],
+    allStatements,
+  }) => {
+    if (
+      typeof simpleStatement.version_added === "string" &&
+      typeof inferredStatement.version_added === "string" &&
+      inferredStatement.version_added.includes("≤")
+    ) {
+      const {lower, upper} = splitRange(inferredStatement.version_added);
+      const simpleAdded = simpleStatement.version_added.replace("≤", "");
       if (
+        simpleStatement.version_added === "preview" ||
+        compareVersions(simpleAdded, lower, "<=") ||
+        compareVersions(simpleAdded, upper, ">")
+      ) {
+        simpleStatement.version_added = inferredStatement.version_added;
+        return [
+          allStatements,
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} inferred range in place of preview, lower version than range or higher version than range`,
+            {skip: false},
+          ),
+        ];
+      }
+    }
+  },
+);
+
+const persistAddedOverPartial = provideStatements(
+  "addedOverPartial",
+  ({
+    defaultStatements: [simpleStatement],
+    inferredStatements: [inferredStatement],
+  }) => {
+    if (
+      !(
         typeof simpleStatement.version_added === "string" &&
         typeof inferredStatement.version_added === "string" &&
         inferredStatement.version_added.includes("≤")
+      ) &&
+      !(
+        typeof simpleStatement.version_added === "string" &&
+        inferredStatement.version_added === true
+      ) &&
+      simpleStatement.version_added !== inferredStatement.version_added
+    ) {
+      // When a "mirrored" statement will be replaced with a statement
+      // documenting lack of support, notes describing partial implementation
+      // status are no longer relevant.
+      if (
+        !inferredStatement.version_added &&
+        simpleStatement.partial_implementation
       ) {
-        const {lower, upper} = splitRange(inferredStatement.version_added);
-        const simpleAdded = simpleStatement.version_added.replace("≤", "");
-        if (
-          simpleStatement.version_added === "preview" ||
-          compareVersions(simpleAdded, lower, "<=") ||
-          compareVersions(simpleAdded, upper, ">")
-        ) {
-          simpleStatement.version_added = inferredStatement.version_added;
-          persist(allStatements);
-        }
-      } else if (
-        !(
-          typeof simpleStatement.version_added === "string" &&
-          inferredStatement.version_added === true
-        ) &&
-        simpleStatement.version_added !== inferredStatement.version_added
-      ) {
-        // When a "mirrored" statement will be replaced with a statement
-        // documenting lack of support, notes describing partial implementation
-        // status are no longer relevant.
-        if (
-          !inferredStatement.version_added &&
-          simpleStatement.partial_implementation
-        ) {
-          persist([{version_added: false}]);
-
-          // Positive test results do not conclusively indicate that a partial
-          // implementation has been completed.
-        } else if (!simpleStatement.partial_implementation) {
-          simpleStatement.version_added = inferredStatement.version_added;
-          persist(allStatements);
-        }
-      }
-
-      if (typeof inferredStatement.version_removed === "string") {
-        simpleStatement.version_removed = inferredStatement.version_removed;
-        persist(allStatements);
+        return [
+          [{version_added: false}],
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} with false in place of partial implementation`,
+            {skip: false},
+          ),
+        ];
       }
     }
-  }
+  },
+);
 
-  return modified;
+const persistAddedOver = provideStatements(
+  "addedOver",
+  ({
+    defaultStatements: [simpleStatement],
+    inferredStatements: [inferredStatement],
+    allStatements,
+  }) => {
+    if (
+      !(
+        typeof simpleStatement.version_added === "string" &&
+        typeof inferredStatement.version_added === "string" &&
+        inferredStatement.version_added.includes("≤")
+      ) &&
+      !(
+        typeof simpleStatement.version_added === "string" &&
+        inferredStatement.version_added === true
+      ) &&
+      simpleStatement.version_added !== inferredStatement.version_added &&
+      !(
+        !inferredStatement.version_added &&
+        simpleStatement.partial_implementation
+      )
+    ) {
+      // Positive test results do not conclusively indicate that a partial
+      // implementation has been completed.
+      if (!simpleStatement.partial_implementation) {
+        simpleStatement.version_added = inferredStatement.version_added;
+        return [
+          allStatements,
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} inferred ${inferredStatement.version_added} in place of not partial implementation`,
+            {skip: false},
+          ),
+        ];
+      }
+    }
+  },
+);
+
+const persistRemoved = provideStatements(
+  "removed",
+  ({
+    inferredStatements: [inferredStatement],
+    defaultStatements: [simpleStatement],
+    allStatements,
+  }) => {
+    if (typeof inferredStatement.version_removed === "string") {
+      simpleStatement.version_removed = inferredStatement.version_removed;
+      return [
+        allStatements,
+        reason(
+          ({browser, path}) =>
+            `${path} applied for ${browser} replacing removed with ${inferredStatement.version_removed}`,
+          {skip: false},
+        ),
+      ];
+    }
+  },
+);
+
+const provideAllStatements = provide(
+  "allStatements",
+  ({browser, shared: {unmodifiedSupport, support}}) => {
+    const allStatements =
+      (support[browser] as InternalSupportStatement) === "mirror"
+        ? mirror(browser, unmodifiedSupport)
+        : // Although non-mirrored support data could be modified in-place,
+          // working with a cloned version forces the subsequent code to
+          // explicitly assign it back to the originating data structure.
+          // This reduces the likelihood of inconsistencies in the handling
+          // of mirrored and non-mirrored support data.
+          clone(support[browser] || null);
+
+    if (!allStatements) {
+      return [];
+    } else if (!Array.isArray(allStatements)) {
+      return [allStatements];
+    }
+    return allStatements;
+  },
+);
+
+const provideDefaultStatements = provide(
+  "defaultStatements",
+  ({allStatements}) => {
+    // Filter to the statements representing the feature being enabled by
+    // default under the default name and no flags.
+    return allStatements.filter((statement) => {
+      if ("flags" in statement) {
+        return false;
+      }
+      if ("prefix" in statement || "alternative_name" in statement) {
+        // TODO: map the results for aliases to these statements.
+        return false;
+      }
+      return true;
+    });
+  },
+);
+
+const pickLog = <T extends UpdateLog>({
+  allStatements,
+  browser,
+  defaultStatements,
+  inferredStatements,
+  path,
+  reason,
+  statements,
+}: T): UpdateLog => {
+  return {
+    allStatements,
+    browser,
+    defaultStatements,
+    inferredStatements,
+    path,
+    reason,
+    statements,
+  };
+};
+
+export const walkEntries = function* (
+  prefix: string,
+  entry: Identifier,
+): Generator<[string, Identifier]> {
+  for (const key in entry) {
+    if (key === "__compat") {
+      yield [prefix.slice(0, -1), entry];
+    } else if (typeof entry[key] === "object") {
+      yield* walkEntries(`${prefix}${key}.`, entry[key]);
+    }
+  }
+};
+
+export const update = (
+  bcd: Identifier,
+  supportMatrix: SupportMatrix,
+  options: any,
+): boolean => {
+  const changes: UpdateLog[] = [];
+  for (const state of compose(
+    expand("entry", function* () {
+      for (const [path, entry] of walkEntries("", bcd)) {
+        yield {path, shared: {bcd, entry}};
+      }
+    }),
+    skipPathMismatch(options.path),
+    provideShared("browserMap", ({path, shared: {browserMap}}) => {
+      return supportMatrix.get(path) ?? browserMap;
+    }),
+    skip("noBrowserMap", ({shared: {browserMap}}) => {
+      if (!browserMap) {
+        return reason(
+          ({path}) => `${path} skipped due to no results in reports`,
+          {quiet: true},
+        );
+      }
+    }),
+    provideShared(
+      "support",
+      ({shared: {entry, support}}) => entry.__compat?.support ?? support,
+    ),
+    provideShared("unmodifiedSupport", ({shared: {support}}) => clone(support)),
+    expand("browser", function* ({shared: {browserMap}}) {
+      for (const [browser, versionMap] of browserMap.entries()) {
+        yield {browser, shared: {versionMap}};
+      }
+    }),
+    skipBrowserMismatch(options.browser),
+    provide("inferredStatements", ({shared: {versionMap}}) =>
+      inferSupportStatements(versionMap),
+    ),
+    skip("tooManyInferredStatements", ({inferredStatements}) => {
+      if (inferredStatements.length !== 1) {
+        return reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser} due to multiple inferred statements`,
+        );
+      }
+    }),
+    skipReleaseMismatch(options.release),
+    provideAllStatements,
+    provideDefaultStatements,
+    skip("zeroDefaultStatements", ({
+      inferredStatements: [inferredStatement],
+      defaultStatements,
+    }) => {
+      if (
+        defaultStatements.length === 0 &&
+        inferredStatement.version_added === false
+      ) {
+        return reason(
+          ({browser, path}) =>
+            `${path} skipped for ${browser} has no default statement or inferred statement`,
+          {quiet: true},
+        );
+      }
+    }),
+    persistNonDefault,
+    skip("tooManyDefaultStatements", ({defaultStatements}) => {
+      if (defaultStatements.length !== 1) {
+        return reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser} due to multiple default statements`,
+        );
+      }
+    }),
+    skip("defaultRemoved", ({defaultStatements: [simpleStatement]}) => {
+      if (simpleStatement.version_removed) {
+        return reason(
+          ({path, browser}) =>
+            `${path} skipped for ${browser} due to added+removed statement`,
+        );
+      }
+    }),
+    skipCurrentBeforeSupport,
+    persistInferredRange,
+    persistAddedOverPartial,
+    persistAddedOver,
+    persistRemoved,
+    clearNonExact(options.exactOnly),
+    skip("noStatement", ({statements}) => {
+      if (!statements?.length) {
+        return reason(
+          ({browser, path}) =>
+            `${path} skipped for ${browser}: no reason identified`,
+          {
+            quiet: true,
+          },
+        );
+      }
+    }),
+  )()) {
+    changes.push(pickLog(state));
+    if (state.statements) {
+      state.shared.support[state.browser] =
+        state.statements.length === 1 ? state.statements[0] : state.statements;
+    }
+    if (state.reason && !state.reason.quiet) {
+      logger.warn(state.reason.message);
+    }
+  }
+  // TODO: Serialize changes to a file
+  return changes.some(({statements}) => Boolean(statements));
 };
 
 // |paths| can be files or directories. Returns an object mapping
