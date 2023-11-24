@@ -4829,6 +4829,57 @@ css:
       'env(--foo)');
     aspect-ratio: |-
       return bcd.testCSSProperty('aspect-ratio', '16 / 9');
+  selectors:
+    next-sibling: |-
+      return CSS.supports('selector(div + span)');
+    child: |-
+      return CSS.supports('selector(div > span)');
+    column: |-
+      return CSS.supports('selector(div || span)');
+    subsequent-sibling: |-
+      return CSS.supports('selector(div ~ span)');
+    cue: |-
+      return CSS.supports('selector(video::cue)');
+    highlight: |-
+      return CSS.supports('selector(::highlight(rainbow-color-1))');
+    part: |-
+      return CSS.supports('selector(::part(tab))');
+    slotted: |-
+      return CSS.supports('selector(::slotted(*))');
+    view-transition-group: return CSS.supports('selector(::view-transition-group(*))');
+    view-transition-image-pair: return CSS.supports('selector(::view-transition-image-pair(*))');
+    view-transition-new: return CSS.supports('selector(::view-transition-new(*))');
+    view-transition-old: return CSS.supports('selector(::view-transition-old(*))');
+    active-view-transition: return CSS.supports('selector(:root:active-view-transition(*))');
+    dir: return CSS.supports('selector(:dir(ltr))');
+    has: |-
+      return CSS.supports('selector(:has(+ *))');
+    host: |-
+      return CSS.supports('selector(:host(h1))');
+    host-context: |-
+      return CSS.supports('selector(:host-context(h1))');
+    is: |-
+      return CSS.supports('selector(:is(h1))');
+    lang: |-
+      return CSS.supports('selector(:lang(en-US))');
+    not: |-
+      return CSS.supports('selector(:not(strong))');
+    nth-child: |-
+      return CSS.supports('selector(:nth-child(even)')
+    nth-last-child: |-
+      return CSS.supports('selector(:nth-last-child(even)')
+    nth-last-of-type: |-
+      return CSS.supports('selector(:nth-last-of-type(even)')
+    nth-of-type: |-
+      return CSS.supports('selector(:nth-of-type(even)')
+    where: |-
+      return CSS.supports('selector(:where(ol, ul))');
+    first: |-
+      return {result: null, message: 'Testing :first is not yet implemented'};
+    left: |-
+      return {result: null, message: 'Testing :left is not yet implemented'};
+    right: |-
+      return {result: null, message: 'Testing :right is not yet implemented'};
 
 # Features defined here also need to be in custom-js.json.
 javascript:

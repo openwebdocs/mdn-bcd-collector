@@ -10,6 +10,7 @@ import {getCustomTest, compileTest} from "./common.js";
 
 const build = async (specCSS, customCSS) => {
   const properties = new Map();
+  const selectors = new Map();
 
   for (const data of Object.values(specCSS) as any[]) {
     if (data.spec.url == "https://compat.spec.whatwg.org/") {
@@ -23,6 +24,10 @@ const build = async (specCSS, customCSS) => {
         continue;
       }
       properties.set(prop.name, new Map());
+    }
+
+    for (const selector of data.selectors) {
+      selectors.set(selector.name, new Map());
     }
   }
 
@@ -85,6 +90,25 @@ const build = async (specCSS, customCSS) => {
         exposure: ["Window"],
       });
     }
+  }
+
+  for (const name of Array.from(selectors.keys()).sort()) {
+    const bcdName = name
+      .replaceAll(":", "")
+      .replace("()", "")
+      .replace("+", "next-sibling")
+      .replace("~", "subsequent-sibling")
+      .replace(">", "child")
+      .replace("&", "nesting")
+      .replace("||", "column");
+
+    const ident = `css.selectors.${bcdName}`;
+    const customTest = await getCustomTest(ident, "css.selectors", true);
+
+    tests[ident] = compileTest({
+      raw: {code: customTest.test || `bcd.testCSSSelector("${name}")`},
+      exposure: ["Window"],
+    });
   }
 
   return tests;

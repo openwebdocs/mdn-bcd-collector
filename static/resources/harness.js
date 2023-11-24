@@ -568,6 +568,22 @@
   }
 
   /**
+   * Test a CSS selector for support
+   *
+   * name (string): The CSS selector name
+   *
+   * returns (TestResult): Whether the selector is supported; if `value` is present,
+   *   whether that value is supported with the selector
+   */
+  function testCSSSelector(name) {
+    // Use CSS.supports if available
+    if ("CSS" in window && window.CSS.supports) {
+      return window.CSS.supports("selector(" + name + ")");
+    }
+    return { result: null, message: "Detection methods are not supported" };
+  }
+
+  /**
    * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
    *
    * feature (string): The web assembly feature name as defined in `wasm-feature-detect`
@@ -1752,6 +1768,7 @@
     testObjectName: testObjectName,
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
+    testCSSSelector: testCSSSelector,
     testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,
