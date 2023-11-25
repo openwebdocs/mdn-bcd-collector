@@ -120,14 +120,6 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   // Get all possible scopes
   const scopes = new Set();
   for (const dfn of ast) {
-    // Special case RTCIdentityProviderGlobalScope since it doesn't use the
-    // Global extended attribute correctly:
-    // https://github.com/w3c/webrtc-identity/pull/36
-    if ("name" in dfn && dfn.name === "RTCIdentityProviderGlobalScope") {
-      scopes.add("RTCIdentityProvider");
-      continue;
-    }
-
     const attr = getExtAttrSet(dfn, "Global");
     if (attr) {
       for (const s of attr) {
@@ -309,14 +301,6 @@ const getExposureSet = (node, scopes): Set<Exposure> => {
     for (const value of scopes) {
       exposure.add(value);
     }
-  }
-
-  // Special case RTCIdentityProviderGlobalScope since it doesn't use the
-  // Exposed extended attribute correctly:
-  // https://github.com/w3c/webrtc-identity/pull/36
-  if (exposure.has("RTCIdentityProviderGlobalScope")) {
-    exposure.delete("RTCIdentityProviderGlobalScope");
-    exposure.add("RTCIdentityProvider");
   }
 
   // Some specs use "DedicatedWorker" for the exposure while others use
