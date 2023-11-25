@@ -4831,49 +4831,55 @@ css:
       return bcd.testCSSProperty('aspect-ratio', '16 / 9');
   selectors:
     next-sibling: |-
-      return CSS.supports('selector(div + span)');
+      return bcd.testCSSSelector('div + span');
     child: |-
-      return CSS.supports('selector(div > span)');
+      return bcd.testCSSSelector('div > span');
     column: |-
-      return CSS.supports('selector(div || span)');
+      return bcd.testCSSSelector('div || span');
     subsequent-sibling: |-
-      return CSS.supports('selector(div ~ span)');
+      return bcd.testCSSSelector('div ~ span');
     cue: |-
-      return CSS.supports('selector(video::cue)');
+      return bcd.testCSSSelector('video::cue');
     highlight: |-
-      return CSS.supports('selector(::highlight(rainbow-color-1))');
+      return bcd.testCSSSelector('::highlight(rainbow-color-1)');
     part: |-
-      return CSS.supports('selector(::part(tab))');
+      return bcd.testCSSSelector('::part(tab)');
     slotted: |-
-      return CSS.supports('selector(::slotted(*))');
-    view-transition-group: return CSS.supports('selector(::view-transition-group(*))');
-    view-transition-image-pair: return CSS.supports('selector(::view-transition-image-pair(*))');
-    view-transition-new: return CSS.supports('selector(::view-transition-new(*))');
-    view-transition-old: return CSS.supports('selector(::view-transition-old(*))');
-    active-view-transition: return CSS.supports('selector(:root:active-view-transition(*))');
-    dir: return CSS.supports('selector(:dir(ltr))');
+      return bcd.testCSSSelector('::slotted(*)');
+    view-transition-group: |-
+      return bcd.testCSSSelector('::view-transition-group(*)');
+    view-transition-image-pair: |-
+      return bcd.testCSSSelector('::view-transition-image-pair(*)');
+    view-transition-new: |-
+      return bcd.testCSSSelector('::view-transition-new(*)');
+    view-transition-old: |-
+      return bcd.testCSSSelector('::view-transition-old(*)');
+    active-view-transition: |-
+      return bcd.testCSSSelector(':root:active-view-transition(*)');
+    dir: |-
+      return bcd.testCSSSelector(':dir(ltr)');
     has: |-
-      return CSS.supports('selector(:has(+ *))');
+      return bcd.testCSSSelector(':has(+ *)');
     host: |-
-      return CSS.supports('selector(:host(h1))');
+      return bcd.testCSSSelector(':host(h1)');
     host-context: |-
-      return CSS.supports('selector(:host-context(h1))');
+      return bcd.testCSSSelector(':host-context(h1)');
     is: |-
-      return CSS.supports('selector(:is(h1))');
+      return bcd.testCSSSelector(':is(h1)');
     lang: |-
-      return CSS.supports('selector(:lang(en-US))');
+      return bcd.testCSSSelector(':lang(en-US)');
     not: |-
-      return CSS.supports('selector(:not(strong))');
+      return bcd.testCSSSelector(':not(strong)');
     nth-child: |-
-      return CSS.supports('selector(:nth-child(even)')
+      return bcd.testCSSSelector(':nth-child(even)');
     nth-last-child: |-
-      return CSS.supports('selector(:nth-last-child(even)')
+      return bcd.testCSSSelector(':nth-last-child(even)');
     nth-last-of-type: |-
-      return CSS.supports('selector(:nth-last-of-type(even)')
+      return bcd.testCSSSelector(':nth-last-of-type(even)');
     nth-of-type: |-
-      return CSS.supports('selector(:nth-of-type(even)')
+      return bcd.testCSSSelector(':nth-of-type(even)');
     where: |-
-      return CSS.supports('selector(:where(ol, ul))');
+      return bcd.testCSSSelector(':where(ol, ul)');
     first: |-
       return {result: null, message: 'Testing :first is not yet implemented'};
     left: |-

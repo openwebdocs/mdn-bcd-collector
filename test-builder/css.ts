@@ -92,21 +92,21 @@ const build = async (specCSS, customCSS) => {
     }
   }
 
-  for (const name of Array.from(selectors.keys()).sort()) {
-    const bcdName = name
+  for (const selectorSyntax of Array.from(selectors.keys()).sort()) {
+    const bcdName = selectorSyntax
       .replaceAll(":", "")
-      .replace("()", "")
-      .replace("+", "next-sibling")
-      .replace("~", "subsequent-sibling")
-      .replace(">", "child")
-      .replace("&", "nesting")
-      .replace("||", "column");
+      .replaceAll("()", "")
+      .replaceAll("+", "next-sibling")
+      .replaceAll("~", "subsequent-sibling")
+      .replaceAll(">", "child")
+      .replaceAll("&", "nesting")
+      .replaceAll("||", "column");
 
     const ident = `css.selectors.${bcdName}`;
     const customTest = await getCustomTest(ident, "css.selectors", true);
 
     tests[ident] = compileTest({
-      raw: {code: customTest.test || `bcd.testCSSSelector("${name}")`},
+      raw: {code: customTest.test || `bcd.testCSSSelector("${selectorSyntax}")`},
       exposure: ["Window"],
     });
   }

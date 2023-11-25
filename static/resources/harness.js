@@ -570,15 +570,14 @@
   /**
    * Test a CSS selector for support
    *
-   * name (string): The CSS selector name
+   * syntax (string): The CSS selector syntax
    *
-   * returns (TestResult): Whether the selector is supported; if `value` is present,
-   *   whether that value is supported with the selector
+   * returns (TestResult): Whether the selector is supported
    */
-  function testCSSSelector(name) {
+  function testCSSSelector(syntax) {
     // Use CSS.supports if available
     if ("CSS" in window && window.CSS.supports) {
-      return window.CSS.supports("selector(" + name + ")");
+      return window.CSS.supports("selector(" + syntax + ")");
     }
     return { result: null, message: "Detection methods are not supported" };
   }
