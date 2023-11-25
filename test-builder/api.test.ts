@@ -469,6 +469,10 @@ describe("build (API)", () => {
           code: '"Foo" in self',
           exposure: ["Window"],
         },
+        "api.Foo.add_event": {
+          code: '"Foo" in self && "onadd" in Foo.prototype',
+          exposure: ["Window"],
+        },
       });
     });
 
