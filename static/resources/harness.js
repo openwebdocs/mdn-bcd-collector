@@ -1388,7 +1388,7 @@
       // Load script
       var script = document.createElement("script");
       script.src =
-        "//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js";
+        "//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
       script.crossOrigin = true;
 
       if ("onload" in script) {
