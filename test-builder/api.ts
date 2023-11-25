@@ -148,7 +148,10 @@ const flattenMembers = (iface) => {
         !(
           (iface.name === "Document" &&
             ["charset", "inputEncoding"].includes(member.name)) ||
-          (iface.name === "Window" && member.name === "clientInformation") ||
+          (iface.name === "Window" &&
+            ["clientInformation", "pageXOffset", "pageYOffset"].includes(
+              member.name,
+            )) ||
           (iface.name === "Element" && member.name === "webkitMatchesSelector")
         ),
     );
