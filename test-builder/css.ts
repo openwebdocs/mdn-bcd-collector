@@ -106,7 +106,9 @@ const build = async (specCSS, customCSS) => {
     const customTest = await getCustomTest(ident, "css.selectors", true);
 
     tests[ident] = compileTest({
-      raw: {code: customTest.test || `bcd.testCSSSelector("${selectorSyntax}")`},
+      raw: {
+        code: customTest.test || `bcd.testCSSSelector("${selectorSyntax}")`,
+      },
       exposure: ["Window"],
     });
   }
