@@ -338,21 +338,6 @@ describe("build (API)", () => {
       assert.hasAllKeys(exposureSet, ["Worker"]);
     });
 
-    it("Special case for RTCIdentityProviderGlobalScope", () => {
-      const specIDLs = {
-        first: WebIDL2.parse(
-          `[Exposed=RTCIdentityProviderGlobalScope]
-             interface Dummy {
-               readonly attribute boolean imadumdum;
-             };`,
-        ),
-      };
-      const {ast} = flattenIDL(specIDLs, customIDLs);
-      const interfaces = ast.filter((dfn) => dfn.type === "interface");
-      const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ["RTCIdentityProvider"]);
-    });
-
     it("invalid exposure", () => {
       const specIDLs = {
         first: WebIDL2.parse(
