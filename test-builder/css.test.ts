@@ -22,6 +22,7 @@ describe("build (CSS)", () => {
           url: "",
         },
         properties: [{name: "font-family"}, {name: "font-weight"}],
+        selectors: [],
       },
       "css-grid": {
         spec: {
@@ -29,6 +30,15 @@ describe("build (CSS)", () => {
           url: "",
         },
         properties: [{name: "grid"}],
+        selectors: [],
+      },
+      selectors: {
+        spec: {
+          title: "CSS Selectors Fake",
+          url: "",
+        },
+        properties: [],
+        selectors: [{name: "+"}, {name: "nth-of-type()"}],
       },
     };
 
@@ -73,6 +83,14 @@ describe("build (CSS)", () => {
         code: 'bcd.testCSSProperty("zoom")',
         exposure: ["Window"],
       },
+      "css.selectors.next-sibling": {
+        code: 'bcd.testCSSSelector("+")',
+        exposure: ["Window"],
+      },
+      "css.selectors.nth-of-type": {
+        code: 'bcd.testCSSSelector("nth-of-type()")',
+        exposure: ["Window"],
+      },
     });
   });
 
@@ -84,6 +102,7 @@ describe("build (CSS)", () => {
           url: "",
         },
         properties: [{name: "foo"}],
+        selectors: [],
       },
     };
 
@@ -106,6 +125,7 @@ describe("build (CSS)", () => {
           url: "",
         },
         properties: [{name: "foo"}],
+        selectors: [],
       },
     };
 
@@ -123,6 +143,7 @@ describe("build (CSS)", () => {
           url: "",
         },
         properties: [{name: "bar"}],
+        selectors: [],
       },
     };
 
