@@ -212,6 +212,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 8px;
+  padding-top: 1.5em;
 
   // Handle notch / dynamic island
   padding-left: max(8px, env(safe-area-inset-left));
@@ -303,6 +304,10 @@ input {
 }
 
 nav#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: block;
   @include gradient(
     180deg,
@@ -310,7 +315,6 @@ nav#navbar {
     "background-3" 75%,
     transparent 100%
   );
-  margin: -8px;
   margin-bottom: 1em;
   padding: 0.5em;
   padding-bottom: 0.75em;
