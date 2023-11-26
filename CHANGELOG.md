@@ -1,5 +1,371 @@
 # mdn-bcd-collector Changelog
 
+## v10.5.0
+
+Released November 26, 2023
+
+### Notable Changes
+
+The collector now collects support data for CSS selectors, furthering the project's feature coverage!
+
+### Test Changes
+
+#### Added
+
+- api.console.assert_static
+- api.console.clear_static
+- api.console.count_static
+- api.console.countReset_static
+- api.console.debug_static
+- api.console.dir_static
+- api.console.dirxml_static
+- api.console.error_static
+- api.console.exception_static
+- api.console.group_static
+- api.console.groupCollapsed_static
+- api.console.groupEnd_static
+- api.console.info_static
+- api.console.log_static
+- api.console.profile_static
+- api.console.profileEnd_static
+- api.console.table_static
+- api.console.time_static
+- api.console.timeEnd_static
+- api.console.timeLog_static
+- api.console.timeStamp_static
+- api.console.trace_static
+- api.console.warn_static
+- api.HTMLSelectElement.showPicker
+- api.MediaKeys.getStatusForPolicy
+- api.Request.targetAddressSpace
+- css.properties.background-tbd
+- css.properties.inset-area
+- css.selectors.nesting
+- css.selectors.next-sibling
+- css.selectors.after
+- css.selectors.backdrop
+- css.selectors.before
+- css.selectors.cue
+- css.selectors.cue-region
+- css.selectors.file-selector-button
+- css.selectors.first-letter
+- css.selectors.first-line
+- css.selectors.grammar-error
+- css.selectors.highlight
+- css.selectors.marker
+- css.selectors.nth-fragment
+- css.selectors.part
+- css.selectors.placeholder
+- css.selectors.selection
+- css.selectors.slotted
+- css.selectors.spelling-error
+- css.selectors.target-text
+- css.selectors.view-transition
+- css.selectors.view-transition-group
+- css.selectors.view-transition-image-pair
+- css.selectors.view-transition-new
+- css.selectors.view-transition-old
+- css.selectors.active
+- css.selectors.active-view-transition
+- css.selectors.any-link
+- css.selectors.autofill
+- css.selectors.blank
+- css.selectors.buffering
+- css.selectors.checked
+- css.selectors.closed
+- css.selectors.current
+- css.selectors.default
+- css.selectors.defined
+- css.selectors.dir
+- css.selectors.disabled
+- css.selectors.empty
+- css.selectors.enabled
+- css.selectors.first
+- css.selectors.first-child
+- css.selectors.first-of-page
+- css.selectors.first-of-type
+- css.selectors.focus
+- css.selectors.focus-visible
+- css.selectors.focus-within
+- css.selectors.fullscreen
+- css.selectors.future
+- css.selectors.has
+- css.selectors.host
+- css.selectors.host-context
+- css.selectors.hover
+- css.selectors.in-range
+- css.selectors.indeterminate
+- css.selectors.invalid
+- css.selectors.is
+- css.selectors.lang
+- css.selectors.last-child
+- css.selectors.last-of-page
+- css.selectors.last-of-type
+- css.selectors.left
+- css.selectors.link
+- css.selectors.local-link
+- css.selectors.matches
+- css.selectors.modal
+- css.selectors.muted
+- css.selectors.not
+- css.selectors.nth
+- css.selectors.nth-child
+- css.selectors.nth-col
+- css.selectors.nth-last-child
+- css.selectors.nth-last-col
+- css.selectors.nth-last-of-type
+- css.selectors.nth-of-page
+- css.selectors.nth-of-type
+- css.selectors.only-child
+- css.selectors.only-of-type
+- css.selectors.open
+- css.selectors.optional
+- css.selectors.out-of-range
+- css.selectors.past
+- css.selectors.paused
+- css.selectors.picture-in-picture
+- css.selectors.placeholder-shown
+- css.selectors.playing
+- css.selectors.read-only
+- css.selectors.read-write
+- css.selectors.required
+- css.selectors.right
+- css.selectors.root
+- css.selectors.scope
+- css.selectors.seeking
+- css.selectors.snapped
+- css.selectors.snapped-block
+- css.selectors.snapped-inline
+- css.selectors.snapped-x
+- css.selectors.snapped-y
+- css.selectors.stalled
+- css.selectors.start-of-page
+- css.selectors.target
+- css.selectors.target-within
+- css.selectors.user-invalid
+- css.selectors.user-valid
+- css.selectors.valid
+- css.selectors.visited
+- css.selectors.volume-locked
+- css.selectors.where
+- css.selectors.child
+- css.selectors.column
+- css.selectors.subsequent-sibling
+
+#### Removed
+
+- api.console.assert
+- api.console.clear
+- api.console.count
+- api.console.countReset
+- api.console.debug
+- api.console.dir
+- api.console.dirxml
+- api.console.error
+- api.console.exception
+- api.console.group
+- api.console.groupCollapsed
+- api.console.groupEnd
+- api.console.info
+- api.console.log
+- api.console.profile
+- api.console.profileEnd
+- api.console.table
+- api.console.time
+- api.console.timeEnd
+- api.console.timeLog
+- api.console.timeStamp
+- api.console.trace
+- api.console.warn
+- api.GPUCommandEncoder.writeTimestamp
+- api.Window.pageXOffset
+- api.Window.pageYOffset
+- css.properties.grid-column-gap
+- css.properties.grid-gap
+- css.properties.grid-row-gap
+- css.properties.text-underline-position.above_below
+- css.properties.text-underline-position.left_right
+- html.elements.acronym
+- html.elements.applet
+- html.elements.basefont
+- html.elements.bgsound
+- html.elements.big
+- html.elements.blink
+- html.elements.center
+- html.elements.dir
+- html.elements.font
+- html.elements.frame
+- html.elements.frameset
+- html.elements.isindex
+- html.elements.keygen
+- html.elements.listing
+- html.elements.marquee
+- html.elements.menuitem
+- html.elements.multicol
+- html.elements.nextid
+- html.elements.nobr
+- html.elements.noembed
+- html.elements.noframes
+- html.elements.param
+- html.elements.plaintext
+- html.elements.rb
+- html.elements.rtc
+- html.elements.spacer
+- html.elements.strike
+- html.elements.tt
+- html.elements.xmp
+- javascript.builtins.Object.Object.new_required
+- javascript.builtins.Object.Object.constructor_without_parameters
+- javascript.builtins.Function.Function.new_required
+- javascript.builtins.Boolean.Boolean.new_required
+- javascript.builtins.Symbol.Symbol.constructor_without_parameters
+- javascript.builtins.Symbol.@@toStringTag
+- javascript.builtins.Error.Error.new_required
+- javascript.builtins.Error.message
+- javascript.builtins.Error.name
+- javascript.builtins.EvalError.EvalError.new_required
+- javascript.builtins.EvalError.message
+- javascript.builtins.EvalError.name
+- javascript.builtins.RangeError.RangeError.new_required
+- javascript.builtins.RangeError.message
+- javascript.builtins.RangeError.name
+- javascript.builtins.ReferenceError.ReferenceError.new_required
+- javascript.builtins.ReferenceError.message
+- javascript.builtins.ReferenceError.name
+- javascript.builtins.SyntaxError.SyntaxError.new_required
+- javascript.builtins.SyntaxError.message
+- javascript.builtins.SyntaxError.name
+- javascript.builtins.TypeError.TypeError.new_required
+- javascript.builtins.TypeError.message
+- javascript.builtins.TypeError.name
+- javascript.builtins.URIError.URIError.new_required
+- javascript.builtins.URIError.message
+- javascript.builtins.URIError.name
+- javascript.builtins.AggregateError.AggregateError.new_required
+- javascript.builtins.AggregateError.message
+- javascript.builtins.AggregateError.name
+- javascript.builtins.Number.Number.new_required
+- javascript.builtins.BigInt.@@toStringTag
+- javascript.builtins.Math.@@toStringTag
+- javascript.builtins.Date.Date.new_required
+- javascript.builtins.Date.Date.constructor_without_parameters
+- javascript.builtins.String.String.new_required
+- javascript.builtins.String.trimLeft
+- javascript.builtins.String.trimRight
+- javascript.builtins.RegExp.RegExp.new_required
+- javascript.builtins.Array.Array.new_required
+- javascript.builtins.Array.Array.constructor_without_parameters
+- javascript.builtins.TypedArray.TypedArray
+- javascript.builtins.TypedArray.@@toStringTag
+- javascript.builtins.Int8Array.BYTES_PER_ELEMENT
+- javascript.builtins.Uint8Array.BYTES_PER_ELEMENT
+- javascript.builtins.Uint8ClampedArray.BYTES_PER_ELEMENT
+- javascript.builtins.Int16Array.BYTES_PER_ELEMENT
+- javascript.builtins.Uint16Array.BYTES_PER_ELEMENT
+- javascript.builtins.Int32Array.BYTES_PER_ELEMENT
+- javascript.builtins.Uint32Array.BYTES_PER_ELEMENT
+- javascript.builtins.BigInt64Array.BigInt64Array.new_required
+- javascript.builtins.BigInt64Array.BigInt64Array.constructor_without_parameters
+- javascript.builtins.BigInt64Array.BYTES_PER_ELEMENT
+- javascript.builtins.BigUint64Array.BigUint64Array.new_required
+- javascript.builtins.BigUint64Array.BigUint64Array.constructor_without_parameters
+- javascript.builtins.BigUint64Array.BYTES_PER_ELEMENT
+- javascript.builtins.Float32Array.BYTES_PER_ELEMENT
+- javascript.builtins.Float64Array.BYTES_PER_ELEMENT
+- javascript.builtins.Map.Map.constructor_without_parameters
+- javascript.builtins.Map.@@toStringTag
+- javascript.builtins.Set.Set.constructor_without_parameters
+- javascript.builtins.Set.@@toStringTag
+- javascript.builtins.WeakMap.WeakMap.constructor_without_parameters
+- javascript.builtins.WeakMap.@@toStringTag
+- javascript.builtins.WeakSet.WeakSet.new_required
+- javascript.builtins.WeakSet.WeakSet.constructor_without_parameters
+- javascript.builtins.WeakSet.@@toStringTag
+- javascript.builtins.ArrayBuffer.@@toStringTag
+- javascript.builtins.SharedArrayBuffer.SharedArrayBuffer.new_required
+- javascript.builtins.SharedArrayBuffer.@@toStringTag
+- javascript.builtins.DataView.@@toStringTag
+- javascript.builtins.Atomics.@@toStringTag
+- javascript.builtins.Atomics.wake
+- javascript.builtins.JSON.@@toStringTag
+- javascript.builtins.WeakRef.WeakRef.new_required
+- javascript.builtins.WeakRef.@@toStringTag
+- javascript.builtins.FinalizationRegistry.FinalizationRegistry.new_required
+- javascript.builtins.FinalizationRegistry.@@toStringTag
+- javascript.builtins.Promise.Promise.new_required
+- javascript.builtins.Promise.@@toStringTag
+- javascript.builtins.GeneratorFunction.GeneratorFunction.new_required
+- javascript.builtins.GeneratorFunction.@@toStringTag
+- javascript.builtins.AsyncGeneratorFunction.AsyncGeneratorFunction.new_required
+- javascript.builtins.AsyncGeneratorFunction.@@toStringTag
+- javascript.builtins.Generator.@@toStringTag
+- javascript.builtins.AsyncGenerator.@@toStringTag
+- javascript.builtins.AsyncFunction.AsyncFunction.new_required
+- javascript.builtins.AsyncFunction.@@toStringTag
+- javascript.builtins.Reflect.@@toStringTag
+- javascript.builtins.Proxy.Proxy.new_required
+- javascript.builtins.InternalError.InternalError.new_required
+- javascript.builtins.Intl.@@toStringTag
+- javascript.builtins.Intl.Collator.Collator.new_required
+- javascript.builtins.Intl.DateTimeFormat.DateTimeFormat.new_required
+- javascript.builtins.Intl.DisplayNames.DisplayNames.new_required
+- javascript.builtins.Intl.DurationFormat.DurationFormat.new_required
+- javascript.builtins.Intl.ListFormat.ListFormat.new_required
+- javascript.builtins.Intl.Locale.Locale.new_required
+- javascript.builtins.Intl.Locale.calendars
+- javascript.builtins.Intl.Locale.collations
+- javascript.builtins.Intl.Locale.hourCycles
+- javascript.builtins.Intl.Locale.numberingSystems
+- javascript.builtins.Intl.Locale.textInfo
+- javascript.builtins.Intl.Locale.timeZones
+- javascript.builtins.Intl.Locale.weekInfo
+- javascript.builtins.Intl.NumberFormat.NumberFormat.new_required
+- javascript.builtins.Intl.PluralRules.PluralRules.new_required
+- javascript.builtins.Intl.RelativeTimeFormat.RelativeTimeFormat.new_required
+- javascript.builtins.Intl.Segmenter.Segmenter.new_required
+- javascript.builtins.Temporal.Calendar.Calendar.new_required
+- javascript.builtins.Temporal.Duration.Duration.new_required
+- javascript.builtins.Temporal.Instant.Instant.new_required
+- javascript.builtins.Temporal.PlainDate.PlainDate.new_required
+- javascript.builtins.Temporal.PlainDateTime.PlainDateTime.new_required
+- javascript.builtins.Temporal.PlainMonthDay.PlainMonthDay.new_required
+- javascript.builtins.Temporal.PlainTime.PlainTime.new_required
+- javascript.builtins.Temporal.PlainYearMonth.PlainYearMonth.new_required
+- javascript.builtins.Temporal.TimeZone.TimeZone.new_required
+- javascript.builtins.Temporal.ZonedDateTime.ZonedDateTime.new_required
+
+#### Changed
+
+- css.properties.text-indent.each-line
+- css.properties.text-indent.hanging
+
+### Commits
+
+- Collect CSS selectors ([#877](https://github.com/openwebdocs/mdn-bcd-collector/pull/877))
+- Remove special case for RTC exposure ([#878](https://github.com/openwebdocs/mdn-bcd-collector/pull/878))
+- Don't generate tests for Window.page[X/Y]Offset
+- Ignore grid-\*-gap CSS property aliases
+- Fix code scanning report
+- Replace tagging workflow with git commands
+- Don't define class attribute in browserinfo.ejs twice
+- Fix JS alternate names ([#873](https://github.com/openwebdocs/mdn-bcd-collector/pull/873))
+- Don't skip out of loop when collecting TypedArray test list ([#875](https://github.com/openwebdocs/mdn-bcd-collector/pull/875))
+- update-bcd: rewrite update function logic ([#801](https://github.com/openwebdocs/mdn-bcd-collector/pull/801))
+- Update overrides
+- Don't add TypedArray as a ctor ([#874](https://github.com/openwebdocs/mdn-bcd-collector/pull/874))
+- Move JavaScript attribute ignore logic to its own function
+- Skip generating tests for JavaScript String.trimLeft/trimRight
+- Fix tests for css.properties.text-indent.[each-line/hanging]
+- Only test new_required & empty ctor on relevant ctors ([#850](https://github.com/openwebdocs/mdn-bcd-collector/pull/850))
+- Fix formatting
+- Stop adding @@toStringTag ([#851](https://github.com/openwebdocs/mdn-bcd-collector/pull/851))
+- Simplify check for Error subclasses
+- Don't add additional BYTES_PER_ELEMENT features ([#852](https://github.com/openwebdocs/mdn-bcd-collector/pull/852))
+- No longer add name/message to Error subclasses ([#853](https://github.com/openwebdocs/mdn-bcd-collector/pull/853))
+- Don't add obsolete HTML elements ([#864](https://github.com/openwebdocs/mdn-bcd-collector/pull/864))
+- Remove left_right from text-underline-position ([#847](https://github.com/openwebdocs/mdn-bcd-collector/pull/847))
+- No longer special case Console API ([#846](https://github.com/openwebdocs/mdn-bcd-collector/pull/846))
+
 ## v10.4.0
 
 Released November 14, 2023
