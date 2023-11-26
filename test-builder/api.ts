@@ -464,12 +464,10 @@ const buildIDLMemberTests = async (
 
     let expr: string | RawTestCodeExpr | RawTestCodeExpr[] = "";
 
-    // Constructors, constants, event handlers and static attributes should not have
+    // Constructors, constants, and static attributes should not have
     // auto-generated custom tests
     const customTestExactMatchNeeded =
-      isStatic ||
-      isEventHandler ||
-      ["toString", "toJSON"].includes(member.name as string);
+      isStatic || ["toString", "toJSON"].includes(member.name as string);
 
     const customTestMember = await getCustomTest(
       `${settings.path}.${name}`,
