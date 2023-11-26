@@ -449,14 +449,14 @@ const buildIDLMemberTests = async (
 
   for (const member of members) {
     const isStatic = member.special === "static" || iface.type === "namespace";
-    let name = member.name + (isStatic ? "_static" : "");
-
     const isEventHandler =
       member.idlType?.type === "attribute-type" &&
       typeof member.idlType?.idlType === "string" &&
       member.idlType?.idlType.endsWith("EventHandler");
 
-    name = isEventHandler ? `${member.name.replace(/^on/, "")}_event` : name;
+    const name = isEventHandler
+      ? `${member.name.replace(/^on/, "")}_event`
+      : member.name + (isStatic ? "_static" : "");
 
     if (handledMemberNames.has(name)) {
       continue;
