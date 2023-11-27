@@ -13,13 +13,7 @@
     },
     "Error": {
       "members": {
-        "instance": [
-          "cause",
-          "columnNumber",
-          "fileName",
-          "lineNumber",
-          "stack"
-        ]
+        "instance": ["cause", "columnNumber", "fileName", "lineNumber", "stack"]
       }
     },
     "Function": {
