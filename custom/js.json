@@ -22,6 +22,12 @@
     "InternalError": {
       "ctor": {}
     },
+    "Promise": {
+      "__comment": "Remove when https://tc39.es/proposal-promise-with-resolvers/#sec-promise.withResolvers is merged into the main ECMAScript spec.",
+      "members": {
+        "static": ["withResolvers"]
+      }
+    },
     "RegExp": {
       "members": {
         "static": [
