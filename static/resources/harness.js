@@ -575,8 +575,12 @@
    * returns (TestResult): Whether the selector is supported
    */
   function testCSSSelector(syntax) {
-    // Use CSS.supports if available
-    if ("CSS" in window && window.CSS.supports) {
+    // Use CSS.supports if available, and test if `selector()` syntax is available
+    if (
+      "CSS" in window &&
+      window.CSS.supports &&
+      window.CSS.supports("selector(:after)")
+    ) {
       return window.CSS.supports("selector(" + syntax + ")");
     }
     return { result: null, message: "Detection methods are not supported" };
