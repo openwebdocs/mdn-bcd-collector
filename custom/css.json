@@ -332,13 +332,7 @@
           "table-header-group",
           "table-row",
           "table-row-group"
-        ],
-        "xul_box_values": ["-moz-box", "-moz-inline-box"],
-        "xul_deck_values": "-moz-deck",
-        "xul_grid_values": ["-moz-grid", "-moz-grid-group", "-moz-grid-line"],
-        "xul_inline_grid_stack": ["-moz-inline-grid", "-moz-inline-stack"],
-        "xul_popup_values": "-moz-popup",
-        "xul_stack_value": "-moz-stack"
+        ]
       },
       "__values": [
         "contents",
@@ -475,9 +469,6 @@
     "layout-grid-line": {},
     "layout-grid-mode": {},
     "layout-grid-type": {},
-    "line-height": {
-      "__values": ["-moz-block-height"]
-    },
     "list-style": {
       "__additional_values": {
         "symbols": "symbols(cyclic '*' '†' '‡')"
@@ -617,11 +608,6 @@
       },
       "__values": ["fill-box", "stroke-box", "view-box"]
     },
-    "mask-position": {
-      "__additional_values": {
-        "three_value_syntax": "left top 15px"
-      }
-    },
     "mask-position-x": {},
     "mask-position-y": {},
     "masonry": {},
@@ -692,11 +678,6 @@
     "motion-offset": {},
     "motion-path": {},
     "motion-rotation": {},
-    "object-position": {
-      "__additional_values": {
-        "three_value_syntax": "left top 15px"
-      }
-    },
     "offset-block": {},
     "offset-block-end": {},
     "offset-block-start": {},
@@ -741,11 +722,6 @@
       "__values": ["clip"]
     },
     "pen-action": {},
-    "perspective-origin": {
-      "__additional_values": {
-        "three_value_syntax": "left top 15px"
-      }
-    },
     "position": {
       "__values": ["fixed", "sticky"]
     },
@@ -792,8 +768,7 @@
         "gradient": "linear-gradient(45deg, rgba(255, 255, 255, 0) 150px, red 150px)",
         "image": "url(test.png)",
         "inset": "inset(10px 10px 10px 10px)",
-        "polygon": "polygon(10px 10px, 20px 20px, 30px 30px)",
-        "three_value_syntax": "left top 15px"
+        "polygon": "polygon(10px 10px, 20px 20px, 30px 30px)"
       }
     },
     "src": {},
