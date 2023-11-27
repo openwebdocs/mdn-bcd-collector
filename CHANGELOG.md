@@ -1,5 +1,77 @@
 # mdn-bcd-collector Changelog
 
+## v10.5.1
+
+Released November 27, 2023
+
+### Test Changes
+
+#### Added
+
+- css.selectors.-moz-first-node
+- css.selectors.-moz-last-node
+- css.selectors.-moz-only-whitespace
+- css.selectors.-moz-window-inactive
+- css.selectors.-moz-color-swatch
+- css.selectors.-moz-focus-inner
+- css.selectors.-moz-list-bullet
+- css.selectors.-moz-list-number
+- css.selectors.-moz-progress-bar
+- css.selectors.-moz-range-progress
+- css.selectors.-moz-range-thumb
+- css.selectors.-moz-range-track
+- css.selectors.-webkit-inner-spin-button
+- css.selectors.-webkit-meter-bar
+- css.selectors.-webkit-meter-even-less-good-value
+- css.selectors.-webkit-meter-inner-element
+- css.selectors.-webkit-meter-optimum-value
+- css.selectors.-webkit-meter-suboptimum-value
+- css.selectors.-webkit-progress-bar
+- css.selectors.-webkit-progress-inner-element
+- css.selectors.-webkit-progress-value
+- css.selectors.-webkit-scrollbar
+- css.selectors.-webkit-search-cancel-button
+- css.selectors.-webkit-search-results-button
+- css.selectors.-webkit-slider-runnable-track
+- css.selectors.-webkit-slider-thumb
+- css.selectors.popover-open
+
+#### Removed
+
+- css.properties.display.xul_box_values
+- css.properties.display.xul_deck_values
+- css.properties.display.xul_grid_values
+- css.properties.display.xul_inline_grid_stack
+- css.properties.display.xul_popup_values
+- css.properties.display.xul_stack_value
+- css.properties.line-height.-moz-block-height
+- css.properties.mask-position.three_value_syntax
+- css.properties.object-position.three_value_syntax
+- css.properties.perspective-origin.three_value_syntax
+- css.properties.shape-outside.three_value_syntax
+- javascript.builtins.Object.toSource
+- javascript.builtins.Function.toSource
+- javascript.builtins.Boolean.toSource
+- javascript.builtins.Symbol.toSource
+- javascript.builtins.Error.toSource
+- javascript.builtins.Number.toSource
+- javascript.builtins.Date.toSource
+- javascript.builtins.String.toSource
+- javascript.builtins.RegExp.toSource
+- javascript.builtins.Array.toSource
+- javascript.builtins.TypedArray.name
+- javascript.builtins.WeakMap.clear
+- javascript.builtins.uneval
+
+### Commits
+
+- Add custom CSS selectors ([#888](https://github.com/openwebdocs/mdn-bcd-collector/pull/888))
+- Update custom CSS ([#883](https://github.com/openwebdocs/mdn-bcd-collector/pull/883))
+- Update custom JS ([#882](https://github.com/openwebdocs/mdn-bcd-collector/pull/882))
+- Add more ctor error messages ([#881](https://github.com/openwebdocs/mdn-bcd-collector/pull/881))
+- testCSSSelector: make sure `selector()` syntax is supported
+- Fix navigation bar to the top of viewport
+
 ## v10.5.0
 
 Released November 26, 2023
