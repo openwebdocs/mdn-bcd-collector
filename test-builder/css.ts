@@ -60,6 +60,13 @@ const build = async (specCSS, customCSS) => {
     properties.set(name, mergedValues);
   }
 
+  for (const [name] of Object.entries(customCSS.selectors) as any[]) {
+    if (selectors.has(name)) {
+      throw new Error(`Custom CSS selector already known: ${name}`);
+    }
+    selectors.set(name, new Map());
+  }
+
   const tests = {};
 
   for (const name of Array.from(properties.keys()).sort()) {
