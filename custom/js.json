@@ -8,17 +8,8 @@
     "Array": {
       "members": {
         "static": ["fromAsync"],
-        "instance": ["group", "groupToMap", "length", "toSource"]
+        "instance": ["group", "groupToMap", "length"]
       }
-    },
-    "ArrayBuffer": {
-      "members": {"instance": ["maxByteLength", "resizable", "resize"]}
-    },
-    "Boolean": {
-      "members": {"instance": ["toSource"]}
-    },
-    "Date": {
-      "members": {"instance": ["toSource"]}
     },
     "Error": {
       "members": {
@@ -27,22 +18,15 @@
           "columnNumber",
           "fileName",
           "lineNumber",
-          "stack",
-          "toSource"
+          "stack"
         ]
       }
     },
     "Function": {
-      "members": {"instance": ["arguments", "caller", "length", "toSource"]}
+      "members": {"instance": ["arguments", "caller", "length"]}
     },
     "InternalError": {
       "ctor": {}
-    },
-    "Number": {
-      "members": {"instance": ["toSource"]}
-    },
-    "Object": {
-      "members": {"instance": ["toSource"]}
     },
     "RegExp": {
       "members": {
@@ -54,26 +38,12 @@
           "leftContext",
           "rightContext"
         ],
-        "instance": ["n", "toSource"]
+        "instance": ["n"]
       }
     },
-    "SharedArrayBuffer": {
-      "members": {"instance": ["grow", "growable", "maxByteLength"]}
-    },
     "String": {
-      "members": {"instance": ["contains", "length", "toSource"]}
+      "members": {"instance": ["contains", "length"]}
     },
-    "Symbol": {
-      "members": {"instance": ["toSource"]}
-    },
-    "TypedArray": {
-      "members": {"static": ["name"]}
-    },
-    "WeakMap": {
-      "members": {"instance": ["clear"]}
-    },
-    "uneval": {},
-
     "Intl": {
       "__comment": "XXX Intl is defined in another specification that the es-scraper does not load data from.",
       "members": {
