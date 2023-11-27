@@ -261,7 +261,14 @@
           "requires a single argument",
           "requires at least",
           "first argument",
-          "expects exactly"
+          "First argument",
+          "expects exactly",
+          "Invalid argument type",
+          "invalid_argument",
+          "target",
+          "Promise resolver undefined",
+          "type must not be undefined",
+          "must be callable"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
