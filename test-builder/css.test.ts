@@ -38,7 +38,7 @@ describe("build (CSS)", () => {
           url: "",
         },
         properties: [],
-        selectors: [{name: "+"}, {name: "nth-of-type()"}],
+        selectors: [{name: "+"}, {name: ":nth-of-type()"}],
       },
     };
 
@@ -51,6 +51,9 @@ describe("build (CSS)", () => {
           },
         },
         zoom: {},
+      },
+      selectors: {
+        "::-webkit-progress-bar": {},
       },
     };
 
@@ -83,12 +86,16 @@ describe("build (CSS)", () => {
         code: 'bcd.testCSSProperty("zoom")',
         exposure: ["Window"],
       },
+      "css.selectors.-webkit-progress-bar": {
+        code: 'bcd.testCSSSelector("::-webkit-progress-bar")',
+        exposure: ["Window"],
+      },
       "css.selectors.next-sibling": {
         code: 'bcd.testCSSSelector("+")',
         exposure: ["Window"],
       },
       "css.selectors.nth-of-type": {
-        code: 'bcd.testCSSSelector("nth-of-type()")',
+        code: 'bcd.testCSSSelector(":nth-of-type()")',
         exposure: ["Window"],
       },
     });
@@ -106,7 +113,7 @@ describe("build (CSS)", () => {
       },
     };
 
-    assert.deepEqual(await build(css, {properties: {}}), {
+    assert.deepEqual(await build(css, {properties: {}, selectors: {}}), {
       "css.properties.foo": {
         code: `(function () {
   return 1;
@@ -130,8 +137,26 @@ describe("build (CSS)", () => {
     };
 
     await assert.isRejected(
-      build(css, {properties: {foo: {}}}),
+      build(css, {properties: {foo: {}}, selectors: {}}),
       "Custom CSS property already known: foo",
+    );
+  });
+
+  it("double-defined selector", async () => {
+    const css = {
+      "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
+        properties: [],
+        selectors: [{name: "foo"}],
+      },
+    };
+
+    await assert.isRejected(
+      build(css, {properties: {}, selectors: {foo: {}}}),
+      "Custom CSS selector already known: foo",
     );
   });
 
@@ -147,7 +172,7 @@ describe("build (CSS)", () => {
       },
     };
 
-    assert.deepEqual(await build(css, {properties: {}}), {
+    assert.deepEqual(await build(css, {properties: {}, selectors: {}}), {
       "css.properties.bar": {
         code: `(function () {
   throw "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
