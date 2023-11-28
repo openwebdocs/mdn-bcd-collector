@@ -345,7 +345,7 @@ app.all("/export", async (req, res, next) => {
   try {
     const report = createReport(results, req);
     if (github) {
-      const token = secrets.github.token || process.env.GITHUB_TOKEN;
+      const token = secrets.github.token;
       if (token) {
         try {
           const octokit = new Octokit({auth: `token ${token}`});
