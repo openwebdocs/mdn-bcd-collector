@@ -814,5 +814,18 @@
   ["html.elements.link.fetchpriority", "chrome", "101", true],
   ["html.elements.link.fetchpriority", "edge", "101", true],
   ["html.elements.script.fetchpriority", "chrome", "101", true],
-  ["html.elements.script.fetchpriority", "edge", "101", true]
+  ["html.elements.script.fetchpriority", "edge", "101", true],
+  "Value is recognized but has no effect",
+  ["css.properties.text-indent.hanging", "safari", "1-14.1", false],
+  "CSS.supports() incorrectly indicates support",
+  ["css.selectors.dir", "safari", "1-16.3", false],
+  "XXX Safari uses pseudo attributes within a shadow DOM, so CSS.supports() cannot detect support",
+  ["css.selectors.-webkit-inner-spin-button", "safari", "5+", true],
+  ["css.selectors.-webkit-meter-bar", "safari", "5.1+", true],
+  ["css.selectors.-webkit-meter-even-less-good-value", "safari", "5.1+", true],
+  ["css.selectors.-webkit-meter-optimum-value", "safari", "5.1+", true],
+  ["css.selectors.-webkit-meter-suboptimum-value", "safari", "5.1+", true],
+  ["css.selectors.-webkit-meter-inner-element", "safari", "7+", true],
+  ["css.selectors.-webkit-progress-bar", "safari", "7+", true],
+  ["css.selectors.-webkit-progress-value", "safari", "7+", true]
 ]
