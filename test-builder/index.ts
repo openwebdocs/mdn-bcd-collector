@@ -11,6 +11,7 @@ import fs from "fs-extra";
 import idl from "@webref/idl";
 import css from "@webref/css";
 import elements from "@webref/elements";
+import {getIntrinsics} from "es-scraper";
 
 import customIDL from "../custom/idl/index.js";
 
@@ -35,24 +36,12 @@ const customJS = await fs.readJson(
   new URL("../custom/js.json", import.meta.url),
 );
 
-const getSpecJS = async () => {
-  const {default: jsSync} = await import("./es-scraper/scripts/sync.js");
-  await jsSync(true);
-
-  const {default: jsScrape} = await import("./es-scraper/scripts/scrape.js");
-  await jsScrape(true);
-
-  return await fs.readJson(
-    new URL("./es-scraper/generated/intrinsics.json", import.meta.url),
-  );
-};
-
 /* c8 ignore start */
 const build = async (customIDL: IDLFiles, customCSS) => {
   const specIDLs: IDLFiles = await idl.parseAll();
   const specCSS = await css.listAll();
   const specElements = await elements.listAll();
-  const specJS = await getSpecJS();
+  const specJS = await getIntrinsics();
 
   const tests = Object.assign(
     {__resources: customTests.__resources},
