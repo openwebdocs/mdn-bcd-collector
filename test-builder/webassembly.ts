@@ -16,6 +16,7 @@ const build = async (wasmFeatures) => {
 
   const wasmBCDMap = new Map([
     ["bigInt", "BigInt-to-i64-integration"],
+    ["bulkMemory", "bulk-memory-operations"],
     ["exceptions", "exception-handling"],
     ["extendedConst", "extended-constant-expressions"],
     ["gc", "garbage-collection"],
