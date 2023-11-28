@@ -212,7 +212,10 @@ const getGitChanges = async (ctx) => {
     await exec(`git log --pretty=format:%s v${currentVersion}..origin/main`),
   ).split("\n");
   ctx.commits = commits
-    .filter((summary) => !summary.startsWith("Bump "))
+    .filter(
+      (summary) =>
+        !summary.startsWith("Bump ") && summary.includes("Update overrides"),
+    )
     .map(
       (summary) =>
         `- ${summary.replaceAll("<", "&lt;").replaceAll(">", "&gt;")}`,
