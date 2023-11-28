@@ -1,4 +1,4 @@
-import FS from "node:fs/promises";
+import fs from "node:fs/promises";
 import Path from "node:path";
 import { generatedPath } from "../lib/utils.js";
 
@@ -6,9 +6,9 @@ const specFilePath = generatedPath("spec.html");
 
 // Ensure the generated directory exists
 try {
-  await FS.access(Path.dirname(specFilePath));
+  await fs.access(Path.dirname(specFilePath));
 } catch {
-  await FS.mkdir(Path.dirname(specFilePath));
+  await fs.mkdir(Path.dirname(specFilePath));
 }
 
 const { sha: newSHA } = await fetch(
@@ -17,7 +17,7 @@ const { sha: newSHA } = await fetch(
 
 async function sync(quiet = false) {
   try {
-    const revision = await FS.readFile(specFilePath, "utf-8");
+    const revision = await fs.readFile(specFilePath, "utf-8");
     const oldSHA = revision.match(/<!-- REVISION: (?<sha>.*) -->/)!.groups!.sha!;
     if (oldSHA === newSHA) {
       if (!quiet) console.log("No new changes found. Not re-generating files.");
@@ -35,7 +35,7 @@ async function sync(quiet = false) {
     "https://raw.githubusercontent.com/tc39/ecma262/main/spec.html",
   ).then((res) => res.text());
 
-  await FS.writeFile(specFilePath, `<!-- REVISION: ${newSHA} -->\n${data}`);
+  await fs.writeFile(specFilePath, `<!-- REVISION: ${newSHA} -->\n${data}`);
 
   if (!quiet) console.log(`Download completed! Saved to ${specFilePath}.`);
 }
