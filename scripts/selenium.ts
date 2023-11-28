@@ -31,10 +31,11 @@ import {hideBin} from "yargs/helpers";
 
 import {RESULTS_DIR} from "../lib/constants.js";
 import filterVersionsLib from "../lib/filter-versions.js";
+import getSecrets from "../lib/secrets.js";
 
 import "../lib/selenium-keepalive.js";
 
-const secrets = await fs.readJson(new URL("../secrets.json", import.meta.url));
+const secrets = await getSecrets();
 
 const testenv = process.env.NODE_ENV === "test";
 const host = testenv

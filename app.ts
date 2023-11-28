@@ -34,6 +34,7 @@ import {parseUA} from "./lib/ua-parser.js";
 import Tests from "./lib/tests.js";
 import exec from "./lib/exec.js";
 import parseResults from "./lib/results.js";
+import getSecrets from "./lib/secrets.js";
 
 /* c8 ignore start */
 const getAppVersion = async () => {
@@ -57,20 +58,12 @@ const getAppVersion = async () => {
 
 const appVersion = await getAppVersion();
 
-const secrets = await fs.readJson(
-  new URL(
-    process.env.NODE_ENV === "test"
-      ? "./secrets.sample.json"
-      : "./secrets.json",
-    import.meta.url,
-  ),
-);
-
 const browserExtensions = await fs.readJson(
   new URL("./browser-extensions.json", import.meta.url),
 );
 /* c8 ignore stop */
 
+const secrets = await getSecrets();
 const storage = getStorage(appVersion);
 
 const tests = new Tests({
