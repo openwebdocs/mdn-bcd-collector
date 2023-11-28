@@ -817,6 +817,7 @@
   ["html.elements.script.fetchpriority", "edge", "101", true],
   "Value is recognized but has no effect",
   ["css.properties.text-indent.hanging", "safari", "1-14.1", false],
+  ["css.properties.font-family.system-ui", "firefox", "1-91", false],
   "CSS.supports() incorrectly indicates support",
   ["css.selectors.dir", "safari", "1-16.3", false],
   "XXX Safari uses pseudo attributes within a shadow DOM, so CSS.supports() cannot detect support",
