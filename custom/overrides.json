@@ -827,5 +827,6 @@
   ["css.selectors.-webkit-meter-suboptimum-value", "safari", "5.1+", true],
   ["css.selectors.-webkit-meter-inner-element", "safari", "7+", true],
   ["css.selectors.-webkit-progress-bar", "safari", "7+", true],
+  ["css.selectors.-webkit-progress-inner-element", "safari", "7+", true],
   ["css.selectors.-webkit-progress-value", "safari", "7+", true]
 ]
