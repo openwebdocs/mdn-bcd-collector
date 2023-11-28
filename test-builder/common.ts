@@ -133,7 +133,8 @@ const generateCustomTestCode = async (
       return false;
     }
 
-    const member = parts.length > 1 ? parts[1] : "";
+    const member =
+      parts.length > 1 ? parts[1].replace(/(\w+)_event/, "on$1") : "";
 
     if (member === parts[0]) {
       // Constructors must have an exact test match

@@ -76,10 +76,15 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   // mix in the mixins
   for (const dfn of ast) {
     if (dfn.type === "includes") {
-      if (dfn.includes === "WindowOrWorkerGlobalScope") {
-        // WindowOrWorkerGlobalScope is mapped differently in BCD
+      const skipIncludes = [
+        "WindowOrWorkerGlobalScope", // handled separately as globals
+        "GlobalEventHandlers", // XXX needs special handling
+        "WindowEventHandlers", // XXX needs special handling
+      ];
+      if (skipIncludes.includes(dfn.includes)) {
         continue;
       }
+
       const mixin = ast.find(
         (it) =>
           !("partial" in it && it.partial) &&
@@ -144,7 +149,10 @@ const flattenMembers = (iface) => {
             ["clientInformation", "pageXOffset", "pageYOffset"].includes(
               member.name,
             )) ||
-          (iface.name === "Element" && member.name === "webkitMatchesSelector")
+          (iface.name === "Element" &&
+            member.name === "webkitMatchesSelector") ||
+          (iface.name === "Serial" &&
+            ["onconnect", "ondisconnect"].includes(member.name))
         ),
     );
   for (const member of iface.members.filter((member) => !member.name)) {
@@ -425,21 +433,16 @@ const buildIDLMemberTests = async (
 
   for (const member of members) {
     const isStatic = member.special === "static" || iface.type === "namespace";
-    const name = member.name + (isStatic ? "_static" : "");
-
-    if (handledMemberNames.has(name)) {
-      continue;
-    }
-
     const isEventHandler =
       member.idlType?.type === "attribute-type" &&
       typeof member.idlType?.idlType === "string" &&
       member.idlType?.idlType.endsWith("EventHandler");
 
-    if (isEventHandler) {
-      // XXX Tests for events will be added with another package, see
-      // https://github.com/openwebdocs/mdn-bcd-collector/issues/133 for
-      // details. In the meantime, ignore event handlers.
+    const name = isEventHandler
+      ? `${member.name.replace(/^on/, "")}_event`
+      : member.name + (isStatic ? "_static" : "");
+
+    if (handledMemberNames.has(name)) {
       continue;
     }
 
@@ -513,10 +516,6 @@ const buildIDLMemberTests = async (
           break;
       }
     }
-
-    // const name = isEventHandler
-    //   ? `${member.name.replace(/^on/, '')}_event`
-    //   : member.name;
 
     tests[name] = compileTest({
       raw: {

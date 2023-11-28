@@ -29,7 +29,7 @@ const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
     if (compat) {
       features.push(`${path}${id}`);
 
-      if (includeAliases && !id.endsWith("_event")) {
+      if (includeAliases) {
         const aliases = new Set();
         for (let statements of Object.values(compat.support)) {
           if (!Array.isArray(statements)) {
