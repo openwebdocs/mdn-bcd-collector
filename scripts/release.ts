@@ -214,7 +214,7 @@ const getGitChanges = async (ctx) => {
   ctx.commits = commits
     .filter(
       (summary) =>
-        !summary.startsWith("Bump ") && summary.includes("Update overrides"),
+        !(summary.startsWith("Bump ") || summary.includes("Update overrides")),
     )
     .map(
       (summary) =>
