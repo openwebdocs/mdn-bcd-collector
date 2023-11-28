@@ -23,6 +23,8 @@ import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
 
+import * as wasmFeatures from "wasm-feature-detect";
+
 const customCSS = await fs.readJson(
   new URL("../custom/css.json", import.meta.url),
 );
@@ -31,9 +33,6 @@ const customElements = await fs.readJson(
 );
 const customJS = await fs.readJson(
   new URL("../custom/js.json", import.meta.url),
-);
-const customWasm = await fs.readJson(
-  new URL("../custom/wasm.json", import.meta.url),
 );
 
 const getSpecJS = async () => {
@@ -61,7 +60,7 @@ const build = async (customIDL: IDLFiles, customCSS) => {
     await buildCSS(specCSS, customCSS),
     await buildElements(specElements, customElements),
     await buildJS(specJS, customJS),
-    await buildWasm(customWasm),
+    await buildWasm(wasmFeatures),
   );
 
   await fs.writeJson(new URL("../tests.json", import.meta.url), tests);
