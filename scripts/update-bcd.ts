@@ -84,7 +84,7 @@ const combineResults = (results: TestResultValue[]): TestResultValue => {
   return supported;
 };
 
-// Create a string represenation of a version range, optimized for human
+// Create a string representation of a version range, optimized for human
 // legibility.
 const joinRange = (lower: string, upper: string) =>
   lower === "0" ? `≤${upper}` : `${lower}> ≤${upper}`;
