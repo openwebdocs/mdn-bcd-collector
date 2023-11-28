@@ -608,8 +608,6 @@
       },
       "__values": ["fill-box", "stroke-box", "view-box"]
     },
-    "mask-position-x": {},
-    "mask-position-y": {},
     "masonry": {},
     "max-block-size": {
       "__additional_values": {
