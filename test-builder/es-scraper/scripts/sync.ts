@@ -11,11 +11,11 @@ try {
   await fs.mkdir(Path.dirname(specFilePath));
 }
 
-const { sha: newSHA } = await fetch(
-  "https://api.github.com/repos/tc39/ecma262/commits/main",
-).then((res) => res.json());
-
 async function sync(quiet = false) {
+  const { sha: newSHA } = await fetch(
+    "https://api.github.com/repos/tc39/ecma262/commits/main",
+  ).then((res) => res.json());
+    
   try {
     const revision = await fs.readFile(specFilePath, "utf-8");
     const oldSHA = revision.match(/<!-- REVISION: (?<sha>.*) -->/)!.groups!.sha!;
