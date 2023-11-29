@@ -19,6 +19,7 @@ import {
   findEntry,
   getSupportMap,
   getSupportMatrix,
+  hasSupportMatrixContradictions,
   inferSupportStatements,
   splitRange,
   update,
@@ -818,6 +819,125 @@ describe("BCD updater", () => {
       assert.throws(() => {
         splitRange("23");
       }, 'Unrecognized version range value: "23"');
+    });
+  });
+
+  describe("hasSupportMatrixContradictions", () => {
+    it("detects contradictions with nonexistent support statements", () => {
+      assert.isTrue(
+        hasSupportMatrixContradictions(new Map([["80", true]]), {
+          version_added: null,
+        }),
+      );
+
+      assert.isTrue(
+        hasSupportMatrixContradictions(new Map([["80", true]]), undefined),
+      );
+    });
+
+    it("skips null support claims", () => {
+      assert.isFalse(
+        hasSupportMatrixContradictions(new Map([["80", null]]), {
+          version_added: "≤80",
+        }),
+      );
+
+      assert.isFalse(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+            ["82", null],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+        "skips new null test result",
+      );
+    });
+
+    it("detects contradictions in statements with boolean values", () => {
+      assert.isFalse(
+        hasSupportMatrixContradictions(new Map([["80", false]]), {
+          version_added: false,
+        }),
+        "skips generic false statements",
+      );
+      // TODO: verify this is the result that we want
+      assert.isFalse(
+        hasSupportMatrixContradictions(new Map([["80", true]]), {
+          version_added: true,
+        }),
+        "skips generic true statements",
+      );
+
+      assert.isTrue(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["80", false],
+            ["81", true],
+          ]),
+          {version_added: false},
+        ),
+      );
+    });
+
+    it("detects contradictions in statements with string values", () => {
+      assert.isTrue(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["79", false],
+            ["80", false],
+            ["81", true],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["79", false],
+            ["80", false],
+            ["81", true],
+          ]),
+          {
+            version_added: "81",
+          },
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+      );
+
+      assert.isTrue(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+            ["82", false],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+        "detects possible support removal",
+      );
     });
   });
 
