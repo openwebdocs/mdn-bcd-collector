@@ -91,7 +91,7 @@
     "@types/webidl2": "^24.4.3",
     "@types/yargs": "17.0.32",
     "@typescript-eslint/eslint-plugin": "6.13.1",
-    "@webref/css": "6.9.1",
+    "@webref/css": "6.9.2",
     "@webref/idl": "3.41.1",
     "c8": "8.0.1",
     "chai": "4.3.10",
