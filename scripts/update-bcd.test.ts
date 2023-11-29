@@ -938,6 +938,19 @@ describe("BCD updater", () => {
         ),
         "detects possible support removal",
       );
+
+      assert.isTrue(
+        hasSupportMatrixContradictions(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+          ]),
+          {
+            version_added: "preview",
+          },
+        ),
+      );
     });
   });
 

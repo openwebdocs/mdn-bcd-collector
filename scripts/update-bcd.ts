@@ -692,6 +692,10 @@ export const hasSupportMatrixContradictions = (
     return true;
   }
 
+  if (simpleStatement.version_added === "preview") {
+    return true;
+  }
+
   const contradictions: string[] = [];
   for (const [version, supportAssertion] of versionMap.entries()) {
     if (supportAssertion === null) {
