@@ -363,7 +363,12 @@ const reason = (
   message: ReasonMessageFactory,
   args: Omit<Reason, "message"> = {},
 ): ReasonFactory => {
-  return (value) => ({message: message(value), skip: true, ...args});
+  return (value) => ({
+    message: message(value),
+    skip: true,
+    quiet: true,
+    ...args,
+  });
 };
 
 const isReasonFactory = (
@@ -975,9 +980,9 @@ export const update = (
       if (!statements?.length) {
         return reason(
           ({browser, path}) =>
-            `${path} skipped for ${browser}: no reason identified`,
+            `${path} skipped for ${browser}: no known reason identified. Possible intervention required.`,
           {
-            quiet: true,
+            quiet: false,
           },
         );
       }
