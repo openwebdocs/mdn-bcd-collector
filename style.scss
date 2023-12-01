@@ -84,9 +84,33 @@ $colors: (
     dark: #ffa,
     light: #770,
   ),
+  warning-bg: (
+    dark: rgba(255, 255, 170),
+    light: rgba(119, 119, 0),
+  ),
   success: (
     dark: #afa,
     light: #070,
+  ),
+  success-bg: (
+    dark: rgba(170, 255, 170),
+    light: rgba(0, 119, 0),
+  ),
+  note: (
+    dark: #aaf,
+    light: #007,
+  ),
+  note-bg: (
+    dark: rgba(170, 170, 255),
+    light: rgba(0, 0, 119),
+  ),
+  important: (
+    dark: #faf,
+    light: #707,
+  ),
+  important-bg: (
+    dark: rgba(255, 170, 255),
+    light: rgba(119, 0, 119),
   ),
 );
 
@@ -380,6 +404,51 @@ blockquote {
   box-shadow: 0 0 10px black;
   border-radius: 8px;
   margin: 1em;
+
+  &.cautionblock {
+    @include themedProperty(background, "error-bg", 0.1);
+
+    .blockquote-header {
+      @include themedProperty(color, "error");
+      @include themedTextGlow("error");
+    }
+  }
+
+  &.warningblock {
+    @include themedProperty(background, "warning-bg", 0.1);
+
+    .blockquote-header {
+      @include themedProperty(color, "warning");
+      @include themedTextGlow("warning");
+    }
+  }
+
+  &.tipblock {
+    @include themedProperty(background, "success-bg", 0.1);
+
+    .blockquote-header {
+      @include themedProperty(color, "success");
+      @include themedTextGlow("success");
+    }
+  }
+
+  &.noteblock {
+    @include themedProperty(background, "note-bg", 0.1);
+
+    .blockquote-header {
+      @include themedProperty(color, "note");
+      @include themedTextGlow("note");
+    }
+  }
+
+  &.importantblock {
+    @include themedProperty(background, "important-bg", 0.1);
+
+    .blockquote-header {
+      @include themedProperty(color, "important");
+      @include themedTextGlow("important");
+    }
+  }
 }
 
 .paper {
