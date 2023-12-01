@@ -171,16 +171,20 @@ marked.use(gfmHeadingId());
 // Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
 marked.use({
   renderer: {
-    blockquote(quote) {
-      if (!quote) return quote;
+    blockquote: (quote) => {
+      if (!quote) {
+        return quote;
+      }
       const noteblockTypes = ["NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"];
       const regex = new RegExp(`\\<p\\>\\[!(${noteblockTypes.join("|")})\\]`);
 
       const lines = quote.split("\n");
       const match = lines[0].match(regex);
 
-      // If the blockquote is not a GFM note, return
-      if (!match) return quote;
+      if (!match) {
+        // If the blockquote is not a GFM note, return
+        return quote;
+      }
 
       const type = match[1];
 
