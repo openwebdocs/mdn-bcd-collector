@@ -20,6 +20,7 @@ import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import {marked} from "marked";
 import {markedHighlight} from "marked-highlight";
+import {gfmHeadingId} from "marked-gfm-heading-id";
 import hljs from "highlight.js";
 import uniqueString from "unique-string";
 import expressLayouts from "express-ejs-layouts";
@@ -161,6 +162,7 @@ marked.use(
     },
   }),
 );
+marked.use(gfmHeadingId());
 
 // Markdown renderer
 const renderMarkdown = async (filepath, req, res) => {
