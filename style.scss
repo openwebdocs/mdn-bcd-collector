@@ -77,40 +77,40 @@ $colors: (
     light: #700,
   ),
   error-bg: (
-    dark: rgba(255, 170, 170),
-    light: rgba(119, 0, 0),
+    dark: rgba(51, 0, 0, 0.25),
+    light: rgba(255, 170, 170, 0.25),
   ),
   warning: (
     dark: #ffa,
     light: #770,
   ),
   warning-bg: (
-    dark: rgba(255, 255, 170),
-    light: rgba(119, 119, 0),
+    dark: rgba(51, 51, 0, 0.25),
+    light: rgba(255, 255, 170, 0.25),
   ),
   success: (
     dark: #afa,
     light: #070,
   ),
   success-bg: (
-    dark: rgba(170, 255, 170),
-    light: rgba(0, 119, 0),
+    dark: rgba(0, 51, 0, 0.25),
+    light: rgba(170, 255, 170, 0.25),
   ),
   note: (
     dark: #aaf,
     light: #007,
   ),
   note-bg: (
-    dark: rgba(170, 170, 255),
-    light: rgba(0, 0, 119),
+    dark: rgba(0, 0, 51, 0.25),
+    light: rgba(170, 170, 255, 0.25),
   ),
   important: (
     dark: #faf,
     light: #707,
   ),
   important-bg: (
-    dark: rgba(255, 170, 255),
-    light: rgba(119, 0, 119),
+    dark: rgba(51, 0, 51, 0.25),
+    light: rgba(255, 170, 255, 0.25),
   ),
 );
 
@@ -406,7 +406,7 @@ blockquote {
   margin: 1em;
 
   &.cautionblock {
-    @include themedProperty(background, "error-bg", 0.1);
+    @include themedProperty(background, "error-bg");
 
     .blockquote-header {
       @include themedProperty(color, "error");
@@ -415,7 +415,7 @@ blockquote {
   }
 
   &.warningblock {
-    @include themedProperty(background, "warning-bg", 0.1);
+    @include themedProperty(background, "warning-bg");
 
     .blockquote-header {
       @include themedProperty(color, "warning");
@@ -424,7 +424,7 @@ blockquote {
   }
 
   &.tipblock {
-    @include themedProperty(background, "success-bg", 0.1);
+    @include themedProperty(background, "success-bg");
 
     .blockquote-header {
       @include themedProperty(color, "success");
@@ -433,7 +433,7 @@ blockquote {
   }
 
   &.noteblock {
-    @include themedProperty(background, "note-bg", 0.1);
+    @include themedProperty(background, "note-bg");
 
     .blockquote-header {
       @include themedProperty(color, "note");
@@ -442,7 +442,7 @@ blockquote {
   }
 
   &.importantblock {
-    @include themedProperty(background, "important-bg", 0.1);
+    @include themedProperty(background, "important-bg");
 
     .blockquote-header {
       @include themedProperty(color, "important");
@@ -598,34 +598,24 @@ blockquote {
   }
 }
 
-#known-caveats,
 #extension-warnings {
-  @include themedProperty(background, "error-bg", 0.05);
+  @include themedProperty(background, "error-bg");
   width: intrinsic;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   max-width: calc(100vw - 4em - 24px);
-  margin: auto;
-  margin-bottom: 1em;
+  margin: 1em auto;
   text-align: center;
-  list-style-position: inside;
 
-  #known-caveats-file-issue {
-    @include themedProperty(color, "error");
-    font-weight: bold;
-  }
-}
-
-#extension-warnings {
-  margin-top: 1em;
-
-  h2 {
+  h2,
+  #extension-warnings-disable-or-switch {
     @include themedTextGlow("error", 20px);
   }
 
   h2,
-  h3 {
+  h3,
+  #extension-warnings-disable-or-switch {
     @include themedProperty(color, "error");
   }
 
@@ -638,7 +628,18 @@ blockquote {
   }
 }
 
-#about,
+#known-caveats {
+  @include themedProperty(background, "error-bg");
+
+  text-align: center;
+  list-style-position: inside;
+
+  #known-caveats-file-issue {
+    @include themedProperty(color, "error");
+    font-weight: bold;
+  }
+}
+
 #privacy-notice {
   text-align: center;
 }
