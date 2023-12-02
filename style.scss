@@ -600,6 +600,8 @@ blockquote {
 
 #extension-warnings {
   @include themedProperty(background, "error-bg");
+  @include themedBoxShadow("error-bg", 40px);
+
   width: intrinsic;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -629,8 +631,6 @@ blockquote {
 }
 
 #known-caveats {
-  @include themedProperty(background, "error-bg");
-
   text-align: center;
   list-style-position: inside;
 
