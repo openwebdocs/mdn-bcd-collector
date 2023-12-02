@@ -504,9 +504,13 @@ blockquote {
     display: block;
     font-size: 30pt;
 
-    a:not(:hover) {
-      color: inherit;
-      text-shadow: inherit;
+    a {
+      display: inline-block;
+
+      &:not(:hover) {
+        color: inherit;
+        text-shadow: inherit;
+      }
     }
   }
 
