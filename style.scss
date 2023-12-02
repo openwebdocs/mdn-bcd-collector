@@ -254,7 +254,6 @@ h3 {
 }
 
 a {
-  text-decoration: none;
   @include themedProperty(color, "link");
   @include themedTextGlow("link", 0px);
   transition:
@@ -354,6 +353,7 @@ nav#navbar {
   }
 
   a {
+    text-decoration: none;
     margin: 0 0.1em;
   }
 
