@@ -1,0 +1,3 @@
+tests: nodemon --watch custom --watch test-builder --exec "npm run build:tests"
+resources: nodemon --watch package.json --watch style.scss --exec "npm run build:resources"
+web: nodemon -e ts,json --exec "node --loader=ts-node/esm --no-warnings=ExperimentalWarning app.ts"
