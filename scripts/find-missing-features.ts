@@ -160,7 +160,8 @@ const main = (bcd: CompatData, tests: Tests) => {
       100.0
     ).toFixed(2)}%)} {yellow entries missing from {red.bold ${
       direction[0]
-    }} that are in {green.bold ${direction[1]}}}`,
+    }} that are in {green.bold ${direction[1]}}}` +
+      (argv.path.length ? chalk` for {blue ${argv.path.join(", ")}}` : ""),
   );
 };
 
