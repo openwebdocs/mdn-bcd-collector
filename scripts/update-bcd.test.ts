@@ -287,6 +287,11 @@ const reports: Report[] = [
           result: false,
         },
         {
+          name: "api.unspecifiedVersionAPI",
+          exposure: "Window",
+          result: true,
+        },
+        {
           name: "css.properties.font-family",
           exposure: "Window",
           result: true,
@@ -865,12 +870,12 @@ describe("BCD updater", () => {
         }),
         "skips generic false statements",
       );
-      // TODO: verify this is the result that we want
-      assert.isFalse(
+
+      assert.isTrue(
         hasSupportMatrixContradictions(new Map([["80", true]]), {
           version_added: true,
         }),
-        "skips generic true statements",
+        "catches specific support updates over generic true statements",
       );
 
       assert.isTrue(
@@ -1082,6 +1087,9 @@ describe("BCD updater", () => {
           },
           SuperNewInterface: {
             __compat: {support: {chrome: {version_added: "100"}}},
+          },
+          unspecifiedVersionAPI: {
+            __compat: {support: {chrome: {version_added: "≤85"}}},
           },
         },
         browsers: {

@@ -116,6 +116,9 @@ export default {
     SuperNewInterface: {
       __compat: {support: {chrome: {version_added: "100"}}},
     },
+    unspecifiedVersionAPI: {
+      __compat: {support: {chrome: {version_added: true}}},
+    },
   },
   browsers: {
     chrome: {name: "Chrome", releases: {82: {}, 83: {}, 84: {}, 85: {}}},

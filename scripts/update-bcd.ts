@@ -703,7 +703,9 @@ export const hasSupportMatrixContradictions = (
     }
 
     if (typeof simpleStatement.version_added === "boolean") {
-      if (simpleStatement.version_added !== supportAssertion) {
+      if (!simpleStatement.version_added && !supportAssertion) {
+        continue;
+      } else {
         contradictions.push(version);
       }
     }
