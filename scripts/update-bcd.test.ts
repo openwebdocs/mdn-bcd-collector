@@ -287,11 +287,6 @@ const reports: Report[] = [
           result: false,
         },
         {
-          name: "api.unspecifiedVersionAPI",
-          exposure: "Window",
-          result: true,
-        },
-        {
           name: "css.properties.font-family",
           exposure: "Window",
           result: true,
@@ -1087,9 +1082,6 @@ describe("BCD updater", () => {
           },
           SuperNewInterface: {
             __compat: {support: {chrome: {version_added: "100"}}},
-          },
-          unspecifiedVersionAPI: {
-            __compat: {support: {chrome: {version_added: "≤85"}}},
           },
         },
         browsers: {
