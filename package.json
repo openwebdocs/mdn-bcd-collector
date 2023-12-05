@@ -90,7 +90,7 @@
     "@types/superagent": "^4.1.24",
     "@types/webidl2": "^24.4.3",
     "@types/yargs": "17.0.32",
-    "@typescript-eslint/eslint-plugin": "6.13.1",
+    "@typescript-eslint/eslint-plugin": "6.13.2",
     "@webref/css": "6.9.2",
     "@webref/idl": "3.41.3",
     "c8": "8.0.1",
