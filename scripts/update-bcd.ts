@@ -684,7 +684,7 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
-export const hasSupportMatrixContradictions = (
+export const hasSupportUpdates = (
   versionMap: BrowserSupportMap,
   simpleStatement?: SimpleSupportStatement,
 ) => {
@@ -972,7 +972,7 @@ export const update = (
       shared: {versionMap},
       defaultStatements: [simpleStatement],
     }) => {
-      if (!hasSupportMatrixContradictions(versionMap, simpleStatement)) {
+      if (!hasSupportUpdates(versionMap, simpleStatement)) {
         return reason(
           ({path, browser}) =>
             `$${path} skipped for ${browser} because support matrix matches current BCD support data`,
@@ -1035,7 +1035,7 @@ export const update = (
       shared: {versionMap},
     }) => {
       if (!statements?.length) {
-        if (hasSupportMatrixContradictions(versionMap, simpleStatement)) {
+        if (hasSupportUpdates(versionMap, simpleStatement)) {
           return reason(
             ({browser, path}) =>
               `${path} skipped for ${browser} with unresolved differences between support matrix and BCD data. Possible intervention required.`,

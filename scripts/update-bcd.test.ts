@@ -19,7 +19,7 @@ import {
   findEntry,
   getSupportMap,
   getSupportMatrix,
-  hasSupportMatrixContradictions,
+  hasSupportUpdates,
   inferSupportStatements,
   splitRange,
   update,
@@ -822,28 +822,26 @@ describe("BCD updater", () => {
     });
   });
 
-  describe("hasSupportMatrixContradictions", () => {
+  describe("hasSupportUpdates", () => {
     it("detects contradictions with nonexistent support statements", () => {
       assert.isTrue(
-        hasSupportMatrixContradictions(new Map([["80", true]]), {
+        hasSupportUpdates(new Map([["80", true]]), {
           version_added: null,
         }),
       );
 
-      assert.isTrue(
-        hasSupportMatrixContradictions(new Map([["80", true]]), undefined),
-      );
+      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), undefined));
     });
 
     it("skips null support claims", () => {
       assert.isFalse(
-        hasSupportMatrixContradictions(new Map([["80", null]]), {
+        hasSupportUpdates(new Map([["80", null]]), {
           version_added: "≤80",
         }),
       );
 
       assert.isFalse(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["79", false],
             ["80", true],
@@ -860,21 +858,21 @@ describe("BCD updater", () => {
 
     it("detects contradictions in statements with boolean values", () => {
       assert.isFalse(
-        hasSupportMatrixContradictions(new Map([["80", false]]), {
+        hasSupportUpdates(new Map([["80", false]]), {
           version_added: false,
         }),
         "skips generic false statements",
       );
 
       assert.isTrue(
-        hasSupportMatrixContradictions(new Map([["80", true]]), {
+        hasSupportUpdates(new Map([["80", true]]), {
           version_added: true,
         }),
         "catches specific support updates over generic true statements",
       );
 
       assert.isTrue(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["80", false],
             ["81", true],
@@ -886,7 +884,7 @@ describe("BCD updater", () => {
 
     it("detects contradictions in statements with string values", () => {
       assert.isTrue(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["79", false],
             ["80", false],
@@ -899,7 +897,7 @@ describe("BCD updater", () => {
       );
 
       assert.isFalse(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["79", false],
             ["80", false],
@@ -912,7 +910,7 @@ describe("BCD updater", () => {
       );
 
       assert.isFalse(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["79", false],
             ["80", true],
@@ -925,7 +923,7 @@ describe("BCD updater", () => {
       );
 
       assert.isTrue(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["79", false],
             ["80", true],
@@ -940,7 +938,7 @@ describe("BCD updater", () => {
       );
 
       assert.isTrue(
-        hasSupportMatrixContradictions(
+        hasSupportUpdates(
           new Map([
             ["79", false],
             ["80", true],
