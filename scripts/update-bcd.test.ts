@@ -823,7 +823,7 @@ describe("BCD updater", () => {
   });
 
   describe("hasSupportUpdates", () => {
-    it("detects contradictions with nonexistent support statements", () => {
+    it("detects updates with nonexistent support statements", () => {
       assert.isTrue(
         hasSupportUpdates(new Map([["80", true]]), {
           version_added: null,
@@ -856,7 +856,7 @@ describe("BCD updater", () => {
       );
     });
 
-    it("detects contradictions in statements with boolean values", () => {
+    it("detects updates in statements with boolean values", () => {
       assert.isFalse(
         hasSupportUpdates(new Map([["80", false]]), {
           version_added: false,
@@ -882,7 +882,7 @@ describe("BCD updater", () => {
       );
     });
 
-    it("detects contradictions in statements with string values", () => {
+    it("detects updates in statements with string values", () => {
       assert.isTrue(
         hasSupportUpdates(
           new Map([
@@ -948,6 +948,20 @@ describe("BCD updater", () => {
             version_added: "preview",
           },
         ),
+      );
+    });
+
+    it("detects updates for preview statements", () => {
+      assert.isTrue(
+        hasSupportUpdates(new Map([["81", true]]), {
+          version_added: "preview",
+        }),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(new Map([["81", false]]), {
+          version_added: "preview",
+        }),
       );
     });
   });

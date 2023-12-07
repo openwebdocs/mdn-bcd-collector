@@ -692,38 +692,38 @@ export const hasSupportUpdates = (
     return true;
   }
 
-  if (simpleStatement.version_added === "preview") {
-    return true;
-  }
-
-  const contradictions: string[] = [];
-  for (const [version, supportAssertion] of versionMap.entries()) {
-    if (supportAssertion === null) {
+  const updates: string[] = [];
+  for (const [version, hasSupport] of versionMap.entries()) {
+    if (hasSupport === null) {
       continue;
     }
 
     if (typeof simpleStatement.version_added === "boolean") {
-      if (!simpleStatement.version_added && !supportAssertion) {
+      if (!simpleStatement.version_added && !hasSupport) {
         continue;
       } else {
-        contradictions.push(version);
+        updates.push(version);
       }
     }
 
     if (typeof simpleStatement.version_added === "string") {
-      const simpleAdded = simpleStatement.version_added.replace("≤", "");
-      if (compareVersions(version, simpleAdded, "<") && supportAssertion) {
-        contradictions.push(version);
+      if (simpleStatement.version_added === "preview") {
+        if (hasSupport) {
+          updates.push(version);
+        }
+        continue;
       }
-      if (
-        compareVersions(version, simpleAdded, ">=") &&
-        supportAssertion === false
-      ) {
-        contradictions.push(version);
+
+      const simpleAdded = simpleStatement.version_added.replace("≤", "");
+      if (compareVersions(version, simpleAdded, "<") && hasSupport) {
+        updates.push(version);
+      }
+      if (compareVersions(version, simpleAdded, ">=") && !hasSupport) {
+        updates.push(version);
       }
     }
   }
-  return contradictions.length > 0;
+  return updates.length > 0;
 };
 
 const persistInferredRange = provideStatements(
