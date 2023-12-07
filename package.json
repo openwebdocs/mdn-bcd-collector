@@ -123,7 +123,7 @@
     "sass": "1.69.5",
     "selenium-webdriver": "4.16.0",
     "sinon": "17.0.1",
-    "typescript": "5.3.2",
+    "typescript": "5.3.3",
     "webidl2": "24.4.1",
     "yaml": "2.3.4"
   }
