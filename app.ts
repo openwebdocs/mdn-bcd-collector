@@ -20,6 +20,7 @@ import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import {marked} from "marked";
 import {markedHighlight} from "marked-highlight";
+import {gfmHeadingId} from "marked-gfm-heading-id";
 import hljs from "highlight.js";
 import uniqueString from "unique-string";
 import expressLayouts from "express-ejs-layouts";
@@ -151,6 +152,8 @@ app.use((req, res, next) => {
   next();
 });
 
+// Configure marked
+
 // Code highlighting for Markdown files
 marked.use(
   markedHighlight({
@@ -161,6 +164,38 @@ marked.use(
     },
   }),
 );
+
+// Add IDs to headers
+marked.use(gfmHeadingId());
+
+// Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
+marked.use({
+  renderer: {
+    blockquote: (quote) => {
+      if (!quote) {
+        return quote;
+      }
+      const noteblockTypes = ["NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"];
+      const regex = new RegExp(`\\<p\\>\\[!(${noteblockTypes.join("|")})\\]`);
+
+      const lines = quote.split("\n");
+      const match = lines[0].match(regex);
+
+      if (!match) {
+        // If the blockquote is not a GFM note, return
+        return quote;
+      }
+
+      const type = match[1];
+
+      return `<blockquote class="${type.toLowerCase()}block">
+        <p><strong class="blockquote-header">${type}</strong>: ${lines
+          .slice(1)
+          .join("\n")}
+      </blockquote>`;
+    },
+  },
+});
 
 // Markdown renderer
 const renderMarkdown = async (filepath, req, res) => {

@@ -1,11 +1,4 @@
 {
-  "verbose": true,
-  "ignore": [
-    "download/*",
-    "generated/*",
-    "static/*",
-    "views/*",
-    "scripts/*",
-    "tests.json"
-  ]
+  "verbose": false,
+  "ignore": ["download/*", "generated/*", "static/*", "views/*", "scripts/*"]
 }

@@ -30,7 +30,8 @@ The workflow for the collector's process looks something like this:
 - After running through all browser and browser versions...
   - The `update-bcd` script is run to create changes to BCD
 
-> **Note:** on every new release of the collector, the first part is automatically run on all browsers released in 2020 and later, using Selenium WebDriver on [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute). These results are saved to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository for easy use by BCD contributors.
+> [!NOTE]
+> On every new release of the collector, the first part is automatically run on all browsers released in 2020 and later, using Selenium WebDriver on [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute). These results are saved to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository for easy use by BCD contributors.
 
 ### The Website
 
@@ -55,28 +56,33 @@ See [docs/update-bcd.md](./update-bcd.md) for information on how to use the `upd
 
 ### Why not generate your own version of BCD using the collected results?
 
-Our tool was not built to compete against BCD, and it may never be able to do so:
+The collector was not built to compete against BCD, and for various reasons, it may never be able to:
 
 - `@mdn/browser-compat-data` is widely used in many projects and has many contributors/reviewers
 - There are a number of features that can't be tested automatically well (OS limitations, hardware requirements, etc.)
 - A number of features tracked in BCD are not/cannot be tracked by the collector
-- We at Gooborg Studios are contracted by Open Web Docs and MDN Web Docs to maintain BCD already
 
-### Why not use the interactive examples from MDN?
+### Why not use the example code from MDN?
 
-The examples on MDN Web Docs are written with different goals:
+The example code on MDN Web Docs are wonderful to demonstrate to web developers how to use a feature in their own projects. However, the examples on MDN pages are written with different goals in mind:
 
 - MDN Web Docs examples are designed to reflect real world use cases; our code is just for feature testing
-- Example code on MDN is written using newer syntax (`let`/`const`, arrow functions, etc.) for modern browsers; our code is designed to run on as old of browsers as possible
+- Newer syntax (`let`/`const`, arrow functions, etc.) for modern browsers is preferred in MDN examples, as web developers should utilize them; our tests are designed to run on as old of browsers as possible
+- MDN Web Docs examples don't cover every feature documented in BCD, especially behavioral features; the collector aims to provide complete coverage of BCD features
 
 While some of our code is based on MDN Web Docs examples, it is modified to fit our needs better.
 
 ### Why not use tests from WPT.live?
 
-WPT.live is a great resource to test support for various features, but like MDN Web Docs, it has different goals:
+[web-platform-tests (WPT)](https://wpt.fyi/) is a great resource to test support for various features. However, its purpose differs from ours:
 
-- WPT.live exclusively focuses on support for standard features; BCD covers non-standard features as well
-- WPT.live focuses on providing test code for the latest browsers to ensure they're all functioning according to spec; thus, they use newer syntax just like the interactive examples on MDN
+- WPT exclusively focuses on support for standard features; BCD covers non-standard features as well
+- WPT is designed to test every possible aspect of a feature to ensure it conforms to the spec, meaning it tests far more than we need to
+- Newer syntax (`let`/`const`, arrow functions, etc.) for modern browsers is preferred in WPT tests; our tests are designed to run on as old of browsers as possible
+- WPT's code includes lots of helper functions in various source files, and does not readily display the source code for the tests it runs; the collector test code is visible from the page, and uses minimal helper functions in the feature tests themselves (in a way, this lets the test code be used as example code)
+- WPT runs tests on the latest nightly versions of browsers; BCD needs results from all of the stable releases of browsers
+
+While some of our code is based on WPT.live tests, it is modified to fit our needs better.
 
 ## Copyright
 

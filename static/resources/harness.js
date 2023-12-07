@@ -1433,7 +1433,22 @@
   }
 
   /**
-   * Render a report element to display on the page
+   * Render a link to harness.js for the helper functions
+   *
+   * resultsEl (HTMLElement): The element to add the report to
+   *
+   * returns (void)
+   *
+   */
+  function renderHarnessLink(resultsEl) {
+    var container = document.createElement("details");
+    container.className = "result";
+    container.innerHTML =
+      '<summary>bcd: <span class="result-value result-value-true"><span class="mdi mdi-check-bold"></span> Loaded</span></summary><div class="result-info">Some helper functions are written to aid in feature detection. These helper functions are located in a file called harness.js, which can be viewed <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/static/resources/harness.js">here</a>.</div>';
+    resultsEl.appendChild(container);
+  }
+
+  /**
    * Render a reusable instance like a report element
    *
    * instanceId (string): The identifier of the reusable instance
@@ -1666,13 +1681,19 @@
 
     function doRenderResults() {
       loadHighlightJs(function () {
+        // Add link to harness.js for helper functions
+        renderHarnessLink(resultsEl);
+
+        // Render code and support for reusable instances
         var reInstKeys = Object.keys(reusableInstances.__sources);
         for (var i = 0; i < reInstKeys.length; i++) {
           renderReInstReportEl(reInstKeys[i], resultsEl);
         }
-        if (reInstKeys.length) {
-          resultsEl.appendChild(document.createElement("hr"));
-        }
+
+        // Add divider
+        resultsEl.appendChild(document.createElement("hr"));
+
+        // Render results
         for (var j = 0; j < results.length; j++) {
           renderReportEl(results[j], resultsEl);
         }

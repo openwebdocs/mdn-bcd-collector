@@ -34,9 +34,11 @@ api:
       __test: (code goes here)
 ```
 
-> **Note:** defining a feature in this file does not directly generate tests, unless defined under the `__additional` property (which will be explained later). For example, defining a custom test for `api.FooBar.baz` in `custom/tests.yaml` will not generate the test for that feature.
+> [!NOTE]
+> Defining a feature in this file does not directly generate tests, unless defined under the `__additional` property (which will be explained later). For example, defining a custom test for `api.FooBar.baz` in `custom/tests.yaml` will not generate the test for that feature.
 
-> **Tip:** when writing custom tests, make sure to implement thorough feature checking as to not raise exceptions.
+> [!TIP]
+> When writing custom tests, make sure to implement thorough feature checking as to not raise exceptions.
 
 Each feature test will compile into a function as follows: `function() {__base + __test}`
 
@@ -283,7 +285,8 @@ bcd.addTest(
 );
 ```
 
-> **Note:** if the specified `ident` cannot be found, the code will be replaced with a error to throw indicating as such.
+> [!NOTE]
+> If the specified `ident` cannot be found, the code will be replaced with a error to throw indicating as such.
 
 ## Use ES3 features
 
