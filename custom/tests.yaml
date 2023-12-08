@@ -5187,15 +5187,19 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
-    WebAssembly:
-      Exception:
-        stack: |-
-          if (!('WebAssembly' in self && 'Exception' in WebAssembly)) {
-            return {result: false, message: 'WebAssembly.Exception is not defined'};
-          }
-          var instance = new WebAssembly.Exception(
-            new WebAssembly.Tag({parameters: ["i32", "i64"]}),
-            ["i32", BigInt(64)],
-            {traceStack: true}
-          );
-          return !!instance && "stack" in instance;
+
+# Features defined here also need to be in test-builder/webassembly.ts.
+webassembly:
+  # Features defined here also need to be in https://webassembly.github.io/spec/web-api/index.html or custom/idl/webassembly.idl.
+  api:
+    Exception:
+      stack: |-
+        if (!('WebAssembly' in self && 'Exception' in WebAssembly)) {
+          return {result: false, message: 'WebAssembly.Exception is not defined'};
+        }
+        var instance = new WebAssembly.Exception(
+          new WebAssembly.Tag({parameters: ["i32", "i64"]}),
+          ["i32", BigInt(64)],
+          {traceStack: true}
+        );
+        return !!instance && "stack" in instance;
