@@ -144,6 +144,20 @@
         "percentages": "20%"
       }
     },
+    "border-style": {
+      "__values": [
+        "none",
+        "hidden",
+        "dotted",
+        "dashed",
+        "solid",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset"
+      ]
+    },
     "border-top-left-radius": {
       "__additional_values": {
         "elliptical_corners": "40px 20px",
@@ -699,7 +713,18 @@
       "__values": ["invert"]
     },
     "outline-style": {
-      "__values": ["auto"]
+      "__values": [
+        "auto",
+        "none",
+        "dotted",
+        "dashed",
+        "solid",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset"
+      ]
     },
     "overflow": {
       "__additional_values": {
