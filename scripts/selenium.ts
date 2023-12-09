@@ -127,7 +127,11 @@ const earliestBrowserVersions = {
  * @param os - The operating system.
  * @returns The formatted string.
  */
-const prettyName = (browser, version, os) => {
+const prettyName = (
+  browser: BrowserName,
+  version: string,
+  os: string,
+): string => {
   return `${bcdBrowsers[browser].name} ${version} on ${os}`;
 };
 
@@ -196,7 +200,7 @@ const getBrowsersToTest = (
  * @param version - The version number of Safari.
  * @returns - The corresponding Safari OS version, or undefined if the version is not recognized.
  */
-const getSafariOS = (version) => {
+const getSafariOS = (version: string): string | undefined => {
   // Sauce Labs differentiates 10.0 vs. 10.1 in the OS version. This
   // function sets the appropriate OS version accordingly.
 
@@ -221,7 +225,7 @@ const getSafariOS = (version) => {
  * @returns - The list of operating systems to test, represented as an array of tuples where each tuple contains the name of the operating system and its version.
  * @throws {Error} - If the provided OS is unknown or unsupported.
  */
-const getOsesToTest = (service, os) => {
+const getOsesToTest = (service: string, os: string): [string, string][] => {
   let osesToTest: [string, string][] = [];
 
   switch (os) {
@@ -274,7 +278,7 @@ const getOsesToTest = (service, os) => {
  * @returns - The Selenium URL.
  * @throws {Error} - If the service is unknown and URL is not specified, or if there are missing required variables in the URL.
  */
-const getSeleniumUrl = (service, credentials) => {
+const getSeleniumUrl = (service: string, credentials: any): string => {
   // If credentials object is just a string, treat it as the URL
   if (typeof credentials === "string") {
     return credentials;
@@ -321,7 +325,11 @@ const getSeleniumUrl = (service, credentials) => {
  * @param os - The operating system.
  * @returns - The built Selenium driver and related information.
  */
-const buildDriver = async (browser, version, os) => {
+const buildDriver = async (
+  browser: BrowserName,
+  version: string,
+  os: string,
+) => {
   for (const [service, credentials] of Object.entries(secrets.selenium)) {
     if (service === "browserstack") {
       if (browser === "edge" && ["12", "13", "14"].includes(version)) {
@@ -462,7 +470,11 @@ const buildDriver = async (browser, version, os) => {
  * @param page - The URL of the page.
  * @returns - The modified page URL with the updated protocol.
  */
-const changeProtocol = (browser, version, page) => {
+const changeProtocol = (
+  browser: BrowserName,
+  version: string,
+  page: string,
+): string => {
   let useHttp = false;
   switch (browser) {
     case "chrome":
