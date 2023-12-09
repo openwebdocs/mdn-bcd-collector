@@ -37,7 +37,10 @@ const customJS = await fs.readJson(
 );
 
 /* c8 ignore start */
-const build = async (customIDL: IDLFiles, customCSS) => {
+/**
+ * Builds the tests.
+ */
+const build = async () => {
   const specIDLs: IDLFiles = await idl.parseAll();
   const specCSS = await css.listAll();
   const specElements = await elements.listAll();
@@ -56,6 +59,6 @@ const build = async (customIDL: IDLFiles, customCSS) => {
 };
 
 if (esMain(import.meta)) {
-  await build(customIDL, customCSS);
+  await build();
 }
 /* c8 ignore stop */

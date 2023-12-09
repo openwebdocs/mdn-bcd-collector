@@ -12,8 +12,11 @@ import * as WebIDL2 from "webidl2";
 
 import type {IDLFiles} from "../../types/types.js";
 
-// Load text (UTF-8) files from a directory and return an object mapping each
-// name (sans extension) to the parsed result of that text.
+/**
+ * Parses the IDL files from a directory and returns an object mapping each
+ * name (sans extension) to the parsed result of that text.
+ * @returns {Promise<IDLFiles>} The object mapping each name to the parsed IDL result.
+ */
 const parseIDL = async (): Promise<IDLFiles> => {
   const files = await fs.readdir(new URL(".", import.meta.url));
   files.sort();

@@ -35,6 +35,11 @@ const {browsers} = bcd;
 
 const appVersion = (await fs.readJson("./package.json"))?.version;
 
+/**
+ * Generates a report map based on the provided filter.
+ * @param {string} filter - The filter to apply to the report generation. Can be "all" or a specific year in the format "YYYY".
+ * @returns {ReportMap} The generated report map.
+ */
 const generateReportMap = (filter: string) => {
   const result: ReportMap = {};
 
@@ -79,6 +84,15 @@ const generateReportMap = (filter: string) => {
   return result;
 };
 
+/**
+ * Finds missing reports based on the provided parameters.
+ * @param {string[]} reportPaths - The paths to the report files.
+ * @param {string} filter - The filter to apply to the reports.
+ * @param {string} version - The version to compare the reports against.
+ *                           If set to "current", it uses the appVersion.
+ *                           If set to "all", it compares against all versions.
+ * @returns {object} - The report map containing the missing reports.
+ */
 const findMissingReports = async (
   reportPaths: string[],
   filter: string,
@@ -115,6 +129,11 @@ const findMissingReports = async (
 };
 
 /* c8 ignore start */
+/**
+ * Main function that finds and logs missing reports.
+ * @param {object} argv - The command line arguments.
+ * @returns {Promise<void>} - A promise that resolves when the missing reports are found and logged.
+ */
 const main = async (argv) => {
   const missingReports = await findMissingReports(
     argv.reports,

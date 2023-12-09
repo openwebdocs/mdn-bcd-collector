@@ -30,6 +30,12 @@ const categories: {
   },
 };
 
+/**
+ * Builds tests for spec elements and custom elements.
+ * @param {any} specElements - The spec elements.
+ * @param {any} customElements - The custom elements.
+ * @returns The tests.
+ */
 const build = async (specElements, customElements) => {
   const tests = {};
   const els = {

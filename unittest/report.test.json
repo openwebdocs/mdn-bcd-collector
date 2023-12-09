@@ -1,26 +1,26 @@
 {
-    "__version": "1.0.0",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537",
-    "extensions": ["extension1", "extension2"],
-    "results": {
-        "http://example.com": [
-            {
-                "exposure": "Window",
-                "name": "javascript.builtins.Array.at",
-                "result": true
-            },
-            {
-                "exposure": "ServiceWorker",
-                "name": "javascript.builtins.String.includes",
-                "result": false,
-                "message": "Browser does not support detection methods"
-            },
-            {
-                "exposure": "WebAssembly",
-                "name": "javascript.builtins.Math.random",
-                "result": null,
-                "message": "Testing Math.random in WebAssembly is not yet implemented"
-            }
-        ]
-    }
+  "__version": "1.0.0",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537",
+  "extensions": ["extension1", "extension2"],
+  "results": {
+    "http://example.com": [
+      {
+        "exposure": "Window",
+        "name": "javascript.builtins.Array.at",
+        "result": true
+      },
+      {
+        "exposure": "ServiceWorker",
+        "name": "javascript.builtins.String.includes",
+        "result": false,
+        "message": "Browser does not support detection methods"
+      },
+      {
+        "exposure": "WebAssembly",
+        "name": "javascript.builtins.Math.random",
+        "result": null,
+        "message": "Testing Math.random in WebAssembly is not yet implemented"
+      }
+    ]
+  }
 }

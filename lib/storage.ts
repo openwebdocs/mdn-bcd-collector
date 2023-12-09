@@ -11,10 +11,19 @@ import assert from "node:assert/strict";
 import fs from "fs-extra";
 import {Storage, Bucket} from "@google-cloud/storage";
 
+/**
+ * Represents a cloud storage for storing and retrieving data.
+ */
 class CloudStorage {
   _bucket: Bucket;
   _version: string;
 
+  /**
+   * Constructs a new instance of the CloudStorage class.
+   * @param {string | any} projectIdOrCreds - The project ID or credentials for the Google Cloud Storage.
+   * @param {string} bucketName - The name of the bucket.
+   * @param {string} appVersion - The version of the application.
+   */
   constructor(
     projectIdOrCreds: string | any,
     bucketName: string,
@@ -34,6 +43,12 @@ class CloudStorage {
     this._version = appVersion;
   }
 
+  /**
+   * Saves a value to the specified session and key.
+   * @param {string} sessionId - The session ID.
+   * @param {string} key - The key to store the value under.
+   * @param {any} value - The value to be stored.
+   */
   async put(sessionId, key, value) {
     assert(sessionId.length > 0);
     const name = `${this._version}/sessions/${sessionId}/${encodeURIComponent(
@@ -44,6 +59,12 @@ class CloudStorage {
     await file.save(data);
   }
 
+  /**
+   * Retrieves the value associated with the specified session and key.
+   * @param {string} sessionId - The session ID.
+   * @param {string} key - The key to retrieve the value for.
+   * @returns {any} - The retrieved value.
+   */
   async get(sessionId, key) {
     assert(sessionId.length > 0);
     const name = `${this._version}/sessions/${sessionId}/${encodeURIComponent(
@@ -55,6 +76,11 @@ class CloudStorage {
     return result;
   }
 
+  /**
+   * Retrieves all data associated with a given session ID.
+   * @param {string} sessionId - The ID of the session.
+   * @returns {Promise<object>} - A promise that resolves to an object containing the retrieved data.
+   */
   async getAll(sessionId) {
     assert(sessionId.length > 0);
     const prefix = `${this._version}/sessions/${sessionId}/`;
@@ -71,6 +97,12 @@ class CloudStorage {
     return result;
   }
 
+  /**
+   * Saves a file to the storage.
+   * @param {string} filename - The name of the file to be saved.
+   * @param {Buffer | string} data - The data to be saved in the file.
+   * @returns {Promise<void>} - A promise that resolves when the file is saved successfully.
+   */
   async saveFile(filename, data) {
     assert(!filename.includes(".."));
     const name = `${this._version}/files/${filename}`;
@@ -78,6 +110,11 @@ class CloudStorage {
     await file.save(data);
   }
 
+  /**
+   * Reads a file from the storage.
+   * @param {string} filename - The name of the file to read.
+   * @returns {Promise<Buffer>} - A promise that resolves with the file content as a Buffer.
+   */
   async readFile(filename) {
     assert(!filename.includes(".."));
     const name = `${this._version}/files/${filename}`;
@@ -86,13 +123,27 @@ class CloudStorage {
   }
 }
 
+/**
+ * Represents a memory storage for storing and retrieving data.
+ */
 class MemoryStorage {
   _data: Map<string, any>;
 
+  /**
+   * Constructs a new instance of the MemoryStorage class.
+   */
   constructor() {
     this._data = new Map();
   }
 
+  /**
+   * Stores a key-value pair in the session data for a given session ID.
+   * If the session ID does not exist, a new session data map is created.
+   * @param {string} sessionId - The ID of the session.
+   * @param {string} key - The key of the data to be stored.
+   * @param {any} value - The value to be stored.
+   * @returns {void}
+   */
   async put(sessionId, key, value) {
     let sessionData: Map<string, any>;
     if (this._data.has(sessionId)) {
@@ -104,6 +155,12 @@ class MemoryStorage {
     sessionData.set(key, value);
   }
 
+  /**
+   * Retrieves the value associated with the specified key in the session data.
+   * @param {string} sessionId - The identifier of the session.
+   * @param {string} key - The key of the value to retrieve.
+   * @returns {any} The value associated with the specified key, or undefined if the key does not exist.
+   */
   async get(sessionId, key) {
     const result = {};
     const sessionData = this._data.get(sessionId);
@@ -113,6 +170,11 @@ class MemoryStorage {
     return result[key];
   }
 
+  /**
+   * Retrieves all data associated with a given session ID.
+   * @param {string} sessionId - The ID of the session.
+   * @returns {Promise<object>} - A promise that resolves to an object containing all the data associated with the session.
+   */
   async getAll(sessionId) {
     const result = {};
     const sessionData = this._data.get(sessionId);
@@ -124,6 +186,12 @@ class MemoryStorage {
     return result;
   }
 
+  /**
+   * Saves a file to the specified location.
+   * @param {string} filename - The name of the file to be saved.
+   * @param {string | Buffer | Uint8Array} data - The data to be written to the file.
+   * @returns {Promise<void>} - A promise that resolves when the file is successfully saved.
+   */
   async saveFile(filename, data) {
     const downloadsPath = new URL(`../download`, import.meta.url);
     if (!fs.existsSync(downloadsPath)) {
@@ -137,6 +205,11 @@ class MemoryStorage {
     );
   }
 
+  /**
+   * Reads a file asynchronously.
+   * @param {string} filename - The name of the file to read.
+   * @returns {Promise<Buffer>} - A promise that resolves with the contents of the file as a Buffer.
+   */
   async readFile(filename) {
     assert(!filename.includes(".."));
     return await fs.readFile(
@@ -145,6 +218,14 @@ class MemoryStorage {
   }
 }
 
+/**
+ * Retrieves the appropriate storage based on the provided app version.
+ * If running on Google App Engine, it uses CloudStorage with the specified bucket name.
+ * If running on Heroku with the HDrive add-on, it uses CloudStorage with the specified bucket name and HDrive credentials.
+ * Otherwise, it uses MemoryStorage for local deployment and testing.
+ * @param {string} appVersion - The version of the application.
+ * @returns {Storage} - The storage instance.
+ */
 const getStorage = (appVersion) => {
   // Use CloudStorage on Google App Engine.
   const gaeproject = process.env.GOOGLE_CLOUD_PROJECT;

@@ -2,6 +2,8 @@
 // mdn-bcd-collector: lib/selenium-keepalive.ts
 // Sets HTTP keep-alive for faster Selenium tests
 //
+// Copied and modified from https://www.browserstack.com/docs/automate/selenium/error-codes/keep-alive-not-used#Node_JS
+//
 // © BrowserStack, Gooborg Studios
 // See the LICENSE file for copyright details
 //
@@ -31,6 +33,12 @@ if (http.globalAgent && "keepAlive" in http.globalAgent) {
   const httpRequest = http.request;
   const httpsRequest = https.request;
 
+  /**
+   * Sends an HTTP request.
+   * @param {http.RequestOptions} options - The request options.
+   * @param {(res: http.IncomingMessage) => void} callback - The callback function to handle the response.
+   * @returns {http.ClientRequest} The HTTP request object.
+   */
   http.request = (options, callback) => {
     if (options.protocol == "https:") {
       options["agent"] = secureAgent;

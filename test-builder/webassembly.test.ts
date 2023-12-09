@@ -14,7 +14,19 @@ import {build} from "./webassembly.js";
 
 describe("build (WebAssembly)", () => {
   it("build", async () => {
-    const wasmFeatures = {gc: () => {}, memory64: () => {}};
+    /**
+     * Represents the features of WebAssembly.
+     */
+    const wasmFeatures = {
+      /**
+       * Test whether the WebAssembly garbage collection feature is enabled.
+       */
+      gc: () => {},
+      /**
+       * Test whether the WebAssembly 64-bit memory feature is enabled.
+       */
+      memory64: () => {},
+    };
 
     assert.deepEqual(await build(wasmFeatures), {
       "webassembly.garbage-collection": {

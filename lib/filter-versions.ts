@@ -14,6 +14,14 @@ import {
   compareVersions as compareVersionsSort,
 } from "compare-versions";
 
+/**
+ * Filters for the versions of a given browser based on the specified criteria.
+ * @param {BrowserName} browser - The name of the browser.
+ * @param {string | Date | null} since - The minimum version or release date to include. Can be a string, Date object, or null.
+ * @param {boolean} reverse - Whether to sort the versions in reverse order.
+ * @returns {string[]} An array of filtered versions sorted in the specified order.
+ * @throws {Error} if the specified browser is not defined in BCD.
+ */
 const filterVersions = (
   browser: BrowserName,
   since: string | Date | null,

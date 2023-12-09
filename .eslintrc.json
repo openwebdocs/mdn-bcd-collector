@@ -1,6 +1,10 @@
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "plugins": ["@typescript-eslint", "prefer-arrow", "unicorn"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsdoc/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prefer-arrow", "jsdoc", "unicorn"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
@@ -10,6 +14,26 @@
     "curly": ["error", "all"],
     "max-len": "off",
     "indent": "off",
+    "jsdoc/check-param-names": "error",
+    "jsdoc/require-description": "warn",
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        "require": {
+          "ArrowFunctionExpression": true,
+          "ClassDeclaration": true,
+          "ClassExpression": true,
+          "FunctionDeclaration": true,
+          "FunctionExpression": true,
+          "MethodDefinition": true
+        }
+      }
+    ],
+    "jsdoc/require-param-type": "off",
+    "jsdoc/require-returns": "error",
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/no-undefined-types": "error",
+    "jsdoc/require-yields": "error",
     "no-else-return": "error",
     "no-unused-vars": ["error", {"varsIgnorePattern": "^_$"}],
     "prefer-arrow/prefer-arrow-functions": "error",

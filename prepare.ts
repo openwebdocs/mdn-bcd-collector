@@ -12,6 +12,12 @@ import esMain from "es-main";
 
 import exec from "./lib/exec.js";
 
+/**
+ * Prepares the environment for the MDN BCD Collector.
+ * This function checks if the secrets.json file exists and copies it from secrets.sample.json if it doesn't.
+ * If the environment is not set to "production", it installs Firefox for Puppeteer.
+ * @returns {Promise<void>} A promise that resolves when the preparation is complete.
+ */
 const prepare = async () => {
   // Copy secrets.sample.json to secrets.json if needed
   const secretsPath = new URL("./secrets.json", import.meta.url);

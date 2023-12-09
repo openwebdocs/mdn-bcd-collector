@@ -16,6 +16,7 @@ import {
   Capability,
   logging,
   until,
+  WebDriver,
 } from "selenium-webdriver";
 import bcd from "@mdn/browser-compat-data" assert {type: "json"};
 import type {BrowserName} from "@mdn/browser-compat-data";
@@ -49,7 +50,9 @@ const seleniumUrls = {
   lambdatest: "https://${username}:${key}@hub.lambdatest.com/wd/hub",
 };
 
-// Custom tests that use getUserMedia() make Chrome 25-26, Edge 12-18 and Firefox 34-53 block.
+/**
+ * Custom tests that use getUserMedia() make Chrome 25-26, Edge 12-18 and Firefox 34-53 block.
+ */
 const gumTests = [
   "ImageCapture",
   "MediaStream",
@@ -58,6 +61,15 @@ const gumTests = [
   "MediaStreamTrackAudioSourceNode",
 ].map((iface) => `api.${iface}`);
 
+/**
+ * Object that defines the ignored versions of browsers and their corresponding tests.
+ * The structure of the object is as follows:
+ * {
+ *   browserName: {
+ *     version: [ignoredTest1, ignoredTest2, ...]
+ *   }
+ * }
+ */
 const ignore = {
   chrome: {
     25: gumTests,
@@ -95,6 +107,10 @@ const ignore = {
   },
 };
 
+/**
+ * Object containing the earliest versions of various browsers.
+ * @type {object}
+ */
 const earliestBrowserVersions = {
   chrome: "15",
   edge: "12",
@@ -102,18 +118,35 @@ const earliestBrowserVersions = {
   safari: "5.1",
 };
 
+/**
+ * Returns a formatted string representing the browser name, version, and operating system.
+ * @param {string} browser - The browser name.
+ * @param {string} version - The browser version.
+ * @param {string} os - The operating system.
+ * @returns {string} The formatted string.
+ */
 const prettyName = (browser, version, os) => {
   return `${bcdBrowsers[browser].name} ${version} on ${os}`;
 };
 
+/**
+ * Logs a message for a given task.
+ * XXX temporary until https://github.com/SamVerschueren/listr/issues/150 fixed
+ * @param {any} task - The task object.
+ * @param {string} message - The message to be logged.
+ * @returns {void}
+ */
 const log = (task, message) => {
-  // TODO temporary until https://github.com/SamVerschueren/listr/issues/150 fixed
   task.output = task.title + " - " + message;
-
-  // eslint-disable-next-line max-len
-  // task.output = new Date(Date.now()).toLocaleTimeString(undefined, {hour12: false}) + ': ' + message;
 };
 
+/**
+ * Filters the versions of a browser based on a given date and sorting order.
+ * @param {BrowserName} browser - The name of the browser.
+ * @param {Date} since - The date since which the versions should be filtered.
+ * @param {boolean} reverse - Specifies whether the versions should be sorted in reverse order.
+ * @returns {string[]} - An array of filtered versions of the browser.
+ */
 const filterVersions = (
   browser: BrowserName,
   since: Date,
@@ -124,6 +157,13 @@ const filterVersions = (
   );
 };
 
+/**
+ * Retrieves the browsers to test based on the specified criteria.
+ * @param {BrowserName[]} limitBrowsers - An array of browser names to limit the testing to.
+ * @param {Date} since - The date to filter the versions since.
+ * @param {boolean} reverse - A boolean indicating whether to reverse the order of the versions.
+ * @returns {Record<BrowserName, string[]>} An object containing the browsers to test and their corresponding versions.
+ */
 const getBrowsersToTest = (
   limitBrowsers: BrowserName[],
   since: Date,
@@ -150,6 +190,11 @@ const getBrowsersToTest = (
   return browsersToTest;
 };
 
+/**
+ * Returns the corresponding Safari OS version for the given version number.
+ * @param {string} version - The version number of Safari.
+ * @returns {string | undefined} - The corresponding Safari OS version, or undefined if the version is not recognized.
+ */
 const getSafariOS = (version) => {
   // Sauce Labs differentiates 10.0 vs. 10.1 in the OS version. This
   // function sets the appropriate OS version accordingly.
@@ -168,6 +213,13 @@ const getSafariOS = (version) => {
   }
 };
 
+/**
+ * Retrieves the list of operating systems to test based on the provided service and OS.
+ * @param {string} service - The name of the service (e.g., "saucelabs", "lambdatest", "browserstack").
+ * @param {string} os - The name of the operating system (e.g., "Windows", "macOS").
+ * @returns {Array<[string, string]>} - The list of operating systems to test, represented as an array of tuples where each tuple contains the name of the operating system and its version.
+ * @throws {Error} - If the provided OS is unknown or unsupported.
+ */
 const getOsesToTest = (service, os) => {
   let osesToTest: [string, string][] = [];
 
@@ -214,6 +266,13 @@ const getOsesToTest = (service, os) => {
   return osesToTest;
 };
 
+/**
+ * Retrieves the Selenium URL based on the provided service and credentials.
+ * @param {string} service - The name of the service.
+ * @param {string | object} credentials - The credentials for the service. If it's a string, it will be treated as the URL.
+ * @returns {string} - The Selenium URL.
+ * @throws {Error} - If the service is unknown and URL is not specified, or if there are missing required variables in the URL.
+ */
 const getSeleniumUrl = (service, credentials) => {
   // If credentials object is just a string, treat it as the URL
   if (typeof credentials === "string") {
@@ -254,6 +313,13 @@ const getSeleniumUrl = (service, credentials) => {
   return seleniumUrl;
 };
 
+/**
+ * Builds a Selenium driver for the specified browser, version, and operating system.
+ * @param {string} browser - The browser name.
+ * @param {string} version - The browser version.
+ * @param {string} os - The operating system.
+ * @returns {Promise<{driver: any, service: string, osName: string, osVersion: string}>} - The built Selenium driver and related information.
+ */
 const buildDriver = async (browser, version, os) => {
   for (const [service, credentials] of Object.entries(secrets.selenium)) {
     if (service === "browserstack") {
@@ -388,6 +454,13 @@ const buildDriver = async (browser, version, os) => {
   return {driver: undefined};
 };
 
+/**
+ * Changes the protocol of a given page URL based on the browser and its version.
+ * @param {string} browser - The name of the browser.
+ * @param {string} version - The version of the browser.
+ * @param {string} page - The URL of the page.
+ * @returns {string} - The modified page URL with the updated protocol.
+ */
 const changeProtocol = (browser, version, page) => {
   let useHttp = false;
   switch (browser) {
@@ -413,7 +486,12 @@ const changeProtocol = (browser, version, page) => {
   return page;
 };
 
-const awaitPageReady = async (driver) => {
+/**
+ * Waits for the page to be fully loaded and ready.
+ * @param {WebDriver} driver - The WebDriver instance.
+ * @returns {Promise<void>} - A promise that resolves when the page is ready.
+ */
+const awaitPageReady = async (driver: WebDriver) => {
   await driver.wait(() => {
     return driver
       .executeScript("return document.readyState")
@@ -422,17 +500,40 @@ const awaitPageReady = async (driver) => {
   await driver.executeScript("return document.readyState");
 };
 
-const awaitPage = async (driver, browser, version, page) => {
+/**
+ * Waits for the page to navigate to the specified URL and ensures that the page is ready.
+ * @param {WebDriver} driver - The WebDriver instance.
+ * @param {string} browser - The name of the browser.
+ * @param {string} version - The version of the browser.
+ * @param {string} page - The URL of the page to navigate to.
+ * @returns {Promise<void>} - A promise that resolves when the page is ready.
+ */
+const awaitPage = async (driver: WebDriver, browser, version, page) => {
   await driver.wait(until.urlIs(changeProtocol(browser, version, page)), 30000);
   await awaitPageReady(driver);
 };
 
-const goToPage = async (driver, browser, version, page) => {
-  await driver.get(changeProtocol(browser, version, page), 30000);
+/**
+ * Navigates the driver to the specified page for the given browser and version.
+ * @param {WebDriver} driver - The WebDriver instance.
+ * @param {string} browser - The name of the browser.
+ * @param {string} version - The version of the browser.
+ * @param {string} page - The URL of the page to navigate to.
+ * @returns {Promise<void>} - A promise that resolves when the page navigation is complete.
+ */
+const goToPage = async (driver: WebDriver, browser, version, page) => {
+  await (driver as any).get(changeProtocol(browser, version, page), 30000);
   await awaitPageReady(driver);
 };
 
-const click = async (driver, browser, elementId) => {
+/**
+ * Clicks on an element identified by its ID using the specified driver and browser.
+ * @param {WebDriver} driver - The WebDriver instance.
+ * @param {string} browser - The browser name.
+ * @param {string} elementId - The ID of the element to click.
+ * @returns {Promise<void>} - A promise that resolves when the click operation is completed.
+ */
+const click = async (driver: WebDriver, browser, elementId) => {
   if (browser === "safari") {
     await driver.executeScript(
       `document.getElementById('${elementId}').click()`,
@@ -442,6 +543,16 @@ const click = async (driver, browser, elementId) => {
   }
 };
 
+/**
+ * Runs the test for the specified browser, version, and operating system.
+ * @param {string} browser - The browser to test.
+ * @param {string} version - The version of the browser.
+ * @param {string} os - The operating system to test on.
+ * @param {object} ctx - The context object.
+ * @param {object} task - The task object.
+ * @returns {Promise<void>} - A promise that resolves when the test is complete.
+ * @throws {Error} - If the browser/OS configuration is unsupported or if there is an error during the test.
+ */
 const run = async (browser, version, os, ctx, task) => {
   log(task, "Starting...");
 
@@ -508,6 +619,15 @@ const run = async (browser, version, os, ctx, task) => {
   }
 };
 
+/**
+ * Runs all the tests for the specified browsers, versions, and operating systems.
+ * @param {string[]} limitBrowsers - The browsers to limit the tests to.
+ * @param {string[]} limitVersion - The versions to limit the tests to.
+ * @param {string[]} oses - The operating systems to run the tests on.
+ * @param {number} concurrent - The number of tests to run concurrently.
+ * @param {boolean} reverse - Whether to reverse the order of the tests.
+ * @returns {boolean} - A boolean indicating whether the tests were successfully run.
+ */
 const runAll = async (
   limitBrowsers,
   limitVersion,
@@ -555,6 +675,12 @@ const runAll = async (
 
         browsertasks.push({
           title: prettyName(browser, version, os),
+          /**
+           * Task function to run the tests for a specific browser, version, and operating system.
+           * @param {object} ctx - The context object.
+           * @param {object} task - The task object.
+           * @returns {Promise<void>} - A promise that resolves when the tests are completed.
+           */
           task: (ctx, task) => run(browser, version, os, ctx, task),
           retry: 3,
         });
@@ -563,6 +689,10 @@ const runAll = async (
 
     tasks.push({
       title: bcdBrowsers[browser].name,
+      /**
+       * Task function to run the tests for a specific browser.
+       * @returns {Promise<void>} - A promise that resolves when the tests are completed.
+       */
       task: () =>
         new Listr(browsertasks, {
           concurrent,

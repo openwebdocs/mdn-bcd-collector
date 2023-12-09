@@ -12,39 +12,73 @@ import {CloudStorage, MemoryStorage, getStorage} from "./storage.js";
 
 const SESSION_ID = "testsessionid";
 
+/**
+ * The bucket associated with the file.
+ */
 class FakeFile {
   _bucket: FakeBucket;
   _name: string;
   _data: any;
 
+  /**
+   * Constructs a new instance of the Storage class.
+   * @param {string} bucket - The bucket name.
+   * @param {string} name - The name of the storage.
+   */
   constructor(bucket, name) {
     this._bucket = bucket;
     this._name = name;
     this._data = null;
   }
 
+  /**
+   * Gets the name of the storage.
+   * @returns {string} The name of the storage.
+   */
   get name() {
     return this._name;
   }
 
+  /**
+   * Saves the provided data to the storage.
+   * @param {any} data - The data to be saved.
+   * @returns {Promise<void>} - A promise that resolves when the data is saved.
+   */
   async save(data) {
     this._data = data;
     this._bucket._files.set(this._name, this);
   }
 
+  /**
+   * Downloads the data.
+   * @returns {Promise<any[]>} The downloaded data.
+   */
   async download() {
     return [this._data];
   }
 }
 
+/**
+ * Represents a fake bucket for testing purposes.
+ */
 class FakeBucket {
   _files: Map<string, any>;
 
+  /**
+   * Constructs a new instance of the FakeBucket class.
+   */
   constructor() {
     this._files = new Map();
   }
 
-  file(name) {
+  /**
+   * Retrieves a file from the storage by its name.
+   * If the file already exists in the storage, it returns the existing file.
+   * Otherwise, it creates a new file and returns it.
+   * @param {string} name - The name of the file to retrieve.
+   * @returns {FakeFile} The file object.
+   */
+  file(name: string) {
     const existing = this._files.get(name);
     if (existing) {
       return existing;
@@ -52,7 +86,12 @@ class FakeBucket {
     return new FakeFile(this, name);
   }
 
-  async getFiles(options) {
+  /**
+   * Retrieves files from the storage based on the specified options.
+   * @param {any} options - The options for retrieving files.
+   * @returns {Promise<any[]>} An array of files that match the specified options.
+   */
+  async getFiles(options: any) {
     const files: any[] = [];
     for (const [name, file] of this._files) {
       if (name.startsWith(options.prefix)) {

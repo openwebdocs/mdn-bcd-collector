@@ -56,7 +56,6 @@ const dedupeArray = (array: Array<any>): Array<any> => {
 
 /**
  * Calculates the percentage of a value relative to a total.
- *
  * @param {number} value - The value to calculate the percentage of
  * @param {number} total - The total value
  * @returns {string} The percentage as a string, formatted with two decimal places
@@ -116,7 +115,6 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
 
 /**
  * Retrieves statistics based on the provided report data and feature queries.
- *
  * @param {Report} data - The report data
  * @param {string[]} featureQuery - An array of feature queries
  * @returns {ReportStats} An object containing the version, browser, URLs, test results, and queried features
@@ -172,7 +170,6 @@ export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
 
 /**
  * Prints the statistics.
- *
  * @param {ReportStats} stats - The statistics
  * @param {boolean} verboseNull - Whether to print the list of features with unknown support
  * @returns {void}
@@ -248,7 +245,6 @@ const printStats = (stats: ReportStats, verboseNull: boolean): void => {
 
 /**
  * The main function.
- *
  * @param {string[]} files - The report files
  * @param {string[]} features - The feature queries
  * @param {boolean} verboseNull - Whether to print the list of features with unknown support

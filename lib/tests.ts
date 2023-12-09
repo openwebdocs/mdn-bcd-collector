@@ -14,12 +14,22 @@ interface Endpoints {
   [key: string]: string[];
 }
 
+/**
+ * Represents a collection of tests.
+ */
 class Tests {
   tests: {[key: string]: any};
   resources: Resources;
   endpoints: Endpoints;
   httpOnly: boolean;
 
+  /**
+   * Constructs a new instance of the Tests class.
+   * @param {object} options - The options for the Tests class.
+   * @param {object} options.tests - The tests object.
+   * @param {object} options.tests.__resources - The resources object.
+   * @param {boolean} options.httpOnly - Indicates if the HTTP-only flag is enabled.
+   */
   constructor(options) {
     this.tests = options.tests;
     this.resources = options.tests.__resources;
@@ -27,6 +37,12 @@ class Tests {
     this.httpOnly = options.httpOnly;
   }
 
+  /**
+   * Builds and returns the endpoints object.
+   * The endpoints object is a mapping of endpoint names to an array of test identifiers.
+   * Each test identifier represents a specific test case.
+   * @returns {Endpoints} The endpoints object.
+   */
   buildEndpoints() {
     const endpoints: Endpoints = {
       "": [],
@@ -55,14 +71,30 @@ class Tests {
     return endpoints;
   }
 
+  /**
+   * Returns an array of all the endpoints in the collection.
+   * @returns {string[]} An array of endpoint names.
+   */
   listEndpoints() {
     return Object.keys(this.endpoints);
   }
 
+  /**
+   * Checks if the input matches any of the available endpoints and suggests a possible alternative if not.
+   * @param {string} input - The input to check against the available endpoints.
+   * @returns {string | null} A suggested alternative if the input does not match any of the available endpoints.
+   */
   didYouMean(input) {
     return didYouMean(input, this.listEndpoints());
   }
 
+  /**
+   * Retrieves the tests for a given endpoint.
+   * @param {string} endpoint - The endpoint to retrieve tests for.
+   * @param {string?} testExposure - Optional. The exposure type of the tests to retrieve.
+   * @param {string[]} ignoreIdents - Optional. An array of identifiers to ignore.
+   * @returns {any[]} An array of tests for the specified endpoint.
+   */
   getTests(endpoint, testExposure?, ignoreIdents: string[] = []) {
     if (!(endpoint in this.endpoints)) {
       return [];

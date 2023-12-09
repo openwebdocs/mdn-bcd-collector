@@ -9,6 +9,12 @@
 import winston from "winston";
 import {LoggingWinston} from "@google-cloud/logging-winston";
 
+/**
+ * Retrieves the appropriate transport for logging based on the environment.
+ * If the GOOGLE_APPLICATION_CREDENTIALS environment variable is set, it returns a GAE cloud transport.
+ * Otherwise, it returns a console transport.
+ * @returns {LoggingWinston | winston.transports.Console} The logging transport.
+ */
 const getTransport = () => {
   /* c8 ignore next 3 */
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {

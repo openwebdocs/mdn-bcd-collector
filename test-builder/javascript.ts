@@ -12,6 +12,12 @@ import type {RawTestCodeExpr} from "../types/types.js";
 
 export const namespaces = ["Intl", "Temporal"];
 
+/**
+ * Strips attribute name by performing various replacements.
+ * @param {string} name - The attribute name to be stripped.
+ * @param {string} featureName - The feature name used in replacements.
+ * @returns {string} - The stripped attribute name.
+ */
 const stripAttrName = (name, featureName) =>
   name
     .replace(/%(\w+)Prototype%/g, "$1")
@@ -23,8 +29,14 @@ const stripAttrName = (name, featureName) =>
     .replace(/prototype\[@@(\w+)\]/g, "@@$1")
     .replace(/__(\w+)__/g, "$1");
 
-const shouldIgnoreAttr = (featureName: string, attrName: string) => {
-  const ignoreList = [
+/**
+ * Determines whether an attribute should be ignored based on the feature name and attribute name.
+ * @param {string} featureName - The name of the feature.
+ * @param {string} attrName - The name of the attribute.
+ * @returns {boolean} True if the attribute should be ignored, false otherwise.
+ */
+const shouldIgnoreAttr = (featureName: string, attrName: string): boolean => {
+  const ignoreList: string[] = [
     "String.prototype.trimLeft()",
     "String.prototype.trimRight()",
   ];
@@ -64,6 +76,12 @@ const shouldIgnoreAttr = (featureName: string, attrName: string) => {
   return false;
 };
 
+/**
+ * Builds a test list based on the provided specJS and customJS data.
+ * @param {Array} specJS - The spec data.
+ * @param {object} customJS - The custom data.
+ * @returns {object} - The built test list.
+ */
 const buildTestList = (specJS, customJS) => {
   const features = {};
 
@@ -157,6 +175,11 @@ const buildTestList = (specJS, customJS) => {
   return features;
 };
 
+/**
+ * Gets the category for a given path.
+ * @param {string[]} pathParts - An array of path parts.
+ * @returns {string} The category for the given path.
+ */
 const getCategory = (pathParts: string[]) => {
   let category = "javascript.builtins";
   const isInSubcategory =
@@ -169,6 +192,14 @@ const getCategory = (pathParts: string[]) => {
   return category;
 };
 
+/**
+ * Builds a test for a given path in the JavaScript BCD data.
+ * @param {object} tests - The object to store the compiled tests.
+ * @param {string} path - The path to the feature in the BCD data.
+ * @param {object} data - Additional data for the test (optional).
+ * @param {boolean} data.static - Indicates if the test is for a static feature (optional).
+ * @returns {Promise<void>} - A Promise that resolves when the test is built.
+ */
 const buildTest = async (
   tests,
   path: string,
@@ -233,6 +264,13 @@ const buildTest = async (
   }
 };
 
+/**
+ * Builds constructor tests for a given path.
+ * @param {object} tests - The tests object to store the compiled tests.
+ * @param {string} path - The path to the constructor.
+ * @param {object} data - Additional data for the tests (optional).
+ * @returns {Promise<void>} - A promise that resolves when the tests are built.
+ */
 const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   const parts = path.split(".");
   const category = getCategory(parts);
@@ -347,6 +385,12 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   }
 };
 
+/**
+ * Builds the tests for the given specJS and customJS.
+ * @param {object} specJS - The specJS object.
+ * @param {object} customJS - The customJS object.
+ * @returns {Promise<object>} - The tests object.
+ */
 const build = async (specJS, customJS) => {
   const tests = {};
 

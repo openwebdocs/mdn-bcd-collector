@@ -6,7 +6,14 @@
 // See the LICENSE file for copyright details
 //
 
-// Function obtained from https://stackoverflow.com/a/48032528
+/**
+ * Replaces matches in a string using an asynchronous function.
+ * @copyright https://stackoverflow.com/a/48032528
+ * @param {string} str - The input string.
+ * @param {RegExp} regex - The regular expression to match against.
+ * @param {Function} asyncFn - The asynchronous function to be called for each match.
+ * @returns {Promise<string>} A promise that resolves to the modified string.
+ */
 const replaceAsync = async (str, regex, asyncFn) => {
   const promises: Promise<string>[] = [];
   str.replace(regex, (match, ...args) => {

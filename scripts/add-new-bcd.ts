@@ -48,6 +48,14 @@ const template = {
   },
 };
 
+/**
+ * Recursively adds a new identifier to the data object.
+ * @param {string[]} ident - The array of identifier parts.
+ * @param {number} i - The current index in the identifier array.
+ * @param {Identifier} data - The data object to add the identifier to.
+ * @param {any} obj - The object to assign to the final identifier part.
+ * @returns {Identifier} The updated data object.
+ */
 export const recursiveAdd = (
   ident: string[],
   i: number,
@@ -64,14 +72,30 @@ export const recursiveAdd = (
   return data;
 };
 
+/**
+ * Checks if a string starts with a lowercase letter.
+ * @param {string} s - The string to check.
+ * @returns {boolean} True if the string starts with a lowercase letter, false otherwise.
+ */
 const startsWithLowerCase = (s: string): boolean => {
   return s[0] === s[0].toLowerCase();
 };
 
+/**
+ * Checks if a string starts with an uppercase letter.
+ * @param {string} s - The string to check.
+ * @returns {boolean} True if the string starts with an uppercase letter, false otherwise.
+ */
 const startsWithUpperCase = (s: string): boolean => {
   return s[0] === s[0].toUpperCase();
 };
 
+/**
+ * Returns the file path corresponding to the given BCD path.
+ * @param {string[]} ident - An array representing the BCD path.
+ * @returns {string} The file path as a string.
+ * @throws If the file path cannot be determined from the BCD path.
+ */
 export const getFilePath = (ident: string[]): string => {
   // Shorten or modify the path depending on the section of BCD. Make a copy
   // of ident so that it can be freely modified.
@@ -121,6 +145,13 @@ export const getFilePath = (ident: string[]): string => {
 };
 
 /* c8 ignore start */
+/**
+ * Writes the given object to a JSON file at the specified file path.
+ * If the file already exists, it merges the new object with the existing data.
+ * @param {string[]} ident - An array of identifiers representing the location within the BCD directory.
+ * @param {any} obj - The object to be written to the file.
+ * @returns {Promise<void>} A promise that resolves when the file has been written.
+ */
 const writeFile = async (ident: string[], obj: any): Promise<void> => {
   // The file path is slightly different in different parts of BCD.
   // As a catch-all case. TODO
@@ -139,6 +170,12 @@ const writeFile = async (ident: string[], obj: any): Promise<void> => {
 };
 /* c8 ignore stop */
 
+/**
+ * Traverses the features in the given object and writes the supported features to a file.
+ * @param {Identifier} obj - The object containing the features to traverse.
+ * @param {string[]} identifier - The identifier of the current feature.
+ * @returns {Promise<void>} A promise that resolves when the traversal is complete.
+ */
 export const traverseFeatures = async (
   obj: Identifier,
   identifier: string[],
@@ -164,6 +201,11 @@ export const traverseFeatures = async (
   }
 };
 
+/**
+ * Collects missing entries from BCD and writes them to a JSON file.
+ * @param {string} filepath - The path of the JSON file to write the missing entries to.
+ * @returns {Promise<void>} A Promise that resolves when the missing entries are written to the file.
+ */
 export const collectMissing = async (filepath: string): Promise<void> => {
   const missing = {};
 
@@ -177,6 +219,10 @@ export const collectMissing = async (filepath: string): Promise<void> => {
 };
 
 /* c8 ignore start */
+/**
+ * Main function that generates missing BCD, updates BCD, injects BCD, cleans up, and completes the process.
+ * @returns {Promise<void>} A Promise that resolves when the process is complete.
+ */
 const main = async (): Promise<void> => {
   const filepath = path.resolve(
     path.join(BCD_DIR, "__missing", "__missing.json"),

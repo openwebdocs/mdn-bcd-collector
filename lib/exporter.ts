@@ -16,8 +16,14 @@ const bcdBrowsers = bcd.browsers;
 
 import {parseUA} from "./ua-parser.js";
 
+import type {Octokit} from "@octokit/rest";
 import type {Report} from "../types/types.js";
 
+/**
+ * Retrieves the metadata for a report.
+ * @param {object} report - The report object.
+ * @returns {object} - The metadata object containing various properties extracted from the report.
+ */
 const getReportMeta = (report) => {
   const json = stringify(report);
   const buffer = Buffer.from(json);
@@ -59,6 +65,18 @@ const getReportMeta = (report) => {
   };
 };
 
+/**
+ * Creates the body of a pull request with the given metadata.
+ * @param {object} meta - The metadata object.
+ * @param {string} meta.uaString - The user agent string.
+ * @param {string} meta.browser - The browser name.
+ * @param {string} meta.os - The operating system name.
+ * @param {boolean} meta.ua.inBcd - Indicates if the user agent is in BCD.
+ * @param {string} meta.digest - The hash digest.
+ * @param {string[]} meta.urls - The test URLs.
+ * @param {string} meta.version - The version string.
+ * @returns {string} The body of the pull request.
+ */
 const createBody = (meta) => {
   return (
     `User Agent: ${meta.uaString}\nBrowser: ${meta.browser} (on ${meta.os})${
@@ -72,12 +90,19 @@ const createBody = (meta) => {
   );
 };
 
-const exportAsPR = async (report: Report, octokit?) => {
+/**
+ * Exports the given report as a pull request.
+ * @param {Report} report - The report to be exported as a PR.
+ * @param {Octokit} octokit - The octokit instance used for creating the PR.
+ * @returns {Promise<{filename: string, url: string}>} An object containing the filename and URL of the created PR.
+ * @throws {Error} An error if "octokit" is not defined or if octokit authentication fails.
+ */
+const exportAsPR = async (report: Report, octokit?: Octokit) => {
   if (!octokit) {
     throw new Error('"octokit" must be defined');
   }
 
-  if ((await octokit.auth()).type == "unauthenticated") {
+  if (((await octokit.auth()) as any).type == "unauthenticated") {
     throw new Error("Octokit authentication failure");
   }
 

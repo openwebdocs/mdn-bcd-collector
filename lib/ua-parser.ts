@@ -12,15 +12,32 @@ import {
 } from "compare-versions";
 import uaParser from "ua-parser-js";
 
+/**
+ * Returns the major version from a given version string.
+ * @param {string} version - The version string.
+ * @returns {string} The major version.
+ */
 const getMajorVersion = (version) => {
   return version.split(".")[0];
 };
 
+/**
+ * Returns the major and minor version of a given version string.
+ * If the version string does not contain a minor version, it defaults to 0.
+ * @param {string} version - The version string.
+ * @returns {string} The major and minor version.
+ */
 const getMajorMinorVersion = (version) => {
   const [major, minor] = version.split(".");
   return `${major}.${minor || 0}`;
 };
 
+/**
+ * Parses the user agent string and extracts relevant information about the browser and operating system.
+ * @param {string} userAgent - The user agent string.
+ * @param {object} browsers - An object containing browser data.
+ * @returns {object} An object containing the parsed browser and operating system information.
+ */
 const parseUA = (userAgent, browsers) => {
   const ua = uaParser(userAgent);
   const data: {
