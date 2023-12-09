@@ -73,10 +73,8 @@ const tests = new Tests({
 });
 
 const cookieSession = (req, res, next) => {
-  req.sessionID = req.cookies.sid;
-  if (!req.sessionID) {
-    req.sessionID = uniqueString();
-    res.cookie("sid", req.sessionID);
+  if (!req.cookies.sid) {
+    res.cookie("sid", uniqueString());
   }
   next();
 };
@@ -247,7 +245,7 @@ app.post("/api/results", async (req, res, next) => {
   }
 
   try {
-    await storage.put(req.sessionID, url, results);
+    await storage.put(req.cookies.sid, url, results);
     res.status(201).end();
   } catch (e) {
     next(e);
@@ -255,7 +253,7 @@ app.post("/api/results", async (req, res, next) => {
 });
 
 app.get("/api/results", async (req, res) => {
-  const results = await storage.getAll(req.sessionID);
+  const results = await storage.getAll(req.cookies.sid);
   res.status(200).json(createReport(results, req));
 });
 
@@ -268,7 +266,7 @@ app.post("/api/browserExtensions", async (req, res) => {
   let extData: string[] = [];
 
   try {
-    extData = (await storage.get(req.sessionID, "extensions")) || [];
+    extData = (await storage.get(req.cookies.sid, "extensions")) || [];
   } catch (e) {
     // We probably don't have any extension data yet
   }
@@ -279,7 +277,7 @@ app.post("/api/browserExtensions", async (req, res) => {
   }
 
   extData.push(...req.body);
-  await storage.put(req.sessionID, "extensions", extData);
+  await storage.put(req.cookies.sid, "extensions", extData);
   res.status(201).end();
 });
 
@@ -366,7 +364,7 @@ app.get("/download/:filename", async (req, res, next) => {
 // instead simply navigates to /export.
 app.all("/export", async (req, res, next) => {
   const github = !!req.body.github;
-  const results = await storage.getAll(req.sessionID);
+  const results = await storage.getAll(req.cookies.sid);
 
   if (!results) {
     res.status(400).render("export", {
