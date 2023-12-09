@@ -47,6 +47,12 @@ import {parseUA} from "../lib/ua-parser.js";
 
 const {default: mirror} = await import(`${BCD_DIR}/scripts/release/mirror.js`);
 
+/**
+ * Finds an entry in the BCD (Browser Compatibility Data) object based on the given identifier.
+ * @param bcd - The BCD object to search in.
+ * @param ident - The identifier to search for.
+ * @returns The found entry if it exists, otherwise null.
+ */
 export const findEntry = (
   bcd: Identifier,
   ident: string,
@@ -62,8 +68,18 @@ export const findEntry = (
   return entry;
 };
 
+/**
+ * Clone an object using JSON serialization.
+ * @param value The value to clone.
+ * @returns The cloned object.
+ */
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
+/**
+ * Combine multiple test results into a single result.
+ * @param results The results to combine.
+ * @returns The combined test result.
+ */
 const combineResults = (results: TestResultValue[]): TestResultValue => {
   let supported: TestResultValue = null;
   for (const result of results) {
@@ -84,13 +100,20 @@ const combineResults = (results: TestResultValue[]): TestResultValue => {
   return supported;
 };
 
-// Create a string representation of a version range, optimized for human
-// legibility.
+/**
+ * Create a string representation of a version range, optimized for human legibility.
+ * @param lower The lower boundary of the range.
+ * @param upper The upper boundary of the range.
+ * @returns The string representation of the version range.
+ */
 const joinRange = (lower: string, upper: string) =>
   lower === "0" ? `≤${upper}` : `${lower}> ≤${upper}`;
 
-// Parse a version range string produced by `joinRange` into a lower and upper
-// boundary.
+/**
+ * Parse a version range string produced by `joinRange` into a lower and upper boundary.
+ * @param range The range to parse.
+ * @returns The lower and upper boundaries of the range.
+ */
 export const splitRange = (range: string) => {
   const match = range.match(/(?:(.*)> )?(?:≤(.*))/);
   if (!match) {
@@ -99,8 +122,11 @@ export const splitRange = (range: string) => {
   return {lower: match[1] || "0", upper: match[2]};
 };
 
-// Get support map from BCD path to test result (null/true/false) for a single
-// report.
+/**
+ * Get support map from BCD path to test result (null/true/false) for a single report.
+ * @param report The report to process.
+ * @returns The support map.
+ */
 export const getSupportMap = (report: Report): BrowserSupportMap => {
   // Transform `report` to map from test name (BCD path) to array of results.
   const testMap = new Map();
@@ -139,8 +165,13 @@ export const getSupportMap = (report: Report): BrowserSupportMap => {
   return supportMap;
 };
 
-// Load all reports and build a map from BCD path to browser + version
-// and test result (null/true/false) for that version.
+/**
+ * Load all reports and build a map from BCD path to browser + version and test result (null/true/false) for that version.
+ * @param reports The reports to process.
+ * @param browsers The browsers to consider.
+ * @param overrides The overrides to apply.
+ * @returns The support matrix.
+ */
 export const getSupportMatrix = (
   reports: Report[],
   browsers: Browsers,
@@ -238,6 +269,11 @@ export const getSupportMatrix = (
   return supportMatrix;
 };
 
+/**
+ * Infer support statements from a map of browser versions to test results.
+ * @param versionMap The map of browser versions to test results.
+ * @returns The inferred support statements.
+ */
 export const inferSupportStatements = (
   versionMap: BrowserSupportMap,
 ): SimpleSupportStatement[] => {
@@ -351,14 +387,16 @@ interface Reason {
   quiet?: boolean;
 }
 
-interface ReasonMessageFactory {
-  (value: UpdateState): string;
-}
+type ReasonMessageFactory = (value: UpdateState) => string;
 
-interface ReasonFactory {
-  (value: UpdateState): Reason;
-}
+type ReasonFactory = (value: UpdateState) => Reason;
 
+/**
+ * Creates a reason factory function.
+ * @param message - The reason message factory.
+ * @param args - Additional arguments for the reason factory.
+ * @returns The reason factory function.
+ */
 const reason = (
   message: ReasonMessageFactory,
   args: Omit<Reason, "message"> = {},
@@ -366,10 +404,21 @@ const reason = (
   return (value) => ({message: message(value), skip: true, ...args});
 };
 
+/**
+ * Checks if the given value is a valid ReasonFactory.
+ * @param maybeFactory The value to check.
+ * @returns True if the value is a ReasonFactory, false otherwise.
+ */
 const isReasonFactory = (
   maybeFactory: unknown,
 ): maybeFactory is ReasonFactory => typeof maybeFactory === "function";
 
+/**
+ * Handles the reason for an update in a reasonable manner.
+ * @param factory - The factory function or string representation of the reason.
+ * @param value - The update state value.
+ * @returns The reason for the update.
+ */
 const handleReasonable = (
   factory: string | Reason | ReasonFactory,
   value: UpdateState,
@@ -382,6 +431,12 @@ const handleReasonable = (
   return factory;
 };
 
+/**
+ * Composes multiple functions into a single function.
+ * The functions are executed from right to left.
+ * @param funcs - The functions to be composed.
+ * @returns A function that represents the composition of the input functions.
+ */
 const compose = (...funcs: any[]) =>
   funcs.reduce(
     (last, next, index, array) => {
@@ -397,6 +452,12 @@ const compose = (...funcs: any[]) =>
     },
   ) as () => Generator<UpdateInternal>;
 
+/**
+ * Expands the given generator function by iterating over its values and applying additional transformations.
+ * @param step - The step name for debugging purposes.
+ * @param generator - The generator function that produces values to be expanded.
+ * @returns A new generator function that yields the expanded values.
+ */
 const expand = (
   step: string,
   generator: (value: UpdateState) => Generator<UpdateYield | void>,
@@ -434,6 +495,12 @@ const expand = (
     };
 };
 
+/**
+ * Applies the given operation to each value in the step, yielding the result.
+ * @param step - The step to iterate over.
+ * @param op - The operation to apply to each value in the step.
+ * @returns A generator that yields the result of applying the operation to each value in the step.
+ */
 const map = (step: string, op: (value: UpdateState) => UpdateYield | void) =>
   expand(step, function* (value: UpdateState): Generator<UpdateYield | void> {
     yield op(value);
@@ -441,16 +508,34 @@ const map = (step: string, op: (value: UpdateState) => UpdateYield | void) =>
 
 const passthrough = map("passthrough", () => {});
 
+/**
+ * Provides a new value for a specific key in the UpdateState object.
+ * @param key - The key of the value to be updated.
+ * @param op - A function that takes the current value of the key and returns the updated value.
+ * @returns A mapping function that updates the specified key in the UpdateState object.
+ */
 const provide = <S extends keyof UpdateState>(
   key: S,
   op: (value: UpdateState) => UpdateState[S],
 ) => map(`provide_${key}`, (value) => ({[key]: op(value)}));
 
+/**
+ * Provides a shared value based on the given key and operation.
+ * @param key The key of the shared value.
+ * @param op The operation to perform on the shared value.
+ * @returns A mapping function that provides the shared value.
+ */
 const provideShared = <S extends keyof UpdateShared>(
   key: S,
   op: (value: UpdateState) => UpdateShared[S],
 ) => map(`provide_shared_${key}`, (value) => ({shared: {[key]: op(value)}}));
 
+/**
+ * Provides statements for a given step by invoking the provided operation.
+ * @param step - The step identifier.
+ * @param op - The operation to be performed.
+ * @returns An object containing the statements and reason, if the operation returns a result.
+ */
 const provideStatements = (
   step: string,
   op: (
@@ -473,6 +558,12 @@ const provideStatements = (
     }
   });
 
+/**
+ * Provides a reason for a given step in the update process.
+ * @param step - The step for which to provide a reason.
+ * @param op - The operation to perform to determine the reason.
+ * @returns An object containing the reason for the step, if any.
+ */
 const provideReason = (
   step: string,
   op: (value: UpdateState) => string | Reason | ReasonFactory | void,
@@ -486,11 +577,22 @@ const provideReason = (
     }
   });
 
+/**
+ * Skips the specified step based on the provided condition.
+ * @param step - The name of the step to skip.
+ * @param condition - The condition that determines whether to skip the step.
+ * @returns A reason for skipping the step.
+ */
 const skip = (
   step: string,
   condition: (value: UpdateState) => string | Reason | ReasonFactory | void,
 ) => provideReason(`skip_${step}`, condition);
 
+/**
+ * Skips the mismatched paths based on the provided path filter.
+ * @param pathFilter - The path filter to match against.
+ * @returns The appropriate skip function based on the path filter.
+ */
 const skipPathMismatch = (pathFilter: Minimatch | string) => {
   if (
     typeof pathFilter === "object" &&
@@ -516,6 +618,11 @@ const skipPathMismatch = (pathFilter: Minimatch | string) => {
   return passthrough;
 };
 
+/**
+ * Skips the mismatched browsers based on the provided browser filter.
+ * @param browserFilter - An array of browser names to filter.
+ * @returns A skip function or passthrough function based on the browser filter.
+ */
 const skipBrowserMismatch = (browserFilter: BrowserName[]) =>
   browserFilter?.length
     ? skip("browserMatchesFilter", ({browser}) => {
@@ -531,6 +638,11 @@ const skipBrowserMismatch = (browserFilter: BrowserName[]) =>
       })
     : passthrough;
 
+/**
+ * Skips the release mismatch for the given release filter.
+ * @param releaseFilter - The release filter to apply.
+ * @returns The result of the skip operation.
+ */
 const skipReleaseMismatch = (releaseFilter: string | false) => {
   if (releaseFilter || releaseFilter === false) {
     const releaseFilterMatch =
@@ -600,6 +712,11 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
   return passthrough;
 };
 
+/**
+ * Clears non-exact statements based on the provided flag.
+ * @param exactOnly - A boolean flag indicating whether to clear non-exact statements.
+ * @returns - An array of statements or undefined if the statements should be skipped.
+ */
 const clearNonExact = (exactOnly: boolean) =>
   exactOnly
     ? provideStatements("exactOnly", ({statements}) => {
@@ -851,6 +968,19 @@ const provideDefaultStatements = provide(
   },
 );
 
+/**
+ * Picks specific properties from an object of type T and returns a new object of type UpdateLog.
+ * @template T - The type of the input object.
+ * @param obj - The input object.
+ * @param obj.allStatements - The allStatements property of the input object.
+ * @param obj.browser - The browser property of the input object.
+ * @param obj.defaultStatements - The defaultStatements property of the input object.
+ * @param obj.inferredStatements - The inferredStatements property of the input object.
+ * @param obj.path - The path property of the input object.
+ * @param obj.reason - The reason property of the input object.
+ * @param obj.statements - The statements property of the input object.s
+ * @returns - The new object of type UpdateLog.
+ */
 const pickLog = <T extends UpdateLog>({
   allStatements,
   browser,
@@ -871,6 +1001,15 @@ const pickLog = <T extends UpdateLog>({
   };
 };
 
+/**
+ * Generates a sequence of key-value pairs representing the entries in an object tree.
+ * The keys are generated by concatenating the prefix with each nested key.
+ * The values are the corresponding nested objects.
+ * @param prefix - The prefix to be prepended to each key.
+ * @param entry - The root object to traverse.
+ * @returns A generator that yields key-value pairs.
+ * @yields The next key-value pair in the object tree.
+ */
 export const walkEntries = function* (
   prefix: string,
   entry: Identifier,
@@ -884,6 +1023,13 @@ export const walkEntries = function* (
   }
 };
 
+/**
+ * Updates the BCD (Browser Compatibility Data) based on the provided parameters.
+ * @param bcd - The BCD identifier.
+ * @param supportMatrix - The support matrix.
+ * @param options - Additional options for the update.
+ * @returns A boolean indicating whether any changes were made during the update.
+ */
 export const update = (
   bcd: Identifier,
   supportMatrix: SupportMatrix,
@@ -996,12 +1142,15 @@ export const update = (
   return changes.some(({statements}) => Boolean(statements));
 };
 
-// |paths| can be files or directories. Returns an object mapping
-// from (absolute) path to the parsed file content.
 /* c8 ignore start */
+/**
+ * Loads JSON files from the specified paths and returns them as a single object.
+ * @param paths - An array of paths to the JSON files or directories containing JSON files.
+ * @returns A Promise that resolves to a Record<string, any> object containing the loaded JSON data.
+ */
 export const loadJsonFiles = async (
   paths: string[],
-): Promise<{[filename: string]: any}> => {
+): Promise<Record<string, any>> => {
   const jsonCrawler = new fdir()
     .withFullPaths()
     .filter((item) => {
@@ -1029,6 +1178,14 @@ export const loadJsonFiles = async (
   return Object.fromEntries(entries);
 };
 
+/**
+ * Updates the Browser Compatibility Data (BCD) files based on the provided parameters.
+ * @param reportPaths - An array of paths to the report files.
+ * @param filter - An object containing filter options.
+ * @param browsers - An object representing the browsers to include in the update.
+ * @param overrides - An object containing override options.
+ * @returns A Promise that resolves when the update is complete.
+ */
 export const main = async (
   reportPaths: string[],
   filter: any,
@@ -1060,7 +1217,7 @@ export const main = async (
           "webdriver",
           "webextensions",
         ].map((cat) => path.join(BCD_DIR, ...cat.split("."))),
-  )) as {[key: string]: Identifier};
+  )) as Record<string, Identifier>;
 
   const reports = Object.values(await loadJsonFiles(reportPaths)) as Report[];
   const supportMatrix = getSupportMatrix(
