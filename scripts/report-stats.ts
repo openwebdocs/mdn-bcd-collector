@@ -29,6 +29,20 @@ const tests = Object.keys(
   await fs.readJson(new URL("../tests.json", import.meta.url)),
 );
 
+interface ReportStats {
+  version: string;
+  browser: any; // Replace with the actual type for the browser object
+  urls: string[];
+  testResults: {
+    total: number;
+    supported: string[];
+    unsupported: string[];
+    unknown: string[];
+    missing: string[]; // Replace with the actual type for the missing entries
+  };
+  featuresQueried: any[]; // Replace with the actual type for the features queried
+}
+
 const statuses = {Supported: "green", Unsupported: "red", Unknown: "yellow"};
 
 const dedupeArray = (array: Array<any>): Array<any> => {
@@ -83,7 +97,7 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   return data;
 };
 
-const getStats = (data: Report, featureQuery: string[]): any => {
+export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
   const testResults = Object.values(data.results).flat();
   const testedFeatures = dedupeArray(testResults.map((r) => r.name));
 
@@ -132,7 +146,7 @@ const getStats = (data: Report, featureQuery: string[]): any => {
   };
 };
 
-const printStats = (stats: any, verboseNull: boolean): void => {
+const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   console.log(
     chalk` -=- Statistics for {bold ${stats.browser.browser.name} ${stats.browser.version}} (${stats.browser.os.name} ${stats.browser.os.version}) -=-`,
   );
