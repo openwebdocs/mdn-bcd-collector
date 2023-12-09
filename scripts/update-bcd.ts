@@ -460,7 +460,7 @@ const compose = (...funcs: any[]) =>
  */
 const expand = (
   step: string,
-  generator: (value: UpdateState) => Generator<UpdateYield | void>,
+  generator: (value: UpdateState) => Generator<UpdateYield | undefined>,
 ) => {
   return (last: () => Generator<UpdateInternal>) =>
     function* (): Generator<UpdateInternal> {
@@ -501,12 +501,17 @@ const expand = (
  * @param op - The operation to apply to each value in the step.
  * @returns A generator that yields the result of applying the operation to each value in the step.
  */
-const map = (step: string, op: (value: UpdateState) => UpdateYield | void) =>
-  expand(step, function* (value: UpdateState): Generator<UpdateYield | void> {
+const map = (
+  step: string,
+  op: (value: UpdateState) => UpdateYield | undefined,
+) =>
+  expand(step, function* (value: UpdateState): Generator<
+    UpdateYield | undefined
+  > {
     yield op(value);
   });
 
-const passthrough = map("passthrough", () => {});
+const passthrough = map("passthrough", () => undefined);
 
 /**
  * Provides a new value for a specific key in the UpdateState object.
@@ -542,7 +547,7 @@ const provideStatements = (
     value: UpdateState,
   ) =>
     | [UpdateState["statements"] | undefined, string | Reason | ReasonFactory]
-    | void,
+    | undefined,
 ) =>
   map(`provide_statements_${step}`, (value) => {
     const result = op(value);
@@ -566,7 +571,7 @@ const provideStatements = (
  */
 const provideReason = (
   step: string,
-  op: (value: UpdateState) => string | Reason | ReasonFactory | void,
+  op: (value: UpdateState) => string | Reason | ReasonFactory | undefined,
 ) =>
   map(`reason_${step}`, (value) => {
     const reason = op(value);
@@ -585,7 +590,9 @@ const provideReason = (
  */
 const skip = (
   step: string,
-  condition: (value: UpdateState) => string | Reason | ReasonFactory | void,
+  condition: (
+    value: UpdateState,
+  ) => string | Reason | ReasonFactory | undefined,
 ) => provideReason(`skip_${step}`, condition);
 
 /**
