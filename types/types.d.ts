@@ -7,6 +7,7 @@
 //
 
 import {BrowserName} from "@mdn/browser-compat-data/types";
+
 import type * as WebIDL2 from "webidl2";
 
 export type InternalSupportStatement = SupportStatement | "mirror";
@@ -37,9 +38,7 @@ export type Resource =
       src: string;
     };
 
-export interface Resources {
-  [resource: string]: Resource;
-}
+export type Resources = Record<string, Resource>;
 
 export interface Test {
   code: string;
@@ -76,9 +75,7 @@ export interface TestResult {
   message?: string;
 }
 
-export interface TestResults {
-  [key: string]: TestResult[];
-}
+export type TestResults = Record<string, TestResult[]>;
 
 export interface Report {
   __version: string;
@@ -91,8 +88,6 @@ export type SupportMap = Map<BrowserName, BrowserSupportMap>;
 export type SupportMatrix = Map<string, SupportMap>;
 
 export type OverrideTuple = [string, string, string, TestResultValue];
-export type Overrides = Array<string | OverrideTuple>;
+export type Overrides = (string | OverrideTuple)[];
 
-export interface IDLFiles {
-  [filename: string]: WebIDL2.IDLRootType[];
-}
+export type IDLFiles = Record<string, WebIDL2.IDLRootType[]>;

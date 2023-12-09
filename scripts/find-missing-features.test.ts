@@ -10,9 +10,10 @@ import {assert} from "chai";
 import sinon from "sinon";
 import fs from "fs-extra";
 
+import bcd from "../unittest/bcd.test.js";
+
 import {traverseFeatures, getMissing} from "./find-missing-features.js";
 
-import bcd from "../unittest/bcd.test.js";
 const tests = await fs.readJson(
   new URL("../unittest/tests.test.json", import.meta.url),
 );

@@ -7,7 +7,9 @@
 //
 
 import bcd from "@mdn/browser-compat-data" assert {type: "json"};
+
 import type {BrowserStatement, BrowserName} from "@mdn/browser-compat-data";
+
 const bcdBrowsers = bcd.browsers;
 import {
   compare as compareVersions,

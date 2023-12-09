@@ -11,8 +11,6 @@ import chaiSubset from "chai-subset";
 import chaiAsPromised from "chai-as-promised";
 chai.use(chaiSubset).use(chaiAsPromised);
 
-import type {RawTest} from "./types/types.js";
-
 import {
   compileTestCode,
   compileTest,
@@ -22,15 +20,16 @@ import {
   CustomTestResult,
 } from "./common.js";
 
+import type {RawTest} from "./types/types.js";
+
+
 describe("build (common)", () => {
   describe("getCustomTest(Data)", () => {
-    const expectedResults: {
-      [k: string]: {
+    const expectedResults: Record<string, {
         category: string;
         data: CustomTestData;
         result: CustomTestResult;
-      };
-    } = {
+      }> = {
       "api.FooBar": {
         category: "api",
         data: {

@@ -6,8 +6,9 @@
 // See the LICENSE file for copyright details
 //
 
-import fs from "fs-extra";
 import path from "node:path";
+
+import fs from "fs-extra";
 import * as WebIDL2 from "webidl2";
 
 import type {IDLFiles} from "../../types/types.js";

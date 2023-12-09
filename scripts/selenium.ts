@@ -20,7 +20,7 @@ import {
   WebElement,
 } from "selenium-webdriver";
 import bcd from "@mdn/browser-compat-data" assert {type: "json"};
-import type {BrowserName} from "@mdn/browser-compat-data";
+
 const bcdBrowsers = bcd.browsers;
 import {compare as compareVersions} from "compare-versions";
 import fetch from "node-fetch";
@@ -34,6 +34,8 @@ import {hideBin} from "yargs/helpers";
 import {RESULTS_DIR} from "../lib/constants.js";
 import filterVersionsLib from "../lib/filter-versions.js";
 import getSecrets from "../lib/secrets.js";
+
+import type {BrowserName} from "@mdn/browser-compat-data";
 
 import "../lib/selenium-keepalive.js";
 
@@ -402,7 +404,7 @@ const buildDriver = async (
           },
         });
       } else if (browser === "firefox") {
-        let firefoxPrefs: {[pref: string]: any} = {
+        let firefoxPrefs: Record<string, any> = {
           "media.navigator.streams.fake": true,
         };
         if (version >= 53) {

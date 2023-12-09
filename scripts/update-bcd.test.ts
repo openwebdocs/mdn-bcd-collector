@@ -6,7 +6,6 @@
 // See the LICENSE file for copyright details
 //
 
-import {Report} from "../types/types.js";
 
 import {assert} from "chai";
 import sinon from "sinon";
@@ -14,7 +13,10 @@ import fs from "fs-extra";
 import {Minimatch} from "minimatch";
 import {Browsers} from "@mdn/browser-compat-data/types";
 
+import {Report} from "../types/types.js";
 import logger from "../lib/logger.js";
+import bcd from "../unittest/bcd.test.js";
+
 import {
   findEntry,
   getSupportMap,
@@ -23,8 +25,6 @@ import {
   splitRange,
   update,
 } from "./update-bcd.js";
-
-import bcd from "../unittest/bcd.test.js";
 const overrides = await fs.readJson(
   new URL("../unittest/overrides.test.json", import.meta.url),
 );

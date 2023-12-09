@@ -12,6 +12,7 @@ import idl from "@webref/idl";
 import css from "@webref/css";
 import elements from "@webref/elements";
 import {getIntrinsics} from "es-scraper";
+import * as wasmFeatures from "wasm-feature-detect";
 
 import customIDL from "../custom/idl/index.js";
 
@@ -24,7 +25,6 @@ import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
 
-import * as wasmFeatures from "wasm-feature-detect";
 
 const customCSS = await fs.readJson(
   new URL("../custom/css.json", import.meta.url),

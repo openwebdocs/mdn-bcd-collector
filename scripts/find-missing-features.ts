@@ -7,14 +7,13 @@
 //
 
 import {CompatData, CompatStatement} from "@mdn/browser-compat-data/types";
-import {Tests} from "../types/types.js";
-
 import chalk from "chalk-template";
 import esMain from "es-main";
 import fs from "fs-extra";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
+import {Tests} from "../types/types.js";
 import {BCD_DIR} from "../lib/constants.js";
 
 /**

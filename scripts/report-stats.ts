@@ -19,6 +19,7 @@ import {CompatData} from "@mdn/browser-compat-data/types";
 import {Report} from "../types/types.js";
 import {BCD_DIR} from "../lib/constants.js";
 import {parseUA} from "../lib/ua-parser.js";
+
 import {findMissing} from "./find-missing-features.js";
 
 const {default: bcd}: {default: CompatData} = await import(
@@ -50,7 +51,7 @@ const statuses = {Supported: "green", Unsupported: "red", Unknown: "yellow"};
  * @param array - The array to deduplicate.
  * @returns A new array with duplicate elements removed.
  */
-const dedupeArray = (array: Array<any>): Array<any> => {
+const dedupeArray = (array: any[]): any[] => {
   return array.filter((item, index) => array.indexOf(item) === index);
 };
 

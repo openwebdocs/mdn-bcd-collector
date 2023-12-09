@@ -28,18 +28,18 @@ export const customTests = YAML.parse(
 );
 /* c8 ignore stop */
 
-export type CustomTestData = {
+export interface CustomTestData {
   __base: string | false;
   __test: string | false;
   __resources: string[];
-  __additional: {[key: string]: string};
-};
+  __additional: Record<string, string>;
+}
 
-export type CustomTestResult = {
+export interface CustomTestResult {
   test: string | false;
   resources: string[];
-  additional: {[key: string]: string};
-};
+  additional: Record<string, string>;
+}
 
 /**
  * Get the custom test data for a specified feature identifier by recursively searching

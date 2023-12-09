@@ -7,9 +7,11 @@
 //
 
 import {expect} from "chai";
-import {Report} from "../types/types.js";
-import {getStats} from "./report-stats.js";
 import fs from "fs-extra";
+
+import {Report} from "../types/types.js";
+
+import {getStats} from "./report-stats.js";
 
 describe("getStats", () => {
   it("should return correct stats from report.test.json", async () => {

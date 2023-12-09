@@ -8,13 +8,11 @@
 
 import {getCustomTest, compileTest} from "./common.js";
 
-const categories: {
-  [name: string]: {
+const categories: Record<string, {
     namespace?: string;
     default?: string;
     startsWith: string;
-  };
-} = {
+  }> = {
   html: {
     default: "HTMLElement",
     startsWith: "HTML",

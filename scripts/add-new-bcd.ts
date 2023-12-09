@@ -6,18 +6,18 @@
 // See the LICENSE file for copyright details
 //
 
-import {Identifier} from "@mdn/browser-compat-data/types";
-
 import path from "node:path";
 import {execSync} from "node:child_process";
 
+import {Identifier} from "@mdn/browser-compat-data/types";
 import fs from "fs-extra";
 import esMain from "es-main";
 
 import {BCD_DIR} from "../lib/constants.js";
+import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
+
 import {getMissing} from "./find-missing-features.js";
 import {main as updateBcd} from "./update-bcd.js";
-import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
 const tests = await fs.readJson(new URL("../tests.json", import.meta.url));
 const overrides = await fs.readJson(

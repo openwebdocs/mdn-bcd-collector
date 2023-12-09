@@ -8,9 +8,10 @@
 
 import * as WebIDL2 from "webidl2";
 
+import {getCustomTest, compileTest} from "./common.js";
+
 import type {RawTestCodeExpr, Exposure, IDLFiles} from "../types/types.js";
 
-import {getCustomTest, compileTest} from "./common.js";
 
 /**
  * Merges members from the source object into the target object, checking for duplicate members and handling special cases for static members.
@@ -307,7 +308,7 @@ const getExtAttrSet = (node, name: string) => {
     return null;
   }
 
-  const set: Set<string> = new Set();
+  const set = new Set<string>();
   switch (attr.rhs.type) {
     case "identifier":
       set.add(attr.rhs.value);
@@ -399,7 +400,7 @@ const validateIDL = (ast) => {
   // Validate that there are no unknown types. There are types in lots of
   // places in the AST (interface members, arguments, return types) and rather
   // than trying to cover them all, walk the whole AST looking for "idlType".
-  const usedTypes: Set<string> = new Set();
+  const usedTypes = new Set<string>();
   // Serialize and reparse the ast to not have to worry about own properties
   // vs enumerable properties on the prototypes, etc.
   const pending = [JSON.parse(JSON.stringify(ast))];

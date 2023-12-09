@@ -10,15 +10,13 @@ import didYouMean from "didyoumean";
 
 import type {Resources} from "../types/types.js";
 
-interface Endpoints {
-  [key: string]: string[];
-}
+type Endpoints = Record<string, string[]>;
 
 /**
  * Represents a collection of tests.
  */
 class Tests {
-  tests: {[key: string]: any};
+  tests: Record<string, any>;
   resources: Resources;
   endpoints: Endpoints;
   httpOnly: boolean;

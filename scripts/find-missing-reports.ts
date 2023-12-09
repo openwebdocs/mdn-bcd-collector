@@ -7,13 +7,11 @@
 //
 
 import {CompatData} from "@mdn/browser-compat-data/types";
+
 import {Report} from "../types/types.js";
 
-interface ReportMap {
-  [k: string]: string[];
-}
+type ReportMap = Record<string, string[]>;
 
-import type {BrowserName} from "@mdn/browser-compat-data";
 import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
@@ -26,7 +24,10 @@ import {hideBin} from "yargs/helpers";
 import {BCD_DIR} from "../lib/constants.js";
 import filterVersions from "../lib/filter-versions.js";
 import {parseUA} from "../lib/ua-parser.js";
+
 import {loadJsonFiles} from "./update-bcd.js";
+
+import type {BrowserName} from "@mdn/browser-compat-data";
 
 const {default: bcd}: {default: CompatData} = await import(
   `${BCD_DIR}/index.js`
