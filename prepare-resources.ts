@@ -63,7 +63,7 @@ const copyResources = async () => {
 const generateCSS = async () => {
   const scssPath = fileURLToPath(new URL("./style.scss", import.meta.url));
   const outPath = path.join(generatedDir, "resources", "style.css");
-  const result = sass.renderSync({file: scssPath});
+  const result = sass.compile(scssPath);
   await fs.writeFile(outPath, result.css.toString(), "utf8");
 };
 
