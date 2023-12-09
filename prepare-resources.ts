@@ -18,7 +18,7 @@ const generatedDir = fileURLToPath(new URL("./generated", import.meta.url));
 
 /**
  * Copies the specified resources to their destination directories.
- * @returns {Promise<void>} A promise that resolves when all resources are copied.
+ * @returns A promise that resolves when all resources are copied.
  */
 const copyResources = async () => {
   const resources = [
@@ -66,7 +66,7 @@ const copyResources = async () => {
 
 /**
  * Generates CSS from SCSS file and writes it to the specified output path.
- * @returns {Promise<void>} A promise that resolves when the CSS generation and writing is complete.
+ * @returns A promise that resolves when the CSS generation and writing is complete.
  */
 const generateCSS = async () => {
   const scssPath = fileURLToPath(new URL("./style.scss", import.meta.url));

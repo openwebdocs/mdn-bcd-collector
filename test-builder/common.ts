@@ -48,9 +48,9 @@ export type CustomTestResult = {
  *
  * This will allow all custom tests to have their own base and test code, which will
  * allow for importing any test of any category much easier.
- * @param {string} name - The name of the feature identifier.
- * @param {any} customTestData - The custom test data object (optional).
- * @returns {CustomTestData} The custom test data object for the specified feature identifier.
+ * @param name - The name of the feature identifier.
+ * @param customTestData - The custom test data object (optional).
+ * @returns The custom test data object for the specified feature identifier.
  */
 const getCustomTestData = (name: string, customTestData: any = customTests) => {
   const result: CustomTestData = {
@@ -106,11 +106,11 @@ const getCustomTestData = (name: string, customTestData: any = customTests) => {
 
 /**
  * Generates custom test code based on the provided parameters.
- * @param {string} name - The name of the test.
- * @param {string} category - The category of the test.
- * @param {boolean} exactMatchNeeded - Indicates whether an exact match is needed.
- * @param {CustomTestData} data - The custom test data.
- * @returns {Promise<{code: string; resources: string[]}> | false} A promise that resolves to an object containing the generated code and resources, or `false` if no custom test is available.
+ * @param name - The name of the test.
+ * @param category - The category of the test.
+ * @param exactMatchNeeded - Indicates whether an exact match is needed.
+ * @param data - The custom test data.
+ * @returns A promise that resolves to an object containing the generated code and resources, or `false` if no custom test is available.
  */
 const generateCustomTestCode = async (
   name: string,
@@ -191,10 +191,10 @@ const generateCustomTestCode = async (
 /**
  * Retrieves the custom test for a specified feature identifier.
  * If exactMatchNeeded is true, a __test must be defined.
- * @param {string} name - The name of the feature identifier.
- * @param {string} category - The category of the feature identifier.
- * @param {boolean} exactMatchNeeded - Indicates whether an exact match is needed.
- * @returns {CustomTestResult} The custom test result, including the test code, additional tests, and resources.
+ * @param name - The name of the feature identifier.
+ * @param category - The category of the feature identifier.
+ * @param exactMatchNeeded - Indicates whether an exact match is needed.
+ * @returns The custom test result, including the test code, additional tests, and resources.
  */
 const getCustomTest = async (
   name: string,
@@ -264,9 +264,9 @@ const getCustomTest = async (
 
 /**
  * Compiles custom test code and returns the compiled code along with any resources used.
- * @param {string} code The custom test code to compile.
- * @param {boolean} format Indicates whether the compiled code should be formatted using Prettier. Default is true.
- * @returns {Promise<{code: string; resources: string[]}>} A promise that resolves to an object containing the compiled code and the resources used.
+ * @param code The custom test code to compile.
+ * @param format Indicates whether the compiled code should be formatted using Prettier. Default is true.
+ * @returns A promise that resolves to an object containing the compiled code and the resources used.
  */
 const compileCustomTest = async (
   code: string,
@@ -331,8 +331,8 @@ const compileCustomTest = async (
 
 /**
  * Compiles the test code into a string.
- * @param {any} test - The test code to compile.
- * @returns {string} The compiled test code as a string.
+ * @param test - The test code to compile.
+ * @returns The compiled test code as a string.
  */
 const compileTestCode = (test: any): string => {
   if (typeof test === "string") {
@@ -381,8 +381,8 @@ const compileTestCode = (test: any): string => {
 
 /**
  * Compiles a raw test into a Test object.
- * @param {RawTest} test - The raw test to compile.
- * @returns {Test} The compiled Test object.
+ * @param test - The raw test to compile.
+ * @returns The compiled Test object.
  */
 const compileTest = (test: RawTest): Test => {
   let code;

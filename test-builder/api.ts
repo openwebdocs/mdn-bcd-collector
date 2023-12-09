@@ -14,8 +14,8 @@ import {getCustomTest, compileTest} from "./common.js";
 
 /**
  * Merges members from the source object into the target object, checking for duplicate members and handling special cases for static members.
- * @param {object} target - The target object to merge members into.
- * @param {object} source - The source object containing the members to merge.
+ * @param target - The target object to merge members into.
+ * @param source - The source object containing the members to merge.
  * @throws {Error} If there is a duplicate definition of a non-static member.
  */
 const mergeMembers = (target, source) => {
@@ -47,9 +47,9 @@ const mergeMembers = (target, source) => {
 /**
  * Flattens the provided specIDLs and customIDLs into a single AST.
  * Merges partial definitions, mixes in mixins, and extracts globals and scopes.
- * @param {Record<string, WebIDL2.IDLRootType[]>} specIDLs - The spec IDL files.
- * @param {Record<string, WebIDL2.IDLRootType[]>} customIDLs - The custom IDL files.
- * @returns {Record<string, any>} An object containing the flattened AST, globals, and scopes.
+ * @param specIDLs - The spec IDL files.
+ * @param customIDLs - The custom IDL files.
+ * @returns An object containing the flattened AST, globals, and scopes.
  */
 const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   let ast: WebIDL2.IDLRootType[] = [];
@@ -156,8 +156,8 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
 
 /**
  * Flattens the members of an interface, filtering out certain members based on specific conditions.
- * @param {object} iface - The interface object.
- * @returns {Array} An array of flattened members, sorted alphabetically by name.
+ * @param iface - The interface object.
+ * @returns An array of flattened members, sorted alphabetically by name.
  */
 const flattenMembers = (iface) => {
   const members = iface.members
@@ -286,9 +286,9 @@ const flattenMembers = (iface) => {
 
 /**
  * Retrieves the specified extended attribute from the given node.
- * @param {object} node - The node to retrieve the extended attribute from.
- * @param {string} name - The name of the extended attribute to retrieve.
- * @returns {object | undefined} - The extended attribute object if found, otherwise undefined.
+ * @param node - The node to retrieve the extended attribute from.
+ * @param name - The name of the extended attribute to retrieve.
+ * @returns - The extended attribute object if found, otherwise undefined.
  */
 const getExtAttr = (node, name: string) => {
   return node.extAttrs && node.extAttrs.find((i) => i.name === name);
@@ -296,9 +296,9 @@ const getExtAttr = (node, name: string) => {
 
 /**
  * Retrieves the set of values associated with a specific extended attribute from a given node.
- * @param {object} node - The node to retrieve the extended attribute from.
- * @param {string} name - The name of the extended attribute.
- * @returns {Set<string> | null} - The set of values associated with the extended attribute, or null if the attribute does not exist.
+ * @param node - The node to retrieve the extended attribute from.
+ * @param name - The name of the extended attribute.
+ * @returns - The set of values associated with the extended attribute, or null if the attribute does not exist.
  * @throws {Error} - If the extended attribute has an unexpected right-hand side type.
  */
 const getExtAttrSet = (node, name: string) => {
@@ -332,9 +332,9 @@ const getExtAttrSet = (node, name: string) => {
 /**
  * Retrieves the exposure set for a given node and scopes.
  * @see https://webidl.spec.whatwg.org/#Exposed
- * @param {object} node - The node to retrieve the exposure set for.
- * @param {Set<string>} scopes - The set of valid scopes.
- * @returns {Set<Exposure>} - The exposure set for the node.
+ * @param node - The node to retrieve the exposure set for.
+ * @param scopes - The set of valid scopes.
+ * @returns - The exposure set for the node.
  * @throws {Error} - If the "Exposed" extended attribute is not found on the node, or if the node is exposed on an invalid scope.
  */
 const getExposureSet = (node, scopes): Set<Exposure> => {
@@ -376,7 +376,7 @@ const getExposureSet = (node, scopes): Set<Exposure> => {
 /**
  * Validates the given Abstract Syntax Tree (AST) representing Web IDL.
  * Throws an error if the validation fails.
- * @param {object} ast - The Abstract Syntax Tree (AST) to validate.
+ * @param ast - The Abstract Syntax Tree (AST) to validate.
  * @throws {Error} If the Web IDL validation fails.
  */
 const validateIDL = (ast) => {
@@ -471,12 +471,12 @@ const validateIDL = (ast) => {
 
 /**
  * Builds tests for IDL members.
- * @param {Array} members - The list of members.
- * @param {object} iface - The interface.
- * @param {Set<Exposure>} exposureSet - The exposure set.
- * @param {object} resources - The resources.
- * @param {object} settings - The settings.
- * @returns {any} The generated tests.
+ * @param members - The list of members.
+ * @param iface - The interface.
+ * @param exposureSet - The exposure set.
+ * @param resources - The resources.
+ * @param settings - The settings.
+ * @returns The generated tests.
  */
 const buildIDLMemberTests = async (
   members,
@@ -600,10 +600,10 @@ const buildIDLMemberTests = async (
 
 /**
  * Builds IDL tests based on the provided AST, globals, and scopes.
- * @param {object[]} ast - The Abstract Syntax Tree representing the IDL.
- * @param {object[]} globals - The global objects.
- * @param {object[]} scopes - The scopes for exposing the IDL.
- * @returns {object} - The compiled IDL tests.
+ * @param ast - The Abstract Syntax Tree representing the IDL.
+ * @param globals - The global objects.
+ * @param scopes - The scopes for exposing the IDL.
+ * @returns - The compiled IDL tests.
  */
 const buildIDLTests = async (ast, globals, scopes) => {
   const tests = {};
@@ -706,9 +706,9 @@ const buildIDLTests = async (ast, globals, scopes) => {
 
 /**
  * Builds tests for the given specIDLs and customIDLs.
- * @param {Record<string, WebIDL2.IDLRootType[]>} specIDLs - The spec IDL files.
- * @param {Record<string, WebIDL2.IDLRootType[]>} customIDLs - The custom IDL files.
- * @returns {Promise<any>} A promise that resolves to the built tests.
+ * @param specIDLs - The spec IDL files.
+ * @param customIDLs - The custom IDL files.
+ * @returns A promise that resolves to the built tests.
  */
 const build = async (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
   const {ast, globals, scopes} = flattenIDL(specIDLs, customIDLs);

@@ -31,8 +31,8 @@ const overrides = await fs.readJson(
 
 /**
  * Creates a deep copy of the given value using JSON serialization and deserialization.
- * @param {any} value - The value to be cloned.
- * @returns {any} A deep copy of the given value.
+ * @param value - The value to be cloned.
+ * @returns A deep copy of the given value.
  */
 const clone = (value: any): any => JSON.parse(JSON.stringify(value));
 const chromeAndroid86UaString =
@@ -1024,8 +1024,8 @@ describe("BCD updater", () => {
 
       /**
        * Converts a support object into a BCD object.
-       * @param {object} support - The support object.
-       * @returns {object} - The BCD object.
+       * @param support - The support object.
+       * @returns - The BCD object.
        */
       const bcdFromSupport = (support) => ({
         api: {FakeInterface: {__compat: {support}}},
@@ -1036,10 +1036,10 @@ describe("BCD updater", () => {
        * based on support data for Chrome and Chrome Android and test result
        * data for Chrome Android. This utility invokes the `update` function
        * and is designed to observe the behavior of the "mirror" support value.
-       * @param {object} options - The options for the test case
-       * @param {object} options.support - The support data for the feature
-       * @param {boolean} options.downstreamResult - The test result for the feature in Chrome Android
-       * @returns {object} The BCD data structure for the feature
+       * @param options - The options for the test case
+       * @param options.support - The support data for the feature
+       * @param options.downstreamResult - The test result for the feature in Chrome Android
+       * @returns The BCD data structure for the feature
        */
       const mirroringCase = ({support, downstreamResult}) => {
         const reports: Report[] = [

@@ -35,9 +35,9 @@ if (http.globalAgent && "keepAlive" in http.globalAgent) {
 
   /**
    * Sends an HTTP request.
-   * @param {http.RequestOptions} options - The request options.
-   * @param {(res: http.IncomingMessage) => void} callback - The callback function to handle the response.
-   * @returns {http.ClientRequest} The HTTP request object.
+   * @param options - The request options.
+   * @param callback - The callback function to handle the response.
+   * @returns The HTTP request object.
    */
   http.request = (options, callback) => {
     if (options.protocol == "https:") {

@@ -10,9 +10,9 @@ import type {TestResult, Exposure} from "../types/types.js";
 
 /**
  * Parses a short string value.
- * @param {any} value - The value to parse.
- * @param {string} desc - The description of the value.
- * @returns {string} The parsed short string value.
+ * @param value - The value to parse.
+ * @param desc - The description of the value.
+ * @returns The parsed short string value.
  * @throws {Error} If the value is not a string or if the string is too long.
  */
 const parseShortString = (value, desc) => {
@@ -27,9 +27,9 @@ const parseShortString = (value, desc) => {
 
 /**
  * Parse a results payload from the client into a structure that only contains the expected data and does not contain any long strings.
- * @param {string} url - The URL to be parsed.
- * @param {Array<object>} results - The results to be parsed.
- * @returns {[string, Array<TestResult>]} - The parsed URL and parsed results.
+ * @param url - The URL to be parsed.
+ * @param results - The results to be parsed.
+ * @returns - The parsed URL and parsed results.
  * @throws {Error} - If the URL is invalid or the results are not in the expected format.
  */
 const parseResults = (url, results) => {

@@ -10,8 +10,8 @@ import {compileTest} from "./common.js";
 
 /**
  * Builds a test object for WebAssembly features.
- * @param {Record<string, any>} wasmFeatures - An object containing WebAssembly features as keys.
- * @returns {Record<string, any>} A test object with BCD paths as keys and compiled tests as values.
+ * @param wasmFeatures - An object containing WebAssembly features as keys.
+ * @returns A test object with BCD paths as keys and compiled tests as values.
  */
 const build = async (wasmFeatures) => {
   const features = Object.keys(wasmFeatures) as any[];

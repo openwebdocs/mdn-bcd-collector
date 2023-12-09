@@ -43,7 +43,7 @@ import getSecrets from "./lib/secrets.js";
  * If the application is running in production mode, it returns the version from the package.json file.
  * Otherwise, it attempts to retrieve the version using the "git describe --tags" command.
  * If the command fails or encounters an error, it falls back to using the version from package.json with "-dev" appended.
- * @returns {Promise<string>} The version of the application.
+ * @returns The version of the application.
  */
 const getAppVersion = async () => {
   const version = (
@@ -82,9 +82,9 @@ const tests = new Tests({
 /**
  * Middleware function to handle cookie session.
  * If the 'sid' cookie is not present in the request, it sets a new 'sid' cookie using a unique string.
- * @param {Request} req - The request object.
- * @param {Response} res - The response object.
- * @param {Function} next - The next function to call in the middleware chain.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next function to call in the middleware chain.
  */
 const cookieSession = (req, res, next) => {
   if (!req.cookies.sid) {
@@ -95,9 +95,9 @@ const cookieSession = (req, res, next) => {
 
 /**
  * Creates a report object based on the provided results and request.
- * @param {object} results - The test results.
- * @param {object} req - The request object.
- * @returns {object} - The report object.
+ * @param results - The test results.
+ * @param req - The request object.
+ * @returns - The report object.
  */
 const createReport = (results, req) => {
   const extensions = results.extensions;
@@ -122,13 +122,12 @@ const headers = {
 
 /**
  * Options for setting static headers in the response.
- * @typedef {object} StaticOptions
- * @property {Function} setHeaders - A function that sets the headers in the response.
+ * setHeaders - A function that sets the headers in the response.
  */
 const staticOptions = {
   /**
    * Sets headers in the response.
-   * @param {Response} res - The response object.
+   * @param res - The response object.
    */
   setHeaders: (res) => {
     for (const h of Object.keys(headers)) {
@@ -186,9 +185,9 @@ marked.use(
     langPrefix: "hljs language-",
     /**
      * Highlight code with specified language.
-     * @param {string} code - The code to highlight.
-     * @param {string} lang - The language of the code.
-     * @returns {string} The highlighted code.
+     * @param code - The code to highlight.
+     * @param lang - The language of the code.
+     * @returns The highlighted code.
      */
     highlight: (code, lang) => {
       const language = hljs.getLanguage(lang) ? lang : "plaintext";
@@ -205,8 +204,8 @@ marked.use({
   renderer: {
     /**
      * Renders a blockquote element.
-     * @param {string} quote - The quote to render.
-     * @returns {string} The rendered blockquote element.
+     * @param quote - The quote to render.
+     * @returns The rendered blockquote element.
      */
     blockquote: (quote) => {
       if (!quote) {
@@ -237,10 +236,10 @@ marked.use({
 // Markdown renderer
 /**
  * Renders the Markdown file.
- * @param {string} filepath - The path to the Markdown file.
- * @param {object} req - The request object.
- * @param {object} res - The response object.
- * @returns {Promise<void>} - A promise that resolves when the rendering is complete.
+ * @param filepath - The path to the Markdown file.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns - A promise that resolves when the rendering is complete.
  */
 const renderMarkdown = async (filepath, req, res) => {
   if (!fs.existsSync(filepath)) {

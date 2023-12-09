@@ -14,9 +14,9 @@ export const namespaces = ["Intl", "Temporal"];
 
 /**
  * Strips attribute name by performing various replacements.
- * @param {string} name - The attribute name to be stripped.
- * @param {string} featureName - The feature name used in replacements.
- * @returns {string} - The stripped attribute name.
+ * @param name - The attribute name to be stripped.
+ * @param featureName - The feature name used in replacements.
+ * @returns - The stripped attribute name.
  */
 const stripAttrName = (name, featureName) =>
   name
@@ -31,9 +31,9 @@ const stripAttrName = (name, featureName) =>
 
 /**
  * Determines whether an attribute should be ignored based on the feature name and attribute name.
- * @param {string} featureName - The name of the feature.
- * @param {string} attrName - The name of the attribute.
- * @returns {boolean} True if the attribute should be ignored, false otherwise.
+ * @param featureName - The name of the feature.
+ * @param attrName - The name of the attribute.
+ * @returns True if the attribute should be ignored, false otherwise.
  */
 const shouldIgnoreAttr = (featureName: string, attrName: string): boolean => {
   const ignoreList: string[] = [
@@ -78,9 +78,9 @@ const shouldIgnoreAttr = (featureName: string, attrName: string): boolean => {
 
 /**
  * Builds a test list based on the provided specJS and customJS data.
- * @param {Array} specJS - The spec data.
- * @param {object} customJS - The custom data.
- * @returns {object} - The built test list.
+ * @param specJS - The spec data.
+ * @param customJS - The custom data.
+ * @returns - The built test list.
  */
 const buildTestList = (specJS, customJS) => {
   const features = {};
@@ -177,8 +177,8 @@ const buildTestList = (specJS, customJS) => {
 
 /**
  * Gets the category for a given path.
- * @param {string[]} pathParts - An array of path parts.
- * @returns {string} The category for the given path.
+ * @param pathParts - An array of path parts.
+ * @returns The category for the given path.
  */
 const getCategory = (pathParts: string[]) => {
   let category = "javascript.builtins";
@@ -194,11 +194,11 @@ const getCategory = (pathParts: string[]) => {
 
 /**
  * Builds a test for a given path in the JavaScript BCD data.
- * @param {object} tests - The object to store the compiled tests.
- * @param {string} path - The path to the feature in the BCD data.
- * @param {object} data - Additional data for the test (optional).
- * @param {boolean} data.static - Indicates if the test is for a static feature (optional).
- * @returns {Promise<void>} - A Promise that resolves when the test is built.
+ * @param tests - The object to store the compiled tests.
+ * @param path - The path to the feature in the BCD data.
+ * @param data - Additional data for the test (optional).
+ * @param data.static - Indicates if the test is for a static feature (optional).
+ * @returns - A Promise that resolves when the test is built.
  */
 const buildTest = async (
   tests,
@@ -266,10 +266,10 @@ const buildTest = async (
 
 /**
  * Builds constructor tests for a given path.
- * @param {object} tests - The tests object to store the compiled tests.
- * @param {string} path - The path to the constructor.
- * @param {object} data - Additional data for the tests (optional).
- * @returns {Promise<void>} - A promise that resolves when the tests are built.
+ * @param tests - The tests object to store the compiled tests.
+ * @param path - The path to the constructor.
+ * @param data - Additional data for the tests (optional).
+ * @returns - A promise that resolves when the tests are built.
  */
 const buildConstructorTests = async (tests, path: string, data: any = {}) => {
   const parts = path.split(".");
@@ -387,9 +387,9 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
 
 /**
  * Builds the tests for the given specJS and customJS.
- * @param {object} specJS - The specJS object.
- * @param {object} customJS - The customJS object.
- * @returns {Promise<object>} - The tests object.
+ * @param specJS - The specJS object.
+ * @param customJS - The customJS object.
+ * @returns - The tests object.
  */
 const build = async (specJS, customJS) => {
   const tests = {};

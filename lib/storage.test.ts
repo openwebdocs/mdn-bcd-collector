@@ -22,8 +22,8 @@ class FakeFile {
 
   /**
    * Constructs a new instance of the Storage class.
-   * @param {string} bucket - The bucket name.
-   * @param {string} name - The name of the storage.
+   * @param bucket - The bucket name.
+   * @param name - The name of the storage.
    */
   constructor(bucket, name) {
     this._bucket = bucket;
@@ -33,7 +33,7 @@ class FakeFile {
 
   /**
    * Gets the name of the storage.
-   * @returns {string} The name of the storage.
+   * @returns The name of the storage.
    */
   get name() {
     return this._name;
@@ -41,8 +41,8 @@ class FakeFile {
 
   /**
    * Saves the provided data to the storage.
-   * @param {any} data - The data to be saved.
-   * @returns {Promise<void>} - A promise that resolves when the data is saved.
+   * @param data - The data to be saved.
+   * @returns - A promise that resolves when the data is saved.
    */
   async save(data) {
     this._data = data;
@@ -51,7 +51,7 @@ class FakeFile {
 
   /**
    * Downloads the data.
-   * @returns {Promise<any[]>} The downloaded data.
+   * @returns The downloaded data.
    */
   async download() {
     return [this._data];
@@ -75,8 +75,8 @@ class FakeBucket {
    * Retrieves a file from the storage by its name.
    * If the file already exists in the storage, it returns the existing file.
    * Otherwise, it creates a new file and returns it.
-   * @param {string} name - The name of the file to retrieve.
-   * @returns {FakeFile} The file object.
+   * @param name - The name of the file to retrieve.
+   * @returns The file object.
    */
   file(name: string) {
     const existing = this._files.get(name);
@@ -88,8 +88,8 @@ class FakeBucket {
 
   /**
    * Retrieves files from the storage based on the specified options.
-   * @param {any} options - The options for retrieving files.
-   * @returns {Promise<any[]>} An array of files that match the specified options.
+   * @param options - The options for retrieving files.
+   * @returns An array of files that match the specified options.
    */
   async getFiles(options: any) {
     const files: any[] = [];

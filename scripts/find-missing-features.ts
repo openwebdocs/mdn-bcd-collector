@@ -19,10 +19,10 @@ import {BCD_DIR} from "../lib/constants.js";
 
 /**
  * Traverses the features object and returns an array of feature paths.
- * @param {object} obj - The features object to traverse.
- * @param {string} path - The current path of the traversal.
- * @param {boolean} [includeAliases] - Whether to include aliases in the result.
- * @returns {string[]} An array of feature paths.
+ * @param obj - The features object to traverse.
+ * @param path - The current path of the traversal.
+ * @param [includeAliases] - Whether to include aliases in the result.
+ * @returns An array of feature paths.
  */
 const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
   const features: string[] = [];
@@ -75,9 +75,9 @@ const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
 
 /**
  * Finds the missing entries in the given array of entries compared to the array of all entries.
- * @param {string[]} entries - The array of entries to check against.
- * @param {string[]} allEntries - The array of all entries.
- * @returns {object} An object containing the missing entries and the total number of entries.
+ * @param entries - The array of entries to check against.
+ * @param allEntries - The array of all entries.
+ * @returns An object containing the missing entries and the total number of entries.
  */
 const findMissing = (
   entries: string[],
@@ -96,12 +96,12 @@ const findMissing = (
 
 /**
  * Retrieves the missing entries between the BCD (Browser Compatibility Data) and the collector.
- * @param {CompatData} bcd - The BCD data.
- * @param {Tests} tests - The collector data.
- * @param {string} direction - The direction of comparison. Default is "collector-from-bcd".
- * @param {string[]} pathFilter - An optional array of paths to filter the entries.
- * @param {boolean} includeAliases - Specifies whether to include aliases in the comparison. Default is false.
- * @returns {object} The missing entries based on the specified direction.
+ * @param bcd - The BCD data.
+ * @param tests - The collector data.
+ * @param direction - The direction of comparison. Default is "collector-from-bcd".
+ * @param pathFilter - An optional array of paths to filter the entries.
+ * @param includeAliases - Specifies whether to include aliases in the comparison. Default is false.
+ * @returns The missing entries based on the specified direction.
  */
 const getMissing = (
   bcd: CompatData,
@@ -112,8 +112,8 @@ const getMissing = (
 ) => {
   /**
    * Filters the path based on the given item.
-   * @param {string} item - The item to filter the path with.
-   * @returns {boolean} - Returns true if the item matches the filter criteria, otherwise false.
+   * @param item - The item to filter the path with.
+   * @returns - Returns true if the item matches the filter criteria, otherwise false.
    */
   const filterPath = (item) => {
     return (
@@ -143,8 +143,8 @@ const getMissing = (
 /* c8 ignore start */
 /**
  * Finds missing entries between BCD and the collector tests.
- * @param {CompatData} bcd - The BCD data.
- * @param {Tests} tests - The collector tests data.
+ * @param bcd - The BCD data.
+ * @param tests - The collector tests data.
  */
 const main = (bcd: CompatData, tests: Tests) => {
   const {argv}: any = yargs(hideBin(process.argv)).command(

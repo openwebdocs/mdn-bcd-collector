@@ -21,8 +21,8 @@ import type {Report} from "../types/types.js";
 
 /**
  * Retrieves the metadata for a report.
- * @param {object} report - The report object.
- * @returns {object} - The metadata object containing various properties extracted from the report.
+ * @param report - The report object.
+ * @returns - The metadata object containing various properties extracted from the report.
  */
 const getReportMeta = (report) => {
   const json = stringify(report);
@@ -67,15 +67,15 @@ const getReportMeta = (report) => {
 
 /**
  * Creates the body of a pull request with the given metadata.
- * @param {object} meta - The metadata object.
- * @param {string} meta.uaString - The user agent string.
- * @param {string} meta.browser - The browser name.
- * @param {string} meta.os - The operating system name.
- * @param {boolean} meta.ua.inBcd - Indicates if the user agent is in BCD.
- * @param {string} meta.digest - The hash digest.
- * @param {string[]} meta.urls - The test URLs.
- * @param {string} meta.version - The version string.
- * @returns {string} The body of the pull request.
+ * @param meta - The metadata object.
+ * @param meta.uaString - The user agent string.
+ * @param meta.browser - The browser name.
+ * @param meta.os - The operating system name.
+ * @param meta.ua.inBcd - Indicates if the user agent is in BCD.
+ * @param meta.digest - The hash digest.
+ * @param meta.urls - The test URLs.
+ * @param meta.version - The version string.
+ * @returns The body of the pull request.
  */
 const createBody = (meta) => {
   return (
@@ -92,9 +92,9 @@ const createBody = (meta) => {
 
 /**
  * Exports the given report as a pull request.
- * @param {Report} report - The report to be exported as a PR.
- * @param {Octokit} octokit - The octokit instance used for creating the PR.
- * @returns {Promise<{filename: string, url: string}>} An object containing the filename and URL of the created PR.
+ * @param report - The report to be exported as a PR.
+ * @param octokit - The octokit instance used for creating the PR.
+ * @returns An object containing the filename and URL of the created PR.
  * @throws {Error} An error if "octokit" is not defined or if octokit authentication fails.
  */
 const exportAsPR = async (report: Report, octokit?: Octokit) => {

@@ -15,7 +15,7 @@ import type {IDLFiles} from "../../types/types.js";
 /**
  * Parses the IDL files from a directory and returns an object mapping each
  * name (sans extension) to the parsed result of that text.
- * @returns {Promise<IDLFiles>} The object mapping each name to the parsed IDL result.
+ * @returns The object mapping each name to the parsed IDL result.
  */
 const parseIDL = async (): Promise<IDLFiles> => {
   const files = await fs.readdir(new URL(".", import.meta.url));

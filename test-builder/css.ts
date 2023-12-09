@@ -10,9 +10,9 @@ import {getCustomTest, compileTest} from "./common.js";
 
 /**
  * Builds tests for CSS properties and selectors based on the provided specCSS and customCSS.
- * @param {object} specCSS - The specification CSS data.
- * @param {object} customCSS - The custom CSS data.
- * @returns {object} - The tests for CSS properties and selectors.
+ * @param specCSS - The specification CSS data.
+ * @param customCSS - The custom CSS data.
+ * @returns - The tests for CSS properties and selectors.
  */
 const build = async (specCSS, customCSS) => {
   const properties = new Map();

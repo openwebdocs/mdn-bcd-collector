@@ -23,7 +23,7 @@ const currentVersion = (
 
 /**
  * Prepares the tasks for the release process.
- * @returns {ListrTask[]} An array of task objects representing the tasks to be executed.
+ * @returns An array of task objects representing the tasks to be executed.
  */
 const prepare = (): ListrTask[] => {
   return [
@@ -58,8 +58,8 @@ const prepare = (): ListrTask[] => {
       },
       /**
        * Skip if the user has specified not to create a pull request.
-       * @param {object} ctx - The context object.
-       * @returns {boolean} - Returns true if the task should be skipped, false otherwise.
+       * @param ctx - The context object.
+       * @returns - Returns true if the task should be skipped, false otherwise.
        */
       skip: (ctx) => ctx.skipPR,
     },
@@ -80,13 +80,13 @@ const prepare = (): ListrTask[] => {
       title: "Fetching from remote",
       /**
        * Fetching from remote.
-       * @returns {Promise<void>} - A promise that resolves when the fetch is complete.
+       * @returns - A promise that resolves when the fetch is complete.
        */
       task: async () => await exec("git fetch --all"),
       /**
        * Skip if the user has specified not to fetch from remote.
-       * @param {object} ctx - The context object.
-       * @returns {boolean} - Returns true if the task should be skipped, false otherwise.
+       * @param ctx - The context object.
+       * @returns - Returns true if the task should be skipped, false otherwise.
        */
       skip: (ctx) => ctx.skipFetch,
     },
@@ -95,9 +95,9 @@ const prepare = (): ListrTask[] => {
 
 /**
  * Retrieves the new version based on the current version and user input.
- * @param {object} ctx - The context object.
- * @param {object} task - The task object.
- * @returns {Promise<void>} - A promise that resolves when the new version is retrieved.
+ * @param ctx - The context object.
+ * @param task - The task object.
+ * @returns - A promise that resolves when the new version is retrieved.
  * @throws {Error} - If the user cancels the release.
  */
 const getNewVersion = async (ctx, task) => {
@@ -145,10 +145,10 @@ const getNewVersion = async (ctx, task) => {
 
 /**
  * Simplifies the test changes list.
- * @param {string} el - The element to be processed.
- * @param {number} _ - The index of the element in the list.
- * @param {string[]} list - The list of elements.
- * @returns {boolean} - Returns true if the element is simplified, false otherwise.
+ * @param el - The element to be processed.
+ * @param _ - The index of the element in the list.
+ * @param list - The list of elements.
+ * @returns - Returns true if the element is simplified, false otherwise.
  */
 const simplifyTestChangesList = (el, _, list) => {
   const parts = el.split(".");
@@ -166,7 +166,7 @@ const simplifyTestChangesList = (el, _, list) => {
 
 /**
  * Retrieves the list of tasks for performing test changes.
- * @returns {ListrTask[]} The list of tasks for performing test changes.
+ * @returns The list of tasks for performing test changes.
  */
 const getTestChanges = (): ListrTask[] => {
   return [
@@ -209,7 +209,7 @@ const getTestChanges = (): ListrTask[] => {
       title: "Build tests from current release",
       /**
        * Build tests from current release.
-       * @returns {Promise<void>} - A promise that resolves when the tests are built.
+       * @returns - A promise that resolves when the tests are built.
        */
       task: async () => await exec("npm run build:tests"),
     },
@@ -264,7 +264,7 @@ const getTestChanges = (): ListrTask[] => {
       title: "Cleanup",
       /**
        * Cleanup.
-       * @returns {Promise<void>} - A promise that resolves when the cleanup is complete.
+       * @returns - A promise that resolves when the cleanup is complete.
        */
       task: async () =>
         await fs.rm(new URL("../tests.old.json", import.meta.url)),
@@ -274,8 +274,8 @@ const getTestChanges = (): ListrTask[] => {
 
 /**
  * Retrieves the git changes between the current version and the origin/main branch.
- * @param {object} ctx - The context object.
- * @returns {Promise<void>} - A promise that resolves when the git changes are retrieved.
+ * @param ctx - The context object.
+ * @returns - A promise that resolves when the git changes are retrieved.
  */
 const getGitChanges = async (ctx) => {
   const commits = String(
@@ -303,8 +303,8 @@ const getGitChanges = async (ctx) => {
 /**
  * Updates the CHANGELOG.md file with a new version section and commits.
  * If a major version bump is performed, moves the old changelog results to another file.
- * @param {any} ctx - The context object containing information about the new version, test changes, and commits.
- * @returns {Promise<void>} - A promise that resolves once the changelog is updated.
+ * @param ctx - The context object containing information about the new version, test changes, and commits.
+ * @returns - A promise that resolves once the changelog is updated.
  */
 const doChangelogUpdate = async (ctx) => {
   const filepath = new URL("../CHANGELOG.md", import.meta.url);
@@ -358,8 +358,8 @@ const doChangelogUpdate = async (ctx) => {
 
 /**
  * Bumps the version of the project.
- * @param {string} newVersion - The new version to set.
- * @returns {Promise<void>} - A promise that resolves when the version is bumped.
+ * @param newVersion - The new version to set.
+ * @returns - A promise that resolves when the version is bumped.
  */
 const doVersionBump = async (newVersion) => {
   await exec(`npm version --no-git-tag-version ${newVersion}`);
@@ -367,8 +367,8 @@ const doVersionBump = async (newVersion) => {
 
 /**
  * Prepares a branch for release by creating and checking out the branch, adding necessary files, and committing the changes.
- * @param {object} ctx - The context object containing information about the release.
- * @param {string} ctx.newVersion - The new version number for the release.
+ * @param ctx - The context object containing information about the release.
+ * @param ctx.newVersion - The new version number for the release.
  */
 const prepareBranch = async (ctx) => {
   ctx.branchName = `release-${ctx.newVersion}`;
@@ -389,8 +389,8 @@ const prepareBranch = async (ctx) => {
 
 /**
  * Creates a pull request using the specified context.
- * @param {any} ctx - The context object containing the branch name.
- * @returns {Promise<void>} - A promise that resolves when the pull request is created.
+ * @param ctx - The context object containing the branch name.
+ * @returns - A promise that resolves when the pull request is created.
  */
 const createPR = async (ctx) => {
   await exec(`git push --set-upstream origin ${ctx.branchName}`);
@@ -402,7 +402,7 @@ const createPR = async (ctx) => {
  * It performs various tasks such as checking prerequisites, getting version numbers,
  * retrieving test changes, updating the changelog, bumping the version number,
  * confirming the release, preparing the release branch, and creating a pull request.
- * @returns {Promise<void>} A promise that resolves when the release process is completed.
+ * @returns A promise that resolves when the release process is completed.
  */
 const main = async () => {
   const {argv} = yargs(hideBin(process.argv))
@@ -431,9 +431,9 @@ const main = async () => {
         title: "Check prerequesites",
         /**
          * Check prerequesites.
-         * @param {object} _ - The context object.
-         * @param {object} task - The task object.
-         * @returns {Promise<void>} - A promise that resolves when the prerequesites are checked.
+         * @param _ - The context object.
+         * @param task - The task object.
+         * @returns - A promise that resolves when the prerequesites are checked.
          */
         task: (_, task) => task.newListr(prepare()),
       },
@@ -445,9 +445,9 @@ const main = async () => {
         title: "Get test changes",
         /**
          * Get test changes.
-         * @param {object} _ - The context object.
-         * @param {object} task - The task object.
-         * @returns {Promise<void>} - A promise that resolves when the test changes are retrieved.
+         * @param _ - The context object.
+         * @param task - The task object.
+         * @returns - A promise that resolves when the test changes are retrieved.
          */
         task: (_, task) => task.newListr(getTestChanges()),
       },
@@ -463,8 +463,8 @@ const main = async () => {
         title: "Bump version number",
         /**
          * Bump version number.
-         * @param {object} ctx - The context object.
-         * @returns {Promise<void>} - A promise that resolves when the version is bumped.
+         * @param ctx - The context object.
+         * @returns - A promise that resolves when the version is bumped.
          */
         task: async (ctx) => await doVersionBump(ctx.newVersion),
       },
@@ -472,9 +472,9 @@ const main = async () => {
         title: "Get confirmation to continue",
         /**
          * Get confirmation to continue.
-         * @param {object} ctx - The context object.
-         * @param {object} task - The task object.
-         * @returns {Promise<void>} - A promise that resolves when the user confirms the release.
+         * @param ctx - The context object.
+         * @param task - The task object.
+         * @returns - A promise that resolves when the user confirms the release.
          */
         task: async (ctx, task) => {
           const confirm = await task
@@ -494,13 +494,13 @@ const main = async () => {
         },
         /**
          * Rollback the version bump if the user cancels the release.
-         * @returns {Promise<void>} - A promise that resolves when the version is rolled back.
+         * @returns - A promise that resolves when the version is rolled back.
          */
         rollback: async () => await doVersionBump(currentVersion),
         /**
          * Skip if the user has specified not to prompt.
-         * @param {object} ctx - The context object.
-         * @returns {boolean} - Returns true if the task should be skipped, false otherwise.
+         * @param ctx - The context object.
+         * @returns - Returns true if the task should be skipped, false otherwise.
          */
         skip: (ctx) => ctx.skipPrompt,
       },
@@ -513,8 +513,8 @@ const main = async () => {
         task: createPR,
         /**
          * Skip if the user has specified not to create a pull request.
-         * @param {object} ctx - The context object.
-         * @returns {boolean} - Returns true if the task should be skipped, false otherwise.
+         * @param ctx - The context object.
+         * @returns - Returns true if the task should be skipped, false otherwise.
          */
         skip: (ctx) => ctx.skipPR,
       },
