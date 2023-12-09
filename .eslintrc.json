@@ -2,7 +2,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:jsdoc/recommended-typescript"
   ],
   "plugins": ["@typescript-eslint", "prefer-arrow", "jsdoc", "unicorn"],
   "parser": "@typescript-eslint/parser",
