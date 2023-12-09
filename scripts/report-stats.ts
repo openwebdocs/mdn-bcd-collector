@@ -45,14 +45,31 @@ interface ReportStats {
 
 const statuses = {Supported: "green", Unsupported: "red", Unknown: "yellow"};
 
+/**
+ * Removes duplicate elements from an array.
+ * @param {Array<any>} array - The array to deduplicate.
+ * @returns {Array<any>} A new array with duplicate elements removed.
+ */
 const dedupeArray = (array: Array<any>): Array<any> => {
   return array.filter((item, index) => array.indexOf(item) === index);
 };
 
+/**
+ * Calculates the percentage of a value relative to a total.
+ *
+ * @param {number} value - The value to calculate the percentage of
+ * @param {number} total - The total value
+ * @returns {string} The percentage as a string, formatted with two decimal places
+ */
 const percentage = (value: number, total: number): string => {
   return `${((value / total) * 100).toFixed(2)}%`;
 };
 
+/**
+ * Loads a JSON file and returns its contents as a Report object.
+ * @param {string} file - The path to the JSON file.
+ * @returns {Promise<Report | undefined>} A Promise that resolves to the Report object if the file is valid, otherwise undefined.
+ */
 const loadFile = async (file: string): Promise<Report | undefined> => {
   // Check file argument to ensure it's a valid JSON file
   if (!file) {
@@ -97,6 +114,13 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   return data;
 };
 
+/**
+ * Retrieves statistics based on the provided report data and feature queries.
+ *
+ * @param {Report} data - The report data
+ * @param {string[]} featureQuery - An array of feature queries
+ * @returns {ReportStats} An object containing the version, browser, URLs, test results, and queried features
+ */
 export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
   const testResults = Object.values(data.results).flat();
   const testedFeatures = dedupeArray(testResults.map((r) => r.name));
@@ -146,6 +170,13 @@ export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
   };
 };
 
+/**
+ * Prints the statistics.
+ *
+ * @param {ReportStats} stats - The statistics
+ * @param {boolean} verboseNull - Whether to print the list of features with unknown support
+ * @returns {void}
+ */
 const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   console.log(
     chalk` -=- Statistics for {bold ${stats.browser.browser.name} ${stats.browser.version}} (${stats.browser.os.name} ${stats.browser.os.version}) -=-`,
@@ -215,6 +246,14 @@ const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   console.log("\n");
 };
 
+/**
+ * The main function.
+ *
+ * @param {string[]} files - The report files
+ * @param {string[]} features - The feature queries
+ * @param {boolean} verboseNull - Whether to print the list of features with unknown support
+ * @returns {Promise<void>}
+ */
 const main = async (
   files: string[],
   features: string[],
