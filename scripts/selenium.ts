@@ -331,8 +331,8 @@ const buildDriver = async (browser, version, os) => {
 
       if (
         browser === "safari" &&
-        version >= 10 &&
-        Math.round(version) == version
+        compareVersions(version, "10", ">=") &&
+        version.split(".")[0] == version
       ) {
         // BrowserStack doesn't support the Safari x.0 versions
         continue;
