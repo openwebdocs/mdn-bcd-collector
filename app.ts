@@ -421,9 +421,15 @@ app.all("/export", async (req, res, next) => {
 app.all("/tests/*", (req, res) => {
   const ident = req.params["0"].replace(/\//g, ".");
   const ignoreIdents = req.query.ignore
-    ? req.query.ignore.split(",").filter((s) => s)
+    ? typeof req.query.ignore === "string"
+      ? req.query.ignore.split(",").filter((s) => s)
+      : req.query.ignore
     : [];
-  const foundTests = tests.getTests(ident, req.query.exposure, ignoreIdents);
+  const foundTests = tests.getTests(
+    ident,
+    req.query.exposure,
+    ignoreIdents as string[],
+  );
   if (foundTests && foundTests.length) {
     res.render("tests", {
       title: `${ident || "All Tests"}`,
