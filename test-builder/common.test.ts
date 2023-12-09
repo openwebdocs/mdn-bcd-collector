@@ -22,14 +22,16 @@ import {
 
 import type {RawTest} from "./types/types.js";
 
-
 describe("build (common)", () => {
   describe("getCustomTest(Data)", () => {
-    const expectedResults: Record<string, {
+    const expectedResults: Record<
+      string,
+      {
         category: string;
         data: CustomTestData;
         result: CustomTestResult;
-      }> = {
+      }
+    > = {
       "api.FooBar": {
         category: "api",
         data: {

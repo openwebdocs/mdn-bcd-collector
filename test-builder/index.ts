@@ -25,7 +25,6 @@ import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
 
-
 const customCSS = await fs.readJson(
   new URL("../custom/css.json", import.meta.url),
 );

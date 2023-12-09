@@ -6,7 +6,6 @@
 // See the LICENSE file for copyright details
 //
 
-
 import {assert} from "chai";
 import sinon from "sinon";
 import fs from "fs-extra";

@@ -12,7 +12,6 @@ import {getCustomTest, compileTest} from "./common.js";
 
 import type {RawTestCodeExpr, Exposure, IDLFiles} from "../types/types.js";
 
-
 /**
  * Merges members from the source object into the target object, checking for duplicate members and handling special cases for static members.
  * @param target - The target object to merge members into.
