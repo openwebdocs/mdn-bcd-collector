@@ -9,12 +9,71 @@
 import assert from "node:assert/strict";
 
 import fs from "fs-extra";
-import {Storage, Bucket} from "@google-cloud/storage";
+import {Storage as GAEStorage, Bucket} from "@google-cloud/storage";
+import {Extensions, ReportStore, TestResult} from "../types/types";
+
+/**
+ * Represents a base storage class for storing and retrieving data.
+ */
+abstract class Storage {
+  /**
+   * Saves a value to the specified session and key.
+   * @param sessionId - The session ID.
+   * @param key - The key to store the value under.
+   * @param value - The value to be stored.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async put(sessionId: string, key: string, value: any): Promise<void> {
+    throw new Error("put method not implemented");
+  }
+
+  /**
+   * Retrieves the value associated with the specified session and key.
+   * @param sessionId - The session ID.
+   * @param key - The key to retrieve the value for.
+   * @returns - The retrieved value.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async get(sessionId: string, key: string): Promise<any> {
+    throw new Error("get method not implemented");
+  }
+
+  /**
+   * Retrieves all data associated with a given session ID.
+   * @param sessionId - The ID of the session.
+   * @returns - A promise that resolves to an object containing the retrieved data.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getAll(sessionId: string): Promise<any> {
+    throw new Error("getAll method not implemented");
+  }
+
+  /**
+   * Saves a file to the storage.
+   * @param filename - The name of the file to be saved.
+   * @param data - The data to be saved in the file.
+   * @returns - A promise that resolves when the file is saved successfully.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async saveFile(filename: string, data: Buffer): Promise<void> {
+    throw new Error("saveFile method not implemented");
+  }
+
+  /**
+   * Reads a file from the storage.
+   * @param filename - The name of the file to read.
+   * @returns - A promise that resolves with the file content as a Buffer.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async readFile(filename: string): Promise<Buffer> {
+    throw new Error("readFile method not implemented");
+  }
+}
 
 /**
  * Represents a cloud storage for storing and retrieving data.
  */
-class CloudStorage {
+class CloudStorage extends Storage {
   _bucket: Bucket;
   _version: string;
 
@@ -29,6 +88,7 @@ class CloudStorage {
     bucketName: string,
     appVersion: string,
   ) {
+    super();
     const storageOpts =
       typeof projectIdOrCreds === "string"
         ? {projectId: projectIdOrCreds}
@@ -36,7 +96,7 @@ class CloudStorage {
             projectId: projectIdOrCreds.projectId,
             credentials: projectIdOrCreds,
           };
-    const storage = new Storage(storageOpts);
+    const storage = new GAEStorage(storageOpts);
     this._bucket = storage.bucket(bucketName);
     // appVersion is used as a prefix for all paths, so that multiple
     // deployments can use the same bucket without risk of collision.
@@ -65,7 +125,7 @@ class CloudStorage {
    * @param key - The key to retrieve the value for.
    * @returns - The retrieved value.
    */
-  async get(sessionId, key) {
+  async get(sessionId: string, key: string): Promise<Extensions | TestResult> {
     assert(sessionId.length > 0);
     const name = `${this._version}/sessions/${sessionId}/${encodeURIComponent(
       key,
@@ -73,7 +133,10 @@ class CloudStorage {
     const file = this._bucket.file(name);
     const data = (await file.download())[0];
     const result = JSON.parse(data.toString());
-    return result;
+    if (key === "extensions") {
+      return result as Extensions;
+    }
+    return result as TestResult;
   }
 
   /**
@@ -81,11 +144,11 @@ class CloudStorage {
    * @param sessionId - The ID of the session.
    * @returns - A promise that resolves to an object containing the retrieved data.
    */
-  async getAll(sessionId) {
+  async getAll(sessionId: string): Promise<ReportStore> {
     assert(sessionId.length > 0);
     const prefix = `${this._version}/sessions/${sessionId}/`;
     const files = (await this._bucket.getFiles({prefix}))[0];
-    const result = {};
+    const result: ReportStore = {};
     await Promise.all(
       files.map(async (file) => {
         assert(file.name.startsWith(prefix));
@@ -115,7 +178,7 @@ class CloudStorage {
    * @param filename - The name of the file to read.
    * @returns - A promise that resolves with the file content as a Buffer.
    */
-  async readFile(filename) {
+  async readFile(filename: string): Promise<Buffer> {
     assert(!filename.includes(".."));
     const name = `${this._version}/files/${filename}`;
     const file = this._bucket.file(name);
@@ -126,13 +189,14 @@ class CloudStorage {
 /**
  * Represents a memory storage for storing and retrieving data.
  */
-class MemoryStorage {
+class MemoryStorage extends Storage {
   _data: Map<string, any>;
 
   /**
    * Constructs a new instance of the MemoryStorage class.
    */
   constructor() {
+    super();
     this._data = new Map();
   }
 
@@ -161,13 +225,18 @@ class MemoryStorage {
    * @param key - The key of the value to retrieve.
    * @returns The value associated with the specified key, or undefined if the key does not exist.
    */
-  async get(sessionId, key) {
-    const result = {};
+  async get(
+    sessionId: string,
+    key: string,
+  ): Promise<Extensions | TestResult | undefined> {
     const sessionData = this._data.get(sessionId);
     if (!(sessionData && key in sessionData)) {
       return undefined;
     }
-    return result[key];
+    if (key === "extensions") {
+      return sessionData[key] as Extensions;
+    }
+    return sessionData[key] as TestResult;
   }
 
   /**
@@ -175,8 +244,8 @@ class MemoryStorage {
    * @param sessionId - The ID of the session.
    * @returns - A promise that resolves to an object containing all the data associated with the session.
    */
-  async getAll(sessionId) {
-    const result = {};
+  async getAll(sessionId: string): Promise<ReportStore> {
+    const result: ReportStore = {};
     const sessionData = this._data.get(sessionId);
     if (sessionData) {
       for (const [key, value] of sessionData) {
@@ -192,7 +261,7 @@ class MemoryStorage {
    * @param data - The data to be written to the file.
    * @returns - A promise that resolves when the file is successfully saved.
    */
-  async saveFile(filename, data) {
+  async saveFile(filename: string, data: Buffer): Promise<void> {
     const downloadsPath = new URL(`../download`, import.meta.url);
     if (!fs.existsSync(downloadsPath)) {
       await fs.mkdir(downloadsPath);
@@ -210,7 +279,7 @@ class MemoryStorage {
    * @param filename - The name of the file to read.
    * @returns - A promise that resolves with the contents of the file as a Buffer.
    */
-  async readFile(filename) {
+  async readFile(filename: string): Promise<Buffer> {
     assert(!filename.includes(".."));
     return await fs.readFile(
       new URL(`../download/${filename}`, import.meta.url),
@@ -226,19 +295,21 @@ class MemoryStorage {
  * @param appVersion - The version of the application.
  * @returns - The storage instance.
  */
-const getStorage = (appVersion) => {
+const getStorage = (appVersion: string): Storage => {
   // Use CloudStorage on Google App Engine.
-  const gaeproject = process.env.GOOGLE_CLOUD_PROJECT;
+  const gaeproject: string | undefined = process.env.GOOGLE_CLOUD_PROJECT;
   if (gaeproject) {
     // Use GCLOUD_STORAGE_BUCKET from app.yaml.
-    const bucketName = process.env.GCLOUD_STORAGE_BUCKET || "";
+    const bucketName: string = process.env.GCLOUD_STORAGE_BUCKET || "";
     return new CloudStorage(gaeproject, bucketName, appVersion);
   }
 
   // Use CloudStorage on Heroku + HDrive (Google Cloud).
-  const hdrive = JSON.parse(process.env.HDRIVE_GOOGLE_JSON_KEY || "null");
+  const hdrive: string | null = JSON.parse(
+    process.env.HDRIVE_GOOGLE_JSON_KEY || "null",
+  );
   if (hdrive) {
-    const bucketName = process.env.HDRIVE_GOOGLE_BUCKET || "";
+    const bucketName: string = process.env.HDRIVE_GOOGLE_BUCKET || "";
     return new CloudStorage(hdrive, bucketName, appVersion);
   }
 

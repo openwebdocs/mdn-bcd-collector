@@ -75,13 +75,20 @@ export interface TestResult {
   message?: string;
 }
 
+export type Extensions = string[];
+
 export type TestResults = Record<string, TestResult[]>;
 
 export interface Report {
   __version: string;
   results: TestResults;
+  extensions: Extensions;
   userAgent: string;
 }
+
+export type ReportStore = {
+  extensions?: Extensions;
+} & TestResults;
 
 export type BrowserSupportMap = Map<string, TestResultValue>;
 export type SupportMap = Map<BrowserName, BrowserSupportMap>;

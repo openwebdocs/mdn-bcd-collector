@@ -15,7 +15,7 @@ import fs from "fs-extra";
 import bcd from "@mdn/browser-compat-data" assert {type: "json"};
 const bcdBrowsers = bcd.browsers;
 import esMain from "es-main";
-import express from "express";
+import express, {Request, Response, NextFunction} from "express";
 import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import {marked} from "marked";
@@ -36,6 +36,7 @@ import Tests from "./lib/tests.js";
 import exec from "./lib/exec.js";
 import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
+import {Report, ReportStore, Extensions} from "./types/types.js";
 
 /* c8 ignore start */
 /**
@@ -86,7 +87,7 @@ const tests = new Tests({
  * @param res - The response object.
  * @param next - The next function to call in the middleware chain.
  */
-const cookieSession = (req, res, next) => {
+const cookieSession = (req: Request, res: Response, next: NextFunction) => {
   if (!req.cookies.sid) {
     res.cookie("sid", uniqueString());
   }
@@ -99,22 +100,20 @@ const cookieSession = (req, res, next) => {
  * @param req - The request object.
  * @returns - The report object.
  */
-const createReport = (results, req) => {
-  const extensions = results.extensions;
-  const testResults = Object.assign({}, results);
-  delete testResults.extensions;
+const createReport = (results: ReportStore, req: Request): Report => {
+  const {extensions, ...testResults} = results;
   return {
     __version: appVersion,
     results: testResults,
-    extensions,
-    userAgent: req.get("User-Agent"),
+    extensions: extensions || [],
+    userAgent: req.get("User-Agent") || "",
   };
 };
 
 const app = express();
 
 // Cross-Origin policies
-const headers = {
+const headers: Record<string, string> = {
   "Cross-Origin-Embedder-Policy": "require-corp",
   "Cross-Origin-Resource-Policy": "same-origin",
   "Cross-Origin-Opener-Policy": "same-origin",
@@ -129,7 +128,7 @@ const staticOptions = {
    * Sets headers in the response.
    * @param res - The response object.
    */
-  setHeaders: (res) => {
+  setHeaders: (res: Response) => {
     for (const h of Object.keys(headers)) {
       res.set(h, headers[h]);
     }
@@ -155,7 +154,7 @@ app.locals.bcdVersion = bcd.__meta.version;
 app.locals.browserExtensions = browserExtensions;
 
 // Get user agent
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.browser = parseUA(req.get("User-Agent"), bcdBrowsers);
   next();
 });
@@ -170,7 +169,7 @@ app.use(
 );
 
 // Set COOP/COEP
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   for (const h of Object.keys(headers)) {
     res.setHeader(h, headers[h]);
   }
@@ -189,7 +188,7 @@ marked.use(
      * @param lang - The language of the code.
      * @returns The highlighted code.
      */
-    highlight: (code, lang) => {
+    highlight: (code: string, lang: string): string => {
       const language = hljs.getLanguage(lang) ? lang : "plaintext";
       return hljs.highlight(code, {language}).value;
     },
@@ -207,7 +206,7 @@ marked.use({
      * @param quote - The quote to render.
      * @returns The rendered blockquote element.
      */
-    blockquote: (quote) => {
+    blockquote: (quote: string): string => {
       if (!quote) {
         return quote;
       }
@@ -241,7 +240,11 @@ marked.use({
  * @param res - The response object.
  * @returns - A promise that resolves when the rendering is complete.
  */
-const renderMarkdown = async (filepath, req, res) => {
+const renderMarkdown = async (
+  filepath: URL | string,
+  req: Request,
+  res: Response,
+): Promise<void> => {
   if (!fs.existsSync(filepath)) {
     res.status(404).render("error", {
       title: "Page Not Found",
@@ -257,7 +260,7 @@ const renderMarkdown = async (filepath, req, res) => {
 
 // Backend API
 
-app.post("/api/get", (req, res) => {
+app.post("/api/get", (req: Request, res: Response) => {
   const testSelection = (req.body.testSelection || "").replace(/\./g, "/");
   const queryParams = {
     selenium: req.body.selenium,
@@ -271,35 +274,38 @@ app.post("/api/get", (req, res) => {
   res.redirect(`/tests/${testSelection}${query ? `?${query}` : ""}`);
 });
 
-app.post("/api/results", async (req, res, next) => {
-  if (!req.is("json")) {
-    res.status(400).send("body should be JSON");
-    return;
-  }
+app.post(
+  "/api/results",
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (!req.is("json")) {
+      res.status(400).send("body should be JSON");
+      return;
+    }
 
-  let url;
-  let results;
-  try {
-    [url, results] = parseResults(req.query.for, req.body);
-  } catch (error) {
-    res.status(400).send((error as Error).message);
-    return;
-  }
+    let url;
+    let results;
+    try {
+      [url, results] = parseResults(req.query.for, req.body);
+    } catch (error) {
+      res.status(400).send((error as Error).message);
+      return;
+    }
 
-  try {
-    await storage.put(req.cookies.sid, url, results);
-    res.status(201).end();
-  } catch (e) {
-    next(e);
-  }
-});
+    try {
+      await storage.put(req.cookies.sid, url, results);
+      res.status(201).end();
+    } catch (e) {
+      next(e);
+    }
+  },
+);
 
-app.get("/api/results", async (req, res) => {
+app.get("/api/results", async (req: Request, res: Response) => {
   const results = await storage.getAll(req.cookies.sid);
   res.status(200).json(createReport(results, req));
 });
 
-app.post("/api/browserExtensions", async (req, res) => {
+app.post("/api/browserExtensions", async (req: Request, res: Response) => {
   if (!req.is("json")) {
     res.status(400).send("body should be JSON");
     return;
@@ -308,7 +314,8 @@ app.post("/api/browserExtensions", async (req, res) => {
   let extData: string[] = [];
 
   try {
-    extData = (await storage.get(req.cookies.sid, "extensions")) || [];
+    extData =
+      ((await storage.get(req.cookies.sid, "extensions")) as Extensions) || [];
   } catch (e) {
     // We probably don't have any extension data yet
   }
@@ -326,7 +333,7 @@ app.post("/api/browserExtensions", async (req, res) => {
 // Test Resources
 
 // api.EventSource
-app.get("/eventstream", (req, res) => {
+app.get("/eventstream", (req: Request, res: Response) => {
   res.header("Content-Type", "text/event-stream");
   res.send(
     'event: ping\ndata: Hello world!\ndata: {"foo": "bar"}\ndata: Goodbye world!',
@@ -335,7 +342,7 @@ app.get("/eventstream", (req, res) => {
 
 // Views
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.render("index", {
     tests: tests.listEndpoints(),
     selenium: req.query.selenium,
@@ -343,15 +350,15 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/about", async (req, res) => {
+app.get("/about", async (req: Request, res: Response) => {
   res.redirect("/docs/about.md");
 });
 
-app.get("/changelog", async (req, res) => {
+app.get("/changelog", async (req: Request, res: Response) => {
   await renderMarkdown(new URL("./CHANGELOG.md", import.meta.url), req, res);
 });
 
-app.get("/changelog/*", async (req, res) => {
+app.get("/changelog/*", async (req: Request, res: Response) => {
   await renderMarkdown(
     new URL(`./changelog/${req.params[0]}`, import.meta.url),
     req,
@@ -359,8 +366,8 @@ app.get("/changelog/*", async (req, res) => {
   );
 });
 
-app.get("/docs", async (req, res) => {
-  const docs = {};
+app.get("/docs", async (req: Request, res: Response) => {
+  const docs: Record<string, string> = {};
   for (const f of await fs.readdir(new URL("./docs", import.meta.url))) {
     const readable = fs.createReadStream(
       new URL(`./docs/${f}`, import.meta.url),
@@ -381,7 +388,7 @@ app.get("/docs", async (req, res) => {
   });
 });
 
-app.get("/docs/*", async (req, res) => {
+app.get("/docs/*", async (req: Request, res: Response) => {
   await renderMarkdown(
     new URL(`./docs/${req.params["0"]}`, import.meta.url),
     req,
@@ -390,21 +397,24 @@ app.get("/docs/*", async (req, res) => {
 });
 
 /* c8 ignore start */
-app.get("/download/:filename", async (req, res, next) => {
-  const data = await storage.readFile(req.params.filename);
+app.get(
+  "/download/:filename",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const data = await storage.readFile(req.params.filename);
 
-  try {
-    res.setHeader("content-type", "application/json;charset=UTF-8");
-    res.setHeader("content-disposition", "attachment");
-    res.send(data);
-  } catch (e) {
-    next(e);
-  }
-});
+    try {
+      res.setHeader("content-type", "application/json;charset=UTF-8");
+      res.setHeader("content-disposition", "attachment");
+      res.send(data);
+    } catch (e) {
+      next(e);
+    }
+  },
+);
 
 // Accept both GET and POST requests. The form uses POST, but selenium.ts
 // instead simply navigates to /export.
-app.all("/export", async (req, res, next) => {
+app.all("/export", async (req: Request, res: Response, next: NextFunction) => {
   const github = !!req.body.github;
   const results = await storage.getAll(req.cookies.sid);
 
@@ -460,7 +470,7 @@ app.all("/export", async (req, res, next) => {
 });
 /* c8 ignore stop */
 
-app.all("/tests/*", (req, res) => {
+app.all("/tests/*", (req: Request, res: Response) => {
   const ident = req.params["0"].replace(/\//g, ".");
   const ignoreIdents = req.query.ignore
     ? typeof req.query.ignore === "string"
@@ -489,7 +499,7 @@ app.all("/tests/*", (req, res) => {
 });
 
 // Page Not Found Handler
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).render("error", {
     title: `Page Not Found`,
     message: "The requested page was not found.",

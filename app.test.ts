@@ -38,7 +38,9 @@ describe("/api/results", () => {
     assert.equal(res.status, 200);
     assert.deepEqual(res.body, {
       __version: version,
+      extensions: [],
       results: {},
+      userAgent: "",
     });
   });
 
@@ -75,7 +77,9 @@ describe("/api/results", () => {
     assert.equal(res.status, 200);
     assert.deepEqual(res.body, {
       __version: version,
+      extensions: [],
       results: {[testURL]: testResults},
+      userAgent: "",
     });
   });
 
@@ -92,7 +96,9 @@ describe("/api/results", () => {
     assert.equal(res.status, 200);
     assert.deepEqual(res.body, {
       __version: version,
+      extensions: [],
       results: {[testURL]: modifiedResults},
+      userAgent: "",
     });
   });
 
@@ -110,7 +116,9 @@ describe("/api/results", () => {
     assert.equal(res.status, 200);
     assert.deepEqual(res.body, {
       __version: version,
+      extensions: [],
       results: {[testURL]: modifiedResults, [testURL2]: testResults},
+      userAgent: "",
     });
   });
 
