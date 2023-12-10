@@ -7,6 +7,7 @@
 //
 
 import fs from "fs-extra";
+import {Secrets} from "../types/types";
 
 /**
  * Retrieves the secrets based on the current environment.
@@ -15,7 +16,7 @@ import fs from "fs-extra";
  * Otherwise, it reads the secrets from "secrets.json".
  * @returns A promise that resolves to the secrets object.
  */
-const getSecrets = async () => {
+const getSecrets = async (): Promise<Secrets> => {
   // In testing environments, real secrets shouldn't be used
   if (process.env.NODE_ENV === "test") {
     return await fs.readJson(

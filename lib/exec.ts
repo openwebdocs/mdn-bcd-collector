@@ -15,7 +15,7 @@ import childProcess from "node:child_process";
  * @param pipe - Whether to pipe the command output. Defaults to true.
  * @returns A promise that resolves with the output of the command.
  */
-const exec = async (cmd, env?: any, pipe = true) => {
+const exec = async (cmd: string, env?: any, pipe = true): Promise<string> => {
   env = {...process.env, ...env};
   /* c8 ignore start */
   if (!pipe) {

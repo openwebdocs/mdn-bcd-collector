@@ -16,7 +16,7 @@ import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 import {CompatData} from "@mdn/browser-compat-data/types";
 
-import {Report} from "../types/types.js";
+import {Report, ReportStats} from "../types/types.js";
 import {BCD_DIR} from "../lib/constants.js";
 import {parseUA} from "../lib/ua-parser.js";
 
@@ -30,21 +30,11 @@ const tests = Object.keys(
   await fs.readJson(new URL("../tests.json", import.meta.url)),
 );
 
-interface ReportStats {
-  version: string;
-  browser: any; // Replace with the actual type for the browser object
-  urls: string[];
-  testResults: {
-    total: number;
-    supported: string[];
-    unsupported: string[];
-    unknown: string[];
-    missing: string[]; // Replace with the actual type for the missing entries
-  };
-  featuresQueried: any[]; // Replace with the actual type for the features queried
-}
-
-const statuses = {Supported: "green", Unsupported: "red", Unknown: "yellow"};
+const statuses = {
+  true: {color: "green", name: "Supported"},
+  false: {color: "red", name: "Unsupported"},
+  null: {color: "yellow", name: "Unknown"},
+};
 
 /**
  * Removes duplicate elements from an array.
@@ -138,16 +128,9 @@ export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
 
   if (featureQuery) {
     for (const f of featureQuery) {
-      const featuresFound = testResults
-        .filter((r) => r.name === f || r.name.startsWith(`${f}.`))
-        .map((r) => ({
-          ...r,
-          status: r.result
-            ? "Supported"
-            : r.result === false
-              ? "Unsupported"
-              : "Unknown",
-        }));
+      const featuresFound = testResults.filter(
+        (r) => r.name === f || r.name.startsWith(`${f}.`),
+      );
       featuresQueried.push(
         ...featuresFound.sort((a, b) => a.name.localeCompare(b.name)),
       );
@@ -180,7 +163,7 @@ const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   );
 
   if (!stats.browser.inBcd) {
-    if (stats.browser.inBCD === false) {
+    if (stats.browser.inBcd === false) {
       console.log(chalk`{red Warning: browser version is {bold not} in BCD.}`);
     } else {
       console.log(chalk`{red Warning: browser is {bold not} in BCD.}`);
@@ -231,11 +214,11 @@ const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   if (stats.featuresQueried.length) {
     console.log("Feature Query:");
     for (const feature of stats.featuresQueried) {
+      const status = statuses[JSON.stringify(feature.result)] || statuses.null;
       console.log(
         chalk` - ${feature.name} ({bold ${feature.exposure}} exposure): {${
-          statuses[feature.status] || "bold"
-        } ${feature.status}}` +
-          (feature.message ? ` - ${feature.message}` : ""),
+          status.color || "bold"
+        } ${status.name}}` + (feature.message ? ` - ${feature.message}` : ""),
       );
     }
   }

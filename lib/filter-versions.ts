@@ -28,7 +28,7 @@ const filterVersions = (
   browser: BrowserName,
   since: string | Date | null,
   reverse,
-) => {
+): string[] => {
   const versions: string[] = [];
 
   if (!(browser in bcdBrowsers)) {

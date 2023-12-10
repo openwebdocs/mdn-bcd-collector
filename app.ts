@@ -36,7 +36,7 @@ import Tests from "./lib/tests.js";
 import exec from "./lib/exec.js";
 import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
-import {Report, ReportStore, Extensions} from "./types/types.js";
+import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
 
 /* c8 ignore start */
 /**
@@ -282,10 +282,15 @@ app.post(
       return;
     }
 
+    if (Array.isArray(req.query.for) || req.query.for === undefined) {
+      res.status(400).send("for should be a single string");
+      return;
+    }
+
     let url;
     let results;
     try {
-      [url, results] = parseResults(req.query.for, req.body);
+      [url, results] = parseResults(req.query.for as string, req.body);
     } catch (error) {
       res.status(400).send((error as Error).message);
       return;
@@ -479,7 +484,7 @@ app.all("/tests/*", (req: Request, res: Response) => {
     : [];
   const foundTests = tests.getTests(
     ident,
-    req.query.exposure,
+    req.query.exposure as Exposure | undefined,
     ignoreIdents as string[],
   );
   if (foundTests && foundTests.length) {

@@ -17,67 +17,60 @@ const bcdBrowsers = bcd.browsers;
 import {parseUA} from "./ua-parser.js";
 
 import type {Octokit} from "@octokit/rest";
-import type {Report} from "../types/types.js";
+import type {Report, ReportMeta} from "../types/types.js";
 
 /**
  * Retrieves the metadata for a report.
  * @param report - The report object.
  * @returns - The metadata object containing various properties extracted from the report.
  */
-const getReportMeta = (report) => {
+const getReportMeta = (report: Report): ReportMeta => {
   const json = stringify(report);
   const buffer = Buffer.from(json);
+
   /* eslint-disable-next-line max-len */
   // like https://github.com/web-platform-tests/wpt.fyi/blob/26805a0122ea01076ac22c0a96313c1cf5cc30d6/results-processor/wptreport.py#L79
-  const hash = crypto.createHash("sha1");
-  const digest = hash.update(buffer).digest("hex").substr(0, 10);
+  const digest = crypto
+    .createHash("sha1")
+    .update(buffer)
+    .digest("hex")
+    .substr(0, 10);
 
-  const version = report.__version;
-  const uaString = report.userAgent;
-  const ua = parseUA(uaString, bcdBrowsers);
+  // Get user agent details
+  const ua = parseUA(report.userAgent, bcdBrowsers);
   const browser = `${ua.browser.name} ${ua.version}`;
   const os = `${ua.os.name} ${ua.os.version}`;
   const desc = `${browser} / ${os}`;
-  const title = `Results from ${desc} / Collector v${version}`;
-  const urls = Object.keys(report.results);
 
-  const slug = `${version.toLowerCase()}-${ua.browser.id.replace(/_/g, "-")}-${
-    ua.fullVersion
-  }-${slugify(os, {lower: true})}-${digest}`;
-  const filename = `${slug}.json`;
-  const branch = `collector/${slug}`;
+  const slug = `${report.__version.toLowerCase()}-${ua.browser.id.replace(
+    /_/g,
+    "-",
+  )}-${ua.fullVersion}-${slugify(os, {lower: true})}-${digest}`;
 
   return {
     json,
     buffer,
     digest,
-    uaString,
+    uaString: report.userAgent,
     ua,
     browser,
     os,
     desc,
-    title,
-    urls,
+    title: `Results from ${desc} / Collector v${report.__version}`,
+    urls: Object.keys(report.results),
     slug,
-    filename,
-    branch,
-    version,
+    filename: `${slug}.json`,
+    branch: `collector/${slug}`,
+    version: report.__version,
   };
 };
 
 /**
  * Creates the body of a pull request with the given metadata.
  * @param meta - The metadata object.
- * @param meta.uaString - The user agent string.
- * @param meta.browser - The browser name.
- * @param meta.os - The operating system name.
- * @param meta.ua.inBcd - Indicates if the user agent is in BCD.
- * @param meta.digest - The hash digest.
- * @param meta.urls - The test URLs.
- * @param meta.version - The version string.
  * @returns The body of the pull request.
  */
-const createBody = (meta) => {
+const createBody = (meta: ReportMeta): string => {
   return (
     `User Agent: ${meta.uaString}\nBrowser: ${meta.browser} (on ${meta.os})${
       meta.ua.inBcd ? "" : " - **Not in BCD**"
@@ -97,7 +90,10 @@ const createBody = (meta) => {
  * @returns An object containing the filename and URL of the created PR.
  * @throws {Error} An error if "octokit" is not defined or if octokit authentication fails.
  */
-const exportAsPR = async (report: Report, octokit?: Octokit) => {
+const exportAsPR = async (
+  report: Report,
+  octokit?: Octokit,
+): Promise<{filename: string; url: string}> => {
   if (!octokit) {
     throw new Error('"octokit" must be defined');
   }

@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import {BrowserName} from "@mdn/browser-compat-data/types";
+import {BrowserName, SupportStatement} from "@mdn/browser-compat-data/types";
 
 import type * as WebIDL2 from "webidl2";
 
@@ -86,10 +86,6 @@ export interface Report {
   userAgent: string;
 }
 
-export type ReportStore = {
-  extensions?: Extensions;
-} & TestResults;
-
 export type BrowserSupportMap = Map<string, TestResultValue>;
 export type SupportMap = Map<BrowserName, BrowserSupportMap>;
 export type SupportMatrix = Map<string, SupportMap>;
@@ -98,3 +94,70 @@ export type OverrideTuple = [string, string, string, TestResultValue];
 export type Overrides = (string | OverrideTuple)[];
 
 export type IDLFiles = Record<string, WebIDL2.IDLRootType[]>;
+
+// Internal types
+
+export type ReportStore = {
+  extensions?: Extensions;
+} & TestResults;
+
+export interface ParsedUserAgent {
+  browser: {id: string; name: string};
+  version: string;
+  fullVersion: string;
+  os: {name: string; version: string};
+  inBcd: boolean | undefined;
+}
+
+export interface ReportStats {
+  version: string;
+  browser: ParsedUserAgent;
+  urls: string[];
+  testResults: {
+    total: number;
+    supported: string[];
+    unsupported: string[];
+    unknown: string[];
+    missing: string[];
+  };
+  featuresQueried: TestResult[];
+}
+
+export interface ReportMeta {
+  json: string;
+  buffer: Buffer;
+  digest: string;
+  uaString: string;
+  ua: ParsedUserAgent;
+  browser: string;
+  os: string;
+  desc: string;
+  title: string;
+  urls: string[];
+  slug: string;
+  filename: string;
+  branch: string;
+  version: string;
+}
+
+export type InternalTestResult = TestResult & {
+  info: Test;
+};
+
+export interface Secrets {
+  github: {
+    token: string;
+  };
+  selenium: {
+    browserstack?: {
+      username: string;
+      key: string;
+    };
+    saucelabs?: {
+      username: string;
+      key: string;
+      region: string;
+    };
+    [ci: string]: any;
+  };
+}

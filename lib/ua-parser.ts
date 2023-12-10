@@ -6,18 +6,20 @@
 // See the LICENSE file for copyright details
 //
 
+import {Browsers} from "@mdn/browser-compat-data";
 import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
 } from "compare-versions";
 import uaParser from "ua-parser-js";
+import {ParsedUserAgent} from "../types/types";
 
 /**
  * Returns the major version from a given version string.
  * @param version - The version string.
  * @returns The major version.
  */
-const getMajorVersion = (version) => {
+const getMajorVersion = (version: string): string => {
   return version.split(".")[0];
 };
 
@@ -27,7 +29,7 @@ const getMajorVersion = (version) => {
  * @param version - The version string.
  * @returns The major and minor version.
  */
-const getMajorMinorVersion = (version) => {
+const getMajorMinorVersion = (version: string): string => {
   const [major, minor] = version.split(".");
   return `${major}.${minor || 0}`;
 };
@@ -38,15 +40,9 @@ const getMajorMinorVersion = (version) => {
  * @param browsers - An object containing browser data.
  * @returns An object containing the parsed browser and operating system information.
  */
-const parseUA = (userAgent, browsers) => {
+const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
   const ua = uaParser(userAgent);
-  const data: {
-    browser: {id: string; name: string};
-    version: string;
-    fullVersion: string;
-    os: {name: string; version: string};
-    inBcd: boolean | undefined;
-  } = {
+  const data: ParsedUserAgent = {
     browser: {id: "", name: ""},
     version: "",
     fullVersion: "",

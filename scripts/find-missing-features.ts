@@ -23,7 +23,11 @@ import {BCD_DIR} from "../lib/constants.js";
  * @param [includeAliases] - Whether to include aliases in the result.
  * @returns An array of feature paths.
  */
-const traverseFeatures = (obj: any, path: string, includeAliases?: boolean) => {
+const traverseFeatures = (
+  obj: any,
+  path: string,
+  includeAliases?: boolean,
+): string[] => {
   const features: string[] = [];
 
   for (const id of Object.keys(obj)) {

@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import type {TestResult, Exposure} from "../types/types.js";
+import type {TestResult, Exposure, InternalTestResult} from "../types/types.js";
 
 /**
  * Parses a short string value.
@@ -15,7 +15,7 @@ import type {TestResult, Exposure} from "../types/types.js";
  * @returns The parsed short string value.
  * @throws {Error} If the value is not a string or if the string is too long.
  */
-const parseShortString = (value, desc) => {
+const parseShortString = (value: string | any, desc: string): string => {
   if (typeof value !== "string") {
     throw new Error(`${desc} should be a string; got ${typeof value}`);
   }
@@ -32,7 +32,10 @@ const parseShortString = (value, desc) => {
  * @returns - The parsed URL and parsed results.
  * @throws {Error} - If the URL is invalid or the results are not in the expected format.
  */
-const parseResults = (url, results) => {
+const parseResults = (
+  url: string | URL,
+  results: InternalTestResult[],
+): [string, TestResult[]] => {
   try {
     url = new URL(url).toString();
   } catch (e) {
@@ -43,43 +46,34 @@ const parseResults = (url, results) => {
     throw new Error("results should be an array");
   }
 
-  results = results
-    .map((v, i) => {
-      if (!v || typeof v !== "object") {
-        throw new Error(`results[${i}] should be an object; got ${v}`);
-      }
-      const copy: any = {};
-      copy.name = parseShortString(v.name, `results[${i}].name`);
-      if (![true, false, null].includes(v.result)) {
-        throw new Error(
-          `results[${i}].result (${v.name}) should be true/false/null; got ${v.result}`,
-        );
-      }
-      copy.result = v.result;
-      if (v.result === null) {
-        copy.message = parseShortString(
-          v.message,
-          `results[${i}].message (${v.name})`,
-        );
-      }
-      // Copy exposure either from |v.exposure| or |v.info.exposure|.
-      if (v.info) {
-        copy.exposure = parseShortString(
-          v.info.exposure,
-          `results[${i}].info.exposure (${v.name})`,
-        ) as Exposure;
-        // Don't copy |v.info.code|.
-      } else {
-        copy.exposure = parseShortString(
-          v.exposure,
-          `results[${i}].exposure (${v.name})`,
-        ) as Exposure;
-      }
-      return copy as TestResult;
-    })
-    .sort((a, b) => (a.name + a.exposure).localeCompare(b.name + b.exposure));
-
-  return [url, results];
+  return [
+    url,
+    results
+      .map((v, i) => {
+        if (!v || typeof v !== "object") {
+          throw new Error(`results[${i}] should be an object; got ${v}`);
+        }
+        if (![true, false, null].includes(v.result)) {
+          throw new Error(
+            `results[${i}].result (${v.name}) should be true/false/null; got ${v.result}`,
+          );
+        }
+        return {
+          name: parseShortString(v.name, `results[${i}].name`),
+          result: v.result,
+          exposure: (v.info
+            ? parseShortString(
+                v.info.exposure,
+                `results[${i}].info.exposure (${v.name})`,
+              )
+            : parseShortString(
+                v.exposure,
+                `results[${i}].exposure (${v.name})`,
+              )) as Exposure,
+        } as TestResult;
+      })
+      .sort((a, b) => (a.name + a.exposure).localeCompare(b.name + b.exposure)),
+  ];
 };
 
 export default parseResults;

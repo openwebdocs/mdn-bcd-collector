@@ -8,7 +8,7 @@
 
 import didYouMean from "didyoumean";
 
-import type {Resources} from "../types/types.js";
+import type {Exposure, Resources} from "../types/types.js";
 
 type Endpoints = Record<string, string[]>;
 
@@ -24,13 +24,16 @@ class Tests {
   /**
    * Constructs a new instance of the Tests class.
    * @param options - The options for the Tests class.
-   * @param options.tests - The tests object.
-   * @param options.tests.__resources - The resources object.
+   * @param options.tests - The tests and resources object.
    * @param options.httpOnly - Indicates if the HTTP-only flag is enabled.
    */
-  constructor(options) {
-    this.tests = options.tests;
-    this.resources = options.tests.__resources;
+  constructor(options: {
+    tests: Tests & {__resources: Resources};
+    httpOnly: any;
+  }) {
+    const {__resources, ...tests} = options.tests;
+    this.tests = tests;
+    this.resources = __resources;
     this.endpoints = this.buildEndpoints();
     this.httpOnly = options.httpOnly;
   }
@@ -41,7 +44,7 @@ class Tests {
    * Each test identifier represents a specific test case.
    * @returns The endpoints object.
    */
-  buildEndpoints() {
+  buildEndpoints(): Endpoints {
     const endpoints: Endpoints = {
       "": [],
     };
@@ -73,7 +76,7 @@ class Tests {
    * Returns an array of all the endpoints in the collection.
    * @returns An array of endpoint names.
    */
-  listEndpoints() {
+  listEndpoints(): string[] {
     return Object.keys(this.endpoints);
   }
 
@@ -82,7 +85,7 @@ class Tests {
    * @param input - The input to check against the available endpoints.
    * @returns A suggested alternative if the input does not match any of the available endpoints.
    */
-  didYouMean(input) {
+  didYouMean(input: string): keyof Endpoints | undefined {
     return didYouMean(input, this.listEndpoints());
   }
 
@@ -93,7 +96,11 @@ class Tests {
    * @param ignoreIdents - Optional. An array of identifiers to ignore.
    * @returns An array of tests for the specified endpoint.
    */
-  getTests(endpoint, testExposure?, ignoreIdents: string[] = []) {
+  getTests(
+    endpoint: keyof Endpoints,
+    testExposure?: Exposure | undefined,
+    ignoreIdents: string[] = [],
+  ) {
     if (!(endpoint in this.endpoints)) {
       return [];
     }
