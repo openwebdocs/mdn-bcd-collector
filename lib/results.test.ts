@@ -33,7 +33,7 @@ describe("results", () => {
     });
 
     it("flattening of exposure", () => {
-      const [_, results] = parseResults("http://localhost", [
+      const [, results] = parseResults("http://localhost", [
         {
           info: {
             code: "ignored",
@@ -54,7 +54,7 @@ describe("results", () => {
     });
 
     it("with message", () => {
-      const [_, results] = parseResults("http://localhost", [
+      const [, results] = parseResults("http://localhost", [
         {
           exposure: "Window",
           name: "api.Attr.name",
