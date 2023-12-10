@@ -392,7 +392,10 @@ const buildDriver = async (
       }
 
       // Allow mic, camera, geolocation and notifications permissions
-      if (browser === "chrome" || (browser === "edge" && compareVersions(version, "79", ">="))) {
+      if (
+        browser === "chrome" ||
+        (browser === "edge" && compareVersions(version, "79", ">="))
+      ) {
         capabilities.set("goog:chromeOptions", {
           args: [
             "--use-fake-device-for-media-stream",
@@ -407,7 +410,7 @@ const buildDriver = async (
         let firefoxPrefs: Record<string, any> = {
           "media.navigator.streams.fake": true,
         };
-        if (version >= 53) {
+        if (compareVersions(version, "53", ">=")) {
           firefoxPrefs = {
             ...firefoxPrefs,
             "media.navigator.permission.disabled": 1,
@@ -416,7 +419,7 @@ const buildDriver = async (
             "permissions.default.geo": 1,
           };
         }
-        if (version >= 54) {
+        if (compareVersions(version, "54", ">=")) {
           firefoxPrefs["permissions.default.desktop-notification"] = 1;
         }
 
