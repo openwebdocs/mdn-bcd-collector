@@ -70,6 +70,7 @@ const parseResults = (
                 v.exposure,
                 `results[${i}].exposure (${v.name})`,
               )) as Exposure,
+          ...(v.result === null ? {message: v.message} : {}),
         } as TestResult;
       })
       .sort((a, b) => (a.name + a.exposure).localeCompare(b.name + b.exposure)),
