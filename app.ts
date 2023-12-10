@@ -155,7 +155,8 @@ app.locals.browserExtensions = browserExtensions;
 
 // Get user agent
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.locals.browser = parseUA(req.get("User-Agent"), bcdBrowsers);
+  const ua = req.get("User-Agent");
+  res.locals.browser = ua ? parseUA(ua, bcdBrowsers) : null;
   next();
 });
 
