@@ -6,9 +6,17 @@
 // See the LICENSE file for copyright details
 //
 
-/* global console, document, window, location, navigator, XMLHttpRequest,
-          self, Worker, Promise, setTimeout, clearTimeout, MessageChannel,
-          SharedWorker, hljs, wasmFeatureDetect */
+/**
+ * @typedef {import('../../types/types.js').Test} Test
+ * @typedef {import('../../types/types.js').Tests} Tests
+ * @typedef {import('../../types/types.js').Exposure} Exposure
+ * @typedef {import('../../types/types.js').TestResult} TestResult
+ */
+
+/* global self, console, document, window, location, navigator, setTimeout, clearTimeout,
+          Promise, XMLHttpRequest, HTMLElement, MessageChannel, Event, MessageEvent,
+          Worker, SharedWorker, ServiceWorkerRegistration,
+          hljs, wasmFeatureDetect */
 
 // This harness should work on as old browsers as possible and shouldn't depend
 // on any modern JavaScript features.
@@ -40,18 +48,33 @@
   /* c8 ignore start */
   // Non-invasive polyfills
 
+  /**
+   * Non-invasive polyfill for console.log().
+   * This will log to the console if it exists, or do nothing otherwise.
+   * @param {string} message - The message to log.
+   */
   function consoleLog(message) {
     if ("console" in self) {
       console.log(message);
     }
   }
 
+  /**
+   * Non-invasive polyfill for console.warn().
+   * This will log to the console if it exists, or do nothing otherwise.
+   * @param {string} message - The warning message to log.
+   */
   function consoleWarn(message) {
     if ("console" in self) {
       console.warn(message);
     }
   }
 
+  /**
+   * Non-invasive polyfill for console.error().
+   * This will log to the console if it exists, or do nothing otherwise.
+   * @param {string} message - The error message to log.
+   */
   function consoleError(message) {
     if ("console" in self) {
       console.error(message);
@@ -60,11 +83,8 @@
 
   /**
    * Safe stringification
-   *
-   * value (any): The value to stringify
-   *
-   * returns (string): The stringified value; if value cannot be serialized,
-   *   "unserializable value"
+   * @param {any} value - The value to stringify
+   * @returns {string} The stringified value; if value cannot be serialized, "unserializable value"
    */
   function stringify(value) {
     try {
@@ -76,10 +96,8 @@
 
   /**
    * A non-invasive polyfill for Array.isArray()
-   *
-   * obj (any): The object to test
-   *
-   * returns (Boolean): `true` if the object is an array, otherwise `false`.
+   * @param {any} obj - The object to test
+   * @returns {boolean} `true` if the object is an array, otherwise `false`.
    */
   function isArray(obj) {
     if ("isArray" in Array) {
@@ -91,12 +109,9 @@
 
   /**
    * A non-invasive polyfill for String.prototype.includes()
-   *
-   * string (string): The string to test
-   * search (string | string[]): The string to search for; if array, check if any
-   *   search string is applicable
-   *
-   * returns (Boolean): `true` if (any) search string found, otherwise `false`.
+   * @param {string} string - The string to test.
+   * @param {string | string[]} search - The string to search for; if array, check if any search string is applicable.
+   * @returns {boolean} `true` if (any) search string found, otherwise `false`.
    */
   function stringIncludes(string, search) {
     if (isArray(search)) {
@@ -117,11 +132,8 @@
 
   /**
    * Update the status field with a new message
-   *
-   * newStatus (string): The new status message
-   * className (string?): A class name to set on the status field element
-   *
-   * returns (null)
+   * @param {string} newStatus - The new status message
+   * @param {string} className - A class name to set on the status field element
    */
   function updateStatus(newStatus, className) {
     var statusElement = document.getElementById("status");
@@ -148,12 +160,10 @@
 
   /**
    * Add a reusable instance for code that can be used in multiple tests
-   *
-   * name (string): Name of the instance
-   * code (string): A string of the code to create the instance
-   * options ({callback: boolean}): Options that alter the instance loading behavior
-   *
-   * returns (null)
+   * @param {string} name - Name of the instance
+   * @param {string} code - A string of the code to create the instance
+   * @param {object} options - Options that alter the instance loading behavior
+   * @param {boolean} options.callback - Whether the instance is a callback
    */
   function addInstance(name, code, options) {
     var newCode =
@@ -165,13 +175,10 @@
 
   /**
    * Add a test to the queue
-   *
-   * name (string): Name of the test
-   * tests (Tests): The test itself
-   * exposure (Exposure): The test exposure
-   * info (object?): Additional test info
-   *
-   * returns (null)
+   * @param {string} name - Name of the test
+   * @param {Tests} tests - The test itself
+   * @param {Exposure} exposure - The test exposure
+   * @param {object} [info] - Additional test info
    */
   function addTest(name, tests, exposure, info) {
     if (!(exposure in pending)) {
@@ -188,10 +195,7 @@
 
   /**
    * Add a cleanup function to run after all tests are finished
-   *
-   * f (function): The cleaup function to run
-   *
-   * returns (null)
+   * @param {() => void} f - The cleanup function to run
    */
   function addCleanup(f) {
     cleanupFunctions.push(f);
@@ -200,11 +204,9 @@
   /**
    * Test a constructor with no arguments for support, and check the error message to
    * determine if it's supported or an illegal constructor.
-   *
-   * iface (function): The constructor to test
-   * noNew (boolean): Whether not to use "new" during construction
-   *
-   * returns (TestResult): The result of the test
+   * @param {Function | string} iface - The constructor to test
+   * @param {boolean} noNew - Whether not to use "new" during construction
+   * @returns {TestResult} - The result of the test
    */
   function testConstructor(iface, noNew) {
     var result = {};
@@ -288,10 +290,8 @@
 
   /**
    * Test a constructor to see if the `new` keyword is required
-   *
-   * iface (function): The constructor to test
-   *
-   * returns (TestResult): The result of the test
+   * @param {Function | string} iface - The constructor to test
+   * @returns {TestResult} - The result of the test
    */
   function testConstructorNewRequired(iface) {
     try {
@@ -329,11 +329,9 @@
   /**
    * This function tests to ensure an object prototype's name matches an entry in an
    * explicit list of names
-   *
-   * instance (object): An object to test
-   * names (string | string[]): The valid name(s)
-   *
-   * returns (TestResult): Whether the prototype name matches a name in `names` parameter
+   * @param {object} instance - An object to test
+   * @param {string|string[]} names - The valid name(s)
+   * @returns {TestResult} - Whether the prototype name matches a name in `names` parameter
    */
   function testObjectName(instance, names) {
     // Do not reject "falsey" values generally in order to support
@@ -388,27 +386,11 @@
    * This function tests to see if a parameter or option within an object is accessed
    * during a method call. It passes an object as the first paramter to the method, calls
    * the method, and checks to see if the option was accessed during the call.
-   *
-   * XXX This can only test with the first argument.  To test the second, third, etc.
-   * argument, wrap the method in a function.  Example:
+   * @todo This can only test with the first argument.  To test the second, third, etc. argument, wrap the method in a function.  Example:
    *   function foo(opts) {
    *     instance.doTheThing(one, two, opts);
    *   }
    *   return bcd.testOptionParam(foo, null, 'bar', 'apple');
-   *
-   * instance (function|object): A function, constructor, or object to test
-   * methodName (string|string[]?): The name(s) of a method to test; leave empty if
-   *   instance is function, or set to 'constructor' if instance is constructor
-   * optName (string?): The name of the option to test; leave empty to pass "optValue" as
-   *   directly as the argument
-   * optValue (any): The value of the option to test; if "optName" is empty, this will be
-   *   passed directly as the argument
-   * otherOptions (object?): An object containing other options to set, in case of
-   *   required options; if "optName" is empty, this has no effect
-   * mustReturnTruthy (boolean?): If set to "true", the result of the method called must
-   *   be truthy
-   *
-   * returns (TestResult): If the value was accessed, the result will be `true`
    *
    * Examples:
    *
@@ -442,7 +424,13 @@
    *     ->
    *     instance.doTheThing({bar: <'apple'>});
    *     instance.undo({bar: <'apple'>});
-   *
+   * @param {Function|object} instance - A function, constructor, or object to test
+   * @param {string|string[]} methodName - The name(s) of a method to test; leave empty if instance is function, or set to 'constructor' if instance is constructor
+   * @param {string} optName - The name of the option to test; leave empty to pass "optValue" as directly as the argument
+   * @param {any} optValue - The value of the option to test; if "optName" is empty, this will be passed directly as the argument
+   * @param {object} [otherOptions] - An object containing other options to set, in case of required options; if "optName" is empty, this has no effect
+   * @param {boolean} [mustReturnTruthy] - If set to "true", the result of the method called must be truthy
+   * @returns {TestResult} - If the value was accessed, the result will be `true`
    */
   function testOptionParam(
     instance,
@@ -499,6 +487,10 @@
 
     var accessed = false;
     var paramObj = {
+      /**
+       * Getter function for the parameter object.
+       * @returns {any} The value of the option.
+       */
       get: function () {
         accessed = true;
         return optValue;
@@ -536,12 +528,9 @@
 
   /**
    * Test a CSS property for support
-   *
-   * name (string): The CSS property name
-   * value (string?): The CSS property value (defaults to "inherit")
-   *
-   * returns (TestResult): Whether the property is supported; if `value` is present,
-   *   whether that value is supported with the property
+   * @param {string} name - The CSS property name
+   * @param {string} [value] - The CSS property value
+   * @returns {TestResult} - Whether the property is supported; if `value` is present, whether that value is supported with the property
    */
   function testCSSProperty(name, value) {
     if (!value) {
@@ -575,11 +564,9 @@
   }
 
   /**
-   * Test a CSS selector for support
-   *
-   * syntax (string): The CSS selector syntax
-   *
-   * returns (TestResult): Whether the selector is supported
+   * Tests the support for a CSS selector syntax.
+   * @param {string} syntax - The CSS selector syntax to test.
+   * @returns {boolean|{result: null, message: string}} - Returns `true` if the syntax is supported, or an object with `result: null` and a `message` property if detection methods are not supported.
    */
   function testCSSSelector(syntax) {
     // Use CSS.supports if available, and test if `selector()` syntax is available
@@ -595,10 +582,8 @@
 
   /**
    * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
-   *
-   * feature (string): The web assembly feature name as defined in `wasm-feature-detect`
-   *
-   * returns (TestResult): Whether the web assembly feature is supported
+   * @param {string} feature - The web assembly feature name as defined in `wasm-feature-detect`
+   * @returns {TestResult} - Whether the web assembly feature is supported
    */
   function testWasmFeature(feature) {
     if (!("wasmFeatureDetect" in self)) {
@@ -632,15 +617,11 @@
    *     "exposure": "Window"
    *   }
    * }
-   *
-   * value (any): The value from the test
-   * data (object): The data about the test
-   * i (Number): The index of the test run
-   * callback (function): The function to call once the test is processed
-   *
-   * returns (void)
-   * callback (TestResult): The processed result of the test
-   *
+   * @param {any} value - The value from the test
+   * @param {object} data - The data about the test
+   * @param {number} i - The index of the test run
+   * @param {(result: TestResult) => void} callback - The function to call once the test is processed
+   * @callback TestResult - The processed result of the test
    */
   function processTestResult(value, data, i, callback) {
     var result = { name: data.name, info: {} };
@@ -709,14 +690,10 @@
 
   /**
    * Runs a test and then process the test result, sending the data to `oncomplete`
-   *
-   * data (Test): The test to run
-   * i (Number): The index of the test
-   * oncomplete (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResult): The processed result of the test
-   *
+   * @param {Test} data - The test to run
+   * @param {number} i - The index of the test
+   * @param {(result: TestResult) => void} oncomplete - The callback to call once function completes
+   * @callback TestResult - The processed result of the test
    */
   function runTest(data, i, oncomplete) {
     var test = data.tests[i];
@@ -728,11 +705,19 @@
     }, 10000);
     /* c8 ignore stop */
 
+    /**
+     * Success callback function.
+     * @param {any} v - The success value.
+     */
     function success(v) {
       clearTimeout(timeout);
       processTestResult(v, data, i, oncomplete);
     }
 
+    /**
+     * Handles the failure of a test.
+     * @param {Error|string} e - The error or error message.
+     */
     function fail(e) {
       clearTimeout(timeout);
 
@@ -765,13 +750,9 @@
 
   /**
    * Runs a series of tests and then calls the callback function with the results
-   *
-   * tests (Tests): The tests to run
-   * callback (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {Test[]} tests - The tests to run
+   * @param {(results: TestResult[]) => void} callback - The callback to call once function completes
+   * @callback TestResult[] - The processed results of the tests
    */
   function runTests(tests, callback) {
     var results = [];
@@ -786,6 +767,10 @@
     }
     /* c8 ignore stop */
 
+    /**
+     * Callback function for each test completion.
+     * @param {TestResult} result - The result of the test.
+     */
     var oncomplete = function (result) {
       results.push(result);
       completedTests += 1;
@@ -845,12 +830,8 @@
 
   /**
    * Run all of the pending tests under the Window exposure if any
-   *
-   * callback (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {(results: TestResult[]) => void} callback - The callback to call once function completes
+   * @callback TestResult[] - The processed results of the tests
    */
   function runWindow(callback) {
     if (pending.Window) {
@@ -863,12 +844,8 @@
 
   /**
    * Run all of the pending tests under the Worker exposure if any
-   *
-   * callback (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {(results: TestResult[]) => void} callback - The callback to call once function completes
+   * @callback TestResult[] - The processed results of the tests
    */
   function runWorker(callback) {
     if (pending.Worker) {
@@ -886,6 +863,10 @@
       }
 
       if (myWorker) {
+        /**
+         * Handle the 'message' event from the worker.
+         * @param {MessageEvent} event - The message event.
+         */
         myWorker.onmessage = function (event) {
           callback(JSON.parse(event.data));
         };
@@ -934,12 +915,8 @@
 
   /**
    * Run all of the pending tests under the SharedWorker exposure if any
-   *
-   * callback (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {(results: TestResult[]) => void} callback - The callback to call once function completes
+   * @callback TestResult[] - The processed results of the tests
    */
   function runSharedWorker(callback) {
     if (pending.SharedWorker) {
@@ -957,6 +934,10 @@
       }
 
       if (myWorker) {
+        /**
+         * Handle the 'message' event from the worker port.
+         * @param {MessageEvent} event - The message event.
+         */
         myWorker.port.onmessage = function (event) {
           callback(JSON.parse(event.data));
         };
@@ -1003,12 +984,8 @@
 
   /**
    * Run all of the pending tests under the ServiceWorker exposure if any
-   *
-   * callback (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {(results: TestResult[]) => void} callback - The callback to call once function completes
+   * @callback TestResult[] - The processed results of the tests
    */
   function runServiceWorker(callback) {
     if (pending.ServiceWorker) {
@@ -1026,6 +1003,10 @@
             .then(function (reg) {
               var messageChannel = new MessageChannel();
 
+              /**
+               * Handle the 'message' event from the message channel port.
+               * @param {MessageEvent} event - The message event.
+               */
               messageChannel.port1.onmessage = function (event) {
                 callback(JSON.parse(event.data));
               };
@@ -1075,14 +1056,15 @@
 
   /**
    * Run all of the pending tests under the WebAssembly exposure if any
-   *
-   * callback (function): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {(results: TestResult[]) => void} callback - The callback to call once function completes
+   * @callback TestResult[] - The processed results of the tests
    */
   function runWebAssembly(callback) {
+    /**
+     * Fallback function for handling message and value.
+     * @param {string} message - The message.
+     * @param {any} value - The value.
+     */
     var fallback = function (message, value) {
       /* c8 ignore start */
       var results = [];
@@ -1120,12 +1102,19 @@
           wfdScript.src = "/resources/wasm-feature-detect.js";
           document.body.appendChild(wfdScript);
 
+          /**
+           * Handle the onload event of the wfdScript.
+           * Once the script is loaded, run the tests.
+           */
           wfdScript.onload = function () {
             runTests(pending.WebAssembly, callback);
           };
 
-          wfdScript.onError = function () {
-            // If anything fails with loading, set all WASM features to null
+          /**
+           * Handle the onerror event of the wfdScript.
+           * If anything fails with loading, set all WASM features to null.
+           */
+          wfdScript.onerror = function () {
             fallback("Failed to load wasm-feature-detect", null);
           };
         } catch (e) {
@@ -1144,13 +1133,9 @@
   }
 
   /**
-   * Load all resources
-   *
-   * onReady (function?): The callback to call once resources are loaded
-   * resourceCount (Number?): The number of resources required
-   *
-   * returns (void)
-   *
+   * Load all resources and then call the onReady callback
+   * @param {() => void} onReady - The callback to call once resources are loaded
+   * @param {number?} resourceCount - The number of resources required
    */
   function loadResources(onReady, resourceCount) {
     if (resourceCount) {
@@ -1160,6 +1145,9 @@
       var resourceTimeoutLength = 5000;
       var resourceCountdown = resourceTimeoutLength / 1000;
       var resourceCountdownTimeout;
+      /**
+       * Function to update the status while loading required resources.
+       */
       var resourceCountdownFunc = function () {
         updateStatus(
           "Loading required resources (timeout in " +
@@ -1184,6 +1172,9 @@
         onReady();
       }, resourceTimeoutLength);
 
+      /**
+       * Callback function to handle resource loaded event.
+       */
       var resourceLoaded = function () {
         if (state.started) {
           // No need to restart the tests
@@ -1232,13 +1223,19 @@
           if (reusableInstances[instanceKey] == "callback") {
             // If it's a callback, we need to load it here
             try {
-              /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
-              function callback(instance) {
+              /**
+               * Callback function to handle reusable instance loaded event.
+               * @param {any} instance - The loaded instance.
+               */
+              var callback = function (instance) {
                 reusableInstances[instanceKey] = instance;
                 resourceLoaded();
-              }
-              /* eslint-disable-next-line no-inner-declarations,no-unused-vars */
-              function fail(response) {
+              };
+              /**
+               * Callback function to handle reusable instance loading failure.
+               * @param {any} response - The response indicating the failure.
+               */
+              var fail = function (response) {
                 consoleError(
                   "Failed to load reusable instance " +
                     instanceKey +
@@ -1246,7 +1243,12 @@
                     response
                 );
                 resourceLoaded();
-              }
+              };
+
+              // Note: This is a hack to keep ESLint from complaining that the callback and fail functions are unused
+              (function () {
+                String(callback.name, fail.name);
+              })();
 
               reusableInstances[instanceKey] = null;
               eval(reusableInstances.__sources[instanceKey]);
@@ -1284,13 +1286,9 @@
 
   /**
    * Run all of the pending tests
-   *
-   * callback (function?): The callback to call once tests are completed
-   * hideResults (boolean): Whether to keep the results hidden afterwards
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {((results: TestResults) => void)?} onComplete - The callback to call once tests are completed
+   * @param {boolean} hideResults - Whether to keep the results hidden afterwards
+   * @callback TestResults - The processed result of the tests
    */
   function doTests(onComplete, hideResults) {
     var allresults = [];
@@ -1320,6 +1318,9 @@
     ];
     var currentScope = 0;
 
+    /**
+     * Callback function to handle completion of all tests.
+     */
     var allFinished = function () {
       pending = {};
       state.completed = true;
@@ -1346,6 +1347,10 @@
       }
     };
 
+    /**
+     * Callback function to handle completion of each scope.
+     * @param {Array} results - The results of the scope.
+     */
     var scopeFinished = function (results) {
       allresults = allresults.concat(results);
       currentScope++;
@@ -1362,14 +1367,10 @@
 
   /**
    * Load all resources and run pending tests
-   *
-   * callback (function?): The callback to call once tests are completed
-   * resourceCount (Number?): The number of resources required
-   * hideResults (boolean): Whether to keep the results hidden afterwards
-   *
-   * returns (void)
-   * callback (TestResults): The processed result of the tests
-   *
+   * @param {((results: TestResults) => void)?} onComplete - The callback to call once tests are completed
+   * @param {number?} resourceCount - The number of resources required
+   * @param {boolean} hideResults - Whether to keep the results hidden afterwards
+   * @callback TestResults - The processed result of the tests
    */
   function go(onComplete, resourceCount, hideResults) {
     if (!("XMLHttpRequest" in self)) {
@@ -1389,12 +1390,8 @@
 
   /**
    * Attempt to load highlight.js for code syntax highlighting, or silently fail
-   *
-   * callback (function?): The callback to call once function completes
-   *
-   * returns (void)
-   * callback (void)
-   *
+   * @param {() => void} callback - The callback to call once function completes
+   * @callback void - The callback to call once function completes
    */
   function loadHighlightJs(callback) {
     try {
@@ -1434,11 +1431,7 @@
 
   /**
    * Render a link to harness.js for the helper functions
-   *
-   * resultsEl (HTMLElement): The element to add the report to
-   *
-   * returns (void)
-   *
+   * @param {HTMLElement} resultsEl - The element to add the report to
    */
   function renderHarnessLink(resultsEl) {
     var container = document.createElement("details");
@@ -1450,12 +1443,8 @@
 
   /**
    * Render a reusable instance like a report element
-   *
-   * instanceId (string): The identifier of the reusable instance
-   * resultsEl (HTMLElement): The element to add the report to
-   *
-   * returns (void)
-   *
+   * @param {string} instanceId - The identifier of the reusable instance
+   * @param {HTMLElement} resultsEl - The element to add the report to
    */
   function renderReInstReportEl(instanceId, resultsEl) {
     var resultEl = document.createElement("details");
@@ -1525,12 +1514,8 @@
 
   /**
    * Render a report element to display on the page
-   *
-   * result (TestResult): The test result to render
-   * resultsEl (HTMLElement): The element to add the report to
-   *
-   * returns (void)
-   *
+   * @param {TestResult} result - The test result to render
+   * @param {HTMLElement} resultsEl - The element to add the report to
    */
   function renderReportEl(result, resultsEl) {
     var resultEl = document.createElement("details");
@@ -1594,11 +1579,7 @@
 
   /**
    * Send the results to the server
-   *
-   * results (TestResults): The results to send
-   *
-   * returns (void)
-   *
+   * @param {TestResults} results - The results to send
    */
   function sendReport(results) {
     var body = JSON.stringify(results);
@@ -1621,6 +1602,9 @@
     client.open("POST", resultsURL);
     client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     client.send(body);
+    /**
+     * Event handler for the onreadystatechange event of the client.
+     */
     client.onreadystatechange = function () {
       if (client.readyState == 4) {
         if (client.status >= 200 && client.status <= 299) {
@@ -1639,14 +1623,9 @@
   }
 
   /**
-   * Send test results to the server and potentially render them on the page. If there
-   * are a lot of results, ask the user before rendering.
-   *
-   * results (TestResults): The test results
-   * hideResults (boolean): If `true`, don't render the report on the page
-   *
-   * returns (void)
-   *
+   * Send test results to the server and potentially render them on the page. If there are a lot of results, ask the user before rendering.
+   * @param {TestResults} results - The test results
+   * @param {boolean} hideResults - If `true`, don't render the report on the page
    */
   function report(results, hideResults) {
     updateStatus("Tests complete. Posting results to server...");
@@ -1660,6 +1639,9 @@
         polyfill.src = "/resources/json3.min.js";
 
         if ("onload" in polyfill) {
+          /**
+           * Event handler for the onload event of the polyfill script.
+           */
           polyfill.onload = function () {
             sendReport(results);
           };
@@ -1679,6 +1661,9 @@
 
     var resultsEl = document.getElementById("results");
 
+    /**
+     * Renders the results.
+     */
     function doRenderResults() {
       loadHighlightJs(function () {
         // Add link to harness.js for helper functions
@@ -1713,6 +1698,9 @@
         renderButton.innerHTML = "Show Results";
         resultsEl.appendChild(renderButton);
 
+        /**
+         * Event handler for the onclick event of the renderButton.
+         */
         renderButton.onclick = function () {
           resultsEl.removeChild(renderWarning);
           resultsEl.removeChild(renderButton);
@@ -1728,6 +1716,12 @@
   // Service Worker helpers
   if ("serviceWorker" in navigator) {
     if ("window" in self) {
+      /**
+       * Waits for the service worker to reach the desired state.
+       * @param {ServiceWorkerRegistration} registration - The service worker registration.
+       * @param {string} desiredState - The desired state of the service worker.
+       * @returns {Promise<ServiceWorkerRegistration>} - A promise that resolves with the service worker registration.
+       */
       window.__waitForSWState = function (registration, desiredState) {
         return new Promise(function (resolve, reject) {
           var serviceWorker = registration.installing;
@@ -1746,18 +1740,22 @@
             );
           }
 
+          /**
+           * Event listener for service worker state change.
+           * @param {Event} evt - The event object.
+           */
           function stateListener(evt) {
             if (evt.target.state === desiredState) {
               serviceWorker.removeEventListener("statechange", stateListener);
-              return resolve(registration);
+              resolve(registration);
+              return;
             }
 
             if (evt.target.state === "redundant") {
               serviceWorker.removeEventListener("statechange", stateListener);
 
-              return reject(
-                new Error("Installing service worker became redundant")
-              );
+              reject(new Error("Installing service worker became redundant"));
+              return;
             }
           }
 
@@ -1765,6 +1763,10 @@
         });
       };
 
+      /**
+       * Cleans up the service worker.
+       * @returns {Promise} - A promise that resolves when the service worker is unregistered.
+       */
       window.__workerCleanup = function () {
         if ("getRegistrations" in navigator.serviceWorker) {
           return navigator.serviceWorker

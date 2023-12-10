@@ -9,7 +9,19 @@
 
 /* global AudioWorkletProcessor, registerProcessor */
 
+/**
+ * Process the audio inputs and generate white noise.
+ * @param {Array} inputs - The audio inputs.
+ * @param {Array} outputs - The audio outputs.
+ * @returns {boolean} - Whether the process was successful.
+ */
 class WhiteNoiseProcessor extends AudioWorkletProcessor {
+  /**
+   * Process the audio inputs and generate white noise.
+   * @param {Array} inputs - The audio inputs.
+   * @param {Array} outputs - The audio outputs.
+   * @returns {boolean} - Whether the process was successful.
+   */
   process(inputs, outputs) {
     const output = outputs[0];
     output.forEach((channel) => {

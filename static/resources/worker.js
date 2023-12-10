@@ -6,10 +6,14 @@
 // See the LICENSE file for copyright details
 //
 
-/* global self, bcd */
+/* global self, bcd, MessageEvent */
 
 self.importScripts("harness.js");
 
+/**
+ * Handles the 'message' event received by the worker.
+ * @param {MessageEvent} event - The message event.
+ */
 self.onmessage = function (event) {
   var data = JSON.parse(event.data);
 

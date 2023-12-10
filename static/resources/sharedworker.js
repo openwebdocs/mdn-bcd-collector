@@ -6,12 +6,21 @@
 // See the LICENSE file for copyright details
 //
 
-/* global self, bcd */
+/* global self, bcd, Event, MessageEvent */
 
 self.importScripts("harness.js");
 
+/**
+ * Handle the connection event for the shared worker.
+ * @param {Event} connectEvent - The connection event.
+ */
 self.onconnect = function (connectEvent) {
   var port = connectEvent.ports[0];
+
+  /**
+   * Handle the message event for the shared worker port.
+   * @param {MessageEvent} event - The message event.
+   */
   port.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

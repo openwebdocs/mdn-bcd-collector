@@ -1,5 +1,6 @@
 {
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "plugin:jsdoc/recommended"],
+  "plugins": ["jsdoc"],
   "parserOptions": {
     "ecmaVersion": 3
   },
@@ -14,7 +15,28 @@
     "prefer-arrow/prefer-arrow-functions": "off",
     "quotes": "off",
     "require-jsdoc": "off",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+
+    "jsdoc/check-param-names": "error",
+    "jsdoc/require-description": "warn",
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        "require": {
+          "ArrowFunctionExpression": true,
+          "ClassDeclaration": true,
+          "ClassExpression": true,
+          "FunctionDeclaration": true,
+          "FunctionExpression": true,
+          "MethodDefinition": true
+        }
+      }
+    ],
+    "jsdoc/require-param-type": "error",
+    "jsdoc/require-returns": "error",
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/no-undefined-types": "error",
+    "jsdoc/require-yields": "error"
   },
   "root": true
 }
