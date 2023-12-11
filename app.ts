@@ -18,11 +18,11 @@ import esMain from "es-main";
 import express, {Request, Response, NextFunction} from "express";
 import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
+import expressSession from "express-session";
 import {marked} from "marked";
 import {markedHighlight} from "marked-highlight";
 import {gfmHeadingId} from "marked-gfm-heading-id";
 import hljs from "highlight.js";
-import uniqueString from "unique-string";
 import expressLayouts from "express-ejs-layouts";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -81,20 +81,6 @@ const tests = new Tests({
 });
 
 /**
- * Middleware function to handle cookie session.
- * If the 'sid' cookie is not present in the request, it sets a new 'sid' cookie using a unique string.
- * @param req - The request object.
- * @param res - The response object.
- * @param next - The next function to call in the middleware chain.
- */
-const cookieSession = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.cookies.sid) {
-    res.cookie("sid", uniqueString());
-  }
-  next();
-};
-
-/**
  * Creates a report object based on the provided results and request.
  * @param results - The test results.
  * @param req - The request object.
@@ -142,8 +128,15 @@ app.use(expressLayouts);
 app.set("layout extractScripts", true);
 
 // Additional config
-app.use(cookieSession);
 app.use(cookieParser(secrets.cookies));
+app.use(
+  expressSession({
+    secret: secrets.cookies,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: true},
+  }),
+);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json({limit: "32mb"}));
 app.use(express.static("static", staticOptions));
@@ -298,7 +291,7 @@ app.post(
     }
 
     try {
-      await storage.put(req.cookies.sid, url, results);
+      await storage.put(req.session.id, url, results);
       res.status(201).end();
     } catch (e) {
       next(e);
@@ -307,7 +300,7 @@ app.post(
 );
 
 app.get("/api/results", async (req: Request, res: Response) => {
-  const results = await storage.getAll(req.cookies.sid);
+  const results = await storage.getAll(req.session.id);
   res.status(200).json(createReport(results, req));
 });
 
@@ -321,7 +314,7 @@ app.post("/api/browserExtensions", async (req: Request, res: Response) => {
 
   try {
     extData =
-      ((await storage.get(req.cookies.sid, "extensions")) as Extensions) || [];
+      ((await storage.get(req.session.id, "extensions")) as Extensions) || [];
   } catch (e) {
     // We probably don't have any extension data yet
   }
@@ -332,7 +325,7 @@ app.post("/api/browserExtensions", async (req: Request, res: Response) => {
   }
 
   extData.push(...req.body);
-  await storage.put(req.cookies.sid, "extensions", extData);
+  await storage.put(req.session.id, "extensions", extData);
   res.status(201).end();
 });
 
@@ -422,7 +415,7 @@ app.get(
 // instead simply navigates to /export.
 app.all("/export", async (req: Request, res: Response, next: NextFunction) => {
   const github = !!req.body.github;
-  const results = await storage.getAll(req.cookies.sid);
+  const results = await storage.getAll(req.session.id);
 
   if (!results) {
     res.status(400).render("export", {
