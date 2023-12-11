@@ -38,6 +38,10 @@ import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
 import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
 
+type RequestWithSession = Request & {
+  sessionID: string;
+};
+
 /* c8 ignore start */
 /**
  * Retrieves the version of the application.
@@ -88,8 +92,10 @@ const tests = new Tests({
  * @param next - The next function to call in the middleware chain.
  */
 const cookieSession = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.cookies.sid) {
-    res.cookie("sid", uniqueString());
+  (req as RequestWithSession).sessionID = req.cookies.sid;
+  if (!(req as RequestWithSession).sessionID) {
+    (req as RequestWithSession).sessionID = uniqueString();
+    res.cookie("sid", (req as RequestWithSession).sessionID);
   }
   next();
 };
@@ -298,7 +304,7 @@ app.post(
     }
 
     try {
-      await storage.put(req.cookies.sid, url, results);
+      await storage.put((req as RequestWithSession).sessionID, url, results);
       res.status(201).end();
     } catch (e) {
       next(e);
@@ -321,7 +327,10 @@ app.post("/api/browserExtensions", async (req: Request, res: Response) => {
 
   try {
     extData =
-      ((await storage.get(req.cookies.sid, "extensions")) as Extensions) || [];
+      ((await storage.get(
+        (req as RequestWithSession).sessionID,
+        "extensions",
+      )) as Extensions) || [];
   } catch (e) {
     // We probably don't have any extension data yet
   }
@@ -332,7 +341,11 @@ app.post("/api/browserExtensions", async (req: Request, res: Response) => {
   }
 
   extData.push(...req.body);
-  await storage.put(req.cookies.sid, "extensions", extData);
+  await storage.put(
+    (req as RequestWithSession).sessionID,
+    "extensions",
+    extData,
+  );
   res.status(201).end();
 });
 
@@ -422,7 +435,7 @@ app.get(
 // instead simply navigates to /export.
 app.all("/export", async (req: Request, res: Response, next: NextFunction) => {
   const github = !!req.body.github;
-  const results = await storage.getAll(req.cookies.sid);
+  const results = await storage.getAll((req as RequestWithSession).sessionID);
 
   if (!results) {
     res.status(400).render("export", {
