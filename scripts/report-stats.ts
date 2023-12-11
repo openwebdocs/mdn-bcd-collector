@@ -182,7 +182,7 @@ const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   const totalTests = stats.testResults.total;
   console.log(chalk`Tests Run: {bold ${totalTests}}`);
 
-  for (const [name, color] of Object.entries(statuses)) {
+  for (const {name, color} of Object.values(statuses)) {
     const status = name.toLowerCase();
     const testResults = stats.testResults[status].length;
     console.log(
