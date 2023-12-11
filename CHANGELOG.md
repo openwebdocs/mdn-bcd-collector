@@ -1,5 +1,214 @@
 # mdn-bcd-collector Changelog
 
+## v10.6.0
+
+Released December 11, 2023
+
+### Test Changes
+
+#### Added
+
+- api.HTMLIFrameElement.credentialless
+- api.IdentityCredential.disconnect_static
+- api.PerformanceLongAnimationFrameTiming
+- api.URLPattern.hasRegExpGroups
+- api.WebTransport.supportsReliableOnly_static
+- api.Window.credentialless
+- css.properties.border-style.dashed
+- css.properties.border-style.dotted
+- css.properties.border-style.double
+- css.properties.border-style.groove
+- css.properties.border-style.hidden
+- css.properties.border-style.inset
+- css.properties.border-style.none
+- css.properties.border-style.outset
+- css.properties.border-style.ridge
+- css.properties.border-style.solid
+- css.properties.outline-style.dashed
+- css.properties.outline-style.dotted
+- css.properties.outline-style.double
+- css.properties.outline-style.groove
+- css.properties.outline-style.inset
+- css.properties.outline-style.none
+- css.properties.outline-style.outset
+- css.properties.outline-style.ridge
+- css.properties.outline-style.solid
+
+#### Changed
+
+- api.AudioNode
+- api.AudioParam
+- api.AudioTrack
+- api.BaseAudioContext.decodeAudioData.returns_promise
+- api.CanvasGradient
+- api.CanvasPattern
+- api.CanvasRenderingContext2D.clip.path_parameter
+- api.CanvasRenderingContext2D.drawFocusIfNeeded.path_parameter
+- api.CanvasRenderingContext2D.drawImage.ImageBitmap_source_image
+- api.CanvasRenderingContext2D.drawImage.SVGImageElement_source_image
+- api.CanvasRenderingContext2D.fill.path_parameter
+- api.CanvasRenderingContext2D.isPointInPath.path_parameter
+- api.CanvasRenderingContext2D.isPointInStroke.path_parameter
+- api.CanvasRenderingContext2D.stroke.path_parameter
+- api.CharacterData
+- api.CSSConditionRule
+- api.CSSGroupingRule
+- api.CSSKeyframeRule
+- api.CSSRule
+- api.CSSRuleList
+- api.CSSStyleRule
+- api.DeviceMotionEventAcceleration
+- api.DeviceMotionEventRotationRate
+- api.DOMRectList
+- api.EventTarget
+- webassembly.api.Exception.stack
+- api.FetchEvent
+- api.FileSystemDirectoryEntry
+- api.FileSystemDirectoryReader
+- api.FileSystemEntry
+- api.FileSystemFileEntry
+- api.GeolocationCoordinates
+- api.GeolocationPosition
+- api.GPUAdapter
+- api.GPUBuffer
+- api.GPUCommandEncoder
+- api.GPUComputePassEncoder
+- api.GPUDevice
+- api.GPUQueue
+- api.GPURenderPassEncoder
+- api.GPUTexture
+- api.HTMLFormControlsCollection
+- api.HTMLMediaElement
+- api.IDBDatabase
+- api.IDBOpenDBRequest
+- api.IDBRequest
+- api.ImageCapture
+- api.ImageData
+- api.InputDeviceInfo
+- api.MediaDeviceInfo
+- api.MediaStreamTrackAudioSourceNode
+- api.MediaStreamTrackEvent
+- api.MessagePort
+- api.Metadata
+- api.MimeType
+- api.MutationRecord
+- api.NotificationEvent
+- api.OfflineAudioCompletionEvent
+- api.PerformanceEntry
+- api.PerformanceMark
+- api.PerformanceNavigation
+- api.PerformanceTiming
+- api.ProcessingInstruction
+- api.RadioNodeList
+- api.ReadableStreamDefaultReader
+- api.RTCDataChannel
+- api.RTCDataChannelEvent
+- api.RTCIdentityAssertion
+- api.RTCPeerConnection.addIceCandidate.returns_promise
+- api.RTCPeerConnection.setLocalDescription.returns_promise
+- api.RTCPeerConnection.setRemoteDescription.returns_promise
+- api.SpeechGrammar
+- api.SpeechSynthesisErrorEvent
+- api.SpeechSynthesisEvent
+- api.SpeechSynthesisVoice
+- api.StyleSheet
+- api.SVGAngle
+- api.SVGAnimatedAngle
+- api.SVGAnimatedBoolean
+- api.SVGAnimatedEnumeration
+- api.SVGAnimatedInteger
+- api.SVGAnimatedLength
+- api.SVGAnimatedLengthList
+- api.SVGAnimatedNumber
+- api.SVGAnimatedNumberList
+- api.SVGAnimatedPreserveAspectRatio
+- api.SVGAnimatedRect
+- api.SVGAnimatedString
+- api.SVGAnimatedTransformList
+- api.SVGAnimationElement
+- api.SVGComponentTransferFunctionElement
+- api.SVGGeometryElement
+- api.SVGGradientElement
+- api.SVGGraphicsElement
+- api.SVGLength
+- api.SVGLengthList
+- api.SVGNumber
+- api.SVGNumberList
+- api.SVGPoint
+- api.SVGPointList
+- api.SVGPreserveAspectRatio
+- api.SVGRect
+- api.SVGStringList
+- api.SVGTextContentElement
+- api.SVGTextPositioningElement
+- api.SVGTransform
+- api.SVGTransformList
+- api.TextMetrics
+- api.TextTrack
+- api.TextTrackCue
+- api.TextTrackCueList
+- api.ValidityState
+- api.VideoTrack
+- api.VTTCue
+- api.WebGLTimerQueryEXT
+- api.WebGLVertexArrayObjectOES
+- api.XMLHttpRequestEventTarget
+- api.XMLHttpRequestUpload
+- api.XPathResult
+- javascript.builtins.TypedArray.iterable_in_constructor
+- javascript.builtins.Int8Array.Int8Array.iterable_allowed
+- javascript.builtins.Uint8Array.Uint8Array.iterable_allowed
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.iterable_allowed
+- javascript.builtins.Int16Array.Int16Array.iterable_allowed
+- javascript.builtins.Uint16Array.Uint16Array.iterable_allowed
+- javascript.builtins.Int32Array.Int32Array.iterable_allowed
+- javascript.builtins.Uint32Array.Uint32Array.iterable_allowed
+- javascript.builtins.Float32Array.Float32Array.iterable_allowed
+- javascript.builtins.Float64Array.Float64Array.iterable_allowed
+- javascript.builtins.AsyncIterator
+- javascript.builtins.Generator
+- javascript.builtins.AsyncGenerator
+
+### Commits
+
+- Add message to parsed results if result is null
+- Catch if user agent can't be obtained
+- Add more types and refactor to catch bad variable inputs
+- Create separate types test command
+- Simplify replaceAsync function
+- Fix version comparison
+- Use @typescript-eslint/no-unused-var
+- Don’t compare string and number
+- Fix styling issues
+- Fix issues with use of void type
+- Add JSDocs to update-bcd
+- Use typescript-eslint/[strict/stylistic] ESLint configs
+- Add more typedefs to Selenium script
+- Fix Selenium script
+- Use TypeScript recommendations for eslint-plugin-jsdoc
+- Replace sass.renderSync with sass.compile
+- Define ReportStats type
+- Catch if a query is an array
+- Use req.cookies.sid directly
+- Add `&lt;line-style&gt;` values to border-style and outline-style
+- Fix custom test for WebAssembly.Exception.stack
+- Change UI labels on export buttons ([#902](https://github.com/openwebdocs/mdn-bcd-collector/pull/902))
+- Ensure Nodemon re-generates tests properly
+- Add underlines to anchors for accessibility
+- Mention collector is by Open Web Docs on homepage
+- Update styling
+- Resource builder: watch package-lock.json, not package.json
+- Use foreman package to parallelize site reloading
+- Mention path filter in find-missing-features
+- Add link to harness.js source code
+- Fix ESLint errors
+- Update styling for paper blocks
+- Use new GFM proposal for note blocks
+- Increase top padding
+- Update FAQ on about page
+- Use GFM heading IDs in rendered markdown pages
+- Use es-scraper package
+
 ## v10.5.2
 
 Released November 28, 2023
