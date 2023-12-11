@@ -145,6 +145,7 @@ export type InternalTestResult = TestResult & {
 };
 
 export interface Secrets {
+  cookies: string;
   github: {
     token: string;
   };

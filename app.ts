@@ -142,8 +142,8 @@ app.use(expressLayouts);
 app.set("layout extractScripts", true);
 
 // Additional config
-app.use(cookieParser());
 app.use(cookieSession);
+app.use(cookieParser(secrets.cookies));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json({limit: "32mb"}));
 app.use(express.static("static", staticOptions));
