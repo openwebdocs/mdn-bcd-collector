@@ -1,5 +1,15 @@
 # mdn-bcd-collector Changelog
 
+## v10.6.1
+
+Released December 11, 2023
+
+### Commits
+
+- Revert "Use req.cookies.sid directly"
+- Fix Selenium script
+- Fix report-stats script
+
 ## v10.6.0
 
 Released December 11, 2023
