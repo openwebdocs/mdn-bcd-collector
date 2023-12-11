@@ -1,5 +1,16 @@
 # mdn-bcd-collector Changelog
 
+## v10.6.1
+
+Released December 11, 2023
+
+### Commits
+
+- Use express-session instead of custom logic to create session IDs
+- Define cookies secret
+- Fix Selenium script
+- Fix report-stats script
+
 ## v10.6.0
 
 Released December 11, 2023
