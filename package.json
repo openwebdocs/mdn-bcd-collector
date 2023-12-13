@@ -101,7 +101,7 @@
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "6.14.0",
     "@webref/css": "6.10.0",
-    "@webref/idl": "3.42.0",
+    "@webref/idl": "3.42.1",
     "c8": "8.0.1",
     "chai": "4.3.10",
     "chai-as-promised": "7.1.1",
