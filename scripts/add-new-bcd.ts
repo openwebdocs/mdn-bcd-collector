@@ -235,6 +235,7 @@ const main = async (): Promise<void> => {
     {addNewFeatures: true},
     bcd.browsers,
     overrides,
+    "",
   );
 
   console.log("Injecting BCD...");
