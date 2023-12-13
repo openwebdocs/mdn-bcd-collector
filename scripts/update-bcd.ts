@@ -1219,6 +1219,7 @@ export const main = async (
   filter: any,
   browsers: Browsers,
   overrides: Overrides,
+  outputPath: string,
 ): Promise<void> => {
   // Replace filter.path with a minimatch object.
   if (filter.path && filter.path.includes("*")) {
@@ -1270,7 +1271,7 @@ export const main = async (
 
   if (Boolean(featureList.length)) {
     const featureListJSON = JSON.stringify(featureList, null, "  ") + "\n";
-    await fs.writeFile("feature-list.json", featureListJSON);
+    await fs.writeFile(outputPath, featureListJSON);
   }
 };
 
@@ -1320,10 +1321,17 @@ if (esMain(import.meta)) {
             'Only update when versions are a specific number (or "false"), disallowing ranges',
           type: "boolean",
           default: false,
+        })
+        .option("output", {
+          alias: "o",
+          describe:
+            'Specify filename and output path for a json list of updated features. Defaults to "feature-list.json"',
+          type: "string",
+          default: "feature-list.json",
         });
     },
   );
 
-  await main(argv.reports, argv, browsers, overrides);
+  await main(argv.reports, argv, browsers, overrides, argv.output);
 }
 /* c8 ignore stop */
