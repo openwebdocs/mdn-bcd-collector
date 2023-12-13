@@ -1014,6 +1014,15 @@ const pickLog = <T extends UpdateLog>({
   };
 };
 
+/**
+ * Picks specific properties from an object of type T and returns a new object of type FeatureListLog.
+ * @template T - The type of the input object.
+ * @param obj - The input object.
+ * @param obj.browser - The browser property of the input object.
+ * @param obj.path - The path property of the input object.
+ * @param obj.statements - The statements property of the input object.
+ * @returns - The new object of type FeatureListLog.
+ */
 const pickFeatureList = <T extends UpdateLog>({
   browser,
   path,
@@ -1270,7 +1279,7 @@ export const main = async (
     await fs.writeFile(file, json);
   }
 
-  if (Boolean(featureList.length)) {
+  if (featureList.length) {
     const featureListJSON = JSON.stringify(featureList, null, "  ") + "\n";
     await fs.writeFile(outputPath, featureListJSON);
   }
