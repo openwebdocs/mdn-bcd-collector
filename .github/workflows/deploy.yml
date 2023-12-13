@@ -36,3 +36,23 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.changed == 'true'
+        with:
+          repository: openwebdocs/mdn-bcd-results
+          path: mdn-bcd-results
+      - name: Run Selenium and collect results
+        if: steps.check.outputs.changed == 'true'
+        run: RESULTS_DIR=mdn-bcd-results npm run selenium
+      - name: Submit all results to results repo
+        if: steps.check.outputs.changed == 'true'
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
+        with:
+          source_file: "/"
+          destination_repo: "openwebdocs/mdn-bcd-results"
+          destination_folder: "mdn-bcd-results"
+          user_email: "gooborgstudios-bot@users.noreply.github.com"
+          user_name: "gooborgstudios-bot"
+          commit_message: "Selenium v${{steps.check.outputs.version}} results"
