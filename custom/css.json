@@ -1016,7 +1016,7 @@
       ]
     },
     "word-break": {
-      "__values": ["break-word", "keep-all"]
+      "__values": ["auto-phrase", "break-word", "keep-all", "manual"]
     },
     "word-spacing": {
       "__additional_values": {
