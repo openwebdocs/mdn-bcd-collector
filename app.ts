@@ -64,6 +64,9 @@ const getAppVersion = async () => {
       .replace(/^v/, "")
       .replaceAll("\n", "");
   } catch (e) {
+    if (process.env.HEROKU_PR_NUMBER) {
+      return `${version}-pr${process.env.HEROKU_PR_NUMBER}`;
+    }
     // If anything happens, e.g., git isn't installed, just use the version
     // from package.json with -dev appended.
     return `${version}-dev`;
