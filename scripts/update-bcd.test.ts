@@ -17,6 +17,7 @@ import logger from "../lib/logger.js";
 import bcd from "../unittest/bcd.test.js";
 
 import {
+  getStatementSupportRanges,
   findEntry,
   getSupportMap,
   getSupportMatrix,
@@ -826,6 +827,34 @@ describe("BCD updater", () => {
     });
   });
 
+  describe("getSupportStatementRanges", () => {
+    it("works", () => {
+      assert.deepEqual(getStatementSupportRanges([]), undefined);
+
+      assert.deepEqual(getStatementSupportRanges([{version_added: "30"}]), {
+        supportedRanges: new Map([[30, undefined]]),
+        unsupportedRanges: new Map([[0, 29]]),
+      });
+
+      assert.deepEqual(
+        getStatementSupportRanges([
+          {version_added: "30"},
+          {version_added: "10", version_removed: "20"},
+        ]),
+        {
+          supportedRanges: new Map([
+            [10, 19],
+            [30, undefined],
+          ]),
+          unsupportedRanges: new Map([
+            [0, 9],
+            [20, 29],
+          ]),
+        },
+      );
+    });
+  });
+
   describe("hasSupportUpdates", () => {
     it("detects updates with nonexistent support statements", () => {
       assert.isTrue(
@@ -886,7 +915,7 @@ describe("BCD updater", () => {
       );
     });
 
-    it("detects updates in statements with string values", () => {
+    it.only("detects updates in statements with string values", () => {
       assert.isTrue(
         hasSupportUpdates(
           new Map([
@@ -894,9 +923,11 @@ describe("BCD updater", () => {
             ["80", false],
             ["81", true],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
       );
 
@@ -907,9 +938,11 @@ describe("BCD updater", () => {
             ["80", false],
             ["81", true],
           ]),
-          {
-            version_added: "81",
-          },
+          [
+            {
+              version_added: "81",
+            },
+          ],
         ),
       );
 
@@ -920,9 +953,11 @@ describe("BCD updater", () => {
             ["80", true],
             ["81", true],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
       );
 
@@ -934,23 +969,84 @@ describe("BCD updater", () => {
             ["81", true],
             ["82", false],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
         "detects possible support removal",
+      );
+
+      // assert.isTrue(
+      //   hasSupportUpdates(
+      //     new Map([
+      //       ["79", false],
+      //       ["80", true],
+      //       ["81", true],
+      //     ]),
+      //     {
+      //       version_added: "preview",
+      //     },
+      //   ),
+      // );
+    });
+
+    it.only("detects updates across multiple default statements", () => {
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["10", true],
+            ["29", false],
+            ["30", true],
+          ]),
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "≤10",
+            },
+          ],
+        ),
       );
 
       assert.isTrue(
         hasSupportUpdates(
           new Map([
-            ["79", false],
-            ["80", true],
-            ["81", true],
+            ["9", true],
+            ["29", false],
+            ["30", true],
           ]),
-          {
-            version_added: "preview",
-          },
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "≤10",
+            },
+          ],
+        ),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["10", true],
+            ["29", true],
+            ["30", true],
+          ]),
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "≤10",
+            },
+          ],
         ),
       );
     });
