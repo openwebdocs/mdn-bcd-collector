@@ -1,6 +1,6 @@
 #
-# mdn-bcd-collector: unittest/unit/bcd.test.js
-# Unittest helper containing pseudo custom tests
+# mdn-bcd-collector: unittest/custom-tests.test.yaml
+# Unittest helper containing custom test code
 #
 # © Gooborg Studios
 # See the LICENSE file for copyright details
@@ -24,6 +24,11 @@ __resources:
         return false;
       };
       return canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  other-bad-resource:
+    type: instance
+    src: "foo"
+    dependencies:
+      - bad-resource
 
 api:
   foo:
@@ -82,6 +87,10 @@ api:
   badresource:
     __resources:
       - bad-resource
+    __test: return false;
+  otherbadresource:
+    __resources:
+      - other-bad-resource
     __test: return false;
   WebGLRenderingContext:
     __resources:

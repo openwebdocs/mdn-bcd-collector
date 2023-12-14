@@ -11,6 +11,8 @@ import chaiSubset from "chai-subset";
 import chaiAsPromised from "chai-as-promised";
 chai.use(chaiSubset).use(chaiAsPromised);
 
+import sinon from "sinon";
+
 import {
   compileTestCode,
   compileTest,
@@ -181,6 +183,34 @@ describe("build (common)", () => {
           additional: {},
         },
       },
+      "api.import1": {
+        category: "api",
+        data: {
+          __base: "<%api.foo:a%>\nvar instance = a;",
+          __test: false,
+          __resources: [],
+          __additional: {},
+        },
+        result: {
+          test: '(function () {\n  var a = 1;\n  if (!a) {\n    return { result: false, message: "a is falsy" };\n  }\n  var instance = a;\n  return !!instance;\n})();\n',
+          resources: [],
+          additional: {},
+        },
+      },
+      "api.import2": {
+        category: "api",
+        data: {
+          __base: "<%api.import1:b%>\nvar instance = b;",
+          __test: false,
+          __resources: [],
+          __additional: {},
+        },
+        result: {
+          test: '(function () {\n  var a = 1;\n  if (!a) {\n    return { result: false, message: "a is falsy" };\n  }\n  var b = a;\n  if (!b) {\n    return { result: false, message: "b is falsy" };\n  }\n  var instance = b;\n  return !!instance;\n})();\n',
+          resources: [],
+          additional: {},
+        },
+      },
     };
 
     for (const [k, v] of Object.entries(expectedResults)) {
@@ -190,10 +220,30 @@ describe("build (common)", () => {
       });
     }
 
+    it("api.invalid (disable test if code is malformed)", async () => {
+      const consoleError = sinon.stub(console, "error");
+      const customTest = await getCustomTest("api.invalid", "api");
+      assert.ok(
+        customTest.test &&
+          customTest.test.startsWith(
+            '(function () {\n  throw "Test is malformed:',
+          ),
+      );
+      assert.ok(consoleError.calledOnce);
+      consoleError.restore();
+    });
+
     it("api.badresource (throw error on bad resource reference)", async () => {
       await assert.isRejected(
         getCustomTest("api.badresource", "api"),
         "Resource bad-resource is not defined but referenced in api.badresource",
+      );
+    });
+
+    it("api.otherbadresource (throw error on bad resource reference)", async () => {
+      await assert.isRejected(
+        getCustomTest("api.otherbadresource", "api"),
+        "Resource bad-resource is not defined but referenced in __resources.other-bad-resource",
       );
     });
   });
@@ -203,11 +253,26 @@ describe("build (common)", () => {
       assert.equal(compileTestCode("a string"), "a string");
     });
 
-    it("Symbol", () => {
+    it("Array of tests", () => {
+      assert.equal(
+        compileTestCode(["true", {property: "userAgent", owner: "navigator"}]),
+        'true && "navigator" in self && "userAgent" in navigator',
+      );
+    });
+
+    it("Symbol (global owner)", () => {
       const test = {property: "Symbol.iterator", owner: "DOMMatrixReadOnly"};
       assert.equal(
         compileTestCode(test),
         '"Symbol" in self && "iterator" in Symbol && "DOMMatrixReadOnly" in self && !!(DOMMatrixReadOnly[Symbol.iterator])',
+      );
+    });
+
+    it("Symbol (owner is instance)", () => {
+      const test = {property: "Symbol.iterator", owner: "instance"};
+      assert.equal(
+        compileTestCode(test),
+        '"Symbol" in self && "iterator" in Symbol && !!(instance[Symbol.iterator])',
       );
     });
 
@@ -217,6 +282,11 @@ describe("build (common)", () => {
         compileTestCode(test),
         '"console" in self && "log" in console',
       );
+    });
+
+    it("inherited property on global scope", () => {
+      const test = {property: "fetch", owner: "self", inherit: true};
+      assert.equal(compileTestCode(test), 'self.hasOwnProperty("fetch")');
     });
 
     it("constructor", () => {

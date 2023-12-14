@@ -11,6 +11,8 @@ import chaiSubset from "chai-subset";
 import chaiAsPromised from "chai-as-promised";
 chai.use(chaiSubset).use(chaiAsPromised);
 
+import sinon from "sinon";
+
 import {build} from "./css.js";
 
 describe("build (CSS)", () => {
@@ -161,6 +163,7 @@ describe("build (CSS)", () => {
   });
 
   it("invalid import", async () => {
+    const consoleError = sinon.stub(console, "error");
     const css = {
       "css-dummy": {
         spec: {
@@ -172,14 +175,20 @@ describe("build (CSS)", () => {
       },
     };
 
+    const error =
+      "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
+
     assert.deepEqual(await build(css, {properties: {}, selectors: {}}), {
       "css.properties.bar": {
         code: `(function () {
-  throw "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
+  throw "${error}";
 })();
 `,
         exposure: ["Window"],
       },
     });
+    assert.ok(consoleError.calledOnce);
+
+    consoleError.restore();
   });
 });
