@@ -1,5 +1,186 @@
 # mdn-bcd-collector Changelog
 
+## v10.6.2
+
+Released December 14, 2023
+
+### Test Changes
+
+#### Added
+
+- api.KeyFrameRequestEvent
+- api.MLGraphBuilder.argMax
+- api.MLGraphBuilder.argMin
+- api.MLGraphBuilder.cast
+- api.MLGraphBuilder.equal
+- api.MLGraphBuilder.erf
+- api.MLGraphBuilder.expand
+- api.MLGraphBuilder.gather
+- api.MLGraphBuilder.greater
+- api.MLGraphBuilder.greaterOrEqual
+- api.MLGraphBuilder.identity
+- api.MLGraphBuilder.layerNormalization
+- api.MLGraphBuilder.lesser
+- api.MLGraphBuilder.lesserOrEqual
+- api.MLGraphBuilder.not
+- api.MLGraphBuilder.reciprocal
+- api.MLGraphBuilder.sqrt
+- api.MLGraphBuilder.triangular
+- api.MLGraphBuilder.where
+- api.MLOperand.dataType
+- api.MLOperand.shape
+- api.Navigation.activation
+- api.NavigationActivation
+- api.RTCRtpScriptTransformer.keyframerequest_event
+
+#### Removed
+
+- api.MLGraphBuilder.squeeze
+
+#### Changed
+
+- api.AudioNode
+- api.AudioParam
+- api.AudioTrack
+- api.BaseAudioContext.decodeAudioData.returns_promise
+- api.CanvasGradient
+- api.CanvasPattern
+- api.CanvasRenderingContext2D.clip.path_parameter
+- api.CanvasRenderingContext2D.drawFocusIfNeeded.path_parameter
+- api.CanvasRenderingContext2D.drawImage.ImageBitmap_source_image
+- api.CanvasRenderingContext2D.drawImage.SVGImageElement_source_image
+- api.CanvasRenderingContext2D.fill.path_parameter
+- api.CanvasRenderingContext2D.isPointInPath.path_parameter
+- api.CanvasRenderingContext2D.isPointInStroke.path_parameter
+- api.CanvasRenderingContext2D.stroke.path_parameter
+- api.CharacterData
+- api.CSSConditionRule
+- api.CSSGroupingRule
+- api.CSSKeyframeRule
+- api.CSSRule
+- api.CSSRuleList
+- api.CSSStyleRule
+- api.DeviceMotionEventAcceleration
+- api.DeviceMotionEventRotationRate
+- api.DOMRectList
+- api.EventTarget
+- api.FetchEvent
+- api.FileSystemDirectoryEntry
+- api.FileSystemDirectoryReader
+- api.FileSystemEntry
+- api.FileSystemFileEntry
+- api.GeolocationCoordinates
+- api.GeolocationPosition
+- api.GPUAdapter
+- api.GPUBuffer
+- api.GPUCommandEncoder
+- api.GPUComputePassEncoder
+- api.GPUDevice
+- api.GPUQueue
+- api.GPURenderPassEncoder
+- api.GPUTexture
+- api.HTMLFormControlsCollection
+- api.HTMLMediaElement
+- api.IDBDatabase
+- api.IDBOpenDBRequest
+- api.IDBRequest
+- api.ImageCapture
+- api.ImageData
+- api.InputDeviceInfo
+- api.MediaDeviceInfo
+- api.MediaStreamTrackAudioSourceNode
+- api.MediaStreamTrackEvent
+- api.MessagePort
+- api.Metadata
+- api.MimeType
+- api.MutationRecord
+- api.NotificationEvent
+- api.OfflineAudioCompletionEvent
+- api.PerformanceEntry
+- api.PerformanceMark
+- api.PerformanceNavigation
+- api.PerformanceTiming
+- api.ProcessingInstruction
+- api.RadioNodeList
+- api.ReadableStreamDefaultReader
+- api.RTCDataChannel
+- api.RTCDataChannelEvent
+- api.RTCIdentityAssertion
+- api.RTCPeerConnection.addIceCandidate.returns_promise
+- api.RTCPeerConnection.setLocalDescription.returns_promise
+- api.RTCPeerConnection.setRemoteDescription.returns_promise
+- api.SpeechGrammar
+- api.SpeechSynthesisErrorEvent
+- api.SpeechSynthesisEvent
+- api.SpeechSynthesisVoice
+- api.StyleSheet
+- api.SVGAngle
+- api.SVGAnimatedAngle
+- api.SVGAnimatedBoolean
+- api.SVGAnimatedEnumeration
+- api.SVGAnimatedInteger
+- api.SVGAnimatedLength
+- api.SVGAnimatedLengthList
+- api.SVGAnimatedNumber
+- api.SVGAnimatedNumberList
+- api.SVGAnimatedPreserveAspectRatio
+- api.SVGAnimatedRect
+- api.SVGAnimatedString
+- api.SVGAnimatedTransformList
+- api.SVGAnimationElement
+- api.SVGComponentTransferFunctionElement
+- api.SVGGeometryElement
+- api.SVGGradientElement
+- api.SVGGraphicsElement
+- api.SVGLength
+- api.SVGLengthList
+- api.SVGNumber
+- api.SVGNumberList
+- api.SVGPoint
+- api.SVGPointList
+- api.SVGPreserveAspectRatio
+- api.SVGRect
+- api.SVGStringList
+- api.SVGTextContentElement
+- api.SVGTextPositioningElement
+- api.SVGTransform
+- api.SVGTransformList
+- api.TextMetrics
+- api.TextTrack
+- api.TextTrackCue
+- api.TextTrackCueList
+- api.ValidityState
+- api.VideoTrack
+- api.VTTCue
+- api.WebGLTimerQueryEXT
+- api.WebGLVertexArrayObjectOES
+- api.XMLHttpRequestEventTarget
+- api.XMLHttpRequestUpload
+- api.XPathResult
+- javascript.builtins.TypedArray.iterable_in_constructor
+- javascript.builtins.Int8Array.Int8Array.iterable_allowed
+- javascript.builtins.Uint8Array.Uint8Array.iterable_allowed
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.iterable_allowed
+- javascript.builtins.Int16Array.Int16Array.iterable_allowed
+- javascript.builtins.Uint16Array.Uint16Array.iterable_allowed
+- javascript.builtins.Int32Array.Int32Array.iterable_allowed
+- javascript.builtins.Uint32Array.Uint32Array.iterable_allowed
+- javascript.builtins.Float32Array.Float32Array.iterable_allowed
+- javascript.builtins.Float64Array.Float64Array.iterable_allowed
+- javascript.builtins.AsyncIterator
+- javascript.builtins.Generator
+- javascript.builtins.AsyncGenerator
+
+### Commits
+
+- Revert "Simplify replaceAsync function" ([#950](https://github.com/openwebdocs/mdn-bcd-collector/pull/950))
+- Silences warning logs and adds additional earlier skip check if no detected BCD updates ([#909](https://github.com/openwebdocs/mdn-bcd-collector/pull/909))
+- Autorun Selenium on new version ([#919](https://github.com/openwebdocs/mdn-bcd-collector/pull/919))
+- Add funding.yml ([#945](https://github.com/openwebdocs/mdn-bcd-collector/pull/945))
+- express-session should not be a dev dependency
+- Use expressSession instead of custom logic to create/store session ID
+- Fix Selenium script
+
 ## v10.6.1
 
 Released December 11, 2023
