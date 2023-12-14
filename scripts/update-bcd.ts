@@ -587,6 +587,53 @@ const provideReason = (
     }
   });
 
+export const getStatementSupportRanges = (
+  statements: SimpleSupportStatement[],
+) => {
+  const versionMap: Map<number, "added" | "removed"> = new Map();
+
+  for (const {version_added, version_removed} of statements) {
+    if (typeof version_added === "string") {
+      const simpleAdded = Number(version_added.replace("≤", ""));
+      versionMap.set(simpleAdded, "added");
+    }
+
+    if (version_removed && typeof version_removed === "string") {
+      const simpleRemoved = Number(version_removed.replace("≤", ""));
+      versionMap.set(simpleRemoved, "removed");
+    }
+  }
+
+  const sortedVersionMap = new Map([...versionMap.entries()].sort());
+
+  const unsupportedRanges: Map<number, number> = new Map();
+  const supportedRanges: Map<number, number | undefined> = new Map();
+
+  [...sortedVersionMap].reduce(
+    (
+      [previousVersion, previousSupportStatus],
+      [currentVersion, currentSupportStatus],
+    ) => {
+      if (
+        previousSupportStatus === "removed" &&
+        currentSupportStatus === "added"
+      ) {
+        unsupportedRanges.set(previousVersion, currentVersion - 1);
+        supportedRanges.set(currentVersion, undefined);
+      } else if (
+        previousSupportStatus === "added" &&
+        currentSupportStatus === "removed"
+      ) {
+        supportedRanges.set(previousVersion, currentVersion - 1);
+      }
+      return [currentVersion, currentSupportStatus];
+    },
+    [0, "removed"],
+  );
+
+  return {supportedRanges, unsupportedRanges};
+};
+
 /**
  * Skips the specified step based on the provided condition.
  * @param step - The name of the step to skip.
@@ -810,42 +857,49 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
 
 export const hasSupportUpdates = (
   versionMap: BrowserSupportMap,
-  simpleStatement?: SimpleSupportStatement,
+  defaultStatements: SimpleSupportStatement[],
 ) => {
-  if (!simpleStatement || simpleStatement.version_added === null) {
+  if (!defaultStatements.length) {
     return true;
   }
+
+  const {supportedRanges, unsupportedRanges} =
+    getStatementSupportRanges(defaultStatements);
 
   const updates: string[] = [];
   for (const [version, hasSupport] of versionMap.entries()) {
     if (hasSupport === null) {
       continue;
     }
+    const lookup = Number(version);
 
-    if (typeof simpleStatement.version_added === "boolean") {
-      if (!simpleStatement.version_added && !hasSupport) {
-        continue;
-      } else {
+    // TODO: bring back support for statements with booleans and preview
+    if (hasSupport) {
+      const inSupportRange = [...supportedRanges].some(([lower, upper]) => {
+        const aboveLower = lookup >= lower;
+        return upper ? aboveLower && lookup < upper : aboveLower;
+      });
+      if (!inSupportRange) {
+        updates.push(version);
+      }
+    } else {
+      const inUnsupportedRange = [...unsupportedRanges].some(
+        ([lower, upper]) => {
+          return lookup > lower && lookup <= upper;
+        },
+      );
+      if (!inUnsupportedRange) {
         updates.push(version);
       }
     }
 
-    if (typeof simpleStatement.version_added === "string") {
-      if (simpleStatement.version_added === "preview") {
-        if (hasSupport) {
-          updates.push(version);
-        }
-        continue;
-      }
-
-      const simpleAdded = simpleStatement.version_added.replace("≤", "");
-      if (compareVersions(version, simpleAdded, "<") && hasSupport) {
-        updates.push(version);
-      }
-      if (compareVersions(version, simpleAdded, ">=") && !hasSupport) {
-        updates.push(version);
-      }
-    }
+    // if (typeof simpleStatement.version_added === "boolean") {
+    //   if (!simpleStatement.version_added && !hasSupport) {
+    //     continue;
+    //   } else {
+    //     updates.push(version);
+    //   }
+    // }
   }
   return updates.length > 0;
 };
@@ -1121,11 +1175,8 @@ export const update = (
     skipBrowserMismatch(options.browser),
     provideAllStatements,
     provideDefaultStatements,
-    skip("supportMatrixMatchesDefaultStatements", ({
-      shared: {versionMap},
-      defaultStatements: [simpleStatement],
-    }) => {
-      if (!hasSupportUpdates(versionMap, simpleStatement)) {
+    skip("hasNoSupportUpdates", ({shared: {versionMap}, defaultStatements}) => {
+      if (!hasSupportUpdates(versionMap, defaultStatements)) {
         return reason(
           ({path, browser}) =>
             `$${path} skipped for ${browser} because support matrix matches current BCD support data`,
@@ -1184,11 +1235,11 @@ export const update = (
     clearNonExact(options.exactOnly),
     skip("noStatement", ({
       statements,
-      defaultStatements: [simpleStatement],
+      defaultStatements,
       shared: {versionMap},
     }) => {
       if (!statements?.length) {
-        if (hasSupportUpdates(versionMap, simpleStatement)) {
+        if (hasSupportUpdates(versionMap, defaultStatements)) {
           return reason(
             ({browser, path}) =>
               `${path} skipped for ${browser} with unresolved differences between support matrix and BCD data. Possible intervention required.`,
