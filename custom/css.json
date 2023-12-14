@@ -56,6 +56,7 @@
     "-webkit-mask-box-image-source": {},
     "-webkit-mask-box-image-width": {},
     "-webkit-mask-box-image": {},
+    "-webkit-mask-composite": {},
     "-webkit-mask-position-x": {},
     "-webkit-mask-position-y": {},
     "-webkit-mask-repeat-x": {},
@@ -74,7 +75,11 @@
     "-webkit-text-combine": {},
     "-webkit-text-decoration-skip": {},
     "-webkit-text-decorations-in-effect": {},
+    "-webkit-text-fill-color": {},
     "-webkit-text-security": {},
+    "-webkit-text-stroke-color": {},
+    "-webkit-text-stroke-width": {},
+    "-webkit-text-stroke": {},
     "-webkit-text-zoom": {},
     "-webkit-touch-callout": {},
     "-webkit-transform-origin-x": {},
@@ -82,6 +87,7 @@
     "-webkit-transform-origin-z": {},
     "-webkit-user-drag": {},
     "-webkit-user-modify": {},
+    "align-tracks": {},
     "alt": {},
     "animation-direction": {
       "__values": ["alternate-reverse", "reverse"]
@@ -90,6 +96,9 @@
       "__additional_values": {
         "jump": "steps(1, jump-start)"
       }
+    },
+    "animation-duration": {
+      "__values": ["auto", "scroll", "view"]
     },
     "appearance": {
       "__additional_values": {
@@ -318,7 +327,12 @@
     },
     "column-progression": {},
     "contain": {
-      "__values": ["style"]
+      "__values": ["style", "inline-size"]
+    },
+    "contain-intrinsic-size": {
+      "__additional_values": {
+        "auto_none": "auto none"
+      }
     },
     "content": {
       "__additional_values": {
@@ -447,15 +461,16 @@
     },
     "font-display": {},
     "font-family": {
-      "__values": ["system-ui"]
+      "__values": ["math", "system-ui"]
     },
     "font-size": {
       "__additional_values": {
         "rem_values": "10rem"
       },
-      "__values": ["xxx-large"]
+      "__values": ["math", "xxx-large"]
     },
     "font-size-adjust": {
+      "__values": ["from-font"],
       "__additional_values": {
         "two-values": "ex-height 0.5"
       }
@@ -472,7 +487,7 @@
       }
     },
     "font-synthesis": {
-      "__values": ["small-caps"]
+      "__values": ["small-caps", "position", "style", "weight"]
     },
     "font-variant": {
       "__values": ["historical-forms", "sub", "super"]
@@ -493,6 +508,7 @@
       }
     },
     "grid-template-columns": {
+      "__values": ["masonry", "subgrid"],
       "__additional_values": {
         "fit-content": "fit-content(40%)",
         "minmax": "minmax(100px, 1fr)",
@@ -500,6 +516,7 @@
       }
     },
     "grid-template-rows": {
+      "__values": ["masonry", "subgrid"],
       "__additional_values": {
         "fit-content": "fit-content(40%)",
         "minmax": "minmax(100px, 1fr)",
@@ -511,6 +528,9 @@
         "fit-content_function": "fit-content(10px)"
       },
       "__values": ["fit-content", "max-content", "min-content", "stretch"]
+    },
+    "hyphens": {
+      "__values": ["auto"]
     },
     "image-orientation": {
       "__additional_values": {
@@ -533,6 +553,7 @@
       },
       "__values": ["fit-content", "max-content", "min-content"]
     },
+    "justify-tracks": {},
     "layout-grid": {},
     "layout-grid-char": {},
     "layout-grid-line": {},
@@ -740,6 +761,9 @@
       ]
     },
     "min-zoom": {},
+    "mix-blend-mode": {
+      "__values": ["plus-lighter"]
+    },
     "motion": {},
     "motion-distance": {},
     "motion-offset": {},
@@ -754,8 +778,12 @@
     "offset-path": {
       "__additional_values": {
         "path": "path('M20,20 L50,80 L80,20')",
-        "ray": "ray(45deg closest-side contain)"
+        "ray": "ray(45deg closest-side contain)",
+        "url": "url(test.png)"
       }
+    },
+    "offset-position": {
+      "__values": ["normal"]
     },
     "offset-rotation": {},
     "opacity": {
@@ -785,7 +813,7 @@
       "__additional_values": {
         "multiple_keywords": "hidden visible"
       },
-      "__values": ["clip"]
+      "__values": ["clip", "overlay"]
     },
     "overflow-clip-box": {},
     "overflow-clip-box-block": {},
@@ -794,10 +822,10 @@
       "__values": ["anywhere", "break-word"]
     },
     "overflow-x": {
-      "__values": ["clip"]
+      "__values": ["clip", "overlay"]
     },
     "overflow-y": {
-      "__values": ["clip"]
+      "__values": ["clip", "overlay"]
     },
     "pen-action": {},
     "position": {
@@ -946,6 +974,9 @@
     },
     "text-underline-style": {},
     "text-underline-width": {},
+    "text-wrap": {
+      "__values": ["balance", "nowrap", "pretty", "stable", "wrap"]
+    },
     "touch-action": {
       "__additional_values": {
         "axis-pan": ["pan-x", "pan-y"],
