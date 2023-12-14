@@ -17,17 +17,22 @@ import {Secrets} from "../types/types";
  * @returns A promise that resolves to the secrets object.
  */
 const getSecrets = async (): Promise<Secrets> => {
+  const sampleSecrets = await fs.readJson(
+    new URL("../secrets.sample.json", import.meta.url),
+  );
+
+  // Remove Selenium hosts from sample secrets
+  sampleSecrets.selenium = {};
+
   // In testing environments, real secrets shouldn't be used
   if (process.env.NODE_ENV === "test") {
-    return await fs.readJson(
-      new URL("../secrets.sample.json", import.meta.url),
-    );
+    return sampleSecrets;
   }
 
   // If SECRETS_JSON present, try to parse and use it
   if (process.env.SECRETS_JSON) {
     try {
-      return JSON.parse(process.env.SECRETS_JSON);
+      return {...sampleSecrets, ...JSON.parse(process.env.SECRETS_JSON)};
     } catch {
       console.warn(
         "SECRETS_JSON environment variable present but is not valid JSON; using secrets.json...",
@@ -36,7 +41,10 @@ const getSecrets = async (): Promise<Secrets> => {
   }
 
   // Use secrets.json
-  return await fs.readJson(new URL("../secrets.json", import.meta.url));
+  return {
+    ...sampleSecrets,
+    ...(await fs.readJson(new URL("../secrets.json", import.meta.url))),
+  };
 };
 
 export default getSecrets;
