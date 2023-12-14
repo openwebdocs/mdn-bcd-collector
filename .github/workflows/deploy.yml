@@ -43,7 +43,10 @@ jobs:
           path: mdn-bcd-results
       - name: Run Selenium and collect results
         if: steps.check.outputs.changed == 'true'
-        run: RESULTS_DIR=mdn-bcd-results npm run selenium
+        run: |
+           npm install -D typescript
+           npm install -D ts-node
+           RESULTS_DIR=mdn-bcd-results npm run selenium
       - name: Submit all results to results repo
         if: steps.check.outputs.changed == 'true'
         uses: dmnemec/copy_file_to_another_repo_action@main
