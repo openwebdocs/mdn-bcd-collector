@@ -2270,7 +2270,7 @@ api:
     __base: var instance = document.createElement('marquee');
     __test: return bcd.testObjectName(instance, 'HTMLMarqueeElement');
   HTMLMediaElement:
-    __base: var instance = document.createElement('video');
+    __base: <%api.HTMLVideoElement:instance%>
     __test: return bcd.testObjectName(instance, 'HTMLVideoElement');
     play:
       __additional:
