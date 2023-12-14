@@ -828,9 +828,14 @@ describe("BCD updater", () => {
   });
 
   describe("getSupportStatementRanges", () => {
-    it("works", () => {
-      assert.deepEqual(getStatementSupportRanges([]), undefined);
+    it("returns indefinite unsupported range for empty statements", () => {
+      assert.deepEqual(getStatementSupportRanges([]), {
+        supportedRanges: new Map(),
+        unsupportedRanges: new Map([[0, undefined]]),
+      });
+    });
 
+    it("returns ranges for version_added and version_removed strings", () => {
       assert.deepEqual(getStatementSupportRanges([{version_added: "30"}]), {
         supportedRanges: new Map([[30, undefined]]),
         unsupportedRanges: new Map([[0, 29]]),
@@ -853,24 +858,50 @@ describe("BCD updater", () => {
         },
       );
     });
+
+    it("handles booleans", () => {
+      assert.deepEqual(getStatementSupportRanges([{version_added: true}]), {
+        supportedRanges: new Map([[0, undefined]]),
+        unsupportedRanges: new Map([[0, -1]]),
+      });
+
+      assert.deepEqual(getStatementSupportRanges([{version_added: false}]), {
+        supportedRanges: new Map(),
+        unsupportedRanges: new Map([[0, undefined]]),
+      });
+    });
+
+    it("handles preview statements", () => {
+      assert.deepEqual(
+        getStatementSupportRanges([{version_added: "preview"}]),
+        {
+          supportedRanges: new Map(),
+          unsupportedRanges: new Map([[0, undefined]]),
+        },
+      );
+    });
   });
 
   describe("hasSupportUpdates", () => {
     it("detects updates with nonexistent support statements", () => {
       assert.isTrue(
-        hasSupportUpdates(new Map([["80", true]]), {
-          version_added: null,
-        }),
+        hasSupportUpdates(new Map([["80", true]]), [
+          {
+            version_added: null,
+          },
+        ]),
       );
 
-      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), undefined));
+      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), []));
     });
 
     it("skips null support claims", () => {
       assert.isFalse(
-        hasSupportUpdates(new Map([["80", null]]), {
-          version_added: "≤80",
-        }),
+        hasSupportUpdates(new Map([["80", null]]), [
+          {
+            version_added: "≤80",
+          },
+        ]),
       );
 
       assert.isFalse(
@@ -881,9 +912,11 @@ describe("BCD updater", () => {
             ["81", true],
             ["82", null],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
         "skips new null test result",
       );
@@ -891,16 +924,20 @@ describe("BCD updater", () => {
 
     it("detects updates in statements with boolean values", () => {
       assert.isFalse(
-        hasSupportUpdates(new Map([["80", false]]), {
-          version_added: false,
-        }),
+        hasSupportUpdates(new Map([["80", false]]), [
+          {
+            version_added: false,
+          },
+        ]),
         "skips generic false statements",
       );
 
       assert.isTrue(
-        hasSupportUpdates(new Map([["80", true]]), {
-          version_added: true,
-        }),
+        hasSupportUpdates(new Map([["80", true]]), [
+          {
+            version_added: true,
+          },
+        ]),
         "catches specific support updates over generic true statements",
       );
 
@@ -910,12 +947,12 @@ describe("BCD updater", () => {
             ["80", false],
             ["81", true],
           ]),
-          {version_added: false},
+          [{version_added: false}],
         ),
       );
     });
 
-    it.only("detects updates in statements with string values", () => {
+    it("detects updates in statements with string values", () => {
       assert.isTrue(
         hasSupportUpdates(
           new Map([
@@ -992,7 +1029,7 @@ describe("BCD updater", () => {
       // );
     });
 
-    it.only("detects updates across multiple default statements", () => {
+    it("detects updates across multiple default statements", () => {
       assert.isFalse(
         hasSupportUpdates(
           new Map([
@@ -1053,15 +1090,19 @@ describe("BCD updater", () => {
 
     it("detects updates for preview statements", () => {
       assert.isTrue(
-        hasSupportUpdates(new Map([["81", true]]), {
-          version_added: "preview",
-        }),
+        hasSupportUpdates(new Map([["81", true]]), [
+          {
+            version_added: "preview",
+          },
+        ]),
       );
 
       assert.isFalse(
-        hasSupportUpdates(new Map([["81", false]]), {
-          version_added: "preview",
-        }),
+        hasSupportUpdates(new Map([["81", false]]), [
+          {
+            version_added: "preview",
+          },
+        ]),
       );
     });
   });
