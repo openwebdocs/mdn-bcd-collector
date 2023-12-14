@@ -1014,19 +1014,6 @@ describe("BCD updater", () => {
         ),
         "detects possible support removal",
       );
-
-      // assert.isTrue(
-      //   hasSupportUpdates(
-      //     new Map([
-      //       ["79", false],
-      //       ["80", true],
-      //       ["81", true],
-      //     ]),
-      //     {
-      //       version_added: "preview",
-      //     },
-      //   ),
-      // );
     });
 
     it("detects updates across multiple default statements", () => {
@@ -1034,6 +1021,25 @@ describe("BCD updater", () => {
         hasSupportUpdates(
           new Map([
             ["10", true],
+            ["29", false],
+            ["30", true],
+          ]),
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "≤10",
+            },
+          ],
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["19", true],
             ["29", false],
             ["30", true],
           ]),

@@ -727,7 +727,7 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
 /**
  * Clears non-exact statements based on the provided flag.
  * @param exactOnly - A boolean flag indicating whether to clear non-exact statements.
- * @returns - An array of statements or undefined if the statements should be skipped.
+ * @returns An array of statements or undefined if the statements should be skipped.
  */
 const clearNonExact = (exactOnly: boolean) =>
   exactOnly
@@ -808,9 +808,17 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
+/**
+ * Infers sets of supported and unsupported version ranges from a series of default statements.
+ * @param statements - An array of default statements.
+ * @returns An object with a map of inferred supported ranges and a map of unsupported ranges.
+ */
 export const getStatementSupportRanges = (
   statements: SimpleSupportStatement[],
-) => {
+): {
+  supportedRanges: Map<number, number | undefined>;
+  unsupportedRanges: Map<number, number | undefined>;
+} => {
   const versionMap = new Map<number, "added" | "removed">();
 
   for (const {version_added, version_removed} of statements) {
@@ -862,6 +870,28 @@ export const getStatementSupportRanges = (
   return {supportedRanges, unsupportedRanges};
 };
 
+/**
+ * Small helper utility to determine if a version is within a range of numbers.
+ * @param version - An version number.
+ * @param range - A map with sets of ranges from lower to upper.
+ * @returns A boolean indicating whether the version is in range.
+ */
+const inSupportRange = (
+  version: number,
+  range: Map<number, number | undefined>,
+) => {
+  return [...range].some(([lower, upper]) => {
+    const aboveLower = version >= lower;
+    return upper ? aboveLower && version <= upper : aboveLower;
+  });
+};
+
+/**
+ *  Iterates through a BrowserSupportMap and checks each version for possible updates against a set of default statements.
+ * @param versionMap - A map of versions and support assertions.
+ * @param defaultStatements - An array of default statements.
+ * @returns A boolean indicating whether possible updates to the default statments have been detected.
+ */
 export const hasSupportUpdates = (
   versionMap: BrowserSupportMap,
   defaultStatements: SimpleSupportStatement[],
@@ -881,27 +911,19 @@ export const hasSupportUpdates = (
     const lookup = Number(version);
 
     if (hasSupport) {
-      const inSupportRange = [...supportedRanges].some(([lower, upper]) => {
-        const aboveLower = lookup >= lower;
-        return upper ? aboveLower && lookup < upper : aboveLower;
-      });
-      if (!inSupportRange) {
+      const inRange = inSupportRange(lookup, supportedRanges);
+      if (!inRange) {
         updates.push(version);
       } else if (
-        inSupportRange &&
+        // detect possible update over generic support (like from a boolean value)
+        inRange &&
         !supportedRanges.keys().next().value &&
         lookup > 0
       ) {
         updates.push(version);
       }
     } else {
-      const inUnsupportedRange = [...unsupportedRanges].some(
-        ([lower, upper]) => {
-          const aboveLower = lookup >= lower;
-          return upper ? aboveLower && lookup <= upper : aboveLower;
-        },
-      );
-      if (!inUnsupportedRange) {
+      if (!inSupportRange(lookup, unsupportedRanges)) {
         updates.push(version);
       }
     }
