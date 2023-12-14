@@ -138,18 +138,18 @@
     },
     "background-position": {
       "__additional_values": {
-        "4_value_syntax": "bottom 50px right 100px",
+        "side-relative_values": "bottom 50px right 100px",
         "multiple_backgrounds": "bottom, top"
       }
     },
     "background-position-x": {
       "__additional_values": {
-        "two_value_syntax": "right 3px"
+        "side-relative_values": "right 3px"
       }
     },
     "background-position-y": {
       "__additional_values": {
-        "2_value_syntax": "bottom 3px"
+        "side-relative_values": "bottom 3px"
       }
     },
     "background-repeat": {
