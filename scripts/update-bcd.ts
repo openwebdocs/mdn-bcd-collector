@@ -401,7 +401,12 @@ const reason = (
   message: ReasonMessageFactory,
   args: Omit<Reason, "message"> = {},
 ): ReasonFactory => {
-  return (value) => ({message: message(value), skip: true, ...args});
+  return (value) => ({
+    message: message(value),
+    skip: true,
+    quiet: true,
+    ...args,
+  });
 };
 
 /**
@@ -803,6 +808,48 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
+export const hasSupportUpdates = (
+  versionMap: BrowserSupportMap,
+  simpleStatement?: SimpleSupportStatement,
+) => {
+  if (!simpleStatement || simpleStatement.version_added === null) {
+    return true;
+  }
+
+  const updates: string[] = [];
+  for (const [version, hasSupport] of versionMap.entries()) {
+    if (hasSupport === null) {
+      continue;
+    }
+
+    if (typeof simpleStatement.version_added === "boolean") {
+      if (!simpleStatement.version_added && !hasSupport) {
+        continue;
+      } else {
+        updates.push(version);
+      }
+    }
+
+    if (typeof simpleStatement.version_added === "string") {
+      if (simpleStatement.version_added === "preview") {
+        if (hasSupport) {
+          updates.push(version);
+        }
+        continue;
+      }
+
+      const simpleAdded = simpleStatement.version_added.replace("≤", "");
+      if (compareVersions(version, simpleAdded, "<") && hasSupport) {
+        updates.push(version);
+      }
+      if (compareVersions(version, simpleAdded, ">=") && !hasSupport) {
+        updates.push(version);
+      }
+    }
+  }
+  return updates.length > 0;
+};
+
 const persistInferredRange = provideStatements(
   "inferredRange",
   ({
@@ -1072,6 +1119,19 @@ export const update = (
       }
     }),
     skipBrowserMismatch(options.browser),
+    provideAllStatements,
+    provideDefaultStatements,
+    skip("supportMatrixMatchesDefaultStatements", ({
+      shared: {versionMap},
+      defaultStatements: [simpleStatement],
+    }) => {
+      if (!hasSupportUpdates(versionMap, simpleStatement)) {
+        return reason(
+          ({path, browser}) =>
+            `$${path} skipped for ${browser} because support matrix matches current BCD support data`,
+        );
+      }
+    }),
     provide("inferredStatements", ({shared: {versionMap}}) =>
       inferSupportStatements(versionMap),
     ),
@@ -1084,8 +1144,6 @@ export const update = (
       }
     }),
     skipReleaseMismatch(options.release),
-    provideAllStatements,
-    provideDefaultStatements,
     skip("zeroDefaultStatements", ({
       inferredStatements: [inferredStatement],
       defaultStatements,
@@ -1124,13 +1182,26 @@ export const update = (
     persistAddedOver,
     persistRemoved,
     clearNonExact(options.exactOnly),
-    skip("noStatement", ({statements}) => {
+    skip("noStatement", ({
+      statements,
+      defaultStatements: [simpleStatement],
+      shared: {versionMap},
+    }) => {
       if (!statements?.length) {
+        if (hasSupportUpdates(versionMap, simpleStatement)) {
+          return reason(
+            ({browser, path}) =>
+              `${path} skipped for ${browser} with unresolved differences between support matrix and BCD data. Possible intervention required.`,
+            {
+              quiet: false,
+            },
+          );
+        }
         return reason(
           ({browser, path}) =>
-            `${path} skipped for ${browser}: no reason identified`,
+            `${path} skipped for ${browser}: no known reason identified. Possible intervention required.`,
           {
-            quiet: true,
+            quiet: false,
           },
         );
       }

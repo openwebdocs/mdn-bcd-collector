@@ -20,6 +20,7 @@ import {
   findEntry,
   getSupportMap,
   getSupportMatrix,
+  hasSupportUpdates,
   inferSupportStatements,
   splitRange,
   update,
@@ -822,6 +823,150 @@ describe("BCD updater", () => {
       assert.throws(() => {
         splitRange("23");
       }, 'Unrecognized version range value: "23"');
+    });
+  });
+
+  describe("hasSupportUpdates", () => {
+    it("detects updates with nonexistent support statements", () => {
+      assert.isTrue(
+        hasSupportUpdates(new Map([["80", true]]), {
+          version_added: null,
+        }),
+      );
+
+      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), undefined));
+    });
+
+    it("skips null support claims", () => {
+      assert.isFalse(
+        hasSupportUpdates(new Map([["80", null]]), {
+          version_added: "≤80",
+        }),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+            ["82", null],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+        "skips new null test result",
+      );
+    });
+
+    it("detects updates in statements with boolean values", () => {
+      assert.isFalse(
+        hasSupportUpdates(new Map([["80", false]]), {
+          version_added: false,
+        }),
+        "skips generic false statements",
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(new Map([["80", true]]), {
+          version_added: true,
+        }),
+        "catches specific support updates over generic true statements",
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["80", false],
+            ["81", true],
+          ]),
+          {version_added: false},
+        ),
+      );
+    });
+
+    it("detects updates in statements with string values", () => {
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["79", false],
+            ["80", false],
+            ["81", true],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["79", false],
+            ["80", false],
+            ["81", true],
+          ]),
+          {
+            version_added: "81",
+          },
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+            ["82", false],
+          ]),
+          {
+            version_added: "≤80",
+          },
+        ),
+        "detects possible support removal",
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["79", false],
+            ["80", true],
+            ["81", true],
+          ]),
+          {
+            version_added: "preview",
+          },
+        ),
+      );
+    });
+
+    it("detects updates for preview statements", () => {
+      assert.isTrue(
+        hasSupportUpdates(new Map([["81", true]]), {
+          version_added: "preview",
+        }),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(new Map([["81", false]]), {
+          version_added: "preview",
+        }),
+      );
     });
   });
 
