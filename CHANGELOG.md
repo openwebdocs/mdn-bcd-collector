@@ -1,5 +1,75 @@
 # mdn-bcd-collector Changelog
 
+## v10.6.3
+
+Released December 14, 2023
+
+### Test Changes
+
+#### Added
+
+- css.properties.-webkit-animation-trigger
+- css.properties.-webkit-app-region
+- css.properties.-webkit-border-horizontal-spacing
+- css.properties.-webkit-border-vertical-spacing
+- css.properties.-webkit-column-axis
+- css.properties.-webkit-column-break-after
+- css.properties.-webkit-column-break-before
+- css.properties.-webkit-column-break-inside
+- css.properties.-webkit-column-progression
+- css.properties.-webkit-cursor-visibility
+- css.properties.-webkit-font-size-delta
+- css.properties.-webkit-hyphenate-character
+- css.properties.-webkit-hyphenate-limit-after
+- css.properties.-webkit-hyphenate-limit-before
+- css.properties.-webkit-hyphenate-limit-lines
+- css.properties.-webkit-initial-letter
+- css.properties.-webkit-line-align
+- css.properties.-webkit-line-box-contain
+- css.properties.-webkit-line-grid
+- css.properties.-webkit-line-snap
+- css.properties.-webkit-locale
+- css.properties.-webkit-logical-height
+- css.properties.-webkit-logical-width
+- css.properties.-webkit-margin-after
+- css.properties.-webkit-margin-before
+- css.properties.-webkit-marquee
+- css.properties.-webkit-marquee-direction
+- css.properties.-webkit-marquee-increment
+- css.properties.-webkit-marquee-repetition
+- css.properties.-webkit-marquee-speed
+- css.properties.-webkit-marquee-style
+- css.properties.-webkit-mask-box-image
+- css.properties.-webkit-mask-box-image-outset
+- css.properties.-webkit-mask-box-image-repeat
+- css.properties.-webkit-mask-box-image-slice
+- css.properties.-webkit-mask-box-image-source
+- css.properties.-webkit-mask-box-image-width
+- css.properties.-webkit-mask-source-type
+- css.properties.-webkit-max-logical-height
+- css.properties.-webkit-max-logical-width
+- css.properties.-webkit-min-logical-height
+- css.properties.-webkit-min-logical-width
+- css.properties.-webkit-nbsp-mode
+- css.properties.-webkit-perspective-origin-x
+- css.properties.-webkit-perspective-origin-y
+- css.properties.-webkit-rtl-ordering
+- css.properties.-webkit-text-combine
+- css.properties.-webkit-text-decoration-skip
+- css.properties.-webkit-text-decorations-in-effect
+- css.properties.-webkit-text-zoom
+- css.properties.-webkit-transform-origin-x
+- css.properties.-webkit-transform-origin-y
+- css.properties.-webkit-transform-origin-z
+- css.properties.-webkit-user-drag
+- css.properties.-webkit-user-modify
+
+### Commits
+
+- Update unittests ([#957](https://github.com/openwebdocs/mdn-bcd-collector/pull/957))
+- Fix Selenium action ([#956](https://github.com/openwebdocs/mdn-bcd-collector/pull/956))
+- Add specific tests for non-standard -webkit properties ([#952](https://github.com/openwebdocs/mdn-bcd-collector/pull/952))
+
 ## v10.6.2
 
 Released December 14, 2023
