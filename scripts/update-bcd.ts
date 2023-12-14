@@ -587,53 +587,6 @@ const provideReason = (
     }
   });
 
-export const getStatementSupportRanges = (
-  statements: SimpleSupportStatement[],
-) => {
-  const versionMap: Map<number, "added" | "removed"> = new Map();
-
-  for (const {version_added, version_removed} of statements) {
-    if (typeof version_added === "string") {
-      const simpleAdded = Number(version_added.replace("≤", ""));
-      versionMap.set(simpleAdded, "added");
-    }
-
-    if (version_removed && typeof version_removed === "string") {
-      const simpleRemoved = Number(version_removed.replace("≤", ""));
-      versionMap.set(simpleRemoved, "removed");
-    }
-  }
-
-  const sortedVersionMap = new Map([...versionMap.entries()].sort());
-
-  const unsupportedRanges: Map<number, number> = new Map();
-  const supportedRanges: Map<number, number | undefined> = new Map();
-
-  [...sortedVersionMap].reduce(
-    (
-      [previousVersion, previousSupportStatus],
-      [currentVersion, currentSupportStatus],
-    ) => {
-      if (
-        previousSupportStatus === "removed" &&
-        currentSupportStatus === "added"
-      ) {
-        unsupportedRanges.set(previousVersion, currentVersion - 1);
-        supportedRanges.set(currentVersion, undefined);
-      } else if (
-        previousSupportStatus === "added" &&
-        currentSupportStatus === "removed"
-      ) {
-        supportedRanges.set(previousVersion, currentVersion - 1);
-      }
-      return [currentVersion, currentSupportStatus];
-    },
-    [0, "removed"],
-  );
-
-  return {supportedRanges, unsupportedRanges};
-};
-
 /**
  * Skips the specified step based on the provided condition.
  * @param step - The name of the step to skip.
@@ -855,6 +808,60 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
+export const getStatementSupportRanges = (
+  statements: SimpleSupportStatement[],
+) => {
+  const versionMap = new Map<number, "added" | "removed">();
+
+  for (const {version_added, version_removed} of statements) {
+    if (version_added === true) {
+      versionMap.set(0, "added");
+    } else if (
+      typeof version_added === "string" &&
+      version_added !== "preview"
+    ) {
+      const simpleAdded = Number(version_added.replace("≤", ""));
+      versionMap.set(simpleAdded, "added");
+    }
+
+    if (version_removed && typeof version_removed === "string") {
+      const simpleRemoved = Number(version_removed.replace("≤", ""));
+      versionMap.set(simpleRemoved, "removed");
+    }
+  }
+
+  const sortedVersionMap = new Map([...versionMap.entries()].sort());
+
+  const unsupportedRanges = new Map<number, number | undefined>([
+    [0, undefined],
+  ]);
+  const supportedRanges = new Map<number, number | undefined>();
+
+  [...sortedVersionMap].reduce(
+    (
+      [previousVersion, previousSupportStatus],
+      [currentVersion, currentSupportStatus],
+    ) => {
+      if (
+        previousSupportStatus === "removed" &&
+        currentSupportStatus === "added"
+      ) {
+        unsupportedRanges.set(previousVersion, currentVersion - 1);
+        supportedRanges.set(currentVersion, undefined);
+      } else if (
+        previousSupportStatus === "added" &&
+        currentSupportStatus === "removed"
+      ) {
+        supportedRanges.set(previousVersion, currentVersion - 1);
+      }
+      return [currentVersion, currentSupportStatus];
+    },
+    [0, "removed"],
+  );
+
+  return {supportedRanges, unsupportedRanges};
+};
+
 export const hasSupportUpdates = (
   versionMap: BrowserSupportMap,
   defaultStatements: SimpleSupportStatement[],
@@ -873,7 +880,6 @@ export const hasSupportUpdates = (
     }
     const lookup = Number(version);
 
-    // TODO: bring back support for statements with booleans and preview
     if (hasSupport) {
       const inSupportRange = [...supportedRanges].some(([lower, upper]) => {
         const aboveLower = lookup >= lower;
@@ -881,25 +887,24 @@ export const hasSupportUpdates = (
       });
       if (!inSupportRange) {
         updates.push(version);
+      } else if (
+        inSupportRange &&
+        !supportedRanges.keys().next().value &&
+        lookup > 0
+      ) {
+        updates.push(version);
       }
     } else {
       const inUnsupportedRange = [...unsupportedRanges].some(
         ([lower, upper]) => {
-          return lookup > lower && lookup <= upper;
+          const aboveLower = lookup >= lower;
+          return upper ? aboveLower && lookup <= upper : aboveLower;
         },
       );
       if (!inUnsupportedRange) {
         updates.push(version);
       }
     }
-
-    // if (typeof simpleStatement.version_added === "boolean") {
-    //   if (!simpleStatement.version_added && !hasSupport) {
-    //     continue;
-    //   } else {
-    //     updates.push(version);
-    //   }
-    // }
   }
   return updates.length > 0;
 };
