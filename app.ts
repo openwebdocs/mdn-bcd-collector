@@ -499,6 +499,7 @@ app.all("/tests/*", (req: Request, res: Response) => {
       tests: foundTests,
       resources: tests.resources,
       selenium: req.query.selenium,
+      github: !!secrets.github.token,
     });
   } else {
     res.status(404).render("testnotfound", {
