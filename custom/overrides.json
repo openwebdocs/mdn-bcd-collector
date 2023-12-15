@@ -829,5 +829,10 @@
   ["css.selectors.-webkit-meter-inner-element", "safari", "7+", true],
   ["css.selectors.-webkit-progress-bar", "safari", "7+", true],
   ["css.selectors.-webkit-progress-inner-element", "safari", "7+", true],
-  ["css.selectors.-webkit-progress-value", "safari", "7+", true]
+  ["css.selectors.-webkit-progress-value", "safari", "7+", true],
+  "Exposed early, see https://webkit.org/b/265463",
+  ["api.CookieChangeEvent", "safari", "17.2", false],
+  ["api.CookieChangeEvent.CookieChangeEvent", "safari", "17.2", false],
+  ["api.CookieChangeEvent.changed", "safari", "17.2", false],
+  ["api.CookieChangeEvent.deleted", "safari", "17.2", false]
 ]
