@@ -63,7 +63,7 @@
     "json-stable-stringify": "1.1.0",
     "marked": "^11.1.0",
     "marked-gfm-heading-id": "^3.1.2",
-    "marked-highlight": "^2.0.9",
+    "marked-highlight": "^2.1.0",
     "marked-mangle": "^1.1.6",
     "slugify": "1.6.6",
     "ts-node": "10.9.2",
