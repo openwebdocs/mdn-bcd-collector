@@ -120,7 +120,7 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     return data;
   }
 
-  // Certain Safari versions are backports of newer versions, but contain less
+  // Certain Safari versions are backports of newer versions, but contain fewer
   // features, particularly ones involving OS integration. We are explicitly
   // marking these versions as "not in BCD" to avoid confusion.
   if (

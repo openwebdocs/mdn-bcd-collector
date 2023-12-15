@@ -384,7 +384,7 @@
 
   /**
    * This function tests to see if a parameter or option within an object is accessed
-   * during a method call. It passes an object as the first paramter to the method, calls
+   * during a method call. It passes an object as the first parameter to the method, calls
    * the method, and checks to see if the option was accessed during the call.
    * @todo This can only test with the first argument.  To test the second, third, etc. argument, wrap the method in a function.  Example:
    *   function foo(opts) {

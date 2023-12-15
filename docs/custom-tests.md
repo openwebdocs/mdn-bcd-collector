@@ -118,7 +118,7 @@ This example will create tests for three BCD identifiers:
 
 ## Resources
 
-Certain tests may require resources, like an image or a resuable instance. To allow the resources to load before running the tests, rather than create and add an element with JavaScript, we can define resources to be loaded through the top-level `__resources` object.
+Certain tests may require resources, like an image or a reusable instance. To allow the resources to load before running the tests, rather than create and add an element with JavaScript, we can define resources to be loaded through the top-level `__resources` object.
 
 ```yaml
 __resources:
@@ -286,7 +286,7 @@ bcd.addTest(
 ```
 
 > [!NOTE]
-> If the specified `ident` cannot be found, the code will be replaced with a error to throw indicating as such.
+> If the specified `ident` cannot be found, the code will be replaced with an error to throw indicating as such.
 
 ## Use ES3 features
 
