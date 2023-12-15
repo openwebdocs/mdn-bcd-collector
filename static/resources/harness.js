@@ -1337,7 +1337,7 @@
       }
 
       if ("serviceWorker" in navigator) {
-        await window.__workerCleanup();
+        window.__workerCleanup();
       }
 
       if (typeof onComplete == "function") {
