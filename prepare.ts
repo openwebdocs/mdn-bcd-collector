@@ -40,5 +40,5 @@ const prepare = async () => {
 };
 
 if (esMain(import.meta)) {
-  prepare();
+  await prepare();
 }

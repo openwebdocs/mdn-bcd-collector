@@ -1750,7 +1750,6 @@
               serviceWorker.removeEventListener("statechange", stateListener);
 
               reject(new Error("Installing service worker became redundant"));
-              return;
             }
           }
 

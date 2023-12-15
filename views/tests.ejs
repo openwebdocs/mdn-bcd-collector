@@ -53,18 +53,18 @@ See the LICENSE file for copyright details
       default:
         throw new Error(`Tried to load an unknown instance type of ${resource.type}!`)
     }
-  }; %>
+  } %>
 </div>
 
 <script src="/resources/harness.js"></script>
 
 <script>
   <% for (const [instanceId, instance] of Object.entries(resources)
-    .filter((item) => (item[1].type === 'instance'))) { 
+    .filter((item) => (item[1].type === 'instance'))) {
     if (resourcesToLoad.has(instanceId)) { %>
       bcd.addInstance("<%- instanceId %>", <%- JSON.stringify(instance.src) %>, {callback: <%- !!instance.callback %>});
     <% }
-   }; %>
+   } %>
   <% tests.forEach(function(test) { %>
     bcd.addTest("<%- test.ident %>", <%- JSON.stringify(test.tests) %>, "<%- test.exposure %>");
   <% }); %>

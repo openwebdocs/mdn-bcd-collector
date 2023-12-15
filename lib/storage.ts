@@ -152,7 +152,7 @@ class CloudStorage extends Storage {
     await Promise.all(
       files.map(async (file) => {
         assert(file.name.startsWith(prefix));
-        const key = decodeURIComponent(file.name.substr(prefix.length));
+        const key = decodeURIComponent(file.name.substring(prefix.length));
         const data = (await file.download())[0];
         result[key] = JSON.parse(data.toString());
       }),
