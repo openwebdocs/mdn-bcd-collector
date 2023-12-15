@@ -1337,7 +1337,7 @@
       }
 
       if ("serviceWorker" in navigator) {
-        window.__workerCleanup();
+        await window.__workerCleanup();
       }
 
       if (typeof onComplete == "function") {
@@ -1750,7 +1750,6 @@
               serviceWorker.removeEventListener("statechange", stateListener);
 
               reject(new Error("Installing service worker became redundant"));
-              return;
             }
           }
 

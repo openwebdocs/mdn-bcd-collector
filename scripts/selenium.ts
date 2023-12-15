@@ -659,7 +659,7 @@ const run = async (
     if (!ctx.testenv) {
       const filename = path.basename(new URL(downloadUrl).pathname);
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).buffer();
+      const report = await (await fetch(downloadUrl)).arrayBuffer();
       await fs.writeFile(path.join(RESULTS_DIR, filename), report);
     }
   } finally {
