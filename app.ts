@@ -151,6 +151,7 @@ app.use(express.static("static", staticOptions));
 app.use(express.static("generated", staticOptions));
 
 app.locals.appVersion = appVersion;
+app.locals.dev = process.env.NODE_ENV !== "production";
 app.locals.bcdVersion = bcd.__meta.version;
 app.locals.browserExtensions = browserExtensions;
 

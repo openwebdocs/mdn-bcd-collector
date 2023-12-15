@@ -9,6 +9,7 @@ See the LICENSE file for copyright details
 <%- contentFor('body') %>
 <%- include('unsecurewarning') %>
 <%- include('extensioncheck', {sendToServer: true}) %>
+<% if (dev) {%><p class="error-notice">Note: you are running a development version of the collector!</p><% } %>
 <p id="status">Running tests...</p>
 <form id="export" action="/export" method="post">
   <button id="export-download" class="export-button" type="submit" name="download" value="download" disabled><span class="mdi mdi-download"></span> Download results file</button>
