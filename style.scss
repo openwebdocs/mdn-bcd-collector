@@ -532,6 +532,8 @@ blockquote {
 
 #run-tests {
   width: 100%;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
   max-width: max-content;
   margin: auto;
   margin-top: 2em;
@@ -603,6 +605,8 @@ blockquote {
   @include themedProperty(background, "error-bg");
   @include themedBoxShadow("error-bg", 40px);
 
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
   max-width: calc(100vw - 4em - 24px);
   margin: 1em auto;
