@@ -1,5 +1,83 @@
 # mdn-bcd-collector Changelog
 
+## v10.6.4
+
+Released December 18, 2023
+
+### Test Changes
+
+#### Added
+
+- css.properties.-webkit-mask-composite
+- css.properties.-webkit-text-fill-color
+- css.properties.-webkit-text-stroke
+- css.properties.-webkit-text-stroke-color
+- css.properties.-webkit-text-stroke-width
+- css.properties.align-tracks
+- css.properties.animation-duration.auto
+- css.properties.animation-duration.scroll
+- css.properties.animation-duration.view
+- css.properties.background-position.side-relative_values
+- css.properties.background-position-x.side-relative_values
+- css.properties.background-position-y.side-relative_values
+- css.properties.contain.inline-size
+- css.properties.contain-intrinsic-size.auto_none
+- css.properties.font-family.math
+- css.properties.font-size.math
+- css.properties.font-size-adjust.from-font
+- css.properties.font-synthesis.position
+- css.properties.font-synthesis.style
+- css.properties.font-synthesis.weight
+- css.properties.grid-template-columns.masonry
+- css.properties.grid-template-columns.subgrid
+- css.properties.grid-template-rows.masonry
+- css.properties.grid-template-rows.subgrid
+- css.properties.hyphens.auto
+- css.properties.justify-tracks
+- css.properties.mix-blend-mode.plus-lighter
+- css.properties.offset-path.url
+- css.properties.offset-position.normal
+- css.properties.overflow.overlay
+- css.properties.overflow-x.overlay
+- css.properties.overflow-y.overlay
+- css.properties.text-wrap.balance
+- css.properties.text-wrap.nowrap
+- css.properties.text-wrap.pretty
+- css.properties.text-wrap.stable
+- css.properties.text-wrap.wrap
+- css.properties.word-break.auto-phrase
+- css.properties.word-break.manual
+
+#### Removed
+
+- css.properties.background-position.4_value_syntax
+- css.properties.background-position-x.two_value_syntax
+- css.properties.background-position-y.2_value_syntax
+
+### Commits
+
+- Fix width: max-content for older browsers ([#987](https://github.com/openwebdocs/mdn-bcd-collector/pull/987))
+- BCD moved the mirror script ([#985](https://github.com/openwebdocs/mdn-bcd-collector/pull/985))
+- Add overrides for AudioProcessingEvent for FxAndroid ([#980](https://github.com/openwebdocs/mdn-bcd-collector/pull/980))
+- fix: code issues and nits, part 2 ([#979](https://github.com/openwebdocs/mdn-bcd-collector/pull/979))
+- fix: code issues and nits ([#977](https://github.com/openwebdocs/mdn-bcd-collector/pull/977))
+- fix: typos ([#978](https://github.com/openwebdocs/mdn-bcd-collector/pull/978))
+- Update unittests ([#973](https://github.com/openwebdocs/mdn-bcd-collector/pull/973))
+- Add overrides for CookieChangeEvent ([#974](https://github.com/openwebdocs/mdn-bcd-collector/pull/974))
+- Add additional tests for CSS properties and property values ([#971](https://github.com/openwebdocs/mdn-bcd-collector/pull/971))
+- Mention when running a development build more explicitly ([#972](https://github.com/openwebdocs/mdn-bcd-collector/pull/972))
+- Display PR number in version for Heroku review apps ([#970](https://github.com/openwebdocs/mdn-bcd-collector/pull/970))
+- Keep GitHub export button disabled if we can't export to GitHub ([#969](https://github.com/openwebdocs/mdn-bcd-collector/pull/969))
+- Rename background-position-\*.2/4_value_syntax to side-relative_values ([#968](https://github.com/openwebdocs/mdn-bcd-collector/pull/968))
+- Improve LambdaTest support ([#966](https://github.com/openwebdocs/mdn-bcd-collector/pull/966))
+- Add donation link to navigation bar ([#965](https://github.com/openwebdocs/mdn-bcd-collector/pull/965))
+- Mention staging version in the readme ([#964](https://github.com/openwebdocs/mdn-bcd-collector/pull/964))
+- Don't set NODE_ENV=production in start command ([#963](https://github.com/openwebdocs/mdn-bcd-collector/pull/963))
+- Add 'auto-phrase' and 'manual' as values for CSS 'word-break' property ([#961](https://github.com/openwebdocs/mdn-bcd-collector/pull/961))
+- Use sample secrets as base for secrets ([#962](https://github.com/openwebdocs/mdn-bcd-collector/pull/962))
+- Fix Selenium run in deploy script ([#960](https://github.com/openwebdocs/mdn-bcd-collector/pull/960))
+- Remove unneeded types ([#959](https://github.com/openwebdocs/mdn-bcd-collector/pull/959))
+
 ## v10.6.3
 
 Released December 14, 2023
