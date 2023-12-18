@@ -45,7 +45,7 @@ import {BCD_DIR} from "../lib/constants.js";
 import logger from "../lib/logger.js";
 import {parseUA} from "../lib/ua-parser.js";
 
-const {default: mirror} = await import(`${BCD_DIR}/scripts/release/mirror.js`);
+const {default: mirror} = await import(`${BCD_DIR}/scripts/build/mirror.js`);
 
 /**
  * Finds an entry in the BCD (Browser Compatibility Data) object based on the given identifier.
