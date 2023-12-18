@@ -5188,6 +5188,91 @@ javascript:
             return {result: false, message: e.message};
           }
 
+svg:
+  elements:
+    a:
+      xlink_actuate: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:actuate', 'onRequest');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'actuate') === 'onRequest';
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+      xlink_show: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', 'new');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'show') === 'new';
+      xlink_title: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', 'newTitle');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'show') === 'newTitle';
+    cursor:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'cursor');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    feImage:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'feImage');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    filter:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    font-face-uri:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font-face-uri');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    glyphRef:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'glyphRef');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    image:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    linearGradient:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    mpath:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    pattern:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    radialGradient:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'radialGradient');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    script:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'script');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    textPath:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+    use:
+      xlink_href: |-
+        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test';
+
 # Features defined here also need to be in test-builder/webassembly.ts.
 webassembly:
   # Features defined here also need to be in https://webassembly.github.io/spec/web-api/index.html or custom/idl/webassembly.idl.
