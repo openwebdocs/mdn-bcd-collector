@@ -1300,7 +1300,7 @@ export const main = async (
   filter: any,
   browsers: Browsers,
   overrides: Overrides,
-  outputPath: string,
+  outputPath?: string,
 ): Promise<void> => {
   // Replace filter.path with a minimatch object.
   if (filter.path && filter.path.includes("*")) {
@@ -1350,7 +1350,7 @@ export const main = async (
     await fs.writeFile(file, json);
   }
 
-  if (featureList.length) {
+  if (featureList.length && outputPath) {
     const featureListJSON = JSON.stringify(featureList, null, "  ") + "\n";
     await fs.writeFile(outputPath, featureListJSON);
   }
