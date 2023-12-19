@@ -9,3 +9,4 @@ secrets.json
 tests.json
 tests.old.json
 .testtmp
+feature-list.json
