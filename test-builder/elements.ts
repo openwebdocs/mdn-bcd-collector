@@ -136,21 +136,38 @@ const build = async (specElements, customElements) => {
             return !!instance && '${attrProp}' in instance;
           })()`;
 
-          // All SVG "in" attributes are reflected as "in1" in SVGOM
-          if (attrProp === "in") {
-            attrCode = `(function() {
-              var instance = ${defaultConstructCode};
-              return !!instance && 'in1' in instance;
-            })()`;
-          }
-
-          // All xlink:href attributes need special handling
-          if (attrProp === "xlink_href") {
-            attrCode = `(function() {
-              var instance = ${defaultConstructCode};
-              instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
-              return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test'
-            })()`;
+          // SVG attributes need some tweaks
+          if (category === "svg") {
+            // Certain SVG attributes are reflected differently in SVGOM
+            if (attrProp === "in") {
+              attrCode = attrCode.replace("'in'", "'in1'");
+            }
+            if (attrProp === "kernelUnitLength") {
+              attrCode = attrCode.replace(
+                "kernelUnitLength",
+                "kernelUnitLengthX",
+              );
+            }
+            if (attrProp === "order") {
+              attrCode = attrCode.replace("order", "orderX");
+            }
+            if (attrProp === "stdDeviation") {
+              attrCode = attrCode.replace("stdDeviation", "stdDeviationX");
+            }
+            if (attrProp === "radius") {
+              attrCode = attrCode.replace("radius", "radiusX");
+            }
+            if (attrProp === "baseFrequency") {
+              attrCode = attrCode.replace("baseFrequency", "baseFrequencyX");
+            }
+            // All xlink:href attributes need special handling
+            if (attrProp === "xlink_href") {
+              attrCode = `(function() {
+                var instance = ${defaultConstructCode};
+                instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+                return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test'
+              })()`;
+            }
           }
 
           tests[`${bcdPath}.${attrName}`] = compileTest({
