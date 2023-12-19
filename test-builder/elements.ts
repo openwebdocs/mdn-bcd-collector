@@ -124,7 +124,10 @@ const build = async (specElements, customElements) => {
             ].reduce((acc, cv) => ({...acc, ...cv}), {})
           : data.attributes;
 
-        for (const [attrName, attrProp] of Object.entries(attributes)) {
+        for (const [attrName, attrProp] of Object.entries(attributes) as [
+          string,
+          string,
+        ][]) {
           const customAttrTest = await getCustomTest(
             `${bcdPath}.${attrName}`,
             "${category}.elements",
