@@ -131,14 +131,31 @@ const build = async (specElements, customElements) => {
             true,
           );
 
-          const defaultAttrCode = `(function() {
-    var instance = ${defaultConstructCode};
-    return !!instance && '${attrProp}' in instance;
-  })()`;
+          let attrCode = `(function() {
+            var instance = ${defaultConstructCode};
+            return !!instance && '${attrProp}' in instance;
+          })()`;
+
+          // All SVG "in" attributes are reflected as "in1" in SVGOM
+          if (attrProp === "in") {
+            attrCode = `(function() {
+              var instance = ${defaultConstructCode};
+              return !!instance && 'in1' in instance;
+            })()`;
+          }
+
+          // All xlink:href attributes need special handling
+          if (attrProp === "xlink_href") {
+            attrCode = `(function() {
+              var instance = ${defaultConstructCode};
+              instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
+              return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test'
+            })()`;
+          }
 
           tests[`${bcdPath}.${attrName}`] = compileTest({
             raw: {
-              code: customAttrTest.test || defaultAttrCode,
+              code: customAttrTest.test || attrCode,
             },
             exposure: ["Window"],
           });
