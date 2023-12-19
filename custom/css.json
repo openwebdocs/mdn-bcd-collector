@@ -762,7 +762,7 @@
     },
     "min-zoom": {},
     "mix-blend-mode": {
-      "__values": ["plus-lighter"]
+      "__values": ["plus-darker", "plus-lighter"]
     },
     "motion": {},
     "motion-distance": {},
