@@ -136,36 +136,31 @@ const build = async (specElements, customElements) => {
             return !!instance && '${attrProp}' in instance;
           })()`;
 
-          // SVG attributes need some tweaks
+          // Some SVG attribute names are reflected differently in SVGOM
           if (category === "svg") {
-            // Certain SVG attributes are reflected differently in SVGOM
-            if (attrProp === "in") {
-              attrCode = attrCode.replace("'in'", "'in1'");
-            }
-            if (attrProp === "kernelUnitLength") {
+            const replacements = {
+              baseFrequency: "baseFrequencyX",
+              in: "in1",
+              kernelUnitLength: "kernelUnitLengthX",
+              order: "orderX",
+              radius: "radiusX",
+              stdDeviation: "stdDeviationX",
+            };
+
+            if (attrProp in replacements) {
               attrCode = attrCode.replace(
-                "kernelUnitLength",
-                "kernelUnitLengthX",
+                `'${attrProp}'`,
+                `'${replacements[attrProp]}'`,
               );
             }
-            if (attrProp === "order") {
-              attrCode = attrCode.replace("order", "orderX");
-            }
-            if (attrProp === "stdDeviation") {
-              attrCode = attrCode.replace("stdDeviation", "stdDeviationX");
-            }
-            if (attrProp === "radius") {
-              attrCode = attrCode.replace("radius", "radiusX");
-            }
-            if (attrProp === "baseFrequency") {
-              attrCode = attrCode.replace("baseFrequency", "baseFrequencyX");
-            }
-            // All xlink:href attributes need special handling
-            if (attrProp === "xlink_href") {
+
+            // All xlink attributes need special handling
+            if (attrProp.startsWith("xlink_")) {
+              const xlinkAttr = attrProp.replace("xlink_", "");
               attrCode = `(function() {
                 var instance = ${defaultConstructCode};
-                instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'test');
-                return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'href') === 'test'
+                instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:${xlinkAttr}', 'test');
+                return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', '${xlinkAttr}') === 'test'
               })()`;
             }
           }

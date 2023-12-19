@@ -5188,22 +5188,6 @@ javascript:
             return {result: false, message: e.message};
           }
 
-svg:
-  elements:
-    a:
-      xlink_actuate: |-
-        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
-        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:actuate', 'onRequest');
-        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'actuate') === 'onRequest';
-      xlink_show: |-
-        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
-        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', 'new');
-        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'show') === 'new';
-      xlink_title: |-
-        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
-        instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', 'newTitle');
-        return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', 'show') === 'newTitle';
-
 # Features defined here also need to be in test-builder/webassembly.ts.
 webassembly:
   # Features defined here also need to be in https://webassembly.github.io/spec/web-api/index.html or custom/idl/webassembly.idl.
