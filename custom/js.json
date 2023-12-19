@@ -11,6 +11,11 @@
         "instance": ["group", "groupToMap", "length"]
       }
     },
+    "ArrayBuffer": {
+      "members": {
+        "instance": ["transfer"]
+      }
+    },
     "Error": {
       "members": {
         "instance": ["cause", "columnNumber", "fileName", "lineNumber", "stack"]
