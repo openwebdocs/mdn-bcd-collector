@@ -1,8 +1,8 @@
 # MDN browser-compat-data collector
 
-Data collection service for MDN's [browser-compat-data](https://github.com/mdn/browser-compat-data). Live at https://mdn-bcd-collector.gooborg.com/.
+Data collection service for MDN's [browser-compat-data](https://github.com/mdn/browser-compat-data). Live at https://mdn-bcd-collector.gooborg.com/. Latest `main` available at https://staging.mdn-bcd-collector.gooborg.com/.
 
-Feature detection tests are generated based on machine readable data (Web IDL and CSS definitions) from web standards, with support for custom tests where needed. Results are submitted to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
+Feature detection tests are generated based on machine-readable data (Web IDL and CSS definitions) from web standards, with support for custom tests where needed. Results are submitted to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
 
 This service is part of an effort to [assist BCD updates with automation](https://github.com/mdn/browser-compat-data/issues/3308), and exists to run lots of small tests in browsers to determine the support status of a feature in a browser, and save those results.
 

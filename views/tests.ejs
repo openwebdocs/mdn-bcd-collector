@@ -9,10 +9,11 @@ See the LICENSE file for copyright details
 <%- contentFor('body') %>
 <%- include('unsecurewarning') %>
 <%- include('extensioncheck', {sendToServer: true}) %>
+<% if (dev) {%><p class="error-notice">Note: you are running a development version of the collector!</p><% } %>
 <p id="status">Running tests...</p>
 <form id="export" action="/export" method="post">
-  <button id="export-download" type="submit" name="download" value="download" disabled><span class="mdi mdi-download"></span> Download results file</button>
-  <button id="export-github" type="submit" name="github" value="github" disabled><span class="mdi mdi-github"></span> Send results to mdn-bcd-results GitHub repo</button>
+  <button id="export-download" class="export-button" type="submit" name="download" value="download" disabled><span class="mdi mdi-download"></span> Download results file</button>
+  <button id="export-github" class="export-button <% if (!github) {%>always-disabled<% } %>" type="submit" name="github" value="github" disabled><span class="mdi mdi-github"></span> <% if (github) {%>Send results to mdn-bcd-results GitHub repo<% } else { %>GitHub export disabled<% } %></button>
 </form>
 <div id="results">
   <hr />
@@ -52,18 +53,18 @@ See the LICENSE file for copyright details
       default:
         throw new Error(`Tried to load an unknown instance type of ${resource.type}!`)
     }
-  }; %>
+  } %>
 </div>
 
 <script src="/resources/harness.js"></script>
 
 <script>
   <% for (const [instanceId, instance] of Object.entries(resources)
-    .filter((item) => (item[1].type === 'instance'))) { 
+    .filter((item) => (item[1].type === 'instance'))) {
     if (resourcesToLoad.has(instanceId)) { %>
       bcd.addInstance("<%- instanceId %>", <%- JSON.stringify(instance.src) %>, {callback: <%- !!instance.callback %>});
     <% }
-   }; %>
+   } %>
   <% tests.forEach(function(test) { %>
     bcd.addTest("<%- test.ident %>", <%- JSON.stringify(test.tests) %>, "<%- test.exposure %>");
   <% }); %>

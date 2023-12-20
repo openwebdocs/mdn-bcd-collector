@@ -44,6 +44,7 @@ const firefox92UaString =
 const reports: Report[] = [
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
@@ -129,6 +130,7 @@ const reports: Report[] = [
   },
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
@@ -224,6 +226,7 @@ const reports: Report[] = [
   },
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
@@ -313,6 +316,7 @@ const reports: Report[] = [
   },
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
@@ -327,6 +331,7 @@ const reports: Report[] = [
   },
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
@@ -341,10 +346,16 @@ const reports: Report[] = [
   },
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
           name: "api.AbortController",
+          exposure: "Window",
+          result: true,
+        },
+        {
+          name: "api.CannotTest",
           exposure: "Window",
           result: true,
         },
@@ -355,6 +366,7 @@ const reports: Report[] = [
   },
   {
     __version: "0.3.1",
+    extensions: [],
     results: {
       "https://mdn-bcd-collector.gooborg.com/tests/": [
         {
@@ -438,6 +450,7 @@ describe("BCD updater", () => {
       assert.throws(() => {
         getSupportMap({
           __version: "test",
+          extensions: [],
           results: {},
           userAgent: "abc/1.2.3-beta",
         });
@@ -451,243 +464,255 @@ describe("BCD updater", () => {
     });
 
     it("normal", () => {
-      assert.deepEqual(
-        getSupportMatrix(reports, bcd.browsers, overrides),
-        new Map([
-          [
-            "api.AbortController",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", true],
-                  ["84", true],
-                  ["85", true],
-                ]),
-              ],
-              [
-                "safari",
-                new Map([
-                  ["13", null],
-                  ["13.1", true],
-                  ["14", null],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.AbortController.abort",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", null],
-                  ["84", true],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.AbortController.AbortController",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", false],
-                  ["84", false],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.AudioContext",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", false],
-                  ["84", false],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.AudioContext.close",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", false],
-                  ["84", false],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.DeprecatedInterface",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", true],
-                  ["84", true],
-                  ["85", false],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.ExperimentalInterface",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", true],
-                  ["84", true],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.UnflaggedInterface",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", null],
-                  ["84", true],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.UnprefixedInterface",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", null],
-                  ["84", true],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.NewInterfaceNotInBCD",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", null],
-                  ["84", false],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.NullAPI",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", null],
-                  ["84", null],
-                  ["85", null],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.RemovedInterface",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", true],
-                  ["84", false],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "api.SuperNewInterface",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", false],
-                  ["84", false],
-                  ["85", false],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "css.properties.font-family",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", false],
-                  ["84", true],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "css.properties.font-face",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", null],
-                  ["83", null],
-                  ["84", null],
-                  ["85", null],
-                ]),
-              ],
-            ]),
-          ],
-          [
-            "css.properties.font-style",
-            new Map([
-              [
-                "chrome",
-                new Map([
-                  ["82", false],
-                  ["83", false],
-                  ["84", false],
-                  ["85", true],
-                ]),
-              ],
-            ]),
-          ],
-        ]),
-      );
+      const expected = new Map([
+        [
+          "api.AbortController",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", true],
+                ["84", true],
+                ["85", true],
+              ]),
+            ],
+            [
+              "safari",
+              new Map([
+                ["13", null],
+                ["13.1", true],
+                ["14", null],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.AbortController.abort",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", null],
+                ["84", true],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.AbortController.AbortController",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", false],
+                ["84", false],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.AudioContext",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", false],
+                ["84", false],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.AudioContext.close",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", false],
+                ["84", false],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.CannotTest",
+          new Map([
+            [
+              "safari",
+              new Map([
+                ["13", false],
+                ["13.1", false],
+                ["14", false],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.DeprecatedInterface",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", true],
+                ["84", true],
+                ["85", false],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.ExperimentalInterface",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", true],
+                ["84", true],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.UnflaggedInterface",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", null],
+                ["84", true],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.UnprefixedInterface",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", null],
+                ["84", true],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.NewInterfaceNotInBCD",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", null],
+                ["84", false],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.NullAPI",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", null],
+                ["84", null],
+                ["85", null],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.RemovedInterface",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", true],
+                ["84", false],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.SuperNewInterface",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", false],
+                ["84", false],
+                ["85", false],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "css.properties.font-family",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", false],
+                ["84", true],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "css.properties.font-face",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", null],
+                ["83", null],
+                ["84", null],
+                ["85", null],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "css.properties.font-style",
+          new Map([
+            [
+              "chrome",
+              new Map([
+                ["82", false],
+                ["83", false],
+                ["84", false],
+                ["85", true],
+              ]),
+            ],
+          ]),
+        ],
+      ]);
+      const actual = getSupportMatrix(reports, bcd.browsers, overrides);
+      assert.deepEqual(actual, expected);
 
       assert.isTrue(
         (logger.warn as any).calledWith(
@@ -709,6 +734,7 @@ describe("BCD updater", () => {
     it("Invalid results", () => {
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -742,6 +768,7 @@ describe("BCD updater", () => {
       "api.AbortController.AbortController": {chrome: [{version_added: "85"}]},
       "api.AudioContext": {chrome: [{version_added: "85"}]},
       "api.AudioContext.close": {chrome: [{version_added: "85"}]},
+      "api.CannotTest": {safari: [{version_added: false}]},
       "api.DeprecatedInterface": {
         chrome: [{version_added: "≤83", version_removed: "85"}],
       },
@@ -1332,6 +1359,7 @@ describe("BCD updater", () => {
         const reports: Report[] = [
           {
             __version: "0.3.1",
+            extensions: [],
             results: {
               "https://mdn-bcd-collector.gooborg.com/tests/": [
                 {
@@ -1617,6 +1645,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1655,6 +1684,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1700,6 +1730,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1748,6 +1779,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1786,6 +1818,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1824,6 +1857,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1872,6 +1906,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {
@@ -1955,6 +1990,7 @@ describe("BCD updater", () => {
       const finalBcd = clone(initialBcd);
       const report: Report = {
         __version: "0.3.1",
+        extensions: [],
         results: {
           "https://mdn-bcd-collector.gooborg.com/tests/": [
             {

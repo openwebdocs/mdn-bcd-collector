@@ -41,6 +41,10 @@ import "../lib/selenium-keepalive.js";
 
 type Task = ListrTaskWrapper<any, any, any>;
 
+const collectorVersion = (
+  await fs.readJson(new URL("./package.json", import.meta.url))
+).version;
+
 const secrets = await getSecrets();
 
 const testenv = process.env.NODE_ENV === "test";
@@ -358,14 +362,16 @@ const buildDriver = async (
     for (const [osName, osVersion] of getOsesToTest(service, os)) {
       const capabilities = new Capabilities();
 
+      const commonConfig = {
+        name: `mdn-bcd-collector: ${prettyName(browser, version, os)}`,
+        build: `mdn-bcd-collector v${collectorVersion}`,
+        project: "mdn-bcd-collector",
+      };
+
       // Set test name
-      const testName = `mdn-bcd-collector: ${prettyName(browser, version, os)}`;
-      capabilities.set("name", testName);
-      if (service === "saucelabs") {
-        capabilities.set("sauce:options", {
-          name: testName,
-        });
-      }
+      capabilities.set("name", commonConfig.name);
+      capabilities.set("build", commonConfig.build);
+      capabilities.set("project", commonConfig.project);
 
       capabilities.set(Capability.BROWSER_NAME, Browser[browser.toUpperCase()]);
       capabilities.set(Capability.BROWSER_VERSION, version.split(".")[0]);
@@ -375,20 +381,25 @@ const buildDriver = async (
         if (browser !== "safari") {
           osCaps.osVersion = osVersion;
         }
-        capabilities.set("bstack:options", osCaps);
-      } else if (service === "saucelabs") {
+        capabilities.set("bstack:options", {...commonConfig, ...osCaps});
+      } else {
         // Remap target OS for Safari x.0 vs. x.1 on SauceLabs
         if (browser === "safari") {
           capabilities.set("platformName", getSafariOS(version));
         } else {
           capabilities.set("platformName", `${osName} ${osVersion}`);
         }
-      } else {
-        // LambdaTest
-        capabilities.set("LT:Options", {
-          name: testName,
-          platformName: `${osName} ${osVersion}`,
-        });
+
+        if (service === "saucelabs") {
+          capabilities.set("sauce:options", commonConfig);
+        } else if (service === "lambdatest") {
+          capabilities.set("LT:options", {
+            ...commonConfig,
+            platformName: capabilities.get("platformName"),
+            w3c: true,
+            plugin: "node_js-webdriverio",
+          });
+        }
       }
 
       // Allow mic, camera, geolocation and notifications permissions

@@ -34,7 +34,7 @@ See the LICENSE file for copyright details
           }
         }
       };
-    };
+    }
 
     function checkChromeExtension(id, callback) {
       if (id) {
@@ -80,7 +80,7 @@ See the LICENSE file for copyright details
           });
         }
       })
-    };
+    }
 
     function renderNote(extension) {
       var el = document.createElement('div');
@@ -133,7 +133,7 @@ See the LICENSE file for copyright details
           }
         });
       });
-    };
+    }
 
     checkExtensions(<%- JSON.stringify(browserExtensions) %>);
   })();

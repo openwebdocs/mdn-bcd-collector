@@ -34,7 +34,7 @@ const getReportMeta = (report: Report): ReportMeta => {
     .createHash("sha1")
     .update(buffer)
     .digest("hex")
-    .substr(0, 10);
+    .substring(0, 10);
 
   // Get user agent details
   const ua = parseUA(report.userAgent, bcdBrowsers);

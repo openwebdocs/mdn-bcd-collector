@@ -33,17 +33,18 @@ See the LICENSE file for copyright details
     <meta name="theme-color" content="#260037">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ead4ff">
 
-    <title><% if (locals.title) {%><%= title %> | <% } %>mdn-bcd-collector</title>
+    <title><% if (locals.title) {%><%= title %> | <% } %>mdn-bcd-collector<% if (dev) {%> (dev)<% } %></title>
 
     <link rel="stylesheet" type="text/css" href="/resources/style.css">
     <link rel="stylesheet" type="text/css" href="/resources/materialdesignicons.min.css">
   </head>
   <body>
     <nav id="navbar">
-      <a href="/"><span class="mdi mdi-home"> Home</span></a>
-      <a href="/docs/about.md"><span class="mdi mdi-information"> About</span></a>
-      <a href="/docs"><span class="mdi mdi-file-document-multiple"> Docs</span></a>
-      <a href="https://github.com/openwebdocs/mdn-bcd-collector"><span class="mdi mdi-github"> GitHub</span></a>
+      <a href="/"><span class="mdi mdi-home"></span> Home</a>
+      <a href="/docs/about.md"><span class="mdi mdi-information"></span> About</a>
+      <a href="/docs"><span class="mdi mdi-file-document-multiple"></span> Docs</a>
+      <a href="https://opencollective.com/open-web-docs"><span class="mdi mdi-hand-coin"></span> Donate</a>
+      <a href="https://github.com/openwebdocs/mdn-bcd-collector"><span class="mdi mdi-github"></span> GitHub</a>
       <a href="/changelog">v<%- appVersion %></a>
     </nav>
 

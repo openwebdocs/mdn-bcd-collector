@@ -384,7 +384,7 @@
 
   /**
    * This function tests to see if a parameter or option within an object is accessed
-   * during a method call. It passes an object as the first paramter to the method, calls
+   * during a method call. It passes an object as the first parameter to the method, calls
    * the method, and checks to see if the option was accessed during the call.
    * @todo This can only test with the first argument.  To test the second, third, etc. argument, wrap the method in a function.  Example:
    *   function foo(opts) {
@@ -1373,16 +1373,6 @@
    * @callback TestResults - The processed result of the tests
    */
   function go(onComplete, resourceCount, hideResults) {
-    if (!("XMLHttpRequest" in self)) {
-      // If XMLHttpRequest is not supported, we can't export the results
-      document.getElementById("export-download").remove();
-      document.getElementById("export-github").remove();
-      var form = document.getElementById("export");
-      var message = document.createElement("em");
-      message.innerHTML = "Export disabled; XMLHttpRequest not supported";
-      form.appendChild(message);
-    }
-
     loadResources(function () {
       doTests(onComplete, hideResults);
     }, resourceCount);
@@ -1608,8 +1598,13 @@
     client.onreadystatechange = function () {
       if (client.readyState == 4) {
         if (client.status >= 200 && client.status <= 299) {
-          document.getElementById("export-download").disabled = false;
-          document.getElementById("export-github").disabled = false;
+          var exportButtons = document.getElementsByClassName("export-button");
+          for (var i = 0; i < exportButtons.length; i++) {
+            var btn = exportButtons[i];
+            if (!btn.classList.contains("always-disabled")) {
+              btn.disabled = false;
+            }
+          }
           updateStatus("Results uploaded.", "success-notice");
         } else {
           updateStatus(
@@ -1755,7 +1750,6 @@
               serviceWorker.removeEventListener("statechange", stateListener);
 
               reject(new Error("Installing service worker became redundant"));
-              return;
             }
           }
 

@@ -55,7 +55,7 @@ const traverseFeatures = (
             if (statement.prefix) {
               let name = id;
               if (path.startsWith("api.")) {
-                name = name[0].toUpperCase() + name.substr(1);
+                name = name[0].toUpperCase() + name.substring(1);
               }
               aliases.add(statement.prefix + name);
             }

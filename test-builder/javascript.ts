@@ -230,7 +230,7 @@ const buildTest = async (
     let property = parts[parts.length - 1];
 
     if (property.startsWith("@@")) {
-      property = `Symbol.${property.substr(2)}`;
+      property = `Symbol.${property.substring(2)}`;
     }
 
     const owner =

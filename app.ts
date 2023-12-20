@@ -64,6 +64,9 @@ const getAppVersion = async () => {
       .replace(/^v/, "")
       .replaceAll("\n", "");
   } catch (e) {
+    if (process.env.HEROKU_PR_NUMBER) {
+      return `${version}-pr${process.env.HEROKU_PR_NUMBER}`;
+    }
     // If anything happens, e.g., git isn't installed, just use the version
     // from package.json with -dev appended.
     return `${version}-dev`;
@@ -148,6 +151,7 @@ app.use(express.static("static", staticOptions));
 app.use(express.static("generated", staticOptions));
 
 app.locals.appVersion = appVersion;
+app.locals.dev = process.env.NODE_ENV !== "production";
 app.locals.bcdVersion = bcd.__meta.version;
 app.locals.browserExtensions = browserExtensions;
 
@@ -499,6 +503,7 @@ app.all("/tests/*", (req: Request, res: Response) => {
       tests: foundTests,
       resources: tests.resources,
       selenium: req.query.selenium,
+      github: !!secrets.github.token,
     });
   } else {
     res.status(404).render("testnotfound", {

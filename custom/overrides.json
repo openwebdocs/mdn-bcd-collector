@@ -56,6 +56,10 @@
   ["api.AudioProcessingEvent.inputBuffer", "firefox", "25+", true],
   ["api.AudioProcessingEvent.outputBuffer", "firefox", "25+", true],
   ["api.AudioProcessingEvent.playbackTime", "firefox", "25+", true],
+  ["api.AudioProcessingEvent", "firefox_android", "25+", true],
+  ["api.AudioProcessingEvent.inputBuffer", "firefox_android", "25+", true],
+  ["api.AudioProcessingEvent.outputBuffer", "firefox_android", "25+", true],
+  ["api.AudioProcessingEvent.playbackTime", "firefox_android", "25+", true],
   "https://github.com/mdn/browser-compat-data/pull/18985#issuecomment-1461923451",
   ["api.CredentialsContainer.get.identity_option", "chrome", "105-107", false],
   ["api.CredentialsContainer.get.identity_option", "edge", "105-107", false],
@@ -829,5 +833,10 @@
   ["css.selectors.-webkit-meter-inner-element", "safari", "7+", true],
   ["css.selectors.-webkit-progress-bar", "safari", "7+", true],
   ["css.selectors.-webkit-progress-inner-element", "safari", "7+", true],
-  ["css.selectors.-webkit-progress-value", "safari", "7+", true]
+  ["css.selectors.-webkit-progress-value", "safari", "7+", true],
+  "Exposed early, see https://webkit.org/b/265463",
+  ["api.CookieChangeEvent", "safari", "17.2", false],
+  ["api.CookieChangeEvent.CookieChangeEvent", "safari", "17.2", false],
+  ["api.CookieChangeEvent.changed", "safari", "17.2", false],
+  ["api.CookieChangeEvent.deleted", "safari", "17.2", false]
 ]

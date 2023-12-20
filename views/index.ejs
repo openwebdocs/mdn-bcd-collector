@@ -7,7 +7,7 @@ See the LICENSE file for copyright details
 -->
 
 <%- contentFor('body') %>
-<h1 id="title"><img src="/favicon/favicon-96x96.png" alt=""> mdn-bcd-collector <span>by <a href="https://www.gooborg.com">Gooborg Studios</a> + <a href="https://openwebdocs.org/">Open Web Docs</a></span></h1>
+<h1 id="title"><img src="/favicon/favicon-96x96.png" alt=""> mdn-bcd-collector <% if (dev) { %> (dev)<% } %> <span>by <a href="https://www.gooborg.com">Gooborg Studios</a> + <a href="https://openwebdocs.org/">Open Web Docs</a></span></h1>
 <p id="subtitle">Browser feature detections to assist the <a href="https://github.com/mdn/browser-compat-data">@mdn/browser-compat-data</a> project</p>
 
 <%- include('extensioncheck') %>
@@ -26,7 +26,7 @@ See the LICENSE file for copyright details
     </div>
     <br>
     <div id="limit-exposure-box">
-      <label for="limitExposure"><span class="mdi mdi-circle-multiple-outline"></span> Limit Exposure:</label>
+      <label for="limit-exposure"><span class="mdi mdi-circle-multiple-outline"></span> Limit Exposure:</label>
       <select id="limit-exposure" name="limitExposure">
         <option value="">All Global Exposures</option>
         <option value="Window">Window</option>
@@ -88,9 +88,7 @@ See the LICENSE file for copyright details
 
 <script>
   function main() {
-    var form = document.getElementById('test-form');
     var testSelection = document.getElementById('test-selection');
-    var limitExposure = document.getElementById('limit-exposure');
     var limitExposureBox = document.getElementById('limit-exposure-box');
 
     testSelection.onchange = function() {
