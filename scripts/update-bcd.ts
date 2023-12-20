@@ -814,82 +814,37 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
-/**
- * Infers sets of supported and unsupported version ranges from a series of default statements.
- * @param statements - An array of default statements.
- * @returns An object with a map of inferred supported ranges and a map of unsupported ranges.
- */
-export const getStatementSupportRanges = (
+const isSupported = (
+  version: string,
+  hasSupport: boolean,
   statements: SimpleSupportStatement[],
-): {
-  supportedRanges: Map<number, number | undefined>;
-  unsupportedRanges: Map<number, number | undefined>;
-} => {
-  const versionMap = new Map<number, "added" | "removed">();
-
+) => {
   for (const {version_added, version_removed} of statements) {
-    if (version_added === true) {
-      versionMap.set(0, "added");
-    } else if (
-      typeof version_added === "string" &&
-      version_added !== "preview"
-    ) {
-      const simpleAdded = Number(version_added.replace("≤", ""));
-      versionMap.set(simpleAdded, "added");
+    if (version_added === "preview") {
+      return false;
     }
 
-    if (version_removed && typeof version_removed === "string") {
-      const simpleRemoved = Number(version_removed.replace("≤", ""));
-      versionMap.set(simpleRemoved, "removed");
+    // In the case of general boolean statements, only show support if the version from the test result does not show specific support, otherwise we should ignore generic boolean support statements in favor of specific version support info from a test result
+    if (version_added === true && !hasSupport) {
+      return true;
+    }
+
+    if (
+      version_added &&
+      typeof version_added === "string" &&
+      compareVersions(version, version_added.replace("≤", ""), ">=")
+    ) {
+      if (
+        version_removed &&
+        typeof version_removed === "string" &&
+        compareVersions(version, version_removed.replace("≤", ""), ">=")
+      ) {
+        continue;
+      }
+      return true;
     }
   }
-
-  const sortedVersionMap = new Map([...versionMap.entries()].sort());
-
-  const unsupportedRanges = new Map<number, number | undefined>([
-    [0, undefined],
-  ]);
-  const supportedRanges = new Map<number, number | undefined>();
-
-  [...sortedVersionMap].reduce(
-    (
-      [previousVersion, previousSupportStatus],
-      [currentVersion, currentSupportStatus],
-    ) => {
-      if (
-        previousSupportStatus === "removed" &&
-        currentSupportStatus === "added"
-      ) {
-        unsupportedRanges.set(previousVersion, currentVersion - 1);
-        supportedRanges.set(currentVersion, undefined);
-      } else if (
-        previousSupportStatus === "added" &&
-        currentSupportStatus === "removed"
-      ) {
-        supportedRanges.set(previousVersion, currentVersion - 1);
-      }
-      return [currentVersion, currentSupportStatus];
-    },
-    [0, "removed"],
-  );
-
-  return {supportedRanges, unsupportedRanges};
-};
-
-/**
- * Small helper utility to determine if a version is within a range of numbers.
- * @param version - An version number.
- * @param range - A map with sets of ranges from lower to upper.
- * @returns A boolean indicating whether the version is in range.
- */
-const inSupportRange = (
-  version: number,
-  range: Map<number, number | undefined>,
-) => {
-  return [...range].some(([lower, upper]) => {
-    const aboveLower = version >= lower;
-    return upper ? aboveLower && version <= upper : aboveLower;
-  });
+  return false;
 };
 
 /**
@@ -906,32 +861,14 @@ export const hasSupportUpdates = (
     return true;
   }
 
-  const {supportedRanges, unsupportedRanges} =
-    getStatementSupportRanges(defaultStatements);
-
   const updates: string[] = [];
   for (const [version, hasSupport] of versionMap.entries()) {
     if (hasSupport === null) {
       continue;
     }
-    const lookup = Number(version);
 
-    if (hasSupport) {
-      const inRange = inSupportRange(lookup, supportedRanges);
-      if (!inRange) {
-        updates.push(version);
-      } else if (
-        // detect possible update over generic support (like from a boolean value)
-        inRange &&
-        !supportedRanges.keys().next().value &&
-        lookup > 0
-      ) {
-        updates.push(version);
-      }
-    } else {
-      if (!inSupportRange(lookup, unsupportedRanges)) {
-        updates.push(version);
-      }
+    if (hasSupport !== isSupported(version, hasSupport, defaultStatements)) {
+      updates.push(version);
     }
   }
   return updates.length > 0;
