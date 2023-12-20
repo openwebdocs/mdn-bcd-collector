@@ -124,21 +124,53 @@ const build = async (specElements, customElements) => {
             ].reduce((acc, cv) => ({...acc, ...cv}), {})
           : data.attributes;
 
-        for (const [attrName, attrProp] of Object.entries(attributes)) {
+        for (const [attrName, attrProp] of Object.entries(attributes) as [
+          string,
+          string,
+        ][]) {
           const customAttrTest = await getCustomTest(
             `${bcdPath}.${attrName}`,
             "${category}.elements",
             true,
           );
 
-          const defaultAttrCode = `(function() {
-    var instance = ${defaultConstructCode};
-    return !!instance && '${attrProp}' in instance;
-  })()`;
+          let attrCode = `(function() {
+            var instance = ${defaultConstructCode};
+            return !!instance && '${attrProp}' in instance;
+          })()`;
+
+          // Some SVG attribute names are reflected differently in SVGOM
+          if (category === "svg") {
+            const replacements = {
+              baseFrequency: "baseFrequencyX",
+              in: "in1",
+              kernelUnitLength: "kernelUnitLengthX",
+              order: "orderX",
+              radius: "radiusX",
+              stdDeviation: "stdDeviationX",
+            };
+
+            if (attrProp in replacements) {
+              attrCode = attrCode.replace(
+                `'${attrProp}'`,
+                `'${replacements[attrProp]}'`,
+              );
+            }
+
+            // All xlink attributes need special handling
+            if (attrProp.startsWith("xlink_")) {
+              const xlinkAttr = attrProp.replace("xlink_", "");
+              attrCode = `(function() {
+  var instance = ${defaultConstructCode};
+  instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:${xlinkAttr}', 'test');
+  return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', '${xlinkAttr}') === 'test';
+})()`;
+            }
+          }
 
           tests[`${bcdPath}.${attrName}`] = compileTest({
             raw: {
-              code: customAttrTest.test || defaultAttrCode,
+              code: customAttrTest.test || attrCode,
             },
             exposure: ["Window"],
           });
