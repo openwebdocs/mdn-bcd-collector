@@ -161,10 +161,10 @@ const build = async (specElements, customElements) => {
             if (attrProp.startsWith("xlink_")) {
               const xlinkAttr = attrProp.replace("xlink_", "");
               attrCode = `(function() {
-                var instance = ${defaultConstructCode};
-                instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:${xlinkAttr}', 'test');
-                return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', '${xlinkAttr}') === 'test'
-              })()`;
+  var instance = ${defaultConstructCode};
+  instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:${xlinkAttr}', 'test');
+  return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', '${xlinkAttr}') === 'test';
+})()`;
             }
           }
 
