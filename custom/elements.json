@@ -202,18 +202,24 @@
         "canvas": ["height", "width"],
         "caption": ["align"],
         "col": [
-          {"bgcolor": "bgColor", "valign": "vAlign"},
+          {
+            "bgcolor": "bgColor",
+            "char": "ch",
+            "charoff": "chOff",
+            "valign": "vAlign"
+          },
           "align",
-          "char",
-          "charoff",
           "span",
           "width"
         ],
         "colgroup": [
-          {"bgcolor": "bgColor", "valign": "vAlign"},
+          {
+            "bgcolor": "bgColor",
+            "char": "ch",
+            "charoff": "chOff",
+            "valign": "vAlign"
+          },
           "align",
-          "char",
-          "charoff",
           "span",
           "width"
         ],
@@ -443,13 +449,18 @@
           "width"
         ],
         "tbody": [
-          {"bgcolor": "bgColor", "charoff": "chOff", "valign": "vAlign"},
-          "align",
-          "char"
+          {
+            "bgcolor": "bgColor",
+            "char": "ch",
+            "charoff": "chOff",
+            "valign": "vAlign"
+          },
+          "align"
         ],
         "td": [
           {
             "bgcolor": "bgColor",
+            "char": "ch",
             "charoff": "chOff",
             "colspan": "colSpan",
             "rowspan": "rowSpan",
@@ -458,7 +469,6 @@
           "abbr",
           "align",
           "axis",
-          "char",
           "headers",
           "scope",
           "width"
@@ -485,15 +495,16 @@
         "tfoot": [
           {
             "bgcolor": "bgColor",
+            "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
           },
-          "align",
-          "char"
+          "align"
         ],
         "th": [
           {
             "bgcolor": "bgColor",
+            "char": "ch",
             "charoff": "chOff",
             "colspan": "colSpan",
             "rowspan": "rowSpan",
@@ -502,7 +513,6 @@
           "abbr",
           "align",
           "axis",
-          "char",
           "headers",
           "scope",
           "width"
@@ -510,14 +520,22 @@
         "thead": [
           {
             "bgcolor": "bgColor",
+            "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
           },
-          "align",
-          "char"
+          "align"
         ],
         "time": {"datetime": "dateTime"},
-        "tr": [{"bgcolor": "bgColor"}, "align", "char", "charoff", "valign"],
+        "tr": [
+          {
+            "bgcolor": "bgColor",
+            "char": "ch",
+            "charoff": "chOff",
+            "valign": "vAlign"
+          },
+          "align"
+        ],
         "track": ["default", "kind", "label", "src", "srclang"],
         "ul": ["compact", "type"],
         "video": [
