@@ -17,7 +17,6 @@ import logger from "../lib/logger.js";
 import bcd from "../unittest/bcd.test.js";
 
 import {
-  getStatementSupportRanges,
   findEntry,
   getSupportMap,
   getSupportMatrix,

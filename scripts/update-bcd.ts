@@ -815,6 +815,13 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
+/**
+ *  Iterates through an array of default support statements to detect support for a specific browser version.
+ * @param version - A version string.
+ * @param hasSupport - An boolean indicating if a test result for the version shows support.
+ * @param statements - An array of default statements.
+ * @returns A boolean indicating whether default statements indicate support for the version.
+ */
 const isSupported = (
   version: string,
   hasSupport: boolean,
