@@ -560,11 +560,11 @@
         "circle": ["cx", "cy", "r"],
         "clipPath": ["clipPathUnits"],
         "ellipse": ["cx", "cy", "rx", "ry"],
-        "feBlend": ["in", "in2", "mode"],
-        "feColorMatrix": ["in", "type", "values"],
-        "feComponentTransfer": ["in"],
+        "feBlend": [{"in": "in1"}, "in2", "mode"],
+        "feColorMatrix": [{"in": "in1"}, "type", "values"],
+        "feComponentTransfer": [{"in": "in1"}],
         "feComposite": [
-          "in",
+          {"in": "in1"},
           "in2",
           "k1",
           "k2",
@@ -577,39 +577,46 @@
           "bias",
           "divisor",
           "edgeMode",
-          "in",
+          {
+            "in": "in1",
+            "kernelUnitLength": "kernelUnitLengthX",
+            "order": "orderX"
+          },
           "kernelMatrix",
-          "kernelUnitLength",
-          "order",
           "preserveAlpha",
           "targetX",
           "targetY"
         ],
         "feDiffuseLighting": [
           "diffuseConstant",
-          "in",
-          "kernelUnitLength",
+          {"in": "in1", "kernelUnitLength": "kernelUnitLengthX"},
           "surfaceScale"
         ],
         "feDisplacementMap": [
-          "in",
+          {"in": "in1"},
           "in2",
           "scale",
           "xChannelSelector",
           "yChannelSelector"
         ],
         "feDistantLight": ["azimuth", "elevation"],
-        "feDropShadow": ["dx", "dy", "in", "stdDeviation"],
+        "feDropShadow": [
+          "dx",
+          "dy",
+          {"in": "in1", "stdDeviation": "stdDeviationX"}
+        ],
         "feFlood": ["flood-color", "flood-opacity"],
-        "feGaussianBlur": ["edgeMode", "in", "stdDeviation"],
+        "feGaussianBlur": [
+          "edgeMode",
+          {"in": "in1", "stdDeviation": "stdDeviationX"}
+        ],
         "feImage": ["crossorigin", "href", "preserveAspectRatio", "xlink_href"],
-        "feMergeNode": ["in"],
-        "feMorphology": ["in", "operator", "radius"],
-        "feOffset": ["dx", "dy", "in"],
+        "feMergeNode": [{"in": "in1"}],
+        "feMorphology": [{"in": "in1", "radius": "radiusX"}, "operator"],
+        "feOffset": ["dx", "dy", {"in": "in1"}],
         "fePointLight": ["x", "y", "z"],
         "feSpecularLighting": [
-          "in",
-          "kernelUnitLength",
+          {"in": "in1", "kernelUnitLength": "kernelUnitLengthX"},
           "specularConstant",
           "specularExponent",
           "surfaceScale"
@@ -624,9 +631,9 @@
           "y",
           "z"
         ],
-        "feTile": ["in"],
+        "feTile": [{"in": "in1"}],
         "feTurbulence": [
-          "baseFrequency",
+          {"baseFrequency": "baseFrequencyX"},
           "numOctaves",
           "seed",
           "stitchTiles",
