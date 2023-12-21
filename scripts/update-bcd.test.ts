@@ -1024,7 +1024,7 @@ describe("BCD updater", () => {
             },
             {
               version_removed: "20",
-              version_added: "≤10",
+              version_added: "10",
             },
           ],
         ),
@@ -1043,7 +1043,7 @@ describe("BCD updater", () => {
             },
             {
               version_removed: "20",
-              version_added: "≤10",
+              version_added: "10",
             },
           ],
         ),
@@ -1062,7 +1062,7 @@ describe("BCD updater", () => {
             },
             {
               version_removed: "20",
-              version_added: "≤10",
+              version_added: "10",
             },
           ],
         ),
@@ -1081,7 +1081,7 @@ describe("BCD updater", () => {
             },
             {
               version_removed: "20",
-              version_added: "≤10",
+              version_added: "10",
             },
           ],
         ),
