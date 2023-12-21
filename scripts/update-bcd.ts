@@ -373,7 +373,6 @@ interface UpdateShared {
   bcd: Identifier;
   browserMap: SupportMap;
   unmodifiedSupport: CompatSupport;
-  unmodifiedDefaultStatements: SimpleSupportStatement[];
   entry: Identifier;
   support: CompatSupport;
   versionMap: BrowserSupportMap;
@@ -1174,13 +1173,8 @@ export const update = (
     skipBrowserMismatch(options.browser),
     provideAllStatements,
     provideDefaultStatements,
-    provideShared("unmodifiedDefaultStatements", ({defaultStatements}) =>
-      clone(defaultStatements),
-    ),
-    skip("hasNoSupportUpdates", ({
-      shared: {versionMap, unmodifiedDefaultStatements},
-    }) => {
-      if (!hasSupportUpdates(versionMap, unmodifiedDefaultStatements)) {
+    skip("hasNoSupportUpdates", ({shared: {versionMap}, defaultStatements}) => {
+      if (!hasSupportUpdates(versionMap, defaultStatements)) {
         return reason(
           ({path, browser}) =>
             `$${path} skipped for ${browser} because support matrix matches current BCD support data`,
@@ -1239,10 +1233,11 @@ export const update = (
     clearNonExact(options.exactOnly),
     skip("noStatement", ({
       statements,
-      shared: {versionMap, unmodifiedDefaultStatements},
+      shared: {versionMap},
+      defaultStatements,
     }) => {
       if (!statements?.length) {
-        if (hasSupportUpdates(versionMap, unmodifiedDefaultStatements)) {
+        if (hasSupportUpdates(versionMap, defaultStatements)) {
           return reason(
             ({browser, path}) =>
               `${path} skipped for ${browser} with unresolved differences between support matrix and BCD data. Possible intervention required.`,
