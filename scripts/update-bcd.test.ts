@@ -856,19 +856,23 @@ describe("BCD updater", () => {
   describe("hasSupportUpdates", () => {
     it("detects updates with nonexistent support statements", () => {
       assert.isTrue(
-        hasSupportUpdates(new Map([["80", true]]), {
-          version_added: null,
-        }),
+        hasSupportUpdates(new Map([["80", true]]), [
+          {
+            version_added: null,
+          },
+        ]),
       );
 
-      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), undefined));
+      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), []));
     });
 
     it("skips null support claims", () => {
       assert.isFalse(
-        hasSupportUpdates(new Map([["80", null]]), {
-          version_added: "≤80",
-        }),
+        hasSupportUpdates(new Map([["80", null]]), [
+          {
+            version_added: "≤80",
+          },
+        ]),
       );
 
       assert.isFalse(
@@ -879,9 +883,11 @@ describe("BCD updater", () => {
             ["81", true],
             ["82", null],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
         "skips new null test result",
       );
@@ -889,16 +895,28 @@ describe("BCD updater", () => {
 
     it("detects updates in statements with boolean values", () => {
       assert.isFalse(
-        hasSupportUpdates(new Map([["80", false]]), {
-          version_added: false,
-        }),
+        hasSupportUpdates(new Map([["80", false]]), [
+          {
+            version_added: false,
+          },
+        ]),
         "skips generic false statements",
       );
 
       assert.isTrue(
-        hasSupportUpdates(new Map([["80", true]]), {
-          version_added: true,
-        }),
+        hasSupportUpdates(new Map([["80", false]]), [
+          {
+            version_added: true,
+          },
+        ]),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(new Map([["80", true]]), [
+          {
+            version_added: true,
+          },
+        ]),
         "catches specific support updates over generic true statements",
       );
 
@@ -908,7 +926,7 @@ describe("BCD updater", () => {
             ["80", false],
             ["81", true],
           ]),
-          {version_added: false},
+          [{version_added: false}],
         ),
       );
     });
@@ -921,9 +939,11 @@ describe("BCD updater", () => {
             ["80", false],
             ["81", true],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
       );
 
@@ -934,9 +954,26 @@ describe("BCD updater", () => {
             ["80", false],
             ["81", true],
           ]),
-          {
-            version_added: "81",
-          },
+          [
+            {
+              version_added: "81",
+            },
+          ],
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["v79.0.0", false],
+            ["v80.0.1", false],
+            ["v81.1.0", true],
+          ]),
+          [
+            {
+              version_added: "81",
+            },
+          ],
         ),
       );
 
@@ -947,9 +984,11 @@ describe("BCD updater", () => {
             ["80", true],
             ["81", true],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
       );
 
@@ -961,38 +1000,109 @@ describe("BCD updater", () => {
             ["81", true],
             ["82", false],
           ]),
-          {
-            version_added: "≤80",
-          },
+          [
+            {
+              version_added: "≤80",
+            },
+          ],
         ),
         "detects possible support removal",
+      );
+    });
+
+    it("detects updates across multiple default statements", () => {
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["10", true],
+            ["29", false],
+            ["30", true],
+          ]),
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "10",
+            },
+          ],
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(
+          new Map([
+            ["19", true],
+            ["29", false],
+            ["30", true],
+          ]),
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "10",
+            },
+          ],
+        ),
       );
 
       assert.isTrue(
         hasSupportUpdates(
           new Map([
-            ["79", false],
-            ["80", true],
-            ["81", true],
+            ["9", true],
+            ["29", false],
+            ["30", true],
           ]),
-          {
-            version_added: "preview",
-          },
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "10",
+            },
+          ],
+        ),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["10", true],
+            ["29", true],
+            ["30", true],
+          ]),
+          [
+            {
+              version_added: "30",
+            },
+            {
+              version_removed: "20",
+              version_added: "10",
+            },
+          ],
         ),
       );
     });
 
     it("detects updates for preview statements", () => {
       assert.isTrue(
-        hasSupportUpdates(new Map([["81", true]]), {
-          version_added: "preview",
-        }),
+        hasSupportUpdates(new Map([["81", true]]), [
+          {
+            version_added: "preview",
+          },
+        ]),
       );
 
       assert.isFalse(
-        hasSupportUpdates(new Map([["81", false]]), {
-          version_added: "preview",
-        }),
+        hasSupportUpdates(new Map([["81", false]]), [
+          {
+            version_added: "preview",
+          },
+        ]),
       );
     });
   });

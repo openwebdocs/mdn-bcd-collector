@@ -733,7 +733,7 @@ const skipReleaseMismatch = (releaseFilter: string | false) => {
 /**
  * Clears non-exact statements based on the provided flag.
  * @param exactOnly - A boolean flag indicating whether to clear non-exact statements.
- * @returns - An array of statements or undefined if the statements should be skipped.
+ * @returns An array of statements or undefined if the statements should be skipped.
  */
 const clearNonExact = (exactOnly: boolean) =>
   exactOnly
@@ -814,11 +814,57 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
   }
 });
 
+/**
+ *  Iterates through an array of default support statements to detect support for a specific browser version.
+ * @param version - A version string.
+ * @param hasSupport - An boolean indicating if a test result for the version shows support.
+ * @param statements - An array of default statements.
+ * @returns A boolean indicating whether default statements indicate support for the version.
+ */
+const isSupported = (
+  version: string,
+  hasSupport: boolean,
+  statements: SimpleSupportStatement[],
+) => {
+  for (const {version_added, version_removed} of statements) {
+    if (version_added === "preview") {
+      return false;
+    }
+
+    // In the case of general boolean statements, only show support if the version from the test result does not show specific support, otherwise we should ignore generic boolean support statements in favor of specific version support info from a test result
+    if (version_added === true && !hasSupport) {
+      return true;
+    }
+
+    if (
+      version_added &&
+      typeof version_added === "string" &&
+      compareVersions(version, version_added.replace("≤", ""), ">=")
+    ) {
+      if (
+        version_removed &&
+        typeof version_removed === "string" &&
+        compareVersions(version, version_removed.replace("≤", ""), ">=")
+      ) {
+        continue;
+      }
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ *  Iterates through a BrowserSupportMap and checks each version for possible updates against a set of default statements.
+ * @param versionMap - A map of versions and support assertions.
+ * @param defaultStatements - An array of default statements.
+ * @returns A boolean indicating whether possible updates to the default statments have been detected.
+ */
 export const hasSupportUpdates = (
   versionMap: BrowserSupportMap,
-  simpleStatement?: SimpleSupportStatement,
+  defaultStatements: SimpleSupportStatement[],
 ) => {
-  if (!simpleStatement || simpleStatement.version_added === null) {
+  if (!defaultStatements.length) {
     return true;
   }
 
@@ -828,29 +874,8 @@ export const hasSupportUpdates = (
       continue;
     }
 
-    if (typeof simpleStatement.version_added === "boolean") {
-      if (!simpleStatement.version_added && !hasSupport) {
-        continue;
-      } else {
-        updates.push(version);
-      }
-    }
-
-    if (typeof simpleStatement.version_added === "string") {
-      if (simpleStatement.version_added === "preview") {
-        if (hasSupport) {
-          updates.push(version);
-        }
-        continue;
-      }
-
-      const simpleAdded = simpleStatement.version_added.replace("≤", "");
-      if (compareVersions(version, simpleAdded, "<") && hasSupport) {
-        updates.push(version);
-      }
-      if (compareVersions(version, simpleAdded, ">=") && !hasSupport) {
-        updates.push(version);
-      }
+    if (hasSupport !== isSupported(version, hasSupport, defaultStatements)) {
+      updates.push(version);
     }
   }
   return updates.length > 0;
@@ -1148,11 +1173,8 @@ export const update = (
     skipBrowserMismatch(options.browser),
     provideAllStatements,
     provideDefaultStatements,
-    skip("supportMatrixMatchesDefaultStatements", ({
-      shared: {versionMap},
-      defaultStatements: [simpleStatement],
-    }) => {
-      if (!hasSupportUpdates(versionMap, simpleStatement)) {
+    skip("hasNoSupportUpdates", ({shared: {versionMap}, defaultStatements}) => {
+      if (!hasSupportUpdates(versionMap, defaultStatements)) {
         return reason(
           ({path, browser}) =>
             `$${path} skipped for ${browser} because support matrix matches current BCD support data`,
@@ -1211,11 +1233,11 @@ export const update = (
     clearNonExact(options.exactOnly),
     skip("noStatement", ({
       statements,
-      defaultStatements: [simpleStatement],
       shared: {versionMap},
+      defaultStatements,
     }) => {
       if (!statements?.length) {
-        if (hasSupportUpdates(versionMap, simpleStatement)) {
+        if (hasSupportUpdates(versionMap, defaultStatements)) {
           return reason(
             ({browser, path}) =>
               `${path} skipped for ${browser} with unresolved differences between support matrix and BCD data. Possible intervention required.`,
