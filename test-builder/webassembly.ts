@@ -38,6 +38,11 @@ const build = async (wasmFeatures) => {
 
   const tests = {};
   for (const feature of features) {
+    if (feature === "streamingCompilation") {
+      // The streamingCompilation feature is a WASM API feature
+      continue;
+    }
+
     const bcdPath = wasmBCDMap.has(feature) ? wasmBCDMap.get(feature) : feature;
     tests[`webassembly.${bcdPath}`] = compileTest({
       raw: {
