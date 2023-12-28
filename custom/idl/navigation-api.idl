@@ -1,0 +1,13 @@
+// Removed in https://github.com/WICG/navigation-api/pull/235
+partial interface NavigateEvent {
+  // Replaced with canIntercept
+  readonly attribute boolean canTransition;
+  // Replaced with intercept()
+  undefined transitionWhile();
+};
+
+// Removed in https://github.com/WICG/navigation-api/pull/239
+partial interface NavigateEvent {
+  // Replaced with scroll()
+  undefined restoreScroll();
+};

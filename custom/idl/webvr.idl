@@ -37,6 +37,8 @@ interface VRDisplayCapabilities {
   readonly attribute boolean hasExternalDisplay;
   readonly attribute boolean canPresent;
   readonly attribute unsigned long maxLayers;
+  readonly attribute boolean hasOrientation;
+  readonly attribute boolean hasPosition;
 };
 
 enum VREye {

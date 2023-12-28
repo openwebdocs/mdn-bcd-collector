@@ -1,0 +1,6 @@
+partial interface Window {
+  undefined dump();
+  attribute boolean fullScreen;
+  undefined webkitConvertPointFromNodeToPage();
+  undefined webkitConvertPointFromPageToNode();
+};

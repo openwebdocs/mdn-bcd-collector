@@ -1,0 +1,12 @@
+// https://github.com/gpuweb/gpuweb/pull/4370
+partial interface GPUCommandEncoder {
+  undefined writeTimestamp();
+};
+
+partial interface GPUComputePassEncoder {
+  undefined writeTimestamp();
+};
+
+partial interface GPURenderPassEncoder {
+  undefined writeTimestamp();
+};

@@ -4,5 +4,6 @@ partial interface File {
 };
 
 partial interface FileSystemHandle {
+  undefined move();
   undefined remove();
 };

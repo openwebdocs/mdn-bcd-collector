@@ -164,3 +164,19 @@ interface SVGTRefElement : SVGTextPositioningElement {
 [Exposed=Window]
 interface SVGVKernElement : SVGElement {
 };
+
+// ---
+
+partial interface SVGSVGElement {
+  attribute any currentView;
+  undefined useCurrentView();
+};
+
+partial interface SVGScriptElement {
+  attribute boolean async;
+  attribute boolean defer;
+};
+
+partial interface SVGStyleElement {
+  attribute boolean disabled;
+};

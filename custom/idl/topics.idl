@@ -1,0 +1,25 @@
+// https://patcg-individual-drafts.github.io/topics/#idl-index
+
+dictionary BrowsingTopic {
+  [EnforceRange] unsigned long long topic;
+  DOMString version;
+  DOMString configVersion;
+  DOMString modelVersion;
+  DOMString taxonomyVersion;
+};
+
+dictionary BrowsingTopicsOptions {
+  boolean skipObservation = false;
+};
+
+partial interface Document {
+    [SecureContext] Promise<sequence<BrowsingTopic>> browsingTopics(optional BrowsingTopicsOptions options = {});
+};
+
+partial interface HTMLIFrameElement {
+  [CEReactions] attribute boolean browsingTopics;
+};
+
+partial dictionary RequestInit {
+  boolean browsingTopics;
+};

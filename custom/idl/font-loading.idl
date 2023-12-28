@@ -1,0 +1,5 @@
+// https://www.w3.org/TR/2023/WD-css-font-loading-3-20230406/#dom-fontface-variant
+// Removed from spec
+partial interface FontFace {
+  attribute CSSOMString variant;
+};

@@ -1,0 +1,7 @@
+// https://privacycg.github.io/gpc-spec/#dom-globalprivacycontrol
+
+interface mixin GlobalPrivacyControl {
+  readonly attribute boolean globalPrivacyControl;
+};
+Navigator includes GlobalPrivacyControl;
+WorkerNavigator includes GlobalPrivacyControl;
