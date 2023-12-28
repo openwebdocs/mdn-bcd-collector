@@ -1165,6 +1165,24 @@ api:
     __base: |-
       var stylesheet = reusableInstances.createStyleSheet('@viewport {width: 100vw;}');
       var instance = stylesheet.cssRules.item(0);
+  CustomElementRegistry:
+    __base: var instance = window.customElements;
+    __additional:
+      builtin_element_support: |-
+        // Create a class for the element
+        class MyCustomElement extends HTMLParagraphElement {
+          constructor() {
+            // Always call super first in constructor
+            super();
+          }
+        }
+
+        function define(options) {
+          customElements.define("my-custom-element", MyCustomElement, options);
+        }
+        return bcd.testOptionParam(define, null, "extends", "p");
+      define.disabledFeatures_static_property: |-
+        return !!instance && "define" in instance && "disabledFeatures" in instance.define;
   CustomEvent:
     __base: |-
       var instance;
@@ -1840,6 +1858,20 @@ api:
         return {result: false, message: 'FormData is not defined'};
       }
       var instance = new FormData();
+    __additional:
+      FormData.submitter: |-
+        if (!('document' in self)) {
+          return {result: null, message: "Testing in workers is not yet implemented"};
+        }
+        var form = document.createElement('form');
+        var btn = document.createElement('button');
+        form.appendChild(btn);
+
+        function create(submitter) {
+          new FormData(form, submitter);
+        }
+
+        return bcd.testOptionParam(create, null, null, btn);
   GainNode:
     __resources:
       - audioContext
@@ -1994,12 +2026,32 @@ api:
     toString: |-
       instance.href = 'https://mdn-bcd-collector.gooborg.com/';
       return instance.toString() == instance.href;
+    __additional:
+      referrerPolicy.no-referrer-when-downgrade: |-
+        instance.referrerPolicy = "no-referrer-when-downgrade";
+        return instance.referrerPolicy == "no-referrer-when-downgrade";
+      referrerPolicy.origin-when-cross-origin: |-
+        instance.referrerPolicy = "origin-when-cross-origin";
+        return instance.referrerPolicy == "origin-when-cross-origin";
+      referrerPolicy.unsafe-url: |-
+        instance.referrerPolicy = "unsafe-url";
+        return instance.referrerPolicy == "unsafe-url";
   HTMLAreaElement:
     __base: var instance = document.createElement('area');
     __test: return bcd.testObjectName(instance, 'HTMLAreaElement');
     toString: |-
       instance.href = 'https://mdn-bcd-collector.gooborg.com/';
       return instance.toString() == instance.href;
+    __additional:
+      referrerPolicy.no-referrer-when-downgrade: |-
+        instance.referrerPolicy = "no-referrer-when-downgrade";
+        return instance.referrerPolicy == "no-referrer-when-downgrade";
+      referrerPolicy.origin-when-cross-origin: |-
+        instance.referrerPolicy = "origin-when-cross-origin";
+        return instance.referrerPolicy == "origin-when-cross-origin";
+      referrerPolicy.unsafe-url: |-
+        instance.referrerPolicy = "unsafe-url";
+        return instance.referrerPolicy == "unsafe-url";
   HTMLAudioElement:
     __base: var instance = document.createElement('audio');
     __test: return bcd.testObjectName(instance, 'HTMLAudioElement');
@@ -2238,10 +2290,30 @@ api:
   HTMLIFrameElement:
     __base: var instance = document.createElement('iframe');
     __test: return bcd.testObjectName(instance, 'HTMLIFrameElement');
+    __additional:
+      referrerPolicy.no-referrer-when-downgrade: |-
+        instance.referrerPolicy = "no-referrer-when-downgrade";
+        return instance.referrerPolicy == "no-referrer-when-downgrade";
+      referrerPolicy.origin-when-cross-origin: |-
+        instance.referrerPolicy = "origin-when-cross-origin";
+        return instance.referrerPolicy == "origin-when-cross-origin";
+      referrerPolicy.unsafe-url: |-
+        instance.referrerPolicy = "unsafe-url";
+        return instance.referrerPolicy == "unsafe-url";
   HTMLImageElement:
     __base: var instance = document.createElement('img');
     __test: return bcd.testObjectName(instance, 'HTMLImageElement');
     Image: return bcd.testConstructor('Image');
+    __additional:
+      referrerPolicy.no-referrer-when-downgrade: |-
+        instance.referrerPolicy = "no-referrer-when-downgrade";
+        return instance.referrerPolicy == "no-referrer-when-downgrade";
+      referrerPolicy.origin-when-cross-origin: |-
+        instance.referrerPolicy = "origin-when-cross-origin";
+        return instance.referrerPolicy == "origin-when-cross-origin";
+      referrerPolicy.unsafe-url: |-
+        instance.referrerPolicy = "unsafe-url";
+        return instance.referrerPolicy == "unsafe-url";
   HTMLInputElement:
     __base: var instance = document.createElement('input');
     __test: return bcd.testObjectName(instance, 'HTMLInputElement');
@@ -2263,6 +2335,16 @@ api:
   HTMLLinkElement:
     __base: var instance = document.createElement('link');
     __test: return bcd.testObjectName(instance, 'HTMLLinkElement');
+    __additional:
+      referrerPolicy.no-referrer-when-downgrade: |-
+        instance.referrerPolicy = "no-referrer-when-downgrade";
+        return instance.referrerPolicy == "no-referrer-when-downgrade";
+      referrerPolicy.origin-when-cross-origin: |-
+        instance.referrerPolicy = "origin-when-cross-origin";
+        return instance.referrerPolicy == "origin-when-cross-origin";
+      referrerPolicy.unsafe-url: |-
+        instance.referrerPolicy = "unsafe-url";
+        return instance.referrerPolicy == "unsafe-url";
   HTMLMapElement:
     __base: var instance = document.createElement('map');
     __test: return bcd.testObjectName(instance, 'HTMLMapElement');
@@ -2343,6 +2425,16 @@ api:
   HTMLScriptElement:
     __base: var instance = document.createElement('script');
     __test: return bcd.testObjectName(instance, 'HTMLScriptElement');
+    __additional:
+      referrerPolicy.no-referrer-when-downgrade: |-
+        instance.referrerPolicy = "no-referrer-when-downgrade";
+        return instance.referrerPolicy == "no-referrer-when-downgrade";
+      referrerPolicy.origin-when-cross-origin: |-
+        instance.referrerPolicy = "origin-when-cross-origin";
+        return instance.referrerPolicy == "origin-when-cross-origin";
+      referrerPolicy.unsafe-url: |-
+        instance.referrerPolicy = "unsafe-url";
+        return instance.referrerPolicy == "unsafe-url";
   HTMLSelectElement:
     __base: var instance = document.createElement('select');
     __test: return bcd.testObjectName(instance, 'HTMLSelectElement');
@@ -3055,6 +3147,27 @@ api:
     __base: |-
       <%api.Performance:prf%>
       var instance = performance.navigation;
+  PerformanceObserver:
+    __additional:
+      PerformanceObserver.droppedEntriesCount: |-
+        // Using the "completed" variable ensures the callback isn't run multiple times
+        var completed = false;
+
+        function perfObserver(entries, observer, droppedEntriesCount) {
+          if (!completed) {
+            success(typeof droppedEntriesCount != "undefined");
+            completed = true;
+          }
+        }
+
+        var observer = new PerformanceObserver(perfObserver);
+        observer.observe({ type: "resource", buffered: true });
+
+        bcd.addCleanup(function() {
+          observer.disconnect();  
+        });
+
+        return 'callback';
   PerformanceResourceTiming:
     __base: var instance = performance.getEntriesByType("resource")[0];
   PerformanceTiming:
@@ -3874,6 +3987,18 @@ api:
           throw e;
         }
       }
+  StorageManager:
+    __additional:
+      estimate.usageDetails: |-
+        if (!('storage' in navigator)) {
+          return {result: false, message: "navigator.storage is not defined"};
+        }
+        if (!('estimate' in navigator.storage)) {
+          return {result: false, message: "navigator.storage.estimate is not defined"};
+        }
+        return navigator.storage.estimate().then(function (estimate) {
+          return !!estimate.usageDetails;
+        });
   StyleMedia:
     __base: var instance = window.styleMedia;
   StyleSheet:
@@ -4407,6 +4532,8 @@ api:
         return {result: false, message: 'URLSearchParams is not defined'};
       }
       var instance = new URLSearchParams("q=HelloWorld&target=MDN");
+    __additional:
+      URLSearchParams.USVString: return true; // We already know this works, because we use a string to create the instance
     URLSearchParams:
       __additional:
         record: |-
