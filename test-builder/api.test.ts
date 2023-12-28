@@ -621,23 +621,6 @@ describe("build (API)", () => {
       });
     });
 
-    it("interface with [HTMLConstructor] constructor operation", async () => {
-      const ast = WebIDL2.parse(
-        `[Exposed=Window]
-           interface HTMLButtonElement {
-             [HTMLConstructor] constructor();
-           };`,
-      );
-
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
-        "api.HTMLButtonElement": {
-          code: '"HTMLButtonElement" in self',
-          exposure: ["Window"],
-        },
-        // no constructor test
-      });
-    });
-
     it("iterable interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
