@@ -99,7 +99,7 @@
     "@webref/css": "6.10.1",
     "@webref/idl": "3.42.2",
     "c8": "8.0.1",
-    "chai": "4.3.10",
+    "chai": "5.0.0",
     "chai-as-promised": "7.1.1",
     "chai-fs": "2.0.0",
     "chai-http": "4.4.0",
