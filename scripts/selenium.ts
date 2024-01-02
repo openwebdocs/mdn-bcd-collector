@@ -42,7 +42,7 @@ import "../lib/selenium-keepalive.js";
 type Task = ListrTaskWrapper<any, any, any>;
 
 const collectorVersion = (
-  await fs.readJson(new URL("./package.json", import.meta.url))
+  await fs.readJson(new URL("../package.json", import.meta.url))
 ).version;
 
 const secrets = await getSecrets();
