@@ -897,5 +897,10 @@
   ["css.properties.rx", "safari", "1+", false],
   ["css.properties.ry", "safari", "1+", false],
   ["css.selectors.user-invalid", "safari", "16.4", false],
-  ["css.selectors.user-valid", "safari", "16.4", false]
+  ["css.selectors.user-valid", "safari", "16.4", false],
+  "Event handlers aren't supported",
+  ["api.Element.focusin_event", "chrome", "1+", true],
+  ["api.Element.focusout_event", "chrome", "1+", true],
+  ["api.Element.focusin_event", "firefox", "52+", true],
+  ["api.Element.focusout_event", "firefox", "52+", true]
 ]
