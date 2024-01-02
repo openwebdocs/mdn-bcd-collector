@@ -381,7 +381,7 @@ const buildDriver = async (
         if (browser !== "safari") {
           osCaps.osVersion = osVersion;
         }
-        capabilities.set("bstack:options", {...commonConfig, ...osCaps});
+        capabilities.set("bstack:options", osCaps);
       } else {
         // Remap target OS for Safari x.0 vs. x.1 on SauceLabs
         if (browser === "safari") {
