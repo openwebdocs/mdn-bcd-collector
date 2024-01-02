@@ -149,7 +149,6 @@
         ],
         "area": [
           {
-            "accesskey": "accessKey",
             "nohref": "noHref",
             "referrerpolicy": "referrerPolicy",
             "tabindex": "tabIndex"
