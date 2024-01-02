@@ -2028,12 +2028,21 @@ api:
       return instance.toString() == instance.href;
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "no-referrer-when-downgrade";
         return instance.referrerPolicy == "no-referrer-when-downgrade";
       referrerPolicy.origin-when-cross-origin: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "origin-when-cross-origin";
         return instance.referrerPolicy == "origin-when-cross-origin";
       referrerPolicy.unsafe-url: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "unsafe-url";
         return instance.referrerPolicy == "unsafe-url";
   HTMLAreaElement:
@@ -2044,12 +2053,21 @@ api:
       return instance.toString() == instance.href;
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "no-referrer-when-downgrade";
         return instance.referrerPolicy == "no-referrer-when-downgrade";
       referrerPolicy.origin-when-cross-origin: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "origin-when-cross-origin";
         return instance.referrerPolicy == "origin-when-cross-origin";
       referrerPolicy.unsafe-url: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "unsafe-url";
         return instance.referrerPolicy == "unsafe-url";
   HTMLAudioElement:
@@ -2292,12 +2310,21 @@ api:
     __test: return bcd.testObjectName(instance, 'HTMLIFrameElement');
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "no-referrer-when-downgrade";
         return instance.referrerPolicy == "no-referrer-when-downgrade";
       referrerPolicy.origin-when-cross-origin: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "origin-when-cross-origin";
         return instance.referrerPolicy == "origin-when-cross-origin";
       referrerPolicy.unsafe-url: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "unsafe-url";
         return instance.referrerPolicy == "unsafe-url";
   HTMLImageElement:
@@ -2306,12 +2333,21 @@ api:
     Image: return bcd.testConstructor('Image');
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "no-referrer-when-downgrade";
         return instance.referrerPolicy == "no-referrer-when-downgrade";
       referrerPolicy.origin-when-cross-origin: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "origin-when-cross-origin";
         return instance.referrerPolicy == "origin-when-cross-origin";
       referrerPolicy.unsafe-url: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "unsafe-url";
         return instance.referrerPolicy == "unsafe-url";
   HTMLInputElement:
@@ -2337,12 +2373,21 @@ api:
     __test: return bcd.testObjectName(instance, 'HTMLLinkElement');
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "no-referrer-when-downgrade";
         return instance.referrerPolicy == "no-referrer-when-downgrade";
       referrerPolicy.origin-when-cross-origin: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "origin-when-cross-origin";
         return instance.referrerPolicy == "origin-when-cross-origin";
       referrerPolicy.unsafe-url: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "unsafe-url";
         return instance.referrerPolicy == "unsafe-url";
   HTMLMapElement:
@@ -2427,12 +2472,21 @@ api:
     __test: return bcd.testObjectName(instance, 'HTMLScriptElement');
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "no-referrer-when-downgrade";
         return instance.referrerPolicy == "no-referrer-when-downgrade";
       referrerPolicy.origin-when-cross-origin: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "origin-when-cross-origin";
         return instance.referrerPolicy == "origin-when-cross-origin";
       referrerPolicy.unsafe-url: |-
+        if (!('referrerPolicy' in instance)) {
+          return {result: false, message: "instance.referrerPolicy is not defined"}
+        }
         instance.referrerPolicy = "unsafe-url";
         return instance.referrerPolicy == "unsafe-url";
   HTMLSelectElement:
