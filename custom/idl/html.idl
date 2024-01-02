@@ -203,11 +203,6 @@ interface HTMLShadowElement : HTMLElement {
   NodeList getDistributedNodes();
 };
 
-partial interface HTMLTextAreaElement {
-  // https://github.com/mdn/browser-compat-data/issues/7519
-  attribute DOMString autocapitalize;
-};
-
 partial interface HTMLVideoElement {
   // https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement#Gecko-specific_properties
   readonly attribute unsigned long mozParsedFrames;
