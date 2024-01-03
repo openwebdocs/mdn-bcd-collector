@@ -38,7 +38,10 @@ const build = async (specCSS, customCSS) => {
         continue;
       }
 
-      properties.set(prop.name, new Map());
+      properties.set(
+        prop.name,
+        new Map(prop.values?.map((v) => [v.name, v.value])),
+      );
     }
 
     for (const selector of data.selectors) {
@@ -51,19 +54,34 @@ const build = async (specCSS, customCSS) => {
     const additionalValues =
       "__additional_values" in data ? data["__additional_values"] : {};
 
-    const mergedValues = new Map(Object.entries(additionalValues));
+    const customValues = new Map(Object.entries(additionalValues));
     for (const value of values) {
-      if (mergedValues.has(value)) {
-        throw new Error(`CSS property value already known: ${value}`);
+      if (customValues.has(value)) {
+        throw new Error(
+          `CSS property value is double-defined in custom CSS: ${name}.${value}`,
+        );
       }
-      mergedValues.set(value, value);
+      customValues.set(value, value);
     }
 
-    if (properties.has(name) && mergedValues.size === 0) {
-      throw new Error(`Custom CSS property already known: ${name}`);
-    }
+    if (properties.has(name)) {
+      if (customValues.size === 0) {
+        throw new Error(`Custom CSS property already known: ${name}`);
+      }
 
-    properties.set(name, mergedValues);
+      const knownValues = properties.get(name);
+      for (const value of customValues.keys()) {
+        if (knownValues.has(value) && value in values) {
+          throw new Error(
+            `Custom CSS property value already known: ${name}.${value}`,
+          );
+        }
+
+        knownValues.set(value, customValues.get(value));
+      }
+    } else {
+      properties.set(name, customValues);
+    }
   }
 
   for (const [name] of Object.entries(customCSS.selectors) as any[]) {
