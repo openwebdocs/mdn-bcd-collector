@@ -38,10 +38,16 @@ const build = async (specCSS, customCSS) => {
         continue;
       }
 
-      properties.set(
-        prop.name,
-        new Map(prop.values?.map((v) => [v.name, v.value])),
-      );
+      const propertyValues = prop.values?.map((v) => [v.name, v.value]) || [];
+
+      if (properties.has(prop.name)) {
+        properties.set(
+          prop.name,
+          new Map([...properties.get(prop.name), ...propertyValues]),
+        );
+      } else {
+        properties.set(prop.name, new Map(propertyValues));
+      }
     }
 
     for (const selector of data.selectors) {
