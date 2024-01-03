@@ -627,7 +627,12 @@
           "edgeMode",
           {"in": "in1", "stdDeviation": "stdDeviationX"}
         ],
-        "feImage": ["crossorigin", "href", "preserveAspectRatio", "xlink_href"],
+        "feImage": [
+          {"crossorigin": "crossOrigin"},
+          "href",
+          "preserveAspectRatio",
+          "xlink_href"
+        ],
         "feMergeNode": [{"in": "in1"}],
         "feMorphology": [{"in": "in1", "radius": "radiusX"}, "operator"],
         "feOffset": ["dx", "dy", {"in": "in1"}],
@@ -668,7 +673,7 @@
         ],
         "foreignObject": ["height", "width", "x", "y"],
         "image": [
-          "crossorigin",
+          {"crossorigin": "crossOrigin"},
           "decoding",
           "height",
           "preserveAspectRatio",
