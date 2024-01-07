@@ -1,8 +1,12 @@
 # About the mdn-bcd-collector
 
-This project's goal is to help keep MDN's [browser-compat-data (BCD)](https://github.com/mdn/browser-compat-data) as up-to-date and as accurate as possible, by running predefined JavaScript code in browsers to determine what features are and are not supported. This project was started by [Philip Jägenstedt](https://foolip.org/) at Google, who later contracted [Vinyl Da.i'gyu-Kazotetsu](https://www.queengoob.org) to help develop the project further. Vinyl had since forked the project and had been maintaining her own version under her own company, [Gooborg Studios](https://www.gooborg.com). The project now lives under [Open Web Docs](https://www.openwebdocs.org) ownership.
+This project's goal is to help keep MDN's [browser-compat-data (BCD)](https://github.com/mdn/browser-compat-data) as up-to-date and as accurate as possible, by running predefined JavaScript code in browsers to determine what features are and are not supported.
 
 Feature detection tests are generated based on machine-readable data (Web IDL, CSS definitions, etc.) from web standards, with support for custom tests and custom data where needed. Tests are then run within browsers (either manually or via a Selenium WebDriver script), generating a results file that can either be downloaded locally or submitted to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository.
+
+## Project History
+
+This project was started by [Philip Jägenstedt](https://foolip.org/) at Google, who later contracted [Vinyl Da.i'gyu-Kazotetsu](https://www.queengoob.org) to help develop the project further. Vinyl had since forked the project and had been maintaining her own version under her own company, [Gooborg Studios](https://www.gooborg.com). The project now lives under [Open Web Docs](https://www.openwebdocs.org) ownership, with [Gooborg Studios](https://www.gooborg.com) continuing to handle the hosting.
 
 ## How to Use
 
@@ -56,7 +60,7 @@ See [docs/update-bcd.md](./update-bcd.md) for information on how to use the `upd
 
 ### Why not generate your own version of BCD using the collected results?
 
-The collector was not built to compete against BCD, and for various reasons, it may never be able to:
+The collector was designed from the ground up to help with maintaining BCD. In no way was the collector designed to compete against BCD, and for various reasons, it may never be able to:
 
 - `@mdn/browser-compat-data` is widely used in many projects and has many contributors/reviewers
 - There are a number of features that can't be tested automatically well (OS limitations, hardware requirements, etc.)

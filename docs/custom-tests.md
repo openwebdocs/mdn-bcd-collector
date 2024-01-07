@@ -38,7 +38,7 @@ api:
 > Defining a feature in this file does not directly generate tests, unless defined under the `__additional` property (which will be explained later). For example, defining a custom test for `api.FooBar.baz` in `custom/tests.yaml` will not generate the test for that feature.
 
 > [!TIP]
-> When writing custom tests, make sure to implement thorough feature checking as to not raise exceptions.
+> When writing custom tests, make sure to implement thorough feature checking as to not raise exceptions. Uncaught exceptions will result in a `null` result, meaning the collector doesn't know if it's supported or not.
 
 Each feature test will compile into a function as follows: `function() {__base + __test}`
 
@@ -68,7 +68,8 @@ FEATURE_1:
   # Nothing
 FEATURE_1.FEATURE_2: doSomething();
 FEATURE_1.FEATURE_2.FEATURE_3: doSomething();
-FEATURE_1.FEATURE_2.FEATURE_4: doSomething();
+FEATURE_1.FEATURE_2.FEATURE_4: |-
+  doSomething();
   doSomethingElse();
 ```
 
@@ -280,13 +281,13 @@ bcd.addTest(
 );
 bcd.addTest(
   "api.AudioDestinationNode",
-  "(function() {var instance = new (window.AudioContext || window.webkitAudioContext)(); if (!audioCtx) {return false}; var instance = audioCtx.destination;})()",
+  "(function() {var audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (!audioCtx) {return false}; var instance = audioCtx.destination;})()",
   "Window",
 );
 ```
 
 > [!NOTE]
-> If the specified `ident` cannot be found, the code will be replaced with an error to throw indicating as such.
+> If the specified `ident` cannot be found, an error will be generated and thrown during the test run.
 
 ## Use ES3 features
 
@@ -295,4 +296,4 @@ Tests are intended to be run on as early of browser versions as possible, includ
 - Use `var` instead of `const`/`let`
 - Do not use arrow functions
 - Always implement thorough feature checking whenever possible
-- Use non-invasive polyfills
+- Use non-invasive polyfills (e.g. `function consoleLog(msg) {}` instead of `console.log = function(msg) {};`)
