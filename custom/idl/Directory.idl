@@ -1,3 +1,5 @@
+// https://searchfox.org/mozilla-central/source/dom/webidl/Directory.webidl
+
 [Exposed=(Window,Worker)]
 interface Directory {
   [Throws]
