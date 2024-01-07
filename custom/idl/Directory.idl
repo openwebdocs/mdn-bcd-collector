@@ -1,0 +1,19 @@
+// https://searchfox.org/mozilla-central/source/dom/webidl/Directory.webidl
+
+[Exposed=(Window,Worker)]
+interface Directory {
+  [Throws]
+  readonly attribute DOMString name;
+};
+
+[Exposed=(Window,Worker)]
+partial interface Directory {
+  [Throws]
+  readonly attribute DOMString path;
+
+  [NewObject]
+  Promise<sequence<(File or Directory)>> getFilesAndDirectories();
+
+  [NewObject]
+  Promise<sequence<File>> getFiles(optional boolean recursiveFlag = false);
+};
