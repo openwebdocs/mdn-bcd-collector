@@ -90,7 +90,7 @@
     "@types/express-ejs-layouts": "^2.5.4",
     "@types/fs-extra": "^11.0.4",
     "@types/mocha": "10.0.6",
-    "@types/node": "20.10.6",
+    "@types/node": "20.10.7",
     "@types/selenium-webdriver": "^4.1.21",
     "@types/superagent": "^8.1.1",
     "@types/webidl2": "^24.4.3",
