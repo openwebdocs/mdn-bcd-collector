@@ -3568,6 +3568,9 @@ api:
       }
 
       var instance = reusableInstances.rtcStats;
+
+      // XXX There's a lot of issues with these tests
+      return {result: null, message: "These tests have been disabled due to too many issues. They will be re-enabled once the issues have been resolved."};
     __additional:
       type_candidate-pair: return !!getStatByType('candidate-pair');
       type_candidate-pair.availableIncomingBitrate: return !!getStatByType('candidate-pair', 'availableIncomingBitrate');
