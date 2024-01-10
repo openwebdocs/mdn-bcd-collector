@@ -175,7 +175,9 @@ const flattenMembers = (iface) => {
           (iface.name === "Element" &&
             member.name === "webkitMatchesSelector") ||
           (iface.name === "Serial" &&
-            ["onconnect", "ondisconnect"].includes(member.name))
+            ["onconnect", "ondisconnect"].includes(member.name)) ||
+          (iface.name === "SVGAnimationElement" &&
+            ["onbegin", "onend", "onrepeat"].includes(member.name))
         ),
     );
   for (const member of iface.members.filter((member) => !member.name)) {

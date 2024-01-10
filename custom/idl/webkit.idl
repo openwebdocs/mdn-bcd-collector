@@ -1,22 +1,8 @@
 partial interface Element {
   // https://github.com/WebKit/WebKit/blob/cdb06d0c41ff04eff8f4c65d1c92c8672b4903a6/Source/WebCore/dom/Element.idl#L74
-  attribute EventHandler onbeforeload;
   attribute EventHandler onfocusin;
   attribute EventHandler onfocusout;
   attribute EventHandler ongesturechange;
   attribute EventHandler ongestureend;
   attribute EventHandler ongesturestart;
-};
-
-partial interface HTMLBodyElement {
-  // https://github.com/WebKit/WebKit/blob/cdb06d0c41ff04eff8f4c65d1c92c8672b4903a6/Source/WebCore/html/HTMLBodyElement.idl#L31
-  attribute EventHandler onblur;
-  attribute EventHandler onerror;
-  attribute EventHandler onfocus;
-  attribute EventHandler onfocusin;
-  attribute EventHandler onfocusout;
-  attribute EventHandler onload;
-  attribute EventHandler onresize;
-  attribute EventHandler onscroll;
-  attribute EventHandler onselectionchange;
 };
