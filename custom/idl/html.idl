@@ -148,10 +148,6 @@ partial interface HTMLHeadElement {
   attribute DOMString profile;
 };
 
-partial interface HTMLImageElement {
-  attribute EventHandler onerror;
-};
-
 partial interface HTMLInputElement {
   // https://github.com/whatwg/html/issues/667
   attribute boolean incremental;
