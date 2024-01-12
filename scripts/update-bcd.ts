@@ -1134,6 +1134,7 @@ export const walkEntries = function* (
  * @param bcd - The BCD identifier.
  * @param supportMatrix - The support matrix.
  * @param options - Additional options for the update.
+ * @param verbose - Enables logging verbosity
  * @returns An array of objects representing BCD paths that have been updated.
  */
 export const update = (
@@ -1316,6 +1317,7 @@ export const loadJsonFiles = async (
  * @param browsers - An object representing the browsers to include in the update.
  * @param overrides - An object containing override options.
  * @param outputPath - An string specifying filename and path for feature list output. Defaults to `feature-list.json`.
+ * @param verbose - Enables logging verbosity
  * @returns A Promise that resolves when the update is complete.
  */
 export const main = async (
