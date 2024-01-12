@@ -133,7 +133,10 @@
     "attributes": {
       "html": {
         "a": [
-          {"referrerpolicy": "referrerPolicy"},
+          {
+            "referrerpolicy": "referrerPolicy",
+            "hreftranslate": "hrefTranslate"
+          },
           "charset",
           "coords",
           "download",
