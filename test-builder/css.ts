@@ -8,6 +8,113 @@
 
 import {getCustomTest, compileTest} from "./common.js";
 
+const remapCSSPropertyValue = (input) => {
+  const typeRemappings = {
+    "<string>": ["type_string", "'foo'"],
+    "<string>+": ["type_multi_string", "'foo' 'bar'"],
+    "<url>": ["type_url", "url('https://mdn-bcd-collector.gooborg.com')"],
+    "<uri>": ["type_url", "url('https://mdn-bcd-collector.gooborg.com')"],
+    "<image>": ["type_image", "url('https://mdn-bcd-collector.gooborg.com')"],
+    "<color>": ["type_color", "red"],
+    "<angle>": ["type_angle", "90deg"],
+    "<length>": ["type_length", "4em"],
+    "<length [0,∞]>": ["type_length", "4em"],
+    "<percentage>": ["type_percentage", "80%"],
+    "<percentage [0,∞]>": ["type_percentage", "80%"],
+    "<length-percentage>": ["type_length_or_percentage", ["4em", "80%"]],
+    "<length-percentage [0,∞]>": ["type_length_or_percentage", ["4em", "80%"]],
+    "<flex>": ["type_flex", "2fr"],
+    "<flex [0,∞]>": ["type_flex", "2fr"],
+    "<time>": ["type_time", "10s"],
+    "<time [0s,∞]>": ["type_time", "10s"],
+    "<number>": ["type_number", "5"],
+    "<number [0,∞]>": ["type_number", "5"],
+    "<number [1,∞]>": ["type_number", "5"],
+    "<number [1,1000]>": ["type_number", "5"],
+    "<integer>": ["type_number", "5"],
+    "<integer [1,∞]>": ["type_number", "5"],
+    "<dashed-ident>": ["type_dashed-ident", "--foo"],
+    "<dashed-ident>#": ["type_dashed-ident", "--foo"],
+    "<ratio>": ["type_ratio", "16 / 9"],
+    "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
+    "<absolute-size>": [
+      "type_absolute_size",
+      [
+        "xx-small",
+        "x-small",
+        "small",
+        "medium",
+        "large",
+        "x-large",
+        "xx-large",
+      ],
+    ],
+    "<relative-size>": ["type_relative_size", ["larger", "smaller"]],
+    "<resolution>": ["type_resolution", "144dpi"],
+    "<position>": ["type_position", "left"],
+    "<basic-shape>": ["type_basic_shape", "rect(10px 20px 30px 40px)"],
+    "<basic-shape-rect>": ["type_basic_shape", "rect(10px 20px 30px 40px)"],
+    "<visual-box>": [
+      "type_visual_box",
+      ["content-box", "padding-box", "border-box"],
+    ],
+    "<layout-box>": [
+      "type_layout_box",
+      ["content-box", "padding-box", "border-box", "margin-box"],
+    ],
+    "<paint-box>": [
+      "type_paint_box",
+      [
+        "content-box",
+        "padding-box",
+        "border-box",
+        "margin-box",
+        "fill-box",
+        "stroke-box",
+      ],
+    ],
+    "<coord-box>": [
+      "type_coord_box",
+      [
+        "content-box",
+        "padding-box",
+        "border-box",
+        "margin-box",
+        "fill-box",
+        "stroke-box",
+        "view-box",
+      ],
+    ],
+    "<ray()>": ["type_ray", "ray(45deg closest-side)"],
+    "<autospace>": ["type_autospace", "insert"],
+    "<spacing-trim>": [
+      "type_spacing-trim",
+      [
+        "space-all",
+        "normal",
+        "trim-auto",
+        "trim-start",
+        "space-first",
+        "trim-all",
+      ],
+    ],
+    "<frequency>": ["type_frequency", "100Hz"],
+    "<decibel>": ["type_decibel", "12dB"],
+  };
+
+  if (input.name in typeRemappings || input.name.includes("<")) {
+    // Skip any and all types for now until we're ready to add them
+    return null;
+  }
+
+  return (
+    typeRemappings[input.name] || [
+      input.name.replace(/ /g, "_").replace("()", ""),
+      input.value,
+    ]
+  );
+};
+
 /**
  * Builds tests for CSS properties and selectors based on the provided specCSS and customCSS.
  * @param specCSS - The specification CSS data.
@@ -38,8 +145,45 @@ const build = async (specCSS, customCSS) => {
         continue;
       }
 
-      const propertyValues = prop.values?.map((v) => [v.name, v.value]) || [];
+      const ignoredProps = [
+        "<custom-ident>",
+        "<bottom>",
+        "<left>",
+        "<right>",
+        "<top>",
+        "<content-list>",
+        "<inset-area-span>",
+        "<keyframes-name>",
+        "<feature-tag-value>",
+        "<counter-style>",
+        "/ [ <string> | <counter> ]+",
+        "<inset-area-span> [ / <inset-area-span> ]?",
+        "<offset-path> || <coord-box>",
+        "ex-height | cap-height | ch-width | ic-width | ic-height",
+        "<track-list> | <auto-track-list>",
+        "<family-name>",
+        "<semitones>",
+        "<'flex-basis'>",
+        "<'flex-grow'>",
+        "<'flex-shrink'>",
+        "oblique <angle [-90deg,90deg]>?",
+        "<'grid-template-rows'> / [ auto-flow && dense? ] <'grid-auto-columns'>?",
+        "[ auto-flow && dense? ] <'grid-auto-rows'>? / <'grid-template-columns'>",
+        "<'grid-template-rows'> / <'grid-template-columns'>",
+        "[ <line-names>? <string> <track-size>? <line-names>? ]+ [ / <explicit-track-list> ]?",
+        "subgrid <line-name-list>?",
+        "<integer [1,∞]> <block-ellipsis>?'",
+        "<timeline-range-name> <length-percentage>?",
+        "1st <length>",
+        "2nd <length>",
+      ];
 
+      const propertyValues =
+        prop.values
+          ?.filter((v) => v.type === "value")
+          .filter((v) => !ignoredProps.includes(v.name))
+          .map(remapCSSPropertyValue)
+          .filter((v) => !!v) || [];
       if (properties.has(prop.name)) {
         properties.set(
           prop.name,

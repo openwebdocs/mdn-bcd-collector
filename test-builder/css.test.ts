@@ -27,7 +27,7 @@ describe("build (CSS)", () => {
           {name: "font-family"},
           {
             name: "font-weight",
-            values: [{name: "normal", value: "normal"}],
+            values: [{name: "normal", value: "normal", type: "value"}],
           },
         ],
         selectors: [],
