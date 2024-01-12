@@ -264,3 +264,10 @@ partial interface WorkerGlobalScope {
 partial interface HTMLMediaElement {
   readonly attribute boolean allowedToPlay;
 };
+
+// Proposed addition to HTML (implemented in Chrome)
+// https://github.com/whatwg/html/pull/3870
+// https://github.com/mdn/browser-compat-data/issues/21898
+partial interface HTMLAnchorElement {
+  [CEReactions]attribute DOMString hrefTranslate;
+};
