@@ -275,7 +275,7 @@ __resources:
                     callback(stats);
                   });
                 });
-              }, 2000);
+              }, 3000);
             });
           });
         }, 1000);
@@ -3570,7 +3570,9 @@ api:
       var instance = reusableInstances.rtcStats;
     __additional:
       type_candidate-pair: return !!getStatByType('candidate-pair');
-      type_candidate-pair.availableIncomingBitrate: return !!getStatByType('candidate-pair', 'availableIncomingBitrate');
+      type_candidate-pair.availableIncomingBitrate: |-
+        return {result: null, message: 'Untestable property'};
+        return !!getStatByType('candidate-pair', 'availableIncomingBitrate');
       type_candidate-pair.availableOutgoingBitrate: return !!getStatByType('candidate-pair', 'availableOutgoingBitrate');
       type_candidate-pair.bytesDiscardedOnSend: return !!getStatByType('candidate-pair', 'bytesDiscardedOnSend');
       type_candidate-pair.bytesReceived: return !!getStatByType('candidate-pair', 'bytesReceived');
@@ -3693,14 +3695,22 @@ api:
       type_local-candidate.port: return !!getStatByType('local-candidate', 'port');
       type_local-candidate.priority: return !!getStatByType('local-candidate', 'priority');
       type_local-candidate.protocol: return !!getStatByType('local-candidate', 'protocol');
-      type_local-candidate.relatedAddress: return !!getStatByType('local-candidate', 'relatedAddress');
-      type_local-candidate.relatedPort: return !!getStatByType('local-candidate', 'relatedPort');
-      type_local-candidate.relayProtocol: return !!getStatByType('local-candidate', 'relayProtocol');
+      type_local-candidate.relatedAddress: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('local-candidate', 'relatedAddress');
+      type_local-candidate.relatedPort: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('local-candidate', 'relatedPort');
+      type_local-candidate.relayProtocol: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('local-candidate', 'relayProtocol');
       type_local-candidate.tcpType: return !!getStatByType('local-candidate', 'tcpType');
       type_local-candidate.timestamp: return !!getStatByType('local-candidate', 'timestamp');
       type_local-candidate.transportId: return !!getStatByType('local-candidate', 'transportId');
       type_local-candidate.type: return !!getStatByType('local-candidate', 'type');
-      type_local-candidate.url: return !!getStatByType('local-candidate', 'url');
+      type_local-candidate.url: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('local-candidate', 'url');
       type_local-candidate.usernameFragment: return !!getStatByType('local-candidate', 'usernameFragment');
       type_media-playout: return !!getStatByType('media-playout');
       type_media-playout.id: return !!getStatByType('media-playout', 'id');
@@ -3760,7 +3770,9 @@ api:
       type_outbound-rtp.remoteId: return !!getStatByType('outbound-rtp', 'remoteId');
       type_outbound-rtp.retransmittedBytesSent: return !!getStatByType('outbound-rtp', 'retransmittedBytesSent');
       type_outbound-rtp.retransmittedPacketsSent: return !!getStatByType('outbound-rtp', 'retransmittedPacketsSent');
-      type_outbound-rtp.rid: return !!getStatByType('outbound-rtp', 'rid');
+      type_outbound-rtp.rid: |-
+        return {result: null, message: 'Untestable property; requires simulcast'};
+        return !!getStatByType('outbound-rtp', 'rid');
       type_outbound-rtp.scalabilityMode: return !!getStatByType('outbound-rtp', 'scalabilityMode');
       type_outbound-rtp.ssrc: return !!getStatByType('outbound-rtp', 'ssrc');
       type_outbound-rtp.targetBitrate: return !!getStatByType('outbound-rtp', 'targetBitrate');
@@ -3784,14 +3796,24 @@ api:
       type_remote-candidate.port: return !!getStatByType('remote-candidate', 'port');
       type_remote-candidate.priority: return !!getStatByType('remote-candidate', 'priority');
       type_remote-candidate.protocol: return !!getStatByType('remote-candidate', 'protocol');
-      type_remote-candidate.relatedAddress: return !!getStatByType('remote-candidate', 'relatedAddress');
-      type_remote-candidate.relatedPort: return !!getStatByType('remote-candidate', 'relatedPort');
-      type_remote-candidate.relayProtocol: return !!getStatByType('remote-candidate', 'relayProtocol');
-      type_remote-candidate.tcpType: return !!getStatByType('remote-candidate', 'tcpType');
+      type_remote-candidate.relatedAddress: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('remote-candidate', 'relatedAddress');
+      type_remote-candidate.relatedPort: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('remote-candidate', 'relatedPort');
+      type_remote-candidate.relayProtocol: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('remote-candidate', 'relayProtocol');
+      type_remote-candidate.tcpType: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('remote-candidate', 'tcpType');
       type_remote-candidate.timestamp: return !!getStatByType('remote-candidate', 'timestamp');
       type_remote-candidate.transportId: return !!getStatByType('remote-candidate', 'transportId');
       type_remote-candidate.type: return !!getStatByType('remote-candidate', 'type');
-      type_remote-candidate.url: return !!getStatByType('remote-candidate', 'url');
+      type_remote-candidate.url: |-
+        return {result: null, message: 'Untestable property; requires a STUN/TURN server'};
+        return !!getStatByType('remote-candidate', 'url');
       type_remote-candidate.usernameFragment: return !!getStatByType('remote-candidate', 'usernameFragment');
       type_remote-inbound-rtp: return !!getStatByType('remote-inbound-rtp');
       type_remote-inbound-rtp.codecId: return !!getStatByType('remote-inbound-rtp', 'codecId');
