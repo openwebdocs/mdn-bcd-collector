@@ -822,6 +822,9 @@
   "Value is recognized but has no effect",
   ["css.properties.text-indent.hanging", "safari", "1-14.1", false],
   ["css.properties.font-family.system-ui", "firefox", "1-91", false],
+  ["css.properties.font-family.math", "chrome", "1-108", false],
+  ["css.properties.font-family.math", "firefox", "*", false],
+  ["css.properties.font-family.math", "safari", "*", false],
   "CSS.supports() incorrectly indicates support",
   ["css.selectors.dir", "safari", "1-16.3", false],
   "XXX Safari uses pseudo attributes within a shadow DOM, so CSS.supports() cannot detect support",
@@ -898,9 +901,13 @@
   ["css.properties.ry", "safari", "1+", false],
   ["css.selectors.user-invalid", "safari", "16.4", false],
   ["css.selectors.user-valid", "safari", "16.4", false],
+  ["css.properties.grid-template-columns.masonry", "safari", "16.4", false],
+  ["css.properties.grid-template-rows.masonry", "safari", "16.4", false],
   "Event handlers aren't supported",
   ["api.Element.focusin_event", "chrome", "1+", true],
   ["api.Element.focusout_event", "chrome", "1+", true],
   ["api.Element.focusin_event", "firefox", "52+", true],
-  ["api.Element.focusout_event", "firefox", "52+", true]
+  ["api.Element.focusout_event", "firefox", "52+", true],
+  "Implemented as a prefix to the standard version",
+  ["css.properties.-webkit-mask-composite", "firefox", "*", false]
 ]
