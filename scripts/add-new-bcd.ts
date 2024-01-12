@@ -12,6 +12,8 @@ import {execSync} from "node:child_process";
 import {Identifier} from "@mdn/browser-compat-data/types";
 import fs from "fs-extra";
 import esMain from "es-main";
+import yargs from "yargs";
+import {hideBin} from "yargs/helpers";
 
 import {BCD_DIR} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
@@ -221,9 +223,11 @@ export const collectMissing = async (filepath: string): Promise<void> => {
 /* c8 ignore start */
 /**
  * Main function that generates missing BCD, updates BCD, injects BCD, cleans up, and completes the process.
+ * @param paths - The report paths to get data from
+ * @param verbose - Enable verbose logging
  * @returns A Promise that resolves when the process is complete.
  */
-const main = async (): Promise<void> => {
+const main = async (paths: string[], verbose = false): Promise<void> => {
   const filepath = path.resolve(
     path.join(BCD_DIR, "__missing", "__missing.json"),
   );
@@ -231,10 +235,12 @@ const main = async (): Promise<void> => {
   console.log("Generating missing BCD...");
   await collectMissing(filepath);
   await updateBcd(
-    ["../mdn-bcd-results/"],
+    paths,
     {addNewFeatures: true},
     bcd.browsers,
     overrides,
+    null,
+    verbose,
   );
 
   console.log("Injecting BCD...");
@@ -249,6 +255,26 @@ const main = async (): Promise<void> => {
 };
 
 if (esMain(import.meta)) {
-  await main();
+  const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
+    "$0 [reports..]",
+    "Add missing features to BCD from a specified set of report files",
+    (yargs) => {
+      yargs
+        .positional("reports", {
+          describe: "The report files to update from (also accepts folders)",
+          type: "string",
+          array: true,
+          default: ["../mdn-bcd-results/"],
+        })
+        .option("verbose", {
+          alias: "v",
+          describe: "Enable verbosity",
+          type: "boolean",
+          default: false,
+        });
+    },
+  );
+
+  await main(argv.reports, argv.verbose);
 }
 /* c8 ignore stop */
