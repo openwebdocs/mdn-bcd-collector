@@ -1,11 +1,6 @@
 {
   "elements": {
     "custom": {
-      "html": {
-        "image": {
-          "interfaceName": "HTMLImageElement"
-        }
-      },
       "svg": {
         "cursor": {
           "interfaceName": "SVGCursorElement",
@@ -213,7 +208,6 @@
         "caption": ["align"],
         "col": [
           {
-            "bgcolor": "bgColor",
             "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
@@ -224,7 +218,6 @@
         ],
         "colgroup": [
           {
-            "bgcolor": "bgColor",
             "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
@@ -233,7 +226,6 @@
           "span",
           "width"
         ],
-        "dd": ["nowrap"],
         "del": [{"datetime": "dateTime"}, "cite"],
         "details": ["open"],
         "dialog": ["open"],
@@ -267,7 +259,7 @@
         "frameset": ["cols", "rows"],
         "head": ["profile"],
         "hr": [{"noshade": "noShade"}, "align", "color", "size", "width"],
-        "html": ["manifest", "version", "xmlns"],
+        "html": [{"xmlns": "namespaceURI"}, "manifest", "version"],
         "iframe": [
           {
             "allowfullscreen": "allowFullscreen",
@@ -391,8 +383,8 @@
           "width"
         ],
         "menu": ["label"],
-        "meta": [{"http-equiv": "httpEquiv"}, "charset", "content", "name"],
-        "meter": ["form", "high", "low", "max", "min", "optimum", "value"],
+        "meta": [{"http-equiv": "httpEquiv"}, "content", "name"],
+        "meter": ["high", "low", "max", "min", "optimum", "value"],
         "object": [
           {
             "codebase": "codeBase",
@@ -402,7 +394,6 @@
           },
           "archive",
           "border",
-          "classid",
           "data",
           "declare",
           "form",
@@ -417,7 +408,7 @@
         "option": ["disabled", "label", "selected", "value"],
         "output": [{"for": "htmlFor"}, "form", "name"],
         "param": [{"valuetype": "valueType"}, "name", "type", "value"],
-        "pre": ["cols", "width", "wrap"],
+        "pre": ["cols", "width"],
         "progress": ["max", "value"],
         "script": [
           {
@@ -430,7 +421,6 @@
           "blocking",
           "defer",
           "integrity",
-          "language",
           "src",
           "text",
           "type"
@@ -470,7 +460,6 @@
         ],
         "tbody": [
           {
-            "bgcolor": "bgColor",
             "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
@@ -514,7 +503,6 @@
         ],
         "tfoot": [
           {
-            "bgcolor": "bgColor",
             "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
@@ -539,7 +527,6 @@
         ],
         "thead": [
           {
-            "bgcolor": "bgColor",
             "char": "ch",
             "charoff": "chOff",
             "valign": "vAlign"
