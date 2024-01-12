@@ -23,7 +23,13 @@ describe("build (CSS)", () => {
           title: "CSS Fonts Fake",
           url: "",
         },
-        properties: [{name: "font-family"}, {name: "font-weight"}],
+        properties: [
+          {name: "font-family"},
+          {
+            name: "font-weight",
+            values: [{name: "normal", value: "normal"}],
+          },
+        ],
         selectors: [],
       },
       "css-grid": {
@@ -78,6 +84,10 @@ describe("build (CSS)", () => {
       },
       "css.properties.font-weight": {
         code: 'bcd.testCSSProperty("font-weight")',
+        exposure: ["Window"],
+      },
+      "css.properties.font-weight.normal": {
+        code: 'bcd.testCSSProperty("font-weight", "normal")',
         exposure: ["Window"],
       },
       "css.properties.grid": {
@@ -142,6 +152,87 @@ describe("build (CSS)", () => {
       build(css, {properties: {foo: {}}, selectors: {}}),
       "Custom CSS property already known: foo",
     );
+  });
+
+  it("double-defined property value", async () => {
+    const css = {
+      "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
+        properties: [{name: "foo", values: [{name: "bar", value: "bar"}]}],
+        selectors: [],
+      },
+    };
+
+    await assert.isRejected(
+      build(css, {properties: {foo: {_values: ["bar"]}}, selectors: {}}),
+      "Custom CSS property already known: foo",
+    );
+
+    const customCSS = {
+      properties: {
+        foo: {
+          __values: ["bar"],
+          __additional_values: {bar: "bar"},
+        },
+      },
+    };
+
+    await assert.isRejected(
+      build({}, customCSS),
+      "CSS property value is double-defined in custom CSS: foo.bar",
+    );
+  });
+
+  it("double-defined property value", async () => {
+    const webrefCSS = {
+      "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
+        properties: [{name: "foo", values: [{name: "bar", value: "bar"}]}],
+        selectors: [],
+      },
+    };
+
+    const customCSS = {properties: {foo: {_values: ["bar"]}}, selectors: {}};
+
+    await assert.isRejected(
+      build(webrefCSS, customCSS),
+      "Custom CSS property already known: foo",
+    );
+  });
+
+  it("__additional_values overwrites spec value", async () => {
+    const webrefCSS = {
+      "css-dummy": {
+        spec: {
+          title: "CSS Dummy",
+          url: "",
+        },
+        properties: [{name: "one", values: [{name: "two", value: "two"}]}],
+        selectors: [],
+      },
+    };
+
+    const customCSS = {
+      properties: {one: {__additional_values: {two: "1em two"}}},
+      selectors: {},
+    };
+
+    assert.deepEqual(await build(webrefCSS, customCSS), {
+      "css.properties.one": {
+        code: 'bcd.testCSSProperty("one")',
+        exposure: ["Window"],
+      },
+      "css.properties.one.two": {
+        code: 'bcd.testCSSProperty("one", "1em two")',
+        exposure: ["Window"],
+      },
+    });
   });
 
   it("double-defined selector", async () => {
