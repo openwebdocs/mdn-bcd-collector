@@ -239,7 +239,7 @@ const main = async (paths: string[], verbose = false): Promise<void> => {
     {addNewFeatures: true},
     bcd.browsers,
     overrides,
-    null,
+    undefined,
     verbose,
   );
 
