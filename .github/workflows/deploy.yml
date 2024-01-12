@@ -46,8 +46,9 @@ jobs:
         run: |
           npm install -D typescript
           npm install -D ts-node
+          echo "${{secrets.SECRETS_JSON}}" > secrets.json
           rm mdn-bcd-results/*.json
-          RESULTS_DIR=mdn-bcd-results SECRETS_JSON="${{secrets.SECRETS_JSON}}" npm run selenium
+          RESULTS_DIR=mdn-bcd-results npm run selenium
       - name: Submit all results to results repo
         if: steps.check.outputs.changed == 'true'
         uses: dmnemec/copy_file_to_another_repo_action@main
