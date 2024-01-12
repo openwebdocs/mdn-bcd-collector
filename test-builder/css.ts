@@ -8,6 +8,11 @@
 
 import {getCustomTest, compileTest} from "./common.js";
 
+/**
+ * Remap the CSS property values from Webref into usable map entries
+ * @param input - The value from Webref
+ * @returns A two-value array to add to a map, or null if no test should be created for the value
+ */
 const remapCSSPropertyValue = (input) => {
   const typeRemappings = {
     "<string>": ["type_string", "'foo'"],
