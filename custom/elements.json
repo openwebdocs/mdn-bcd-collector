@@ -168,7 +168,19 @@
           "target",
           "type"
         ],
-        "audio": ["autoplay", "controls", "loop", "muted", "preload", "src"],
+        "audio": [
+          {
+            "crossorigin": "crossOrigin",
+            "disableremoteplayback": "disableRemotePlayback",
+            "controlslist": "controlsList"
+          },
+          "autoplay",
+          "controls",
+          "loop",
+          "muted",
+          "preload",
+          "src"
+        ],
         "base": ["href", "target"],
         "blockquote": ["cite"],
         "body": [
@@ -178,12 +190,8 @@
             "vlink": "vLink"
           },
           "background",
-          "bottommargin",
-          "leftmargin",
           "link",
-          "rightmargin",
-          "text",
-          "topmargin"
+          "text"
         ],
         "br": ["clear"],
         "button": [
@@ -273,6 +281,7 @@
           "align",
           "allow",
           "credentialless",
+          "csp",
           "height",
           "loading",
           "name",
@@ -322,6 +331,7 @@
           "accept",
           "align",
           "alt",
+          "autocomplete",
           "capture",
           "checked",
           "disabled",
@@ -425,7 +435,15 @@
           "text",
           "type"
         ],
-        "select": ["disabled", "form", "multiple", "name", "required", "size"],
+        "select": [
+          "autocomplete",
+          "disabled",
+          "form",
+          "multiple",
+          "name",
+          "required",
+          "size"
+        ],
         "slot": ["name"],
         "source": [
           "height",
@@ -541,7 +559,13 @@
         "track": ["default", "kind", "label", "src", "srclang"],
         "ul": ["compact", "type"],
         "video": [
-          {"crossorigin": "crossOrigin"},
+          {
+            "crossorigin": "crossOrigin",
+            "disableremoteplayback": "disableRemotePlayback",
+            "controlslist": "controlsList",
+            "disablepictureinpicture": "disablePictureInPicture",
+            "playsinline": "playsInline"
+          },
           "autoplay",
           "controls",
           "height",
