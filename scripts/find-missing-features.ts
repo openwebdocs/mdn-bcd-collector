@@ -128,7 +128,9 @@ const getMissing = (
   const bcdEntries = traverseFeatures(bcd, "", includeAliases).filter(
     filterPath,
   );
-  const collectorEntries = Object.keys(tests).filter(filterPath);
+  const collectorEntries = Object.keys(tests)
+    .filter((p) => p !== "__resources")
+    .filter(filterPath);
 
   switch (direction) {
     case "bcd-from-collector":
