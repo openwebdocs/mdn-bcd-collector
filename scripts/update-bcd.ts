@@ -1140,6 +1140,7 @@ export const update = (
   bcd: Identifier,
   supportMatrix: SupportMatrix,
   options: any,
+  verbose = false,
 ): FeatureListLog[] => {
   const results: UpdateLog[] = [];
   for (const state of compose(
@@ -1177,7 +1178,7 @@ export const update = (
       if (!hasSupportUpdates(versionMap, defaultStatements)) {
         return reason(
           ({path, browser}) =>
-            `$${path} skipped for ${browser} because support matrix matches current BCD support data`,
+            `${path} skipped for ${browser} because support matrix matches current BCD support data`,
         );
       }
     }),
@@ -1261,7 +1262,7 @@ export const update = (
       state.shared.support[state.browser] =
         state.statements.length === 1 ? state.statements[0] : state.statements;
     }
-    if (state.reason && !state.reason.quiet) {
+    if (state.reason && (verbose || !state.reason.quiet)) {
       logger.warn(state.reason.message);
     }
   }
@@ -1323,6 +1324,7 @@ export const main = async (
   browsers: Browsers,
   overrides: Overrides,
   outputPath?: string,
+  verbose = false,
 ): Promise<void> => {
   // Replace filter.path with a minimatch object.
   if (filter.path && filter.path.includes("*")) {
@@ -1362,7 +1364,7 @@ export const main = async (
   // Should match https://github.com/mdn/browser-compat-data/blob/f10bf2cc7d1b001a390e70b7854cab9435ffb443/test/linter/test-style.js#L63
   // TODO: https://github.com/mdn/browser-compat-data/issues/3617
   for (const [file, data] of Object.entries(bcdFiles)) {
-    const updates = update(data, supportMatrix, filter);
+    const updates = update(data, supportMatrix, filter, verbose);
     if (!updates.length) {
       continue;
     }
@@ -1431,10 +1433,23 @@ if (esMain(import.meta)) {
             'Specify filename and output path for a json list of updated features. Defaults to "feature-list.json"',
           type: "string",
           default: "feature-list.json",
+        })
+        .option("verbose", {
+          alias: "v",
+          describe: "Enable verbosity",
+          type: "boolean",
+          default: false,
         });
     },
   );
 
-  await main(argv.reports, argv, browsers, overrides, argv.output);
+  await main(
+    argv.reports,
+    argv,
+    browsers,
+    overrides,
+    argv.output,
+    argv.verbose,
+  );
 }
 /* c8 ignore stop */
