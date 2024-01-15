@@ -162,7 +162,7 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
 const flattenMembers = (iface) => {
   const members = iface.members
     .filter((member) => member.name && member.type !== "const")
-    // Ignore alternate names for standard features within the standard IDL
+    // Ignore alternate names, overloads, etc. for standard features within the standard IDL
     .filter(
       (member) =>
         !(
@@ -177,7 +177,11 @@ const flattenMembers = (iface) => {
           (iface.name === "Serial" &&
             ["onconnect", "ondisconnect"].includes(member.name)) ||
           (iface.name === "SVGAnimationElement" &&
-            ["onbegin", "onend", "onrepeat"].includes(member.name))
+            ["onbegin", "onend", "onrepeat"].includes(member.name)) ||
+          (iface.name === "TaskAttributionTiming" &&
+            ["startTime", "duration", "name", "entryType"].includes(
+              member.name,
+            ))
         ),
     );
   for (const member of iface.members.filter((member) => !member.name)) {

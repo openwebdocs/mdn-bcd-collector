@@ -112,6 +112,15 @@ const remapCSSPropertyValue = (input) => {
     return null;
   }
 
+  if (
+    ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
+      input.name,
+    )
+  ) {
+    // Skip generic property values
+    return null;
+  }
+
   return (
     typeRemappings[input.name] || [
       input.name.replace(/ /g, "_").replace("()", ""),
