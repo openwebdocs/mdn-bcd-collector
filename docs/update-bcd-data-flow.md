@@ -31,7 +31,7 @@ Here's a step-by-step explainer with JSON snapshots of this state object to show
 
 Start iterating through entries in the BCD data and begin populating the state object.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: {
@@ -59,7 +59,7 @@ We exit early if the BCD Identifier path doesn’t match an optional `path` filt
 
 Builds the browser “Support Matrix” data from the local test results filtered by the `path` key.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: {
@@ -94,7 +94,7 @@ Get browser support data from BCD entry `__compat` data.
 > [!NOTE]
 > This `support` key in the `shared` object is mutated at the end of the iteration if we’ve determined that there should be updates.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -119,7 +119,7 @@ Get browser support data from BCD entry `__compat` data.
 
 Clones original support data. This key remains unmodified at the end of `update`.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -144,7 +144,7 @@ Clones original support data. This key remains unmodified at the end of `update`
 
 Start iterating through browsers in `BrowserMap` Support Matrix test results per BCD entry. Gets `versionMap` support data from the `BrowserMap` by browser key.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -171,7 +171,7 @@ Start iterating through browsers in `BrowserMap` Support Matrix test results per
 
 Gets all existing support statements from BCD.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -189,7 +189,7 @@ Gets all existing support statements from BCD.
 
 Gets existing un-flagged and un-prefixed statements from BCD. **Exit** if no default statements found. We also run an initial comparison of the test results from the `versionMap` against the `defaultStatements` to determine if there are possible updates. If not, exit early.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -208,7 +208,7 @@ Gets existing un-flagged and un-prefixed statements from BCD. **Exit** if no def
 
 Infer support statements from local test results. Exits if more than 1 statement inferred or if `version_added` doesn’t match any optional `release` filters.
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -229,7 +229,7 @@ Infer support statements from local test results. Exits if more than 1 statement
 
 Updates `statements` key with inferred statements (& existing un-flagged statements) when no default statements exist.
 
-```json
+```
 {
   path: "api.AudioContext.close",
   debug: {
@@ -282,7 +282,7 @@ Updates `statements` key with inferred statements (& existing un-flagged stateme
 
 Persist inferred version range when BCD version was set to `preview` or when inferred range supersedes original data.
 
-```json
+```
 {
   path: "api.AbortController.abort",
   debug: { ... },
@@ -311,7 +311,7 @@ Persist inferred version range when BCD version was set to `preview` or when inf
 
 Sets `statements` support data to `false` if no inferred added data and only "partial implementation" in BCD data.
 
-```json
+```
 {
   path: "api.FakeInterface",
   debug: { ... },
@@ -348,7 +348,7 @@ Updates `statements` key with inferred `version_added` data under following cond
 - is not a boolean (if existing value is a string)
 - existing data does not contain `partial_implementation`
 
-```json
+```
 {
   path: "api.AbortController",
   debug: { ... },
@@ -381,7 +381,7 @@ Updates `statements` key with inferred `version_added` data under following cond
 
 Adds `version_removed` data to `statements` and optionally updates existing `version_removed` data if the inferred `version_removed` data is a string.
 
-```json
+```
 {
   path: "api.DeprecatedInterface",
   debug: { ... },
