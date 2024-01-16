@@ -25,7 +25,7 @@ At a high level, this state object is built in three phases of operations per it
 
 ## Data Flow Examples
 
-Here's a step-by-step explainer with JSON snapshots of this state object to show how it's built as we move through the chain of operations in the `update` method.
+Here's a step-by-step explainer with JSON snapshots of this state object to show how it's built as we move through the chain of operations in the `update` method. Refer to this [diagram](/docs/update-bcd.png) for a visual representation of this data flow.
 
 ### expand("entry", ...)
 
