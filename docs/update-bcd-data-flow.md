@@ -1,31 +1,35 @@
 # Update-BCD Architecture Notes
 
-The `update-bcd` script iterates through all the entries in a given file from the local BCD repository and compares them against a set of test results to see if there should be any updates to the BCD files.
+The `update-bcd` script iterates through entries from a local copy of `browser-compat-data` and compares them against a set of test results from a local copy of `mdn-test-results` to see if there should be any updates to the `browser-compat-data` repo.
 
-The `update-bcd` script keeps an internal representation of the data from the BCD file for purposes of applying further transformations to the data to optimize comparisons and for logging.
+The `update-bcd` script keeps an internal representation of the data from each iterated BCD file for purposes of comparing and applying possible transformations to the data.
 
-## About the UpdateInternal Object
+## Tracking the Update State of each BCD Entry Iteration
 
-Explain the object...
+As the script iterates through each BCD entry, an `UpdateInternal` object is created to represent the state of the data. This state object is shared across all of the script's sequential operation. The primary keys in this object are:
 
 - `path` - the "path" of the BCD entry we're iterating through
-- a "shared" object that houses all the data that we're working off of to determine whether or not to update, including the test result Support Matrix and the BCD data.
-- a "debug" object, which builds a stack trace of the changes to the entry data.
-- a few "statement" objects that hold the data that are most pertinent for updating the BCD file
+- `shared` - a "shared" object that houses all the existing data from the local repositories, including the latest BCD data and the latest test result "support matrix".
+- `debug` - a "debug" object, which builds a stack trace of any changes to the entry data.
+- a set of "statement" objects that hold the existing and updated support statements for the BCD entry
+  - `allStatements` - the set of existing support statements in the BCD entry
+  - `defaultStatements` - a filtered set of existing "default" support statements in the BCD entry (statements without flags or browser prefixes)
+  - `inferredStatements` - the set of support statements inferred from the test result "support matrix"
+  - `statements` - the final set of support statements that represent the latest changes (if any) to the BCD entry
 
-At a high level, this state object is built by:
+At a high level, this state object is built in three phases of operations per iteration:
 
-1. First, we build the shared data object in the first set of `provideShared` functions (link).
-2. Then, we collect the existing support statements in the following series of `provide...Statements` functions (link),
-3. Finally, we make decisions about whether or not to update those statements in the last series of `persist...` functions (link).
+1. First, we build the shared data object in the [first set of `provideShared` functions](/scripts/update-bcd.ts#L1154-1169).
+2. Then, we collect the existing support statements in the [following series of `provide...Statements` functions](/scripts/update-bcd.ts#L1176-1188),
+3. Finally, we make decisions about whether or not to update those statements in the [last series of `persist...` functions](/scripts/update-bcd.ts#L1213-1234).
 
 ## Data Flow Examples
 
-Here's a step-by-step explainer along with JSON snapshots of the state object to show how it's built as we move through the chain of operations in the `update` method:
+Here's a step-by-step explainer with JSON snapshots of this state object to show how it's built as we move through the chain of operations in the `update` method.
 
-### [expand("entry", ...)](/scripts/update-bcd.ts#L1146)
+### expand("entry", ...)
 
-Start iterating through entries in the BCD data and populating the state object.
+Start iterating through entries in the BCD data and begin populating the state object.
 
 ```json
 {
@@ -49,11 +53,11 @@ Start iterating through entries in the BCD data and populating the state object.
 }
 ```
 
-We then exit early if the BCD Identifier path doesn’t match an optional `path` argument flag.
+We exit early if the BCD Identifier path doesn’t match an optional `path` filter flag.
 
-### [provideShared(“browserMap”, …)](/scripts/update-bcd.ts#L1152)
+### provideShared(“browserMap”, …)
 
-Builds the browser “Support Matrix” data based on BCD path.
+Builds the browser “Support Matrix” data from the local test results filtered by the `path` key.
 
 ```json
 {
@@ -88,7 +92,7 @@ Builds the browser “Support Matrix” data based on BCD path.
 Get browser support data from BCD entry `__compat` data.
 
 > [!NOTE]
-> This is the BCD object entry that is finally mutated at the end of `update`, if we’ve determined there should be updates.
+> This `support` key in the `shared` object is mutated at the end of the iteration if we’ve determined that there should be updates.
 
 ```json
 {
@@ -138,7 +142,7 @@ Clones original support data. This key remains unmodified at the end of `update`
 
 ### expand(“browser”, …)
 
-Start iterating through browsers in BrowserMap Support Matrix test results per BCD entry. Gets `versionMap` support data from the `BrowserMap` by browser key.
+Start iterating through browsers in `BrowserMap` Support Matrix test results per BCD entry. Gets `versionMap` support data from the `BrowserMap` by browser key.
 
 ```json
 {
@@ -202,7 +206,7 @@ Gets existing un-flagged and un-prefixed statements from BCD. **Exit** if no def
 
 ### provide(“inferredStatements”, …)
 
-Infer Support Statements from Test Report data. Exits if more than 1 statement inferred or if `version_added` doesn’t match any optional `release` filters.
+Infer support statements from local test results. Exits if more than 1 statement inferred or if `version_added` doesn’t match any optional `release` filters.
 
 ```json
 {
@@ -223,7 +227,7 @@ Infer Support Statements from Test Report data. Exits if more than 1 statement i
 
 ### persistIfNoDefault
 
-Updates support data with inferred statements (& existing un-flagged statements) when no default statements exist.
+Updates `statements` key with inferred statements (& existing un-flagged statements) when no default statements exist.
 
 ```json
 {
@@ -239,11 +243,11 @@ Updates support data with inferred statements (& existing un-flagged statements)
         version_added: "85",
       },
     ],
-    	  reason: {
-    step: "provide_statements_nonDefault",
-    message: "api.AudioContext.close applied for chrome because there is no default statement",
-    skip: true,
-   },
+    reason: {
+      step: "provide_statements_nonDefault",
+      message: "api.AudioContext.close applied for chrome because there is no default statement",
+      skip: true,
+    },
   },
 }
      ]
@@ -266,13 +270,13 @@ Updates support data with inferred statements (& existing un-flagged statements)
 ```
 
 > [!NOTE]
-> Data that gets written into the `statements` key is ultimately what mutates the original BCD data when we exit the full entry loop, resulting in writes back to the BCD files.
+> Data that gets written into the `statements` key is ultimately used to mutate the original BCD data in the `shared` object when we exit the full entry loop, resulting in writes back to the BCD files.
 
 **Exits early** if:
 
 1. More than 1 default statement,
 2. Default statement has `version_removed` data, or
-3. BCD shows support for newer version than there are test results for
+3. BCD shows support for a newer browser version than there are test results for.
 
 ### persistInferredRange
 
@@ -305,7 +309,7 @@ Persist inferred version range when BCD version was set to `preview` or when inf
 
 ### persistAddedOverPartial
 
-Sets `version_added` to `false` if no inferred added data and only "partial implementation" in BCD data.
+Sets `statements` support data to `false` if no inferred added data and only "partial implementation" in BCD data.
 
 ```json
 {
@@ -337,7 +341,7 @@ Sets `version_added` to `false` if no inferred added data and only "partial impl
 
 ### persistAddedOver
 
-Generally overwrites BCD version data with inferred `version_added` data under following conditions:
+Updates `statements` key with inferred `version_added` data under following conditions:
 
 - it is different from existing value
 - is not a range
@@ -375,7 +379,7 @@ Generally overwrites BCD version data with inferred `version_added` data under f
 
 ### persistRemoved
 
-Adds `version_removed` data and optionally updates existing `version_removed` data if the inferred `version_removed` data is a string.
+Adds `version_removed` data to `statements` and optionally updates existing `version_removed` data if the inferred `version_removed` data is a string.
 
 ```json
 {
@@ -410,4 +414,6 @@ Adds `version_removed` data and optionally updates existing `version_removed` da
 
 ### clearNonExact
 
-Overwrites and clears any `statements` with ranged data if optional `exactOnly` flag is set. There is one final skip check after this step . If there are still `statements` at this point, then we include them in the final set of changes for BCD. We also run another comparison of the `versionMap` data from the test results against the updated `defaultStatements` to see if there are still possible updates that could have been made. If there are, then we log those with a warning that possible manual intervention may be required on the BCD file data.
+Overwrites and clears any `statements` with ranged data if optional `exactOnly` flag is set.
+
+There is one final skip check after this step . If there are still `statements` at this point, then we include them in the final set of changes for BCD. We also run another comparison of the `versionMap` data from the test results against the updated `defaultStatements` to see if there are still possible updates that could have been made. If there are, then we log those with a warning that possible manual intervention may be required on the BCD entry.

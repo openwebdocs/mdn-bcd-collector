@@ -14,7 +14,7 @@ By default, the following scripts generate results based on pre-collected report
 
 ## `update-bcd`
 
-The `update-bcd` script is used to update the features tracked in BCD with the collected results. This script takes results files and compiles them into BCD support statements, which are then compared against the local BCD repository. If the collector's results differ from BCD's statements, the files are modified accordingly. Read the data flow documentation for more step-by-step info on how the script processes the data and makes decisions on whether or not to modify BCD files.
+The `update-bcd` script is used to update the features tracked in BCD with the collected results. This script takes results files and compiles them into BCD support statements, which are then compared against the local BCD repository. If the collector's results differ from BCD's statements, the files are modified accordingly. Read the [data flow documentation](/docs/update-bcd-data-flow.md) for more step-by-step info on how the script processes the data and makes decisions on whether or not to modify BCD files.
 
 ### Basic usage
 
