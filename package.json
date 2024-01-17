@@ -123,7 +123,7 @@
     "minimatch": "9.0.3",
     "mocha": "10.2.0",
     "node-fetch": "3.3.2",
-    "nodemon": "3.0.2",
+    "nodemon": "3.0.3",
     "open-cli": "8.0.0",
     "prettier": "3.2.2",
     "puppeteer": "21.7.0",
