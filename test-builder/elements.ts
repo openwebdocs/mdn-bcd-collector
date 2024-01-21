@@ -145,7 +145,7 @@ const build = async (specElements, customElements) => {
             attrCode = `(function() {
   var instance = ${defaultConstructCode};
   instance.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:${xlinkAttr}', 'test');
-  return !!instance && instance.getAttributeNS('http://www.w3.org/1999/xlink', '${xlinkAttr}') === 'test';
+  return !!instance && bcd.testObjectName(instance, '${data.interfaceName}').result && instance.getAttributeNS('http://www.w3.org/1999/xlink', '${xlinkAttr}') === 'test';
 })()`;
           }
 
