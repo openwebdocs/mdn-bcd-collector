@@ -2,15 +2,9 @@
   "elements": {
     "custom": {
       "html": {
-        "acronym": {
-          "interfaceName": "HTMLElement"
-        },
-        "big": {
-          "interfaceName": "HTMLElement"
-        },
-        "center": {
-          "interfaceName": "HTMLElement"
-        },
+        "acronym": {},
+        "big": {},
+        "center": {},
         "dir": {
           "interfaceName": "HTMLDirectoryElement",
           "attributes": ["compact"]
@@ -55,34 +49,18 @@
             "width"
           ]
         },
-        "nobr": {
-          "interfaceName": "HTMLElement"
-        },
-        "noembed": {
-          "interfaceName": "HTMLElement"
-        },
-        "noframes": {
-          "interfaceName": "HTMLElement"
-        },
+        "nobr": {},
+        "noembed": {},
+        "noframes": {},
         "param": {
           "interfaceName": "HTMLParamElement",
           "attributes": [{"valuetype": "valueType"}, "name", "type", "value"]
         },
-        "plaintext": {
-          "interfaceName": "HTMLElement"
-        },
-        "rb": {
-          "interfaceName": "HTMLElement"
-        },
-        "rtc": {
-          "interfaceName": "HTMLElement"
-        },
-        "strike": {
-          "interfaceName": "HTMLElement"
-        },
-        "tt": {
-          "interfaceName": "HTMLElement"
-        },
+        "plaintext": {},
+        "rb": {},
+        "rtc": {},
+        "strike": {},
+        "tt": {},
         "xmp": {
           "interfaceName": "HTMLPreElement"
         }

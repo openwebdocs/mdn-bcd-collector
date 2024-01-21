@@ -324,7 +324,7 @@ __resources:
       };
       return canvas.getContext('webgl2');
 
-# Features defined here also need to be in @webref/idl or custom-idl/.
+# Features defined here also need to be in @webref/idl or custom/idl/.
 api:
   _globals:
     crypto: return !!self.crypto;
@@ -5024,7 +5024,7 @@ api:
   XRSystem:
     __base: var instance = navigator.xr;
 
-# Features defined here also need to be in @webref/css or custom-css.json.
+# Features defined here also need to be in @webref/css or custom/css.json.
 css:
   properties:
     custom-property: |-
@@ -5062,7 +5062,41 @@ css:
     left: "return {result: null, message: 'Testing :left is not yet implemented'};"
     right: "return {result: null, message: 'Testing :right is not yet implemented'};"
 
-# Features defined here also need to be in custom-js.json.
+html:
+  # Features defined here also need to be in @webref/elements or custom/elements.json.
+  elements:
+    input:
+      __base: |-
+        var instance = document.createElement('input');
+        function testType(type) {
+          instance.type = type;
+          return instance.type === type;
+        }
+      __additional:
+        type_button: return testType('button');
+        type_checkbox: return testType('checkbox');
+        type_color: return testType('color');
+        type_date: return testType('date');
+        type_datetime-local: return testType('datetime-local');
+        type_email: return testType('email');
+        type_file: return testType('file');
+        type_hidden: return testType('hidden');
+        type_image: return testType('image');
+        type_month: return testType('month');
+        type_number: return testType('number');
+        type_password: return testType('password');
+        type_radio: return testType('radio');
+        type_range: return testType('range');
+        type_reset: return testType('reset');
+        type_search: return testType('search');
+        type_submit: return testType('submit');
+        type_tel: return testType('tel');
+        type_text: return testType('text');
+        type_time: return testType('time');
+        type_url: return testType('url');
+        type_week: return testType('week');
+
+# Features defined here also need to be in custom/js.json.
 javascript:
   builtins:
     AggregateError:
