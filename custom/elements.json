@@ -1,6 +1,92 @@
 {
   "elements": {
     "custom": {
+      "html": {
+        "acronym": {
+          "interfaceName": "HTMLElement"
+        },
+        "big": {
+          "interfaceName": "HTMLElement"
+        },
+        "center": {
+          "interfaceName": "HTMLElement"
+        },
+        "dir": {
+          "interfaceName": "HTMLDirectoryElement",
+          "attributes": ["compact"]
+        },
+        "font": {
+          "interfaceName": "HTMLFontElement",
+          "attributes": ["color", "face", "size"]
+        },
+        "frame": {
+          "interfaceName": "HTMLFrameElement",
+          "attributes": [
+            {
+              "frameborder": "frameBorder",
+              "marginheight": "marginHeight",
+              "marginwidth": "marginWidth",
+              "noresize": "noResize"
+            },
+            "name",
+            "scrolling",
+            "src"
+          ]
+        },
+        "frameset": {
+          "interfaceName": "HTMLFrameSetElement",
+          "attributes": ["cols", "rows"]
+        },
+        "marquee": {
+          "interfaceName": "HTMLMarqueeElement",
+          "attributes": [
+            {
+              "bgcolor": "bgColor",
+              "scrollamount": "scrollAmount",
+              "scrolldelay": "scrollDelay",
+              "truespeed": "trueSpeed"
+            },
+            "behavior",
+            "direction",
+            "height",
+            "hspace",
+            "loop",
+            "vspace",
+            "width"
+          ]
+        },
+        "nobr": {
+          "interfaceName": "HTMLElement"
+        },
+        "noembed": {
+          "interfaceName": "HTMLElement"
+        },
+        "noframes": {
+          "interfaceName": "HTMLElement"
+        },
+        "param": {
+          "interfaceName": "HTMLParamElement",
+          "attributes": [{"valuetype": "valueType"}, "name", "type", "value"]
+        },
+        "plaintext": {
+          "interfaceName": "HTMLElement"
+        },
+        "rb": {
+          "interfaceName": "HTMLElement"
+        },
+        "rtc": {
+          "interfaceName": "HTMLElement"
+        },
+        "strike": {
+          "interfaceName": "HTMLElement"
+        },
+        "tt": {
+          "interfaceName": "HTMLElement"
+        },
+        "xmp": {
+          "interfaceName": "HTMLPreElement"
+        }
+      },
       "svg": {
         "cursor": {
           "interfaceName": "SVGCursorElement",
