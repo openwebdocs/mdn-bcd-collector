@@ -94,6 +94,12 @@
         "jump": "steps(1, jump-start)"
       }
     },
+    "animation-timeline": {
+      "__additional_values": {
+        "scroll": "scroll()",
+        "view": "view()"
+      }
+    },
     "animation-duration": {
       "__values": ["auto", "scroll", "view"]
     },
@@ -280,6 +286,8 @@
     "content": {
       "__additional_values": {
         "alt_text": "url(test.png) / 'This is the alt text'",
+        "gradient": "linear-gradient(black, white)",
+        "image-set": "image-set(url(small-balloons.jpg) 1x, url(large-balloons.jpg) 2x)",
         "url": "url(test.png)"
       }
     },
@@ -345,6 +353,7 @@
         "inline-grid",
         "inline-table",
         "list-item",
+        "math",
         "none"
       ]
     },
@@ -666,6 +675,8 @@
     "offset-inline-start": {},
     "offset-path": {
       "__additional_values": {
+        "basic_shape": "circle(50px at 0 100px)",
+        "coord_box": "content-box",
         "path": "path('M20,20 L50,80 L80,20')",
         "ray": "ray(45deg closest-side contain)",
         "url": "url(test.png)"
@@ -744,6 +755,7 @@
         "gradient": "linear-gradient(45deg, rgba(255, 255, 255, 0) 150px, red 150px)",
         "image": "url(test.png)",
         "inset": "inset(10px 10px 10px 10px)",
+        "path": "path('M20,20 L50,80 L80,20')",
         "polygon": "polygon(10px 10px, 20px 20px, 30px 30px)"
       }
     },
