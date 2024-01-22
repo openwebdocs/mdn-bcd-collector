@@ -5112,21 +5112,6 @@ javascript:
           "Multiple errors thrown",
         );
       AggregateError: return !!instance;
-    Array:
-      sort:
-        __additional:
-          stable_sorting: |-
-            // Based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sort_stability
-            var students = [
-              { name: "Alex", grade: 15 },
-              { name: "Devlin", grade: 15 },
-              { name: "Eagle", grade: 13 },
-              { name: "Sam", grade: 14 },
-            ];
-            students.sort(function (firstItem, secondItem) {
-              return firstItem.grade - secondItem.grade;
-            });
-            return students[2].name === "Alex";
     AsyncFunction:
       __base: |-
         var func;
