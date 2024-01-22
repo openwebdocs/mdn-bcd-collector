@@ -13,12 +13,25 @@
     },
     "ArrayBuffer": {
       "members": {
-        "instance": ["detached", "transfer", "transferToFixed"]
+        "instance": [
+          "detached",
+          "transfer",
+          "transferToFixed",
+          "transferToFixedLength"
+        ]
       }
     },
     "Error": {
       "members": {
-        "instance": ["cause", "columnNumber", "fileName", "lineNumber", "stack"]
+        "instance": [
+          "cause",
+          "columnNumber",
+          "fileName",
+          "lineNumber",
+          "message",
+          "name",
+          "stack"
+        ]
       }
     },
     "Function": {
@@ -160,6 +173,38 @@
     "Intl.Segments": {
       "members": {
         "instance": ["containing", "@@iterator"]
+      }
+    },
+    "Iterator": {
+      "ctor": {},
+      "members": {
+        "static": ["from"],
+        "instance": [
+          "drop",
+          "every",
+          "filter",
+          "find",
+          "flatMap",
+          "forEach",
+          "map",
+          "reduce",
+          "some",
+          "take",
+          "toArray"
+        ]
+      }
+    },
+    "Set": {
+      "members": {
+        "instance": [
+          "difference",
+          "intersection",
+          "isDisjointFrom",
+          "isSubsetOf",
+          "isSupersetOf",
+          "symmetricDifference",
+          "union"
+        ]
       }
     },
 
