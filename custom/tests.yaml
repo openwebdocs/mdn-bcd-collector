@@ -5027,9 +5027,11 @@ api:
 # Features defined here also need to be in @webref/css or custom/css.json.
 css:
   properties:
-    custom-property: |-
-      return CSS.supports('color', 'var(--foo)') || CSS.supports('color',
-      'env(--foo)');
+    custom-property:
+      __test: return CSS.supports('color', 'var(--foo)') || CSS.supports('color', 'env(--foo)');
+      __additional:
+        var: return CSS.supports('color', 'var(--foo)');
+        env: return CSS.supports('color', 'env(--foo)');
     aspect-ratio: |-
       return bcd.testCSSProperty('aspect-ratio', '16 / 9');
   selectors:
