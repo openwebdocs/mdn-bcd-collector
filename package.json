@@ -128,7 +128,7 @@
     "prettier": "3.2.4",
     "puppeteer": "21.7.0",
     "sass": "1.70.0",
-    "selenium-webdriver": "4.16.0",
+    "selenium-webdriver": "4.17.0",
     "sinon": "17.0.1",
     "typescript": "5.3.3",
     "webidl2": "24.4.1",
