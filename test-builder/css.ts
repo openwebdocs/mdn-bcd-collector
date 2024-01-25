@@ -209,7 +209,7 @@ const build = async (specCSS, customCSS) => {
     }
 
     for (const selector of data.selectors) {
-      selectors.set(selector.name, new Map());
+      selectors.set(selector.name, {});
     }
   }
 
@@ -248,11 +248,11 @@ const build = async (specCSS, customCSS) => {
     }
   }
 
-  for (const [name] of Object.entries(customCSS.selectors) as any[]) {
+  for (const [name, value] of Object.entries(customCSS.selectors) as any[]) {
     if (selectors.has(name)) {
       throw new Error(`Custom CSS selector already known: ${name}`);
     }
-    selectors.set(name, new Map());
+    selectors.set(name, value);
   }
 
   const tests = {};
@@ -268,9 +268,7 @@ const build = async (specCSS, customCSS) => {
     });
 
     // Tests for values
-    for (const [key, value] of Array.from(
-      properties.get(name).entries(),
-    ).sort() as any[]) {
+    for (const [key, value] of properties.get(name).entries() as any[]) {
       const valueIdent = `${ident}.${key}`;
       const customValueTest = await getCustomTest(
         valueIdent,
@@ -296,8 +294,8 @@ const build = async (specCSS, customCSS) => {
     }
   }
 
-  for (const selectorSyntax of Array.from(selectors.keys()).sort()) {
-    const bcdName = selectorSyntax
+  for (const [selector, selectorData] of selectors.entries()) {
+    const bcdName = selector
       .replaceAll(":", "")
       .replaceAll("()", "")
       .replaceAll("+", "next-sibling")
@@ -311,7 +309,9 @@ const build = async (specCSS, customCSS) => {
 
     tests[ident] = compileTest({
       raw: {
-        code: customTest.test || `bcd.testCSSSelector("${selectorSyntax}")`,
+        code:
+          customTest.test ||
+          `bcd.testCSSSelector("${selectorData.syntax || selector}")`,
       },
       exposure: ["Window"],
     });

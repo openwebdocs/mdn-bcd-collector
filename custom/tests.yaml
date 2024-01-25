@@ -5054,6 +5054,7 @@ css:
     host-context: return bcd.testCSSSelector(':host-context(h1)');
     is: return bcd.testCSSSelector(':is(h1)');
     lang: return bcd.testCSSSelector(':lang(en-US)');
+    list: "return {result: null, message: 'Testing list selector is not yet implemented'};"
     not: return bcd.testCSSSelector(':not(strong)');
     nth-child: return bcd.testCSSSelector(':nth-child(even)');
     nth-last-child: return bcd.testCSSSelector(':nth-last-child(even)');

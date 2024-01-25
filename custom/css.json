@@ -924,18 +924,24 @@
     }
   },
   "selectors": {
+    ":-moz-broken": {},
     ":-moz-first-node": {},
     ":-moz-last-node": {},
     ":-moz-only-whitespace": {},
+    ":-moz-submit-invalid": {},
     ":-moz-window-inactive": {},
     "::-moz-color-swatch": {},
     "::-moz-focus-inner": {},
     "::-moz-list-bullet": {},
     "::-moz-list-number": {},
+    "::-moz-page": {},
+    "::-moz-page-sequence": {},
     "::-moz-progress-bar": {},
     "::-moz-range-progress": {},
     "::-moz-range-thumb": {},
     "::-moz-range-track": {},
+    "::-moz-scrolled-page-sequence": {},
+    "::-webkit-details-marker": {},
     "::-webkit-inner-spin-button": {},
     "::-webkit-meter-bar": {},
     "::-webkit-meter-even-less-good-value": {},
@@ -945,11 +951,42 @@
     "::-webkit-progress-bar": {},
     "::-webkit-progress-inner-element": {},
     "::-webkit-progress-value": {},
+    "::-webkit-resizer": {},
     "::-webkit-scrollbar": {},
+    "::-webkit-scrollbar-button": {},
+    "::-webkit-scrollbar-corner": {},
+    "::-webkit-scrollbar-thumb": {},
+    "::-webkit-scrollbar-track": {},
+    "::-webkit-scrollbar-track-piece": {},
     "::-webkit-search-cancel-button": {},
     "::-webkit-search-results-button": {},
     "::-webkit-slider-runnable-track": {},
     "::-webkit-slider-thumb": {},
-    ":popover-open": {}
+    ":popover-open": {},
+    "id": {
+      "syntax": "#foo"
+    },
+    "class": {
+      "syntax": ".foo"
+    },
+    "attribute": {
+      "syntax": "p[foo=bar]"
+    },
+    "descendant": {
+      "syntax": "a p"
+    },
+    "namespace": {
+      "syntax": "*|a"
+    },
+    "type": {
+      "syntax": "p"
+    },
+    "universal": {
+      "syntax": "*"
+    },
+    "list": {},
+    "hostfunction": {
+      "syntax": ":host(foo)"
+    }
   }
 }
