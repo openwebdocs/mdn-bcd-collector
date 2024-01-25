@@ -157,7 +157,7 @@ const build = async (specElements, customElements) => {
           });
 
           // Add the additional tests
-          for (const [key, code] of Object.entries(customTest.additional)) {
+          for (const [key, code] of Object.entries(customAttrTest.additional)) {
             tests[`${bcdPath}.${attrName}.${key}`] = compileTest({
               raw: {code: code},
               exposure: ["Window"],
