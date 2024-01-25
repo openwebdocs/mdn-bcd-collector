@@ -1,5 +1,147 @@
 # mdn-bcd-collector Changelog
 
+## v10.7.1
+
+Released January 24, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Document.hasPrivateToken
+- api.MessagePort.close_event
+- api.PerformanceScriptTiming.forcedStyleAndLayoutDuration
+- api.PerformanceScriptTiming.invoker
+- api.PerformanceScriptTiming.invokerType
+- api.PerformanceScriptTiming.pauseDuration
+- api.PerformanceScriptTiming.window
+- api.PerformanceScriptTiming.windowAttribution
+- api.PublicKeyCredential.getClientCapabilities_static
+- css.properties.animation-timeline.scroll
+- css.properties.animation-timeline.view
+- css.properties.content.gradient
+- css.properties.content.image-set
+- css.properties.custom-property.var
+- css.properties.custom-property.env
+- css.properties.display.math
+- css.properties.offset-path.basic_shape
+- css.properties.offset-path.coord_box
+- css.properties.shape-outside.path
+- html.elements.acronym
+- html.elements.big
+- html.elements.center
+- html.elements.dir
+- html.elements.font
+- html.elements.frame
+- html.elements.frameset
+- html.elements.input.type_button
+- html.elements.input.type_checkbox
+- html.elements.input.type_color
+- html.elements.input.type_date
+- html.elements.input.type_datetime-local
+- html.elements.input.type_email
+- html.elements.input.type_file
+- html.elements.input.type_hidden
+- html.elements.input.type_image
+- html.elements.input.type_month
+- html.elements.input.type_number
+- html.elements.input.type_password
+- html.elements.input.type_radio
+- html.elements.input.type_range
+- html.elements.input.type_reset
+- html.elements.input.type_search
+- html.elements.input.type_submit
+- html.elements.input.type_tel
+- html.elements.input.type_text
+- html.elements.input.type_time
+- html.elements.input.type_url
+- html.elements.input.type_week
+- html.elements.marquee
+- html.elements.nobr
+- html.elements.noembed
+- html.elements.noframes
+- html.elements.param
+- html.elements.plaintext
+- html.elements.rb
+- html.elements.rtc
+- html.elements.strike
+- html.elements.tt
+- html.elements.xmp
+- javascript.builtins.Error.message
+- javascript.builtins.Error.name
+- javascript.builtins.Set.difference
+- javascript.builtins.Set.intersection
+- javascript.builtins.Set.isDisjointFrom
+- javascript.builtins.Set.isSubsetOf
+- javascript.builtins.Set.isSupersetOf
+- javascript.builtins.Set.symmetricDifference
+- javascript.builtins.Set.union
+- javascript.builtins.ArrayBuffer.transferToFixedLength
+- javascript.builtins.Iterator.Iterator
+- javascript.builtins.Iterator.from
+- javascript.builtins.Iterator.drop
+- javascript.builtins.Iterator.every
+- javascript.builtins.Iterator.filter
+- javascript.builtins.Iterator.find
+- javascript.builtins.Iterator.flatMap
+- javascript.builtins.Iterator.forEach
+- javascript.builtins.Iterator.map
+- javascript.builtins.Iterator.reduce
+- javascript.builtins.Iterator.some
+- javascript.builtins.Iterator.take
+- javascript.builtins.Iterator.toArray
+
+#### Removed
+
+- api.AuthenticatorAssertionResponse.attestationObject
+- api.Document.hasPrivateTokens
+- api.PerformanceScriptTiming.type
+- api.PublicKeyCredential.isPasskeyPlatformAuthenticatorAvailable_static
+- api.TaskAttributionTiming.duration
+- api.TaskAttributionTiming.entryType
+- api.TaskAttributionTiming.name
+- api.TaskAttributionTiming.startTime
+- css.properties.all.inherit
+- css.properties.all.initial
+- css.properties.all.revert
+- css.properties.all.revert-layer
+- css.properties.all.unset
+
+#### Changed
+
+- svg.elements.a.xlink_actuate
+- svg.elements.a.xlink_href
+- svg.elements.a.xlink_show
+- svg.elements.a.xlink_title
+- svg.elements.cursor.xlink_href
+- svg.elements.feImage.xlink_href
+- svg.elements.filter.xlink_href
+- svg.elements.font-face-uri.xlink_href
+- svg.elements.glyphRef.xlink_href
+- svg.elements.image.xlink_href
+- svg.elements.linearGradient.xlink_href
+- svg.elements.mpath.xlink_href
+- svg.elements.pattern.xlink_href
+- svg.elements.radialGradient.xlink_href
+- svg.elements.script.xlink_href
+- svg.elements.textPath.xlink_href
+- svg.elements.tref.xlink_href
+- svg.elements.use.xlink_href
+
+### Commits
+
+- Fix typo when obtaining custom additional tests for element types ([#1096](https://github.com/openwebdocs/mdn-bcd-collector/pull/1096))
+- Add more JavaScript builtins tests ([#1087](https://github.com/openwebdocs/mdn-bcd-collector/pull/1087))
+- Add additional CSS property values/tests ([#1086](https://github.com/openwebdocs/mdn-bcd-collector/pull/1086))
+- Add custom tests for input element types ([#1085](https://github.com/openwebdocs/mdn-bcd-collector/pull/1085))
+- Add additional HTML elements ([#1084](https://github.com/openwebdocs/mdn-bcd-collector/pull/1084))
+- Test for proper element instances in xlink tests ([#1082](https://github.com/openwebdocs/mdn-bcd-collector/pull/1082))
+- Ignore redundant features ([#1072](https://github.com/openwebdocs/mdn-bcd-collector/pull/1072))
+- Fix ESLint/TypeScript issues ([#1067](https://github.com/openwebdocs/mdn-bcd-collector/pull/1067))
+- add-new-bcd: Add --verbose argument ([#1066](https://github.com/openwebdocs/mdn-bcd-collector/pull/1066))
+- update-bcd: Add --verbose argument ([#1065](https://github.com/openwebdocs/mdn-bcd-collector/pull/1065))
+- deploy.yml: Remove old results; fix secrets ([#1064](https://github.com/openwebdocs/mdn-bcd-collector/pull/1064))
+
 ## v10.7.0
 
 Released January 12, 2024
