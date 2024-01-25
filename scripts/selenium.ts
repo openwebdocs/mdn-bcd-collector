@@ -182,7 +182,7 @@ const getBrowsersToTest = (
 ) => {
   let browsersToTest: Partial<Record<BrowserName, string[]>> = {
     chrome: filterVersions("chrome", since, reverse),
-    // edge: filterVersions("edge", since, reverse),
+    edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
     safari: filterVersions("safari", since, reverse).filter((v) =>
       // CIs don't have good coverage of Safari 15 and above
@@ -775,7 +775,7 @@ if (esMain(import.meta)) {
           describe: "Limit the browser(s) to test",
           alias: "b",
           type: "string",
-          choices: ["chrome", "firefox", "safari"],
+          choices: ["chrome", "edge", "firefox", "safari"],
         })
         .option("since", {
           describe: "Limit to browser releases from this year on",
