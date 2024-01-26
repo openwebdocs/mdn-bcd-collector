@@ -82,7 +82,7 @@ const shouldIgnoreAttr = (featureName: string, attrName: string): boolean => {
  * @param customJS - The custom data.
  * @returns - The built test list.
  */
-const buildTestList = (specJS, customJS) => {
+const buildBuiltinsTestList = (specJS, customJS) => {
   const features = {};
 
   // Iterate through the spec data
@@ -200,7 +200,7 @@ const getCategory = (pathParts: string[]) => {
  * @param data.static - Indicates if the test is for a static feature (optional).
  * @returns - A Promise that resolves when the test is built.
  */
-const buildTest = async (
+const buildBuiltinsTest = async (
   tests,
   path: string,
   data: {static?: boolean} = {},
@@ -386,19 +386,19 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
 };
 
 /**
- * Builds the tests for the given specJS and customJS.
- * @param specJS - The specJS object.
- * @param customJS - The customJS object.
- * @returns - The tests object.
+ * Builds the tests for JavaScript builtins
+ * @param specJS - The JavaScript features scraped from spec
+ * @param customJS - Custom JavaScript features
+ * @returns - The JavaScript builtins tests
  */
-const build = async (specJS, customJS) => {
+const buildBuiltins = async (specJS, customJS) => {
   const tests = {};
 
-  const features = buildTestList(specJS, customJS);
+  const features = buildBuiltinsTestList(specJS, customJS);
 
   for (const [featureName, featureData] of Object.entries(features) as any[]) {
     const bcdPath = ["javascript", "builtins", featureName].join(".");
-    await buildTest(tests, bcdPath);
+    await buildBuiltinsTest(tests, bcdPath);
 
     if (featureData.ctor) {
       const pathParts = bcdPath.split(".");
@@ -411,16 +411,64 @@ const build = async (specJS, customJS) => {
 
     if (featureData.members) {
       for (const sm of featureData.members.static || []) {
-        await buildTest(tests, `${bcdPath}.${sm}`, {static: true});
+        await buildBuiltinsTest(tests, `${bcdPath}.${sm}`, {static: true});
       }
 
       for (const im of featureData.members.instance || []) {
-        await buildTest(tests, `${bcdPath}.${im}`, {static: false});
+        await buildBuiltinsTest(tests, `${bcdPath}.${im}`, {static: false});
       }
     }
   }
 
   return tests;
+};
+
+/**
+ * Builds the tests for JavaScript operators
+ * @param customJS - Custom JavaScript features
+ * @returns - The JavaScript operators tests
+ */
+const buildOperators = async (customJS) => {
+  const tests = {};
+
+  for (const [operatorName, operatorCode] of Object.entries(
+    customJS.operators,
+  ) as any[]) {
+    const path = `javascript.operators.${operatorName}`;
+
+    const customTest = await getCustomTest(path, "javascript.operators", true);
+
+    tests[path] = compileTest({
+      raw: {
+        code:
+          customTest.test ||
+          `(function() {
+  try {
+    ${operatorCode.replaceAll("\n", "\n    ")}${operatorCode.endsWith(";") ? "" : ";"}
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+      },
+      exposure: ["Window"],
+    });
+  }
+
+  return tests;
+};
+
+/**
+ * Builds all of the JavaScript tests.
+ * @param specJS - The JavaScript features scraped from spec
+ * @param customJS - Custom JavaScript features
+ * @returns - The JavaScript tests
+ */
+const build = async (specJS, customJS) => {
+  return {
+    ...(await buildBuiltins(specJS, customJS)),
+    ...(await buildOperators(customJS)),
+  };
 };
 
 export {build};
