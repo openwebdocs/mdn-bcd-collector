@@ -444,7 +444,7 @@ const buildOpsAndStatements = async (customJS) => {
             customTest.test ||
             `(function() {
   try {
-    ${code.replaceAll("\n", "\n    ")}${code.endsWith(";") ? "" : ";"}
+    ${code.replaceAll("\n", "\n    ")}${code.endsWith(";") || code.endsWith("}") || code.endsWith("*/") ? "" : ";"}
     return true;
   } catch(e) {
     return {result: false, message: e.message};

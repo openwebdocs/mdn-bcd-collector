@@ -644,11 +644,15 @@
     "block": "if (true) {};",
     "class": "const Rectangle = class {};",
     "const": "const x = 1;",
+    "continue": "for (var x = 1; x < 3; x++) {\n  continue;\n}",
     "for": "for (var x = 1; x < 3; x++) {}",
     "function": "function foo() {};",
     "generator_function": "function* foo() {};",
+    "if_else": "if (true) {} else {};",
     "let": "let x = 1;",
-    "return": "",
+    "return": "/* Return statement automatically generated below */",
+    "switch": "switch (1) {\n  case 1:\n    break;\n};",
+    "try_catch": "/* This function is already wrapped in a try-catch */",
     "var": "var x = 1;"
   }
 }
