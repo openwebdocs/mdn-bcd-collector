@@ -424,14 +424,14 @@ const buildBuiltins = async (specJS, customJS) => {
 };
 
 /**
- * Builds the tests for JavaScript operators
+ * Builds the tests for JavaScript syntax-based features
  * @param customJS - Custom JavaScript features
- * @returns - The JavaScript operators tests
+ * @returns - The JavaScript syntax-based features tests
  */
-const buildOpsAndStatements = async (customJS) => {
+const buildSyntax = async (customJS) => {
   const tests = {};
 
-  for (const subcategory of ["operators", "statements"]) {
+  for (const subcategory of ["grammar", "operators", "statements"]) {
     for (const [name, code] of Object.entries(customJS[subcategory]) as any[]) {
       const category = `javascript.${subcategory}`;
       const path = `${category}.${name}`;
@@ -468,7 +468,7 @@ const buildOpsAndStatements = async (customJS) => {
 const build = async (specJS, customJS) => {
   return {
     ...(await buildBuiltins(specJS, customJS)),
-    ...(await buildOpsAndStatements(customJS)),
+    ...(await buildSyntax(customJS)),
   };
 };
 

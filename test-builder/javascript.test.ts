@@ -121,6 +121,9 @@ describe("build (JavaScript)", () => {
           },
         },
       },
+      grammar: {
+        array_literals: "var x = [1, 2, 3];",
+      },
       operators: {
         addition: "var x = 1 + 1;",
       },
@@ -218,6 +221,17 @@ describe("build (JavaScript)", () => {
   return bcd.testConstructor("BigInt", true);
 })();
 `,
+        exposure: ["Window"],
+      },
+      "javascript.grammar.array_literals": {
+        code: `(function() {
+  try {
+    var x = [1, 2, 3];
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
         exposure: ["Window"],
       },
       "javascript.operators.addition": {
