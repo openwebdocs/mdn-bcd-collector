@@ -26,16 +26,49 @@ These parts work in tandem to ultimately help ensure that BCD is as accurate as 
 
 The workflow for the collector's process looks something like this:
 
-- In the browser...
-  - The collector's website is opened
-  - The "Run" button is clicked to run all of the tests
-  - Once tests are completed, they are exported
-  - Rinse and repeat for every browser and browser version results are desired for
-- After running through all browser and browser versions...
-  - The `update-bcd` script is run to create changes to BCD
+```mermaid
+flowchart TD
+  subgraph collector_maintainer [mdn-bcd-collector maintainers:]
+    release(A new version of the mdn-bcd-collector is released)
+    selenium(A Selenium WebDriver script is triggered)
+    selenium_run(The Selenium script tests all browsers in CTs released since 2020)
+    manual(Browsers unavailable in CTs are tested manually)
 
-> [!NOTE]
-> On every new release of the collector, the first part is automatically run on all browsers released in 2020 and later, using Selenium WebDriver on [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute). These results are saved to the [mdn-bcd-results](https://github.com/openwebdocs/mdn-bcd-results) repository for easy use by BCD contributors.
+    release --> selenium --> selenium_run --> browser
+    release --> manual ---> browser
+
+    subgraph browser [In the browser...]
+      direction TB
+      open(The collector's website is opened) -->
+      run(The #quot;Run#quot; button is clicked to run all of the tests) -->
+      export(Once tests are completed, they are exported)
+    end
+
+    browser --> results(All of the results are collected and stored in the <a href='https://github.com/openwebdocs/mdn-bcd-results'>mdn-bcd-results</a> repo)
+  end
+
+  collector_maintainer --> bcd_maintainer
+
+  subgraph bcd_maintainer [BCD maintainers:]
+    pull(Pull the latest mdn-bcd-collector and mdn-bcd-results versions) --> update_bcd & add_new_bcd
+    subgraph update_bcd [update-bcd]
+      direction TB
+      update_run(Run the <code>update-bcd</code> script to make local changes to BCD)
+      update_pr_bcd(Submit pull requests to apply changes to BCD)
+      update_pr_collector(Submit issues/pull requests to fix collector tests)
+
+      update_run --> update_pr_bcd & update_pr_collector
+    end
+
+    subgraph add_new_bcd [add-new-bcd]
+      direction TB
+      add_run(Run the <code>add-new-bcd</code> script to locally add new supported features to BCD) -->
+      add_pr(Submit pull requests to apply changes to BCD)
+    end
+  end
+```
+
+(Thanks to [BrowserStack](https://www.browserstack.com/open-source), [SauceLabs](https://opensource.saucelabs.com/) and [LambdaTest](https://www.lambdatest.com/hyperexecute) for providing us with free CT resources!)
 
 ### The Website
 
