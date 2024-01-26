@@ -178,7 +178,9 @@ const flattenMembers = (iface) => {
             ["onconnect", "ondisconnect"].includes(member.name)) ||
           (iface.name === "SVGAnimationElement" &&
             ["onbegin", "onend", "onrepeat"].includes(member.name)) ||
-          (iface.name === "TaskAttributionTiming" &&
+          (["TaskAttributionTiming", "PerformanceLongTaskTiming"].includes(
+            iface.name,
+          ) &&
             ["startTime", "duration", "name", "entryType"].includes(
               member.name,
             ))
