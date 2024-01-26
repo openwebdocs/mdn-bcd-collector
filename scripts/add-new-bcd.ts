@@ -18,7 +18,7 @@ import {hideBin} from "yargs/helpers";
 import {BCD_DIR} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
-import {getMissing} from "./find-missing-features.js";
+import {getMissing} from "./feature-coverage.js";
 import {main as updateBcd} from "./update-bcd.js";
 
 const tests = await fs.readJson(new URL("../tests.json", import.meta.url));

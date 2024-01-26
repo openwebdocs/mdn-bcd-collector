@@ -1,5 +1,5 @@
 //
-// mdn-bcd-collector: scripts/find-missing-features.ts
+// mdn-bcd-collector: scripts/feature-coverage.ts
 // Script to find features that are in the collector or BCD but not the other
 //
 // © Gooborg Studios, Google LLC
@@ -238,23 +238,30 @@ const main = (bcd: CompatData, tests: Tests) => {
   let firstEntry = true;
 
   for (const [filter, data] of Object.entries(missingFeatures)) {
-    if (!argv.countOnly && firstEntry) {
-      console.log(data.missing.join("\n") + "\n");
-    }
+    const foundFeatures = data.all.length - data.missing.length;
 
     console.log(
-      chalk`{cyan ${data.missing.length}/${data.all.length} (${(
-        (data.missing.length / data.all.length) *
-        100.0
-      ).toFixed(2)}%)} {yellow entries missing from {red.bold ${
-        direction[0]
-      }} that are in {green.bold ${direction[1]}}}` +
-        (filter ? chalk` for {blue ${filter}}` : ""),
+      (filter ? chalk`{blue ${filter}}: ` : "") +
+        chalk`{green.bold ${direction[0]}} covers {green ${foundFeatures} (${(
+          (foundFeatures / data.all.length) *
+          100.0
+        ).toFixed(
+          2,
+        )}%)} of {cyan ${data.all.length}} entries tracked in {red.bold ${direction[1]}} ({red ${data.missing.length} (${(
+          (data.missing.length / data.all.length) *
+          100.0
+        ).toFixed(2)}%)} missing)`,
     );
 
     if (firstEntry) {
       // Print a newline
       console.log("");
+
+      if (!argv.countOnly) {
+        console.log(
+          chalk`{red Missing Features:}\n` + data.missing.join("\n") + "\n",
+        );
+      }
     }
 
     firstEntry = false;
