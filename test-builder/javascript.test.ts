@@ -121,6 +121,12 @@ describe("build (JavaScript)", () => {
           },
         },
       },
+      operators: {
+        addition: "var x = 1 + 1;",
+      },
+      statements: {
+        var: "var x = 1;",
+      },
     };
 
     assert.deepEqual(await build(specJS, customJS), {
@@ -212,6 +218,28 @@ describe("build (JavaScript)", () => {
   return bcd.testConstructor("BigInt", true);
 })();
 `,
+        exposure: ["Window"],
+      },
+      "javascript.operators.addition": {
+        code: `(function() {
+  try {
+    var x = 1 + 1;
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+      "javascript.statements.var": {
+        code: `(function() {
+  try {
+    var x = 1;
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
         exposure: ["Window"],
       },
     });
