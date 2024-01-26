@@ -428,31 +428,32 @@ const buildBuiltins = async (specJS, customJS) => {
  * @param customJS - Custom JavaScript features
  * @returns - The JavaScript operators tests
  */
-const buildOperators = async (customJS) => {
+const buildOpsAndStatements = async (customJS) => {
   const tests = {};
 
-  for (const [operatorName, operatorCode] of Object.entries(
-    customJS.operators,
-  ) as any[]) {
-    const path = `javascript.operators.${operatorName}`;
+  for (const subcategory of ["operators", "statements"]) {
+    for (const [name, code] of Object.entries(customJS[subcategory]) as any[]) {
+      const category = `javascript.${subcategory}`;
+      const path = `${category}.${name}`;
 
-    const customTest = await getCustomTest(path, "javascript.operators", true);
+      const customTest = await getCustomTest(path, category, true);
 
-    tests[path] = compileTest({
-      raw: {
-        code:
-          customTest.test ||
-          `(function() {
+      tests[path] = compileTest({
+        raw: {
+          code:
+            customTest.test ||
+            `(function() {
   try {
-    ${operatorCode.replaceAll("\n", "\n    ")}${operatorCode.endsWith(";") ? "" : ";"}
+    ${code.replaceAll("\n", "\n    ")}${code.endsWith(";") ? "" : ";"}
     return true;
   } catch(e) {
     return {result: false, message: e.message};
   }
 })();`,
-      },
-      exposure: ["Window"],
-    });
+        },
+        exposure: ["Window"],
+      });
+    }
   }
 
   return tests;
@@ -467,7 +468,7 @@ const buildOperators = async (customJS) => {
 const build = async (specJS, customJS) => {
   return {
     ...(await buildBuiltins(specJS, customJS)),
-    ...(await buildOperators(customJS)),
+    ...(await buildOpsAndStatements(customJS)),
   };
 };
 

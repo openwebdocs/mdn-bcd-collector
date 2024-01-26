@@ -637,5 +637,18 @@
     "void": "void function test() {\n  console.log('test function executed');\n};",
     "yield": "function* foo() {\n  yield 'a'\n};",
     "yield_star": "function* foo() {\n  yield 'a'\n};\nfunction* bar() {\n  yield* foo()\n};"
+  },
+  "statements": {
+    "async_function": "async function foo() {};",
+    "async_generator_function": "async function* foo() {};",
+    "block": "if (true) {};",
+    "class": "const Rectangle = class {};",
+    "const": "const x = 1;",
+    "for": "for (var x = 1; x < 3; x++) {}",
+    "function": "function foo() {};",
+    "generator_function": "function* foo() {};",
+    "let": "let x = 1;",
+    "return": "",
+    "var": "var x = 1;"
   }
 }
