@@ -220,7 +220,7 @@ describe("build (JavaScript)", () => {
 `,
         exposure: ["Window"],
       },
-      "javascript.operators.additions": {
+      "javascript.operators.addition": {
         code: `(function() {
   try {
     var x = 1 + 1;
