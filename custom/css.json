@@ -4,10 +4,7 @@
     "-moz-force-broken-image-icon": {},
     "-moz-image-region": {},
     "-moz-orient": {
-      "__values": ["auto"],
-      "__additional_values": {
-        "inline_and_block": ["inline", "block"]
-      }
+      "__values": ["auto", "inline", "block"]
     },
     "-moz-user-focus": {},
     "-moz-user-input": {
@@ -160,16 +157,14 @@
       }
     },
     "background-repeat": {
+      "__values": ["round", "space"],
       "__additional_values": {
         "2-value": "repeat no-repeat",
-        "multiple_backgrounds": "repeat, no-repeat",
-        "round_space": ["space", "round"]
+        "multiple_backgrounds": "repeat, no-repeat"
       }
     },
     "background-size": {
-      "__additional_values": {
-        "contain_and_cover": ["contain", "cover"]
-      }
+      "__values": ["contain", "cover"]
     },
     "block-size": {
       "__additional_values": {
@@ -248,31 +243,25 @@
       "__values": ["padding-box"]
     },
     "caption-side": {
-      "__additional_values": {
-        "non_standard_values": [
-          "left",
-          "right",
-          "top-outside",
-          "bottom-outside"
-        ]
-      }
+      "__values": ["left", "right", "top-outside", "bottom-outside"]
     },
     "clear": {
-      "__additional_values": {
-        "flow_relative_values": ["inline-end", "inline-start"]
-      }
+      "__values": ["inline-end", "inline-start"]
     },
     "clip-path": {
+      "__values": ["fill-box", "stroke-box"],
       "__additional_values": {
         "-webkit-path": "-webkit-path('M20,20 L50,80 L80,20')",
         "basic_shape": "circle(50px at 0 100px)",
-        "fill_and_stroke_box": ["fill-box", "stroke-box"],
         "path": "path('M20,20 L50,80 L80,20')"
       }
     },
     "color-profile": {},
     "color-scheme": {
-      "__values": ["only_dark", "only_light"]
+      "__additional_values": {
+        "only_dark": "only dark",
+        "only_light": "only light"
+      }
     },
     "column-progression": {},
     "contain": {
@@ -297,52 +286,32 @@
       }
     },
     "cursor": {
+      "__values": [
+        "-moz-zoom",
+        "-webkit-zoom",
+        "inherit",
+        "ew-resize",
+        "nesw-resize",
+        "ns-resize",
+        "nwse-resize",
+        "n-resize",
+        "e-resize",
+        "s-resize",
+        "w-resize",
+        "ne-resize",
+        "nw-resize",
+        "se-resize",
+        "sw-resize",
+        "zoom-in",
+        "zoom-out"
+      ],
       "__additional_values": {
-        "bidirectional_resize": [
-          "ew-resize",
-          "nesw-resize",
-          "ns-resize",
-          "nwse-resize"
-        ],
-        "unidirectional_resize": [
-          "n-resize",
-          "e-resize",
-          "s-resize",
-          "w-resize",
-          "ne-resize",
-          "nw-resize",
-          "se-resize",
-          "sw-resize"
-        ],
         "url": "url(hand.cur), pointer",
-        "url_positioning_syntax": "url(cursor_1.png) 4 12, auto",
-        "zoom": ["zoom-in", "zoom-out"]
-      },
-      "__values": ["-moz-zoom", "-webkit-zoom", "inherit"]
+        "url_positioning_syntax": "url(cursor_1.png) 4 12, auto"
+      }
     },
     "custom-property": {},
     "display": {
-      "__additional_values": {
-        "display-outside": ["block", "inline"],
-        "multi-keyword_values": "inline flow",
-        "ruby_values": [
-          "ruby",
-          "ruby-base",
-          "ruby-base-container",
-          "ruby-text",
-          "ruby-text-container"
-        ],
-        "table_values": [
-          "table",
-          "table-cell",
-          "table-column",
-          "table-column-group",
-          "table-footer-group",
-          "table-header-group",
-          "table-row",
-          "table-row-group"
-        ]
-      },
       "__values": [
         "contents",
         "flex",
@@ -354,29 +323,44 @@
         "inline-table",
         "list-item",
         "math",
-        "none"
-      ]
+        "none",
+        "ruby",
+        "ruby-base",
+        "ruby-base-container",
+        "ruby-text",
+        "ruby-text-container",
+        "table",
+        "table-cell",
+        "table-column",
+        "table-column-group",
+        "table-footer-group",
+        "table-header-group",
+        "table-row",
+        "table-row-group"
+      ],
+      "__additional_values": {
+        "display-outside": ["block", "inline"],
+        "multi-keyword_values": "inline flow"
+      }
     },
     "enable-background": {},
     "flex-basis": {
       "__values": ["-webkit-auto", "fit-content", "max-content", "min-content"]
     },
     "float": {
-      "__additional_values": {
-        "flow_relative_values": ["inline-end", "inline-start"]
-      }
+      "__values": ["inline-end", "inline-start"]
     },
     "font": {
+      "__values": [
+        "caption",
+        "icon",
+        "menu",
+        "message-box",
+        "small-caption",
+        "status-bar"
+      ],
       "__additional_values": {
-        "font_stretch_support": "ultra-expanded 12px sans-serif",
-        "system_fonts": [
-          "caption",
-          "icon",
-          "menu",
-          "message-box",
-          "small-caption",
-          "status-bar"
-        ]
+        "font_stretch_support": "ultra-expanded 12px sans-serif"
       }
     },
     "font-display": {},
@@ -604,9 +588,7 @@
       }
     },
     "mask-origin": {
-      "__additional_values": {
-        "non_standard_values": ["content", "padding", "border"]
-      }
+      "__values": ["content", "padding", "border"]
     },
     "masonry": {},
     "max-block-size": {
@@ -716,14 +698,10 @@
     "overflow-clip-box-inline": {},
     "pen-action": {},
     "quotes": {
-      "__additional_values": {
-        "quotes_auto": "auto"
-      }
+      "__values": ["auto"]
     },
     "resize": {
-      "__additional_values": {
-        "flow_relative_support": ["block", "inline"]
-      }
+      "__values": ["block", "inline"]
     },
     "rotate": {
       "__additional_values": {
@@ -766,9 +744,8 @@
       }
     },
     "text-align": {
+      "__values": ["center", "left", "right", "start", "end"],
       "__additional_values": {
-        "block_alignment_values": ["center", "left", "right"],
-        "flow_relative_values_start_and_end": ["start", "end"],
         "string": "'.'"
       }
     },
@@ -792,7 +769,8 @@
     "text-decoration-width": {},
     "text-emphasis-position": {
       "__additional_values": {
-        "left_and_right": ["over left", "over right"]
+        "left": "over left",
+        "right": "over right"
       }
     },
     "text-indent": {
@@ -849,11 +827,18 @@
       "__values": ["balance", "nowrap", "pretty", "stable", "wrap"]
     },
     "touch-action": {
-      "__additional_values": {
-        "axis-pan": ["pan-x", "pan-y"],
-        "unidirectional-pan": ["pan-up", "pan-down", "pan-left", "pan-right"]
-      },
-      "__values": ["double-tap-zoom", "manipulation", "none", "pinch-zoom"]
+      "__values": [
+        "double-tap-zoom",
+        "manipulation",
+        "none",
+        "pinch-zoom",
+        "pan-x",
+        "pan-y",
+        "pan-up",
+        "pan-down",
+        "pan-left",
+        "pan-right"
+      ]
     },
     "transform": {
       "__additional_values": {
@@ -868,9 +853,6 @@
       "__additional_values": {
         "three_value_syntax": "left top 15px"
       }
-    },
-    "transition-property": {
-      "__values": ["IDENT_value"]
     },
     "transition-timing-function": {
       "__additional_values": {
@@ -904,15 +886,19 @@
       }
     },
     "writing-mode": {
-      "__additional_values": {
-        "horizontal_vertical_values": [
-          "horizontal-tb",
-          "vertical-lr",
-          "vertical-rl"
-        ],
-        "sideways_values": ["sideways-lr", "sideways-rl"],
-        "svg_values": ["lr", "lr-tb", "rl", "rl-tb", "tb", "tb-rl"]
-      }
+      "__values": [
+        "horizontal-tb",
+        "vertical-lr",
+        "vertical-rl",
+        "sideways-lr",
+        "sideways-rl",
+        "lr",
+        "lr-tb",
+        "rl",
+        "rl-tb",
+        "tb",
+        "tb-rl"
+      ]
     },
     "z-index": {
       "__additional_values": {
