@@ -20,7 +20,6 @@ import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import {marked} from "marked";
-import {markedHighlight} from "marked-highlight";
 import {gfmHeadingId} from "marked-gfm-heading-id";
 import hljs from "highlight.js";
 import expressLayouts from "express-ejs-layouts";
@@ -181,23 +180,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Configure marked
 
-// Code highlighting for Markdown files
-marked.use(
-  markedHighlight({
-    langPrefix: "hljs language-",
-    /**
-     * Highlight code with specified language.
-     * @param code - The code to highlight.
-     * @param lang - The language of the code.
-     * @returns The highlighted code.
-     */
-    highlight: (code: string, lang: string): string => {
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlight(code, {language}).value;
-    },
-  }),
-);
-
 // Add IDs to headers
 marked.use(gfmHeadingId());
 
@@ -231,6 +213,22 @@ marked.use({
           .slice(1)
           .join("\n")}
       </blockquote>`;
+    },
+  },
+});
+
+// Code syntax highlighting and Mermaid flowchart rendering
+marked.use({
+  renderer: {
+    code: (code: string, infostring: string, escaped: boolean): string => {
+      const [lang] = infostring?.split(" ");
+      if (lang === "mermaid") {
+        return `<pre class="mermaid">${code}</pre>`;
+      }
+
+      const language = hljs.getLanguage(lang) ? lang : "plaintext";
+      const renderedCode = hljs.highlight(code, {language}).value;
+      return `<pre><code class="hljs language-${language}">${renderedCode}</code></pre>`;
     },
   },
 });

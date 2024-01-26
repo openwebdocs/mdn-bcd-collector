@@ -8,6 +8,13 @@ See the LICENSE file for copyright details
 
 <%- contentFor('body') %>
 
+<script src="/resources/mermaid.min.js"></script>
+
+<script>
+  mermaid.initialize({ startOnLoad: true });
+  mermaid.run({querySelector: '.language-mermaid'});
+</script>
+
 <link rel="stylesheet" href="/resources/highlight.js/stackoverflow-dark.css" />
 <link rel="stylesheet" media="(prefers-color-scheme: light)" href="/resources/highlight.js/stackoverflow-light.css" />
 
