@@ -220,15 +220,25 @@ marked.use({
 // Code syntax highlighting and Mermaid flowchart rendering
 marked.use({
   renderer: {
-    code: (code: string, infostring: string, escaped: boolean): string => {
-      const [lang] = infostring?.split(" ");
+    /**
+     * Renders a formatted code element.
+     * @param code - The raw code to format.
+     * @param infostring - The syntax language and other information.
+     * @returns The rendered code element.
+     */
+    code: (code: string, infostring?: string): string => {
+      if (!infostring) {
+        return `<pre><code class="hljs language-plaintext">${code}</code><pre>`;
+      }
+
+      const [lang, ...classes] = infostring.split(" ");
       if (lang === "mermaid") {
-        return `<pre class="mermaid">${code}</pre>`;
+        return `<pre class="mermaid ${classes.join(" ")}">${code}</pre>`;
       }
 
       const language = hljs.getLanguage(lang) ? lang : "plaintext";
       const renderedCode = hljs.highlight(code, {language}).value;
-      return `<pre><code class="hljs language-${language}">${renderedCode}</code></pre>`;
+      return `<pre><code class="hljs language-${language} ${classes.join(" ")}">${renderedCode}</code></pre>`;
     },
   },
 });
