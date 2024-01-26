@@ -183,11 +183,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Add IDs to headers
 marked.use(gfmHeadingId());
 
-// Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
 marked.use({
   renderer: {
     /**
-     * Renders a blockquote element.
+     * Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
      * @param quote - The quote to render.
      * @returns The rendered blockquote element.
      */
@@ -214,14 +213,8 @@ marked.use({
           .join("\n")}
       </blockquote>`;
     },
-  },
-});
-
-// Code syntax highlighting and Mermaid flowchart rendering
-marked.use({
-  renderer: {
     /**
-     * Renders a formatted code element.
+     * Code syntax highlighting and Mermaid flowchart rendering
      * @param code - The raw code to format.
      * @param infostring - The syntax language and other information.
      * @returns The rendered code element.
