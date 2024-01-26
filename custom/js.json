@@ -568,6 +568,21 @@
       }
     }
   },
+  "grammar": {
+    "array_literals": "var x = [1, 2, 3];",
+    "binary_numeric_literals": "var x = 0b0001;",
+    "boolean_literals": "var x = true;",
+    "decimal_numeric_literals": "var x = 1;",
+    "hexadecimal_escape_sequences": "var x = '\\xA9';",
+    "hexadecimal_numeric_literals": "var x = 0xAF;",
+    "null_literal": "var x = null;",
+    "numeric_separators": "var x = 1_000_000_000_000;",
+    "octal_numeric_literals": "var x = 0o755;",
+    "regular_expression_literals": "var x = /ab+c/g;",
+    "string_literals": "var x = 'foo';",
+    "unicode_escape_sequences": "var x = '\\u00A9';",
+    "unicode_point_escapes": "var x = '\\u{2F804}';"
+  },
   "operators": {
     "addition": "var x = 1 + 1;",
     "addition_assignment": "var x = 1;\nx += 2;",
