@@ -67,12 +67,6 @@ const build = async (specElements, customElements) => {
   }
 
   for (const [category, categoryData] of Object.entries(categories)) {
-    if (category === "mathml") {
-      // XXX MathML needs to be specially tested, skip for now
-      // Base code on https://github.com/web-platform-tests/wpt/blob/master/mathml/support/feature-detection.js?
-      continue;
-    }
-
     const namespace = categoryData.namespace;
 
     for (const [el, data] of Object.entries(els[category]).sort((a, b) =>
@@ -93,7 +87,12 @@ const build = async (specElements, customElements) => {
       const defaultConstructCode = namespace
         ? `document.createElementNS('${namespace}', '${el}')`
         : `document.createElement('${el}')`;
-      const defaultCode = `(function() {
+      const defaultCode =
+        category === "mathml"
+          ? `(function () {
+  throw new Error('MathML elements require custom tests');
+})()`
+          : `(function() {
   var instance = ${defaultConstructCode};
   return bcd.testObjectName(instance, '${
     data.interfaceName || categoryData.default
