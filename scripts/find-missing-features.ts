@@ -85,23 +85,23 @@ const traverseFeatures = (
 const findMissing = (
   entries: string[],
   allEntries: string[],
-): {missingEntries: string[]; total: number} => {
-  const missingEntries: string[] = [];
+): {missing: string[]; all: string[]} => {
+  const missing: string[] = [];
 
   for (const entry of allEntries) {
     if (!entries.includes(entry)) {
-      missingEntries.push(entry);
+      missing.push(entry);
     }
   }
 
-  return {missingEntries, total: allEntries.length};
+  return {missing, all: allEntries};
 };
 
 /**
  * Retrieves the missing entries between the BCD (Browser Compatibility Data) and the collector.
  * @param bcd - The BCD data.
  * @param tests - The collector data.
- * @param direction - The direction of comparison. Default is "collector-from-bcd".
+ * @param direction - The direction of comparison.
  * @param pathFilter - An optional array of paths to filter the entries.
  * @param includeAliases - Specifies whether to include aliases in the comparison. Default is false.
  * @returns The missing entries based on the specified direction.
@@ -109,40 +109,70 @@ const findMissing = (
 const getMissing = (
   bcd: CompatData,
   tests: Tests,
-  direction = "collector-from-bcd",
+  direction: string,
   pathFilter: string[] = [],
   includeAliases = false,
-) => {
-  /**
-   * Filters the path based on the given item.
-   * @param item - The item to filter the path with.
-   * @returns - Returns true if the item matches the filter criteria, otherwise false.
-   */
-  const filterPath = (item) => {
-    return (
-      pathFilter.length == 0 ||
-      pathFilter.some((p) => item === p || item.startsWith(`${p}.`))
-    );
-  };
-
-  const bcdEntries = traverseFeatures(bcd, "", includeAliases).filter(
-    filterPath,
+): {[path: string]: {missing: string[]; all: string[]}} => {
+  const bcdEntries = traverseFeatures(bcd, "", includeAliases);
+  const collectorEntries = Object.keys(tests).filter(
+    (p) => p !== "__resources",
   );
-  const collectorEntries = Object.keys(tests)
-    .filter((p) => p !== "__resources")
-    .filter(filterPath);
+
+  let from: string[];
+  let all: string[];
 
   switch (direction) {
     case "bcd-from-collector":
-      return findMissing(bcdEntries, collectorEntries);
+      from = bcdEntries;
+      all = collectorEntries;
+      break;
     default:
       console.log(
         `Direction '${direction}' is unknown; defaulting to collector <- bcd`,
       );
     // eslint-disable-next-line no-fallthrough
     case "collector-from-bcd":
-      return findMissing(collectorEntries, bcdEntries);
+      from = collectorEntries;
+      all = bcdEntries;
+      break;
   }
+
+  const missingFeatures = findMissing(from, all);
+
+  if (pathFilter.length) {
+    const allFilteredMissing: {missing: string[]; all: string[]} = {
+      missing: [],
+      all: [],
+    };
+
+    const filteredMissing = pathFilter.reduce((a, filter) => {
+      const missing = missingFeatures.missing.filter(
+        (item) => item === filter || item.startsWith(`${filter}.`),
+      );
+      const all = missingFeatures.all.filter(
+        (item) => item === filter || item.startsWith(`${filter}.`),
+      );
+
+      allFilteredMissing.missing.push(...missing);
+      allFilteredMissing.all.push(...all);
+
+      return {
+        ...a,
+        [filter]: {
+          missing,
+          all,
+        },
+      };
+    }, {});
+
+    if (pathFilter.length > 1) {
+      return {[pathFilter.join(", ")]: allFilteredMissing, ...filteredMissing};
+    }
+
+    return filteredMissing;
+  }
+
+  return {"": missingFeatures};
 };
 
 /* c8 ignore start */
@@ -177,32 +207,58 @@ const main = (bcd: CompatData, tests: Tests) => {
           describe: "The path(s) to filter for",
           type: "array",
           default: [],
+        })
+        .option("count-only", {
+          alias: "c",
+          describe:
+            "Only report the count(s), don't list the individual features",
+          type: "boolean",
+          default: false,
         });
     },
   );
 
   const direction = argv.direction.split("-from-");
-  console.log(
-    chalk`{yellow Finding entries that are missing in {red.bold ${direction[0]}} but present in {green.bold ${direction[1]}}...}\n`,
-  );
 
-  const {missingEntries, total} = getMissing(
+  if (!argv.countOnly) {
+    console.log(
+      chalk`{yellow Finding entries that are missing in {red.bold ${direction[0]}} but present in {green.bold ${direction[1]}}...}\n`,
+    );
+  }
+
+  const missingFeatures = getMissing(
     bcd,
     tests,
     argv.direction,
     argv.path,
     argv.includeAliases,
   );
-  console.log(missingEntries.join("\n"));
-  console.log(
-    chalk`\n{cyan ${missingEntries.length}/${total} (${(
-      (missingEntries.length / total) *
-      100.0
-    ).toFixed(2)}%)} {yellow entries missing from {red.bold ${
-      direction[0]
-    }} that are in {green.bold ${direction[1]}}}` +
-      (argv.path.length ? chalk` for {blue ${argv.path.join(", ")}}` : ""),
-  );
+
+  // We only want to display the full item list the first time
+  let firstEntry = true;
+
+  for (const [filter, data] of Object.entries(missingFeatures)) {
+    if (!argv.countOnly && firstEntry) {
+      console.log(data.missing.join("\n") + "\n");
+    }
+
+    console.log(
+      chalk`{cyan ${data.missing.length}/${data.all.length} (${(
+        (data.missing.length / data.all.length) *
+        100.0
+      ).toFixed(2)}%)} {yellow entries missing from {red.bold ${
+        direction[0]
+      }} that are in {green.bold ${direction[1]}}}` +
+        (filter ? chalk` for {blue ${filter}}` : ""),
+    );
+
+    if (firstEntry) {
+      // Print a newline
+      console.log("");
+    }
+
+    firstEntry = false;
+  }
 };
 
 if (esMain(import.meta)) {
