@@ -5099,6 +5099,179 @@ html:
         type_url: return testType('url');
         type_week: return testType('week');
 
+mathml:
+  # Features defined here also need to be in @webref/elements or custom/elements.json.
+  # Most test code here is based on https://github.com/web-platform-tests/wpt/blob/master/mathml/support/feature-detection.js
+  elements:
+    annotation: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    annotation-xml: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    maction: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    math: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    menclose: |-
+      // Just check whether <mrow> is supported because discussion on this is
+      // still open (https://github.com/mathml-refresh/mathml/issues/105 
+      // and it would have to behave at least like an mrow, even if it becomes
+      // an unknown element at the end.
+      <%mathml.elements.mrow:instance%>
+      return has_mspace;
+    merror: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mfenced: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mfrac:
+      __base: |-
+        // Use tall enough fraction to avoid side effect of min num/denum shifts.
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<mfrac><mspace height='50px' depth='50px'></mspace><mspace height='50px' depth='50px'></mspace></mfrac><mfrac><mspace height='60px' depth='60px'></mspace><mspace height='60px' depth='60px'></mspace></mfrac>";
+        document.body.appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.body.removeChild(mathEl);
+        });
+
+        var mfrac = mathEl.getElementsByTagName("mfrac");
+        // height/depth will add 40px per MathML, 20px if mfrac does not stack its children and none if mspace is not supported.
+        var has_mfrac = mfrac[1].getBoundingClientRect().height - mfrac[0].getBoundingClientRect().height > 30;
+      __test: return has_mfrac;
+    mi: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mmultiscripts: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mn: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mo: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mover: |-
+      // XXX Improve feature detection
+      <%mathml.elements.munderover:instance%>
+      return has_munderover;
+    mpadded: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mphantom: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mprescripts: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mroot: |-
+      // XXX Improve feature detection
+      <%mathml.elements.msqrt:instance%>
+      return has_msqrt;
+    mrow:
+      __base: |-
+        // XXX Improve feature detection
+        <%mathml.elements.mspace:instance%>
+      __test: return has_mspace;
+    ms: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mspace:
+      __base: |-
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<mspace></mspace><mspace width='20px'></mspace>";
+        document.body.appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.body.removeChild(mathEl);
+        });
+
+        // The width attribute will add 20px per MathML and none if not supported.
+        var has_mspace = mathEl.lastChild.getBoundingClientRect().width - mathEl.firstChild.getBoundingClientRect().width > 10;
+      __test: return has_mspace;
+    msqrt:
+      __base: |-
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<mrow style='font-size: 20px !important'><mtext>A</mtext></mrow><msqrt style='font-size: 20px !important'><mtext>A</mtext></msqrt>";
+        document.body.appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.body.removeChild(mathEl);
+        });
+
+        // The radical symbol will make msqrt wider than mrow, if the former is supported.
+        var has_msqrt = mathEl.lastElementChild.getBoundingClientRect().width - mathEl.firstElementChild.getBoundingClientRect().width > 5;
+      __test: return has_msqrt;
+    mstyle: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    msub: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    msubsup: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    msup: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtable: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtd: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtext: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtr: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    munder: |-
+      // XXX Improve feature detection
+      <%mathml.elements.munderover:instance%>
+      return has_munderover;
+    munderover:
+      __base: |-
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<munderover><mspace width='20px'></mspace><mspace width='20px'></mspace><mspace width='20px'></mspace></munderover><munderover><mspace width='40px'></mspace><mspace width='40px'></mspace><mspace width='40px'></mspace></munderover>";
+        document.body.appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.body.removeChild(mathEl);
+        });
+
+        var munderover = mathEl.getElementsByTagName("munderover");
+        // width_delta will be 20px per MathML, 3 * 20 = 60px if mundeover does not stack its children and 0px if mspace is not supported.
+        var width_delta = munderover[1].getBoundingClientRect().width - munderover[0].getBoundingClientRect().width;
+        var has_munderover = width_delta > 10 && width_delta < 30;
+      __test: return has_munderover;
+    semantics: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+
 # Features defined here also need to be in custom/js.json.
 javascript:
   builtins:
