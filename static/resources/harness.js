@@ -1425,9 +1425,9 @@
    */
   function renderHarnessLink(resultsEl) {
     var container = document.createElement("details");
-    container.className = "result";
+    container.className = "result result-true";
     container.innerHTML =
-      '<summary>bcd: <span class="result-value result-value-true"><span class="mdi mdi-check-bold"></span> Loaded</span></summary><div class="result-info">Some helper functions are written to aid in feature detection. These helper functions are located in a file called harness.js, which can be viewed <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/static/resources/harness.js">here</a>.</div>';
+      '<summary>bcd: <span class="result-value"><span class="mdi mdi-check-bold"></span> Loaded</span></summary><div class="result-info">Some helper functions are written to aid in feature detection. These helper functions are located in a file called harness.js, which can be viewed <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/static/resources/harness.js">here</a>.</div>';
     resultsEl.appendChild(container);
   }
 
@@ -1437,13 +1437,6 @@
    * @param {HTMLElement} resultsEl - The element to add the report to
    */
   function renderReInstReportEl(instanceId, resultsEl) {
-    var resultEl = document.createElement("details");
-    resultEl.className = "result";
-
-    var resultSummaryEl = document.createElement("summary");
-    resultSummaryEl.innerHTML = "reusableInstances." + instanceId;
-    resultSummaryEl.innerHTML += ":&nbsp;";
-
     var instance = reusableInstances[instanceId];
     var resultValue =
       !!instance && instance !== "callback"
@@ -1451,8 +1444,16 @@
         : instance === false
           ? "false"
           : "null";
+
+    var resultEl = document.createElement("details");
+    resultEl.className = "result result-" + resultValue;
+
+    var resultSummaryEl = document.createElement("summary");
+    resultSummaryEl.innerHTML = "reusableInstances." + instanceId;
+    resultSummaryEl.innerHTML += ":&nbsp;";
+
     var resultValueEl = document.createElement("span");
-    resultValueEl.className = "result-value result-value-" + resultValue;
+    resultValueEl.className = "result-value";
     resultValueEl.innerHTML =
       resultValue === "true"
         ? '<span class="mdi mdi-check-bold"></span> Loaded'
@@ -1508,8 +1509,10 @@
    * @param {HTMLElement} resultsEl - The element to add the report to
    */
   function renderReportEl(result, resultsEl) {
+    var resultValue = stringify(result.result);
+
     var resultEl = document.createElement("details");
-    resultEl.className = "result";
+    resultEl.className = "result result-" + resultValue;
 
     var resultSummaryEl = document.createElement("summary");
     resultSummaryEl.innerHTML = result.name;
@@ -1518,9 +1521,8 @@
     }
     resultSummaryEl.innerHTML += ":&nbsp;";
 
-    var resultValue = stringify(result.result);
     var resultValueEl = document.createElement("span");
-    resultValueEl.className = "result-value result-value-" + resultValue;
+    resultValueEl.className = "result-value";
     resultValueEl.innerHTML =
       resultValue === "true"
         ? '<span class="mdi mdi-check-bold"></span> Supported'
