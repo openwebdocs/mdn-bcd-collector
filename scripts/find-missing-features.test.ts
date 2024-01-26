@@ -83,26 +83,50 @@ describe("find-missing-features", () => {
 
     it("collector <- bcd", () => {
       const expected = {
-        missingEntries: [
-          "api.AbortController.AbortController",
-          "api.AbortController.abort",
-          "api.AbortController.dummy",
-          "api.AudioContext",
-          "api.AudioContext.close",
-          "api.DeprecatedInterface",
-          "api.DummyAPI",
-          "api.DummyAPI.dummy",
-          "api.ExperimentalInterface",
-          "api.UnflaggedInterface",
-          "api.UnprefixedInterface",
-          "api.NullAPI",
-          "api.RemovedInterface",
-          "api.SuperNewInterface",
-          "css.properties.font-face",
-          "css.properties.font-style",
-          "javascript.builtins.Date",
-        ],
-        total: 21,
+        "": {
+          missing: [
+            "api.AbortController.AbortController",
+            "api.AbortController.abort",
+            "api.AbortController.dummy",
+            "api.AudioContext",
+            "api.AudioContext.close",
+            "api.DeprecatedInterface",
+            "api.DummyAPI",
+            "api.DummyAPI.dummy",
+            "api.ExperimentalInterface",
+            "api.UnflaggedInterface",
+            "api.UnprefixedInterface",
+            "api.NullAPI",
+            "api.RemovedInterface",
+            "api.SuperNewInterface",
+            "css.properties.font-face",
+            "css.properties.font-style",
+            "javascript.builtins.Date",
+          ],
+          all: [
+            "api.AbortController",
+            "api.AbortController.AbortController",
+            "api.AbortController.abort",
+            "api.AbortController.dummy",
+            "api.AbortController.signal",
+            "api.AudioContext",
+            "api.AudioContext.close",
+            "api.DeprecatedInterface",
+            "api.DummyAPI",
+            "api.DummyAPI.dummy",
+            "api.ExperimentalInterface",
+            "api.UnflaggedInterface",
+            "api.UnprefixedInterface",
+            "api.NullAPI",
+            "api.RemovedInterface",
+            "api.SuperNewInterface",
+            "css.properties.font-family",
+            "css.properties.font-face",
+            "css.properties.font-style",
+            "javascript.builtins.Array",
+            "javascript.builtins.Date",
+          ],
+        },
       };
 
       assert.deepEqual(getMissing(bcd as any, tests), expected);
@@ -121,8 +145,16 @@ describe("find-missing-features", () => {
 
     it("bcd <- collector", () => {
       assert.deepEqual(getMissing(bcd as any, tests, "bcd-from-collector"), {
-        missingEntries: ["javascript.builtins.Error"],
-        total: 5,
+        "": {
+          missing: ["javascript.builtins.Error"],
+          all: [
+            "api.AbortController",
+            "api.AbortController.signal",
+            "css.properties.font-family",
+            "javascript.builtins.Array",
+            "javascript.builtins.Error",
+          ],
+        },
       });
     });
 
@@ -130,7 +162,50 @@ describe("find-missing-features", () => {
       assert.deepEqual(
         getMissing(bcd as any, tests, "collector-from-bcd", ["api"]),
         {
-          missingEntries: [
+          api: {
+            missing: [
+              "api.AbortController.AbortController",
+              "api.AbortController.abort",
+              "api.AbortController.dummy",
+              "api.AudioContext",
+              "api.AudioContext.close",
+              "api.DeprecatedInterface",
+              "api.DummyAPI",
+              "api.DummyAPI.dummy",
+              "api.ExperimentalInterface",
+              "api.UnflaggedInterface",
+              "api.UnprefixedInterface",
+              "api.NullAPI",
+              "api.RemovedInterface",
+              "api.SuperNewInterface",
+            ],
+            all: [
+              "api.AbortController",
+              "api.AbortController.AbortController",
+              "api.AbortController.abort",
+              "api.AbortController.dummy",
+              "api.AbortController.signal",
+              "api.AudioContext",
+              "api.AudioContext.close",
+              "api.DeprecatedInterface",
+              "api.DummyAPI",
+              "api.DummyAPI.dummy",
+              "api.ExperimentalInterface",
+              "api.UnflaggedInterface",
+              "api.UnprefixedInterface",
+              "api.NullAPI",
+              "api.RemovedInterface",
+              "api.SuperNewInterface",
+            ],
+          },
+        },
+      );
+    });
+
+    it("unknown direction", () => {
+      assert.deepEqual(getMissing(bcd as any, tests, "foo-from-bar"), {
+        "": {
+          missing: [
             "api.AbortController.AbortController",
             "api.AbortController.abort",
             "api.AbortController.dummy",
@@ -145,34 +220,34 @@ describe("find-missing-features", () => {
             "api.NullAPI",
             "api.RemovedInterface",
             "api.SuperNewInterface",
+            "css.properties.font-face",
+            "css.properties.font-style",
+            "javascript.builtins.Date",
           ],
-          total: 16,
+          all: [
+            "api.AbortController",
+            "api.AbortController.AbortController",
+            "api.AbortController.abort",
+            "api.AbortController.dummy",
+            "api.AbortController.signal",
+            "api.AudioContext",
+            "api.AudioContext.close",
+            "api.DeprecatedInterface",
+            "api.DummyAPI",
+            "api.DummyAPI.dummy",
+            "api.ExperimentalInterface",
+            "api.UnflaggedInterface",
+            "api.UnprefixedInterface",
+            "api.NullAPI",
+            "api.RemovedInterface",
+            "api.SuperNewInterface",
+            "css.properties.font-family",
+            "css.properties.font-face",
+            "css.properties.font-style",
+            "javascript.builtins.Array",
+            "javascript.builtins.Date",
+          ],
         },
-      );
-    });
-
-    it("unknown direction", () => {
-      assert.deepEqual(getMissing(bcd as any, tests, "foo-from-bar"), {
-        missingEntries: [
-          "api.AbortController.AbortController",
-          "api.AbortController.abort",
-          "api.AbortController.dummy",
-          "api.AudioContext",
-          "api.AudioContext.close",
-          "api.DeprecatedInterface",
-          "api.DummyAPI",
-          "api.DummyAPI.dummy",
-          "api.ExperimentalInterface",
-          "api.UnflaggedInterface",
-          "api.UnprefixedInterface",
-          "api.NullAPI",
-          "api.RemovedInterface",
-          "api.SuperNewInterface",
-          "css.properties.font-face",
-          "css.properties.font-style",
-          "javascript.builtins.Date",
-        ],
-        total: 21,
       });
 
       assert.isTrue(

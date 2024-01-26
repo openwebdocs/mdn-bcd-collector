@@ -101,7 +101,7 @@ const findMissing = (
  * Retrieves the missing entries between the BCD (Browser Compatibility Data) and the collector.
  * @param bcd - The BCD data.
  * @param tests - The collector data.
- * @param direction - The direction of comparison.
+ * @param direction - The direction of comparison. Defaults to "collector-from-bcd".
  * @param pathFilter - An optional array of paths to filter the entries.
  * @param includeAliases - Specifies whether to include aliases in the comparison. Default is false.
  * @returns The missing entries based on the specified direction.
@@ -109,7 +109,7 @@ const findMissing = (
 const getMissing = (
   bcd: CompatData,
   tests: Tests,
-  direction: string,
+  direction = "collector-from-bcd",
   pathFilter: string[] = [],
   includeAliases = false,
 ): Record<string, {missing: string[]; all: string[]}> => {
