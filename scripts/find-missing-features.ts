@@ -112,7 +112,7 @@ const getMissing = (
   direction: string,
   pathFilter: string[] = [],
   includeAliases = false,
-): {[path: string]: {missing: string[]; all: string[]}} => {
+): Record<string, {missing: string[]; all: string[]}> => {
   const bcdEntries = traverseFeatures(bcd, "", includeAliases);
   const collectorEntries = Object.keys(tests).filter(
     (p) => p !== "__resources",
