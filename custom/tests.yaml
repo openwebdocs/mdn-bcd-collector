@@ -1181,8 +1181,6 @@ api:
           customElements.define("my-custom-element", MyCustomElement, options);
         }
         return bcd.testOptionParam(define, null, "extends", "p");
-      define.disabledFeatures_static_property: |-
-        return !!instance && "define" in instance && "disabledFeatures" in instance.define;
   CustomEvent:
     __base: |-
       var instance;
