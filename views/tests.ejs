@@ -73,10 +73,12 @@ See the LICENSE file for copyright details
       undefined,
       <%- resourcesToLoad.size %>,
       <%- !!selenium %>,
-      {
-        "name": "<%- browser.browser.id %>",
-        "version": "<%- browser.version %>"
-      }
+      <% if (browser) { %>
+        {
+          "name": "<%- browser.browser.id %>",
+          "version": "<%- browser.version %>"
+        }
+      <% }; %>
     )
   };
 </script>
