@@ -2255,13 +2255,14 @@ api:
             return instance.getContext('2d', options);
           }
           return bcd.testOptionParam(createContext, null, 'willReadFrequently', true);
-        # XXX Crashes Safari 16.5
-        # webgpu_context: |-
-        #   if (!(instance && instance.getContext)) {
-        #     return {result: false, message: 'instance.getContext is not defined'};
-        #   }
-        #   var ctx = instance.getContext('webgpu');
-        #   return !!ctx;
+        webgpu_context: |-
+          bcd.skipIf('safari', '16.5', 'Creating a WebGPU context on Safari 16.5 crashes the browser');
+
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('webgpu');
+          return !!ctx;
   HTMLCollection:
     __base: var instance = document.forms;
   HTMLContentElement:
@@ -3918,6 +3919,8 @@ api:
       var instance = reusableInstances.audioContext.createScriptProcessor();
   SecurityPolicyViolationEvent:
     __base: |-
+      bcd.skipIf('edge', '15', 'Constructing this event causes the page to reload');
+
       if (!('SecurityPolicyViolationEvent' in self)) {
         return {result: false, message: 'SecurityPolicyViolationEvent is not defined'};
       }

@@ -69,6 +69,14 @@ See the LICENSE file for copyright details
     bcd.addTest("<%- test.ident %>", <%- JSON.stringify(test.tests) %>, "<%- test.exposure %>");
   <% }); %>
   window.onload = function() {
-    bcd.go(undefined, <%- resourcesToLoad.size %>, <%- !!selenium %>)
+    bcd.go(
+      undefined,
+      <%- resourcesToLoad.size %>,
+      <%- !!selenium %>,
+      {
+        "name": "<%- browser.browser.id %>",
+        "version": "<%- browser.version %>"
+      }
+    )
   };
 </script>
