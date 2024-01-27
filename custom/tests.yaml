@@ -1528,11 +1528,22 @@ api:
         options_timeline_parameter: return bcd.testOptionParam(animate, null, 'timeline', document.timeline);
     attachShadow:
       __additional:
+        init_clonable_parameter: |-
+          // Only specific elements may have shadows attached -- see
+          // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
+          var el = document.createElement('main');
+          return bcd.testOptionParam(el, 'attachShadow', 'clonable', true, {mode: 'open'});
         init_delegatesFocus_parameter: |-
           // Only specific elements may have shadows attached -- see
           // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
           var el = document.createElement('main');
           return bcd.testOptionParam(el, 'attachShadow', 'delegatesFocus', true, {mode: 'open'});
+    checkVisibility:
+      __additional:
+        options_checkOpacity_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'checkOpacity', true);"
+        options_checkVisibilityCSS_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'checkVisibilityCSS', true);"
+        options_contentVisibilityAuto_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'contentVisibilityAuto', true);"
+        options_visibilityProperty_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'visibilityProperty', true);"
     getElementsByTagName:
       __additional:
         all_elements_selector: |-
@@ -1558,6 +1569,9 @@ api:
           }
           var value = instance.requestFullscreen();
           return 'then' in value;
+    requestPointerLock:
+      __additional:
+        options_unadjustedMovement_parameter: return bcd.testOptionParam(instance, 'requestFullscreen', 'unadjustedMovement', false);
     scroll:
       __additional:
         options_behavior_parameter: return bcd.testOptionParam(instance, 'scroll', 'behavior', 'auto');
@@ -1646,6 +1660,16 @@ api:
           var controller = new AbortController();
           var signal = controller.signal;
           return bcd.testOptionParam(addEventListener, null, 'signal', signal);
+        useCapture_parameter_optional: |-
+          try {
+            instance.addEventListener('click', function() {});
+            return true;
+          } catch(e) {
+            if (e.name === 'TypeError') {
+              return {result: false, message: 'useCapture parameter is required'};
+            }
+            throw e;
+          }
   EXT_blend_minmax:
     __resources:
       - webGL1
@@ -2406,7 +2430,9 @@ api:
             return {result: false, message: 'instance.play is not defined'};
           }
           var value = instance.play();
-          instance.pause();
+          bcd.addCleanup(function() {
+            instance.pause();
+          });
           return 'then' in value;
   HTMLMenuElement:
     __base: var instance = document.createElement('menu');
