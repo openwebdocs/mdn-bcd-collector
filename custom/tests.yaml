@@ -1883,6 +1883,12 @@ api:
       }
       var instance = new FormData();
     __additional:
+      append.filename_parameter: |-
+        <%api.Blob:blob%>
+        function append(filename) {
+          instance.append('foo', blob, filename);
+        }
+        return bcd.testOptionParam(append, null, null, 'foo.txt');
       FormData.submitter: |-
         if (!('document' in self)) {
           return {result: null, message: "Testing in workers is not yet implemented"};
@@ -2296,6 +2302,10 @@ api:
   HTMLFieldSetElement:
     __base: var instance = document.createElement('fieldset');
     __test: return bcd.testObjectName(instance, 'HTMLFieldSetElement');
+    __addditional:
+      elements.type_HTMLCollection: |-
+        var els = instance.elements();
+        return bcd.testObjectName(els, 'HTMLCollection');
   HTMLFontElement:
     __base: var instance = document.createElement('font');
     __test: return bcd.testObjectName(instance, 'HTMLFontElement');
