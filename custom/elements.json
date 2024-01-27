@@ -1,898 +1,991 @@
 {
-  "elements": {
-    "custom": {
-      "html": {
-        "acronym": {},
-        "big": {},
-        "center": {},
-        "dir": {
-          "interfaceName": "HTMLDirectoryElement",
-          "attributes": ["compact"]
+  "html": {
+    "a": {
+      "attributes": [
+        {
+          "referrerpolicy": "referrerPolicy",
+          "hreftranslate": "hrefTranslate"
         },
-        "font": {
-          "interfaceName": "HTMLFontElement",
-          "attributes": ["color", "face", "size"]
-        },
-        "frame": {
-          "interfaceName": "HTMLFrameElement",
-          "attributes": [
-            {
-              "frameborder": "frameBorder",
-              "marginheight": "marginHeight",
-              "marginwidth": "marginWidth",
-              "noresize": "noResize"
-            },
-            "name",
-            "scrolling",
-            "src"
-          ]
-        },
-        "frameset": {
-          "interfaceName": "HTMLFrameSetElement",
-          "attributes": ["cols", "rows"]
-        },
-        "marquee": {
-          "interfaceName": "HTMLMarqueeElement",
-          "attributes": [
-            {
-              "bgcolor": "bgColor",
-              "scrollamount": "scrollAmount",
-              "scrolldelay": "scrollDelay",
-              "truespeed": "trueSpeed"
-            },
-            "behavior",
-            "direction",
-            "height",
-            "hspace",
-            "loop",
-            "vspace",
-            "width"
-          ]
-        },
-        "nobr": {},
-        "noembed": {},
-        "noframes": {},
-        "param": {
-          "interfaceName": "HTMLParamElement",
-          "attributes": [{"valuetype": "valueType"}, "name", "type", "value"]
-        },
-        "plaintext": {},
-        "rb": {},
-        "rtc": {},
-        "strike": {},
-        "tt": {},
-        "xmp": {
-          "interfaceName": "HTMLPreElement"
-        }
-      },
-      "svg": {
-        "cursor": {
-          "interfaceName": "SVGCursorElement",
-          "attributes": ["href", "x", "xlink_href", "y"]
-        },
-        "font-face-format": {
-          "interfaceName": "SVGFontFaceFormatElement",
-          "attributes": ["string"]
-        },
-        "font-face-name": {
-          "interfaceName": "SVGFontFaceNameElement",
-          "attributes": ["name"]
-        },
-        "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
-        "font-face-uri": {
-          "interfaceName": "SVGFontFaceUriElement",
-          "attributes": ["xlink_href"]
-        },
-        "font-face": {
-          "interfaceName": "SVGFontFaceElement",
-          "attributes": [
-            "accent-height",
-            "alphabetic",
-            "ascent",
-            "bbox",
-            "cap-height",
-            "descent",
-            "font-family",
-            "font-size",
-            "font-stretch",
-            "font-style",
-            "font-variant",
-            "font-weight",
-            "hanging",
-            "ideographic",
-            "mathematical",
-            "overline-position",
-            "overline-thickness",
-            "panose-1",
-            "slope",
-            "stemh",
-            "stemv",
-            "strikethrough-position",
-            "strikethrough-thickness",
-            "underline-position",
-            "underline-thickness",
-            "unicode-range",
-            "units-per-em",
-            "v-alphabetic",
-            "v-hanging",
-            "v-ideographic",
-            "v-mathematical",
-            "widths",
-            "x-height"
-          ]
-        },
-        "font": {
-          "interfaceName": "SVGFontElement",
-          "attributes": [
-            "horiz-adv-x",
-            "horiz-origin-x",
-            "horiz-origin-y",
-            "vert-adv-y",
-            "vert-origin-x",
-            "vert-origin-y"
-          ]
-        },
-        "glyph": {
-          "interfaceName": "SVGGlyphElement",
-          "attributes": [
-            "arabic-form",
-            "d",
-            "glyph-name",
-            "horiz-adv-x",
-            "lang",
-            "orientation",
-            "unicode",
-            "vert-adv-y",
-            "vert-origin-x",
-            "vert-origin-y"
-          ]
-        },
-        "glyphRef": {
-          "interfaceName": "SVGGlyphRefElement",
-          "attributes": [
-            "dx",
-            "dy",
-            "format",
-            "glyphRef",
-            "x",
-            "xlink_href",
-            "y"
-          ]
-        },
-        "hkern": {
-          "interfaceName": "SVGHKernElement",
-          "attributes": ["g1", "g2", "k", "u1", "u2"]
-        },
-        "missing-glyph": {
-          "interfaceName": "SVGMissingGlyphElement",
-          "attributes": [
-            "d",
-            "horiz-adv-x",
-            "vert-adv-y",
-            "vert-origin-x",
-            "vert-origin-y"
-          ]
-        },
-        "tref": {
-          "interfaceName": "SVGTRefElement",
-          "attributes": ["xlink_href"]
-        },
-        "vkern": {
-          "interfaceName": "SVGVKernElement",
-          "attributes": ["g1", "g2", "k", "u1", "u2"]
-        }
-      },
-      "mathml": {
-        "menclose": {
-          "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores when ready.)",
-          "__attributes": ["notation"]
-        },
-        "mfenced": {}
-      }
+        "charset",
+        "coords",
+        "download",
+        "href",
+        "hreflang",
+        "name",
+        "ping",
+        "rel",
+        "rev",
+        "shape",
+        "target",
+        "type"
+      ]
     },
-    "attributes": {
-      "html": {
-        "a": [
-          {
-            "referrerpolicy": "referrerPolicy",
-            "hreftranslate": "hrefTranslate"
-          },
-          "charset",
-          "coords",
-          "download",
-          "href",
-          "hreflang",
-          "name",
-          "ping",
-          "rel",
-          "rev",
-          "shape",
-          "target",
-          "type"
-        ],
-        "area": [
-          {
-            "nohref": "noHref",
-            "referrerpolicy": "referrerPolicy",
-            "tabindex": "tabIndex"
-          },
-          "alt",
-          "coords",
-          "download",
-          "href",
-          "hreflang",
-          "name",
-          "ping",
-          "rel",
-          "shape",
-          "target",
-          "type"
-        ],
-        "audio": [
-          {
-            "crossorigin": "crossOrigin",
-            "disableremoteplayback": "disableRemotePlayback",
-            "controlslist": "controlsList"
-          },
-          "autoplay",
-          "controls",
-          "loop",
-          "muted",
-          "preload",
-          "src"
-        ],
-        "base": ["href", "target"],
-        "blockquote": ["cite"],
-        "body": [
-          {
-            "alink": "aLink",
-            "bgcolor": "bgColor",
-            "vlink": "vLink"
-          },
-          "background",
-          "link",
-          "text"
-        ],
-        "br": ["clear"],
-        "button": [
-          {
-            "formaction": "formAction",
-            "formenctype": "formEnctype",
-            "formmethod": "formMethod",
-            "formnovalidate": "formNoValidate",
-            "formtarget": "formTarget"
-          },
-          "autocomplete",
-          "disabled",
-          "form",
-          "name",
-          "type",
-          "value"
-        ],
-        "canvas": ["height", "width"],
-        "caption": ["align"],
-        "col": [
-          {
-            "char": "ch",
-            "charoff": "chOff",
-            "valign": "vAlign"
-          },
-          "align",
-          "span",
-          "width"
-        ],
-        "colgroup": [
-          {
-            "char": "ch",
-            "charoff": "chOff",
-            "valign": "vAlign"
-          },
-          "align",
-          "span",
-          "width"
-        ],
-        "del": [{"datetime": "dateTime"}, "cite"],
-        "details": ["open"],
-        "dialog": ["open"],
-        "dir": ["compact", "align"],
-        "embed": ["align", "height", "name", "src", "type", "width"],
-        "fieldset": ["disabled", "form", "name"],
-        "font": ["color", "face", "size"],
-        "form": [
-          {"accept-charset": "acceptCharset", "novalidate": "noValidate"},
-          "accept",
-          "action",
-          "autocapitalize",
-          "autocomplete",
-          "enctype",
-          "method",
-          "name",
-          "rel",
-          "target"
-        ],
-        "frame": [
-          {
-            "frameborder": "frameBorder",
-            "marginheight": "marginHeight",
-            "marginwidth": "marginWidth",
-            "noresize": "noResize"
-          },
-          "name",
-          "scrolling",
-          "src"
-        ],
-        "frameset": ["cols", "rows"],
-        "head": ["profile"],
-        "hr": [{"noshade": "noShade"}, "align", "color", "size", "width"],
-        "html": [{"xmlns": "namespaceURI"}, "manifest", "version"],
-        "iframe": [
-          {
-            "allowfullscreen": "allowFullscreen",
-            "allowpaymentrequest": "allowPaymentRequest",
-            "frameborder": "frameBorder",
-            "longdesc": "longDesc",
-            "marginheight": "marginHeight",
-            "marginwidth": "marginWidth",
-            "referrerpolicy": "referrerPolicy"
-          },
-          "align",
-          "allow",
-          "credentialless",
-          "csp",
-          "height",
-          "loading",
-          "name",
-          "sandbox",
-          "scrolling",
-          "src",
-          "srcdoc",
-          "width"
-        ],
-        "img": [
-          {
-            "crossorigin": "crossOrigin",
-            "fetchpriority": "fetchPriority",
-            "referrerpolicy": "referrerPolicy",
-            "ismap": "isMap",
-            "longdesc": "longDesc",
-            "usemap": "useMap"
-          },
-          "align",
-          "alt",
-          "border",
-          "decoding",
-          "height",
-          "hspace",
-          "loading",
-          "name",
-          "onerror",
-          "sizes",
-          "src",
-          "srcset",
-          "vspace",
-          "width"
-        ],
-        "input": [
-          {
-            "formaction": "formAction",
-            "formenctype": "formEnctype",
-            "formmethod": "formMethod",
-            "formnovalidate": "formNoValidate",
-            "formtarget": "formTarget",
-            "dirname": "dirName",
-            "maxlength": "maxLength",
-            "minlength": "minLength",
-            "readonly": "readOnly",
-            "usemap": "useMap"
-          },
-          "accept",
-          "align",
-          "alt",
-          "autocomplete",
-          "capture",
-          "checked",
-          "disabled",
-          "form",
-          "list",
-          "max",
-          "min",
-          "multiple",
-          "name",
-          "pattern",
-          "placeholder",
-          "src",
-          "step"
-        ],
-        "ins": [{"datetime": "dateTime"}, "cite"],
-        "label": {"for": "htmlFor"},
-        "legend": ["align"],
-        "li": ["type", "value"],
-        "link": [
-          {
-            "crossorigin": "crossOrigin",
-            "fetchpriority": "fetchPriority",
-            "imagesizes": "imageSizes",
-            "imagesrcset": "imageSrcset",
-            "referrerpolicy": "referrerPolicy"
-          },
-          "blocking",
-          "charset",
-          "disabled",
-          "href",
-          "hreflang",
-          "integrity",
-          "media",
-          "methods",
-          "prefetch",
-          "rel",
-          "rev",
-          "sizes",
-          "target",
-          "title",
-          "type"
-        ],
-        "map": ["name"],
-        "marquee": [
-          {
-            "bgcolor": "bgColor",
-            "scrollamount": "scrollAmount",
-            "scrolldelay": "scrollDelay",
-            "truespeed": "trueSpeed"
-          },
-          "behavior",
-          "direction",
-          "height",
-          "hspace",
-          "loop",
-          "vspace",
-          "width"
-        ],
-        "menu": ["label"],
-        "meta": [{"http-equiv": "httpEquiv"}, "content", "name"],
-        "meter": ["high", "low", "max", "min", "optimum", "value"],
-        "object": [
-          {
-            "codebase": "codeBase",
-            "codetype": "codeType",
-            "tabindex": "tabIndex",
-            "usemap": "useMap"
-          },
-          "archive",
-          "border",
-          "data",
-          "declare",
-          "form",
-          "height",
-          "name",
-          "standby",
-          "type",
-          "width"
-        ],
-        "ol": ["compact", "reversed", "start", "type"],
-        "optgroup": ["disabled", "label"],
-        "option": ["disabled", "label", "selected", "value"],
-        "output": [{"for": "htmlFor"}, "form", "name"],
-        "param": [{"valuetype": "valueType"}, "name", "type", "value"],
-        "pre": ["cols", "width"],
-        "progress": ["max", "value"],
-        "script": [
-          {
-            "crossorigin": "crossOrigin",
-            "fetchpriority": "fetchPriority",
-            "referrerpolicy": "referrerPolicy",
-            "nomodule": "noModule"
-          },
-          "async",
-          "blocking",
-          "defer",
-          "integrity",
-          "src",
-          "text",
-          "type"
-        ],
-        "select": [
-          "autocomplete",
-          "disabled",
-          "form",
-          "multiple",
-          "name",
-          "required",
-          "size"
-        ],
-        "slot": ["name"],
-        "source": [
-          "height",
-          "media",
-          "sizes",
-          "src",
-          "srcset",
-          "type",
-          "width"
-        ],
-        "style": ["blocking", "media", "title", "type"],
-        "table": [
-          {
-            "bgcolor": "bgColor",
-            "cellpadding": "cellPadding",
-            "cellspacing": "cellSpacing"
-          },
-          "align",
-          "border",
-          "frame",
-          "rules",
-          "summary",
-          "width"
-        ],
-        "tbody": [
-          {
-            "char": "ch",
-            "charoff": "chOff",
-            "valign": "vAlign"
-          },
-          "align"
-        ],
-        "td": [
-          {
-            "bgcolor": "bgColor",
-            "char": "ch",
-            "charoff": "chOff",
-            "colspan": "colSpan",
-            "rowspan": "rowSpan",
-            "valign": "vAlign"
-          },
-          "abbr",
-          "align",
-          "axis",
-          "headers",
-          "scope",
-          "width"
-        ],
-        "template": {"shadowrootmode": "shadowRootMode"},
-        "textarea": [
-          {
-            "dirname": "dirName",
-            "maxlength": "maxLength",
-            "minlength": "minLength",
-            "readonly": "readOnly"
-          },
-          "autocomplete",
-          "cols",
-          "disabled",
-          "form",
-          "name",
-          "placeholder",
-          "required",
-          "rows",
-          "spellcheck",
-          "wrap"
-        ],
-        "tfoot": [
-          {
-            "char": "ch",
-            "charoff": "chOff",
-            "valign": "vAlign"
-          },
-          "align"
-        ],
-        "th": [
-          {
-            "bgcolor": "bgColor",
-            "char": "ch",
-            "charoff": "chOff",
-            "colspan": "colSpan",
-            "rowspan": "rowSpan",
-            "valign": "vAlign"
-          },
-          "abbr",
-          "align",
-          "axis",
-          "headers",
-          "scope",
-          "width"
-        ],
-        "thead": [
-          {
-            "char": "ch",
-            "charoff": "chOff",
-            "valign": "vAlign"
-          },
-          "align"
-        ],
-        "time": {"datetime": "dateTime"},
-        "tr": [
-          {
-            "bgcolor": "bgColor",
-            "char": "ch",
-            "charoff": "chOff",
-            "valign": "vAlign"
-          },
-          "align"
-        ],
-        "track": ["default", "kind", "label", "src", "srclang"],
-        "ul": ["compact", "type"],
-        "video": [
-          {
-            "crossorigin": "crossOrigin",
-            "disableremoteplayback": "disableRemotePlayback",
-            "controlslist": "controlsList",
-            "disablepictureinpicture": "disablePictureInPicture",
-            "playsinline": "playsInline"
-          },
-          "autoplay",
-          "controls",
-          "height",
-          "loop",
-          "muted",
-          "poster",
-          "preload",
-          "src",
-          "width"
-        ]
-      },
-      "svg": {
-        "a": [
-          "download",
-          "href",
-          "hreflang",
-          "ping",
-          "rel",
-          "target",
-          "type",
-          "xlink_actuate",
-          "xlink_href",
-          "xlink_show",
-          "xlink_title"
-        ],
-        "animate": [
-          {"dur": "getSimpleDuration"},
-          "attributeName",
-          "attributeType",
-          "from",
-          "repeatCount",
-          "to"
-        ],
-        "animateMotion": ["calcMode", "keyPoints", "origin", "path", "rotate"],
-        "animateTransform": ["by", "from", "to", "type"],
-        "circle": ["cx", "cy", "r"],
-        "clipPath": ["clipPathUnits"],
-        "ellipse": ["cx", "cy", "rx", "ry"],
-        "feBlend": [{"in": "in1"}, "in2", "mode"],
-        "feColorMatrix": [{"in": "in1"}, "type", "values"],
-        "feComponentTransfer": [{"in": "in1"}],
-        "feComposite": [
-          {"in": "in1"},
-          "in2",
-          "k1",
-          "k2",
-          "k3",
-          "k4",
-          "operator",
-          "operator"
-        ],
-        "feConvolveMatrix": [
-          "bias",
-          "divisor",
-          "edgeMode",
-          {
-            "in": "in1",
-            "kernelUnitLength": "kernelUnitLengthX",
-            "order": "orderX"
-          },
-          "kernelMatrix",
-          "preserveAlpha",
-          "targetX",
-          "targetY"
-        ],
-        "feDiffuseLighting": [
-          "diffuseConstant",
-          {"in": "in1", "kernelUnitLength": "kernelUnitLengthX"},
-          "surfaceScale"
-        ],
-        "feDisplacementMap": [
-          {"in": "in1"},
-          "in2",
-          "scale",
-          "xChannelSelector",
-          "yChannelSelector"
-        ],
-        "feDistantLight": ["azimuth", "elevation"],
-        "feDropShadow": [
-          "dx",
-          "dy",
-          {"in": "in1", "stdDeviation": "stdDeviationX"}
-        ],
-        "feFlood": ["flood-color", "flood-opacity"],
-        "feGaussianBlur": [
-          "edgeMode",
-          {"in": "in1", "stdDeviation": "stdDeviationX"}
-        ],
-        "feImage": [
-          {"crossorigin": "crossOrigin"},
-          "href",
-          "preserveAspectRatio",
-          "xlink_href"
-        ],
-        "feMergeNode": [{"in": "in1"}],
-        "feMorphology": [{"in": "in1", "radius": "radiusX"}, "operator"],
-        "feOffset": ["dx", "dy", {"in": "in1"}],
-        "fePointLight": ["x", "y", "z"],
-        "feSpecularLighting": [
-          {"in": "in1", "kernelUnitLength": "kernelUnitLengthX"},
-          "specularConstant",
-          "specularExponent",
-          "surfaceScale"
-        ],
-        "feSpotLight": [
-          "limitingConeAngle",
-          "pointsAtX",
-          "pointsAtY",
-          "pointsAtZ",
-          "specularExponent",
-          "x",
-          "y",
-          "z"
-        ],
-        "feTile": [{"in": "in1"}],
-        "feTurbulence": [
-          {"baseFrequency": "baseFrequencyX"},
-          "numOctaves",
-          "seed",
-          "stitchTiles",
-          "type"
-        ],
-        "filter": [
-          "filterRes",
-          "filterUnits",
-          "height",
-          "primitiveUnits",
-          "width",
-          "x",
-          "xlink_href",
-          "y"
-        ],
-        "foreignObject": ["height", "width", "x", "y"],
-        "image": [
-          {"crossorigin": "crossOrigin"},
-          "decoding",
-          "height",
-          "preserveAspectRatio",
-          "width",
-          "x",
-          "xlink_href",
-          "y"
-        ],
-        "line": ["x1", "x2", "y1", "y2"],
-        "linearGradient": [
-          "gradientTransform",
-          "gradientUnits",
-          "spreadMethod",
-          "x1",
-          "x2",
-          "xlink_href",
-          "y1",
-          "y2"
-        ],
-        "marker": [
-          "markerHeight",
-          "markerUnits",
-          "markerWidth",
-          "orient",
-          "refX",
-          "refY",
-          "viewBox"
-        ],
-        "mask": ["height", "maskContentUnits", "maskUnits", "width", "x", "y"],
-        "mpath": ["xlink_href"],
-        "path": ["d"],
-        "pattern": [
-          "height",
-          "href",
-          "patternContentUnits",
-          "patternTransform",
-          "patternUnits",
-          "width",
-          "x",
-          "xlink_href",
-          "y"
-        ],
-        "polygon": ["points"],
-        "polyline": ["points"],
-        "radialGradient": [
-          "cx",
-          "cy",
-          "fr",
-          "fx",
-          "fy",
-          "gradientTransform",
-          "gradientUnits",
-          "href",
-          "r",
-          "spreadMethod",
-          "xlink_href"
-        ],
-        "rect": ["height", "rx", "ry", "width", "x", "y"],
-        "script": ["type", "xlink_href"],
-        "set": ["to"],
-        "stop": ["offset", "stop-color", "stop-opacity"],
-        "style": ["media", "title", "type"],
-        "svg": [
-          "baseProfile",
-          "contentScriptType",
-          "contentStyleType",
-          "height",
-          "preserveAspectRatio",
-          "version",
-          "viewBox",
-          "width",
-          "x",
-          "y",
-          "zoomAndPan"
-        ],
-        "switch": ["allowReorder"],
-        "symbol": ["preserveAspectRatio", "viewBox"],
-        "text": ["dx", "dy", "lengthAdjust", "rotate", "textLength", "x", "y"],
-        "textPath": [
-          "href",
-          "path",
-          "side",
-          "spacing",
-          "startOffset",
-          "xlink_href"
-        ],
-        "tspan": ["dx", "dy", "lengthAdjust", "rotate", "textLength", "x", "y"],
-        "use": ["height", "href", "width", "x", "xlink_href", "y"],
-        "view": ["preserveAspectRatio", "viewBox", "viewTarget", "zoomAndPan"]
-      },
-      "__mathml": {
-        "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores when ready.)",
-        "maction": ["actiontype", "selection"],
-        "math": ["display"],
-        "mfrac": ["denomalign", "linethickness", "numalign"],
-        "mmultiscripts": ["subscriptshift", "superscriptshift"],
-        "mo": [
-          "accent",
-          "form",
-          "largeop",
-          "lspace",
-          "maxsize",
-          "minsize",
-          "moveablelimits",
-          "rspace",
-          "stretchy",
-          "symmetric"
-        ],
-        "mover": ["accent"],
-        "mpadded": ["depth", "height", "lspace", "voffset", "width"],
-        "mspace": ["depth", "height", "width"],
-        "mstyle": [
-          "background",
-          "color",
-          "fontsize",
-          "fontstyle",
-          "fontweight",
-          "scriptminsize",
-          "scriptsizemultiplier"
-        ],
-        "msub": ["subscriptshift"],
-        "msubsup": ["subscriptshift", "superscriptshift"],
-        "msup": ["superscriptshift"],
-        "mtable": [
-          "align",
-          "columnalign",
-          "columnlines",
-          "columnspacing",
-          "frame",
-          "framespacing",
-          "rowalign",
-          "rowlines",
-          "rowspacing",
-          "width"
-        ],
-        "mtd": ["columnalign", "columnspan", "rowalign", "rowspan"],
-        "mtr": ["columnalign", "rowalign"],
-        "munder": ["accentunder"],
-        "munderover": ["accent", "accentunder"]
-      }
+    "area": {
+      "attributes": [
+        {
+          "nohref": "noHref",
+          "referrerpolicy": "referrerPolicy",
+          "tabindex": "tabIndex"
+        },
+        "alt",
+        "coords",
+        "download",
+        "href",
+        "hreflang",
+        "name",
+        "ping",
+        "rel",
+        "shape",
+        "target",
+        "type"
+      ]
+    },
+    "audio": {
+      "attributes": [
+        {
+          "crossorigin": "crossOrigin",
+          "disableremoteplayback": "disableRemotePlayback",
+          "controlslist": "controlsList"
+        },
+        "autoplay",
+        "controls",
+        "loop",
+        "muted",
+        "preload",
+        "src"
+      ]
+    },
+    "base": {"attributes": ["href", "target"]},
+    "blockquote": {"attributes": ["cite"]},
+    "body": {
+      "attributes": [
+        {
+          "alink": "aLink",
+          "bgcolor": "bgColor",
+          "vlink": "vLink"
+        },
+        "background",
+        "link",
+        "text"
+      ]
+    },
+    "br": {"attributes": ["clear"]},
+    "button": {
+      "attributes": [
+        {
+          "formaction": "formAction",
+          "formenctype": "formEnctype",
+          "formmethod": "formMethod",
+          "formnovalidate": "formNoValidate",
+          "formtarget": "formTarget"
+        },
+        "autocomplete",
+        "disabled",
+        "form",
+        "name",
+        "type",
+        "value"
+      ]
+    },
+    "canvas": {"attributes": ["height", "width"]},
+    "caption": {"attributes": ["align"]},
+    "col": {
+      "attributes": [
+        {
+          "char": "ch",
+          "charoff": "chOff",
+          "valign": "vAlign"
+        },
+        "align",
+        "span",
+        "width"
+      ]
+    },
+    "colgroup": {
+      "attributes": [
+        {
+          "char": "ch",
+          "charoff": "chOff",
+          "valign": "vAlign"
+        },
+        "align",
+        "span",
+        "width"
+      ]
+    },
+    "del": {"attributes": [{"datetime": "dateTime"}, "cite"]},
+    "details": {"attributes": ["open"]},
+    "dialog": {"attributes": ["open"]},
+    "dir": {
+      "interfaceName": "HTMLDirectoryElement",
+      "attributes": ["compact", "align"]
+    },
+    "embed": {
+      "attributes": ["align", "height", "name", "src", "type", "width"]
+    },
+    "fieldset": {"attributes": ["disabled", "form", "name"]},
+    "font": {
+      "interfaceName": "HTMLFontElement",
+      "attributes": ["color", "face", "size"]
+    },
+    "form": {
+      "attributes": [
+        {"accept-charset": "acceptCharset", "novalidate": "noValidate"},
+        "accept",
+        "action",
+        "autocapitalize",
+        "autocomplete",
+        "enctype",
+        "method",
+        "name",
+        "rel",
+        "target"
+      ]
+    },
+    "frame": {
+      "interfaceName": "HTMLFrameElement",
+      "attributes": [
+        {
+          "frameborder": "frameBorder",
+          "marginheight": "marginHeight",
+          "marginwidth": "marginWidth",
+          "noresize": "noResize"
+        },
+        "name",
+        "scrolling",
+        "src"
+      ]
+    },
+    "frameset": {
+      "interfaceName": "HTMLFrameSetElement",
+      "attributes": ["cols", "rows"]
+    },
+    "head": {"attributes": ["profile"]},
+    "hr": {
+      "attributes": [{"noshade": "noShade"}, "align", "color", "size", "width"]
+    },
+    "html": {
+      "attributes": [{"xmlns": "namespaceURI"}, "manifest", "version"]
+    },
+    "iframe": {
+      "attributes": [
+        {
+          "allowfullscreen": "allowFullscreen",
+          "allowpaymentrequest": "allowPaymentRequest",
+          "frameborder": "frameBorder",
+          "longdesc": "longDesc",
+          "marginheight": "marginHeight",
+          "marginwidth": "marginWidth",
+          "referrerpolicy": "referrerPolicy"
+        },
+        "align",
+        "allow",
+        "credentialless",
+        "csp",
+        "height",
+        "loading",
+        "name",
+        "sandbox",
+        "scrolling",
+        "src",
+        "srcdoc",
+        "width"
+      ]
+    },
+    "img": {
+      "attributes": [
+        {
+          "crossorigin": "crossOrigin",
+          "fetchpriority": "fetchPriority",
+          "referrerpolicy": "referrerPolicy",
+          "ismap": "isMap",
+          "longdesc": "longDesc",
+          "usemap": "useMap"
+        },
+        "align",
+        "alt",
+        "border",
+        "decoding",
+        "height",
+        "hspace",
+        "loading",
+        "name",
+        "onerror",
+        "sizes",
+        "src",
+        "srcset",
+        "vspace",
+        "width"
+      ]
+    },
+    "input": {
+      "attributes": [
+        {
+          "formaction": "formAction",
+          "formenctype": "formEnctype",
+          "formmethod": "formMethod",
+          "formnovalidate": "formNoValidate",
+          "formtarget": "formTarget",
+          "dirname": "dirName",
+          "maxlength": "maxLength",
+          "minlength": "minLength",
+          "readonly": "readOnly",
+          "usemap": "useMap"
+        },
+        "accept",
+        "align",
+        "alt",
+        "autocomplete",
+        "capture",
+        "checked",
+        "disabled",
+        "form",
+        "list",
+        "max",
+        "min",
+        "multiple",
+        "name",
+        "pattern",
+        "placeholder",
+        "src",
+        "step"
+      ]
+    },
+    "ins": {"attributes": [{"datetime": "dateTime"}, "cite"]},
+    "label": {"attributes": [{"for": "htmlFor"}]},
+    "legend": {"attributes": ["align"]},
+    "li": {"attributes": ["type", "value"]},
+    "link": {
+      "attributes": [
+        {
+          "crossorigin": "crossOrigin",
+          "fetchpriority": "fetchPriority",
+          "imagesizes": "imageSizes",
+          "imagesrcset": "imageSrcset",
+          "referrerpolicy": "referrerPolicy"
+        },
+        "blocking",
+        "charset",
+        "disabled",
+        "href",
+        "hreflang",
+        "integrity",
+        "media",
+        "methods",
+        "prefetch",
+        "rel",
+        "rev",
+        "sizes",
+        "target",
+        "title",
+        "type"
+      ]
+    },
+    "map": {"attributes": ["name"]},
+
+    "marquee": {
+      "interfaceName": "HTMLMarqueeElement",
+      "attributes": [
+        {
+          "bgcolor": "bgColor",
+          "scrollamount": "scrollAmount",
+          "scrolldelay": "scrollDelay",
+          "truespeed": "trueSpeed"
+        },
+        "behavior",
+        "direction",
+        "height",
+        "hspace",
+        "loop",
+        "vspace",
+        "width"
+      ]
+    },
+    "menu": {"attributes": ["label"]},
+    "meta": {
+      "attributes": [{"http-equiv": "httpEquiv"}, "content", "name"]
+    },
+    "meter": {
+      "attributes": ["high", "low", "max", "min", "optimum", "value"]
+    },
+    "object": {
+      "attributes": [
+        {
+          "codebase": "codeBase",
+          "codetype": "codeType",
+          "tabindex": "tabIndex",
+          "usemap": "useMap"
+        },
+        "archive",
+        "border",
+        "data",
+        "declare",
+        "form",
+        "height",
+        "name",
+        "standby",
+        "type",
+        "width"
+      ]
+    },
+    "ol": {"attributes": ["compact", "reversed", "start", "type"]},
+    "optgroup": {"attributes": ["disabled", "label"]},
+    "option": {"attributes": ["disabled", "label", "selected", "value"]},
+    "output": {"attributes": [{"for": "htmlFor"}, "form", "name"]},
+    "pre": {"attributes": ["cols", "width"]},
+    "progress": {"attributes": ["max", "value"]},
+    "script": {
+      "attributes": [
+        {
+          "crossorigin": "crossOrigin",
+          "fetchpriority": "fetchPriority",
+          "referrerpolicy": "referrerPolicy",
+          "nomodule": "noModule"
+        },
+        "async",
+        "blocking",
+        "defer",
+        "integrity",
+        "src",
+        "text",
+        "type"
+      ]
+    },
+    "select": {
+      "attributes": [
+        "autocomplete",
+        "disabled",
+        "form",
+        "multiple",
+        "name",
+        "required",
+        "size"
+      ]
+    },
+    "slot": {"attributes": ["name"]},
+    "source": {
+      "attributes": [
+        "height",
+        "media",
+        "sizes",
+        "src",
+        "srcset",
+        "type",
+        "width"
+      ]
+    },
+    "style": {"attributes": ["blocking", "media", "title", "type"]},
+    "table": {
+      "attributes": [
+        {
+          "bgcolor": "bgColor",
+          "cellpadding": "cellPadding",
+          "cellspacing": "cellSpacing"
+        },
+        "align",
+        "border",
+        "frame",
+        "rules",
+        "summary",
+        "width"
+      ]
+    },
+    "tbody": {
+      "attributes": [
+        {
+          "char": "ch",
+          "charoff": "chOff",
+          "valign": "vAlign"
+        },
+        "align"
+      ]
+    },
+    "td": {
+      "attributes": [
+        {
+          "bgcolor": "bgColor",
+          "char": "ch",
+          "charoff": "chOff",
+          "colspan": "colSpan",
+          "rowspan": "rowSpan",
+          "valign": "vAlign"
+        },
+        "abbr",
+        "align",
+        "axis",
+        "headers",
+        "scope",
+        "width"
+      ]
+    },
+    "template": {
+      "attributes": [{"shadowrootmode": "shadowRootMode"}]
+    },
+    "textarea": {
+      "attributes": [
+        {
+          "dirname": "dirName",
+          "maxlength": "maxLength",
+          "minlength": "minLength",
+          "readonly": "readOnly"
+        },
+        "autocomplete",
+        "cols",
+        "disabled",
+        "form",
+        "name",
+        "placeholder",
+        "required",
+        "rows",
+        "spellcheck",
+        "wrap"
+      ]
+    },
+    "tfoot": {
+      "attributes": [
+        {
+          "char": "ch",
+          "charoff": "chOff",
+          "valign": "vAlign"
+        },
+        "align"
+      ]
+    },
+    "th": {
+      "attributes": [
+        {
+          "bgcolor": "bgColor",
+          "char": "ch",
+          "charoff": "chOff",
+          "colspan": "colSpan",
+          "rowspan": "rowSpan",
+          "valign": "vAlign"
+        },
+        "abbr",
+        "align",
+        "axis",
+        "headers",
+        "scope",
+        "width"
+      ]
+    },
+    "thead": {
+      "attributes": [
+        {
+          "char": "ch",
+          "charoff": "chOff",
+          "valign": "vAlign"
+        },
+        "align"
+      ]
+    },
+    "time": {
+      "attributes": [{"datetime": "dateTime"}]
+    },
+    "tr": {
+      "attributes": [
+        {
+          "bgcolor": "bgColor",
+          "char": "ch",
+          "charoff": "chOff",
+          "valign": "vAlign"
+        },
+        "align"
+      ]
+    },
+    "track": {"attributes": ["default", "kind", "label", "src", "srclang"]},
+    "ul": {"attributes": ["compact", "type"]},
+    "video": {
+      "attributes": [
+        {
+          "crossorigin": "crossOrigin",
+          "disableremoteplayback": "disableRemotePlayback",
+          "controlslist": "controlsList",
+          "disablepictureinpicture": "disablePictureInPicture",
+          "playsinline": "playsInline"
+        },
+        "autoplay",
+        "controls",
+        "height",
+        "loop",
+        "muted",
+        "poster",
+        "preload",
+        "src",
+        "width"
+      ]
+    },
+    "acronym": {},
+    "big": {},
+    "center": {},
+    "nobr": {},
+    "noembed": {},
+    "noframes": {},
+    "param": {
+      "interfaceName": "HTMLParamElement",
+      "attributes": [{"valuetype": "valueType"}, "name", "type", "value"]
+    },
+    "plaintext": {},
+    "rb": {},
+    "rtc": {},
+    "strike": {},
+    "tt": {},
+    "xmp": {
+      "interfaceName": "HTMLPreElement"
     }
+  },
+  "svg": {
+    "cursor": {
+      "interfaceName": "SVGCursorElement",
+      "attributes": ["href", "x", "xlink_href", "y"]
+    },
+    "font-face-format": {
+      "interfaceName": "SVGFontFaceFormatElement",
+      "attributes": ["string"]
+    },
+    "font-face-name": {
+      "interfaceName": "SVGFontFaceNameElement",
+      "attributes": ["name"]
+    },
+    "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
+    "font-face-uri": {
+      "interfaceName": "SVGFontFaceUriElement",
+      "attributes": ["xlink_href"]
+    },
+    "font-face": {
+      "interfaceName": "SVGFontFaceElement",
+      "attributes": [
+        "accent-height",
+        "alphabetic",
+        "ascent",
+        "bbox",
+        "cap-height",
+        "descent",
+        "font-family",
+        "font-size",
+        "font-stretch",
+        "font-style",
+        "font-variant",
+        "font-weight",
+        "hanging",
+        "ideographic",
+        "mathematical",
+        "overline-position",
+        "overline-thickness",
+        "panose-1",
+        "slope",
+        "stemh",
+        "stemv",
+        "strikethrough-position",
+        "strikethrough-thickness",
+        "underline-position",
+        "underline-thickness",
+        "unicode-range",
+        "units-per-em",
+        "v-alphabetic",
+        "v-hanging",
+        "v-ideographic",
+        "v-mathematical",
+        "widths",
+        "x-height"
+      ]
+    },
+    "font": {
+      "interfaceName": "SVGFontElement",
+      "attributes": [
+        "horiz-adv-x",
+        "horiz-origin-x",
+        "horiz-origin-y",
+        "vert-adv-y",
+        "vert-origin-x",
+        "vert-origin-y"
+      ]
+    },
+    "glyph": {
+      "interfaceName": "SVGGlyphElement",
+      "attributes": [
+        "arabic-form",
+        "d",
+        "glyph-name",
+        "horiz-adv-x",
+        "lang",
+        "orientation",
+        "unicode",
+        "vert-adv-y",
+        "vert-origin-x",
+        "vert-origin-y"
+      ]
+    },
+    "glyphRef": {
+      "interfaceName": "SVGGlyphRefElement",
+      "attributes": ["dx", "dy", "format", "glyphRef", "x", "xlink_href", "y"]
+    },
+    "hkern": {
+      "interfaceName": "SVGHKernElement",
+      "attributes": ["g1", "g2", "k", "u1", "u2"]
+    },
+    "missing-glyph": {
+      "interfaceName": "SVGMissingGlyphElement",
+      "attributes": [
+        "d",
+        "horiz-adv-x",
+        "vert-adv-y",
+        "vert-origin-x",
+        "vert-origin-y"
+      ]
+    },
+    "tref": {
+      "interfaceName": "SVGTRefElement",
+      "attributes": ["xlink_href"]
+    },
+    "vkern": {
+      "interfaceName": "SVGVKernElement",
+      "attributes": ["g1", "g2", "k", "u1", "u2"]
+    },
+    "a": {
+      "attributes": [
+        "download",
+        "href",
+        "hreflang",
+        "ping",
+        "rel",
+        "target",
+        "type",
+        "xlink_actuate",
+        "xlink_href",
+        "xlink_show",
+        "xlink_title"
+      ]
+    },
+    "animate": {
+      "attributes": [
+        {"dur": "getSimpleDuration"},
+        "attributeName",
+        "attributeType",
+        "from",
+        "repeatCount",
+        "to"
+      ]
+    },
+    "animateMotion": {
+      "attributes": ["calcMode", "keyPoints", "origin", "path", "rotate"]
+    },
+    "animateTransform": {"attributes": ["by", "from", "to", "type"]},
+    "circle": {"attributes": ["cx", "cy", "r"]},
+    "clipPath": {"attributes": ["clipPathUnits"]},
+    "ellipse": {"attributes": ["cx", "cy", "rx", "ry"]},
+    "feBlend": {"attributes": [{"in": "in1"}, "in2", "mode"]},
+    "feColorMatrix": {"attributes": [{"in": "in1"}, "type", "values"]},
+    "feComponentTransfer": {"attributes": [{"in": "in1"}]},
+    "feComposite": {
+      "attributes": [{"in": "in1"}, "in2", "k1", "k2", "k3", "k4", "operator"]
+    },
+    "feConvolveMatrix": {
+      "attributes": [
+        "bias",
+        "divisor",
+        "edgeMode",
+        {
+          "in": "in1",
+          "kernelUnitLength": "kernelUnitLengthX",
+          "order": "orderX"
+        },
+        "kernelMatrix",
+        "preserveAlpha",
+        "targetX",
+        "targetY"
+      ]
+    },
+    "feDiffuseLighting": {
+      "attributes": [
+        "diffuseConstant",
+        {"in": "in1", "kernelUnitLength": "kernelUnitLengthX"},
+        "surfaceScale"
+      ]
+    },
+    "feDisplacementMap": {
+      "attributes": [
+        {"in": "in1"},
+        "in2",
+        "scale",
+        "xChannelSelector",
+        "yChannelSelector"
+      ]
+    },
+    "feDistantLight": {"attributes": ["azimuth", "elevation"]},
+    "feDropShadow": {
+      "attributes": ["dx", "dy", {"in": "in1", "stdDeviation": "stdDeviationX"}]
+    },
+    "feFlood": {"attributes": ["flood-color", "flood-opacity"]},
+    "feGaussianBlur": {
+      "attributes": ["edgeMode", {"in": "in1", "stdDeviation": "stdDeviationX"}]
+    },
+    "feImage": {
+      "attributes": [
+        {"crossorigin": "crossOrigin"},
+        "href",
+        "preserveAspectRatio",
+        "xlink_href"
+      ]
+    },
+    "feMergeNode": {"attributes": [{"in": "in1"}]},
+    "feMorphology": {
+      "attributes": [{"in": "in1", "radius": "radiusX"}, "operator"]
+    },
+    "feOffset": {"attributes": ["dx", "dy", {"in": "in1"}]},
+    "fePointLight": {"attributes": ["x", "y", "z"]},
+    "feSpecularLighting": {
+      "attributes": [
+        {"in": "in1", "kernelUnitLength": "kernelUnitLengthX"},
+        "specularConstant",
+        "specularExponent",
+        "surfaceScale"
+      ]
+    },
+    "feSpotLight": {
+      "attributes": [
+        "limitingConeAngle",
+        "pointsAtX",
+        "pointsAtY",
+        "pointsAtZ",
+        "specularExponent",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "feTile": {"attributes": [{"in": "in1"}]},
+    "feTurbulence": {
+      "attributes": [
+        {"baseFrequency": "baseFrequencyX"},
+        "numOctaves",
+        "seed",
+        "stitchTiles",
+        "type"
+      ]
+    },
+    "filter": {
+      "attributes": [
+        "filterRes",
+        "filterUnits",
+        "height",
+        "primitiveUnits",
+        "width",
+        "x",
+        "xlink_href",
+        "y"
+      ]
+    },
+    "foreignObject": {"attributes": ["height", "width", "x", "y"]},
+    "image": {
+      "attributes": [
+        {"crossorigin": "crossOrigin"},
+        "decoding",
+        "height",
+        "preserveAspectRatio",
+        "width",
+        "x",
+        "xlink_href",
+        "y"
+      ]
+    },
+    "line": {"attributes": ["x1", "x2", "y1", "y2"]},
+    "linearGradient": {
+      "attributes": [
+        "gradientTransform",
+        "gradientUnits",
+        "spreadMethod",
+        "x1",
+        "x2",
+        "xlink_href",
+        "y1",
+        "y2"
+      ]
+    },
+    "marker": {
+      "attributes": [
+        "markerHeight",
+        "markerUnits",
+        "markerWidth",
+        "orient",
+        "refX",
+        "refY",
+        "viewBox"
+      ]
+    },
+    "mask": {
+      "attributes": [
+        "height",
+        "maskContentUnits",
+        "maskUnits",
+        "width",
+        "x",
+        "y"
+      ]
+    },
+    "mpath": {"attributes": ["xlink_href"]},
+    "path": {"attributes": ["d"]},
+    "pattern": {
+      "attributes": [
+        "height",
+        "href",
+        "patternContentUnits",
+        "patternTransform",
+        "patternUnits",
+        "width",
+        "x",
+        "xlink_href",
+        "y"
+      ]
+    },
+    "polygon": {"attributes": ["points"]},
+    "polyline": {"attributes": ["points"]},
+    "radialGradient": {
+      "attributes": [
+        "cx",
+        "cy",
+        "fr",
+        "fx",
+        "fy",
+        "gradientTransform",
+        "gradientUnits",
+        "href",
+        "r",
+        "spreadMethod",
+        "xlink_href"
+      ]
+    },
+    "rect": {"attributes": ["height", "rx", "ry", "width", "x", "y"]},
+    "script": {"attributes": ["type", "xlink_href"]},
+    "set": {"attributes": ["to"]},
+    "stop": {"attributes": ["offset", "stop-color", "stop-opacity"]},
+    "style": {"attributes": ["media", "title", "type"]},
+    "svg": {
+      "attributes": [
+        "baseProfile",
+        "contentScriptType",
+        "contentStyleType",
+        "height",
+        "preserveAspectRatio",
+        "version",
+        "viewBox",
+        "width",
+        "x",
+        "y",
+        "zoomAndPan"
+      ]
+    },
+    "switch": {"attributes": ["allowReorder"]},
+    "symbol": {"attributes": ["preserveAspectRatio", "viewBox"]},
+    "text": {
+      "attributes": [
+        "dx",
+        "dy",
+        "lengthAdjust",
+        "rotate",
+        "textLength",
+        "x",
+        "y"
+      ]
+    },
+    "textPath": {
+      "attributes": [
+        "href",
+        "path",
+        "side",
+        "spacing",
+        "startOffset",
+        "xlink_href"
+      ]
+    },
+    "tspan": {
+      "attributes": [
+        "dx",
+        "dy",
+        "lengthAdjust",
+        "rotate",
+        "textLength",
+        "x",
+        "y"
+      ]
+    },
+    "use": {
+      "attributes": ["height", "href", "width", "x", "xlink_href", "y"]
+    },
+    "view": {
+      "attributes": [
+        "preserveAspectRatio",
+        "viewBox",
+        "viewTarget",
+        "zoomAndPan"
+      ]
+    }
+  },
+  "mathml": {
+    "menclose": {
+      "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores when ready.)",
+      "__attributes": ["notation"]
+    },
+    "mfenced": {}
+  },
+  "__mathml": {
+    "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores and merge with above when ready.)",
+    "maction": {"attributes": ["actiontype", "selection"]},
+    "math": {"attributes": ["display"]},
+    "mfrac": {"attributes": ["denomalign", "linethickness", "numalign"]},
+    "mmultiscripts": {"attributes": ["subscriptshift", "superscriptshift"]},
+    "mo": {
+      "attributes": [
+        "accent",
+        "form",
+        "largeop",
+        "lspace",
+        "maxsize",
+        "minsize",
+        "moveablelimits",
+        "rspace",
+        "stretchy",
+        "symmetric"
+      ]
+    },
+    "mover": {"attributes": ["accent"]},
+    "mpadded": {
+      "attributes": ["depth", "height", "lspace", "voffset", "width"]
+    },
+    "mspace": {"attributes": ["depth", "height", "width"]},
+    "mstyle": {
+      "attributes": [
+        "background",
+        "color",
+        "fontsize",
+        "fontstyle",
+        "fontweight",
+        "scriptminsize",
+        "scriptsizemultiplier"
+      ]
+    },
+    "msub": {"attributes": ["subscriptshift"]},
+    "msubsup": {"attributes": ["subscriptshift", "superscriptshift"]},
+    "msup": {"attributes": ["superscriptshift"]},
+    "mtable": {
+      "attributes": [
+        "align",
+        "columnalign",
+        "columnlines",
+        "columnspacing",
+        "frame",
+        "framespacing",
+        "rowalign",
+        "rowlines",
+        "rowspacing",
+        "width"
+      ]
+    },
+    "mtd": {
+      "attributes": ["columnalign", "columnspan", "rowalign", "rowspan"]
+    },
+    "mtr": {"attributes": ["columnalign", "rowalign"]},
+    "munder": {"attributes": ["accentunder"]},
+    "munderover": {"attributes": ["accent", "accentunder"]}
   }
 }
