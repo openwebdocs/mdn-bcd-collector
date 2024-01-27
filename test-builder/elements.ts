@@ -39,12 +39,10 @@ const categories: Record<
  */
 const build = async (specElements, customElements) => {
   const tests = {};
-
-  // Get the elements
   const els = {
-    html: new Map(),
-    svg: new Map(),
-    mathml: new Map(),
+    html: customElements.elements.custom.html || {},
+    svg: customElements.elements.custom.svg || {},
+    mathml: customElements.elements.custom.mathml || {},
   };
 
   for (const data of Object.values(specElements) as any[]) {
@@ -59,62 +57,14 @@ const build = async (specElements, customElements) => {
           }
         }
 
-        els[category].set(el.name, {
+        els[category][el.name] = {
           interfaceName: el.interface,
-          attributes: new Map(),
-        });
+          attributes:
+            (customElements.elements.attributes[category] || {})[el.name] || [],
+        };
       }
     }
   }
-
-  // Add the attributes and any additional elements
-  for (const category of Object.keys(els)) {
-    for (const [name, data] of Object.entries(
-      customElements[category],
-    ) as any[]) {
-      const normalAttrs =
-        data.attributes?.filter((a) => typeof a === "string") || [];
-      const customAttrs =
-        data.attributes
-          ?.filter((a) => typeof a === "object")
-          .reduce((all, a) => ({...all, ...a}), {}) || {};
-
-      const attrs = new Map(Object.entries(customAttrs));
-
-      for (const value of normalAttrs) {
-        if (attrs.has(value)) {
-          throw new Error(
-            `Element attribute is double-defined in custom elements: ${category}.${name}.${value}`,
-          );
-        }
-        attrs.set(value, value);
-      }
-
-      if (els[category].has(name)) {
-        if (attrs.size === 0) {
-          throw new Error(`Element already known: ${category}.${name}`);
-        }
-
-        const el = els[category].get(name);
-        for (const value of attrs.keys()) {
-          if (el.attributes.has(value) && value in normalAttrs) {
-            throw new Error(
-              `Element attribute already known: ${category}.${name}.${value}`,
-            );
-          }
-
-          el.attributes.set(value, attrs.get(value));
-        }
-      } else {
-        els[category].set(name, {
-          interfaceName: data.interface,
-          attributes: attrs,
-        });
-      }
-    }
-  }
-
-  // Build the tests
 
   for (const [category, categoryData] of Object.entries(categories)) {
     const namespace = categoryData.namespace;
