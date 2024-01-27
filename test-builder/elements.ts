@@ -119,9 +119,9 @@ const build = async (specElements, customElements) => {
   for (const [category, categoryData] of Object.entries(categories)) {
     const namespace = categoryData.namespace;
 
-    for (const [el, data] of Array.from(els[category].entries()).sort((a, b) =>
-      a[0].localeCompare(b[0]),
-    ) as any[]) {
+    for (const [el, data] of (
+      Array.from(els[category].entries()) as any[]
+    ).sort((a, b) => a[0].localeCompare(b[0]))) {
       const bcdPath = `${category}.elements.${el}`;
 
       const interfaceName = data.interfaceName || categoryData.default;
@@ -175,9 +175,9 @@ const build = async (specElements, customElements) => {
           );
 
           let attrCode = `(function() {
-            var instance = ${defaultConstructCode};
-            return !!instance && '${attrProp}' in instance;
-          })()`;
+  var instance = ${defaultConstructCode};
+  return !!instance && '${attrProp}' in instance;
+})()`;
 
           // All xlink attributes need special handling
           if (attrProp.startsWith("xlink_")) {
