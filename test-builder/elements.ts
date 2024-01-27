@@ -107,7 +107,7 @@ const build = async (specElements, customElements) => {
         }
       } else {
         els[category].set(name, {
-          interfaceName: data.interface,
+          interfaceName: data.interfaceName,
           attributes: attrs,
         });
       }
@@ -119,7 +119,7 @@ const build = async (specElements, customElements) => {
   for (const [category, categoryData] of Object.entries(categories)) {
     const namespace = categoryData.namespace;
 
-    for (const [el, data] of Object.entries(els[category]).sort((a, b) =>
+    for (const [el, data] of Array.from(els[category].entries()).sort((a, b) =>
       a[0].localeCompare(b[0]),
     ) as any[]) {
       const bcdPath = `${category}.elements.${el}`;
@@ -164,16 +164,7 @@ const build = async (specElements, customElements) => {
 
       // Add tests for the attributes
       if (data.attributes) {
-        const attributes = Array.isArray(data.attributes)
-          ? [
-              ...data.attributes.filter((a) => typeof a == "object"),
-              ...data.attributes
-                .filter((a) => typeof a == "string")
-                .map((a) => ({[a]: a})),
-            ].reduce((acc, cv) => ({...acc, ...cv}), {})
-          : data.attributes;
-
-        for (const [attrName, attrProp] of Object.entries(attributes) as [
+        for (const [attrName, attrProp] of data.attributes.entries() as [
           string,
           string,
         ][]) {
