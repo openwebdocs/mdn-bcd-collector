@@ -2256,7 +2256,7 @@ api:
           }
           return bcd.testOptionParam(createContext, null, 'willReadFrequently', true);
         webgpu_context: |-
-          bcd.skipIf('safari', '16.5', 'Creating a WebGPU context on Safari 16.5 crashes the browser');
+          bcd.skipIf('Creating a WebGPU context on Safari 16.5 crashes the browser', 'safari', '16.5');
 
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -3919,7 +3919,7 @@ api:
       var instance = reusableInstances.audioContext.createScriptProcessor();
   SecurityPolicyViolationEvent:
     __base: |-
-      bcd.skipIf('edge', '15', 'Constructing this event causes the page to reload');
+      bcd.skipIf('Constructing this event causes the page to reload', 'edge', '15');
 
       if (!('SecurityPolicyViolationEvent' in self)) {
         return {result: false, message: 'SecurityPolicyViolationEvent is not defined'};

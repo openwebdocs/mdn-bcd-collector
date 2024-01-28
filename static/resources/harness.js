@@ -208,22 +208,20 @@
   /**
    * Skips the test by throwing an error if the browser (and possibly version) matches
    * Avoid using this if possible
+   * @param {string?} reason - The reason for skipping
    * @param {string} browserName - The name of the browser to skip
    * @param {string?} browserVersion - The browser version to skip, if needed
-   * @param {string?} reason - The reason for skipping
    */
-  function skipIf(browserName, browserVersion, reason) {
-    if (!browserName) {
-      return;
-    }
-
-    if (browserName !== browser.name) {
-      return;
-    }
-
-    if (browserVersion) {
-      if (browserVersion !== browser.version) {
+  function skipIf(reason, browserName, browserVersion) {
+    if (browserName) {
+      if (browserName !== browser.name) {
         return;
+      }
+
+      if (browserVersion) {
+        if (browserVersion !== browser.version) {
+          return;
+        }
       }
     }
 
