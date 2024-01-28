@@ -479,10 +479,21 @@
   ["api.WEBGL_compressed_texture_pvrtc", "safari", "7+", true],
   "Chrome incorrectly exposes this interface only on the Window scope, rather than the DedicatedWorker scope as defined in the spec.",
   ["api.MediaStreamTrackProcessor", "chrome", "94+", true],
+  ["api.MediaStreamTrackProcessor", "chrome_android", "94+", true],
   ["api.MediaStreamTrackProcessor", "edge", "94+", true],
+  ["api.MediaStreamTrackProcessor", "opera", "81+", true],
+  ["api.MediaStreamTrackProcessor", "opera_android", "66+", true],
+  ["api.MediaStreamTrackProcessor", "samsunginternet_android", "17.0+", true],
+  ["api.MediaStreamTrackProcessor", "webview_android", "94+", true],
   [
     "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
     "chrome",
+    "94+",
+    true
+  ],
+  [
+    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
+    "chrome_android",
     "94+",
     true
   ],
@@ -492,8 +503,42 @@
     "94+",
     true
   ],
+  [
+    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
+    "opera",
+    "81+",
+    true
+  ],
+  [
+    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
+    "opera_android",
+    "66+",
+    true
+  ],
+  [
+    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
+    "samsunginternet_android",
+    "17.0+",
+    true
+  ],
+  [
+    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
+    "webview_android",
+    "94+",
+    true
+  ],
   ["api.MediaStreamTrackProcessor.readable", "chrome", "94+", true],
+  ["api.MediaStreamTrackProcessor.readable", "chrome_android", "94+", true],
   ["api.MediaStreamTrackProcessor.readable", "edge", "94+", true],
+  ["api.MediaStreamTrackProcessor.readable", "opera", "81+", true],
+  ["api.MediaStreamTrackProcessor.readable", "opera_android", "66+", true],
+  [
+    "api.MediaStreamTrackProcessor.readable",
+    "samsunginternet_android",
+    "17.0+",
+    true
+  ],
+  ["api.MediaStreamTrackProcessor.readable", "webview_android", "94+", true],
   "Only supported in Chrome OS",
   ["api.NetworkInformation.downlinkMax", "chrome", "61+", true],
   ["api.NetworkInformation.type", "chrome", "61+", true],
@@ -773,8 +818,90 @@
   ["css.properties.background-image.image-set", "safari", "6-13.1", false],
   "Only supported in installed web apps",
   ["api.Navigator.clearAppBadge", "safari", "17+", true],
+  ["api.Navigator.clearAppBadge", "safari_ios", "16.4+", true],
   ["api.Navigator.setAppBadge", "safari", "17+", true],
+  ["api.Navigator.setAppBadge", "safari_ios", "16.4+", true],
+  ["api.Notification", "safari_ios", "16.4+", true],
+  ["api.Notification.Notification", "safari_ios", "16.4+", true],
   ["api.Notification.badge", "safari", "17+", true],
+  ["api.Notification.badge", "safari_ios", "16.4+", true],
+  ["api.Notification.body", "safari_ios", "16.4+", true],
+  ["api.Notification.close", "safari_ios", "16.4+", true],
+  ["api.Notification.data", "safari_ios", "16.4+", true],
+  ["api.Notification.dir", "safari_ios", "16.4+", true],
+  ["api.Notification.icon", "safari_ios", "16.4+", true],
+  ["api.Notification.lang", "safari_ios", "16.4+", true],
+  ["api.Notification.permission_static", "safari_ios", "16.4+", true],
+  ["api.Notification.requestPermission_static", "safari_ios", "16.4+", true],
+  ["api.Notification.silent", "safari_ios", "16.4+", true],
+  ["api.Notification.title", "safari_ios", "16.4+", true],
+  ["api.NotificationEvent", "safari_ios", "16.4+", true],
+  ["api.NotificationEvent.NotificationEvent", "safari_ios", "16.4+", true],
+  ["api.PushEvent", "safari_ios", "16.4+", true],
+  ["api.PushEvent.PushEvent", "safari_ios", "16.4+", true],
+  ["api.PushEvent.data", "safari_ios", "16.4+", true],
+  ["api.PushManager", "safari_ios", "16.4+", true],
+  ["api.PushManager.getSubscription", "safari_ios", "16.4+", true],
+  ["api.PushManager.permissionState", "safari_ios", "16.4+", true],
+  ["api.PushManager.subscribe", "safari_ios", "16.4+", true],
+  [
+    "api.PushManager.supportedContentEncodings_static",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
+  ["api.PushMessageData", "safari_ios", "16.4+", true],
+  ["api.PushMessageData.arrayBuffer", "safari_ios", "16.4+", true],
+  ["api.PushMessageData.blob", "safari_ios", "16.4+", true],
+  ["api.PushMessageData.json", "safari_ios", "16.4+", true],
+  ["api.PushMessageData.text", "safari_ios", "16.4+", true],
+  ["api.PushSubscription", "safari_ios", "16.4+", true],
+  ["api.PushSubscription.endpoint", "safari_ios", "16.4+", true],
+  ["api.PushSubscription.expirationTime", "safari_ios", "16.4+", true],
+  ["api.PushSubscription.getKey", "safari_ios", "16.4+", true],
+  ["api.PushSubscription.options", "safari_ios", "16.4+", true],
+  ["api.PushSubscription.toJSON", "safari_ios", "16.4+", true],
+  ["api.PushSubscription.unsubscribe", "safari_ios", "16.4+", true],
+  ["api.PushSubscriptionChangeEvent", "safari_ios", "16.4+", true],
+  [
+    "api.PushSubscriptionChangeEvent.PushSubscriptionChangeEvent",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
+  [
+    "api.PushSubscriptionChangeEvent.newSubscription",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
+  [
+    "api.PushSubscriptionChangeEvent.oldSubscription",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
+  ["api.PushSubscriptionOptions", "safari_ios", "16.4+", true],
+  [
+    "api.PushSubscriptionOptions.applicationServerKey",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
+  ["api.PushSubscriptionOptions.userVisibleOnly", "safari_ios", "16.4+", true],
+  [
+    "api.ServiceWorkerRegistration.getNotifications",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
+  ["api.ServiceWorkerRegistration.pushManager", "safari_ios", "16.4+", true],
+  [
+    "api.ServiceWorkerRegistration.showNotification",
+    "safari_ios",
+    "16.4+",
+    true
+  ],
   "https://bugzil.la/1517786#c8",
   [
     "api.HTMLCanvasElement.getContext.2d_context.options_colorSpace_parameter",
@@ -918,4 +1045,5 @@
   ["api.Element.focusout_event", "firefox_android", "52+", true],
   "Implemented as a prefix to the standard version",
   ["css.properties.-webkit-mask-composite", "firefox", "*", false]
+  ["css.properties.-webkit-mask-composite", "firefox_android", "*", false]
 ]
