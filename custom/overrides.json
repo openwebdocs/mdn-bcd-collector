@@ -584,6 +584,12 @@
   ["css.properties.text-orientation.sideways", "safari", "7-14", true],
   ["css.properties.background-clip.text", "chrome", "3+", true],
   [
+    "css.properties.background-clip.text",
+    "samsunginternet_android",
+    "1.0+",
+    true
+  ],
+  [
     "css.properties.user-modify.read-write-plaintext-only",
     "chrome",
     "1+",
