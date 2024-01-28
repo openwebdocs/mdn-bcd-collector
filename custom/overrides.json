@@ -1044,6 +1044,6 @@
   ["api.Element.focusout_event", "firefox", "52+", true],
   ["api.Element.focusout_event", "firefox_android", "52+", true],
   "Implemented as a prefix to the standard version",
-  ["css.properties.-webkit-mask-composite", "firefox", "*", false]
+  ["css.properties.-webkit-mask-composite", "firefox", "*", false],
   ["css.properties.-webkit-mask-composite", "firefox_android", "*", false]
 ]
