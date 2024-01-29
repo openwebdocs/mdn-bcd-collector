@@ -2303,7 +2303,7 @@ api:
   HTMLFieldSetElement:
     __base: var instance = document.createElement('fieldset');
     __test: return bcd.testObjectName(instance, 'HTMLFieldSetElement');
-    __addditional:
+    __additional:
       elements.type_HTMLCollection: |-
         var els = instance.elements();
         return bcd.testObjectName(els, 'HTMLCollection');
@@ -5325,6 +5325,13 @@ javascript:
           "Multiple errors thrown",
         );
       AggregateError: return !!instance;
+    ArrayBuffer:
+      ArrayBuffer:
+        __additional:
+          maxByteLength_option: function construct(options) {
+            new ArrayBuffer(8, options);
+            }
+            return bcd.testOptionParam(construct, null, 'maxByteLength', 16);
     AsyncFunction:
       __base: |-
         var func;
@@ -5386,8 +5393,44 @@ javascript:
       "@@asyncIterator": |-
         const AsyncIteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(instance)));
         return !!instance && "Symbol" in self && "asyncIterator" in Symbol && Symbol.asyncIterator in AsyncIteratorPrototype;
+    DataView:
+      DataView:
+        __additional:
+          sharedarraybuffer_support: |-
+            if (!('SharedArrayBuffer' in self)) {
+              return {result: false, message: 'SharedArrayBuffer is not defined'};
+            }
+            var sab = new SharedArrayBuffer(1024);
+
+            try {
+              var instance = new DataView(sab, 0);
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+    Date:
+      UTC:
+        __additional:
+          optional_monthIndex: |-
+            try {
+              Date.UTC(2024);
+              return {result: true, message: 'Method passed without monthIndex parameter'};
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
     Error:
       __base: "var instance = new Error('hello world', {cause: 'for testing'});"
+      Error:
+        __additional:
+          fileName_parameter: |-
+            var e = new Error('foo', 'bar.js');
+            return e.fileName === 'bar.js';
+          lineNumber_parameter: |-
+            var e = new Error('foo', 'bar.js', 420);
+            return e.lineNumber === 420;
+          options_cause_parameter: |-
+            var e = new Error('foo', {cause: 'testing'});
+            return e.cause === 'testing';
     Float32Array:
       __additional:
         Float32Array.iterable_allowed: |-
@@ -5408,6 +5451,10 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
+    Function:
+      name: |-
+        function doTheThing() {};
+        return doTheThing.name == 'doTheThing';
     Generator:
       __base: <%javascript.builtins.GeneratorFunction:instance%>
       __test: return !!instance;
@@ -5428,10 +5475,6 @@ javascript:
         }
       __test: return !!instance;
       GeneratorFunction: return !!instance;
-    Function:
-      name: |-
-        function doTheThing() {};
-        return doTheThing.name == 'doTheThing';
     Int16Array:
       __additional:
         Int16Array.iterable_allowed: |-
@@ -5463,6 +5506,137 @@ javascript:
             return {result: false, message: e.message};
           }
     Intl:
+      Collator:
+        Collator:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("Collator" in Intl)) {
+              return { result: false, message: "Intl.Collator is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.Collator('en', options);
+            }
+          __additional:
+            options_caseFirst_parameter: return bcd.testOptionParam(construct, null, 'caseFirst', 'upper');
+            options_collation_parameter: return bcd.testOptionParam(construct, null, 'collation', 'default');
+      DateTimeFormat:
+        DateTimeFormat:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("DateTimeFormat" in Intl)) {
+              return { result: false, message: "Intl.DateTimeFormat is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.DateTimeFormat('en', options);
+            }
+          __additional:
+            locales_parameter: |-
+              var instance = new Intl.DateTimeFormat('de');
+              var options = instance.resolvedOptions();
+              return options.locale === 'de';
+            options_parameter.options_calendar_parameter: return bcd.testOptionParam(construct, null, 'calendar', 'chinese');
+            options_parameter.options_dateStyle_parameter: return bcd.testOptionParam(construct, null, 'dateStyle', 'full');
+            options_parameter.options_dayPeriod_parameter: return bcd.testOptionParam(construct, null, 'dayPeriod', 'narrow');
+            options_parameter.options_fractionalSecondDigits_parameter: return bcd.testOptionParam(construct, null, 'fractionalSecondDigits', 2);
+            options_parameter.options_hourCycle_parameter: return bcd.testOptionParam(construct, null, 'hourCycle', 'h23');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_timeStyle_parameter: return bcd.testOptionParam(construct, null, 'timeStyle', 'full');
+            options_parameter.options_timeZone_parameter: return bcd.testOptionParam(construct, null, 'timeZone', 'UTC');
+            options_parameter.options_timeZone_parameter.iana_time_zones: return bcd.testOptionParam(construct, null, 'timeZone', 'Asia/Shanghai');
+            options_parameter.options_timeZoneName_parameter: return bcd.testOptionParam(construct, null, 'timeZoneName', 'long');
+            options_parameter.options_timeZoneName_parameter.extended_values: return bcd.testOptionParam(construct, null, 'timeZoneName', 'shortGeneric');
+      NumberFormat:
+        NumberFormat:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("NumberFormat" in Intl)) {
+              return { result: false, message: "Intl.NumberFormat is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.NumberFormat('en', options);
+            }
+          __additional:
+            locales_parameter: |-
+              var instance = new Intl.NumberFormat('de');
+              var options = instance.resolvedOptions();
+              return options.locale === 'de';
+            options_parameter.options_compactDisplay_parameter: "return bcd.testOptionParam(construct, null, 'compactDisplay', 'long', {'notation': 'compact'});"
+            options_parameter.options_currencyDisplay_parameter: return bcd.testOptionParam(construct, null, 'currencyDisplay', 'name');
+            options_parameter.options_currencySign_parameter: return bcd.testOptionParam(construct, null, 'currencySign', 'accounting');
+            options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
+            options_parameter.options_maximumFractionDigits_parameter: return bcd.testOptionParam(construct, null, 'maximumFractionDigits', 10);
+            options_parameter.options_maximumSignificantDigits_parameter: return bcd.testOptionParam(construct, null, 'maximumSignificantDigits', 10);
+            options_parameter.options_minimumFractionDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumFractionDigits', 10);
+            options_parameter.options_minimumIntegerDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumIntegerDigits', 10);
+            options_parameter.options_minimumSignificantDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumSignificantDigits', 10);
+            options_parameter.options_notation_parameter: return bcd.testOptionParam(construct, null, 'notation', 'compact');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
+            options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
+            options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
+            options_parameter.options_signDisplay_parameter: return bcd.testOptionParam(construct, null, 'signDisplay', 'always');
+            options_parameter.options_signDisplay_parameter.negative: |-
+              var instance = Intl.NumberFormat('en', {signDisplay: 'negative'});
+              var options = instance.resolvedOptions();
+              return options.signDisplay === 'negative';
+            options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_unit_parameter: return bcd.testOptionParam(construct, null, 'unit', 'gigabyte');
+            options_parameter.options_unitDisplay_parameter: "return bcd.testOptionParam(construct, null, 'unitDisplay', 'narrow', {unit: 'gigabyte'});"
+            options_parameter.options_useGrouping_parameter: return bcd.testOptionParam(construct, null, 'useGrouping', false);
+            options_parameter.options_useGrouping_parameter.string_values: |-
+              var instance = Intl.NumberFormat('en', {useGrouping: 'always'});
+              var options = instance.resolvedOptions();
+              return options.useGrouping === 'always';
+      PluralRules:
+        PluralRules:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("PluralRules" in Intl)) {
+              return { result: false, message: "Intl.PluralRules is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.PluralRules('en', options);
+            }
+          __additional:
+            options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
+            options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
+            options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+      RelativeTimeFormat:
+        RelativeTimeFormat:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("RelativeTimeFormat" in Intl)) {
+              return { result: false, message: "Intl.RelativeTimeFormat is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.RelativeTimeFormat('en', options);
+            }
+          __additional:
+            locales_parameter: |-
+              var instance = new Intl.RelativeTimeFormat('de');
+              var options = instance.resolvedOptions();
+              return options.locale === 'de';
+            options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_numeric_parameter: return bcd.testOptionParam(construct, null, 'numeric', 'auto');
+            options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
       Segments:
         __base: |-
           if (!('Intl' in self && 'Segmenter' in Intl)) {
@@ -5499,14 +5673,15 @@ javascript:
             return {result: false, message: e.message};
           }
     Object:
-      constructor: |-
-        var instance = {};
-        return !!instance.constructor;
       defineGetter: return '__defineGetter__' in {};
       defineSetter: return '__defineSetter__' in {};
       lookupGetter: return '__lookupGetter__' in {};
       lookupSetter: return '__lookupSetter__' in {};
       proto: return '__proto__' in {};
+      __additional:
+        constructor: |-
+          var instance = {};
+          return !!instance.constructor;
     RegExp:
       __base: |-
         if (!('RegExp' in self)) {
