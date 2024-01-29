@@ -546,7 +546,7 @@
     }
 
     // Method is a promise
-    if (!!returnValue && "then" in returnValue) {
+    if (!!returnValue && returnValue.then) {
       return returnValue.then(function (value) {
         return (mustReturnTruthy ? !!value : true) && accessed;
       });
