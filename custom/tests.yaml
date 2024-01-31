@@ -1633,7 +1633,14 @@ api:
       bcd.addCleanup(function() {
         instance.close();
       });
-    EventSource: return !!instance;
+    EventSource:
+      __test: return !!instance;
+      __additional:
+        options_withCredentials_parameter: |-
+          function construct(options) {
+            new EventSource('https://mdn-bcd-collector.gooborg.com', options);
+          }
+          return bcd.testOptionParam(construct, null, 'withCredentials', true);
   EventTarget:
     __base: |-
       var instance;
@@ -1650,6 +1657,7 @@ api:
           instance.addEventListener('click', function() {}, options);
         }
       __additional:
+        options_parameter: return bcd.testOptionParam(addEventListener, null, 'capture', true);
         options_parameter.options_capture_parameter: return bcd.testOptionParam(addEventListener, null, 'capture', true);
         options_parameter.options_once_parameter: return bcd.testOptionParam(addEventListener, null, 'once', true);
         options_parameter.options_passive_parameter: return bcd.testOptionParam(addEventListener, null, 'passive', true);
@@ -1663,6 +1671,27 @@ api:
         useCapture_parameter_optional: |-
           try {
             instance.addEventListener('click', function() {});
+            return true;
+          } catch(e) {
+            if (e.name === 'TypeError') {
+              return {result: false, message: 'useCapture parameter is required'};
+            }
+            throw e;
+          }
+    removeEventListener:
+      __base: |-
+        function removeEventListener(options) {
+          function eventListener() {}
+          instance.addEventListener('click', eventListener, options);
+          instance.removeEventListener('click', eventListener, options);
+        }
+      __additional:
+        options_parameter: return bcd.testOptionParam(removeEventListener, null, 'capture', true);
+        useCapture_parameter_optional: |-
+          try {
+            function eventListener() {}
+            instance.addEventListener('click', eventListener);
+            instance.removeEventListener('click', eventListener);
             return true;
           } catch(e) {
             if (e.name === 'TypeError') {
@@ -2125,6 +2154,72 @@ api:
       - webGL2
     __base: var instance = document.createElement('canvas');
     __test: return bcd.testObjectName(instance, 'HTMLCanvasElement');
+    toBlob:
+      __additional:
+        quality_parameter: |-
+          if (!('toBlob' in instance)) {
+            return {result: false, message: "instance.toBlob is not defined"}
+          }
+
+          // Set the size
+          instance.width = '300';
+          instance.height = '300';
+
+          // Now we need to draw something
+          var ctx = instance.getContext('2d');
+          ctx.lineWidth = 10;
+          ctx.strokeStyle = "rgb(230, 20, 20)";
+          ctx.fillStyle = "rgb(20, 20, 230)";
+          ctx.strokeRect(75, 140, 150, 110);
+          ctx.fillRect(130, 190, 40, 60);
+          ctx.beginPath();
+          ctx.moveTo(50, 140);
+          ctx.lineTo(150, 60);
+          ctx.lineTo(250, 140);
+          ctx.closePath();
+          ctx.stroke();
+
+          // Get two blobs with different quality and compare them
+          instance.toBlob(function(blob1) {
+            blob1.arrayBuffer().then(function(blob1data) {
+              instance.toBlob(function(blob2) {
+                blob2.arrayBuffer().then(function(blob2data) {
+                  if (blob1.size != blob2.size) {
+                    success({result: true, message: 'Blobs are not identical'});
+                    return;
+                  }
+
+                  for (var i = 0; i < blob1.size; i++) {
+                    if (blob1data[i] != blob2data[i]) {
+                      success({result: true, message: 'Blobs are not identical'});
+                      return;
+                    }
+                  }
+
+                  success({result: false, message: 'Blobs are identical'});
+                });
+              }, 'image/jpeg', 0.9);
+            });
+          }, 'image/jpeg', 0.5);
+
+          return 'callback';
+        type_parameter_webp: |-
+          if (!('toBlob' in instance)) {
+            return {result: false, message: "instance.toBlob is not defined"}
+          }
+          function callback(blob) {
+            success(blob.type === 'image/webp');
+          }
+          instance.toBlob(callback, 'image/webp');
+          return 'callback';
+    toDataURL:
+      __additional:
+        type_parameter_webp: |-
+          if (!('toDataURL' in instance)) {
+            return {result: false, message: "instance.toDataURL is not defined"}
+          }
+          var blob = instance.toDataURL('image/webp');
+          return blob.type === 'image/webp';
     getContext:
       __additional:
         bitmaprenderer_context: |-
@@ -2825,6 +2920,8 @@ api:
       var instance = stylesheet.media;
   MediaQueryList:
     __base: "var instance = window.matchMedia('screen and max-width: 800px;');"
+    __additional:
+      EventTarget_inheritance: return !!instance && 'addEventListener' in instance;
   MediaQueryListEvent:
     __base: |-
       if (!('MediaQueryListEvent' in self)) {
@@ -3167,6 +3264,48 @@ api:
         return {result: false, message: 'WebGL 2 is not available'};
       };
       var instance = reusableInstances.webGL2.getExtension('OVR_multiview2');
+  OffscreenCanvas:
+    __base: var instance = new OffscreenCanvas(1024, 1024);
+    __additional:
+      bitmaprenderer_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('bitmaprenderer');
+        return !!ctx;
+      webgl_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('webgl');
+        return !!ctx;
+      webgl2_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('webgl2');
+        return !!ctx;
+      webgpu_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('webgpu');
+        return !!ctx;
+      2d_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('2d');
+        return !!ctx;
+      convertToBlob.option_type_parameter_webp: |-
+        instance.getContext('2d');
+        if (!('convertToBlob' in instance)) {
+          return {result: false, message: "instance.convertToBlob is not defined"}
+        }
+        var blobPromise = instance.convertToBlob({type: 'image/webp'});
+        return blobPromise.then(function (blob) {
+          return blob.type === 'image/webp';
+        });
   PageTransitionEvent:
     __base: |-
       var instance;
