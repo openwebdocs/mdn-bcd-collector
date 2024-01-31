@@ -180,3 +180,6 @@ partial interface SVGScriptElement {
 partial interface SVGStyleElement {
   attribute boolean disabled;
 };
+
+[Exposed=Window]
+interface SVGCursorElement {};
