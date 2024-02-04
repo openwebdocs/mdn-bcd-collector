@@ -1972,6 +1972,40 @@ api:
     __base: |-
       <%api.GPU:gpu%>
       var promise = gpu.requestAdapter();
+    __additional:
+      requestDevice.lost_device_on_duplicate: |-
+        return promise.then(function(adapter) {
+          return adapter.requestDevice().then(function(device1) {
+            bcd.addCleanup(function() {
+              device1.destroy();
+            });
+
+            return adapter.requestDevice().then(function(device2) {
+              bcd.addCleanup(function() {
+                device2.destroy();
+              });
+
+              return new Promise(function(resolve) {
+                var resolved = false;
+
+                // The GPUDevice.lost promise will only resolve when the device is lost
+                setTimeout(function() {
+                  if (!resolved) {
+                    resolve({result: false, message: 'GPUDevice.lost did not immediately resolve'});
+                  }
+                  resolved = true;
+                }, 1000);
+
+                device2.lost.then(function(info) {
+                  if (!resolved) {
+                    resolve({result: true, message: info.message});
+                  }
+                  resolved = true;
+                });
+              });
+            });
+          });
+        });
   GPUBuffer:
     __base: |-
       <%api.GPUDevice:device%>
@@ -2004,8 +2038,22 @@ api:
     __base: |-
       <%api.GPUAdapter:adapter%>
       var promise = adapter.then(function(a) {
-        return a.requestDevice();
+        var device = a.requestDevice();
+        bcd.addCleanup(function() {
+          device.destroy();
+        });
+        return device;
       });
+  GPUPipelineError:
+    GPUPipelineError:
+      __additional:
+        message_optional: |-
+          try {
+            new GPUPipelineError(undefined, {reason: "internal"});
+            return {result: true, message: 'Constructor passed with no errors'};
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   GPUQueue:
     __base: |-
       <%api.GPUDevice:device%>
