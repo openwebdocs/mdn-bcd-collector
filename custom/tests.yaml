@@ -2020,8 +2020,10 @@ api:
       });
   GPUCommandEncoder:
     __base: |-
-      <%api.GPUDevice:device%>
-      var promise = device.then(function(d) {
+      <%api.GPUDevice:devicePromise%>
+      var device;
+      var promise = devicePromise.then(function(d) {
+        device = d;
         return d.createCommandEncoder();
       });
   GPUComputePassEncoder:
@@ -2044,6 +2046,38 @@ api:
         });
         return device;
       });
+    importExternalTexture:
+      __resources:
+        - image-black
+      __additional:
+        videoframe_source: |-
+          if (!('document' in self)) {
+            // XXX Implement worker test
+            return {result: null, message: 'Testing in workers is not yet implemented'};
+          }
+
+          return promise.then(function(instance) {
+            if (!('importExternalTexture' in instance)) {
+              return {result: false, message: 'GPUDevice.importExternalTexture is not defined'}
+            }
+
+            if (!('VideoFrame' in self)) {
+              return {result: false, message: 'VideoFrame is not defined'}
+            }
+
+            var img = document.getElementById('resource-image-black');
+            var videoFrame = new VideoFrame(img, {timestamp: 0});
+            bcd.addCleanup(function() {
+              videoFrame.close();
+            });
+
+            try {
+              instance.importExternalTexture({source: videoFrame});
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+          });
   GPUPipelineError:
     GPUPipelineError:
       __additional:
@@ -2056,10 +2090,88 @@ api:
           }
   GPUQueue:
     __base: |-
-      <%api.GPUDevice:device%>
-      var promise = device.then(function(d) {
+      <%api.GPUDevice:devicePromise%>
+      var device;
+      var promise = devicePromise.then(function(d) {
+        device = d;
         return d.queue;
       });
+    copyExternalImageToTexture:
+      __resources:
+        - image-black
+      __additional:
+        videoframe_source: |-
+          if (!('document' in self)) {
+            // XXX Implement worker test
+            return {result: null, message: 'Testing in workers is not yet implemented'};
+          }
+
+          return promise.then(function(instance) {
+            if (!('copyExternalImageToTexture' in instance)) {
+              return {result: false, message: 'GPUQueue.copyExternalImageToTexture is not defined'}
+            }
+
+            // Create video frame
+            if (!('VideoFrame' in self)) {
+              return {result: false, message: 'VideoFrame is not defined'}
+            }
+            var img = document.getElementById('resource-image-black');
+            var videoFrame = new VideoFrame(img, {timestamp: 0});
+            bcd.addCleanup(function() {
+              videoFrame.close();
+            });
+
+            // Create destination texture
+            var cubeTexture = device.createTexture({
+              size: [videoFrame.displayWidth, videoFrame.displayHeight, 1],
+              format: "rgba8unorm",
+              usage:
+                GPUTextureUsage.TEXTURE_BINDING |
+                GPUTextureUsage.COPY_DST |
+                GPUTextureUsage.RENDER_ATTACHMENT,
+            });
+
+            try {
+              instance.copyExternalImageToTexture(
+                { source: videoFrame },
+                { texture: cubeTexture },
+                [videoFrame.displayWidth, videoFrame.displayHeight]
+              );
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+          });
+  GPURenderBundleEncoder:
+    __base: |-
+      <%api.GPUDevice:devicePromise%>
+      var device;
+      var promise = devicePromise.then(function(d) {
+        device = d;
+        return d.createRenderBundleEncoder({
+          colorFormats: ['depth16unorm']
+        });
+      });
+    setVertexBuffer:
+      __additional:
+        unset_vertex_buffer: |-
+          return promise.then(function(passEncoder) {
+            var vec4Size = 4 * Float32Array.BYTES_PER_ELEMENT;
+            var vertexBuffer = device.createBuffer({
+              size: 2 * 3 * vec4Size,
+              usage: GPUBufferUsage.VERTEX,
+              mappedAtCreation: true,
+            });
+
+            passEncoder.setVertexBuffer(0, vertexBuffer);
+
+            try {
+              passEncoder.setVertexBuffer(0, null);
+              return true;
+            } catch (e) {
+              return {result: false, message: e.message}
+            }
+          });
   GPURenderPassEncoder:
     __base: |-
       <%api.GPUCommandEncoder:commandEncoder%>
@@ -2083,6 +2195,26 @@ api:
           return renderPass;
         });
       });
+    setVertexBuffer:
+      __additional:
+        unset_vertex_buffer: |-
+          return promise.then(function(passEncoder) {
+            var vec4Size = 4 * Float32Array.BYTES_PER_ELEMENT;
+            var vertexBuffer = device.createBuffer({
+              size: 2 * 3 * vec4Size,
+              usage: GPUBufferUsage.VERTEX,
+              mappedAtCreation: true,
+            });
+
+            passEncoder.setVertexBuffer(0, vertexBuffer);
+
+            try {
+              passEncoder.setVertexBuffer(0, null);
+              return true;
+            } catch (e) {
+              return {result: false, message: e.message}
+            }
+          });
   GPUTexture:
     __base: |-
       <%api.GPUDevice:device%>
