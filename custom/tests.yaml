@@ -2572,6 +2572,21 @@ api:
       __additional:
         options_focusVisible_parameter: return bcd.testOptionParam(instance, 'focus', 'focusVisible', true);
         options_preventScroll_parameter: return bcd.testOptionParam(instance, 'focus', 'preventScroll', true);
+    togglePopover:
+      __additional:
+        returns_boolean: |-
+          if (!('togglePopover' in instance)) {
+            return {result: false, message: 'HTMLElement.togglePopover is not defined'};
+          }
+
+          document.getElementById('resources').appendChild(instance);
+          bcd.addCleanup(function() {
+            document.getElementById('resources').removeChild(instance);
+          });
+
+          instance.popover = 'auto';
+          var value = instance.togglePopover(false);
+          return typeof value === 'boolean';
   HTMLEmbedElement:
     __base: var instance = document.createElement('embed');
     __test: return bcd.testObjectName(instance, 'HTMLEmbedElement');
