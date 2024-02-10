@@ -3023,6 +3023,12 @@ api:
           }
         }
       );
+  InputEvent:
+    __base: |-
+      if (!('InputEvent' in self)) {
+        return {result: false, message: 'InputEvent is not defined'}
+      }
+      var instance = new InputEvent('input');
   InstallEvent:
     __base: |-
       // During the installation of the service worker, we set an "installEvent" global variable so that we may easily reuse it here:
@@ -3032,6 +3038,19 @@ api:
       //   });
 
       var instance = installEvent;
+  IntersectionObserver:
+    IntersectionObserver:
+      __additional:
+        options_root_parameter_Document: |-
+          if (!('IntersectionObserver' in self)) {
+            return {result: false, message: 'IntersectionObserver is not defined'}
+          }
+          try {
+            new IntersectionObserver(function() {}, {root: document});
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   InterventionReportBody:
     __base: |-
       // XXX Obtaining an instance of this interface is much like triggering an event.
