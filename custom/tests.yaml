@@ -1031,7 +1031,7 @@ api:
       var el = document.createElement('script');
       el.src = "//bad-domain.awful/dummy-script.js";
       try {
-        document.body.append(el);
+        document.getElementById('resources').append(el);
       } catch(e) {
         // We expect a CSP error here
       }
@@ -5531,9 +5531,9 @@ mathml:
         // Use tall enough fraction to avoid side effect of min num/denum shifts.
         var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
         mathEl.innerHTML = "<mfrac><mspace height='50px' depth='50px'></mspace><mspace height='50px' depth='50px'></mspace></mfrac><mfrac><mspace height='60px' depth='60px'></mspace><mspace height='60px' depth='60px'></mspace></mfrac>";
-        document.body.appendChild(mathEl);
+        document.getElementById('resources').appendChild(mathEl);
         bcd.addCleanup(function() {
-          document.body.removeChild(mathEl);
+          document.getElementById('resources').removeChild(mathEl);
         });
 
         var mfrac = mathEl.getElementsByTagName("mfrac");
@@ -5589,9 +5589,9 @@ mathml:
       __base: |-
         var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
         mathEl.innerHTML = "<mspace></mspace><mspace width='20px'></mspace>";
-        document.body.appendChild(mathEl);
+        document.getElementById('resources').appendChild(mathEl);
         bcd.addCleanup(function() {
-          document.body.removeChild(mathEl);
+          document.getElementById('resources').removeChild(mathEl);
         });
 
         // The width attribute will add 20px per MathML and none if not supported.
@@ -5601,9 +5601,9 @@ mathml:
       __base: |-
         var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
         mathEl.innerHTML = "<mrow style='font-size: 20px !important'><mtext>A</mtext></mrow><msqrt style='font-size: 20px !important'><mtext>A</mtext></msqrt>";
-        document.body.appendChild(mathEl);
+        document.getElementById('resources').appendChild(mathEl);
         bcd.addCleanup(function() {
-          document.body.removeChild(mathEl);
+          document.getElementById('resources').removeChild(mathEl);
         });
 
         // The radical symbol will make msqrt wider than mrow, if the former is supported.
@@ -5649,9 +5649,9 @@ mathml:
       __base: |-
         var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
         mathEl.innerHTML = "<munderover><mspace width='20px'></mspace><mspace width='20px'></mspace><mspace width='20px'></mspace></munderover><munderover><mspace width='40px'></mspace><mspace width='40px'></mspace><mspace width='40px'></mspace></munderover>";
-        document.body.appendChild(mathEl);
+        document.getElementById('resources').appendChild(mathEl);
         bcd.addCleanup(function() {
-          document.body.removeChild(mathEl);
+          document.getElementById('resources').removeChild(mathEl);
         });
 
         var munderover = mathEl.getElementsByTagName("munderover");
