@@ -10,11 +10,19 @@ import {CompatData, CompatStatement} from "@mdn/browser-compat-data/types";
 import chalk from "chalk-template";
 import esMain from "es-main";
 import fs from "fs-extra";
+import jsonc from "jsonc-parser";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
 import {Tests} from "../types/types.js";
 import {BCD_DIR} from "../lib/constants.js";
+
+const untestableFeatures = jsonc.parse(
+  await fs.readFile(
+    new URL("../untestable-features.jsonc", import.meta.url),
+    "utf8",
+  ),
+);
 
 /**
  * Traverses the features object and returns an array of feature paths.
@@ -37,7 +45,14 @@ const traverseFeatures = (
 
     const compat: CompatStatement = obj[id].__compat;
     if (compat) {
-      features.push(`${path}${id}`);
+      const featureIdent = `${path}${id}`;
+
+      if (untestableFeatures.includes(featureIdent)) {
+        // Skip any untestable features
+        continue;
+      }
+
+      features.push(featureIdent);
 
       if (includeAliases) {
         const aliases = new Set();

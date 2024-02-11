@@ -120,6 +120,7 @@
     "fdir": "6.1.1",
     "foreman": "^3.0.1",
     "json3": "3.3.3",
+    "jsonc-parser": "^3.2.1",
     "listr2": "8.0.2",
     "minimatch": "9.0.3",
     "mocha": "10.3.0",
