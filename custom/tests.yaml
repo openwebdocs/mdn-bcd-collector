@@ -3142,6 +3142,25 @@ api:
         return {result: false, message: 'MediaQueryListEvent is not defined'};
       }
       var instance = new MediaQueryListEvent('change');
+  MediaRecorder:
+    __resources:
+      - mediaStream
+    __base: |-
+      if (!reusableInstances.mediaStream) {
+        return {result: false, message: 'Media stream is not available'};
+      }
+      if (!('MediaRecorder' in self)) {
+        return {result: false, message: 'MediaRecorder is not defined'}
+      }
+      var instance = new MediaRecorder(reusableInstances.mediaStream);
+    MediaRecorder:
+      __resources:
+      __additional:
+        options_parameter: |-
+          function construct(options) {
+            new MediaRecorder(reusableInstances.mediaStream, options);
+          }
+          return bcd.testOptionParam(construct, null, 'mimeType', '');
   MediaSession:
     __base: var instance = navigator.mediaSession;
   MediaSource:
@@ -3571,6 +3590,17 @@ api:
           }
           return bcd.testOptionParam(mark, null, 'detail', 'bar');
         returns_performancemark: return !!instance.mark('foo');
+    measure:
+      __additional:
+        measureOptions_parameter: |-
+          if (!(instance && instance.measure)) {
+            return {result: false, message: 'instance.measure is not defined'};
+          }
+          function measure(options) {
+            instance.measure('foo', options);
+          }
+          return bcd.testOptionParam(measure, null, 'detail', 'bar', {'start': 0});
+        returns_performancemeasure: return !!instance.measure('foo');
   PerformanceEntry:
     __base: |-
       <%api.Performance:prf%>
@@ -3756,11 +3786,41 @@ api:
       var instance = new Request('');
     Request:
       __additional:
+        init_priority_parameter: |-
+          function construct(options) {
+            new Request('', options);
+          }
+          return bcd.testOptionParam(construct, null, 'priority', 'auto');
         init_referrer_parameter: |-
           function construct(options) {
             new Request('', options);
           }
           return bcd.testOptionParam(construct, null, 'referrer', 'no-referrer');
+    cache:
+      __additional:
+        only-if-cached: |-
+          instance = new Request('/favicon/favicon.ico', {mode: "same-origin", cache: "only-if-cached"});
+          return instance.cache === "only-if-cached";
+    credentials:
+      __additional:
+        default_same-origin: return instance.credentials === "same-origin";
+  ResizeObserver:
+    __base: |-
+      if (!('ResizeObserver' in self)) {
+        return {result: false, message: 'ResizeObserver is not defined'}
+      }
+      var instance = new ResizeObserver(function() {});
+    observe:
+      __additional:
+        options_box_parameter: |-
+          <%api.Element:el%>
+          if (!('observe' in instance)) {
+            return {result: false, message: 'ResizeObserver.observe is not defined'}
+          }
+          function observe(options) {
+            instance.observe(el, options);
+          }
+          return bcd.testOptionParam(observe, null, 'box', 'content-box');
   Response:
     __base: |-
       if (!('Response' in self)) {
@@ -3769,6 +3829,16 @@ api:
       var instance = new Response('');
     Response:
       __additional:
+        accept_readablestream: |-
+          <%api.ReadableStream:rsPromise%>
+          return rsPromise.then(function(readableStream) {
+            try {
+              new Response(readableStream);
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+          });
         body_parameter_optional: |-
           try {
             new Response();
@@ -3779,6 +3849,10 @@ api:
             }
             return e;
           }
+    body:
+      __additional:
+        readable_byte_stream: |-
+          return !!instance.body && 'getReader' in instance.body;
     __additional:
       json_static: |-
         return 'Response' in self && 'json' in Response;
