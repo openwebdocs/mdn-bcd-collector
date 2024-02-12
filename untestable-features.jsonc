@@ -43,6 +43,8 @@
 
   /* Can't synthesize */
   "api.ExtendableEvent.waitUntil.async_waitUntil",
+  "api.Request.mode.navigate_mode",
+  "api.PerformanceResourceTiming.deliveryType.navigational-prefetch",
 
   /* Effect can be seen, but not programmatically tested */
   "api.Element.animate.implicit_tofrom",
