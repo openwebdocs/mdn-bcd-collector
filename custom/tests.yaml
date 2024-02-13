@@ -970,6 +970,14 @@ api:
       options_resizeHeight_parameter: return bcd.testOptionParam(create, null, 'resizeHeight', '100');
       options_resizeQuality_parameter: return bcd.testOptionParam(create, null, 'resizeQuality', 'high');
       options_resizeWidth_parameter: return bcd.testOptionParam(create, null, 'resizeWidth', '100');
+      svgimageelement_as_source_image: |-
+        <%api.SVGImageElement:svgimg%>
+        try {
+          createImageBitmap(svgimg);
+          return true;
+        } catch(e) {
+          return {result: false, message: e.message};
+        }
   CredentialsContainer:
     __resources:
       - cryptoKey
@@ -4771,6 +4779,24 @@ api:
   SVGGeometryElement:
     __base: <%api.SVGPathElement:instance%>
     __test: return bcd.testObjectName(instance, 'SVGPathElement');
+    isPointInFill:
+      __additional:
+        point_parameter_DOMPoint: |-
+          try {
+            instance.isPointInFill(new DOMPoint(20, 20));
+            return true;
+          } catch (e) {
+            return {result: false, message: e.message};
+          }
+    isPointInStroke:
+      __additional:
+        point_parameter_DOMPoint: |-
+          try {
+            instance.isPointInStroke(new DOMPoint(20, 20));
+            return true;
+          } catch (e) {
+            return {result: false, message: e.message};
+          }
   SVGGlyphElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'glyph');
     __test: return bcd.testObjectName(instance, 'SVGGlyphElement');
@@ -5074,10 +5100,9 @@ api:
         return {result: false, message: 'URLSearchParams is not defined'};
       }
       var instance = new URLSearchParams("q=HelloWorld&target=MDN");
-    __additional:
-      URLSearchParams.USVString: return true; // We already know this works, because we use a string to create the instance
     URLSearchParams:
       __additional:
+        USVString: return true; // We already know this works, because we use a string to create the instance
         record: |-
           try {
             new URLSearchParams({"q": "HelloWorld", "target": "MDN"});
@@ -5098,6 +5123,17 @@ api:
             }
             return e;
           }
+    delete:
+      __additional:
+        value_parameter: |-
+          instance = new URLSearchParams("foo=1&bar=2&foo=3&foo=1");
+          instance.delete("foo", "1");
+          return instance == "bar=2&foo=3";
+    has:
+      __additional:
+        value_parameter: |-
+          instance = new URLSearchParams("foo=1&bar=2&foo=3&foo=1");
+          return instance.has("bar", "2") && !instance.has("bar", "3");
   ValidityState:
     __base: |-
       <%api.HTMLInputElement:el%>
