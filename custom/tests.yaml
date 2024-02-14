@@ -5509,6 +5509,20 @@ api:
         return {result: false, message: 'XMLHttpRequest is not defined'};
       }
       var instance = new XMLHttpRequest();
+    responseType:
+      __additional:
+        arraybuffer_value: |-
+          instance.responseType = 'arraybuffer';
+          return instance.responseType === 'arraybuffer';
+        blob_value: |-
+          instance.responseType = 'blob';
+          return instance.responseType === 'blob';
+        document_value: |-
+          instance.responseType = 'document';
+          return instance.responseType === 'document';
+        json_value: |-
+          instance.responseType = 'json';
+          return instance.responseType === 'json';
   XMLHttpRequestEventTarget:
     __base: <%api.XMLHttpRequest:instance%>
   XMLHttpRequestUpload:
