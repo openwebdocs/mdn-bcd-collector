@@ -333,7 +333,7 @@ const buildTypeTests = async (customCSS) => {
     const customTest = await getCustomTest(ident, "css.types", true);
 
     if (!(customTest.test || (typeData.property && typeData.value))) {
-      const errorMsg = `CSS type ${type} does not have both a property and value to test set!`;
+      const errorMsg = `CSS type ${type} does not have both a property and value to test support with!`;
       console.warn(errorMsg);
       tests[ident] = compileTest({
         raw: {
@@ -363,7 +363,7 @@ const buildTypeTests = async (customCSS) => {
       );
 
       if (!(customValueTest.test || (typeData.property && value))) {
-        const errorMsg = `CSS type ${type} (${valueName} value) does not have both a property and value to test set!`;
+        const errorMsg = `CSS type ${type} (${valueName} value) does not have both a property and value to test support with!`;
         console.warn(errorMsg);
         tests[valueIdent] = compileTest({
           raw: {
