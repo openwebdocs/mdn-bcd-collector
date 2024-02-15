@@ -1012,7 +1012,13 @@
     "angle": {
       "syntax": "<angle>",
       "property": "transform",
-      "value": "rotate(90deg)"
+      "value": "rotate(90deg)",
+      "additionalValues": {
+        "deg": "rotate(90deg)",
+        "grad": "rotate(1grad)",
+        "rad": "rotate(5rad)",
+        "turn": "rotate(0.75turn)"
+      }
     },
     "asin": {
       "syntax": "<asin()>",

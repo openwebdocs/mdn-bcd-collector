@@ -341,17 +341,48 @@ const buildTypeTests = async (customCSS) => {
         },
         exposure: ["Window"],
       });
-      continue;
+    } else {
+      tests[ident] = compileTest({
+        raw: {
+          code:
+            customTest.test ||
+            `bcd.testCSSProperty("${typeData.property}", "${typeData.value}")`,
+        },
+        exposure: ["Window"],
+      });
     }
 
-    tests[ident] = compileTest({
-      raw: {
-        code:
-          customTest.test ||
-          `bcd.testCSSProperty("${typeData.property}", "${typeData.value}")`,
-      },
-      exposure: ["Window"],
-    });
+    for (const [valueName, value] of Object.entries(
+      typeData.additionalValues || {},
+    ) as any[]) {
+      const valueIdent = `css.types.${type}.${valueName}`;
+      const customValueTest = await getCustomTest(
+        valueIdent,
+        "css.types",
+        true,
+      );
+
+      if (!(customValueTest.test || (typeData.property && value))) {
+        const errorMsg = `CSS type ${type} (${valueName} value) does not have both a property and value to test set!`;
+        console.warn(errorMsg);
+        tests[valueIdent] = compileTest({
+          raw: {
+            code: `throw new Error("${errorMsg}");`,
+          },
+          exposure: ["Window"],
+        });
+        continue;
+      }
+
+      tests[valueIdent] = compileTest({
+        raw: {
+          code:
+            customValueTest.test ||
+            `bcd.testCSSProperty("${typeData.property}", "${value}")`,
+        },
+        exposure: ["Window"],
+      });
+    }
   }
 
   return tests;
