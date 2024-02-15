@@ -1053,7 +1053,7 @@
     "calc-constant": {
       "syntax": "<calc-constant>",
       "property": "width",
-      "value": "calc(infinity)"
+      "value": "calc(100px * pi)"
     },
     "calc": {
       "syntax": "<calc()>",
@@ -1063,7 +1063,7 @@
     "clamp": {
       "syntax": "<clamp()>",
       "property": "width",
-      "value": "calc(1rem, 2.5vw, 2rem)"
+      "value": "clamp(1rem, 2.5vw, 2rem)"
     },
     "color": {
       "syntax": "<color>",
@@ -1072,8 +1072,8 @@
     },
     "cos": {
       "syntax": "<cos()>",
-      "property": "transform",
-      "value": "rotate(cos(-0.2))"
+      "property": "width",
+      "value": "calc(100px * cos(45deg))"
     },
     "counter": {
       "syntax": "<counter()>",
@@ -1252,7 +1252,7 @@
     "round": {
       "syntax": "<round()>",
       "property": "width",
-      "value": "round(1em)"
+      "value": "round(1em, 50px)"
     },
     "shape": {
       "syntax": "<shape>",
@@ -1261,13 +1261,13 @@
     },
     "sign": {
       "syntax": "<sign()>",
-      "property": "width",
+      "property": "top",
       "value": "sign(20vh - 100px)"
     },
     "sin": {
       "syntax": "<sin()>",
-      "property": "transform",
-      "value": "rotate(sin(-0.2))"
+      "property": "width",
+      "value": "calc(100px * sin(45deg))"
     },
     "sqrt": {
       "syntax": "<sqrt()>",
@@ -1281,8 +1281,8 @@
     },
     "tan": {
       "syntax": "<tan()>",
-      "property": "transform",
-      "value": "rotate(tan(-0.2))"
+      "property": "width",
+      "value": "calc(100px * tan(45deg))"
     },
     "time-percentage": {
       "syntax": ["<time-percentage>", "<time-percentage [0s,∞]>"],
