@@ -1,10 +1,10 @@
-# Update-BCD Architecture Notes
+# update-bcd Architecture Notes
 
-The `update-bcd` script iterates through entries from a local copy of `browser-compat-data` and compares them against a set of test results from a local copy of `mdn-test-results` to see if there should be any updates to the `browser-compat-data` repo.
+The `update-bcd` script iterates through entries from a local copy of `browser-compat-data` and compares them against a set of test results from a local copy of `mdn-bcd-results` to see if there should be any updates to the `browser-compat-data` repo.
 
 The `update-bcd` script keeps an internal representation of the data from each iterated BCD file for purposes of comparing and applying possible transformations to the data.
 
-## Tracking the Update State of each BCD Entry Iteration
+## Tracking the Update State of Each BCD Entry Iteration
 
 As the script iterates through each BCD entry, an `UpdateInternal` object is created to represent the state of the data. This state object is shared across all of the script's sequential operation. The primary keys in this object are:
 
@@ -19,9 +19,9 @@ As the script iterates through each BCD entry, an `UpdateInternal` object is cre
 
 At a high level, this state object is built in three phases of operations per iteration:
 
-1. First, we build the shared data object in the [first set of `provideShared` functions](/scripts/update-bcd.ts#L1154-1169).
-2. Then, we collect the existing support statements in the [following series of `provide...Statements` functions](/scripts/update-bcd.ts#L1176-1188),
-3. Finally, we make decisions about whether or not to update those statements in the [last series of `persist...` functions](/scripts/update-bcd.ts#L1213-1234).
+1. First, we build the shared data object in the first set of `provideShared`.
+2. Then, we collect the existing support statements in the following series of `provide...Statements` functions.
+3. Finally, we make decisions about whether or not to update those statements in the last series of `persist...` functions.
 
 ## Data Flow Examples
 
@@ -80,9 +80,9 @@ Builds the browser “Support Matrix” data from the local test results filtere
     bcd: { ... },
     entry: { ... },
     browserMap: Map(2) {
-	    chrome => Map(4),
-	    safari => Map(3)
-	  }
+      chrome => Map(4),
+      safari => Map(3)
+    }
   },
 }
 ```
@@ -155,10 +155,10 @@ Start iterating through browsers in `BrowserMap` Support Matrix test results per
     support: { ... },
     unmodifiedSupport: { ... },
     versionMap: Map(4) {
-	    "82" => null,
-	    "83" => true,
-	    "84" => true,
-	    "85" => true
+      "82" => null,
+      "83" => true,
+      "84" => true,
+      "85" => true
     }
   },
   browser: "chrome",
@@ -197,7 +197,7 @@ Gets existing un-flagged and un-prefixed statements from BCD. **Exit** if no def
   browser: "chrome",
   allStatements: [...],
   defaultStatements: [
-	{
+  {
       version_added: "80",
     },
   ]
@@ -236,9 +236,9 @@ Updates `statements` key with inferred statements (& existing un-flagged stateme
     stack: [
       ...,
       {
-  	  step: "provide_statements_nonDefault",
+      step: "provide_statements_nonDefault",
          result: {
-    	    statements: [
+          statements: [
       {
         version_added: "85",
       },
