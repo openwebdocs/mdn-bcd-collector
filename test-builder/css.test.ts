@@ -63,6 +63,7 @@ describe("build (CSS)", () => {
       selectors: {
         "::-webkit-progress-bar": {},
       },
+      types: {},
     };
 
     assert.deepEqual(await build(webrefCSS, customCSS), {
@@ -125,15 +126,18 @@ describe("build (CSS)", () => {
       },
     };
 
-    assert.deepEqual(await build(css, {properties: {}, selectors: {}}), {
-      "css.properties.foo": {
-        code: `(function () {
+    assert.deepEqual(
+      await build(css, {properties: {}, selectors: {}, types: {}}),
+      {
+        "css.properties.foo": {
+          code: `(function () {
   return 1;
 })();
 `,
-        exposure: ["Window"],
+          exposure: ["Window"],
+        },
       },
-    });
+    );
   });
 
   it("double-defined property", async () => {
@@ -178,6 +182,8 @@ describe("build (CSS)", () => {
           __additional_values: {bar: "bar"},
         },
       },
+      selectors: {},
+      types: {},
     };
 
     await assert.isRejected(
@@ -198,7 +204,11 @@ describe("build (CSS)", () => {
       },
     };
 
-    const customCSS = {properties: {foo: {_values: ["bar"]}}, selectors: {}};
+    const customCSS = {
+      properties: {foo: {_values: ["bar"]}},
+      selectors: {},
+      types: {},
+    };
 
     await assert.isRejected(
       build(webrefCSS, customCSS),
@@ -221,6 +231,7 @@ describe("build (CSS)", () => {
     const customCSS = {
       properties: {one: {__additional_values: {two: "1em two"}}},
       selectors: {},
+      types: {},
     };
 
     assert.deepEqual(await build(webrefCSS, customCSS), {
@@ -269,15 +280,18 @@ describe("build (CSS)", () => {
     const error =
       "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
 
-    assert.deepEqual(await build(css, {properties: {}, selectors: {}}), {
-      "css.properties.bar": {
-        code: `(function () {
+    assert.deepEqual(
+      await build(css, {properties: {}, selectors: {}, types: {}}),
+      {
+        "css.properties.bar": {
+          code: `(function () {
   throw "${error}";
 })();
 `,
-        exposure: ["Window"],
+          exposure: ["Window"],
+        },
       },
-    });
+    );
     assert.ok(consoleError.calledOnce);
 
     consoleError.restore();

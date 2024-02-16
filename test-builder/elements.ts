@@ -39,10 +39,12 @@ const categories: Record<
  */
 const build = async (specElements, customElements) => {
   const tests = {};
+
+  // Get the elements
   const els = {
-    html: customElements.elements.custom.html || {},
-    svg: customElements.elements.custom.svg || {},
-    mathml: customElements.elements.custom.mathml || {},
+    html: new Map(),
+    svg: new Map(),
+    mathml: new Map(),
   };
 
   for (const data of Object.values(specElements) as any[]) {
@@ -57,21 +59,69 @@ const build = async (specElements, customElements) => {
           }
         }
 
-        els[category][el.name] = {
+        els[category].set(el.name, {
           interfaceName: el.interface,
-          attributes:
-            (customElements.elements.attributes[category] || {})[el.name] || [],
-        };
+          attributes: new Map(),
+        });
       }
     }
   }
 
+  // Add the attributes and any additional elements
+  for (const category of Object.keys(els)) {
+    for (const [name, data] of Object.entries(
+      customElements[category],
+    ) as any[]) {
+      const normalAttrs =
+        data.attributes?.filter((a) => typeof a === "string") || [];
+      const customAttrs =
+        data.attributes
+          ?.filter((a) => typeof a === "object")
+          .reduce((all, a) => ({...all, ...a}), {}) || {};
+
+      const attrs = new Map(Object.entries(customAttrs));
+
+      for (const value of normalAttrs) {
+        if (attrs.has(value)) {
+          throw new Error(
+            `Element attribute is double-defined in custom elements: ${category}.${name}.${value}`,
+          );
+        }
+        attrs.set(value, value);
+      }
+
+      if (els[category].has(name)) {
+        if (attrs.size === 0) {
+          throw new Error(`Element already known: ${category}.${name}`);
+        }
+
+        const el = els[category].get(name);
+        for (const value of attrs.keys()) {
+          if (el.attributes.has(value) && value in normalAttrs) {
+            throw new Error(
+              `Element attribute already known: ${category}.${name}.${value}`,
+            );
+          }
+
+          el.attributes.set(value, attrs.get(value));
+        }
+      } else {
+        els[category].set(name, {
+          interfaceName: data.interfaceName,
+          attributes: attrs,
+        });
+      }
+    }
+  }
+
+  // Build the tests
+
   for (const [category, categoryData] of Object.entries(categories)) {
     const namespace = categoryData.namespace;
 
-    for (const [el, data] of Object.entries(els[category]).sort((a, b) =>
-      a[0].localeCompare(b[0]),
-    ) as any[]) {
+    for (const [el, data] of (
+      Array.from(els[category].entries()) as any[]
+    ).sort((a, b) => a[0].localeCompare(b[0]))) {
       const bcdPath = `${category}.elements.${el}`;
 
       const interfaceName = data.interfaceName || categoryData.default;
@@ -114,16 +164,7 @@ const build = async (specElements, customElements) => {
 
       // Add tests for the attributes
       if (data.attributes) {
-        const attributes = Array.isArray(data.attributes)
-          ? [
-              ...data.attributes.filter((a) => typeof a == "object"),
-              ...data.attributes
-                .filter((a) => typeof a == "string")
-                .map((a) => ({[a]: a})),
-            ].reduce((acc, cv) => ({...acc, ...cv}), {})
-          : data.attributes;
-
-        for (const [attrName, attrProp] of Object.entries(attributes) as [
+        for (const [attrName, attrProp] of data.attributes.entries() as [
           string,
           string,
         ][]) {
@@ -134,9 +175,9 @@ const build = async (specElements, customElements) => {
           );
 
           let attrCode = `(function() {
-            var instance = ${defaultConstructCode};
-            return !!instance && '${attrProp}' in instance;
-          })()`;
+  var instance = ${defaultConstructCode};
+  return !!instance && '${attrProp}' in instance;
+})()`;
 
           // All xlink attributes need special handling
           if (attrProp.startsWith("xlink_")) {

@@ -1,0 +1,12 @@
+// Removed in https://github.com/w3c/mediacapture-record/commit/ab8afd95cb17381cb63d039a543187a063dce462
+
+dictionary MediaRecorderErrorEventInit : EventInit {
+  required DOMException error;
+};
+
+[Exposed=Window]
+interface MediaRecorderErrorEvent : Event {
+  constructor(DOMString type, MediaRecorderErrorEventInit eventInitDict);
+
+  [SameObject] readonly attribute DOMException error;
+};

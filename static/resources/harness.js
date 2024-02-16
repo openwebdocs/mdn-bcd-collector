@@ -36,6 +36,10 @@
     __sources: {}
   };
   var cleanupFunctions = [];
+  var browser = {
+    name: "",
+    version: ""
+  };
 
   // Set to true for debugging output, and 'full' to include completion logging
   var debugmode =
@@ -199,6 +203,31 @@
    */
   function addCleanup(f) {
     cleanupFunctions.push(f);
+  }
+
+  /**
+   * Skips the test by throwing an error if the browser (and possibly version) matches
+   * Avoid using this if possible
+   * @param {string?} reason - The reason for skipping
+   * @param {string} browserName - The name of the browser to skip
+   * @param {string?} browserVersion - The browser version to skip, if needed
+   */
+  function skipIf(reason, browserName, browserVersion) {
+    if (browserName) {
+      if (browserName !== browser.name) {
+        return;
+      }
+
+      if (browserVersion) {
+        if (browserVersion !== browser.version) {
+          return;
+        }
+      }
+    }
+
+    throw new Error(
+      "Test skipped on this browser: " + (reason || "no reason provided")
+    );
   }
 
   /**
@@ -517,7 +546,7 @@
     }
 
     // Method is a promise
-    if (!!returnValue && "then" in returnValue) {
+    if (!!returnValue && returnValue.then) {
       return returnValue.then(function (value) {
         return (mustReturnTruthy ? !!value : true) && accessed;
       });
@@ -1370,9 +1399,15 @@
    * @param {((results: TestResults) => void)?} onComplete - The callback to call once tests are completed
    * @param {number?} resourceCount - The number of resources required
    * @param {boolean} hideResults - Whether to keep the results hidden afterwards
+   * @param {{name: string, version: string}} browserInfo - The info of the current browser
    * @callback TestResults - The processed result of the tests
    */
-  function go(onComplete, resourceCount, hideResults) {
+  function go(onComplete, resourceCount, hideResults, browserInfo) {
+    if (browserInfo) {
+      browser.name = browserInfo.name;
+      browser.version = browserInfo.version;
+    }
+
     loadResources(function () {
       doTests(onComplete, hideResults);
     }, resourceCount);
@@ -1802,6 +1837,7 @@
     addInstance: addInstance,
     addTest: addTest,
     addCleanup: addCleanup,
+    skipIf: skipIf,
     runTests: runTests,
     go: go
   };
