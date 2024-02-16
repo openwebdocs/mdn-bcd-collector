@@ -25,7 +25,57 @@ At a high level, this state object is built in three phases of operations per it
 
 ## Data Flow Examples
 
-Here's a step-by-step explainer with JSON snapshots of this state object to show how it's built as we move through the chain of operations in the `update` method. Refer to this [diagram](/docs/update-bcd.png) for a visual representation of this data flow.
+Here's a step-by-step explainer with JSON snapshots of this state object to show how it's built as we move through the chain of operations in the `update` method. Refer to this diagram for a visual representation of this data flow.
+
+```mermaid
+flowchart LR
+    entries((BCD Entries))
+    entries --> pathFilters
+
+    subgraph one [" "]
+        pathFilters{Match Optional\nPath Filters} -- Yes -->
+        provideSharedBrowserMap[[provideShared\nBrowserMap]] -->
+        hasBrowserMap{Has Browser Map?} -- Yes -->
+        provideSharedSupport[["provideShared\n#quot;Support#quot;"]] -->
+        provideSharedUnmodifiedSupport[["provideShared\n#quot;unmodifiedSupport#quot;"]]
+    end
+
+    provideSharedUnmodifiedSupport --> iterate
+    pathFilters & hasBrowserMap -- No --> entries
+
+    subgraph two [" "]
+        iterate((Iterate Browsers\nper BCD Entry)) -->
+        browserFilters{Match Optional\nBrowser Filters} -- Yes -->
+        provideAllStatements[[provide\nAll Statements]] -->
+        provideDefaultStatements[[provide\nDefault Statements]] -->
+        detectDiffs{Detect Diffs in\nSupport Matrix vs. BCD} -- Yes -->
+        provideInferredStatements[[provide\nInferred Statements]] -->
+        tooManyInferred{Too Many\nInferred Statements?} -- No -->
+        releaseFilters{Match Optional\nRelease Filters} -- Yes -->
+        defaultOrInferred{Has Default or\nInferred Statements?}
+    end
+
+    defaultOrInferred -- Yes --> persistNonDefault
+    browserFilters & detectDiffs & releaseFilters & defaultOrInferred -- No --> entries
+    tooManyInferred -- Yes --> entries
+
+    subgraph three [" "]
+        persistNonDefault[[persist\nNon-Default\nStatements]] -->
+        tooManyDefault{Too Many\nDefault Statements?} -- No -->
+        hasVersionRemoved{Has #quot;Version\nRemoved#quot; Statement?} -- No -->
+        inferredStatementsOutdated{Inferred Statements Outdated?} -- No -->
+        persistInferredRange[[persist\nInferred Range]] -->
+        persistAddedOverPartial[[persist\nAdded Over\nPartial]] -->
+        persistAdded[[persist\nAdded]] -->
+        persistRemoved[[persist\nRemoved]] -->
+        clearNonExact[[clearNonExact]] -->
+        stillHasStatements{Still has\nstatements?}
+    end
+
+    stillHasStatements -- Yes --> saveChanges[[Save Changes]] --> entries
+    stillHasStatements -- No --> entries
+    tooManyDefault & hasVersionRemoved & inferredStatementsOutdated -- Yes --> entries
+```
 
 ### expand("entry", ...)
 
