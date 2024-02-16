@@ -11,36 +11,13 @@ import {getCustomTest, compileTest} from "./common.js";
 /**
  * Remap the CSS property values from Webref into usable map entries
  * @param input - The value from Webref
+ * @param customCSS - The custom CSS data to draw type information from
  * @returns A two-value array to add to a map, or null if no test should be created for the value
  */
-const remapCSSPropertyValue = (input) => {
+const remapCSSPropertyValue = (input, customCSS) => {
+  // XXX Remove me once all these have been transferred to custom/css.json
   const typeRemappings = {
-    "<string>": ["type_string", "'foo'"],
     "<string>+": ["type_multi_string", "'foo' 'bar'"],
-    "<url>": ["type_url", "url('https://mdn-bcd-collector.gooborg.com')"],
-    "<uri>": ["type_url", "url('https://mdn-bcd-collector.gooborg.com')"],
-    "<image>": ["type_image", "url('https://mdn-bcd-collector.gooborg.com')"],
-    "<color>": ["type_color", "red"],
-    "<angle>": ["type_angle", "90deg"],
-    "<length>": ["type_length", "4em"],
-    "<length [0,∞]>": ["type_length", "4em"],
-    "<percentage>": ["type_percentage", "80%"],
-    "<percentage [0,∞]>": ["type_percentage", "80%"],
-    "<length-percentage>": ["type_length_or_percentage", ["4em", "80%"]],
-    "<length-percentage [0,∞]>": ["type_length_or_percentage", ["4em", "80%"]],
-    "<flex>": ["type_flex", "2fr"],
-    "<flex [0,∞]>": ["type_flex", "2fr"],
-    "<time>": ["type_time", "10s"],
-    "<time [0s,∞]>": ["type_time", "10s"],
-    "<number>": ["type_number", "5"],
-    "<number [0,∞]>": ["type_number", "5"],
-    "<number [1,∞]>": ["type_number", "5"],
-    "<number [1,1000]>": ["type_number", "5"],
-    "<integer>": ["type_number", "5"],
-    "<integer [1,∞]>": ["type_number", "5"],
-    "<dashed-ident>": ["type_dashed-ident", "--foo"],
-    "<dashed-ident>#": ["type_dashed-ident", "--foo"],
-    "<ratio>": ["type_ratio", "16 / 9"],
     "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
     "<absolute-size>": [
       "type_absolute_size",
@@ -55,10 +32,6 @@ const remapCSSPropertyValue = (input) => {
       ],
     ],
     "<relative-size>": ["type_relative_size", ["larger", "smaller"]],
-    "<resolution>": ["type_resolution", "144dpi"],
-    "<position>": ["type_position", "left"],
-    "<basic-shape>": ["type_basic_shape", "rect(10px 20px 30px 40px)"],
-    "<basic-shape-rect>": ["type_basic_shape", "rect(10px 20px 30px 40px)"],
     "<visual-box>": [
       "type_visual_box",
       ["content-box", "padding-box", "border-box"],
@@ -90,7 +63,6 @@ const remapCSSPropertyValue = (input) => {
         "view-box",
       ],
     ],
-    "<ray()>": ["type_ray", "ray(45deg closest-side)"],
     "<autospace>": ["type_autospace", "insert"],
     "<spacing-trim>": [
       "type_spacing-trim",
@@ -103,12 +75,27 @@ const remapCSSPropertyValue = (input) => {
         "trim-all",
       ],
     ],
-    "<frequency>": ["type_frequency", "100Hz"],
-    "<decibel>": ["type_decibel", "12dB"],
   };
 
-  if (input.name in typeRemappings || input.name.includes("<")) {
+  if (input.name.includes("<")) {
     // Skip any and all types for now until we're ready to add them
+    return null;
+
+    if (input.name in typeRemappings) {
+      return typeRemappings[input.name];
+    }
+
+    for (const [type, typedata] of Object.entries(customCSS.types) as any[]) {
+      if (
+        Array.isArray(typedata.syntax)
+          ? typedata.syntax.includes(input.name)
+          : input.name === typedata.syntax
+      ) {
+        return ["type_" + type, typedata.value];
+      }
+    }
+
+    console.warn(`Type ${input.name} unknown!`);
     return null;
   }
 
@@ -121,23 +108,18 @@ const remapCSSPropertyValue = (input) => {
     return null;
   }
 
-  return (
-    typeRemappings[input.name] || [
-      input.name.replace(/ /g, "_").replace("()", ""),
-      input.value,
-    ]
-  );
+  return [input.name.replace(/ /g, "_").replace("()", ""), input.value];
 };
 
 /**
- * Builds tests for CSS properties and selectors based on the provided specCSS and customCSS.
+ * Builds tests for CSS properties based on the provided specCSS and customCSS.
  * @param specCSS - The specification CSS data.
  * @param customCSS - The custom CSS data.
- * @returns - The tests for CSS properties and selectors.
+ * @returns - The tests for CSS properties.
  */
-const build = async (specCSS, customCSS) => {
+const buildPropertyTests = async (specCSS, customCSS) => {
   const properties = new Map();
-  const selectors = new Map();
+  const tests = {};
 
   for (const data of Object.values(specCSS) as any[]) {
     if (data.spec.url == "https://compat.spec.whatwg.org/") {
@@ -171,6 +153,7 @@ const build = async (specCSS, customCSS) => {
         "<feature-tag-value>",
         "<counter-style>",
         "/ [ <string> | <counter> ]+",
+        "/ [ <string> | <counter> | <attr()> ]+",
         "<inset-area-span> [ / <inset-area-span> ]?",
         "<offset-path> || <coord-box>",
         "ex-height | cap-height | ch-width | ic-width | ic-height",
@@ -196,7 +179,7 @@ const build = async (specCSS, customCSS) => {
         prop.values
           ?.filter((v) => v.type === "value")
           .filter((v) => !ignoredProps.includes(v.name))
-          .map(remapCSSPropertyValue)
+          .map((v) => remapCSSPropertyValue(v, customCSS))
           .filter((v) => !!v) || [];
       if (properties.has(prop.name)) {
         properties.set(
@@ -206,10 +189,6 @@ const build = async (specCSS, customCSS) => {
       } else {
         properties.set(prop.name, new Map(propertyValues));
       }
-    }
-
-    for (const selector of data.selectors) {
-      selectors.set(selector.name, {});
     }
   }
 
@@ -248,15 +227,6 @@ const build = async (specCSS, customCSS) => {
     }
   }
 
-  for (const [name, value] of Object.entries(customCSS.selectors) as any[]) {
-    if (selectors.has(name)) {
-      throw new Error(`Custom CSS selector already known: ${name}`);
-    }
-    selectors.set(name, value);
-  }
-
-  const tests = {};
-
   for (const name of Array.from(properties.keys()).sort()) {
     const ident = `css.properties.${name}`;
     const customTest = await getCustomTest(ident, "css.properties", true);
@@ -294,6 +264,37 @@ const build = async (specCSS, customCSS) => {
     }
   }
 
+  return tests;
+};
+
+/**
+ * Builds tests for CSS selectors based on the provided specCSS and customCSS.
+ * @param specCSS - The specification CSS data.
+ * @param customCSS - The custom CSS data.
+ * @returns - The tests for CSS selectors.
+ */
+const buildSelectorTests = async (specCSS, customCSS) => {
+  const selectors = new Map();
+  const tests = {};
+
+  for (const data of Object.values(specCSS) as any[]) {
+    if (data.spec.url == "https://compat.spec.whatwg.org/") {
+      // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
+      continue;
+    }
+
+    for (const selector of data.selectors) {
+      selectors.set(selector.name, {});
+    }
+  }
+
+  for (const [name, value] of Object.entries(customCSS.selectors) as any[]) {
+    if (selectors.has(name)) {
+      throw new Error(`Custom CSS selector already known: ${name}`);
+    }
+    selectors.set(name, value);
+  }
+
   for (const [selector, selectorData] of selectors.entries()) {
     const bcdName = selector
       .replaceAll(":", "")
@@ -316,6 +317,71 @@ const build = async (specCSS, customCSS) => {
       exposure: ["Window"],
     });
   }
+
+  return tests;
+};
+
+/**
+ * Builds tests for CSS types based on the provided customCSS.
+ * @param customCSS - The custom CSS data.
+ * @returns - The tests for CSS types.
+ */
+const buildTypeTests = async (customCSS) => {
+  const tests = {};
+
+  for (const [type, typeData] of Object.entries(customCSS.types) as any[]) {
+    const ident = `css.types.${type}`;
+    const customTest = await getCustomTest(ident, "css.types", true);
+
+    if (customTest.test || (typeData.property && typeData.value)) {
+      tests[ident] = compileTest({
+        raw: {
+          code:
+            customTest.test ||
+            `bcd.testCSSProperty("${typeData.property}", "${typeData.value}")`,
+        },
+        exposure: ["Window"],
+      });
+    }
+
+    for (const [valueName, value] of Object.entries(
+      typeData.additionalValues || {},
+    ) as any[]) {
+      const valueIdent = `css.types.${type}.${valueName}`;
+      const customValueTest = await getCustomTest(
+        valueIdent,
+        "css.types",
+        true,
+      );
+
+      if (customValueTest.test || (typeData.property && value)) {
+        tests[valueIdent] = compileTest({
+          raw: {
+            code:
+              customValueTest.test ||
+              `bcd.testCSSProperty("${typeData.property}", "${value}")`,
+          },
+          exposure: ["Window"],
+        });
+      }
+    }
+  }
+
+  return tests;
+};
+
+/**
+ * Builds tests for CSS features based on the provided specCSS and customCSS.
+ * @param specCSS - The specification CSS data.
+ * @param customCSS - The custom CSS data.
+ * @returns - The tests for CSS features.
+ */
+const build = async (specCSS, customCSS) => {
+  const tests = {};
+
+  Object.assign(tests, await buildPropertyTests(specCSS, customCSS));
+  Object.assign(tests, await buildSelectorTests(specCSS, customCSS));
+  Object.assign(tests, await buildTypeTests(customCSS));
 
   return tests;
 };
