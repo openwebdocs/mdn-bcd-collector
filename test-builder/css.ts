@@ -11,6 +11,7 @@ import {getCustomTest, compileTest} from "./common.js";
 /**
  * Remap the CSS property values from Webref into usable map entries
  * @param input - The value from Webref
+ * @param customCSS - The custom CSS data to draw type information from
  * @returns A two-value array to add to a map, or null if no test should be created for the value
  */
 const remapCSSPropertyValue = (input, customCSS) => {
@@ -84,7 +85,7 @@ const remapCSSPropertyValue = (input, customCSS) => {
       return typeRemappings[input.name];
     }
 
-    for (const [type, typedata] of Object.entries(customCSS.types)) {
+    for (const [type, typedata] of Object.entries(customCSS.types) as any[]) {
       if (
         Array.isArray(typedata.syntax)
           ? typedata.syntax.includes(input.name)
@@ -321,7 +322,7 @@ const buildSelectorTests = async (specCSS, customCSS) => {
 };
 
 /**
- * Builds tests for CSS types based on the provided  customCSS.
+ * Builds tests for CSS types based on the provided customCSS.
  * @param customCSS - The custom CSS data.
  * @returns - The tests for CSS types.
  */
