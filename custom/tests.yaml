@@ -6018,6 +6018,9 @@ javascript:
               var instance = new Intl.DateTimeFormat('de');
               var options = instance.resolvedOptions();
               return options.locale === 'de';
+            options_parameter: |-
+              // The timeZone parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'timeZone', 'UTC');
             options_parameter.options_calendar_parameter: return bcd.testOptionParam(construct, null, 'calendar', 'chinese');
             options_parameter.options_dateStyle_parameter: return bcd.testOptionParam(construct, null, 'dateStyle', 'full');
             options_parameter.options_dayPeriod_parameter: return bcd.testOptionParam(construct, null, 'dayPeriod', 'narrow');
@@ -6047,7 +6050,11 @@ javascript:
               var instance = new Intl.NumberFormat('de');
               var options = instance.resolvedOptions();
               return options.locale === 'de';
+            options_parameter: |-
+              // The style parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'style', 'currency');
             options_parameter.options_compactDisplay_parameter: "return bcd.testOptionParam(construct, null, 'compactDisplay', 'long', {'notation': 'compact'});"
+            options_parameter.options_currency_parameter: return bcd.testOptionParam(construct, null, 'currency', 'USD');
             options_parameter.options_currencyDisplay_parameter: return bcd.testOptionParam(construct, null, 'currencyDisplay', 'name');
             options_parameter.options_currencySign_parameter: return bcd.testOptionParam(construct, null, 'currencySign', 'accounting');
             options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
@@ -6089,6 +6096,9 @@ javascript:
               new Intl.PluralRules('en', options);
             }
           __additional:
+            options_parameter: |-
+              // The roundingIncrement parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
             options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
             options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
             options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
@@ -6111,6 +6121,9 @@ javascript:
               var instance = new Intl.RelativeTimeFormat('de');
               var options = instance.resolvedOptions();
               return options.locale === 'de';
+            options_parameter: |-
+              // The style parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'style', 'currency');
             options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
             options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
             options_parameter.options_numeric_parameter: return bcd.testOptionParam(construct, null, 'numeric', 'auto');
