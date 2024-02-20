@@ -1,5 +1,246 @@
 # mdn-bcd-collector Changelog
 
+## v10.8.0
+
+Released February 20, 2024
+
+### Test Changes
+
+#### Added
+
+- api.CSSFontFeatureValuesRule.historicalForms
+- api.CSSPositionTryRule
+- api.ForDebuggingOnly
+- api.HTMLTemplateElement.shadowRootClonable
+- api.InterestGroupBiddingAndScoringScriptRunnerGlobalScope
+- api.MediaRecorder.MediaRecorder.options_parameter
+- api.Navigator.protectedAudience
+- api.Performance.measure.measureOptions_parameter
+- api.Performance.measure.returns_performancemeasure
+- api.ProtectedAudience
+- api.Request.cache.only-if-cached
+- api.Request.credentials.default_same-origin
+- api.Request.Request.init_priority_parameter
+- api.ResizeObserver.observe.options_box_parameter
+- api.Response.body.readable_byte_stream
+- api.Response.Response.accept_readablestream
+- api.SVGGeometryElement.isPointInFill.point_parameter_DOMPoint
+- api.SVGGeometryElement.isPointInStroke.point_parameter_DOMPoint
+- api.URLSearchParams.delete.value_parameter
+- api.URLSearchParams.has.value_parameter
+- api.XMLHttpRequest.responseType.arraybuffer_value
+- api.XMLHttpRequest.responseType.blob_value
+- api.XMLHttpRequest.responseType.document_value
+- api.XMLHttpRequest.responseType.json_value
+- api.createImageBitmap.svgimageelement_as_source_image
+- css.properties.-moz-orient.inline
+- css.properties.-moz-orient.block
+- css.properties.caption-side.left
+- css.properties.caption-side.right
+- css.properties.caption-side.top-outside
+- css.properties.caption-side.bottom-outside
+- css.properties.caret-animation
+- css.properties.display.ruby
+- css.properties.display.ruby-base
+- css.properties.display.ruby-base-container
+- css.properties.display.ruby-text
+- css.properties.display.ruby-text-container
+- css.properties.display.table
+- css.properties.display.table-cell
+- css.properties.display.table-column
+- css.properties.display.table-column-group
+- css.properties.display.table-footer-group
+- css.properties.display.table-header-group
+- css.properties.display.table-row
+- css.properties.display.table-row-group
+- css.properties.mask-origin.content
+- css.properties.mask-origin.padding
+- css.properties.mask-origin.border
+- css.properties.position-animation
+- css.properties.position-try
+- css.properties.reading-order-items
+- css.properties.resize.block
+- css.properties.resize.inline
+- css.properties.touch-action.pan-x
+- css.properties.touch-action.pan-y
+- css.properties.touch-action.pan-up
+- css.properties.touch-action.pan-down
+- css.properties.touch-action.pan-left
+- css.properties.touch-action.pan-right
+- css.properties.writing-mode.lr
+- css.properties.writing-mode.lr-tb
+- css.properties.writing-mode.rl
+- css.properties.writing-mode.rl-tb
+- css.properties.writing-mode.tb
+- css.properties.writing-mode.tb-rl
+- css.types.-moz-image-rect
+- css.types.abs
+- css.types.acos
+- css.types.angle
+- css.types.asin
+- css.types.atan
+- css.types.atan2
+- css.types.attr
+- css.types.basic-shape
+- css.types.blend-mode
+- css.types.calc-constant
+- css.types.calc
+- css.types.clamp
+- css.types.color
+- css.types.cos
+- css.types.counter
+- css.types.counters
+- css.types.decibel
+- css.types.dimension
+- css.types.easing-function
+- css.types.exp
+- css.types.filter-function
+- css.types.flex
+- css.types.frequency
+- css.types.hypot
+- css.types.image
+- css.types.integer
+- css.types.length
+- css.types.line-style
+- css.types.log
+- css.types.max
+- css.types.min
+- css.types.mod
+- css.types.number
+- css.types.overflow
+- css.types.percentage
+- css.types.position
+- css.types.pow
+- css.types.ratio
+- css.types.ray
+- css.types.rem
+- css.types.round
+- css.types.shape
+- css.types.sign
+- css.types.sin
+- css.types.sqrt
+- css.types.string
+- css.types.tan
+- css.types.time
+- css.types.transform-function
+- css.types.url
+- javascript.builtins.Intl.DateTimeFormat.DateTimeFormat.options_parameter
+- javascript.builtins.Intl.NumberFormat.NumberFormat.options_parameter
+- javascript.builtins.Intl.PluralRules.PluralRules.options_parameter
+- javascript.builtins.Intl.RelativeTimeFormat.RelativeTimeFormat.options_parameter
+- javascript.regular_expressions.backreference
+- javascript.regular_expressions.capturing_group
+- javascript.regular_expressions.character_class
+- javascript.regular_expressions.character_class_escape
+- javascript.regular_expressions.character_escape
+- javascript.regular_expressions.disjunction
+- javascript.regular_expressions.input_boundary_assertion
+- javascript.regular_expressions.literal_character
+- javascript.regular_expressions.lookahead_assertion
+- javascript.regular_expressions.lookbehind_assertion
+- javascript.regular_expressions.named_backreference
+- javascript.regular_expressions.named_capturing_group
+- javascript.regular_expressions.non_capturing_group
+- javascript.regular_expressions.quantifier
+- javascript.regular_expressions.unicode_character_class_escape
+- javascript.regular_expressions.wildcard
+- javascript.regular_expressions.word_boundary_assertion
+
+#### Removed
+
+- api.CSSPositionFallbackRule
+- api.CSSTryRule
+- api.CustomElementRegistry.define.disabledFeatures_static_property
+- api.MLCommandEncoder
+- api.MLContext.createCommandEncoder
+- css.properties.-moz-orient.inline_and_block
+- css.properties.background-repeat.round_space
+- css.properties.background-size.contain_and_cover
+- css.properties.caption-side.non_standard_values
+- css.properties.clear.flow_relative_values
+- css.properties.clip-path.fill_and_stroke_box
+- css.properties.cursor.bidirectional_resize
+- css.properties.cursor.unidirectional_resize
+- css.properties.cursor.zoom
+- css.properties.display.ruby_values
+- css.properties.display.table_values
+- css.properties.float.flow_relative_values
+- css.properties.font.system_fonts
+- css.properties.layout-order
+- css.properties.mask-origin.non_standard_values
+- css.properties.order.layout
+- css.properties.order.reading
+- css.properties.quotes.quotes_auto
+- css.properties.reading-order
+- css.properties.resize.flow_relative_support
+- css.properties.text-align.block_alignment_values
+- css.properties.text-align.flow_relative_values_start_and_end
+- css.properties.text-emphasis-position.left_and_right
+- css.properties.touch-action.axis-pan
+- css.properties.touch-action.unidirectional-pan
+- css.properties.transition-property.IDENT_value
+- css.properties.writing-mode.horizontal_vertical_values
+- css.properties.writing-mode.sideways_values
+- css.properties.writing-mode.svg_values
+
+#### Changed
+
+- api.CSPViolationReportBody
+- api.MediaRecorder
+- api.ResizeObserver
+- api.RTCStatsReport
+- css.properties.color-scheme.only_dark
+- css.properties.color-scheme.only_light
+- css.properties.text-emphasis-position.right
+- css.properties.text-emphasis-position.left
+- mathml.elements.annotation
+- mathml.elements.annotation-xml
+- mathml.elements.maction
+- mathml.elements.math
+- mathml.elements.menclose
+- mathml.elements.merror
+- mathml.elements.mfenced
+- mathml.elements.mfrac
+- mathml.elements.mi
+- mathml.elements.mmultiscripts
+- mathml.elements.mn
+- mathml.elements.mo
+- mathml.elements.mover
+- mathml.elements.mpadded
+- mathml.elements.mphantom
+- mathml.elements.mprescripts
+- mathml.elements.mroot
+- mathml.elements.mrow
+- mathml.elements.ms
+- mathml.elements.mspace
+- mathml.elements.msqrt
+- mathml.elements.mstyle
+- mathml.elements.msub
+- mathml.elements.msubsup
+- mathml.elements.msup
+- mathml.elements.mtable
+- mathml.elements.mtd
+- mathml.elements.mtext
+- mathml.elements.mtr
+- mathml.elements.munder
+- mathml.elements.munderover
+- mathml.elements.semantics
+
+### Commits
+
+- Split value subfeatures of CSS properties ([#1118](https://github.com/openwebdocs/mdn-bcd-collector/pull/1118))
+- Add tests for javascript.regular_expressions ([#1200](https://github.com/openwebdocs/mdn-bcd-collector/pull/1200))
+- Add additional custom tests ([#1199](https://github.com/openwebdocs/mdn-bcd-collector/pull/1199))
+- Remove test for CustomElementRegistry.define.disabledFeatures ([#1117](https://github.com/openwebdocs/mdn-bcd-collector/pull/1117))
+- Disable RTCStatsReport tests ([#1052](https://github.com/openwebdocs/mdn-bcd-collector/pull/1052))
+- Add tests for CSS types ([#1191](https://github.com/openwebdocs/mdn-bcd-collector/pull/1191))
+- Update untestable features list ([#1192](https://github.com/openwebdocs/mdn-bcd-collector/pull/1192))
+- Add custom tests for XMLHttpRequest.responseType values ([#1188](https://github.com/openwebdocs/mdn-bcd-collector/pull/1188))
+- Add additional custom tests ([#1186](https://github.com/openwebdocs/mdn-bcd-collector/pull/1186))
+- Add additional custom tests ([#1182](https://github.com/openwebdocs/mdn-bcd-collector/pull/1182))
+- Track untestable features and exclude them from feature coverage reports ([#1181](https://github.com/openwebdocs/mdn-bcd-collector/pull/1181))
+- MathML elements: append elements to hidden div, not body ([#1180](https://github.com/openwebdocs/mdn-bcd-collector/pull/1180))
+
 ## v10.7.2
 
 Released February 9, 2024
