@@ -127,6 +127,9 @@ describe("build (JavaScript)", () => {
       operators: {
         addition: "var x = 1 + 1;",
       },
+      regular_expressions: {
+        character_class: "/[abc]/i",
+      },
       statements: {
         var: "var x = 1;",
       },
@@ -238,6 +241,17 @@ describe("build (JavaScript)", () => {
         code: `(function() {
   try {
     var x = 1 + 1;
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+      "javascript.regular_expressions.character_class": {
+        code: `(function() {
+  try {
+    /[abc]/i;
     return true;
   } catch(e) {
     return {result: false, message: e.message};

@@ -653,6 +653,25 @@
     "yield": "function* foo() {\n  yield 'a'\n};",
     "yield_star": "function* foo() {\n  yield 'a'\n};\nfunction* bar() {\n  yield* foo()\n};"
   },
+  "regular_expressions": {
+    "backreference": "/(b)\\1/i",
+    "capturing_group": "/(b)/i",
+    "character_class": "/[abc]/i",
+    "character_class_escape": "/\\d/i",
+    "character_escape": "/\\n/i",
+    "disjunction": "/foo|bar/i",
+    "input_boundary_assertion": "/^foo$/i",
+    "literal_character": "/foo/i",
+    "lookahead_assertion": "/(?!foobar)/i",
+    "lookbehind_assertion": "/(?<!foobar)/i",
+    "named_backreference": "/\\k<foo>/i",
+    "named_capturing_group": "/(?<foo>bar)/i",
+    "non_capturing_group": "/(?:bar)/i",
+    "quantifier": "/a*/i",
+    "unicode_character_class_escape": "/\\p{Emoji_Presentation}/iu",
+    "wildcard": "/./i",
+    "word_boundary_assertion": "/foo\\bbar/i"
+  },
   "statements": {
     "async_function": "async function foo() {};",
     "async_generator_function": "async function* foo() {};",
