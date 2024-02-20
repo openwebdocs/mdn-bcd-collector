@@ -431,7 +431,12 @@ const buildBuiltins = async (specJS, customJS) => {
 const buildSyntax = async (customJS) => {
   const tests = {};
 
-  for (const subcategory of ["grammar", "operators", "statements"]) {
+  for (const subcategory of [
+    "grammar",
+    "operators",
+    "regular_expressions",
+    "statements",
+  ]) {
     for (const [name, code] of Object.entries(customJS[subcategory]) as any[]) {
       const category = `javascript.${subcategory}`;
       const path = `${category}.${name}`;
