@@ -52,6 +52,7 @@ jobs:
         env:
           SECRETS_JSON: ${{secrets.SECRETS_JSON}}
       - name: Submit all results to the results repo
+        if: steps.check.outputs.changed == 'true'
         run: |
           cd mdn-bcd-results
           git config user.name "gooborgstudios-bot"
