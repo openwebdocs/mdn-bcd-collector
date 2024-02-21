@@ -122,18 +122,21 @@ const build = async (specElements, customElements) => {
     for (const [el, data] of (
       Array.from(els[category].entries()) as any[]
     ).sort((a, b) => a[0].localeCompare(b[0]))) {
-      const bcdPath = `${category}.elements.${el}`;
+      const bcdPath =
+        el === "global_attributes"
+          ? `${category}.global_attributes`
+          : `${category}.elements.${el}`;
+      const subcat =
+        el === "global_attributes"
+          ? `${category}.global_attributes`
+          : `${category}.elements`;
 
       const interfaceName = data.interfaceName || categoryData.default;
       if (!interfaceName) {
         throw new Error(`${bcdPath} is missing an interface name`);
       }
 
-      const customTest = await getCustomTest(
-        bcdPath,
-        "${category}.elements",
-        true,
-      );
+      const customTest = await getCustomTest(bcdPath, subcat, true);
 
       const defaultConstructCode = namespace
         ? `document.createElementNS('${namespace}', '${el}')`
@@ -173,7 +176,7 @@ const build = async (specElements, customElements) => {
         ][]) {
           const customAttrTest = await getCustomTest(
             `${bcdPath}.${attrName}`,
-            "${category}.elements",
+            subcat,
             true,
           );
 
