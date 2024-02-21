@@ -1,5 +1,35 @@
 {
   "html": {
+    "global_attributes": {
+      "attributes": [
+        {
+          "accesskey": "accessKey",
+          "class": "className",
+          "contenteditable": "contentEditable",
+          "data_attributes": "dataset",
+          "enterkeyhint": "enterKeyHint",
+          "inputmode": "inputMode",
+          "tabindex": "tabIndex",
+          "virtualkeyboardpolicy": "virtualKeyboardPolicy"
+        },
+        "autocapitalize",
+        "autofocus",
+        "dir",
+        "draggable",
+        "hidden",
+        "id",
+        "inert",
+        "lang",
+        "nonce",
+        "part",
+        "popover",
+        "slot",
+        "spellcheck",
+        "style",
+        "title",
+        "translate"
+      ]
+    },
     "a": {
       "attributes": [
         {
