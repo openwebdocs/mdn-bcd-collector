@@ -134,25 +134,28 @@ const build = async (specElements, customElements) => {
         "${category}.elements",
         true,
       );
+
       const defaultConstructCode = namespace
         ? `document.createElementNS('${namespace}', '${el}')`
         : `document.createElement('${el}')`;
-      const defaultCode =
-        category === "mathml"
-          ? `(function () {
-  throw new Error('MathML elements require custom tests');
-})()`
-          : `(function() {
-  var instance = ${defaultConstructCode};
-  return bcd.testObjectName(instance, '${
-    data.interfaceName || categoryData.default
-  }');
-})()`;
 
-      tests[bcdPath] = compileTest({
-        raw: {code: customTest.test || defaultCode},
-        exposure: ["Window"],
-      });
+      if (el !== "global_attributes") {
+        const defaultCode =
+          category === "mathml"
+            ? `(function () {
+    throw new Error('MathML elements require custom tests');
+  })()`
+            : `(function() {
+    var instance = ${defaultConstructCode};
+    return bcd.testObjectName(instance, '${
+      data.interfaceName || categoryData.default
+    }');
+  })()`;
+        tests[bcdPath] = compileTest({
+          raw: {code: customTest.test || defaultCode},
+          exposure: ["Window"],
+        });
+      }
 
       // Add the additional tests
       for (const [key, code] of Object.entries(customTest.additional)) {
