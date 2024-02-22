@@ -131,11 +131,6 @@ const build = async (specElements, customElements) => {
           ? `${category}.global_attributes`
           : `${category}.elements`;
 
-      const interfaceName = data.interfaceName || categoryData.default;
-      if (!interfaceName) {
-        throw new Error(`${bcdPath} is missing an interface name`);
-      }
-
       const customTest = await getCustomTest(bcdPath, subcat, true);
 
       const defaultConstructCode = namespace
@@ -143,6 +138,11 @@ const build = async (specElements, customElements) => {
         : `document.createElement('${el}')`;
 
       if (el !== "global_attributes") {
+        const interfaceName = data.interfaceName || categoryData.default;
+        if (!interfaceName) {
+          throw new Error(`${bcdPath} is missing an interface name`);
+        }
+
         const defaultCode =
           category === "mathml"
             ? `(function () {
@@ -150,9 +150,7 @@ const build = async (specElements, customElements) => {
   })()`
             : `(function() {
     var instance = ${defaultConstructCode};
-    return bcd.testObjectName(instance, '${
-      data.interfaceName || categoryData.default
-    }');
+    return bcd.testObjectName(instance, '${interfaceName}');
   })()`;
         tests[bcdPath] = compileTest({
           raw: {code: customTest.test || defaultCode},
