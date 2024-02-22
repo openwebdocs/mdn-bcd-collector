@@ -759,7 +759,7 @@ const clearNonExact = (exactOnly: boolean) =>
       })
     : passthrough;
 
-const persistNonDefault = provideStatements(
+const persistIfNoDefault = provideStatements(
   "nonDefault",
   ({
     inferredStatements: [inferredStatement],
@@ -1210,7 +1210,7 @@ export const update = (
         );
       }
     }),
-    persistNonDefault,
+    persistIfNoDefault,
     skip("tooManyDefaultStatements", ({defaultStatements}) => {
       if (defaultStatements.length !== 1) {
         return reason(
