@@ -324,7 +324,7 @@ __resources:
       };
       return canvas.getContext('webgl2');
 
-# Features defined here also need to be in @webref/idl or custom-idl/.
+# Features defined here also need to be in @webref/idl or custom/idl/.
 api:
   _globals:
     crypto: return !!self.crypto;
@@ -970,6 +970,14 @@ api:
       options_resizeHeight_parameter: return bcd.testOptionParam(create, null, 'resizeHeight', '100');
       options_resizeQuality_parameter: return bcd.testOptionParam(create, null, 'resizeQuality', 'high');
       options_resizeWidth_parameter: return bcd.testOptionParam(create, null, 'resizeWidth', '100');
+      svgimageelement_as_source_image: |-
+        <%api.SVGImageElement:svgimg%>
+        try {
+          createImageBitmap(svgimg);
+          return true;
+        } catch(e) {
+          return {result: false, message: e.message};
+        }
   CredentialsContainer:
     __resources:
       - cryptoKey
@@ -1031,7 +1039,7 @@ api:
       var el = document.createElement('script');
       el.src = "//bad-domain.awful/dummy-script.js";
       try {
-        document.body.append(el);
+        document.getElementById('resources').append(el);
       } catch(e) {
         // We expect a CSP error here
       }
@@ -1181,8 +1189,6 @@ api:
           customElements.define("my-custom-element", MyCustomElement, options);
         }
         return bcd.testOptionParam(define, null, "extends", "p");
-      define.disabledFeatures_static_property: |-
-        return !!instance && "define" in instance && "disabledFeatures" in instance.define;
   CustomEvent:
     __base: |-
       var instance;
@@ -1528,11 +1534,22 @@ api:
         options_timeline_parameter: return bcd.testOptionParam(animate, null, 'timeline', document.timeline);
     attachShadow:
       __additional:
+        init_clonable_parameter: |-
+          // Only specific elements may have shadows attached -- see
+          // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
+          var el = document.createElement('main');
+          return bcd.testOptionParam(el, 'attachShadow', 'clonable', true, {mode: 'open'});
         init_delegatesFocus_parameter: |-
           // Only specific elements may have shadows attached -- see
           // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
           var el = document.createElement('main');
           return bcd.testOptionParam(el, 'attachShadow', 'delegatesFocus', true, {mode: 'open'});
+    checkVisibility:
+      __additional:
+        options_checkOpacity_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'checkOpacity', true);"
+        options_checkVisibilityCSS_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'checkVisibilityCSS', true);"
+        options_contentVisibilityAuto_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'contentVisibilityAuto', true);"
+        options_visibilityProperty_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'visibilityProperty', true);"
     getElementsByTagName:
       __additional:
         all_elements_selector: |-
@@ -1558,6 +1575,9 @@ api:
           }
           var value = instance.requestFullscreen();
           return 'then' in value;
+    requestPointerLock:
+      __additional:
+        options_unadjustedMovement_parameter: return bcd.testOptionParam(instance, 'requestFullscreen', 'unadjustedMovement', false);
     scroll:
       __additional:
         options_behavior_parameter: return bcd.testOptionParam(instance, 'scroll', 'behavior', 'auto');
@@ -1619,7 +1639,14 @@ api:
       bcd.addCleanup(function() {
         instance.close();
       });
-    EventSource: return !!instance;
+    EventSource:
+      __test: return !!instance;
+      __additional:
+        options_withCredentials_parameter: |-
+          function construct(options) {
+            new EventSource('https://mdn-bcd-collector.gooborg.com', options);
+          }
+          return bcd.testOptionParam(construct, null, 'withCredentials', true);
   EventTarget:
     __base: |-
       var instance;
@@ -1636,6 +1663,7 @@ api:
           instance.addEventListener('click', function() {}, options);
         }
       __additional:
+        options_parameter: return bcd.testOptionParam(addEventListener, null, 'capture', true);
         options_parameter.options_capture_parameter: return bcd.testOptionParam(addEventListener, null, 'capture', true);
         options_parameter.options_once_parameter: return bcd.testOptionParam(addEventListener, null, 'once', true);
         options_parameter.options_passive_parameter: return bcd.testOptionParam(addEventListener, null, 'passive', true);
@@ -1646,6 +1674,37 @@ api:
           var controller = new AbortController();
           var signal = controller.signal;
           return bcd.testOptionParam(addEventListener, null, 'signal', signal);
+        useCapture_parameter_optional: |-
+          try {
+            instance.addEventListener('click', function() {});
+            return true;
+          } catch(e) {
+            if (e.name === 'TypeError') {
+              return {result: false, message: 'useCapture parameter is required'};
+            }
+            throw e;
+          }
+    removeEventListener:
+      __base: |-
+        function removeEventListener(options) {
+          function eventListener() {}
+          instance.addEventListener('click', eventListener, options);
+          instance.removeEventListener('click', eventListener, options);
+        }
+      __additional:
+        options_parameter: return bcd.testOptionParam(removeEventListener, null, 'capture', true);
+        useCapture_parameter_optional: |-
+          try {
+            function eventListener() {}
+            instance.addEventListener('click', eventListener);
+            instance.removeEventListener('click', eventListener);
+            return true;
+          } catch(e) {
+            if (e.name === 'TypeError') {
+              return {result: false, message: 'useCapture parameter is required'};
+            }
+            throw e;
+          }
   EXT_blend_minmax:
     __resources:
       - webGL1
@@ -1859,6 +1918,12 @@ api:
       }
       var instance = new FormData();
     __additional:
+      append.filename_parameter: |-
+        <%api.Blob:blob%>
+        function append(filename) {
+          instance.append('foo', blob, filename);
+        }
+        return bcd.testOptionParam(append, null, null, 'foo.txt');
       FormData.submitter: |-
         if (!('document' in self)) {
           return {result: null, message: "Testing in workers is not yet implemented"};
@@ -1913,6 +1978,40 @@ api:
     __base: |-
       <%api.GPU:gpu%>
       var promise = gpu.requestAdapter();
+    __additional:
+      requestDevice.lost_device_on_duplicate: |-
+        return promise.then(function(adapter) {
+          return adapter.requestDevice().then(function(device1) {
+            bcd.addCleanup(function() {
+              device1.destroy();
+            });
+
+            return adapter.requestDevice().then(function(device2) {
+              bcd.addCleanup(function() {
+                device2.destroy();
+              });
+
+              return new Promise(function(resolve) {
+                var resolved = false;
+
+                // The GPUDevice.lost promise will only resolve when the device is lost
+                setTimeout(function() {
+                  if (!resolved) {
+                    resolve({result: false, message: 'GPUDevice.lost did not immediately resolve'});
+                  }
+                  resolved = true;
+                }, 1000);
+
+                device2.lost.then(function(info) {
+                  if (!resolved) {
+                    resolve({result: true, message: info.message});
+                  }
+                  resolved = true;
+                });
+              });
+            });
+          });
+        });
   GPUBuffer:
     __base: |-
       <%api.GPUDevice:device%>
@@ -1927,8 +2026,10 @@ api:
       });
   GPUCommandEncoder:
     __base: |-
-      <%api.GPUDevice:device%>
-      var promise = device.then(function(d) {
+      <%api.GPUDevice:devicePromise%>
+      var device;
+      var promise = devicePromise.then(function(d) {
+        device = d;
         return d.createCommandEncoder();
       });
   GPUComputePassEncoder:
@@ -1945,14 +2046,138 @@ api:
     __base: |-
       <%api.GPUAdapter:adapter%>
       var promise = adapter.then(function(a) {
-        return a.requestDevice();
+        var device = a.requestDevice();
+        bcd.addCleanup(function() {
+          device.destroy();
+        });
+        return device;
       });
+    importExternalTexture:
+      __resources:
+        - image-black
+      __additional:
+        videoframe_source: |-
+          if (!('document' in self)) {
+            // XXX Implement worker test
+            return {result: null, message: 'Testing in workers is not yet implemented'};
+          }
+
+          return promise.then(function(instance) {
+            if (!('importExternalTexture' in instance)) {
+              return {result: false, message: 'GPUDevice.importExternalTexture is not defined'}
+            }
+
+            if (!('VideoFrame' in self)) {
+              return {result: false, message: 'VideoFrame is not defined'}
+            }
+
+            var img = document.getElementById('resource-image-black');
+            var videoFrame = new VideoFrame(img, {timestamp: 0});
+            bcd.addCleanup(function() {
+              videoFrame.close();
+            });
+
+            try {
+              instance.importExternalTexture({source: videoFrame});
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+          });
+  GPUPipelineError:
+    GPUPipelineError:
+      __additional:
+        message_optional: |-
+          try {
+            new GPUPipelineError(undefined, {reason: "internal"});
+            return {result: true, message: 'Constructor passed with no errors'};
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   GPUQueue:
     __base: |-
-      <%api.GPUDevice:device%>
-      var promise = device.then(function(d) {
+      <%api.GPUDevice:devicePromise%>
+      var device;
+      var promise = devicePromise.then(function(d) {
+        device = d;
         return d.queue;
       });
+    copyExternalImageToTexture:
+      __resources:
+        - image-black
+      __additional:
+        videoframe_source: |-
+          if (!('document' in self)) {
+            // XXX Implement worker test
+            return {result: null, message: 'Testing in workers is not yet implemented'};
+          }
+
+          return promise.then(function(instance) {
+            if (!('copyExternalImageToTexture' in instance)) {
+              return {result: false, message: 'GPUQueue.copyExternalImageToTexture is not defined'}
+            }
+
+            // Create video frame
+            if (!('VideoFrame' in self)) {
+              return {result: false, message: 'VideoFrame is not defined'}
+            }
+            var img = document.getElementById('resource-image-black');
+            var videoFrame = new VideoFrame(img, {timestamp: 0});
+            bcd.addCleanup(function() {
+              videoFrame.close();
+            });
+
+            // Create destination texture
+            var cubeTexture = device.createTexture({
+              size: [videoFrame.displayWidth, videoFrame.displayHeight, 1],
+              format: "rgba8unorm",
+              usage:
+                GPUTextureUsage.TEXTURE_BINDING |
+                GPUTextureUsage.COPY_DST |
+                GPUTextureUsage.RENDER_ATTACHMENT,
+            });
+
+            try {
+              instance.copyExternalImageToTexture(
+                { source: videoFrame },
+                { texture: cubeTexture },
+                [videoFrame.displayWidth, videoFrame.displayHeight]
+              );
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+          });
+  GPURenderBundleEncoder:
+    __base: |-
+      <%api.GPUDevice:devicePromise%>
+      var device;
+      var promise = devicePromise.then(function(d) {
+        device = d;
+        return d.createRenderBundleEncoder({
+          colorFormats: ['depth16unorm']
+        });
+      });
+    setVertexBuffer:
+      __additional:
+        unset_vertex_buffer: |-
+          return promise.then(function(passEncoder) {
+            var vec4Size = 4 * Float32Array.BYTES_PER_ELEMENT;
+            var vertexBuffer = device.createBuffer({
+              size: 2 * 3 * vec4Size,
+              usage: GPUBufferUsage.VERTEX,
+              mappedAtCreation: true,
+            });
+
+            passEncoder.setVertexBuffer(0, vertexBuffer);
+
+            try {
+              passEncoder.setVertexBuffer(0, null);
+              return true;
+            } catch (e) {
+              return {result: false, message: e.message}
+            }
+          });
   GPURenderPassEncoder:
     __base: |-
       <%api.GPUCommandEncoder:commandEncoder%>
@@ -1976,6 +2201,26 @@ api:
           return renderPass;
         });
       });
+    setVertexBuffer:
+      __additional:
+        unset_vertex_buffer: |-
+          return promise.then(function(passEncoder) {
+            var vec4Size = 4 * Float32Array.BYTES_PER_ELEMENT;
+            var vertexBuffer = device.createBuffer({
+              size: 2 * 3 * vec4Size,
+              usage: GPUBufferUsage.VERTEX,
+              mappedAtCreation: true,
+            });
+
+            passEncoder.setVertexBuffer(0, vertexBuffer);
+
+            try {
+              passEncoder.setVertexBuffer(0, null);
+              return true;
+            } catch (e) {
+              return {result: false, message: e.message}
+            }
+          });
   GPUTexture:
     __base: |-
       <%api.GPUDevice:device%>
@@ -2095,6 +2340,72 @@ api:
       - webGL2
     __base: var instance = document.createElement('canvas');
     __test: return bcd.testObjectName(instance, 'HTMLCanvasElement');
+    toBlob:
+      __additional:
+        quality_parameter: |-
+          if (!('toBlob' in instance)) {
+            return {result: false, message: "instance.toBlob is not defined"}
+          }
+
+          // Set the size
+          instance.width = '300';
+          instance.height = '300';
+
+          // Now we need to draw something
+          var ctx = instance.getContext('2d');
+          ctx.lineWidth = 10;
+          ctx.strokeStyle = "rgb(230, 20, 20)";
+          ctx.fillStyle = "rgb(20, 20, 230)";
+          ctx.strokeRect(75, 140, 150, 110);
+          ctx.fillRect(130, 190, 40, 60);
+          ctx.beginPath();
+          ctx.moveTo(50, 140);
+          ctx.lineTo(150, 60);
+          ctx.lineTo(250, 140);
+          ctx.closePath();
+          ctx.stroke();
+
+          // Get two blobs with different quality and compare them
+          instance.toBlob(function(blob1) {
+            blob1.arrayBuffer().then(function(blob1data) {
+              instance.toBlob(function(blob2) {
+                blob2.arrayBuffer().then(function(blob2data) {
+                  if (blob1.size != blob2.size) {
+                    success({result: true, message: 'Blobs are not identical'});
+                    return;
+                  }
+
+                  for (var i = 0; i < blob1.size; i++) {
+                    if (blob1data[i] != blob2data[i]) {
+                      success({result: true, message: 'Blobs are not identical'});
+                      return;
+                    }
+                  }
+
+                  success({result: false, message: 'Blobs are identical'});
+                });
+              }, 'image/jpeg', 0.9);
+            });
+          }, 'image/jpeg', 0.5);
+
+          return 'callback';
+        type_parameter_webp: |-
+          if (!('toBlob' in instance)) {
+            return {result: false, message: "instance.toBlob is not defined"}
+          }
+          function callback(blob) {
+            success(blob.type === 'image/webp');
+          }
+          instance.toBlob(callback, 'image/webp');
+          return 'callback';
+    toDataURL:
+      __additional:
+        type_parameter_webp: |-
+          if (!('toDataURL' in instance)) {
+            return {result: false, message: "instance.toDataURL is not defined"}
+          }
+          var blob = instance.toDataURL('image/webp');
+          return blob.type === 'image/webp';
     getContext:
       __additional:
         bitmaprenderer_context: |-
@@ -2225,13 +2536,14 @@ api:
             return instance.getContext('2d', options);
           }
           return bcd.testOptionParam(createContext, null, 'willReadFrequently', true);
-        # XXX Crashes Safari 16.5
-        # webgpu_context: |-
-        #   if (!(instance && instance.getContext)) {
-        #     return {result: false, message: 'instance.getContext is not defined'};
-        #   }
-        #   var ctx = instance.getContext('webgpu');
-        #   return !!ctx;
+        webgpu_context: |-
+          bcd.skipIf('Creating a WebGPU context on Safari 16.5 crashes the browser', 'safari', '16.5');
+
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('webgpu');
+          return !!ctx;
   HTMLCollection:
     __base: var instance = document.forms;
   HTMLContentElement:
@@ -2266,12 +2578,31 @@ api:
       __additional:
         options_focusVisible_parameter: return bcd.testOptionParam(instance, 'focus', 'focusVisible', true);
         options_preventScroll_parameter: return bcd.testOptionParam(instance, 'focus', 'preventScroll', true);
+    togglePopover:
+      __additional:
+        returns_boolean: |-
+          if (!('togglePopover' in instance)) {
+            return {result: false, message: 'HTMLElement.togglePopover is not defined'};
+          }
+
+          document.getElementById('resources').appendChild(instance);
+          bcd.addCleanup(function() {
+            document.getElementById('resources').removeChild(instance);
+          });
+
+          instance.popover = 'auto';
+          var value = instance.togglePopover(false);
+          return typeof value === 'boolean';
   HTMLEmbedElement:
     __base: var instance = document.createElement('embed');
     __test: return bcd.testObjectName(instance, 'HTMLEmbedElement');
   HTMLFieldSetElement:
     __base: var instance = document.createElement('fieldset');
     __test: return bcd.testObjectName(instance, 'HTMLFieldSetElement');
+    __additional:
+      elements.type_HTMLCollection: |-
+        var els = instance.elements();
+        return bcd.testObjectName(els, 'HTMLCollection');
   HTMLFontElement:
     __base: var instance = document.createElement('font');
     __test: return bcd.testObjectName(instance, 'HTMLFontElement');
@@ -2406,7 +2737,9 @@ api:
             return {result: false, message: 'instance.play is not defined'};
           }
           var value = instance.play();
-          instance.pause();
+          bcd.addCleanup(function() {
+            instance.pause();
+          });
           return 'then' in value;
   HTMLMenuElement:
     __base: var instance = document.createElement('menu');
@@ -2696,6 +3029,12 @@ api:
           }
         }
       );
+  InputEvent:
+    __base: |-
+      if (!('InputEvent' in self)) {
+        return {result: false, message: 'InputEvent is not defined'}
+      }
+      var instance = new InputEvent('input');
   InstallEvent:
     __base: |-
       // During the installation of the service worker, we set an "installEvent" global variable so that we may easily reuse it here:
@@ -2705,6 +3044,19 @@ api:
       //   });
 
       var instance = installEvent;
+  IntersectionObserver:
+    IntersectionObserver:
+      __additional:
+        options_root_parameter_Document: |-
+          if (!('IntersectionObserver' in self)) {
+            return {result: false, message: 'IntersectionObserver is not defined'}
+          }
+          try {
+            new IntersectionObserver(function() {}, {root: document});
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   InterventionReportBody:
     __base: |-
       // XXX Obtaining an instance of this interface is much like triggering an event.
@@ -2788,12 +3140,33 @@ api:
       var instance = stylesheet.media;
   MediaQueryList:
     __base: "var instance = window.matchMedia('screen and max-width: 800px;');"
+    __additional:
+      EventTarget_inheritance: return !!instance && 'addEventListener' in instance;
   MediaQueryListEvent:
     __base: |-
       if (!('MediaQueryListEvent' in self)) {
         return {result: false, message: 'MediaQueryListEvent is not defined'};
       }
       var instance = new MediaQueryListEvent('change');
+  MediaRecorder:
+    __resources:
+      - mediaStream
+    __base: |-
+      if (!reusableInstances.mediaStream) {
+        return {result: false, message: 'Media stream is not available'};
+      }
+      if (!('MediaRecorder' in self)) {
+        return {result: false, message: 'MediaRecorder is not defined'}
+      }
+      var instance = new MediaRecorder(reusableInstances.mediaStream);
+    MediaRecorder:
+      __resources:
+      __additional:
+        options_parameter: |-
+          function construct(options) {
+            new MediaRecorder(reusableInstances.mediaStream, options);
+          }
+          return bcd.testOptionParam(construct, null, 'mimeType', '');
   MediaSession:
     __base: var instance = navigator.mediaSession;
   MediaSource:
@@ -3130,6 +3503,48 @@ api:
         return {result: false, message: 'WebGL 2 is not available'};
       };
       var instance = reusableInstances.webGL2.getExtension('OVR_multiview2');
+  OffscreenCanvas:
+    __base: var instance = new OffscreenCanvas(1024, 1024);
+    __additional:
+      bitmaprenderer_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('bitmaprenderer');
+        return !!ctx;
+      webgl_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('webgl');
+        return !!ctx;
+      webgl2_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('webgl2');
+        return !!ctx;
+      webgpu_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('webgpu');
+        return !!ctx;
+      2d_context: |-
+        if (!(instance && instance.getContext)) {
+          return {result: false, message: 'instance.getContext is not defined'};
+        }
+        var ctx = instance.getContext('2d');
+        return !!ctx;
+      convertToBlob.option_type_parameter_webp: |-
+        instance.getContext('2d');
+        if (!('convertToBlob' in instance)) {
+          return {result: false, message: "instance.convertToBlob is not defined"}
+        }
+        var blobPromise = instance.convertToBlob({type: 'image/webp'});
+        return blobPromise.then(function (blob) {
+          return blob.type === 'image/webp';
+        });
   PageTransitionEvent:
     __base: |-
       var instance;
@@ -3181,6 +3596,17 @@ api:
           }
           return bcd.testOptionParam(mark, null, 'detail', 'bar');
         returns_performancemark: return !!instance.mark('foo');
+    measure:
+      __additional:
+        measureOptions_parameter: |-
+          if (!(instance && instance.measure)) {
+            return {result: false, message: 'instance.measure is not defined'};
+          }
+          function measure(options) {
+            instance.measure('foo', options);
+          }
+          return bcd.testOptionParam(measure, null, 'detail', 'bar', {'start': 0});
+        returns_performancemeasure: return !!instance.measure('foo');
   PerformanceEntry:
     __base: |-
       <%api.Performance:prf%>
@@ -3366,11 +3792,41 @@ api:
       var instance = new Request('');
     Request:
       __additional:
+        init_priority_parameter: |-
+          function construct(options) {
+            new Request('', options);
+          }
+          return bcd.testOptionParam(construct, null, 'priority', 'auto');
         init_referrer_parameter: |-
           function construct(options) {
             new Request('', options);
           }
           return bcd.testOptionParam(construct, null, 'referrer', 'no-referrer');
+    cache:
+      __additional:
+        only-if-cached: |-
+          instance = new Request('/favicon/favicon.ico', {mode: "same-origin", cache: "only-if-cached"});
+          return instance.cache === "only-if-cached";
+    credentials:
+      __additional:
+        default_same-origin: return instance.credentials === "same-origin";
+  ResizeObserver:
+    __base: |-
+      if (!('ResizeObserver' in self)) {
+        return {result: false, message: 'ResizeObserver is not defined'}
+      }
+      var instance = new ResizeObserver(function() {});
+    observe:
+      __additional:
+        options_box_parameter: |-
+          <%api.Element:el%>
+          if (!('observe' in instance)) {
+            return {result: false, message: 'ResizeObserver.observe is not defined'}
+          }
+          function observe(options) {
+            instance.observe(el, options);
+          }
+          return bcd.testOptionParam(observe, null, 'box', 'content-box');
   Response:
     __base: |-
       if (!('Response' in self)) {
@@ -3379,6 +3835,16 @@ api:
       var instance = new Response('');
     Response:
       __additional:
+        accept_readablestream: |-
+          <%api.ReadableStream:rsPromise%>
+          return rsPromise.then(function(readableStream) {
+            try {
+              new Response(readableStream);
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+          });
         body_parameter_optional: |-
           try {
             new Response();
@@ -3389,6 +3855,10 @@ api:
             }
             return e;
           }
+    body:
+      __additional:
+        readable_byte_stream: |-
+          return !!instance.body && 'getReader' in instance.body;
     __additional:
       json_static: |-
         return 'Response' in self && 'json' in Response;
@@ -3568,6 +4038,9 @@ api:
       }
 
       var instance = reusableInstances.rtcStats;
+
+      // XXX There's a lot of issues with these tests
+      return {result: null, message: "These tests have been disabled due to too many issues. They will be re-enabled once the issues have been resolved."};
     __additional:
       type_candidate-pair: return !!getStatByType('candidate-pair');
       type_candidate-pair.availableIncomingBitrate: |-
@@ -3882,6 +4355,8 @@ api:
       var instance = reusableInstances.audioContext.createScriptProcessor();
   SecurityPolicyViolationEvent:
     __base: |-
+      bcd.skipIf('Constructing this event causes the page to reload', 'edge', '15');
+
       if (!('SecurityPolicyViolationEvent' in self)) {
         return {result: false, message: 'SecurityPolicyViolationEvent is not defined'};
       }
@@ -4305,6 +4780,24 @@ api:
   SVGGeometryElement:
     __base: <%api.SVGPathElement:instance%>
     __test: return bcd.testObjectName(instance, 'SVGPathElement');
+    isPointInFill:
+      __additional:
+        point_parameter_DOMPoint: |-
+          try {
+            instance.isPointInFill(new DOMPoint(20, 20));
+            return true;
+          } catch (e) {
+            return {result: false, message: e.message};
+          }
+    isPointInStroke:
+      __additional:
+        point_parameter_DOMPoint: |-
+          try {
+            instance.isPointInStroke(new DOMPoint(20, 20));
+            return true;
+          } catch (e) {
+            return {result: false, message: e.message};
+          }
   SVGGlyphElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'glyph');
     __test: return bcd.testObjectName(instance, 'SVGGlyphElement');
@@ -4608,10 +5101,9 @@ api:
         return {result: false, message: 'URLSearchParams is not defined'};
       }
       var instance = new URLSearchParams("q=HelloWorld&target=MDN");
-    __additional:
-      URLSearchParams.USVString: return true; // We already know this works, because we use a string to create the instance
     URLSearchParams:
       __additional:
+        USVString: return true; // We already know this works, because we use a string to create the instance
         record: |-
           try {
             new URLSearchParams({"q": "HelloWorld", "target": "MDN"});
@@ -4632,6 +5124,17 @@ api:
             }
             return e;
           }
+    delete:
+      __additional:
+        value_parameter: |-
+          instance = new URLSearchParams("foo=1&bar=2&foo=3&foo=1");
+          instance.delete("foo", "1");
+          return instance == "bar=2&foo=3";
+    has:
+      __additional:
+        value_parameter: |-
+          instance = new URLSearchParams("foo=1&bar=2&foo=3&foo=1");
+          return instance.has("bar", "2") && !instance.has("bar", "3");
   ValidityState:
     __base: |-
       <%api.HTMLInputElement:el%>
@@ -5007,6 +5510,20 @@ api:
         return {result: false, message: 'XMLHttpRequest is not defined'};
       }
       var instance = new XMLHttpRequest();
+    responseType:
+      __additional:
+        arraybuffer_value: |-
+          instance.responseType = 'arraybuffer';
+          return instance.responseType === 'arraybuffer';
+        blob_value: |-
+          instance.responseType = 'blob';
+          return instance.responseType === 'blob';
+        document_value: |-
+          instance.responseType = 'document';
+          return instance.responseType === 'document';
+        json_value: |-
+          instance.responseType = 'json';
+          return instance.responseType === 'json';
   XMLHttpRequestEventTarget:
     __base: <%api.XMLHttpRequest:instance%>
   XMLHttpRequestUpload:
@@ -5024,12 +5541,14 @@ api:
   XRSystem:
     __base: var instance = navigator.xr;
 
-# Features defined here also need to be in @webref/css or custom-css.json.
+# Features defined here also need to be in @webref/css or custom/css.json.
 css:
   properties:
-    custom-property: |-
-      return CSS.supports('color', 'var(--foo)') || CSS.supports('color',
-      'env(--foo)');
+    custom-property:
+      __test: return CSS.supports('color', 'var(--foo)') || CSS.supports('color', 'env(--foo)');
+      __additional:
+        var: return CSS.supports('color', 'var(--foo)');
+        env: return CSS.supports('color', 'env(--foo)');
     aspect-ratio: |-
       return bcd.testCSSProperty('aspect-ratio', '16 / 9');
   selectors:
@@ -5052,6 +5571,7 @@ css:
     host-context: return bcd.testCSSSelector(':host-context(h1)');
     is: return bcd.testCSSSelector(':is(h1)');
     lang: return bcd.testCSSSelector(':lang(en-US)');
+    list: "return {result: null, message: 'Testing list selector is not yet implemented'};"
     not: return bcd.testCSSSelector(':not(strong)');
     nth-child: return bcd.testCSSSelector(':nth-child(even)');
     nth-last-child: return bcd.testCSSSelector(':nth-last-child(even)');
@@ -5062,7 +5582,214 @@ css:
     left: "return {result: null, message: 'Testing :left is not yet implemented'};"
     right: "return {result: null, message: 'Testing :right is not yet implemented'};"
 
-# Features defined here also need to be in custom-js.json.
+html:
+  # Features defined here also need to be in @webref/elements or custom/elements.json.
+  elements:
+    input:
+      __base: |-
+        var instance = document.createElement('input');
+        function testType(type) {
+          instance.type = type;
+          return instance.type === type;
+        }
+      __additional:
+        type_button: return testType('button');
+        type_checkbox: return testType('checkbox');
+        type_color: return testType('color');
+        type_date: return testType('date');
+        type_datetime-local: return testType('datetime-local');
+        type_email: return testType('email');
+        type_file: return testType('file');
+        type_hidden: return testType('hidden');
+        type_image: return testType('image');
+        type_month: return testType('month');
+        type_number: return testType('number');
+        type_password: return testType('password');
+        type_radio: return testType('radio');
+        type_range: return testType('range');
+        type_reset: return testType('reset');
+        type_search: return testType('search');
+        type_submit: return testType('submit');
+        type_tel: return testType('tel');
+        type_text: return testType('text');
+        type_time: return testType('time');
+        type_url: return testType('url');
+        type_week: return testType('week');
+
+mathml:
+  # Features defined here also need to be in @webref/elements or custom/elements.json.
+  # Most test code here is based on https://github.com/web-platform-tests/wpt/blob/master/mathml/support/feature-detection.js
+  elements:
+    annotation: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    annotation-xml: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    maction: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    math: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    menclose: |-
+      // Just check whether <mrow> is supported because discussion on this is
+      // still open (https://github.com/mathml-refresh/mathml/issues/105 
+      // and it would have to behave at least like an mrow, even if it becomes
+      // an unknown element at the end.
+      <%mathml.elements.mrow:instance%>
+      return has_mspace;
+    merror: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mfenced: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mfrac:
+      __base: |-
+        // Use tall enough fraction to avoid side effect of min num/denum shifts.
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<mfrac><mspace height='50px' depth='50px'></mspace><mspace height='50px' depth='50px'></mspace></mfrac><mfrac><mspace height='60px' depth='60px'></mspace><mspace height='60px' depth='60px'></mspace></mfrac>";
+        document.getElementById('resources').appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.getElementById('resources').removeChild(mathEl);
+        });
+
+        var mfrac = mathEl.getElementsByTagName("mfrac");
+        // height/depth will add 40px per MathML, 20px if mfrac does not stack its children and none if mspace is not supported.
+        var has_mfrac = mfrac[1].getBoundingClientRect().height - mfrac[0].getBoundingClientRect().height > 30;
+      __test: return has_mfrac;
+    mi: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mmultiscripts: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mn: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mo: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mover: |-
+      // XXX Improve feature detection
+      <%mathml.elements.munderover:instance%>
+      return has_munderover;
+    mpadded: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mphantom: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mprescripts: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mroot: |-
+      // XXX Improve feature detection
+      <%mathml.elements.msqrt:instance%>
+      return has_msqrt;
+    mrow:
+      __base: |-
+        // XXX Improve feature detection
+        <%mathml.elements.mspace:instance%>
+      __test: return has_mspace;
+    ms: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mspace:
+      __base: |-
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<mspace></mspace><mspace width='20px'></mspace>";
+        document.getElementById('resources').appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.getElementById('resources').removeChild(mathEl);
+        });
+
+        // The width attribute will add 20px per MathML and none if not supported.
+        var has_mspace = mathEl.lastChild.getBoundingClientRect().width - mathEl.firstChild.getBoundingClientRect().width > 10;
+      __test: return has_mspace;
+    msqrt:
+      __base: |-
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<mrow style='font-size: 20px !important'><mtext>A</mtext></mrow><msqrt style='font-size: 20px !important'><mtext>A</mtext></msqrt>";
+        document.getElementById('resources').appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.getElementById('resources').removeChild(mathEl);
+        });
+
+        // The radical symbol will make msqrt wider than mrow, if the former is supported.
+        var has_msqrt = mathEl.lastElementChild.getBoundingClientRect().width - mathEl.firstElementChild.getBoundingClientRect().width > 5;
+      __test: return has_msqrt;
+    mstyle: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    msub: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    msubsup: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    msup: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtable: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtd: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtext: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    mtr: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+    munder: |-
+      // XXX Improve feature detection
+      <%mathml.elements.munderover:instance%>
+      return has_munderover;
+    munderover:
+      __base: |-
+        var mathEl = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+        mathEl.innerHTML = "<munderover><mspace width='20px'></mspace><mspace width='20px'></mspace><mspace width='20px'></mspace></munderover><munderover><mspace width='40px'></mspace><mspace width='40px'></mspace><mspace width='40px'></mspace></munderover>";
+        document.getElementById('resources').appendChild(mathEl);
+        bcd.addCleanup(function() {
+          document.getElementById('resources').removeChild(mathEl);
+        });
+
+        var munderover = mathEl.getElementsByTagName("munderover");
+        // width_delta will be 20px per MathML, 3 * 20 = 60px if mundeover does not stack its children and 0px if mspace is not supported.
+        var width_delta = munderover[1].getBoundingClientRect().width - munderover[0].getBoundingClientRect().width;
+        var has_munderover = width_delta > 10 && width_delta < 30;
+      __test: return has_munderover;
+    semantics: |-
+      // XXX Improve feature detection
+      <%mathml.elements.mspace:instance%>
+      return has_mspace;
+
+# Features defined here also need to be in custom/js.json.
 javascript:
   builtins:
     AggregateError:
@@ -5076,6 +5803,13 @@ javascript:
           "Multiple errors thrown",
         );
       AggregateError: return !!instance;
+    ArrayBuffer:
+      ArrayBuffer:
+        __additional:
+          maxByteLength_option: function construct(options) {
+            new ArrayBuffer(8, options);
+            }
+            return bcd.testOptionParam(construct, null, 'maxByteLength', 16);
     AsyncFunction:
       __base: |-
         var func;
@@ -5137,8 +5871,44 @@ javascript:
       "@@asyncIterator": |-
         const AsyncIteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(instance)));
         return !!instance && "Symbol" in self && "asyncIterator" in Symbol && Symbol.asyncIterator in AsyncIteratorPrototype;
+    DataView:
+      DataView:
+        __additional:
+          sharedarraybuffer_support: |-
+            if (!('SharedArrayBuffer' in self)) {
+              return {result: false, message: 'SharedArrayBuffer is not defined'};
+            }
+            var sab = new SharedArrayBuffer(1024);
+
+            try {
+              var instance = new DataView(sab, 0);
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
+    Date:
+      UTC:
+        __additional:
+          optional_monthIndex: |-
+            try {
+              Date.UTC(2024);
+              return {result: true, message: 'Method passed without monthIndex parameter'};
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
     Error:
       __base: "var instance = new Error('hello world', {cause: 'for testing'});"
+      Error:
+        __additional:
+          fileName_parameter: |-
+            var e = new Error('foo', 'bar.js');
+            return e.fileName === 'bar.js';
+          lineNumber_parameter: |-
+            var e = new Error('foo', 'bar.js', 420);
+            return e.lineNumber === 420;
+          options_cause_parameter: |-
+            var e = new Error('foo', {cause: 'testing'});
+            return e.cause === 'testing';
     Float32Array:
       __additional:
         Float32Array.iterable_allowed: |-
@@ -5159,6 +5929,10 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
+    Function:
+      name: |-
+        function doTheThing() {};
+        return doTheThing.name == 'doTheThing';
     Generator:
       __base: <%javascript.builtins.GeneratorFunction:instance%>
       __test: return !!instance;
@@ -5179,10 +5953,6 @@ javascript:
         }
       __test: return !!instance;
       GeneratorFunction: return !!instance;
-    Function:
-      name: |-
-        function doTheThing() {};
-        return doTheThing.name == 'doTheThing';
     Int16Array:
       __additional:
         Int16Array.iterable_allowed: |-
@@ -5214,6 +5984,150 @@ javascript:
             return {result: false, message: e.message};
           }
     Intl:
+      Collator:
+        Collator:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("Collator" in Intl)) {
+              return { result: false, message: "Intl.Collator is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.Collator('en', options);
+            }
+          __additional:
+            options_caseFirst_parameter: return bcd.testOptionParam(construct, null, 'caseFirst', 'upper');
+            options_collation_parameter: return bcd.testOptionParam(construct, null, 'collation', 'default');
+      DateTimeFormat:
+        DateTimeFormat:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("DateTimeFormat" in Intl)) {
+              return { result: false, message: "Intl.DateTimeFormat is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.DateTimeFormat('en', options);
+            }
+          __additional:
+            locales_parameter: |-
+              var instance = new Intl.DateTimeFormat('de');
+              var options = instance.resolvedOptions();
+              return options.locale === 'de';
+            options_parameter: |-
+              // The timeZone parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'timeZone', 'UTC');
+            options_parameter.options_calendar_parameter: return bcd.testOptionParam(construct, null, 'calendar', 'chinese');
+            options_parameter.options_dateStyle_parameter: return bcd.testOptionParam(construct, null, 'dateStyle', 'full');
+            options_parameter.options_dayPeriod_parameter: return bcd.testOptionParam(construct, null, 'dayPeriod', 'narrow');
+            options_parameter.options_fractionalSecondDigits_parameter: return bcd.testOptionParam(construct, null, 'fractionalSecondDigits', 2);
+            options_parameter.options_hourCycle_parameter: return bcd.testOptionParam(construct, null, 'hourCycle', 'h23');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_timeStyle_parameter: return bcd.testOptionParam(construct, null, 'timeStyle', 'full');
+            options_parameter.options_timeZone_parameter: return bcd.testOptionParam(construct, null, 'timeZone', 'UTC');
+            options_parameter.options_timeZone_parameter.iana_time_zones: return bcd.testOptionParam(construct, null, 'timeZone', 'Asia/Shanghai');
+            options_parameter.options_timeZoneName_parameter: return bcd.testOptionParam(construct, null, 'timeZoneName', 'long');
+            options_parameter.options_timeZoneName_parameter.extended_values: return bcd.testOptionParam(construct, null, 'timeZoneName', 'shortGeneric');
+      NumberFormat:
+        NumberFormat:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("NumberFormat" in Intl)) {
+              return { result: false, message: "Intl.NumberFormat is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.NumberFormat('en', options);
+            }
+          __additional:
+            locales_parameter: |-
+              var instance = new Intl.NumberFormat('de');
+              var options = instance.resolvedOptions();
+              return options.locale === 'de';
+            options_parameter: |-
+              // The style parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'style', 'currency');
+            options_parameter.options_compactDisplay_parameter: "return bcd.testOptionParam(construct, null, 'compactDisplay', 'long', {'notation': 'compact'});"
+            options_parameter.options_currency_parameter: return bcd.testOptionParam(construct, null, 'currency', 'USD');
+            options_parameter.options_currencyDisplay_parameter: return bcd.testOptionParam(construct, null, 'currencyDisplay', 'name');
+            options_parameter.options_currencySign_parameter: return bcd.testOptionParam(construct, null, 'currencySign', 'accounting');
+            options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
+            options_parameter.options_maximumFractionDigits_parameter: return bcd.testOptionParam(construct, null, 'maximumFractionDigits', 10);
+            options_parameter.options_maximumSignificantDigits_parameter: return bcd.testOptionParam(construct, null, 'maximumSignificantDigits', 10);
+            options_parameter.options_minimumFractionDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumFractionDigits', 10);
+            options_parameter.options_minimumIntegerDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumIntegerDigits', 10);
+            options_parameter.options_minimumSignificantDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumSignificantDigits', 10);
+            options_parameter.options_notation_parameter: return bcd.testOptionParam(construct, null, 'notation', 'compact');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
+            options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
+            options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
+            options_parameter.options_signDisplay_parameter: return bcd.testOptionParam(construct, null, 'signDisplay', 'always');
+            options_parameter.options_signDisplay_parameter.negative: |-
+              var instance = Intl.NumberFormat('en', {signDisplay: 'negative'});
+              var options = instance.resolvedOptions();
+              return options.signDisplay === 'negative';
+            options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_unit_parameter: return bcd.testOptionParam(construct, null, 'unit', 'gigabyte');
+            options_parameter.options_unitDisplay_parameter: "return bcd.testOptionParam(construct, null, 'unitDisplay', 'narrow', {unit: 'gigabyte'});"
+            options_parameter.options_useGrouping_parameter: return bcd.testOptionParam(construct, null, 'useGrouping', false);
+            options_parameter.options_useGrouping_parameter.string_values: |-
+              var instance = Intl.NumberFormat('en', {useGrouping: 'always'});
+              var options = instance.resolvedOptions();
+              return options.useGrouping === 'always';
+      PluralRules:
+        PluralRules:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("PluralRules" in Intl)) {
+              return { result: false, message: "Intl.PluralRules is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.PluralRules('en', options);
+            }
+          __additional:
+            options_parameter: |-
+              // The roundingIncrement parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
+            options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
+            options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
+            options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+      RelativeTimeFormat:
+        RelativeTimeFormat:
+          __base: |-
+            if (!("Intl" in self)) {
+              return { result: false, message: "Intl is not defined" };
+            }
+            if (!("RelativeTimeFormat" in Intl)) {
+              return { result: false, message: "Intl.RelativeTimeFormat is not defined" };
+            }
+
+            function construct(options) {
+              new Intl.RelativeTimeFormat('en', options);
+            }
+          __additional:
+            locales_parameter: |-
+              var instance = new Intl.RelativeTimeFormat('de');
+              var options = instance.resolvedOptions();
+              return options.locale === 'de';
+            options_parameter: |-
+              // The style parameter was one of the first options available
+              return bcd.testOptionParam(construct, null, 'style', 'currency');
+            options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_numeric_parameter: return bcd.testOptionParam(construct, null, 'numeric', 'auto');
+            options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
       Segments:
         __base: |-
           if (!('Intl' in self && 'Segmenter' in Intl)) {
@@ -5250,14 +6164,15 @@ javascript:
             return {result: false, message: e.message};
           }
     Object:
-      constructor: |-
-        var instance = {};
-        return !!instance.constructor;
       defineGetter: return '__defineGetter__' in {};
       defineSetter: return '__defineSetter__' in {};
       lookupGetter: return '__lookupGetter__' in {};
       lookupSetter: return '__lookupSetter__' in {};
       proto: return '__proto__' in {};
+      __additional:
+        constructor: |-
+          var instance = {};
+          return !!instance.constructor;
     RegExp:
       __base: |-
         if (!('RegExp' in self)) {

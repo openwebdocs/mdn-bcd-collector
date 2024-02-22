@@ -41,23 +41,22 @@ jobs:
         with:
           repository: openwebdocs/mdn-bcd-results
           path: mdn-bcd-results
+          token: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
       - name: Run Selenium and collect results
         if: steps.check.outputs.changed == 'true'
         run: |
           npm install -D typescript
           npm install -D ts-node
-          echo "${{secrets.SECRETS_JSON}}" > secrets.json
           rm mdn-bcd-results/*.json
           RESULTS_DIR=mdn-bcd-results npm run selenium
-      - name: Submit all results to results repo
-        if: steps.check.outputs.changed == 'true'
-        uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
-        with:
-          source_file: "/"
-          destination_repo: "openwebdocs/mdn-bcd-results"
-          destination_folder: "mdn-bcd-results"
-          user_email: "gooborgstudios-bot@users.noreply.github.com"
-          user_name: "gooborgstudios-bot"
-          commit_message: "Selenium v${{steps.check.outputs.version}} results"
+          SECRETS_JSON: ${{secrets.SECRETS_JSON}}
+      - name: Submit all results to the results repo
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          cd mdn-bcd-results
+          git config user.name "gooborgstudios-bot"
+          git config user.email "gooborgstudios-bot@users.noreply.github.com"
+          git add *.json
+          git commit -m "Selenium v${{steps.check.outputs.version}} results"
+          git push origin main

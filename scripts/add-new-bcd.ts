@@ -18,7 +18,7 @@ import {hideBin} from "yargs/helpers";
 import {BCD_DIR} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
-import {getMissing} from "./find-missing-features.js";
+import {getMissing} from "./feature-coverage.js";
 import {main as updateBcd} from "./update-bcd.js";
 
 const tests = await fs.readJson(new URL("../tests.json", import.meta.url));
@@ -211,8 +211,8 @@ export const traverseFeatures = async (
 export const collectMissing = async (filepath: string): Promise<void> => {
   const missing = {};
 
-  for (const entry of getMissing(bcd, tests, "bcd-from-collector")
-    .missingEntries) {
+  for (const entry of getMissing(bcd, tests, "bcd-from-collector")[""]
+    .missing) {
     recursiveAdd(entry.split("."), 0, missing, template);
   }
 

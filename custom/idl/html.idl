@@ -123,6 +123,8 @@ partial interface mixin GlobalEventHandlers {
 partial interface HTMLCanvasElement {
   // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/mozOpaque
   attribute boolean mozOpaque;
+
+  any mozPrintCallback();
 };
 
 // https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/html/html_content_element.idl

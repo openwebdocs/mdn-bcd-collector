@@ -20,7 +20,7 @@ import {Report, ReportStats} from "../types/types.js";
 import {BCD_DIR} from "../lib/constants.js";
 import {parseUA} from "../lib/ua-parser.js";
 
-import {findMissing} from "./find-missing-features.js";
+import {findMissing} from "./feature-coverage.js";
 
 const {default: bcd}: {default: CompatData} = await import(
   `${BCD_DIR}/index.js`
@@ -146,7 +146,7 @@ export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
       supported: supportedFeatures,
       unsupported: unsupportedFeatures,
       unknown: unknownFeatures,
-      missing: findMissing(testedFeatures, tests).missingEntries,
+      missing: findMissing(testedFeatures, tests).missing,
     },
     featuresQueried,
   };

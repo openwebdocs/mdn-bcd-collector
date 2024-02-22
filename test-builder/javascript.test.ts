@@ -121,6 +121,18 @@ describe("build (JavaScript)", () => {
           },
         },
       },
+      grammar: {
+        array_literals: "var x = [1, 2, 3];",
+      },
+      operators: {
+        addition: "var x = 1 + 1;",
+      },
+      regular_expressions: {
+        character_class: "/[abc]/i",
+      },
+      statements: {
+        var: "var x = 1;",
+      },
     };
 
     assert.deepEqual(await build(specJS, customJS), {
@@ -212,6 +224,50 @@ describe("build (JavaScript)", () => {
   return bcd.testConstructor("BigInt", true);
 })();
 `,
+        exposure: ["Window"],
+      },
+      "javascript.grammar.array_literals": {
+        code: `(function() {
+  try {
+    var x = [1, 2, 3];
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+      "javascript.operators.addition": {
+        code: `(function() {
+  try {
+    var x = 1 + 1;
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+      "javascript.regular_expressions.character_class": {
+        code: `(function() {
+  try {
+    /[abc]/i;
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+      "javascript.statements.var": {
+        code: `(function() {
+  try {
+    var x = 1;
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
         exposure: ["Window"],
       },
     });

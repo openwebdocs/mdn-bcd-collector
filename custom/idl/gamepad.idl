@@ -1,0 +1,10 @@
+// Removed in https://github.com/w3c/gamepad/commit/4b3357874deabc2e3bc25047d13d3b0bfeb038a8
+enum GamepadHapticActuatorType {
+  "vibration",
+  "dual-rumble"
+};
+
+partial interface GamepadHapticActuator {
+  readonly attribute GamepadHapticActuatorType type;
+  boolean canPlayEffectType(GamepadHapticEffectType type);
+};

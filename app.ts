@@ -20,7 +20,6 @@ import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import {marked} from "marked";
-import {markedHighlight} from "marked-highlight";
 import {gfmHeadingId} from "marked-gfm-heading-id";
 import hljs from "highlight.js";
 import expressLayouts from "express-ejs-layouts";
@@ -181,31 +180,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Configure marked
 
-// Code highlighting for Markdown files
-marked.use(
-  markedHighlight({
-    langPrefix: "hljs language-",
-    /**
-     * Highlight code with specified language.
-     * @param code - The code to highlight.
-     * @param lang - The language of the code.
-     * @returns The highlighted code.
-     */
-    highlight: (code: string, lang: string): string => {
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlight(code, {language}).value;
-    },
-  }),
-);
-
 // Add IDs to headers
 marked.use(gfmHeadingId());
 
-// Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
 marked.use({
   renderer: {
     /**
-     * Renders a blockquote element.
+     * Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
      * @param quote - The quote to render.
      * @returns The rendered blockquote element.
      */
@@ -231,6 +212,26 @@ marked.use({
           .slice(1)
           .join("\n")}
       </blockquote>`;
+    },
+    /**
+     * Code syntax highlighting and Mermaid flowchart rendering
+     * @param code - The raw code to format.
+     * @param infostring - The syntax language and other information.
+     * @returns The rendered code element.
+     */
+    code: (code: string, infostring?: string): string => {
+      if (!infostring) {
+        return `<pre><code class="hljs language-plaintext">${code}</code><pre>`;
+      }
+
+      const [lang, ...classes] = infostring.split(" ");
+      if (lang === "mermaid") {
+        return `<pre class="mermaid ${classes.join(" ")}">${code}</pre>`;
+      }
+
+      const language = hljs.getLanguage(lang) ? lang : "plaintext";
+      const renderedCode = hljs.highlight(code, {language}).value;
+      return `<pre><code class="hljs language-${language} ${classes.join(" ")}">${renderedCode}</code></pre>`;
     },
   },
 });
