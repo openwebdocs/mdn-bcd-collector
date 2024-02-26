@@ -112,7 +112,7 @@
     "ejs-lint": "2.0.0",
     "enquirer": "2.4.1",
     "es-scraper": "^0.0.13",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
