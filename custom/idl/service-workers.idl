@@ -3,8 +3,7 @@ partial interface FetchEvent {
 };
 
 // https://github.com/w3c/ServiceWorker/pull/1207
-[Exposed=ServiceWorker]
-interface InstallEvent : ExtendableEvent {
+partial interface InstallEvent {
   constructor(DOMString type, optional object init);
 
   // https://bugs.chromium.org/p/chromium/issues/detail?id=470032
