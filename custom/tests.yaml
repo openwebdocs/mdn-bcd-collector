@@ -3505,37 +3505,39 @@ api:
       var instance = reusableInstances.webGL2.getExtension('OVR_multiview2');
   OffscreenCanvas:
     __base: var instance = new OffscreenCanvas(1024, 1024);
+    getContext:
+      __additional:
+        bitmaprenderer_context: |-
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('bitmaprenderer');
+          return !!ctx;
+        webgl_context: |-
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('webgl');
+          return !!ctx;
+        webgl2_context: |-
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('webgl2');
+          return !!ctx;
+        webgpu_context: |-
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('webgpu');
+          return !!ctx;
+        2d_context: |-
+          if (!(instance && instance.getContext)) {
+            return {result: false, message: 'instance.getContext is not defined'};
+          }
+          var ctx = instance.getContext('2d');
+          return !!ctx;
     __additional:
-      bitmaprenderer_context: |-
-        if (!(instance && instance.getContext)) {
-          return {result: false, message: 'instance.getContext is not defined'};
-        }
-        var ctx = instance.getContext('bitmaprenderer');
-        return !!ctx;
-      webgl_context: |-
-        if (!(instance && instance.getContext)) {
-          return {result: false, message: 'instance.getContext is not defined'};
-        }
-        var ctx = instance.getContext('webgl');
-        return !!ctx;
-      webgl2_context: |-
-        if (!(instance && instance.getContext)) {
-          return {result: false, message: 'instance.getContext is not defined'};
-        }
-        var ctx = instance.getContext('webgl2');
-        return !!ctx;
-      webgpu_context: |-
-        if (!(instance && instance.getContext)) {
-          return {result: false, message: 'instance.getContext is not defined'};
-        }
-        var ctx = instance.getContext('webgpu');
-        return !!ctx;
-      2d_context: |-
-        if (!(instance && instance.getContext)) {
-          return {result: false, message: 'instance.getContext is not defined'};
-        }
-        var ctx = instance.getContext('2d');
-        return !!ctx;
       convertToBlob.option_type_parameter_webp: |-
         instance.getContext('2d');
         if (!('convertToBlob' in instance)) {
