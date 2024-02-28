@@ -22,11 +22,13 @@ jobs:
         uses: EndBug/version-check@v2
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Tag new release
-        if: steps.check.outputs.changed == 'true'
+      - name: Configure Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
+      - name: Tag new release
+        if: steps.check.outputs.changed == 'true'
+        run: |
           git tag v${{steps.check.outputs.version}}
           git push origin v${{steps.check.outputs.version}}
       - name: Deploy to Heroku
@@ -42,12 +44,16 @@ jobs:
           repository: openwebdocs/mdn-bcd-results
           path: mdn-bcd-results
           token: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
+      - name: Remove old results
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git rm mdn-bcd-results/*.json
+          git commit -m "Remove old results"
       - name: Run Selenium and collect results
         if: steps.check.outputs.changed == 'true'
         run: |
           npm install -D typescript
           npm install -D ts-node
-          rm mdn-bcd-results/*.json
           RESULTS_DIR=mdn-bcd-results npm run selenium
         env:
           SECRETS_JSON: ${{secrets.SECRETS_JSON}}
@@ -55,8 +61,6 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         run: |
           cd mdn-bcd-results
-          git config user.name "gooborgstudios-bot"
-          git config user.email "gooborgstudios-bot@users.noreply.github.com"
           git add *.json
           git commit -m "Selenium v${{steps.check.outputs.version}} results"
           git push origin main
