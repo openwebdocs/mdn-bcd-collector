@@ -958,6 +958,7 @@
   ["css.properties.font-family.math", "chrome", "1-108", false],
   ["css.properties.font-family.math", "firefox", "*", false],
   ["css.properties.font-family.math", "safari", "*", false],
+  ["css.properties.hanging-punctuation.force-end", "safari", "*", false],
   "CSS.supports() incorrectly indicates support",
   ["css.selectors.dir", "safari", "1-16.3", false],
   "XXX Safari uses pseudo attributes within a shadow DOM, so CSS.supports() cannot detect support",
