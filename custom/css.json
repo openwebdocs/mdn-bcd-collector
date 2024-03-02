@@ -755,7 +755,7 @@
     },
     "text-decoration": {
       "__additional_values": {
-        "text-decoration-thickness": "solid underline purple 4px"
+        "includes_thickness": "solid underline purple 4px"
       }
     },
     "text-decoration-style": {
