@@ -141,7 +141,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
         continue;
       }
 
-      const ignoredProps = [
+      const ignoredValues = [
         "<custom-ident>",
         "<bottom>",
         "<left>",
@@ -175,10 +175,22 @@ const buildPropertyTests = async (specCSS, customCSS) => {
         "2nd <length>",
       ];
 
+      const ignoredValuesByProp = {
+        "text-justify": ["distribute"],
+        "text-orientation": ["sideways-right"],
+        overflow: ["overlay"],
+        "overflow-x": ["overlay"],
+        "overflow-y": ["overlay"],
+      };
+
+      if (prop in ignoredValuesByProp) {
+        ignoredValues.push(...ignoredValuesByProp[prop]);
+      }
+
       const propertyValues =
         prop.values
           ?.filter((v) => v.type === "value")
-          .filter((v) => !ignoredProps.includes(v.name))
+          .filter((v) => !ignoredValues.includes(v.name))
           .map((v) => remapCSSPropertyValue(v, customCSS))
           .filter((v) => !!v) || [];
       if (properties.has(prop.name)) {
