@@ -30,9 +30,6 @@ const getCSSTypes = (specCSS) => {
       "<track-list>",
       "<auto-track-list>",
     ]),
-    "<'flex-basis'>": new Set(["flex-basis"]),
-    "<'flex-grow'>": new Set(["flex-grow"]),
-    "<'flex-shrink'>": new Set(["flex-shrink"]),
   };
 
   // Get the type data from the spec
