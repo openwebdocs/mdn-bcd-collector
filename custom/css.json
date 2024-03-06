@@ -274,6 +274,20 @@
       "__values": ["show", "hide"]
     },
     "enable-background": {},
+    "filter": {
+      "__additional_values": {
+        "blur": "blur(10px)",
+        "brightness": "brightness(1.2)",
+        "contrast": "contrast(1.2)",
+        "drop-shadow": "drop-shadow(0 0 10px black)",
+        "grayscale": "grayscale(1.2)",
+        "hue-rotate": "hue-rotate(90deg)",
+        "invert": "invert(1.2)",
+        "opacity": "opacity(1.2)",
+        "saturate": "saturate(1.2)",
+        "sepia": "sepia(1.2)"
+      }
+    },
     "flex-basis": {
       "__values": ["-webkit-auto", "fit-content", "max-content", "min-content"]
     },
