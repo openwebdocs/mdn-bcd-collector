@@ -226,7 +226,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
 
       const knownValues = properties.get(name);
       for (const value of customValues.keys()) {
-        if (knownValues.has(value) && value in values) {
+        if (knownValues.has(value) && values.includes(value)) {
           throw new Error(
             `Custom CSS property value already known: ${name}.${value}`,
           );
