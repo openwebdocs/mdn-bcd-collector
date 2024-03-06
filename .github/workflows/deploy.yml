@@ -48,7 +48,9 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         run: |
           git rm mdn-bcd-results/*.json
+          cd mdn-bcd-results
           git commit -m "Remove old results"
+          cd ..
       - name: Run Selenium and collect results
         if: steps.check.outputs.changed == 'true'
         run: |
