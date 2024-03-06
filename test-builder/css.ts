@@ -110,7 +110,7 @@ const remapPropertyValues = (input, types, customCSS) => {
   for (const val of input) {
     if (val.name in types) {
       for (const v of types[val.name]) {
-        if (val.name.includes("<")) {
+        if (v.includes("<")) {
           // Skip any unflattened types
           continue;
         }
