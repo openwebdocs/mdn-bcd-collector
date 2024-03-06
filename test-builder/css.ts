@@ -10,6 +10,7 @@ import {getCustomTest, compileTest} from "./common.js";
 
 const ignoredSpecs = [
   "https://compat.spec.whatwg.org/", // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
+  "https://drafts.csswg.org/css-values-4/", // The CSS Values and Units Module just defines primitive types
 ];
 
 /**
