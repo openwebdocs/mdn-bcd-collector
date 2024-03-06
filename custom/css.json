@@ -165,6 +165,9 @@
         "percentages": "20%"
       }
     },
+    "border-collapse": {
+      "__values": ["separate", "collapse"]
+    },
     "border-image": {
       "__additional_values": {
         "fill": "url(test.png) 30 fill",
@@ -210,7 +213,14 @@
       "__values": ["padding-box"]
     },
     "caption-side": {
-      "__values": ["left", "right", "top-outside", "bottom-outside"]
+      "__values": [
+        "top",
+        "bottom",
+        "left",
+        "right",
+        "top-outside",
+        "bottom-outside"
+      ]
     },
     "clip-path": {
       "__additional_values": {
@@ -259,6 +269,9 @@
         "display-outside": ["block", "inline"],
         "multi-keyword_values": "inline flow"
       }
+    },
+    "empty-cells": {
+      "__values": ["show", "hide"]
     },
     "enable-background": {},
     "flex-basis": {
@@ -570,6 +583,9 @@
       "__additional_values": {
         "length": "20px"
       }
+    },
+    "table-layout": {
+      "__values": ["auto", "fixed"]
     },
     "text-align": {
       "__additional_values": {
