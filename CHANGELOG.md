@@ -1,5 +1,215 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.0
+
+Released March 6, 2024
+
+### Test Changes
+
+#### Added
+
+- api.CSSViewTransitionRule.typeList
+- api.PageSwapEvent
+- api.WebTransport.anticipatedConcurrentIncomingBidirectionalStreams
+- api.WebTransport.anticipatedConcurrentIncomingUnidirectionalStreams
+- css.properties.accent-color.none
+- css.properties.accent-color.transparent
+- css.properties.accent-color.currentcolor
+- css.properties.accent-color.ActiveBorder
+- css.properties.accent-color.ActiveCaption
+- css.properties.accent-color.AppWorkspace
+- css.properties.accent-color.Background
+- css.properties.accent-color.ButtonHighlight
+- css.properties.accent-color.ButtonShadow
+- css.properties.accent-color.CaptionText
+- css.properties.accent-color.InactiveBorder
+- css.properties.accent-color.InactiveCaption
+- css.properties.accent-color.InactiveCaptionText
+- css.properties.accent-color.InfoBackground
+- css.properties.accent-color.InfoText
+- css.properties.accent-color.Menu
+- css.properties.accent-color.MenuText
+- css.properties.accent-color.Scrollbar
+- css.properties.accent-color.ThreeDDarkShadow
+- css.properties.accent-color.ThreeDFace
+- css.properties.accent-color.ThreeDHighlight
+- css.properties.accent-color.ThreeDLightShadow
+- css.properties.accent-color.ThreeDShadow
+- css.properties.accent-color.Window
+- css.properties.accent-color.WindowFrame
+- css.properties.accent-color.WindowText
+- css.properties.all.initial
+- css.properties.all.inherit
+- css.properties.all.unset
+- css.properties.all.revert
+- css.properties.all.revert-layer
+- css.properties.border-collapse.separate
+- css.properties.border-collapse.collapse
+- css.properties.caption-side.top
+- css.properties.caption-side.bottom
+- css.properties.clip.rect
+- css.properties.clip.auto
+- css.properties.column-rule-color.none
+- css.properties.column-rule-color.transparent
+- css.properties.column-rule-color.currentcolor
+- css.properties.column-rule-color.ActiveBorder
+- css.properties.column-rule-color.ActiveCaption
+- css.properties.column-rule-color.AppWorkspace
+- css.properties.column-rule-color.Background
+- css.properties.column-rule-color.ButtonHighlight
+- css.properties.column-rule-color.ButtonShadow
+- css.properties.column-rule-color.CaptionText
+- css.properties.column-rule-color.InactiveBorder
+- css.properties.column-rule-color.InactiveCaption
+- css.properties.column-rule-color.InactiveCaptionText
+- css.properties.column-rule-color.InfoBackground
+- css.properties.column-rule-color.InfoText
+- css.properties.column-rule-color.Menu
+- css.properties.column-rule-color.MenuText
+- css.properties.column-rule-color.Scrollbar
+- css.properties.column-rule-color.ThreeDDarkShadow
+- css.properties.column-rule-color.ThreeDFace
+- css.properties.column-rule-color.ThreeDHighlight
+- css.properties.column-rule-color.ThreeDLightShadow
+- css.properties.column-rule-color.ThreeDShadow
+- css.properties.column-rule-color.Window
+- css.properties.column-rule-color.WindowFrame
+- css.properties.column-rule-color.WindowText
+- css.properties.column-width.fit-content_function
+- css.properties.display.block
+- css.properties.display.inline
+- css.properties.display.run-in
+- css.properties.display.flow
+- css.properties.display.table-caption
+- css.properties.empty-cells.show
+- css.properties.empty-cells.hide
+- css.properties.filter.blur
+- css.properties.filter.brightness
+- css.properties.filter.contrast
+- css.properties.filter.drop-shadow
+- css.properties.filter.grayscale
+- css.properties.filter.hue-rotate
+- css.properties.filter.invert
+- css.properties.filter.opacity
+- css.properties.filter.saturate
+- css.properties.filter.sepia
+- css.properties.grid-template-columns.fit-content_function
+- css.properties.grid-template-rows.fit-content_function
+- css.properties.inset-area.start
+- css.properties.inset-area.end
+- css.properties.inset-area.self-start
+- css.properties.inset-area.self-end
+- css.properties.inset-area.top
+- css.properties.inset-area.bottom
+- css.properties.inset-area.left
+- css.properties.inset-area.right
+- css.properties.inset-area.y-start
+- css.properties.inset-area.y-end
+- css.properties.inset-area.y-self-start
+- css.properties.inset-area.y-self-end
+- css.properties.inset-area.x-start
+- css.properties.inset-area.x-end
+- css.properties.inset-area.x-self-start
+- css.properties.inset-area.x-self-end
+- css.properties.inset-area.block-start
+- css.properties.inset-area.block-end
+- css.properties.inset-area.block-self-start
+- css.properties.inset-area.block-self-end
+- css.properties.inset-area.inline-start
+- css.properties.inset-area.inline-end
+- css.properties.inset-area.inline-self-start
+- css.properties.inset-area.inline-self-end
+- css.properties.inset-area.center
+- css.properties.inset-area.center-start
+- css.properties.inset-area.center-end
+- css.properties.inset-area.center-top
+- css.properties.inset-area.center-bottom
+- css.properties.inset-area.center-y-start
+- css.properties.inset-area.center-y-end
+- css.properties.inset-area.center-x-start
+- css.properties.inset-area.center-x-end
+- css.properties.inset-area.center-block-start
+- css.properties.inset-area.center-block-end
+- css.properties.inset-area.center-inline-start
+- css.properties.inset-area.center-inline-end
+- css.properties.inset-area.all
+- css.properties.offset-path.view-box
+- css.properties.offset-path.fill-box
+- css.properties.offset-path.stroke-box
+- css.properties.offset-path.margin-box
+- css.properties.offset-path.content-box
+- css.properties.offset-path.padding-box
+- css.properties.offset-path.border-box
+- css.properties.outline-style.hidden
+- css.properties.overflow-clip-margin.content-box
+- css.properties.overflow-clip-margin.padding-box
+- css.properties.overflow-clip-margin.border-box
+- css.properties.scrollbar-color.none
+- css.properties.scrollbar-color.transparent
+- css.properties.scrollbar-color.currentcolor
+- css.properties.scrollbar-color.ActiveBorder
+- css.properties.scrollbar-color.ActiveCaption
+- css.properties.scrollbar-color.AppWorkspace
+- css.properties.scrollbar-color.Background
+- css.properties.scrollbar-color.ButtonHighlight
+- css.properties.scrollbar-color.ButtonShadow
+- css.properties.scrollbar-color.CaptionText
+- css.properties.scrollbar-color.InactiveBorder
+- css.properties.scrollbar-color.InactiveCaption
+- css.properties.scrollbar-color.InactiveCaptionText
+- css.properties.scrollbar-color.InfoBackground
+- css.properties.scrollbar-color.InfoText
+- css.properties.scrollbar-color.Menu
+- css.properties.scrollbar-color.MenuText
+- css.properties.scrollbar-color.Scrollbar
+- css.properties.scrollbar-color.ThreeDDarkShadow
+- css.properties.scrollbar-color.ThreeDFace
+- css.properties.scrollbar-color.ThreeDHighlight
+- css.properties.scrollbar-color.ThreeDLightShadow
+- css.properties.scrollbar-color.ThreeDShadow
+- css.properties.scrollbar-color.Window
+- css.properties.scrollbar-color.WindowFrame
+- css.properties.scrollbar-color.WindowText
+- css.properties.table-layout.auto
+- css.properties.table-layout.fixed
+- css.properties.text-decoration.includes_thickness
+- css.properties.transform.matrix
+- css.properties.transform.translate
+- css.properties.transform.translateX
+- css.properties.transform.translateY
+- css.properties.transform.rotate
+- css.properties.transform.skew
+- css.properties.transform.skewX
+- css.properties.transform.skewY
+
+#### Removed
+
+- api.CSSViewTransitionRule.type
+- css.properties.appearance.compat-auto
+- css.properties.column-width.fit-content
+- css.properties.overflow.overlay
+- css.properties.overflow-x.overlay
+- css.properties.overflow-y.overlay
+- css.properties.text-decoration.text-decoration-thickness
+- css.properties.text-justify.distribute
+- css.properties.text-orientation.sideways-right
+
+### Commits
+
+- Add custom tests for CSS filter property ([#1258](https://github.com/openwebdocs/mdn-bcd-collector/pull/1258))
+- Fix CSS property ignored values ([#1257](https://github.com/openwebdocs/mdn-bcd-collector/pull/1257))
+- Fix check for unflattened types ([#1256](https://github.com/openwebdocs/mdn-bcd-collector/pull/1256))
+- Update CSS test builder ([#1255](https://github.com/openwebdocs/mdn-bcd-collector/pull/1255))
+- Ignore CSS Values and Units Module spec ([#1254](https://github.com/openwebdocs/mdn-bcd-collector/pull/1254))
+- Add additional CSS property values ([#1253](https://github.com/openwebdocs/mdn-bcd-collector/pull/1253))
+- Fix border-style; fix type remappings ([#1252](https://github.com/openwebdocs/mdn-bcd-collector/pull/1252))
+- Remove unneeded CSS features and type remappings ([#1251](https://github.com/openwebdocs/mdn-bcd-collector/pull/1251))
+- Remap enumerated types for CSS property values ([#1250](https://github.com/openwebdocs/mdn-bcd-collector/pull/1250))
+- Fix check for double-defined CSS property values (and remove duplicates) ([#1249](https://github.com/openwebdocs/mdn-bcd-collector/pull/1249))
+- Ignore legacy aliases defined for specific CSS properties ([#1245](https://github.com/openwebdocs/mdn-bcd-collector/pull/1245))
+- Fix identifier for css.properties.text-decoration.includes_thickness ([#1238](https://github.com/openwebdocs/mdn-bcd-collector/pull/1238))
+- Update deploy script ([#1226](https://github.com/openwebdocs/mdn-bcd-collector/pull/1226))
+
 ## v10.9.0
 
 Released February 27, 2024
