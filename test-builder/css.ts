@@ -110,6 +110,10 @@ const remapPropertyValues = (input, types, customCSS) => {
   for (const val of input) {
     if (val.name in types) {
       for (const v of types[val.name]) {
+        if (val.name.includes("<")) {
+          // Skip any unflattened types
+          continue;
+        }
         values.set(v, v);
       }
     } else {
@@ -221,8 +225,9 @@ const buildPropertyTests = async (specCSS, customCSS) => {
       }
 
       const ignoredValues = {
-        "font-size-adjust":
+        "font-size-adjust": [
           "ex-height | cap-height | ch-width | ic-width | ic-height",
+        ],
         "text-justify": ["distribute"],
         "text-orientation": ["sideways-right"],
         overflow: ["overlay"],
