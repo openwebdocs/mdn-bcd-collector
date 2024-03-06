@@ -31,6 +31,7 @@ describe("build (CSS)", () => {
           },
         ],
         selectors: [],
+        values: [],
       },
       "css-grid": {
         spec: {
@@ -39,6 +40,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "grid"}],
         selectors: [],
+        values: [],
       },
       selectors: {
         spec: {
@@ -47,6 +49,7 @@ describe("build (CSS)", () => {
         },
         properties: [],
         selectors: [{name: "+"}, {name: ":nth-of-type()"}],
+        values: [],
       },
     };
 
@@ -123,6 +126,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "foo"}],
         selectors: [],
+        values: [],
       },
     };
 
@@ -149,6 +153,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "foo"}],
         selectors: [],
+        values: [],
       },
     };
 
@@ -167,6 +172,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "foo", values: [{name: "bar", value: "bar"}]}],
         selectors: [],
+        values: [],
       },
     };
 
@@ -201,6 +207,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "foo", values: [{name: "bar", value: "bar"}]}],
         selectors: [],
+        values: [],
       },
     };
 
@@ -225,6 +232,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "one", values: [{name: "two", value: "two"}]}],
         selectors: [],
+        values: [],
       },
     };
 
@@ -255,6 +263,7 @@ describe("build (CSS)", () => {
         },
         properties: [],
         selectors: [{name: "foo"}],
+        values: [],
       },
     };
 
@@ -274,6 +283,7 @@ describe("build (CSS)", () => {
         },
         properties: [{name: "bar"}],
         selectors: [],
+        values: [],
       },
     };
 

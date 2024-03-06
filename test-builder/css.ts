@@ -8,107 +8,159 @@
 
 import {getCustomTest, compileTest} from "./common.js";
 
+const ignoredSpecs = [
+  "https://compat.spec.whatwg.org/", // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
+];
+
 /**
- * Remap the CSS property values from Webref into usable map entries
- * @param input - The value from Webref
- * @param customCSS - The custom CSS data to draw type information from
- * @returns A two-value array to add to a map, or null if no test should be created for the value
+ * Get the type data from Webref and flatten enumerated types
+ * @param specCSS - The specification CSS data.
+ * @returns An object of all types and their values
  */
-const remapCSSPropertyValue = (input, customCSS) => {
-  // XXX Remove me once all these have been transferred to custom/css.json
-  const typeRemappings = {
-    "<string>+": ["type_multi_string", "'foo' 'bar'"],
-    "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
-    "<absolute-size>": [
-      "type_absolute_size",
-      [
-        "xx-small",
-        "x-small",
-        "small",
-        "medium",
-        "large",
-        "x-large",
-        "xx-large",
-      ],
-    ],
-    "<relative-size>": ["type_relative_size", ["larger", "smaller"]],
-    "<visual-box>": [
-      "type_visual_box",
-      ["content-box", "padding-box", "border-box"],
-    ],
-    "<layout-box>": [
-      "type_layout_box",
-      ["content-box", "padding-box", "border-box", "margin-box"],
-    ],
-    "<paint-box>": [
-      "type_paint_box",
-      [
-        "content-box",
-        "padding-box",
-        "border-box",
-        "margin-box",
-        "fill-box",
-        "stroke-box",
-      ],
-    ],
-    "<coord-box>": [
-      "type_coord_box",
-      [
-        "content-box",
-        "padding-box",
-        "border-box",
-        "margin-box",
-        "fill-box",
-        "stroke-box",
-        "view-box",
-      ],
-    ],
-    "<autospace>": ["type_autospace", "insert"],
-    "<spacing-trim>": [
-      "type_spacing-trim",
-      [
-        "space-all",
-        "normal",
-        "trim-auto",
-        "trim-start",
-        "space-first",
-        "trim-all",
-      ],
-    ],
+const getCSSTypes = (specCSS) => {
+  // Some types are manually defined to mitigate Webref data issues
+  const types = {
+    "<layout-box>": new Set(["<visual-box>", "margin-box"]),
+    "<paint-box>": new Set(["<layout-box>", "fill-box", "stroke-box"]),
+    "<coord-box>": new Set(["<paint-box>", "view-box"]),
+    "<counter-style>": new Set(["<counter-style-name>"]),
+    "<outline-line-style>": new Set(["auto", "<line-style>"]),
+    "<offset-path> || <coord-box>": new Set(["<offset-path>", "<coord-box>"]),
+    "<track-list> | <auto-track-list>": new Set([
+      "<track-list>",
+      "<auto-track-list>",
+    ]),
+    "<'flex-basis'>": new Set(["flex-basis"]),
+    "<'flex-grow'>": new Set(["flex-grow"]),
+    "<'flex-shrink'>": new Set(["flex-shrink"]),
   };
 
-  if (input.name.includes("<")) {
-    // Skip any and all types for now until we're ready to add them
-    return null;
-
-    if (input.name in typeRemappings) {
-      return typeRemappings[input.name];
+  // Get the type data from the spec
+  for (const data of Object.values(specCSS) as any[]) {
+    if (ignoredSpecs.includes(data.spec.url)) {
+      continue;
     }
 
-    for (const [type, typedata] of Object.entries(customCSS.types) as any[]) {
-      if (
-        Array.isArray(typedata.syntax)
-          ? typedata.syntax.includes(input.name)
-          : input.name === typedata.syntax
-      ) {
-        return ["type_" + type, typedata.value];
+    for (const val of data.values) {
+      if (!(val.name in types)) {
+        // Sets are used to automatically de-duplicate entries
+        types[val.name] = new Set();
+      }
+
+      for (const value of val.values || []) {
+        switch (value.type) {
+          case "function":
+            // Ignore functions for now
+            break;
+          case "value":
+            types[val.name].add(value.value);
+            break;
+          case "type":
+            if (value.values) {
+              types[val.name].add(
+                ...value.values
+                  .filter((v) => v.type === "value")
+                  .map((v) => v.value),
+              );
+            } else if (value.value?.includes(" | ")) {
+              for (const v of value.value.split(" | ")) {
+                types[val.name].add(v);
+              }
+            } else {
+              types[val.name].add(value.value);
+            }
+            break;
+          default:
+            throw new Error(`Unknown value type ${value.type} found!`);
+        }
+      }
+    }
+  }
+
+  for (const [type, values] of Object.entries(types) as any[]) {
+    // Check for values that reference other types
+    for (const value of values) {
+      if (value in types) {
+        types[type].delete(value);
+        for (const v of types[value]) {
+          types[type].add(v);
+        }
       }
     }
 
-    console.warn(`Type ${input.name} unknown!`);
-    return null;
+    // Remap sets to arrays
+    types[type] = [...types[type]];
   }
 
-  if (
-    ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
-      input.name,
-    )
-  ) {
-    // Skip generic property values
-    return null;
+  return types;
+};
+
+/**
+ * Remap the CSS property values from Webref into usable map entries
+ * @param input - The value from Webref
+ * @param types - The types from webref
+ * @param customCSS - The custom CSS data to draw type information from
+ * @returns A two-value array to add to a map, or null if no test should be created for the value
+ */
+const remapPropertyValues = (input, types, customCSS) => {
+  if (!input) {
+    return [];
   }
 
-  return [input.name.replace(/ /g, "_").replace("()", ""), input.value];
+  const values = new Map();
+
+  for (const val of input) {
+    if (val.name in types) {
+      for (const v in types[val.name]) {
+        values.set(v, v);
+      }
+    } else {
+      // XXX Remove me once all these have been transferred to custom/css.json
+      const typeRemappings = {
+        "<string>+": ["type_multi_string", "'foo' 'bar'"],
+        "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
+      };
+
+      if (val.name.includes("<")) {
+        // Skip any and all types for now until we're ready to add them
+        continue;
+
+        if (
+          ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
+            val.name,
+          )
+        ) {
+          // Skip generic property values
+          continue;
+        }
+
+        if (val.name in typeRemappings) {
+          values.set(typeRemappings[val.name][0], typeRemappings[val.name][1]);
+          continue;
+        }
+
+        for (const [type, typedata] of Object.entries(
+          customCSS.types,
+        ) as any[]) {
+          if (
+            Array.isArray(typedata.syntax)
+              ? typedata.syntax.includes(val.name)
+              : val.name === typedata.syntax
+          ) {
+            values.set("type_" + type, typedata.value);
+            continue;
+          }
+        }
+
+        console.warn(`Type ${val.name} unknown!`);
+        continue;
+      }
+
+      values.set(val.name.replace(/ /g, "_").replace("()", ""), val.value);
+    }
+  }
+
+  return values;
 };
 
 /**
@@ -121,9 +173,10 @@ const buildPropertyTests = async (specCSS, customCSS) => {
   const properties = new Map();
   const tests = {};
 
+  const types = getCSSTypes(specCSS);
+
   for (const data of Object.values(specCSS) as any[]) {
-    if (data.spec.url == "https://compat.spec.whatwg.org/") {
-      // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
+    if (ignoredSpecs.includes(data.spec.url)) {
       continue;
     }
 
@@ -141,41 +194,36 @@ const buildPropertyTests = async (specCSS, customCSS) => {
         continue;
       }
 
-      const ignoredValues = [
-        "<custom-ident>",
-        "<bottom>",
-        "<left>",
-        "<right>",
-        "<top>",
-        "<content-list>",
-        "<inset-area-span>",
-        "<keyframes-name>",
-        "<feature-tag-value>",
-        "<counter-style>",
-        "/ [ <string> | <counter> ]+",
-        "/ [ <string> | <counter> | <attr()> ]+",
-        "<inset-area-span> [ / <inset-area-span> ]?",
-        "<offset-path> || <coord-box>",
-        "ex-height | cap-height | ch-width | ic-width | ic-height",
-        "<track-list> | <auto-track-list>",
-        "<family-name>",
-        "<semitones>",
-        "<'flex-basis'>",
-        "<'flex-grow'>",
-        "<'flex-shrink'>",
-        "oblique <angle [-90deg,90deg]>?",
-        "<'grid-template-rows'> / [ auto-flow && dense? ] <'grid-auto-columns'>?",
-        "[ auto-flow && dense? ] <'grid-auto-rows'>? / <'grid-template-columns'>",
-        "<'grid-template-rows'> / <'grid-template-columns'>",
-        "[ <line-names>? <string> <track-size>? <line-names>? ]+ [ / <explicit-track-list> ]?",
-        "subgrid <line-name-list>?",
-        "<integer [1,∞]> <block-ellipsis>?'",
-        "<timeline-range-name> <length-percentage>?",
-        "1st <length>",
-        "2nd <length>",
-      ];
+      const additionalPropTypeValues = {
+        display: [
+          "<display-outside>",
+          "<display-inside>",
+          "<display-listitem>",
+          "<display-internal>",
+          "<display-box>",
+          "<display-legacy>",
+        ],
+        "outline-style": ["<outline-line-style>"],
+      };
 
-      const ignoredValuesByProp = {
+      // XXX Webref does not include these types, so we have to add them ourselves
+      // We don't have capabilities to parse types in custom/css.json
+      if (prop.name in additionalPropTypeValues) {
+        if (!prop.values) {
+          prop.values = [];
+        }
+        prop.values.push(
+          ...additionalPropTypeValues[prop.name].map((n) => ({
+            name: n,
+            value: n,
+            type: "type",
+          })),
+        );
+      }
+
+      const ignoredValues = {
+        "font-size-adjust":
+          "ex-height | cap-height | ch-width | ic-width | ic-height",
         "text-justify": ["distribute"],
         "text-orientation": ["sideways-right"],
         overflow: ["overlay"],
@@ -183,16 +231,14 @@ const buildPropertyTests = async (specCSS, customCSS) => {
         "overflow-y": ["overlay"],
       };
 
-      if (prop in ignoredValuesByProp) {
-        ignoredValues.push(...ignoredValuesByProp[prop]);
-      }
+      const propertyValues = remapPropertyValues(
+        prop.values?.filter(
+          (v) => !(ignoredValues[prop] || []).includes(v.name),
+        ),
+        types,
+        customCSS,
+      );
 
-      const propertyValues =
-        prop.values
-          ?.filter((v) => v.type === "value")
-          .filter((v) => !ignoredValues.includes(v.name))
-          .map((v) => remapCSSPropertyValue(v, customCSS))
-          .filter((v) => !!v) || [];
       if (properties.has(prop.name)) {
         properties.set(
           prop.name,
