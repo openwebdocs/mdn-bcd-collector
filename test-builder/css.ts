@@ -158,7 +158,13 @@ const remapPropertyValues = (input, types, customCSS) => {
         continue;
       }
 
-      values.set(val.name.replace(/ /g, "_").replace("()", ""), val.value);
+      values.set(
+        val.name
+          .replace(/ /g, "_")
+          .replace("fit-content()", "fit-content_function")
+          .replace("()", ""),
+        val.value,
+      );
     }
   }
 
