@@ -108,7 +108,7 @@ const remapPropertyValues = (input, types, customCSS) => {
 
   for (const val of input) {
     if (val.name in types) {
-      for (const v in types[val.name]) {
+      for (const v of types[val.name]) {
         values.set(v, v);
       }
     } else {
@@ -200,6 +200,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
           "<display-box>",
           "<display-legacy>",
         ],
+        "border-style": ["<line-style>"],
         "outline-style": ["<outline-line-style>"],
       };
 
