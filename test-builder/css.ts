@@ -243,7 +243,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
 
       const propertyValues = remapPropertyValues(
         prop.values?.filter(
-          (v) => !(ignoredValues[prop] || []).includes(v.name),
+          (v) => !(ignoredValues[prop.name] || []).includes(v.name),
         ),
         types,
         customCSS,
