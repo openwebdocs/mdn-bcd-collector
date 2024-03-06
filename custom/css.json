@@ -100,21 +100,6 @@
     "animation-duration": {
       "__values": ["scroll", "view"]
     },
-    "appearance": {
-      "__additional_values": {
-        "compat-auto": [
-          "button",
-          "checkbox",
-          "listbox",
-          "menulist",
-          "meter",
-          "progress-bar",
-          "radio",
-          "searchfield",
-          "textarea"
-        ]
-      }
-    },
     "background": {
       "__additional_values": {
         "background-clip": "red border-box",
