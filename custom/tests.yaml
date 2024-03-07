@@ -4621,15 +4621,6 @@ api:
     __base: |-
       <%api.SVGGraphicsElement:el%>
       var instance = el.transform;
-  SVGAltGlyphDefElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'altGlyphDef');
-    __test: return bcd.testObjectName(instance, 'SVGAltGlyphDefElement');
-  SVGAltGlyphElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'altGlyph');
-    __test: return bcd.testObjectName(instance, 'SVGAltGlyphElement');
-  SVGAltGlyphItemElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'altGlyphItem');
-    __test: return bcd.testObjectName(instance, 'SVGAltGlyphItemElement');
   SVGAnimateColorElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'animateColor');
     __test: return bcd.testObjectName(instance, 'SVGAnimateColorElement');
