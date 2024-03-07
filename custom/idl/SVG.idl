@@ -30,24 +30,6 @@ typedef object SVGPathSegCurvetoCubicSmoothRel;
 typedef object SVGPathSegCurvetoQuadraticSmoothAbs;
 typedef object SVGPathSegCurvetoQuadraticSmoothRel;
 
-// https://www.w3.org/TR/SVG11/text.html#InterfaceSVGAltGlyphDefElement
-[Exposed=Window]
-interface SVGAltGlyphDefElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/text.html#InterfaceSVGAltGlyphElement
-[Exposed=Window]
-interface SVGAltGlyphElement : SVGTextPositioningElement {
-  attribute DOMString glyphRef;
-  attribute DOMString format;
-};
-SVGAltGlyphElement includes SVGURIReference;
-
-// https://www.w3.org/TR/SVG11/text.html#InterfaceSVGAltGlyphItemElement
-[Exposed=Window]
-interface SVGAltGlyphItemElement : SVGElement {
-};
-
 // https://www.w3.org/TR/SVG11/animate.html#InterfaceSVGAnimateColorElement
 [Exposed=Window]
 interface SVGAnimateColorElement : SVGAnimationElement {
