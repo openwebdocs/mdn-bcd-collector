@@ -22,7 +22,6 @@
     "-webkit-column-break-inside": {},
     "-webkit-column-progression": {},
     "-webkit-cursor-visibility": {},
-    "-webkit-font-size-delta": {},
     "-webkit-hyphenate-character": {},
     "-webkit-hyphenate-limit-after": {},
     "-webkit-hyphenate-limit-before": {},
@@ -40,11 +39,6 @@
     "-webkit-logical-width": {},
     "-webkit-margin-after": {},
     "-webkit-margin-before": {},
-    "-webkit-marquee-direction": {},
-    "-webkit-marquee-increment": {},
-    "-webkit-marquee-repetition": {},
-    "-webkit-marquee-speed": {},
-    "-webkit-marquee-style": {},
     "-webkit-marquee": {},
     "-webkit-mask-attachment": {},
     "-webkit-mask-box-image-outset": {},
@@ -229,7 +223,6 @@
         "path": "path('M20,20 L50,80 L80,20')"
       }
     },
-    "color-profile": {},
     "color-scheme": {
       "__additional_values": {
         "only_dark": "only dark",
@@ -273,7 +266,6 @@
     "empty-cells": {
       "__values": ["show", "hide"]
     },
-    "enable-background": {},
     "filter": {
       "__additional_values": {
         "blur": "blur(10px)",

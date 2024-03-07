@@ -352,6 +352,11 @@ const buildSelectorTests = async (specCSS, customCSS) => {
     }
 
     for (const selector of data.selectors) {
+      if ([":matches()"].includes(selector.name)) {
+        // Ignore legacy aliases
+        continue;
+      }
+
       selectors.set(selector.name, {});
     }
   }
