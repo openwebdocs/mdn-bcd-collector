@@ -110,11 +110,17 @@ export const getFilePath = (ident: string[]): string => {
     } else {
       parts.length = 2;
     }
+  } else if (parts[0] === "css" && parts.length >= 3) {
+    parts.length = 3;
   } else if (
     parts.length >= 3 &&
-    ["css", "html", "svg", "mathml"].includes(parts[0])
+    ["html", "svg", "mathml"].includes(parts[0])
   ) {
-    parts.length = 3;
+    if (["global_attributes", "attribute_values"].includes(parts[1])) {
+      parts.length = 2;
+    } else {
+      parts.length = 3;
+    }
   } else if (
     parts.length >= 3 &&
     parts[0] === "javascript" &&
