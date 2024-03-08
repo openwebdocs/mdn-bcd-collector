@@ -1,5 +1,140 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.1
+
+Released March 7, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Animation.progress
+- api.PerformanceNavigationTiming.notRestoredReasons
+- css.properties.inset-area.span-start
+- css.properties.inset-area.span-end
+- css.properties.inset-area.span-top
+- css.properties.inset-area.span-bottom
+- css.properties.inset-area.span-y-start
+- css.properties.inset-area.span-y-end
+- css.properties.inset-area.span-x-start
+- css.properties.inset-area.span-x-end
+- css.properties.inset-area.span-block-start
+- css.properties.inset-area.span-block-end
+- css.properties.inset-area.span-inline-start
+- css.properties.inset-area.span-inline-end
+- css.properties.inset-area.span-all
+- css.properties.position-try-options.inset-area
+
+#### Removed
+
+- api.Document.getOverrideStyle
+- api.SVGAltGlyphDefElement
+- api.SVGAltGlyphElement
+- api.SVGAltGlyphItemElement
+- css.properties.-webkit-font-size-delta
+- css.properties.-webkit-marquee-direction
+- css.properties.-webkit-marquee-increment
+- css.properties.-webkit-marquee-repetition
+- css.properties.-webkit-marquee-speed
+- css.properties.-webkit-marquee-style
+- css.properties.all.initial
+- css.properties.all.inherit
+- css.properties.all.unset
+- css.properties.all.revert
+- css.properties.all.revert-layer
+- css.properties.color-profile
+- css.properties.enable-background
+- css.properties.inset-area.center-start
+- css.properties.inset-area.center-end
+- css.properties.inset-area.center-top
+- css.properties.inset-area.center-bottom
+- css.properties.inset-area.center-y-start
+- css.properties.inset-area.center-y-end
+- css.properties.inset-area.center-x-start
+- css.properties.inset-area.center-x-end
+- css.properties.inset-area.center-block-start
+- css.properties.inset-area.center-block-end
+- css.properties.inset-area.center-inline-start
+- css.properties.inset-area.center-inline-end
+- css.properties.inset-area.all
+- css.properties.position-fallback-bounds
+- css.selectors.matches
+- svg.global_attributes.onabort
+- svg.global_attributes.onactivate
+- svg.global_attributes.onbegin
+- svg.global_attributes.oncancel
+- svg.global_attributes.oncanplay
+- svg.global_attributes.oncanplaythrough
+- svg.global_attributes.onchange
+- svg.global_attributes.onclick
+- svg.global_attributes.onclose
+- svg.global_attributes.oncuechange
+- svg.global_attributes.ondblclick
+- svg.global_attributes.ondrag
+- svg.global_attributes.ondragend
+- svg.global_attributes.ondragenter
+- svg.global_attributes.ondragexit
+- svg.global_attributes.ondragleave
+- svg.global_attributes.ondragover
+- svg.global_attributes.ondragstart
+- svg.global_attributes.ondrop
+- svg.global_attributes.ondurationchange
+- svg.global_attributes.onemptied
+- svg.global_attributes.onend
+- svg.global_attributes.onended
+- svg.global_attributes.onerror
+- svg.global_attributes.onfocus
+- svg.global_attributes.onfocusin
+- svg.global_attributes.onfocusout
+- svg.global_attributes.oninput
+- svg.global_attributes.oninvalid
+- svg.global_attributes.onkeydown
+- svg.global_attributes.onkeypress
+- svg.global_attributes.onkeyup
+- svg.global_attributes.onload
+- svg.global_attributes.onloadeddata
+- svg.global_attributes.onloadedmetadata
+- svg.global_attributes.onloadstart
+- svg.global_attributes.onmousedown
+- svg.global_attributes.onmouseenter
+- svg.global_attributes.onmouseleave
+- svg.global_attributes.onmousemove
+- svg.global_attributes.onmouseout
+- svg.global_attributes.onmouseover
+- svg.global_attributes.onmouseup
+- svg.global_attributes.onmousewheel
+- svg.global_attributes.onpause
+- svg.global_attributes.onplay
+- svg.global_attributes.onplaying
+- svg.global_attributes.onprogress
+- svg.global_attributes.onratechange
+- svg.global_attributes.onrepeat
+- svg.global_attributes.onreset
+- svg.global_attributes.onresize
+- svg.global_attributes.onscroll
+- svg.global_attributes.onseeked
+- svg.global_attributes.onseeking
+- svg.global_attributes.onselect
+- svg.global_attributes.onshow
+- svg.global_attributes.onstalled
+- svg.global_attributes.onsubmit
+- svg.global_attributes.onsuspend
+- svg.global_attributes.ontimeupdate
+- svg.global_attributes.ontoggle
+- svg.global_attributes.onunload
+- svg.global_attributes.onvolumechange
+- svg.global_attributes.onwaiting
+
+### Commits
+
+- Make sure generic CSS property values are ignored ([#1273](https://github.com/openwebdocs/mdn-bcd-collector/pull/1273))
+- Remove test for Document.getOverrideStyle ([#1272](https://github.com/openwebdocs/mdn-bcd-collector/pull/1272))
+- Remove tests for SVG altGlyph elements ([#1264](https://github.com/openwebdocs/mdn-bcd-collector/pull/1264))
+- Remove untracked non-standard features and ignore legacy aliases ([#1263](https://github.com/openwebdocs/mdn-bcd-collector/pull/1263))
+- Fix add-new-bcd when working with global_attributes ([#1262](https://github.com/openwebdocs/mdn-bcd-collector/pull/1262))
+- Remove SVG global event handler attributes ([#1261](https://github.com/openwebdocs/mdn-bcd-collector/pull/1261))
+- Fix deployment script ([#1260](https://github.com/openwebdocs/mdn-bcd-collector/pull/1260))
+
 ## v10.10.0
 
 Released March 6, 2024
