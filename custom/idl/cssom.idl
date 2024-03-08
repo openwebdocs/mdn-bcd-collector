@@ -83,10 +83,6 @@ partial interface CSSStyleDeclaration {
   iterable<CSSNumericValue>;
 };
 
-partial interface Document {
-  CSSStyleDeclaration getOverrideStyle(optional Element? element = null, optional DOMString? pseudoElement = null);
-};
-
 // Non-standard stuff
 
 partial interface Document {
