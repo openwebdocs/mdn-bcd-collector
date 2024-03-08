@@ -123,18 +123,18 @@ const remapPropertyValues = (input, types, customCSS) => {
         "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
       };
 
+      if (
+        ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
+          val.name,
+        )
+      ) {
+        // Skip generic property values
+        continue;
+      }
+
       if (val.name.includes("<")) {
         // Skip any and all types for now until we're ready to add them
         continue;
-
-        if (
-          ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
-            val.name,
-          )
-        ) {
-          // Skip generic property values
-          continue;
-        }
 
         if (val.name in typeRemappings) {
           values.set(typeRemappings[val.name][0], typeRemappings[val.name][1]);
