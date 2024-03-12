@@ -47,7 +47,17 @@
   "api.PerformanceResourceTiming.deliveryType.navigational-prefetch",
 
   /* Effect can be seen, but not programmatically tested */
+  "api.console.substitution_strings",
   "api.Element.animate.implicit_tofrom",
+  "api.HTMLInputElement.showPicker.autocomplete_input",
+  "api.HTMLInputElement.showPicker.color_input",
+  "api.HTMLInputElement.showPicker.datalist_input",
+  "api.HTMLInputElement.showPicker.date_input",
+  "api.HTMLInputElement.showPicker.datetime_local_input",
+  "api.HTMLInputElement.showPicker.file_input",
+  "api.HTMLInputElement.showPicker.month_input",
+  "api.HTMLInputElement.showPicker.time_input",
+  "api.HTMLInputElement.showPicker.week_input",
 
   /* Requires calling the methods which will result in page reloads or otherwise */
   "api.History.pushState.unused_parameter",
@@ -64,12 +74,47 @@
   "api.MediaDevices.getDisplayMedia.surfaceSwitching_option",
   "api.MediaDevices.getDisplayMedia.systemAudio_option",
 
-  /* Effect is only visible in console */
-  "api.console.substitution_strings",
+  /* Performing these registrations would unregister handlers the user wants, creating a negative experience for users */
+  "api.Navigator.registerProtocolHandler.scheme_parameter_bitcoin",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_cabal",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_dat",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_did",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_dweb",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_etherium",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ftp",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ftps",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_geo",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_hyper",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_im",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ipfs",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ipns",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_irc",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ircs",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_magnet",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_mailto",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_matrix",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_mms",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_news",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_nntp",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_openpgp4fpr",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_sftp",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_sip",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_sms",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_smsto",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ssb",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_ssh",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_tel",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_urn",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_webcal",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_wtai",
+  "api.Navigator.registerProtocolHandler.scheme_parameter_xmpp",
 
   /* Involves cross-origin requests */
   "api.XMLHttpRequest.authorization_removed_cross_origin",
   "api.fetch.authorization_removed_cross_origin",
+
+  /* This property is true if the window opened is or is not a popup */
+  "api.BarProp.visible.returns_popup",
 
   /* Locale-related; effect can only be seen visually, not programatically tested */
   "css.properties.hyphens.language_afrikaans",
