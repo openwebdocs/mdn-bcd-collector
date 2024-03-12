@@ -3169,6 +3169,37 @@ api:
           return bcd.testOptionParam(construct, null, 'mimeType', '');
   MediaSession:
     __base: var instance = navigator.mediaSession;
+    setActionHandler:
+      __base: |-
+        function setActionHandler(type) {
+          if (!('setActionHandler' in instance)) {
+            return {result: false, message: "MediaSession.setActionHandler is not defined"};
+          }
+          try {
+            instance.setActionHandler(type, null);
+            return true;
+          } catch(e) {
+            if (e instanceof TypeError) {
+              return {result: false, message: e.message};
+            }
+            return e;
+          }
+        }
+      __additional:
+        hangup_type: return setActionHandler('hangup');
+        nextslide_type: return setActionHandler('nextslide');
+        nexttrack_type: return setActionHandler('nexttrack');
+        pause_type: return setActionHandler('pause');
+        play_type: return setActionHandler('play');
+        previousslide_type: return setActionHandler('previousslide');
+        previoustrack_type: return setActionHandler('previoustrack');
+        seekbackward_type: return setActionHandler('seekbackward');
+        seekforward_type: return setActionHandler('seekforward');
+        seekto_type: return setActionHandler('seekto');
+        skipad_type: return setActionHandler('skipad');
+        stop_type: return setActionHandler('stop');
+        togglecamera_type: return setActionHandler('togglecamera');
+        togglemicrophone_type: return setActionHandler('togglemicrophone');
   MediaSource:
     __base: |-
       if (!('MediaSource' in self)) {
