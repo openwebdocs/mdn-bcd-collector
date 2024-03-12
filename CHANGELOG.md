@@ -1,5 +1,60 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.2
+
+Released March 11, 2024
+
+### Test Changes
+
+#### Added
+
+- api.MediaSession.setActionHandler.hangup_type
+- api.MediaSession.setActionHandler.nextslide_type
+- api.MediaSession.setActionHandler.nexttrack_type
+- api.MediaSession.setActionHandler.pause_type
+- api.MediaSession.setActionHandler.play_type
+- api.MediaSession.setActionHandler.previousslide_type
+- api.MediaSession.setActionHandler.previoustrack_type
+- api.MediaSession.setActionHandler.seekbackward_type
+- api.MediaSession.setActionHandler.seekforward_type
+- api.MediaSession.setActionHandler.seekto_type
+- api.MediaSession.setActionHandler.skipad_type
+- api.MediaSession.setActionHandler.stop_type
+- api.MediaSession.setActionHandler.togglecamera_type
+- api.MediaSession.setActionHandler.togglemicrophone_type
+- api.Permissions.permission_accelerometer
+- api.Permissions.permission_accessibility-events
+- api.Permissions.permission_ambient-light-sensor
+- api.Permissions.permission_background-sync
+- api.Permissions.permission_camera
+- api.Permissions.permission_clipboard-read
+- api.Permissions.permission_clipboard-write
+- api.Permissions.permission_geolocation
+- api.Permissions.permission_gyroscope
+- api.Permissions.permission_local-fonts
+- api.Permissions.permission_magnetometer
+- api.Permissions.permission_microphone
+- api.Permissions.permission_midi
+- api.Permissions.permission_notifications
+- api.Permissions.permission_payment-handler
+- api.Permissions.permission_persistent-storage
+- api.Permissions.permission_push
+- api.Permissions.permission_storage-access
+- api.Permissions.permission_top-level-storage-access
+- api.Permissions.permission_window-management
+
+#### Changed
+
+- api.MediaSession.setActionHandler
+- api.Permissions
+
+### Commits
+
+- Update list of untestable features ([#1281](https://github.com/openwebdocs/mdn-bcd-collector/pull/1281))
+- Add custom tests for permissions ([#1280](https://github.com/openwebdocs/mdn-bcd-collector/pull/1280))
+- Add custom test for MediaSession.setActionHandler types ([#1279](https://github.com/openwebdocs/mdn-bcd-collector/pull/1279))
+- Fix constructor test for Safari "new HTMLElement()" error message ([#1278](https://github.com/openwebdocs/mdn-bcd-collector/pull/1278))
+
 ## v10.10.1
 
 Released March 7, 2024
