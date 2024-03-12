@@ -3697,6 +3697,189 @@ api:
       var real = new Float32Array(2);
       var imag = new Float32Array(2);
       var instance = reusableInstances.audioContext.createPeriodicWave(real, imag);
+  Permissions:
+    __base: var instance = navigator.permissions;
+    __additional:
+      permission_accelerometer: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'accelerometer'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_accessibility-events: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'accessibility-events'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_ambient-light-sensor: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'ambient-light-sensor'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_background-sync: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'background-sync'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_camera: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'camera'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_clipboard-read: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'clipboard-read'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_clipboard-write: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'clipboard-write'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_geolocation: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'geolocation'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_gyroscope: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'gyroscope'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_local-fonts: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'local-fonts'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_magnetometer: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'magnetometer'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_microphone: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'microphone'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_midi: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'midi'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_notifications: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'notifications'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_payment-handler: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'payment-handler'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_persistent-storage: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'persistent-storage'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_push: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'push', userVisibleOnly: true}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_storage-access: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'storage-access'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_top-level-storage-access: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'top-level-storage-access'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_window-management: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'window-management'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
   PermissionsPolicyViolationReportBody:
     __base: |-
       // XXX Obtaining an instance of this interface is much like triggering an event.
