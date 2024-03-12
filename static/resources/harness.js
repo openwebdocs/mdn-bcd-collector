@@ -262,6 +262,7 @@
         stringIncludes(err.message, [
           "Illegal constructor",
           "is not a constructor",
+          "is not a valid custom element constructor",
           "Function expected",
           "is not defined",
           "Can't find variable",
@@ -282,7 +283,6 @@
           "are both null",
           "must be specified",
           "must be a",
-          "is not a valid custom element constructor",
           "constructor takes a",
           "is not a valid argument count",
           "Missing required",
