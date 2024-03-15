@@ -1568,7 +1568,6 @@ api:
           return instance.getElementsByTagNameNS("http://www.w3.org/1999/xhtml", "*").length > 0;
     requestFullscreen:
       __additional:
-        options_navigationUI_parameter: return bcd.testOptionParam(instance, 'requestFullscreen', 'navigationUI', false);
         returns_promise: |-
           if (!(instance && instance.requestFullscreen)) {
             return {result: false, message: 'instance.requestFullscreen is not defined'};
@@ -2252,6 +2251,16 @@ api:
           throw e;
         }
       }
+  Headers:
+    __additional:
+      lexicographical_sorting: |-
+        if (!('Headers' in self)) {
+          return {result: false, message: 'Headers is not defined'}
+        }
+        var h = new Headers({'X-Framework': 'web2py', 'Content-Type': 'text/xml'});
+        var entry = h.entries().next().value;
+        // If the headers are sorted, the first entry should be 'Content-Type'
+        return entry[0].toLowerCase() === 'content-type';
   History:
     __base: var instance = history;
   HTMLAllCollection:
@@ -3402,6 +3411,18 @@ api:
     __base: var instance = document.body.attributes;
   Navigator:
     __base: var instance = navigator;
+    canShare:
+      __additional:
+        data_files_parameter: return bcd.testOptionParam(instance, 'canShare', 'files', [new File(['foo bar'], 'foo.txt')]);
+        data_text_parameter: return bcd.testOptionParam(instance, 'canShare', 'text', 'foo bar');
+    share:
+      __additional:
+        data_files_parameter: |-
+          // If `canShare` supports the parameter, `share` does
+          return bcd.testOptionParam(instance, 'canShare', 'files', [new File(['foo bar'], 'foo.txt')]);
+        data_text_parameter: |-
+          // If `canShare` supports the parameter, `share` does
+          return bcd.testOptionParam(instance, 'canShare', 'text', 'foo bar');
   Node:
     __base: var instance = document;
   NodeList:
@@ -4780,6 +4801,35 @@ api:
         return {result: false, message: 'crypto is not defined'};
       };
       var instance = crypto.subtle || crypto.webkitSubtle;
+    deriveKey:
+      __additional:
+        derivedKeyAlgorithm_option_aes: |-
+          return instance.generateKey(
+            {
+              name: "ECDH",
+              namedCurve: "P-384",
+            },
+            true,
+            ["deriveKey"],
+          ).then(function(keys) {
+            return instance.deriveKey(
+              {
+                name: "ECDH",
+                public: keys.publicKey,
+              },
+              keys.privateKey,
+              {
+                name: "AES-GCM",
+                length: 256
+              },
+              true,
+              ["encrypt", "decrypt"],
+            );
+          }).then(function() {
+            return true;
+          }).catch(function(e) {
+            return {result: false, message: e.message};
+          });
   SVGAElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'a');
     __test: return bcd.testObjectName(instance, 'SVGAElement');

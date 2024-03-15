@@ -45,6 +45,12 @@
   "api.ExtendableEvent.waitUntil.async_waitUntil",
   "api.Request.mode.navigate_mode",
   "api.PerformanceResourceTiming.deliveryType.navigational-prefetch",
+  "api.IDBRequest.error.DOMException",
+  "api.IDBTransaction.error.DOMException",
+  "api.FileSystemSyncAccessHandle.close.sync_version",
+  "api.FileSystemSyncAccessHandle.flush.sync_version",
+  "api.FileSystemSyncAccessHandle.getSize.sync_version",
+  "api.FileSystemSyncAccessHandle.truncate.sync_version",
 
   /* Effect can be seen, but not programmatically tested */
   "api.console.substitution_strings",
@@ -191,6 +197,9 @@
   "css.properties.text-transform.uppercase_eszett",
   "css.selectors.first-letter.dutch_ij_digraph",
 
+  /* Firefox-only and removed */
+  "api.IDBFactory.open.options_parameter",
+
   // Testable with an overhaul
   /* Worker support; technically already tested, but update-bcd doesn't know how to update these */
   "api.Cache.worker_support",
@@ -320,6 +329,15 @@
   "api.Document.execCommand.cut",
   "api.Document.execCommand.defaultParagraphSeparator",
   "api.Document.execCommand.insertBrOnReturn",
+  "api.Element.requestFullscreen.options_navigationUI_parameter",
+  "api.Element.requestFullscreen.options_screen_parameter",
+
+  /* Requires creating a new worker */
+  "api.SharedWorker.SharedWorker.options_name_parameter",
+  "api.SharedWorker.SharedWorker.mime_checks",
+  "api.Worker.Worker.mime_checks",
+  "api.Worker.Worker.options_name_parameter",
+  "api.Worker.Worker.options_type_parameter",
 
   /* Testing for serializable/transferable objects requires using a worker, which is only available if and when worker tests start */
   "api.RTCDataChannel.transferable",
@@ -327,6 +345,7 @@
   "api.TransformStream.transferable",
   "api.WritableStream.transferable",
   "api.DOMException.serializable_object",
+  "api.Window.postMessage.transfer_parameter",
 
   /* Requires an active registration, which is only available if and when service worker tests start */
   "api.ServiceWorkerRegistration.showNotification.options_actions_parameter",
