@@ -1239,23 +1239,25 @@
 
       // Load resources
       try {
-        // Load audio and video
-        var i;
-        var resourceMedia = document.querySelectorAll(
-          "#resources audio, #resources video"
-        );
-        for (i = 0; i < resourceMedia.length; i++) {
-          resourceMedia[i].load();
-          resourceMedia[i].onloadeddata = resourceLoaded;
-        }
+        if ("document" in self) {
+          // Load audio and video
+          var i;
+          var resourceMedia = document.querySelectorAll(
+            "#resources audio, #resources video"
+          );
+          for (i = 0; i < resourceMedia.length; i++) {
+            resourceMedia[i].load();
+            resourceMedia[i].onloadeddata = resourceLoaded;
+          }
 
-        // Load images
-        var resourceImages = document.querySelectorAll("#resources img");
-        for (i = 0; i < resourceImages.length; i++) {
-          if (resourceImages[i].complete) {
-            resourceLoaded();
-          } else {
-            resourceImages[i].onload = resourceLoaded;
+          // Load images
+          var resourceImages = document.querySelectorAll("#resources img");
+          for (i = 0; i < resourceImages.length; i++) {
+            if (resourceImages[i].complete) {
+              resourceLoaded();
+            } else {
+              resourceImages[i].onload = resourceLoaded;
+            }
           }
         }
 
