@@ -140,6 +140,11 @@
    * @param {string} className - A class name to set on the status field element
    */
   function updateStatus(newStatus, className) {
+    if (!("document" in self)) {
+      // For compatibility with https://github.com/unjs/runtime-compat
+      return;
+    }
+
     var statusElement = document.getElementById("status");
     if (!statusElement) {
       return;
@@ -726,10 +731,15 @@
    */
   function runTest(data, i, oncomplete) {
     var test = data.tests[i];
+    var completed = false;
 
     /* c8 ignore start */
     // If a test is stuck for too long (ex. user interaction needed), ignore it
     var timeout = setTimeout(function () {
+      if (completed) {
+        return;
+      }
+      completed = true;
       fail("Timed out");
     }, 10000);
     /* c8 ignore stop */
@@ -740,6 +750,10 @@
      */
     function success(v) {
       clearTimeout(timeout);
+      if (completed) {
+        return;
+      }
+      completed = true;
       processTestResult(v, data, i, oncomplete);
     }
 
@@ -749,6 +763,10 @@
      */
     function fail(e) {
       clearTimeout(timeout);
+      if (completed) {
+        return;
+      }
+      completed = true;
 
       var v;
       if (e instanceof Error) {
@@ -761,13 +779,13 @@
 
     try {
       var value = eval(test.code);
-
       if (
         typeof value === "object" &&
         value !== null &&
         typeof value.then === "function"
       ) {
         value.then(success, fail);
+        // ["catch"] used instead of .catch to mitigate IE parsing error
         value["catch"](fail);
       } else if (value !== "callback") {
         success(value);
@@ -1328,7 +1346,7 @@
     };
 
     if (state.started) {
-      consoleError("Warning: Tests started twice!");
+      consoleError("Warning: attempted to run tests twice!");
       return;
     }
 
@@ -1365,7 +1383,7 @@
         }
       }
 
-      if ("serviceWorker" in navigator) {
+      if ("navigator" in self && "serviceWorker" in navigator) {
         window.__workerCleanup();
       }
 
@@ -1746,7 +1764,7 @@
   }
 
   // Service Worker helpers
-  if ("serviceWorker" in navigator) {
+  if ("navigator" in self && "serviceWorker" in navigator) {
     if ("window" in self) {
       /**
        * Waits for the service worker to reach the desired state.
