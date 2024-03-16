@@ -24,17 +24,17 @@ const untestableFeatures = jsonc.parse(
   ),
 );
 
-type FeatureListSet = {
+interface FeatureListSet {
   missing: string[];
   found: string[];
   all: string[];
-};
+}
 
-type FeatureList = {
+interface FeatureList {
   all: FeatureListSet;
   testable: FeatureListSet;
   untestable: FeatureListSet;
-};
+}
 
 /**
  * Traverses the features object and returns an array of feature paths.
