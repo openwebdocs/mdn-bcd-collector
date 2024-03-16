@@ -2047,7 +2047,9 @@ api:
       var promise = adapter.then(function(a) {
         var device = a.requestDevice();
         bcd.addCleanup(function() {
-          device.destroy();
+          if ('destroy' in device) {
+            device.destroy();
+          }
         });
         return device;
       });
