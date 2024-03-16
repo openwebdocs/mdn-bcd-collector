@@ -200,6 +200,12 @@
   /* Firefox-only and removed */
   "api.IDBFactory.open.options_parameter",
 
+  /* Can't set manually and Firefox accepts any inputType value already */
+  "api.InputEvent.inputType.insertFromPasteAsQuotation",
+
+  /* Can't actually check if the value is specifically in microseconds */
+  "api.SpeechSynthesisEvent.elapsedTime.milliseconds",
+
   // Testable with an overhaul
   /* Worker support; technically already tested, but update-bcd doesn't know how to update these */
   "api.Cache.worker_support",
