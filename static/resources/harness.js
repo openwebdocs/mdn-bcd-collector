@@ -22,6 +22,11 @@
 // on any modern JavaScript features.
 
 (function (global) {
+  // For compatibility with https://github.com/unjs/runtime-compat
+  if (typeof self === "undefined") {
+    global.self = global;
+  }
+
   var pending = {};
   var resources = {
     required: 0,
@@ -32,14 +37,16 @@
     timedout: false,
     completed: false
   };
-  var reusableInstances = {
-    __sources: {}
-  };
   var cleanupFunctions = [];
   var browser = {
     name: "",
     version: ""
   };
+
+  var reusableInstances = {
+    __sources: {}
+  };
+  global.reusableInstances = reusableInstances;
 
   // Set to true for debugging output, and 'full' to include completion logging
   var debugmode =
@@ -97,6 +104,7 @@
       return "unserializable value";
     }
   }
+  global.stringify = stringify;
 
   /**
    * A non-invasive polyfill for Array.isArray()
@@ -131,6 +139,7 @@
     }
     return string.indexOf(search) !== -1;
   }
+  global.stringIncludes = stringIncludes;
 
   // End non-invasive polyfills
 
@@ -1843,9 +1852,6 @@
     }
   }
 
-  global.stringify = stringify;
-  global.stringIncludes = stringIncludes;
-  global.reusableInstances = reusableInstances;
   global.bcd = {
     testConstructor: testConstructor,
     testConstructorNewRequired: testConstructorNewRequired,
