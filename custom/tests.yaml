@@ -3990,7 +3990,7 @@ api:
       if (!('fetch' in self)) {
         return {result: false, message: 'fetch is not defined'};
       }
-      var promise = fetch('https://mdn-bcd-collector.gooborg.com/favicon/favicon.ico').then(function(response) {
+      var promise = fetch('/favicon/favicon.ico').then(function(response) {
         return response.body;
       });
   ReadableStreamDefaultController:
