@@ -3990,7 +3990,7 @@ api:
       if (!('fetch' in self)) {
         return {result: false, message: 'fetch is not defined'};
       }
-      var promise = fetch('/favicon/favicon.ico').then(function(response) {
+      var promise = fetch('https://mdn-bcd-collector.gooborg.com/favicon/favicon.ico').then(function(response) {
         return response.body;
       });
   ReadableStreamDefaultController:
@@ -4028,23 +4028,23 @@ api:
       if (!('Request' in self)) {
         return {result: false, message: 'Request is not defined'};
       }
-      var instance = new Request('http://example.com');
+      var instance = new Request('https://example.com');
     Request:
       __additional:
         init_priority_parameter: |-
           function construct(options) {
-            new Request('http://example.com', options);
+            new Request('https://example.com', options);
           }
           return bcd.testOptionParam(construct, null, 'priority', 'auto');
         init_referrer_parameter: |-
           function construct(options) {
-            new Request('http://example.com', options);
+            new Request('https://example.com', options);
           }
           return bcd.testOptionParam(construct, null, 'referrer', 'no-referrer');
     cache:
       __additional:
         only-if-cached: |-
-          instance = new Request('http://example.com/favicon/favicon.ico', {mode: "same-origin", cache: "only-if-cached"});
+          instance = new Request('https://example.com', {mode: "same-origin", cache: "only-if-cached"});
           return instance.cache === "only-if-cached";
     credentials:
       __additional:
@@ -5336,9 +5336,9 @@ api:
     __base: |-
       var instance;
       try {
-        instance = new URL('http://example.com')
+        instance = new URL('https://example.com')
       } catch(e) {
-        instance = new webkitURL('http://example.com')
+        instance = new webkitURL('https://example.com')
       };
     __test: return 'URL' in self;
   URLPattern:
