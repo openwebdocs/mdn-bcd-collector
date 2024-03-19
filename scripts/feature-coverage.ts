@@ -24,6 +24,18 @@ const untestableFeatures = jsonc.parse(
   ),
 );
 
+interface FeatureListSet {
+  missing: string[];
+  found: string[];
+  all: string[];
+}
+
+interface FeatureList {
+  all: FeatureListSet;
+  testable: FeatureListSet;
+  untestable: FeatureListSet;
+}
+
 /**
  * Traverses the features object and returns an array of feature paths.
  * @param obj - The features object to traverse.
@@ -46,11 +58,6 @@ const traverseFeatures = (
     const compat: CompatStatement = obj[id].__compat;
     if (compat) {
       const featureIdent = `${path}${id}`;
-
-      if (untestableFeatures.includes(featureIdent)) {
-        // Skip any untestable features
-        continue;
-      }
 
       features.push(featureIdent);
 
@@ -97,19 +104,31 @@ const traverseFeatures = (
  * @param allEntries - The array of all entries.
  * @returns An object containing the missing entries and the total number of entries.
  */
-const findMissing = (
-  entries: string[],
-  allEntries: string[],
-): {missing: string[]; all: string[]} => {
+const findMissing = (entries: string[], allEntries: string[]): FeatureList => {
+  const found: string[] = [];
   const missing: string[] = [];
 
   for (const entry of allEntries) {
-    if (!entries.includes(entry)) {
-      missing.push(entry);
-    }
+    (entries.includes(entry) ? found : missing).push(entry);
   }
 
-  return {missing, all: allEntries};
+  return {
+    all: {
+      missing,
+      found,
+      all: allEntries,
+    },
+    testable: {
+      missing: missing.filter((f) => !untestableFeatures.includes(f)),
+      found: found.filter((f) => !untestableFeatures.includes(f)),
+      all: allEntries.filter((f) => !untestableFeatures.includes(f)),
+    },
+    untestable: {
+      missing: missing.filter((f) => untestableFeatures.includes(f)),
+      found: found.filter((f) => untestableFeatures.includes(f)),
+      all: allEntries.filter((f) => untestableFeatures.includes(f)),
+    },
+  };
 };
 
 /**
@@ -127,7 +146,7 @@ const getMissing = (
   direction = "collector-from-bcd",
   pathFilter: string[] = [],
   includeAliases = false,
-): Record<string, {missing: string[]; all: string[]}> => {
+): Record<string, FeatureList> => {
   const bcdEntries = traverseFeatures(bcd, "", includeAliases);
   const collectorEntries = Object.keys(tests).filter(
     (p) => p !== "__resources",
@@ -155,28 +174,41 @@ const getMissing = (
   const missingFeatures = findMissing(from, all);
 
   if (pathFilter.length) {
-    const allFilteredMissing: {missing: string[]; all: string[]} = {
-      missing: [],
-      all: [],
+    const allFilteredMissing: FeatureList = {
+      all: {
+        missing: [],
+        found: [],
+        all: [],
+      },
+      testable: {
+        missing: [],
+        found: [],
+        all: [],
+      },
+      untestable: {
+        missing: [],
+        found: [],
+        all: [],
+      },
     };
 
     const filteredMissing = pathFilter.reduce((a, filter) => {
-      const missing = missingFeatures.missing.filter(
-        (item) => item === filter || item.startsWith(`${filter}.`),
-      );
-      const all = missingFeatures.all.filter(
-        (item) => item === filter || item.startsWith(`${filter}.`),
-      );
+      const filteredResult: any = {};
 
-      allFilteredMissing.missing.push(...missing);
-      allFilteredMissing.all.push(...all);
+      for (const k1 of Object.keys(allFilteredMissing)) {
+        filteredResult[k1] = {};
+        for (const k2 of Object.keys(allFilteredMissing[k1])) {
+          const list = missingFeatures[k1][k2].filter(
+            (item) => item === filter || item.startsWith(`${filter}.`),
+          );
+          allFilteredMissing[k1][k2].push(...list);
+          filteredResult[k1][k2] = list;
+        }
+      }
 
       return {
         ...a,
-        [filter]: {
-          missing,
-          all,
-        },
+        [filter]: filteredResult as FeatureList,
       };
     }, {});
 
@@ -253,19 +285,26 @@ const main = (bcd: CompatData, tests: Tests) => {
   let firstEntry = true;
 
   for (const [filter, data] of Object.entries(missingFeatures)) {
-    const foundFeatures = data.all.length - data.missing.length;
-
     console.log(
       (filter ? chalk`{blue ${filter}}: ` : "") +
-        chalk`{green.bold ${direction[0]}} covers {green ${foundFeatures} (${(
-          (foundFeatures / data.all.length) *
+        chalk`{green.bold ${direction[0]}} covers {green ${data.all.found.length} (${(
+          (data.testable.found.length / data.testable.all.length) *
+          100.0
+        ).toFixed(2)}%/${(
+          (data.all.found.length / data.all.all.length) *
           100.0
         ).toFixed(
           2,
-        )}%)} of {cyan ${data.all.length}} entries tracked in {red.bold ${direction[1]}} ({red ${data.missing.length} (${(
-          (data.missing.length / data.all.length) *
+        )}%)} of {cyan ${data.testable.all.length}/${data.all.all.length}} entries tracked in {red.bold ${direction[1]}} ({red ${data.testable.missing.length} (${(
+          (data.testable.missing.length / data.testable.all.length) *
           100.0
-        ).toFixed(2)}%)} missing)`,
+        ).toFixed(2)}%/${(
+          (data.all.missing.length / data.all.all.length) *
+          100.0
+        ).toFixed(2)}%)} missing, {gray ${data.untestable.all.length} (${(
+          (data.untestable.all.length / data.all.all.length) *
+          100.0
+        ).toFixed(2)}%) untestable})`,
     );
 
     if (firstEntry) {
@@ -274,7 +313,9 @@ const main = (bcd: CompatData, tests: Tests) => {
 
       if (!argv.countOnly) {
         console.log(
-          chalk`{red Missing Features:}\n` + data.missing.join("\n") + "\n",
+          chalk`{red Missing Features:}\n` +
+            data.testable.missing.join("\n") +
+            "\n",
         );
       }
     }
