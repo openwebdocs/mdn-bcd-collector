@@ -982,9 +982,6 @@ api:
     __resources:
       - cryptoKey
     __base: var instance = navigator.credentials;
-    create:
-      __additional:
-        publicKey_option: return bcd.testOptionParam(instance, 'create', 'publicKey', reusableInstances.cryptoKey);
     get:
       __additional:
         identity_option: "return bcd.testOptionParam(instance, null, 'get', 'identity');"
