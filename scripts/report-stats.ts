@@ -146,7 +146,7 @@ export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
       supported: supportedFeatures,
       unsupported: unsupportedFeatures,
       unknown: unknownFeatures,
-      missing: findMissing(testedFeatures, tests).missing,
+      missing: findMissing(testedFeatures, tests).all.missing,
     },
     featuresQueried,
   };

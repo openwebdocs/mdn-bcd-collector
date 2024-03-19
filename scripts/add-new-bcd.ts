@@ -217,7 +217,7 @@ export const traverseFeatures = async (
 export const collectMissing = async (filepath: string): Promise<void> => {
   const missing = {};
 
-  for (const entry of getMissing(bcd, tests, "bcd-from-collector")[""]
+  for (const entry of getMissing(bcd, tests, "bcd-from-collector")[""].all
     .missing) {
     recursiveAdd(entry.split("."), 0, missing, template);
   }
