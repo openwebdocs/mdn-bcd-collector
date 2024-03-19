@@ -3992,6 +3992,11 @@ api:
       }
       var promise = fetch('/favicon/favicon.ico').then(function(response) {
         return response.body;
+      }).catch(function() {
+        // Browsers need a relative path for CORS, but JS runtimes need an absolute path to reference
+        return fetch('https://mdn-bcd-collector.gooborg.com/favicon/favicon.ico').then(function(response) {
+          return response.body;
+        })
       });
   ReadableStreamDefaultController:
     __base: |-
