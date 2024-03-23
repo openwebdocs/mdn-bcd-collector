@@ -748,7 +748,6 @@
       if (completed) {
         return;
       }
-      completed = true;
       fail("Timed out");
     }, 10000);
     /* c8 ignore stop */
