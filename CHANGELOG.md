@@ -1,5 +1,69 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.3
+
+Released March 22, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Headers.lexicographical_sorting
+- api.HTMLElement.writingSuggestions
+- api.Navigator.canShare.data_files_parameter
+- api.Navigator.canShare.data_text_parameter
+- api.Navigator.share.data_files_parameter
+- api.Navigator.share.data_text_parameter
+- api.SubtleCrypto.deriveKey.derivedKeyAlgorithm_option_aes
+- api.SubtleCrypto.deriveKey.derivedKeyAlgorithm_option_hkdf
+- api.SubtleCrypto.deriveKey.derivedKeyAlgorithm_option_hmac
+- api.SubtleCrypto.deriveKey.derivedKeyAlgorithm_option_pbkdf2
+- api.ViewTransition.typeList
+- css.properties.anchor-scope
+
+#### Removed
+
+- api.CredentialsContainer.create.publicKey_option
+- api.Element.requestFullscreen.options_navigationUI_parameter
+- api.Navigator.getUserMedia
+- css.properties.position-animation
+
+#### Changed
+
+- api.FetchEvent
+- api.GPUBuffer
+- api.GPUCommandEncoder
+- api.GPUComputePassEncoder
+- api.GPUDevice
+- api.GPUQueue
+- api.GPURenderBundleEncoder
+- api.GPURenderPassEncoder
+- api.GPUTexture
+- api.ReadableStream
+- api.ReadableStreamDefaultReader
+- api.Request
+- api.Response.Response.accept_readablestream
+- api.URL
+
+### Commits
+
+- Delete .github/FUNDING.yml
+- Remove broken test for CredentialsContainer.create.publicKey_option ([#1311](https://github.com/openwebdocs/mdn-bcd-collector/pull/1311))
+- Fix scripts broken by feature-coverage updates ([#1310](https://github.com/openwebdocs/mdn-bcd-collector/pull/1310))
+- Add tests for SubtleCrypto.deriveKey.derivedKeyAlgorithm*option*\* ([#1309](https://github.com/openwebdocs/mdn-bcd-collector/pull/1309))
+- Fix ReadableStream in JS runtime contexts ([#1308](https://github.com/openwebdocs/mdn-bcd-collector/pull/1308))
+- feature-coverage: report untestable features count+percentage ([#1298](https://github.com/openwebdocs/mdn-bcd-collector/pull/1298))
+- Update harness.js for better runtime-compat compatibility ([#1304](https://github.com/openwebdocs/mdn-bcd-collector/pull/1304))
+- Fix custom test for ReadableStream ([#1303](https://github.com/openwebdocs/mdn-bcd-collector/pull/1303))
+- Update custom tests ([#1302](https://github.com/openwebdocs/mdn-bcd-collector/pull/1302))
+- Check if document object exists before attempting to load HTML resources ([#1301](https://github.com/openwebdocs/mdn-bcd-collector/pull/1301))
+- Check if GPUDevice can be destroyed before trying to ([#1300](https://github.com/openwebdocs/mdn-bcd-collector/pull/1300))
+- Update harness.js for runtime-compat and preventing double test runs ([#1299](https://github.com/openwebdocs/mdn-bcd-collector/pull/1299))
+- Update list of untestable features ([#1297](https://github.com/openwebdocs/mdn-bcd-collector/pull/1297))
+- Allow URL tests to run in non-browser runtimes ([#1295](https://github.com/openwebdocs/mdn-bcd-collector/pull/1295))
+- Update custom tests ([#1296](https://github.com/openwebdocs/mdn-bcd-collector/pull/1296))
+- Fix deployment script ([#1284](https://github.com/openwebdocs/mdn-bcd-collector/pull/1284))
+
 ## v10.10.2
 
 Released March 11, 2024
