@@ -38,12 +38,19 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-      - uses: actions/checkout@v4
+      - name: Checkout mdn-bcd-results
+        uses: actions/checkout@v4
         if: steps.check.outputs.changed == 'true'
         with:
           repository: openwebdocs/mdn-bcd-results
           path: mdn-bcd-results
           token: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
+      - name: Configure Git (mdn-bcd-results)
+        run: |
+          cd mdn-bcd-results
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          cd ..
       - name: Remove old results
         if: steps.check.outputs.changed == 'true'
         run: |
@@ -66,3 +73,4 @@ jobs:
           git add *.json
           git commit -m "Selenium v${{steps.check.outputs.version}} results"
           git push origin main
+          cd ..
