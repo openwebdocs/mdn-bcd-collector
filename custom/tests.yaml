@@ -64,6 +64,46 @@ __resources:
       }, true, ['encrypt', 'decrypt']).then(function(pair) {
         return pair.publicKey;
       });
+  cspViolationReportBody:
+    type: instance
+    callback: true
+    src: |-
+      // Note: the Content-Security-Policy header is already configured on this website
+      if (!('ReportingObserver' in self)) {
+        return {result: false, message: 'ReportingObserver is not defined'};
+      }
+
+      var timeout = setTimeout(function() {
+        callback(false);
+      }, 3000);
+
+      // Create the observer
+      var observer = new ReportingObserver(
+        function(reports, observer) {
+          var instance = reports.length && reports[0].body;
+          clearTimeout(timeout);
+          console.log(instance);
+          callback(instance);
+          el.remove();
+          observer.disconnect();
+        },
+        {
+          types: ["csp-violation"],
+          buffered: true,
+        }
+      );
+
+      // Start observing
+      observer.observe();
+
+      // Load some "script" from bad-domain.awful
+      var el = document.createElement('script');
+      el.src = "//bad-domain.awful/dummy-script.js";
+      try {
+        document.getElementById('resources').append(el);
+      } catch(e) {
+        // We expect a CSP error here
+      }
   mediaStream:
     type: instance
     callback: true
@@ -1009,46 +1049,10 @@ api:
     __base: |-
       var promise = reusableInstances.cryptoKey;
   CSPViolationReportBody:
-    __base: |-
-      // Note: the Content-Security-Policy header is already configured on this website
-      if (!('ReportingObserver' in self)) {
-        return {result: false, message: 'ReportingObserver is not defined'};
-      }
-
-      // Create the observer
-      var observer = new ReportingObserver(
-        function(reports, observer) {
-          var instance = reports.length && reports[0].body;
-          callback(instance);
-          el.remove();
-          observer.disconnect();
-        },
-        {
-          types: ["csp-violation"],
-          buffered: true,
-        }
-      );
-
-      // Start observing
-      observer.observe();
-
-      // Load some "script" from bad-domain.awful
-      var el = document.createElement('script');
-      el.src = "//bad-domain.awful/dummy-script.js";
-      try {
-        document.getElementById('resources').append(el);
-      } catch(e) {
-        // We expect a CSP error here
-      }
-    toJSON: |-
-      function callback(instance) {
-        try {
-          success(!!instance && 'toJSON' in instance);
-        } catch(e) {
-          fail(e);
-        }
-      }
-      return 'callback';
+    __resources:
+      - cspViolationReportBody
+    __base: var instance = reusableInstances.cspViolationReportBody;
+    toJSON: return !!instance && 'toJSON' in instance;
   CSSConditionRule:
     __resources:
       - createStyleSheet
