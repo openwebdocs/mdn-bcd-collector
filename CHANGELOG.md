@@ -1,5 +1,30 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.4
+
+Released March 25, 2024
+
+### Test Changes
+
+#### Added
+
+- css.properties.position-anchor
+- css.selectors.active-view-transition-type
+
+#### Removed
+
+- css.properties.anchor-default
+
+#### Changed
+
+- api.CSPViolationReportBody
+
+### Commits
+
+- Make CSPViolationReportBody instance a resource ([#1330](https://github.com/openwebdocs/mdn-bcd-collector/pull/1330))
+- Fix test timeout ([#1329](https://github.com/openwebdocs/mdn-bcd-collector/pull/1329))
+- Fix deployment script ([#1328](https://github.com/openwebdocs/mdn-bcd-collector/pull/1328))
+
 ## v10.10.3
 
 Released March 22, 2024
