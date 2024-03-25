@@ -46,6 +46,7 @@ jobs:
           path: mdn-bcd-results
           token: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
       - name: Configure Git (mdn-bcd-results)
+        if: steps.check.outputs.changed == 'true'
         run: |
           cd mdn-bcd-results
           git config user.name "GitHub Actions"
