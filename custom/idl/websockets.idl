@@ -1,0 +1,36 @@
+// https://github.com/whatwg/websockets/pull/48
+
+dictionary WebSocketOpenInfo {
+  ReadableStream readable;
+  WritableStream writable;
+  DOMString extensions;
+  DOMString protocol;
+};
+
+dictionary WebSocketCloseInfo {
+  [EnforceRange] unsigned short closeCode;
+  USVString reason = "";
+};
+
+dictionary WebSocketStreamOptions {
+  sequence<USVString> protocols;
+  AbortSignal signal;
+};
+
+[Exposed=(Window,Worker)]
+interface WebSocketStream {
+  constructor(USVString url, optional WebSocketStreamOptions options = {});
+  readonly attribute USVString url;
+  readonly attribute Promise<WebSocketOpenInfo> opened;
+  readonly attribute Promise<WebSocketCloseInfo> closed;
+  undefined close(optional WebSocketCloseInfo closeInfo = {});
+};
+
+[Exposed=(Window,Worker)]
+interface WebSocketError : DOMException {
+  constructor(optional DOMString message = "",
+              optional WebSocketCloseInfo init = {});
+
+  readonly attribute unsigned short? closeCode;
+  readonly attribute USVString reason;
+};
