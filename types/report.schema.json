@@ -69,7 +69,7 @@
     "results": {
       "type": "object",
       "patternProperties": {
-        "^.*://.*$": {
+        "^.*$": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/collector_result"
