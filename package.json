@@ -83,7 +83,7 @@
     "@browser-logos/firefox": "3.0.10",
     "@browser-logos/opera": "1.1.11",
     "@browser-logos/safari": "2.1.0",
-    "@listr2/prompt-adapter-enquirer": "^2.0.2",
+    "@listr2/prompt-adapter-enquirer": "^2.0.4",
     "@swc/cli": "^0.3.10",
     "@swc/helpers": "^0.5.8",
     "@types/cookie-parser": "^1.4.7",
