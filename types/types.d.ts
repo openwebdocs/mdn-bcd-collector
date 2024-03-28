@@ -23,6 +23,8 @@ export type Resource =
   | {
       type: "instance";
       src: string;
+      callback: boolean;
+      dependencies?: string[];
     }
   | {
       type: "audio" | "video";
