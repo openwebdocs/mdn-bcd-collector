@@ -1,4 +1,6 @@
 {
+  "__version": "",
+  "__resources": [],
   "api.AbortController": {},
   "api.AbortController.signal": {},
   "css.properties.font-family": {},

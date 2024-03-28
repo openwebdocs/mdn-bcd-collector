@@ -233,7 +233,7 @@ describe("rendered pages", () => {
 describe("/tests/", () => {
   it("get a test", async () => {
     // XXX Test page content and ensure we're loading the right tests
-    const res = await agent.get(`/tests/${tests[1][0].replace(/\./g, "/")}`);
+    const res = await agent.get(`/tests/${tests[2][0].replace(/\./g, "/")}`);
     assert.equal(res.status, 200);
   });
 

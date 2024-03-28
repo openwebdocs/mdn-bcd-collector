@@ -149,7 +149,7 @@ const getMissing = (
 ): Record<string, FeatureList> => {
   const bcdEntries = traverseFeatures(bcd, "", includeAliases);
   const collectorEntries = Object.keys(tests).filter(
-    (p) => p !== "__resources",
+    (p) => !p.startsWith("__"),
   );
 
   let from: string[];
