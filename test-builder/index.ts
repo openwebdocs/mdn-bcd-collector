@@ -24,6 +24,7 @@ import {build as buildWasm} from "./webassembly.js";
 import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
+import appVersion from "../lib/app-version.js";
 
 const customCSS = await fs.readJson(
   new URL("../custom/css.json", import.meta.url),
@@ -46,7 +47,10 @@ const build = async () => {
   const specJS = await getIntrinsics();
 
   const tests = Object.assign(
-    {__resources: customTests.__resources},
+    {
+      __version: appVersion,
+      __resources: customTests.__resources,
+    },
     await buildAPI(specIDLs, customIDL),
     await buildCSS(specCSS, customCSS),
     await buildElements(specElements, customElements),
