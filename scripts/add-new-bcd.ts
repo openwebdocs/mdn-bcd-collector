@@ -27,7 +27,7 @@ const overrides = await fs.readJson(
 );
 
 const {default: bcd} = await import(`${BCD_DIR}/index.js`);
-const {orderFeatures} = await import(`${BCD_DIR}/scripts/fix/feature-order.js`);
+const {orderFeatures} = await import(`${BCD_DIR}/lint/fixer/feature-order.js`);
 
 const template = {
   __compat: {

@@ -33,7 +33,6 @@ import {getStorage} from "./lib/storage.js";
 import {parseUA} from "./lib/ua-parser.js";
 import Tests from "./lib/tests.js";
 import appVersion from "./lib/app-version.js";
-import exec from "./lib/exec.js";
 import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
 import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
