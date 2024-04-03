@@ -366,8 +366,16 @@ __resources:
 
 # Features defined here also need to be in @webref/idl or custom/idl/.
 api:
-  _globals:
-    crypto: return !!self.crypto;
+  console:
+    dir_static:
+      __base: |-
+        function dir(options) {
+          console.dir({'a': 'b'}, options);
+        }
+      __additional:
+        options_colors_parameter: return bcd.testOptionParam(dir, null, 'colors', true);
+        options_depth_parameter: return bcd.testOptionParam(dir, null, 'depth', 1);
+        options_showHidden_parameter: return bcd.testOptionParam(dir, null, 'showHidden', true);
   AbortSignal:
     abort_static:
       __additional:
