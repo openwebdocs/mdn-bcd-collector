@@ -85,7 +85,7 @@
     "@browser-logos/safari": "2.1.0",
     "@listr2/prompt-adapter-enquirer": "^2.0.8",
     "@swc/cli": "^0.3.12",
-    "@swc/helpers": "^0.5.8",
+    "@swc/helpers": "^0.5.9",
     "@types/cookie-parser": "^1.4.7",
     "@types/express": "^4.17.21",
     "@types/express-ejs-layouts": "^2.5.4",
