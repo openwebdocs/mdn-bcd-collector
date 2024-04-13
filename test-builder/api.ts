@@ -432,6 +432,7 @@ const validateIDL = (ast) => {
     "DOMString", // https://webidl.spec.whatwg.org/#idl-DOMString
     "double", // https://webidl.spec.whatwg.org/#idl-double
     "float", // https://webidl.spec.whatwg.org/#idl-float
+    "Float16Array", // https://webidl.spec.whatwg.org/#idl-Float16Array
     "Float32Array", // https://webidl.spec.whatwg.org/#idl-Float32Array
     "Float64Array", // https://webidl.spec.whatwg.org/#idl-Float64Array
     "Int16Array", // https://webidl.spec.whatwg.org/#idl-Int16Array
