@@ -12,10 +12,6 @@ partial interface RTCRtpTransceiver {
   sequence<RTCRtpHeaderExtensionCapability> getNegotiatedHeaderExtensions();
 };
 
-partial interface RTCRtpReceiver {
-  attribute DOMHighResTimeStamp? jitterBufferTarget;
-};
-
 partial dictionary RTCRtpEncodingParameters {
   unsigned long ptime;
   boolean adaptivePtime = false;
