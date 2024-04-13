@@ -2264,7 +2264,7 @@ api:
       }
   Headers:
     __additional:
-      lexicographical_sorting: |-
+      iterate_lexicographically: |-
         if (!('Headers' in self)) {
           return {result: false, message: 'Headers is not defined'}
         }
