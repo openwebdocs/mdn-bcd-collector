@@ -1,5 +1,89 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.5
+
+Released April 16, 2024
+
+### Test Changes
+
+#### Added
+
+- api.ChapterInformation
+- api.console.dir_static.options_colors_parameter
+- api.console.dir_static.options_depth_parameter
+- api.console.dir_static.options_showHidden_parameter
+- api.CSSFontFaceDescriptors
+- api.CSSPageDescriptors
+- api.CSSPositionTryDescriptors
+- api.CSSStyleProperties
+- api.CSSViewTransitionRule.types
+- api.Element.currentCSSZoom
+- api.Element.getHTML
+- api.Headers.iterate_lexicographically
+- api.HTMLTemplateElement.shadowRootSerializable
+- api.MediaMetadata.chapterInfo
+- webassembly.api.Memory.toFixedLengthBuffer
+- webassembly.api.Memory.toResizableBuffer
+- api.MLGraphBuilder.gelu
+- api.NavigatorManagedData.getAnnotatedAssetId
+- api.NavigatorManagedData.getAnnotatedLocation
+- api.NavigatorManagedData.getDirectoryId
+- api.NavigatorManagedData.getHostname
+- api.NavigatorManagedData.getSerialNumber
+- api.RTCIceCandidatePairEvent
+- api.RTCIceTransport.icecandidatepairadd_event
+- api.RTCIceTransport.icecandidatepairnominate_event
+- api.RTCIceTransport.icecandidatepairremove_event
+- api.RTCIceTransport.removeCandidatePair
+- api.RTCIceTransport.selectCandidatePair
+- api.RTCRtpReceiver.disableHardwareDecoding_static
+- api.RTCRtpReceiver.jitterBufferTarget
+- api.RTCRtpSender.disableHardwareEncoding_static
+- api.RTCRtpTransceiver.getHeaderExtensionsToNegotiate
+- api.RTCRtpTransceiver.getNegotiatedHeaderExtensions
+- api.RTCRtpTransceiver.rtpHeaderEncryptionNegotiated
+- api.RTCRtpTransceiver.setHeaderExtensionsToNegotiate
+- api.ShadowRoot.getHTML
+- api.ShadowRoot.serializable
+- api.SnapEvent.snapTargetBlock
+- api.SnapEvent.snapTargetInline
+- api.URL.parse_static
+- api.ViewTransition.types
+- api.ViewTransitionTypeSet
+- api.WebSocketError
+- api.WebSocketStream
+- css.properties.position-visibility
+- css.properties.text-spacing-trim.trim-both
+
+#### Removed
+
+- api.CSSStyleDeclaration.cssFloat
+- api.CSSViewTransitionRule.typeList
+- api.Element.setHTML
+- api.Headers.lexicographical_sorting
+- api.Sanitizer
+- api.SnapEvent.invokedProgrammatically
+- api.SnapEvent.smoothlyScrolled
+- api.SnapEvent.snappedTargets
+- api.SnapEvent.snapTargets
+- api.SnapEvent.target
+- api.SnapTargetArray
+- api.SnapTargetList
+- api.ViewTransition.typeList
+- css.properties.text-spacing-trim.trim-auto
+
+### Commits
+
+- Rename api.Headers.lexicographical_sorting to iterate_lexicographically ([#1396](https://github.com/openwebdocs/mdn-bcd-collector/pull/1396))
+- Add tests for console.dir() options ([#1371](https://github.com/openwebdocs/mdn-bcd-collector/pull/1371))
+- Add version property to Tests class ([#1356](https://github.com/openwebdocs/mdn-bcd-collector/pull/1356))
+- Fix imports and unittests ([#1355](https://github.com/openwebdocs/mdn-bcd-collector/pull/1355))
+- Update results key pattern for report schema ([#1354](https://github.com/openwebdocs/mdn-bcd-collector/pull/1354))
+- Add app version to tests.json ([#1352](https://github.com/openwebdocs/mdn-bcd-collector/pull/1352))
+- Update typedefs ([#1353](https://github.com/openwebdocs/mdn-bcd-collector/pull/1353))
+- Add custom IDL for WebRTC extensions ([#1342](https://github.com/openwebdocs/mdn-bcd-collector/pull/1342))
+- Add custom IDL for WebSocketStream ([#1341](https://github.com/openwebdocs/mdn-bcd-collector/pull/1341))
+
 ## v10.10.4
 
 Released March 25, 2024
