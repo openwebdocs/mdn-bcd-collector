@@ -154,6 +154,10 @@ const simplifyTestChangesList = (el, _, list) => {
   const parts = el.split(".");
   let p = "";
 
+  if (el === "__version") {
+    return false;
+  }
+
   for (let i = 0; i < parts.length - 1; i++) {
     p += (i > 0 ? "." : "") + parts[i];
     if (list.includes(p)) {
