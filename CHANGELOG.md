@@ -8,7 +8,6 @@ Released April 16, 2024
 
 #### Added
 
-- \_\_version
 - api.ChapterInformation
 - api.console.dir_static.options_colors_parameter
 - api.console.dir_static.options_depth_parameter
