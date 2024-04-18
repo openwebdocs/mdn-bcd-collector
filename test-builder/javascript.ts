@@ -311,38 +311,6 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
     });
   }
 
-  if (!data.no_new) {
-    const relevantCtors = [
-      "ArrayBuffer",
-      "DataView",
-      "Float32Array",
-      "Float64Array",
-      "Int16Array",
-      "Int32Array",
-      "Int8Array",
-      "Map",
-      "Set",
-      "TypedArray",
-      "Uint16Array",
-      "Uint32Array",
-      "Uint8Array",
-      "Uint8ClampedArray",
-      "WeakMap",
-    ];
-    if (relevantCtors.includes(iface)) {
-      tests[`${path}.new_required`] = compileTest({
-        raw: {
-          code: (
-            await compileCustomTest(
-              baseCode + `return bcd.testConstructorNewRequired("${iface}")`,
-            )
-          ).code,
-        },
-        exposure: ["Window"],
-      });
-    }
-  }
-
   if (data.optional_args) {
     const relevantCtors = [
       "Float32Array",

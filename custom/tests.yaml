@@ -6582,13 +6582,6 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
-        new_required: |-
-          try {
-            Int8Array();
-            return false;
-          } catch(e) {
-            return {result: true, message: e.message};
-          }
     Uint16Array:
       __additional:
         Uint16Array.iterable_allowed: |-
