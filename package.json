@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.24.5",
-    "@babel/eslint-parser": "7.24.1",
+    "@babel/eslint-parser": "7.24.5",
     "@babel/plugin-syntax-import-assertions": "7.24.1",
     "@babel/preset-env": "7.24.5",
     "@browser-logos/chrome": "2.0.0",
