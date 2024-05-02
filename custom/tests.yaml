@@ -1020,12 +1020,16 @@ api:
       options_resizeWidth_parameter: return bcd.testOptionParam(create, null, 'resizeWidth', '100');
       svgimageelement_as_source_image: |-
         <%api.SVGImageElement:svgimg%>
-        try {
-          createImageBitmap(svgimg);
-          return true;
-        } catch(e) {
-          return {result: false, message: e.message};
-        }
+        var bitmap = createImageBitmap(svgimg);
+        return bitmap.then(
+          function() {
+            return true;
+          }
+        ).catch(
+          function (e) {
+            return {result: false, message: e.message};
+          }
+        )
   CredentialsContainer:
     __resources:
       - cryptoKey
