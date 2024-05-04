@@ -13,9 +13,11 @@ import {getMajorMinorVersion, parseUA} from "./ua-parser.js";
 const browsers = {
   chrome: {name: "Chrome", releases: {82: {}, 83: {}, 84: {}, 85: {}}},
   chrome_android: {name: "Chrome Android", releases: {85: {}}},
+  deno: {name: "Deno", releases: {1.42: {}}},
   edge: {name: "Edge", releases: {16: {}, 84: {}}},
   firefox: {name: "Firefox", releases: {3.6: {}}},
   ie: {name: "Internet Explorer", releases: {8: {}, 11: {}}},
+  nodejs: {name: "Node.js", releases: {"20.20.0": {}}},
   safari: {
     name: "Safari",
     releases: {13: {}, 13.1: {}, 14: {}, 15: {}, 15.1: {}, 15.2: {}},
@@ -498,6 +500,26 @@ describe("parseUA", () => {
         inBcd: true,
       },
     );
+  });
+
+  it("Node.js (data from unjs/runtime-compat)", () => {
+    assert.deepEqual(parseUA("!! node/20.20.1", browsers), {
+      browser: {id: "nodejs", name: "Node.js"},
+      version: "20.20.0",
+      fullVersion: "20.20.1",
+      os: {name: "", version: ""},
+      inBcd: true,
+    });
+  });
+
+  it("Deno (data from unjs/runtime-compat)", () => {
+    assert.deepEqual(parseUA("!! deno/1.42", browsers), {
+      browser: {id: "deno", name: "Deno"},
+      version: "1.42",
+      fullVersion: "1.42",
+      os: {name: "", version: ""},
+      inBcd: true,
+    });
   });
 
   it("Chrome on iOS (not in BCD)", () => {
