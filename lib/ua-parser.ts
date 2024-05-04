@@ -42,7 +42,7 @@ const getMajorMinorVersion = (version: string): string => {
  */
 const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
   const ua = uaParser(userAgent);
-  let data: ParsedUserAgent = {
+  const data: ParsedUserAgent = {
     browser: {id: "", name: ""},
     version: "",
     fullVersion: "",
