@@ -1295,8 +1295,14 @@ export const loadJsonFiles = async (
   const jsonFiles: string[] = [];
 
   for (const p of paths) {
-    for (const item of await jsonCrawler.crawl(p).withPromise()) {
-      jsonFiles.push(item);
+    if (fs.lstatSync(p).isFile()) {
+      if (p.endsWith(".json")) {
+        jsonFiles.push(p);
+      }
+    } else {
+      for (const item of await jsonCrawler.crawl(p).withPromise()) {
+        jsonFiles.push(item);
+      }
     }
   }
 
