@@ -50,14 +50,21 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     inBcd: undefined,
   };
 
-  if (!ua.browser.name) {
-    return data;
-  }
+  if (userAgent.startsWith("!! ")) {
+    // UA strings in unjs/runtime-compat are prepended with this string to prevent incorrect parsing by standard UA libs
+    const [runtime, runtimeVersion] = userAgent.replace("!! ", "").split("/");
+    data.browser.id = runtime;
+    data.fullVersion = runtimeVersion;
+  } else {
+    if (!ua.browser.name) {
+      return data;
+    }
 
-  data.browser.id = ua.browser.name.toLowerCase().replace(/ /g, "_");
-  data.browser.name = ua.browser.name;
-  data.os.name = ua.os.name || "";
-  data.os.version = ua.os.version || "";
+    data.browser.id = ua.browser.name.toLowerCase().replace(/ /g, "_");
+    data.browser.name = ua.browser.name;
+    data.os.name = ua.os.name || "";
+    data.os.version = ua.os.version || "";
+  }
 
   switch (data.browser.id) {
     case "mobile_safari":
@@ -72,6 +79,9 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     case "android_browser":
     case "chrome_webview":
       data.browser.id = "webview";
+      break;
+    case "node":
+      data.browser.id = "nodejs";
       break;
   }
 
