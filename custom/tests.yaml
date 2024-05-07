@@ -6276,6 +6276,15 @@ javascript:
           options_cause_parameter: |-
             var e = new Error('foo', {cause: 'testing'});
             return e.cause === 'testing';
+    FinalizationRegistry:
+      __additional:
+        symbol_as_target: |-
+          try {
+            new FinalizationRegistry(() => {}).register(Symbol());
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     Float32Array:
       __additional:
         Float32Array.iterable_allowed: |-
@@ -6649,6 +6658,22 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
+        symbol_as_keys: |-
+          try {
+            new WeakMap().set(Symbol(), null);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+    WeakRef:
+      __additional:
+        symbol_as_target: |-
+          try {
+            new WeakRef(Symbol());
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     WeakSet:
       __additional:
         WeakSet.iterable_allowed: |-
@@ -6661,6 +6686,13 @@ javascript:
         WeakSet.null_allowed: |-
           try {
             new WeakSet(null);
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        symbol_as_keys: |-
+          try {
+            new WeakSet().add(Symbol());
             return true;
           } catch(e) {
             return {result: false, message: e.message};
