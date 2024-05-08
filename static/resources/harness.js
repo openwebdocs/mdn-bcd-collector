@@ -626,40 +626,6 @@
   }
 
   /**
-   * Wrap error or other thrown value into a test result
-   * @param {unknown} e - The error or value to wrap
-   * @returns {TestResult} The wrapped test result
-   */
-  function wrapThrownValue(e) {
-    return {
-      result: false,
-      message: e instanceof Error ? e.message : String(e)
-    };
-  }
-
-  /**
-   * Run the supplied function, returning success result if OK/promise resolves
-   * or error result if throws/promise rejects
-   * @param {() => void | Promise<void>} fn - The function to test
-   * @returns {TestResult} The result of the test
-   */
-  function testOk(fn) {
-    try {
-      var result = fn();
-
-      if (result instanceof Promise) {
-        return result.then(function () {
-          return true;
-        }, wrapThrownValue);
-      }
-
-      return true;
-    } catch (e) {
-      return wrapThrownValue(e);
-    }
-  }
-
-  /**
    * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
    * @param {string} feature - The web assembly feature name as defined in `wasm-feature-detect`
    * @returns {TestResult} - Whether the web assembly feature is supported
@@ -1894,7 +1860,6 @@
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
     testCSSSelector: testCSSSelector,
-    testOk: testOk,
     testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,

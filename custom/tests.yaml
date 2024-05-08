@@ -6279,9 +6279,12 @@ javascript:
     FinalizationRegistry:
       __additional:
         symbol_as_target: |-
-          return bcd.testOk(function() {
-            new FinalizationRegistry(function() {}).register(Symbol());
-          });
+          try {
+            new FinalizationRegistry(() => {}).register(Symbol());
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     Float32Array:
       __additional:
         Float32Array.iterable_allowed: |-
@@ -6656,15 +6659,21 @@ javascript:
             return {result: false, message: e.message};
           }
         symbol_as_keys: |-
-          return bcd.testOk(function() {
+          try {
             new WeakMap().set(Symbol(), null);
-          });
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     WeakRef:
       __additional:
         symbol_as_target: |-
-          return bcd.testOk(function() {
+          try {
             new WeakRef(Symbol());
-          });
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     WeakSet:
       __additional:
         WeakSet.iterable_allowed: |-
@@ -6682,9 +6691,12 @@ javascript:
             return {result: false, message: e.message};
           }
         symbol_as_keys: |-
-          return bcd.testOk(function() {
+          try {
             new WeakSet().add(Symbol());
-          });
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
 
 # Features defined here also need to be in test-builder/webassembly.ts.
 webassembly:
