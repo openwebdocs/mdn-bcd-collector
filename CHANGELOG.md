@@ -1,5 +1,69 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.6
+
+Released May 9, 2024
+
+### Test Changes
+
+#### Added
+
+- api.CSSNestRule
+- api.DeviceChangeEvent
+- api.GeolocationCoordinates.toJSON
+- api.GeolocationPosition.toJSON
+- api.PressureObserver.knownSources_static
+- api.RTCEncodedAudioFrame.RTCEncodedAudioFrame
+- api.RTCEncodedVideoFrame.RTCEncodedVideoFrame
+- api.Sanitizer
+- api.SharedStorageWorklet.run
+- api.SharedStorageWorklet.selectURL
+- api.WebGLObject.label
+- api.WindowSharedStorage.createWorklet
+- api.XRInputSource.skipRendering
+
+#### Removed
+
+- api.OffscreenCanvasRenderingContext2D.commit
+- api.PressureObserver.supportedSources_static
+- api.SharedStorageOperation
+- api.SharedStorageRunOperation
+- api.SharedStorageSelectURLOperation
+- javascript.builtins.TypedArray.new_required
+- javascript.builtins.Int8Array.Int8Array.new_required
+- javascript.builtins.Uint8Array.Uint8Array.new_required
+- javascript.builtins.Uint8ClampedArray.Uint8ClampedArray.new_required
+- javascript.builtins.Int16Array.Int16Array.new_required
+- javascript.builtins.Uint16Array.Uint16Array.new_required
+- javascript.builtins.Int32Array.Int32Array.new_required
+- javascript.builtins.Uint32Array.Uint32Array.new_required
+- javascript.builtins.Float32Array.Float32Array.new_required
+- javascript.builtins.Float64Array.Float64Array.new_required
+- javascript.builtins.Map.Map.new_required
+- javascript.builtins.Set.Set.new_required
+- javascript.builtins.WeakMap.WeakMap.new_required
+- javascript.builtins.ArrayBuffer.ArrayBuffer.new_required
+- javascript.builtins.DataView.DataView.new_required
+
+#### Changed
+
+- api.CanvasRenderingContext2D.drawImage.SVGImageElement_source_image
+- api.SVGAnimatedTransformList
+- api.SVGGraphicsElement
+- api.SVGImageElement
+- api.SVGStringList
+- api.SVGTransformList
+- api.createImageBitmap.svgimageelement_as_source_image
+
+### Commits
+
+- Use latest commit for ejs-lint ([#1438](https://github.com/openwebdocs/mdn-bcd-collector/pull/1438))
+- Allow UA parser to parse runtime-compat UA strings ([#1436](https://github.com/openwebdocs/mdn-bcd-collector/pull/1436))
+- Allow update-bcd to accept files as filepaths, rather than just dirs ([#1435](https://github.com/openwebdocs/mdn-bcd-collector/pull/1435))
+- Set a source for the SVG image element ([#1431](https://github.com/openwebdocs/mdn-bcd-collector/pull/1431))
+- Fix test code for api.createImageBitmap.svgimageelement_as_source_image ([#1430](https://github.com/openwebdocs/mdn-bcd-collector/pull/1430))
+- Remove new_required tests ([#1407](https://github.com/openwebdocs/mdn-bcd-collector/pull/1407))
+
 ## v10.10.5
 
 Released April 16, 2024
