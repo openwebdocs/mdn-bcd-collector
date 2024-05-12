@@ -315,7 +315,8 @@
           "type must not be undefined",
           "must be callable",
           "is not a non-null object",
-          "is not a function"
+          "is not a function",
+          "Failed to construct" // Used by workerd
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
