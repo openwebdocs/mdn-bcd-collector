@@ -1562,6 +1562,7 @@ api:
         options_checkOpacity_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'checkOpacity', true);"
         options_checkVisibilityCSS_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'checkVisibilityCSS', true);"
         options_contentVisibilityAuto_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'contentVisibilityAuto', true);"
+        options_opacityProperty_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'opacityProperty', true);"
         options_visibilityProperty_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'visibilityProperty', true);"
     getElementsByTagName:
       __additional:
