@@ -1559,10 +1559,10 @@ api:
           return bcd.testOptionParam(el, 'attachShadow', 'delegatesFocus', true, {mode: 'open'});
     checkVisibility:
       __additional:
-        options_checkOpacity_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'checkOpacity', true);"
-        options_checkVisibilityCSS_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'checkVisibilityCSS', true);"
-        options_contentVisibilityAuto_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'contentVisibilityAuto', true);"
-        options_visibilityProperty_parameter: "return bcd.testOptionParam(interface, 'checkVisibility', 'visibilityProperty', true);"
+        options_checkOpacity_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'checkOpacity', true);"
+        options_checkVisibilityCSS_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'checkVisibilityCSS', true);"
+        options_contentVisibilityAuto_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'contentVisibilityAuto', true);"
+        options_visibilityProperty_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'visibilityProperty', true);"
     getElementsByTagName:
       __additional:
         all_elements_selector: |-
