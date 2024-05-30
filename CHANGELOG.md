@@ -1,5 +1,32 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.7
+
+Released May 29, 2024
+
+### Test Changes
+
+#### Added
+
+- api.FencedFrameConfig.FencedFrameConfig
+- api.Request.bytes
+- api.Response.bytes
+- javascript.builtins.Math.f16round
+- javascript.builtins.WeakMap.symbol_as_keys
+- javascript.builtins.WeakSet.symbol_as_keys
+- javascript.builtins.DataView.getFloat16
+- javascript.builtins.DataView.setFloat16
+- javascript.builtins.WeakRef.symbol_as_target
+- javascript.builtins.FinalizationRegistry.symbol_as_target
+- javascript.builtins.Float16Error
+
+### Commits
+
+- Add float16array builtins ([#1487](https://github.com/openwebdocs/mdn-bcd-collector/pull/1487))
+- feat: Update constructor judgments of LLRT ([#1472](https://github.com/openwebdocs/mdn-bcd-collector/pull/1472))
+- Update constructor harness to support workerd ([#1453](https://github.com/openwebdocs/mdn-bcd-collector/pull/1453))
+- Add tests for non-registered symbols in Weak{Map,Set,Ref} and FinalizationRegistry ([#1445](https://github.com/openwebdocs/mdn-bcd-collector/pull/1445))
+
 ## v10.10.6
 
 Released May 9, 2024
