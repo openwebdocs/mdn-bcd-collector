@@ -21,6 +21,11 @@
         ]
       }
     },
+    "DataView": {
+      "members": {
+        "instance": ["getFloat16", "setFloat16"]
+      }
+    },
     "Error": {
       "members": {
         "instance": [
@@ -34,11 +39,19 @@
         ]
       }
     },
+    "Float16Error": {
+      "ctor": {}
+    },
     "Function": {
       "members": {"instance": ["arguments", "caller", "length"]}
     },
     "InternalError": {
       "ctor": {}
+    },
+    "Math": {
+      "members": {
+        "static": ["f16round"]
+      }
     },
     "Promise": {
       "__comment": "Remove when https://tc39.es/proposal-promise-with-resolvers/#sec-promise.withResolvers is merged into the main ECMAScript spec.",
