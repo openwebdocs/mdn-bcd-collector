@@ -893,6 +893,33 @@ describe("BCD updater", () => {
       );
     });
 
+    it("detects updates in statements with null values", () => {
+      // Both a true and false test result is new information, but null is not.
+      assert.isTrue(
+        hasSupportUpdates(new Map([["80", true]]), [
+          {
+            version_added: null,
+          },
+        ]),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(new Map([["80", false]]), [
+          {
+            version_added: null,
+          },
+        ]),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(new Map([["80", null]]), [
+          {
+            version_added: null,
+          },
+        ]),
+      );
+    });
+
     it("detects updates in statements with boolean values", () => {
       assert.isFalse(
         hasSupportUpdates(new Map([["80", false]]), [

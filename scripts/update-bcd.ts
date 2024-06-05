@@ -819,7 +819,7 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
  * @param version - A version string.
  * @param hasSupport - An boolean indicating if a test result for the version shows support.
  * @param statements - An array of default statements.
- * @returns A boolean indicating whether default statements indicate support for the version.
+ * @returns A boolean or null indicating whether default statements indicate support for the version.
  */
 const isSupported = (
   version: string,
@@ -827,6 +827,10 @@ const isSupported = (
   statements: SimpleSupportStatement[],
 ) => {
   for (const {version_added, version_removed} of statements) {
+    if (version_added === null) {
+      return null;
+    }
+
     if (version_added === "preview") {
       return false;
     }
@@ -858,7 +862,7 @@ const isSupported = (
  *  Iterates through a BrowserSupportMap and checks each version for possible updates against a set of default statements.
  * @param versionMap - A map of versions and support assertions.
  * @param defaultStatements - An array of default statements.
- * @returns A boolean indicating whether possible updates to the default statments have been detected.
+ * @returns A boolean indicating whether possible updates to the default statements have been detected.
  */
 export const hasSupportUpdates = (
   versionMap: BrowserSupportMap,
