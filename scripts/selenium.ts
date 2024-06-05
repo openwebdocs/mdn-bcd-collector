@@ -411,6 +411,7 @@ const buildDriver = async (
           args: [
             "--use-fake-device-for-media-stream",
             "--use-fake-ui-for-media-stream",
+            "--fake-variations-channel=stable",
           ],
           prefs: {
             "profile.managed_default_content_settings.geolocation": 1,
