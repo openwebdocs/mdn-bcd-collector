@@ -1547,12 +1547,12 @@ api:
         options_timeline_parameter: return bcd.testOptionParam(animate, null, 'timeline', document.timeline);
     attachShadow:
       __additional:
-        init_clonable_parameter: |-
+        options_clonable_parameter: |-
           // Only specific elements may have shadows attached -- see
           // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
           var el = document.createElement('main');
           return bcd.testOptionParam(el, 'attachShadow', 'clonable', true, {mode: 'open'});
-        init_delegatesFocus_parameter: |-
+        options_delegatesFocus_parameter: |-
           // Only specific elements may have shadows attached -- see
           // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
           var el = document.createElement('main');
