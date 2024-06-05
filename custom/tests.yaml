@@ -1367,10 +1367,16 @@ api:
   DOMException:
     __base: |-
       var instance;
-      try {
-        document.createElement('1');
-      } catch (e) {
-        instance = e;
+      if ("DOMException" in self) {
+        instance = new DOMException();
+      } else if ("document" in self) {
+        try {
+          document.createElement('1');
+        } catch (e) {
+          instance = e;
+        }
+      } else {
+        return {result: false, message: "DOMException and document are both undefined"}
       }
   DOMImplementation:
     __base: var instance = document.implementation;
