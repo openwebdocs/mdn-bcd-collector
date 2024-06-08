@@ -174,10 +174,24 @@ const flattenMembers = (iface) => {
             )) ||
           (iface.name === "Element" &&
             member.name === "webkitMatchesSelector") ||
+          (iface.name === "IDBDatabase" &&
+            ["onabort", "onerror"].includes(member.name)) ||
           (iface.name === "Serial" &&
             ["onconnect", "ondisconnect"].includes(member.name)) ||
+          (iface.name === "ShadowRoot" &&
+            ["onslotchange"].includes(member.name)) ||
           (iface.name === "SVGAnimationElement" &&
             ["onbegin", "onend", "onrepeat"].includes(member.name)) ||
+          (iface.name === "XMLHttpRequestEventTarget" &&
+            [
+              "onabort",
+              "onerror",
+              "onload",
+              "onloadend",
+              "onloadstart",
+              "onprogress",
+              "ontimeout",
+            ].includes(member.name)) ||
           ([
             "TaskAttributionTiming",
             "PerformanceLongTaskTiming",
