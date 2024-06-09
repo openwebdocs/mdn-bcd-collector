@@ -8,9 +8,3 @@ interface MediaStreamEvent : Event {
   constructor();
   readonly attribute MediaStream stream;
 };
-
-partial interface MediaStreamTrack {
-
-  // https://github.com/w3c/mediacapture-main/pull/576
-  attribute EventHandler onoverconstrained;
-};
