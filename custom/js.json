@@ -22,6 +22,7 @@
       }
     },
     "DataView": {
+      "__comment": "Remove instance members when https://tc39.es/proposal-float16array is merged into the main ECMAScript spec.",
       "members": {
         "instance": ["getFloat16", "setFloat16"]
       }
@@ -39,7 +40,8 @@
         ]
       }
     },
-    "Float16Error": {
+    "Float16Array": {
+      "__comment": "Remove when https://tc39.es/proposal-float16array is merged into the main ECMAScript spec.",
       "ctor": {}
     },
     "Function": {
@@ -49,6 +51,7 @@
       "ctor": {}
     },
     "Math": {
+      "__comment": "Remove instance member when https://tc39.es/proposal-float16array is merged into the main ECMAScript spec.",
       "members": {
         "static": ["f16round"]
       }
