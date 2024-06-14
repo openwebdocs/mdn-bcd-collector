@@ -178,8 +178,8 @@ marked.use({
       const type = match[1];
       const text = lines.slice(1).join("\n");
       const contents = (marked.parse(text) as string)
-        .replace(/^\<p\>/, "")
-        .replace(/\<\/p\>$/, "");
+        .replace(/^<p>/, "")
+        .replace(/<\/p>$/, "");
 
       return `<blockquote class="${type.toLowerCase()}block">
         <p><strong class="blockquote-header">${type}</strong>: ${contents}
