@@ -19,7 +19,7 @@ import express, {Request, Response, NextFunction} from "express";
 import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
-import {marked} from "marked";
+import {marked, Tokens as MarkedToken} from "marked";
 import {gfmHeadingId} from "marked-gfm-heading-id";
 import hljs from "highlight.js";
 import expressLayouts from "express-ejs-layouts";
@@ -153,25 +153,26 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 marked.use(gfmHeadingId());
 
 marked.use({
+  useNewRenderer: true,
   renderer: {
     /**
      * Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
-     * @param quote - The quote to render.
+     * @param token - The blockquote token
      * @returns The rendered blockquote element.
      */
-    blockquote: (quote: string): string => {
-      if (!quote) {
-        return quote;
+    blockquote: (token: MarkedToken.Blockquote): string | false => {
+      if (!token.text) {
+        return false;
       }
       const noteblockTypes = ["NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"];
-      const regex = new RegExp(`\\<p\\>\\[!(${noteblockTypes.join("|")})\\]`);
+      const regex = new RegExp(`\\[!(${noteblockTypes.join("|")})\\]`);
 
-      const lines = quote.split("\n");
+      const lines = token.text.split("\n");
       const match = lines[0].match(regex);
 
       if (!match) {
         // If the blockquote is not a GFM note, return
-        return quote;
+        return false;
       }
 
       const type = match[1];
@@ -184,22 +185,21 @@ marked.use({
     },
     /**
      * Code syntax highlighting and Mermaid flowchart rendering
-     * @param code - The raw code to format.
-     * @param infostring - The syntax language and other information.
+     * @param token - The codeblock token
      * @returns The rendered code element.
      */
-    code: (code: string, infostring?: string): string => {
-      if (!infostring) {
-        return `<pre><code class="hljs language-plaintext">${code}</code><pre>`;
+    code: (token: MarkedToken.Code): string => {
+      if (!token.lang) {
+        return `<pre><code class="hljs language-plaintext">${token.text}</code><pre>`;
       }
 
-      const [lang, ...classes] = infostring.split(" ");
+      const [lang, ...classes] = token.lang.split(" ");
       if (lang === "mermaid") {
-        return `<pre class="mermaid ${classes.join(" ")}">${code}</pre>`;
+        return `<pre class="mermaid ${classes.join(" ")}">${token.text}</pre>`;
       }
 
       const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      const renderedCode = hljs.highlight(code, {language}).value;
+      const renderedCode = hljs.highlight(token.text, {language}).value;
       return `<pre><code class="hljs language-${language} ${classes.join(" ")}">${renderedCode}</code></pre>`;
     },
   },
