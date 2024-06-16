@@ -163,7 +163,6 @@
         {"accept-charset": "acceptCharset", "novalidate": "noValidate"},
         "accept",
         "action",
-        "autocapitalize",
         "autocomplete",
         "enctype",
         "method",
@@ -195,7 +194,7 @@
       "attributes": [{"noshade": "noShade"}, "align", "color", "size", "width"]
     },
     "html": {
-      "attributes": [{"xmlns": "namespaceURI"}, "manifest", "version"]
+      "attributes": [{"xmlns": "namespaceURI"}, "version"]
     },
     "iframe": {
       "attributes": [
@@ -306,7 +305,6 @@
         "rev",
         "sizes",
         "target",
-        "title",
         "type"
       ]
     },
@@ -402,7 +400,7 @@
         "width"
       ]
     },
-    "style": {"attributes": ["blocking", "media", "title", "type"]},
+    "style": {"attributes": ["blocking", "media", "type"]},
     "table": {
       "attributes": [
         {
