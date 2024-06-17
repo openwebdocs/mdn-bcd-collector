@@ -1077,5 +1077,20 @@
   ["api.RemotePlayback.state", "chrome", "56-120", false],
   ["api.RemotePlayback.state", "edge", "79-120", false],
   ["api.RemotePlayback.watchAvailability", "chrome", "56-120", false],
-  ["api.RemotePlayback.watchAvailability", "edge", "79-120", false]
+  ["api.RemotePlayback.watchAvailability", "edge", "79-120", false],
+  "CloseWatcher was briefly launched in Chrome 120 but disabled due to https://issues.chromium.org/issues/41484805",
+  ["api.CloseWatcher", "chrome", "120-121", false],
+  ["api.CloseWatcher", "edge", "120-121", false],
+  ["api.CloseWatcher.CloseWatcher", "chrome", "120-121", false],
+  ["api.CloseWatcher.CloseWatcher", "edge", "120-121", false],
+  ["api.CloseWatcher.cancel_event", "chrome", "120-121", false],
+  ["api.CloseWatcher.cancel_event", "edge", "120-121", false],
+  ["api.CloseWatcher.close", "chrome", "120-121", false],
+  ["api.CloseWatcher.close", "edge", "120-121", false],
+  ["api.CloseWatcher.close_event", "chrome", "120-121", false],
+  ["api.CloseWatcher.close_event", "edge", "120-121", false],
+  ["api.CloseWatcher.destroy", "chrome", "120-121", false],
+  ["api.CloseWatcher.destroy", "edge", "120-121", false],
+  ["api.CloseWatcher.requestClose", "chrome", "120-121", false],
+  ["api.CloseWatcher.requestClose", "edge", "120-121", false]
 ]
