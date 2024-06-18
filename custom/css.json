@@ -22,16 +22,12 @@
     "-webkit-column-break-inside": {},
     "-webkit-column-progression": {},
     "-webkit-cursor-visibility": {},
-    "-webkit-hyphenate-character": {},
     "-webkit-hyphenate-limit-after": {},
     "-webkit-hyphenate-limit-before": {},
     "-webkit-hyphenate-limit-lines": {},
     "-webkit-initial-letter": {},
     "-webkit-line-align": {},
     "-webkit-line-box-contain": {},
-    "-webkit-line-clamp": {
-      "__values": ["none"]
-    },
     "-webkit-line-grid": {},
     "-webkit-line-snap": {},
     "-webkit-locale": {},
