@@ -1,5 +1,123 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.8
+
+Released June 17, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Blob.bytes
+- api.Credential.willRequestConditionalCreation_static
+- api.Document.hasUnpartitionedCookieAccess
+- api.Element.attachShadow.options_clonable_parameter
+- api.Element.attachShadow.options_delegatesFocus_parameter
+- api.GPUAdapter.info
+- api.MediaSession.setScreenshareActive
+- api.MLGraphBuilder.logicalNot
+- api.Navigator.adAuctionComponents
+- api.Navigator.deprecatedRunAdAuctionEnforcesKAnonymity
+- api.Navigator.deprecatedURNtoURL
+- api.PushMessageData.bytes
+- api.RTCIceCandidatePair
+- api.Scheduler.yield
+- api.StorageAccessHandle
+- api.XRWebGLDepthInformation.imageIndex
+- api.XRWebGLDepthInformation.textureType
+- css.properties.text-transform.math-auto
+- css.selectors.details-content
+- javascript.builtins.Float16Array
+
+#### Removed
+
+- api.Element.attachShadow.init_clonable_parameter
+- api.Element.attachShadow.init_delegatesFocus_parameter
+- api.GPUAdapter.requestAdapterInfo
+- api.IDBDatabase.abort_event
+- api.IDBDatabase.error_event
+- api.MediaStreamTrack.overconstrained_event
+- api.MLGraphBuilder.not
+- api.ShadowRoot.slotchange_event
+- api.XMLHttpRequestEventTarget.abort_event
+- api.XMLHttpRequestEventTarget.error_event
+- api.XMLHttpRequestEventTarget.load_event
+- api.XMLHttpRequestEventTarget.loadend_event
+- api.XMLHttpRequestEventTarget.loadstart_event
+- api.XMLHttpRequestEventTarget.progress_event
+- api.XMLHttpRequestEventTarget.timeout_event
+- css.properties.-webkit-hyphenate-character
+- css.properties.-webkit-line-clamp.none
+- css.properties.continue.overflow
+- css.properties.continue.paginate
+- css.properties.continue.fragments
+- css.properties.position-try-options.inset-area
+- css.selectors.nth-fragment
+- css.types.color.hsla
+- css.types.color.rgba
+- html.elements.form.autocapitalize
+- html.elements.html.manifest
+- html.elements.img.onerror
+- html.elements.link.title
+- html.elements.script.text
+- html.elements.style.title
+- javascript.builtins.Float16Error
+
+#### Changed
+
+- api.DOMException
+- mathml.elements.annotation
+- mathml.elements.annotation-xml
+- mathml.elements.maction
+- mathml.elements.math
+- mathml.elements.menclose
+- mathml.elements.merror
+- mathml.elements.mfenced
+- mathml.elements.mfrac
+- mathml.elements.mi
+- mathml.elements.mmultiscripts
+- mathml.elements.mn
+- mathml.elements.mo
+- mathml.elements.mover
+- mathml.elements.mpadded
+- mathml.elements.mphantom
+- mathml.elements.mprescripts
+- mathml.elements.mroot
+- mathml.elements.mrow
+- mathml.elements.ms
+- mathml.elements.mspace
+- mathml.elements.msqrt
+- mathml.elements.mstyle
+- mathml.elements.msub
+- mathml.elements.msubsup
+- mathml.elements.msup
+- mathml.elements.mtable
+- mathml.elements.mtd
+- mathml.elements.mtext
+- mathml.elements.mtr
+- mathml.elements.munder
+- mathml.elements.munderover
+- mathml.elements.semantics
+
+### Commits
+
+- Add overrides for CloseWatcher ([#1553](https://github.com/openwebdocs/mdn-bcd-collector/pull/1553))
+- Remove 2 WebKit CSS properties ([#1550](https://github.com/openwebdocs/mdn-bcd-collector/pull/1550))
+- Remove a few HTML attributes no longer present in BCD ([#1549](https://github.com/openwebdocs/mdn-bcd-collector/pull/1549))
+- Fix noteblock rendering ([#1546](https://github.com/openwebdocs/mdn-bcd-collector/pull/1546))
+- Set syntax for the data flow doc ([#1547](https://github.com/openwebdocs/mdn-bcd-collector/pull/1547))
+- Add Float16Array JavaScript builtin ([#1525](https://github.com/openwebdocs/mdn-bcd-collector/pull/1525))
+- Remove onoverconstrained custom idl ([#1517](https://github.com/openwebdocs/mdn-bcd-collector/pull/1517))
+- Remove &lt;script text&gt; attribute ([#1520](https://github.com/openwebdocs/mdn-bcd-collector/pull/1520))
+- Ignore some more (bubbled) event handlers ([#1516](https://github.com/openwebdocs/mdn-bcd-collector/pull/1516))
+- Remove rgba and hsla aliases ([#1518](https://github.com/openwebdocs/mdn-bcd-collector/pull/1518))
+- Remove &lt;img&gt; onerror ([#1519](https://github.com/openwebdocs/mdn-bcd-collector/pull/1519))
+- Fix MathML tests ([#1521](https://github.com/openwebdocs/mdn-bcd-collector/pull/1521))
+- Fix test code for DOMException (for JS runtimes) ([#1510](https://github.com/openwebdocs/mdn-bcd-collector/pull/1510))
+- Support changing null to false in update-bcd ([#1473](https://github.com/openwebdocs/mdn-bcd-collector/pull/1473))
+- Selenium: use Chrome Stable support variations for beta releases ([#1506](https://github.com/openwebdocs/mdn-bcd-collector/pull/1506))
+- Update subfeature tests for api.Element.attachShadow ([#1507](https://github.com/openwebdocs/mdn-bcd-collector/pull/1507))
+
 ## v10.10.7
 
 Released May 29, 2024
