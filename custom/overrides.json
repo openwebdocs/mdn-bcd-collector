@@ -1092,5 +1092,22 @@
   ["api.CloseWatcher.destroy", "chrome", "120-121", false],
   ["api.CloseWatcher.destroy", "edge", "120-121", false],
   ["api.CloseWatcher.requestClose", "chrome", "120-121", false],
-  ["api.CloseWatcher.requestClose", "edge", "120-121", false]
+  ["api.CloseWatcher.requestClose", "edge", "120-121", false],
+  "In unjs/runtime-compat, the `--location` flag is specified",
+  ["api.Location", "deno", "*", false],
+  ["api.Location.ancestorOrigins", "deno", "*", false],
+  ["api.Location.assign", "deno", "*", false],
+  ["api.Location.hash", "deno", "*", false],
+  ["api.Location.host", "deno", "*", false],
+  ["api.Location.hostname", "deno", "*", false],
+  ["api.Location.href", "deno", "*", false],
+  ["api.Location.origin", "deno", "*", false],
+  ["api.Location.pathname", "deno", "*", false],
+  ["api.Location.port", "deno", "*", false],
+  ["api.Location.protocol", "deno", "*", false],
+  ["api.Location.reload", "deno", "*", false],
+  ["api.Location.replace", "deno", "*", false],
+  ["api.Location.search", "deno", "*", false],
+  ["api.Location.toString", "deno", "*", false],
+  ["api.Window.location", "deno", "*", false]
 ]
