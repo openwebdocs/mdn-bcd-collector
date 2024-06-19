@@ -29,6 +29,7 @@ This will update BCD using all of the results files in the `../mdn-bcd-results` 
 ```sh
 npm run update-bcd ../local-results
 npm run update-bcd ../mdn-bcd-results/9.1.0-chrome-112.0.0.0-mac-os-10.15.7-79d130f929.json
+npm run update-bcd /path/to/unjs/runtime-compat/generator/runtimes/*/data.json
 ```
 
 ### Limit changes by BCD path
