@@ -685,7 +685,8 @@
           "scale3d(2.5, 1.2, 0.3)",
           "rotate3d(1, 2.0, 3.0, 10deg)",
           "translate3d(12px, 50%, 3em)"
-        ]
+        ],
+        "perspective_none": "perspective(none)"
       }
     },
     "transform-origin": {
