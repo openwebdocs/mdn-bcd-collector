@@ -239,6 +239,16 @@ const buildPropertyTests = async (specCSS, customCSS) => {
         overflow: ["overlay"],
         "overflow-x": ["overlay"],
         "overflow-y": ["overlay"],
+        transform: [
+          "matrix",
+          "translate",
+          "translateX",
+          "translateY",
+          "rotate",
+          "skew",
+          "skewX",
+          "skewY",
+        ],
       };
 
       const propertyValues = remapPropertyValues(
