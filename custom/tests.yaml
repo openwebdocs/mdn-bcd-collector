@@ -5988,6 +5988,97 @@ html:
         type_time: return testType('time');
         type_url: return testType('url');
         type_week: return testType('week');
+    link:
+      __base: |-
+        var instance = document.createElement('link');
+      __additional:
+        rel.alternate: |-
+          instance.rel = "alternate";
+          return instance.rel === "alternate";
+        rel.alternate_stylesheet: |-
+          instance.rel = "alternate stylesheet";
+          return instance.rel === "alternate stylesheet";
+        rel.author: |-
+          instance.rel = "author";
+          return instance.rel === "author";
+        rel.bookmark: |-
+          instance.rel = "bookmark";
+          return instance.rel === "bookmark";
+        rel.canonical: |-
+          instance.rel = "canonical";
+          return instance.rel === "canonical";
+        rel.dns-prefetch: |-
+          instance.rel = "dns-prefetch";
+          return instance.rel === "dns-prefetch";
+        rel.external: |-
+          instance.rel = "external";
+          return instance.rel === "external";
+        rel.help: |-
+          instance.rel = "help";
+          return instance.rel === "help";
+        rel.icon: |-
+          instance.rel = "icon";
+          return instance.rel === "icon";
+        rel.license: |-
+          instance.rel = "license";
+          return instance.rel === "license";
+        rel.manifest: |-
+          instance.rel = "manifest";
+          return instance.rel === "manifest";
+        rel.me: |-
+          instance.rel = "me";
+          return instance.rel === "me";
+        rel.modulepreload: |-
+          instance.rel = "modulepreload";
+          return instance.rel === "modulepreload";
+        rel.next: |-
+          instance.rel = "next";
+          return instance.rel === "next";
+        rel.nofollow: |-
+          instance.rel = "nofollow";
+          return instance.rel === "nofollow";
+        rel.noopener: |-
+          instance.rel = "noopener";
+          return instance.rel === "noopener";
+        rel.noreferrer: |-
+          instance.rel = "noreferrer";
+          return instance.rel === "noreferrer";
+        rel.opener: |-
+          instance.rel = "opener";
+          return instance.rel === "opener";
+        rel.pingback: |-
+          instance.rel = "pingback";
+          return instance.rel === "pingback";
+        rel.preconnect: |-
+          instance.rel = "preconnect";
+          return instance.rel === "preconnect";
+        rel.prefetch: |-
+          instance.rel = "prefetch";
+          return instance.rel === "prefetch";
+        rel.preload: |-
+          instance.rel = "preload";
+          return instance.rel === "preload";
+        rel.prerender: |-
+          instance.rel = "prerender";
+          return instance.rel === "prerender";
+        rel.prev: |-
+          instance.rel = "prev";
+          return instance.rel === "prev";
+        rel.privacy-policy: |-
+          instance.rel = "privacy-policy";
+          return instance.rel === "privacy-policy";
+        rel.search: |-
+          instance.rel = "search";
+          return instance.rel === "search";
+        rel.stylesheet: |-
+          instance.rel = "stylesheet";
+          return instance.rel === "stylesheet";
+        rel.tag: |-
+          instance.rel = "tag";
+          return instance.rel === "tag";
+        rel.terms-of-service: |-
+          instance.rel = "terms-of-service";
+          return instance.rel === "terms-of-service";
 
 mathml:
   # Features defined here also need to be in @webref/elements or custom/elements.json.
