@@ -1036,7 +1036,7 @@ api:
     __base: var instance = navigator.credentials;
     get:
       __additional:
-        identity_option: "return bcd.testOptionParam(instance, null, 'get', 'identity');"
+        identity_option: "return bcd.testOptionParam(instance, 'get', 'identity', {});"
         identity_option.context_option: |-
           function get(identity) {
             instance.get({identity: identity});
