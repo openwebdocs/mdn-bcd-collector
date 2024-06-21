@@ -2430,6 +2430,18 @@ api:
           return 'callback';
     toDataURL:
       __additional:
+        type_parameter_jpeg: |-
+          if (!('toDataURL' in instance)) {
+            return {result: false, message: "instance.toDataURL is not defined"}
+          }
+          var blob = instance.toDataURL('image/jpeg');
+          return blob.type === 'image/jpeg';
+        type_parameter_png: |-
+          if (!('toDataURL' in instance)) {
+            return {result: false, message: "instance.toDataURL is not defined"}
+          }
+          var blob = instance.toDataURL('image/png');
+          return blob.type === 'image/png';
         type_parameter_webp: |-
           if (!('toDataURL' in instance)) {
             return {result: false, message: "instance.toDataURL is not defined"}
