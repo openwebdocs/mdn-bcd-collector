@@ -1198,6 +1198,7 @@
         "matrix": "matrix(1.2, 0.2, -1, 0.9, 0, 20)",
         "matrix3d": "matrix3d(-0.6, 1.34788, 0, 0,-2.34788, -0.6, 0, 0,0, 0, 1, 0,0, 0, 10, 1)",
         "perspective": "perspective(800px)",
+        "perspective.none": "perspective(none)",
         "rotate": "rotate(90deg)",
         "rotate3d": "rotate3d(1, 1, 1, 45deg)",
         "rotateX": "rotateX(90deg)",
