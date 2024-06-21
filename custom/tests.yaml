@@ -6473,6 +6473,11 @@ javascript:
           __additional:
             options_caseFirst_parameter: return bcd.testOptionParam(construct, null, 'caseFirst', 'upper');
             options_collation_parameter: return bcd.testOptionParam(construct, null, 'collation', 'default');
+            options_ignorePunctuation_parameter: return bcd.testOptionParam(construct, null, 'ignorePunctuation', true);
+            options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'best fit');
+            options_numeric_parameter: return bcd.testOptionParam(construct, null, 'numeric', false);
+            options_sensitivity_parameter: return bcd.testOptionParam(construct, null, 'sensitivity', 'base');
+            options_usage_parameter: return bcd.testOptionParam(construct, null, 'usage', 'sort');
       DateTimeFormat:
         DateTimeFormat:
           __base: |-
