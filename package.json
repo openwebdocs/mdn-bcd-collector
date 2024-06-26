@@ -114,7 +114,7 @@
     "es-scraper": "^0.0.13",
     "eslint": "8.57.0",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsdoc": "^48.4.0",
+    "eslint-plugin-jsdoc": "^48.5.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^54.0.0",
     "fdir": "6.1.1",
