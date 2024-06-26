@@ -1,5 +1,85 @@
 # mdn-bcd-collector Changelog
 
+## v10.10.9
+
+Released June 26, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Element.checkVisibility.options_opacityProperty_parameter
+- api.HandwritingDrawing
+- api.HandwritingRecognizer
+- api.HandwritingStroke
+- api.HTMLCanvasElement.toDataURL.type_parameter_jpeg
+- api.HTMLCanvasElement.toDataURL.type_parameter_png
+- api.Navigator.canLoadAdAuctionFencedFrame
+- api.Navigator.createHandwritingRecognizer
+- api.Navigator.queryHandwritingRecognizer
+- css.properties.reading-flow
+- css.types.transform-function.perspective.none
+- html.elements.link.rel.alternate
+- html.elements.link.rel.alternate_stylesheet
+- html.elements.link.rel.author
+- html.elements.link.rel.bookmark
+- html.elements.link.rel.canonical
+- html.elements.link.rel.dns-prefetch
+- html.elements.link.rel.external
+- html.elements.link.rel.help
+- html.elements.link.rel.icon
+- html.elements.link.rel.license
+- html.elements.link.rel.manifest
+- html.elements.link.rel.me
+- html.elements.link.rel.modulepreload
+- html.elements.link.rel.next
+- html.elements.link.rel.nofollow
+- html.elements.link.rel.noopener
+- html.elements.link.rel.noreferrer
+- html.elements.link.rel.opener
+- html.elements.link.rel.pingback
+- html.elements.link.rel.preconnect
+- html.elements.link.rel.prefetch
+- html.elements.link.rel.preload
+- html.elements.link.rel.prerender
+- html.elements.link.rel.prev
+- html.elements.link.rel.privacy-policy
+- html.elements.link.rel.search
+- html.elements.link.rel.stylesheet
+- html.elements.link.rel.tag
+- html.elements.link.rel.terms-of-service
+- javascript.builtins.Intl.Collator.Collator.options_ignorePunctuation_parameter
+- javascript.builtins.Intl.Collator.Collator.options_localeMatcher_parameter
+- javascript.builtins.Intl.Collator.Collator.options_numeric_parameter
+- javascript.builtins.Intl.Collator.Collator.options_sensitivity_parameter
+- javascript.builtins.Intl.Collator.Collator.options_usage_parameter
+
+#### Removed
+
+- css.properties.reading-order-items
+
+#### Changed
+
+- api.CredentialsContainer.get.identity_option
+- api.Element.checkVisibility.options_checkOpacity_parameter
+- api.Element.checkVisibility.options_checkVisibilityCSS_parameter
+- api.Element.checkVisibility.options_contentVisibilityAuto_parameter
+- api.Element.checkVisibility.options_visibilityProperty_parameter
+
+### Commits
+
+- Fix tests for checkVisibility() parameters ([#1585](https://github.com/openwebdocs/mdn-bcd-collector/pull/1585))
+- Add IDL for Handwriting Recognition API ([#1577](https://github.com/openwebdocs/mdn-bcd-collector/pull/1577))
+- Fix test for api.CredentialsContainer.get.identity_option ([#1576](https://github.com/openwebdocs/mdn-bcd-collector/pull/1576))
+- Ignore `transform` property values in `transform-function` type ([#1575](https://github.com/openwebdocs/mdn-bcd-collector/pull/1575))
+- Add test for `transform: perspective(none)` ([#1569](https://github.com/openwebdocs/mdn-bcd-collector/pull/1569))
+- Add subfeatures for additional HTMLCanvasElement.toDataURL types ([#1567](https://github.com/openwebdocs/mdn-bcd-collector/pull/1567))
+- Update extension IDs for NordPass ([#1566](https://github.com/openwebdocs/mdn-bcd-collector/pull/1566))
+- Add custom tests for all Intl.Collator constructor options ([#1565](https://github.com/openwebdocs/mdn-bcd-collector/pull/1565))
+- Add custom tests for all of the values of `&lt;link rel=""&gt;` ([#1564](https://github.com/openwebdocs/mdn-bcd-collector/pull/1564))
+- Add overrides for Location API in Deno ([#1560](https://github.com/openwebdocs/mdn-bcd-collector/pull/1560))
+- Include example of updating BCD using unjs/runtime-compat results ([#1559](https://github.com/openwebdocs/mdn-bcd-collector/pull/1559))
+
 ## v10.10.8
 
 Released June 17, 2024
