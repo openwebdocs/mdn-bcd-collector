@@ -564,29 +564,8 @@
     "global_attributes": {
       "attributes": [
         {"class": "className", "tabindex": "tabIndex"},
-        "clip",
-        "color",
-        "cursor",
-        "data",
-        "direction",
-        "display",
-        "fill",
-        "filter",
-        "href",
         "id",
-        "kerning",
-        "lang",
-        "mask",
-        "opacity",
-        "overflow",
-        "requiredExtensions",
-        "requiredFeatures",
-        "stroke",
-        "style",
-        "systemLanguage",
-        "textLength",
-        "transform",
-        "visibility"
+        "style"
       ]
     },
     "cursor": {
