@@ -1939,10 +1939,14 @@ api:
     __additional:
       append.filename_parameter: |-
         <%api.Blob:blob%>
-        function append(filename) {
-          instance.append('foo', blob, filename);
+
+        if (!('get' in instance)) {
+          return {result: null, message: 'This test has not yet been adapted for older browsers'}
         }
-        return bcd.testOptionParam(append, null, null, 'foo.txt');
+
+        instance.append('foo', blob, 'bar.txt');
+        var file = instance.get('foo');
+        return file.name === 'bar.txt';
       FormData.submitter: |-
         if (!('document' in self)) {
           return {result: null, message: "Testing in workers is not yet implemented"};
