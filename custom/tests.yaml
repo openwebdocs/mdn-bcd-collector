@@ -2424,6 +2424,24 @@ api:
           }, 'image/jpeg', 0.5);
 
           return 'callback';
+        type_parameter_jpeg: |-
+          if (!('toBlob' in instance)) {
+            return {result: false, message: "instance.toBlob is not defined"}
+          }
+          function callback(blob) {
+            success(blob.type === 'image/jpeg');
+          }
+          instance.toBlob(callback, 'image/jpeg');
+          return 'callback';
+        type_parameter_png: |-
+          if (!('toBlob' in instance)) {
+            return {result: false, message: "instance.toBlob is not defined"}
+          }
+          function callback(blob) {
+            success(blob.type === 'image/png');
+          }
+          instance.toBlob(callback, 'image/png');
+          return 'callback';
         type_parameter_webp: |-
           if (!('toBlob' in instance)) {
             return {result: false, message: "instance.toBlob is not defined"}
@@ -2439,20 +2457,20 @@ api:
           if (!('toDataURL' in instance)) {
             return {result: false, message: "instance.toDataURL is not defined"}
           }
-          var blob = instance.toDataURL('image/jpeg');
-          return blob.type === 'image/jpeg';
+          var url = instance.toDataURL('image/jpeg');
+          return url.indexOf('data:image/jpeg;') === 0;
         type_parameter_png: |-
           if (!('toDataURL' in instance)) {
             return {result: false, message: "instance.toDataURL is not defined"}
           }
-          var blob = instance.toDataURL('image/png');
-          return blob.type === 'image/png';
+          var url = instance.toDataURL('image/png');
+          return url.indexOf('data:image/png;') === 0;
         type_parameter_webp: |-
           if (!('toDataURL' in instance)) {
             return {result: false, message: "instance.toDataURL is not defined"}
           }
-          var blob = instance.toDataURL('image/webp');
-          return blob.type === 'image/webp';
+          var url = instance.toDataURL('image/webp');
+          return url.indexOf('data:image/webp;') === 0;
     getContext:
       __additional:
         bitmaprenderer_context: |-
