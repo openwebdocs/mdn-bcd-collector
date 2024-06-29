@@ -696,14 +696,22 @@
         "attributeName",
         "attributeType",
         "from",
+        "href",
         "repeatCount",
         "to"
       ]
     },
     "animateMotion": {
-      "attributes": ["calcMode", "keyPoints", "origin", "path", "rotate"]
+      "attributes": [
+        "calcMode",
+        "href",
+        "keyPoints",
+        "origin",
+        "path",
+        "rotate"
+      ]
     },
-    "animateTransform": {"attributes": ["by", "from", "to", "type"]},
+    "animateTransform": {"attributes": ["by", "from", "href", "to", "type"]},
     "circle": {"attributes": ["cx", "cy", "r"]},
     "clipPath": {"attributes": ["clipPathUnits"]},
     "ellipse": {"attributes": ["cx", "cy", "rx", "ry"]},
@@ -815,6 +823,7 @@
         {"crossorigin": "crossOrigin"},
         "decoding",
         "height",
+        "href",
         "preserveAspectRatio",
         "width",
         "x",
@@ -827,6 +836,7 @@
       "attributes": [
         "gradientTransform",
         "gradientUnits",
+        "href",
         "spreadMethod",
         "x1",
         "x2",
@@ -856,7 +866,7 @@
         "y"
       ]
     },
-    "mpath": {"attributes": ["xlink_href"]},
+    "mpath": {"attributes": ["href", "xlink_href"]},
     "path": {"attributes": ["d"]},
     "pattern": {
       "attributes": [
@@ -889,8 +899,8 @@
       ]
     },
     "rect": {"attributes": ["height", "rx", "ry", "width", "x", "y"]},
-    "script": {"attributes": ["type", "xlink_href"]},
-    "set": {"attributes": ["to"]},
+    "script": {"attributes": ["href", "type", "xlink_href"]},
+    "set": {"attributes": ["href", "to"]},
     "stop": {"attributes": ["offset", "stop-color", "stop-opacity"]},
     "style": {"attributes": ["media", "title", "type"]},
     "svg": {
