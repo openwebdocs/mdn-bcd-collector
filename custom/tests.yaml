@@ -6135,18 +6135,7 @@ mathml:
       // XXX Improve feature detection
       <%mathml.elements.mspace:instance%>
       return has_mspace;
-    menclose: |-
-      // Just check whether <mrow> is supported because discussion on this is
-      // still open (https://github.com/mathml-refresh/mathml/issues/105 
-      // and it would have to behave at least like an mrow, even if it becomes
-      // an unknown element at the end.
-      <%mathml.elements.mrow:instance%>
-      return has_mspace;
     merror: |-
-      // XXX Improve feature detection
-      <%mathml.elements.mspace:instance%>
-      return has_mspace;
-    mfenced: |-
       // XXX Improve feature detection
       <%mathml.elements.mspace:instance%>
       return has_mspace;

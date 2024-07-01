@@ -964,15 +964,9 @@
       ]
     }
   },
-  "mathml": {
-    "menclose": {
-      "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores when ready.)",
-      "__attributes": ["notation"]
-    },
-    "mfenced": {}
-  },
+  "mathml": {},
   "__mathml": {
-    "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores and merge with above when ready.)",
+    "__comment": "XXX MathML attributes are disabled until it can be determined how to properly test them. (Remove the two underscores in the category name when ready.)",
     "maction": {"attributes": ["actiontype", "selection"]},
     "math": {"attributes": ["display"]},
     "mfrac": {"attributes": ["denomalign", "linethickness", "numalign"]},
