@@ -662,7 +662,7 @@
   ["css.properties.hyphenate-character.auto", "chrome", "6-106", true],
   ["css.properties.hyphenate-character.auto", "edge", "79-106", true],
   ["css.properties.hyphenate-character.auto", "safari", "5.1-17", true],
-  ["css.properties.hyphenate.auto", "safari", "5.1-17", true],
+  ["css.properties.hyphens.auto", "safari", "5.1-17", true],
   ["css.properties.initial-letter.normal", "safari", "9+", true],
   ["css.properties.line-clamp.none", "firefox", "68+", true],
   ["css.properties.print-color-adjust.economy", "safari", "6-15.4", true],
