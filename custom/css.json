@@ -208,6 +208,8 @@
         "bottom",
         "left",
         "right",
+        "inline-start",
+        "inline-end",
         "top-outside",
         "bottom-outside"
       ]
