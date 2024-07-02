@@ -255,6 +255,7 @@ const main = async (paths: string[], verbose = false): Promise<void> => {
 
   console.log("Cleaning up...");
   await fs.remove(filepath);
+  await fs.remove(path.dirname(filepath));
   execSync("npm run fix", {cwd: BCD_DIR});
 
   console.log("Done!");
