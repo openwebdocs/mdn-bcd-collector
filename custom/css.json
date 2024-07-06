@@ -4,11 +4,11 @@
     "-moz-force-broken-image-icon": {},
     "-moz-image-region": {},
     "-moz-orient": {
-      "__values": ["auto", "inline", "block"]
+      "__values": ["inline", "block"]
     },
     "-moz-user-focus": {},
     "-moz-user-input": {
-      "__values": ["auto", "disabled", "enabled", "none"]
+      "__values": ["auto", "none"]
     },
     "-webkit-animation-trigger": {},
     "-webkit-app-region": {},
@@ -36,7 +36,6 @@
     "-webkit-margin-after": {},
     "-webkit-margin-before": {},
     "-webkit-marquee": {},
-    "-webkit-mask-attachment": {},
     "-webkit-mask-box-image-outset": {},
     "-webkit-mask-box-image-repeat": {},
     "-webkit-mask-box-image-slice": {},
@@ -54,7 +53,6 @@
     "-webkit-min-logical-height": {},
     "-webkit-min-logical-width": {},
     "-webkit-nbsp-mode": {},
-    "-webkit-overflow-scrolling": {},
     "-webkit-perspective-origin-x": {},
     "-webkit-perspective-origin-y": {},
     "-webkit-rtl-ordering": {},
@@ -74,7 +72,6 @@
     "-webkit-transform-origin-z": {},
     "-webkit-user-drag": {},
     "-webkit-user-modify": {},
-    "align-tracks": {},
     "alt": {},
     "animation-timing-function": {
       "__additional_values": {
@@ -369,7 +366,6 @@
       },
       "__values": ["max-content", "min-content"]
     },
-    "justify-tracks": {},
     "layout-grid": {},
     "layout-grid-char": {},
     "layout-grid-line": {},
@@ -559,14 +555,6 @@
     "scroll-snap-points-y": {},
     "scroll-snap-type-x": {},
     "scroll-snap-type-y": {},
-    "scrollbar-3dlight-color": {},
-    "scrollbar-arrow-color": {},
-    "scrollbar-base-color": {},
-    "scrollbar-darkshadow-color": {},
-    "scrollbar-face-color": {},
-    "scrollbar-highlight-color": {},
-    "scrollbar-shadow-color": {},
-    "scrollbar-track-color": {},
     "shape-image-threshold": {
       "__additional_values": {
         "percentages": "50%"
@@ -597,9 +585,6 @@
       }
     },
     "text-combine-horizontal": {},
-    "text-combine-upright": {
-      "__values": ["digits"]
-    },
     "text-decoration": {
       "__additional_values": {
         "includes_thickness": "solid underline purple 4px"
@@ -669,7 +654,6 @@
     },
     "touch-action": {
       "__values": [
-        "double-tap-zoom",
         "manipulation",
         "none",
         "pinch-zoom",
@@ -703,9 +687,6 @@
     "unicode-range": {},
     "user-modify": {
       "__values": ["read-write-plaintext-only"]
-    },
-    "user-select": {
-      "__values": ["element"]
     },
     "user-zoom": {},
     "viewport-fit": {},
@@ -746,14 +727,10 @@
     "::-moz-focus-inner": {},
     "::-moz-list-bullet": {},
     "::-moz-list-number": {},
-    "::-moz-page": {},
-    "::-moz-page-sequence": {},
     "::-moz-progress-bar": {},
     "::-moz-range-progress": {},
     "::-moz-range-thumb": {},
     "::-moz-range-track": {},
-    "::-moz-scrolled-page-sequence": {},
-    "::-webkit-details-marker": {},
     "::-webkit-inner-spin-button": {},
     "::-webkit-meter-bar": {},
     "::-webkit-meter-even-less-good-value": {},
