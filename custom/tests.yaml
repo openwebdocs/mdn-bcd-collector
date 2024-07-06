@@ -6045,6 +6045,126 @@ html:
         type_time: return testType('time');
         type_url: return testType('url');
         type_week: return testType('week');
+    iframe:
+      allow:
+        __additional:
+          accelerometer: |-
+            instance.allow = 'accelerometer';
+            return instance.allow === 'accelerometer';
+          ambient-light-sensor: |-
+            instance.allow = 'ambient-light-sensor';
+            return instance.allow === 'ambient-light-sensor';
+          attribution-reporting: |-
+            instance.allow = 'attribution-reporting';
+            return instance.allow === 'attribution-reporting';
+          autoplay: |-
+            instance.allow = 'autoplay';
+            return instance.allow === 'autoplay';
+          battery: |-
+            instance.allow = 'battery';
+            return instance.allow === 'battery';
+          bluetooth: |-
+            instance.allow = 'bluetooth';
+            return instance.allow === 'bluetooth';
+          browsing-topics: |-
+            instance.allow = 'browsing-topics';
+            return instance.allow === 'browsing-topics';
+          camera: |-
+            instance.allow = 'camera';
+            return instance.allow === 'camera';
+          compute-pressure: |-
+            instance.allow = 'compute-pressure';
+            return instance.allow === 'compute-pressure';
+          cross-origin-isolated: |-
+            instance.allow = 'cross-origin-isolated';
+            return instance.allow === 'cross-origin-isolated';
+          display-capture: |-
+            instance.allow = 'display-capture';
+            return instance.allow === 'display-capture';
+          document-domain: |-
+            instance.allow = 'document-domain';
+            return instance.allow === 'document-domain';
+          encrypted-media: |-
+            instance.allow = 'encrypted-media';
+            return instance.allow === 'encrypted-media';
+          execution-while-not-rendered: |-
+            instance.allow = 'execution-while-not-rendered';
+            return instance.allow === 'execution-while-not-rendered';
+          execution-while-out-of-viewport: |-
+            instance.allow = 'execution-while-out-of-viewport';
+            return instance.allow === 'execution-while-out-of-viewport';
+          fullscreen: |-
+            instance.allow = 'fullscreen';
+            return instance.allow === 'fullscreen';
+          gamepad: |-
+            instance.allow = 'gamepad';
+            return instance.allow === 'gamepad';
+          geolocation: |-
+            instance.allow = 'geolocation';
+            return instance.allow === 'geolocation';
+          gyroscope: |-
+            instance.allow = 'gyroscope';
+            return instance.allow === 'gyroscope';
+          hid: |-
+            instance.allow = 'hid';
+            return instance.allow === 'hid';
+          identity-credentials-get: |-
+            instance.allow = 'identity-credentials-get';
+            return instance.allow === 'identity-credentials-get';
+          idle-detection: |-
+            instance.allow = 'idle-detection';
+            return instance.allow === 'idle-detection';
+          local-fonts: |-
+            instance.allow = 'local-fonts';
+            return instance.allow === 'local-fonts';
+          magnetometer: |-
+            instance.allow = 'magnetometer';
+            return instance.allow === 'magnetometer';
+          microphone: |-
+            instance.allow = 'microphone';
+            return instance.allow === 'microphone';
+          midi: |-
+            instance.allow = 'midi';
+            return instance.allow === 'midi';
+          otp-credentials: |-
+            instance.allow = 'otp-credentials';
+            return instance.allow === 'otp-credentials';
+          payment: |-
+            instance.allow = 'payment';
+            return instance.allow === 'payment';
+          picture-in-picture: |-
+            instance.allow = 'picture-in-picture';
+            return instance.allow === 'picture-in-picture';
+          publickey-credentials-create: |-
+            instance.allow = 'publickey-credentials-create';
+            return instance.allow === 'publickey-credentials-create';
+          publickey-credentials-get: |-
+            instance.allow = 'publickey-credentials-get';
+            return instance.allow === 'publickey-credentials-get';
+          screen-wake-lock: |-
+            instance.allow = 'screen-wake-lock';
+            return instance.allow === 'screen-wake-lock';
+          serial: |-
+            instance.allow = 'serial';
+            return instance.allow === 'serial';
+          speaker-selection: |-
+            instance.allow = 'speaker-selection';
+            return instance.allow === 'speaker-selection';
+          storage-access: |-
+            instance.allow = 'storage-access';
+            return instance.allow === 'storage-access';
+          usb: |-
+            instance.allow = 'usb';
+            return instance.allow === 'usb';
+          web-share: |-
+            instance.allow = 'web-share';
+            return instance.allow === 'web-share';
+          window-management: |-
+            instance.allow = 'window-management';
+            return instance.allow === 'window-management';
+          xr-spatial-tracking: |-
+            instance.allow = 'xr-spatial-tracking';
+            return instance.allow === 'xr-spatial-tracking';
     link:
       __base: |-
         var instance = document.createElement('link');
