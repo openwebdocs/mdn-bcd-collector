@@ -4,6 +4,10 @@
 
 Released July 6, 2024
 
+### Notable Changes
+
+A button to click has been added to allow testing features that require user action to run.
+
 ### Test Changes
 
 #### Added
