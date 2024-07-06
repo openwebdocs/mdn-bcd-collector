@@ -632,7 +632,9 @@ const run = async (
     await awaitPage(driver, browser, version, `${host}/tests/${getvars}`);
 
     log(task, "Running tests...");
-    await driver.wait(until.elementLocated(By.id("status")), 30000);
+    await driver.wait(until.elementLocated(By.id("run")), 5000);
+    await click(driver, browser, "run");
+
     statusEl = await driver.findElement(By.id("status"));
     try {
       await driver.wait(until.elementTextContains(statusEl, "upload"), 90000);
