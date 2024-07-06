@@ -254,7 +254,6 @@
     "display": {
       "__values": ["math"],
       "__additional_values": {
-        "display-outside": ["block", "inline"],
         "multi-keyword_values": "inline flow"
       }
     },
