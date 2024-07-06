@@ -1,5 +1,167 @@
 # mdn-bcd-collector Changelog
 
+## v10.11.0
+
+Released July 6, 2024
+
+### Notable Changes
+
+A button to click has been added to allow testing features that require user action to run.
+
+### Test Changes
+
+#### Added
+
+- api.CSSNestedDeclarations
+- api.CSSPageDescriptors.orientation
+- api.DeviceChangeEvent.userInsertedDevices
+- api.HTMLCanvasElement.toBlob.type_parameter_jpeg
+- api.HTMLCanvasElement.toBlob.type_parameter_png
+- api.IntersectionObserver.delay
+- api.IntersectionObserver.trackVisibility
+- api.IntersectionObserverEntry.isVisible
+- api.PermissionsPolicyViolationReportBody.toJSON
+- css.properties.caption-side.inline-start
+- css.properties.caption-side.inline-end
+- css.properties.continue.overflow
+- css.properties.continue.paginate
+- css.properties.continue.fragments
+- css.properties.position-try-fallbacks
+- css.properties.scroll-marker-group
+- css.selectors.scroll-marker-group
+- css.selectors.scroll-marker
+- css.selectors.nth-fragment
+- html.elements.iframe.allow.accelerometer
+- html.elements.iframe.allow.ambient-light-sensor
+- html.elements.iframe.allow.attribution-reporting
+- html.elements.iframe.allow.autoplay
+- html.elements.iframe.allow.battery
+- html.elements.iframe.allow.bluetooth
+- html.elements.iframe.allow.browsing-topics
+- html.elements.iframe.allow.camera
+- html.elements.iframe.allow.compute-pressure
+- html.elements.iframe.allow.cross-origin-isolated
+- html.elements.iframe.allow.display-capture
+- html.elements.iframe.allow.document-domain
+- html.elements.iframe.allow.encrypted-media
+- html.elements.iframe.allow.execution-while-not-rendered
+- html.elements.iframe.allow.execution-while-out-of-viewport
+- html.elements.iframe.allow.fullscreen
+- html.elements.iframe.allow.gamepad
+- html.elements.iframe.allow.geolocation
+- html.elements.iframe.allow.gyroscope
+- html.elements.iframe.allow.hid
+- html.elements.iframe.allow.identity-credentials-get
+- html.elements.iframe.allow.idle-detection
+- html.elements.iframe.allow.local-fonts
+- html.elements.iframe.allow.magnetometer
+- html.elements.iframe.allow.microphone
+- html.elements.iframe.allow.midi
+- html.elements.iframe.allow.otp-credentials
+- html.elements.iframe.allow.payment
+- html.elements.iframe.allow.picture-in-picture
+- html.elements.iframe.allow.publickey-credentials-create
+- html.elements.iframe.allow.publickey-credentials-get
+- html.elements.iframe.allow.screen-wake-lock
+- html.elements.iframe.allow.serial
+- html.elements.iframe.allow.speaker-selection
+- html.elements.iframe.allow.storage-access
+- html.elements.iframe.allow.usb
+- html.elements.iframe.allow.web-share
+- html.elements.iframe.allow.window-management
+- html.elements.iframe.allow.xr-spatial-tracking
+- svg.elements.animate.href
+- svg.elements.animateMotion.href
+- svg.elements.animateTransform.href
+- svg.elements.image.href
+- svg.elements.linearGradient.href
+- svg.elements.mpath.href
+- svg.elements.script.href
+- svg.elements.set.href
+
+#### Removed
+
+- api.CSSNestRule
+- css.properties.-moz-orient.auto
+- css.properties.-moz-user-input.disabled
+- css.properties.-moz-user-input.enabled
+- css.properties.-webkit-mask-attachment
+- css.properties.-webkit-overflow-scrolling
+- css.properties.align-tracks
+- css.properties.justify-tracks
+- css.properties.position-try-options
+- css.properties.scroll-start-target-block
+- css.properties.scroll-start-target-inline
+- css.properties.scroll-start-target-x
+- css.properties.scroll-start-target-y
+- css.properties.scrollbar-3dlight-color
+- css.properties.scrollbar-arrow-color
+- css.properties.scrollbar-base-color
+- css.properties.scrollbar-darkshadow-color
+- css.properties.scrollbar-face-color
+- css.properties.scrollbar-highlight-color
+- css.properties.scrollbar-shadow-color
+- css.properties.scrollbar-track-color
+- css.properties.text-combine-upright.digits
+- css.properties.touch-action.double-tap-zoom
+- css.properties.user-select.element
+- css.selectors.-moz-page
+- css.selectors.-moz-page-sequence
+- css.selectors.-moz-scrolled-page-sequence
+- css.selectors.-webkit-details-marker
+- svg.global_attributes.clip
+- svg.global_attributes.color
+- svg.global_attributes.cursor
+- svg.global_attributes.data
+- svg.global_attributes.direction
+- svg.global_attributes.display
+- svg.global_attributes.fill
+- svg.global_attributes.filter
+- svg.global_attributes.href
+- svg.global_attributes.kerning
+- svg.global_attributes.lang
+- svg.global_attributes.mask
+- svg.global_attributes.opacity
+- svg.global_attributes.overflow
+- svg.global_attributes.requiredExtensions
+- svg.global_attributes.requiredFeatures
+- svg.global_attributes.stroke
+- svg.global_attributes.systemLanguage
+- svg.global_attributes.textLength
+- svg.global_attributes.transform
+- svg.global_attributes.visibility
+- mathml.elements.menclose
+- mathml.elements.mfenced
+
+#### Changed
+
+- api.FormData.append.filename_parameter
+- api.HTMLCanvasElement.toDataURL.type_parameter_jpeg
+- api.HTMLCanvasElement.toDataURL.type_parameter_png
+- api.HTMLCanvasElement.toDataURL.type_parameter_webp
+- api.ScreenDetailed
+- api.ScreenDetails
+- javascript.builtins.Intl.PluralRules.PluralRules.options_parameter
+
+### Commits
+
+- Require user interaction to begin tests ([#1628](https://github.com/openwebdocs/mdn-bcd-collector/pull/1628))
+- Add custom tests for iframe element's `allow` attribute values ([#1578](https://github.com/openwebdocs/mdn-bcd-collector/pull/1578))
+- Remove CSS properties, selectors and values that aren't supported ([#1610](https://github.com/openwebdocs/mdn-bcd-collector/pull/1610))
+- Add overrides for resize CSS property for Safari iOS ([#1629](https://github.com/openwebdocs/mdn-bcd-collector/pull/1629))
+- Add custom tests for ScreenDetails and ScreenDetailed APIs ([#1627](https://github.com/openwebdocs/mdn-bcd-collector/pull/1627))
+- Track inline-[start/end] values of caption-side CSS property ([#1623](https://github.com/openwebdocs/mdn-bcd-collector/pull/1623))
+- add-new-bcd: Remove temporary folder when completed ([#1617](https://github.com/openwebdocs/mdn-bcd-collector/pull/1617))
+- Revert "Add IDL for Handwriting Recognition API" ([#1579](https://github.com/openwebdocs/mdn-bcd-collector/pull/1579))
+- Drop tests for menclose and mfenced MathML elements ([#1615](https://github.com/openwebdocs/mdn-bcd-collector/pull/1615))
+- Fix custom test for PluralRules options parameter ([#1612](https://github.com/openwebdocs/mdn-bcd-collector/pull/1612))
+- Fix typo in overrides ([#1611](https://github.com/openwebdocs/mdn-bcd-collector/pull/1611))
+- Fix custom tests for HTMLCanvasElement.toDataURL; add more toBlob types ([#1607](https://github.com/openwebdocs/mdn-bcd-collector/pull/1607))
+- Fix custom test for api.FormData.append.filename_parameter ([#1606](https://github.com/openwebdocs/mdn-bcd-collector/pull/1606))
+- Add href attribute to various SVG elements ([#1605](https://github.com/openwebdocs/mdn-bcd-collector/pull/1605))
+- Fix overrides for RemotePlayback API ([#1603](https://github.com/openwebdocs/mdn-bcd-collector/pull/1603))
+- Remove invalid SVG global attribute tests ([#1474](https://github.com/openwebdocs/mdn-bcd-collector/pull/1474))
+
 ## v10.10.9
 
 Released June 26, 2024
