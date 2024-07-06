@@ -4640,6 +4640,28 @@ api:
       type_transport.type: return !!getStatByType('transport', 'type');
   Screen:
     __base: var instance = window.screen;
+  ScreenDetails:
+    __base: |-
+      // Chrome Android had exposed the API without support
+      if (!('getScreenDetails' in self)) {
+        return {result: false, message: 'window.getScreenDetails is not defined'};
+      }
+      // window.getScreenDetails() requires user action, so we'll avoid running it
+      if (!('ScreenDetails' in self)) {
+        return {result: false, message: 'ScreenDetails is not defined'};
+      }
+      var instance = ScreenDetails.prototype;
+  ScreenDetailed:
+    __base: |-
+      // Chrome Android had exposed the API without support
+      if (!('getScreenDetails' in self)) {
+        return {result: false, message: 'window.getScreenDetails is not defined'};
+      }
+      // window.getScreenDetails() requires user action, so we'll avoid running it
+      if (!('ScreenDetailed' in self)) {
+        return {result: false, message: 'ScreenDetailed is not defined'};
+      }
+      var instance = ScreenDetailed.prototype;
   ScriptProcessorNode:
     __resources:
       - audioContext
