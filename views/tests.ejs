@@ -10,13 +10,15 @@ See the LICENSE file for copyright details
 <%- include('unsecurewarning') %>
 <%- include('extensioncheck', {sendToServer: true}) %>
 <% if (dev) {%><p class="error-notice">Note: you are running a development version of the collector!</p><% } %>
-<p id="status">Running tests...</p>
+
+<p id="status">Ready to start tests</p>
 <form id="export" action="/export" method="post">
   <button id="export-download" class="export-button" type="submit" name="download" value="download" disabled><span class="mdi mdi-download"></span> Download results file</button>
   <button id="export-github" class="export-button <% if (!github) {%>always-disabled<% } %>" type="submit" name="github" value="github" disabled><span class="mdi mdi-github"></span> <% if (github) {%>Send results to mdn-bcd-results GitHub repo<% } else { %>GitHub export disabled<% } %></button>
 </form>
 <div id="results">
   <hr />
+  <button id="run">Run Tests</button>
 </div>
 
 <% let resourcesToLoad = new Set(); %>
@@ -68,7 +70,8 @@ See the LICENSE file for copyright details
   <% tests.forEach(function(test) { %>
     bcd.addTest("<%- test.ident %>", <%- JSON.stringify(test.tests) %>, "<%- test.exposure %>");
   <% }); %>
-  window.onload = function() {
+  document.getElementById('run').onclick = function() {
+    document.getElementById('run').style.display = "none";
     bcd.go(
       undefined,
       <%- resourcesToLoad.size %>,
