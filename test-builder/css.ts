@@ -193,6 +193,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
         [
           "-webkit-appearance",
           "-webkit-user-select",
+          "-webkit-line-clamp",
           "grid-gap",
           "grid-column-gap",
           "grid-row-gap",
