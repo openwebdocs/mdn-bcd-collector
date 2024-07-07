@@ -1168,5 +1168,8 @@
   ["api.Location.replace", "deno", "*", false],
   ["api.Location.search", "deno", "*", false],
   ["api.Location.toString", "deno", "*", false],
-  ["api.Window.location", "deno", "*", false]
+  ["api.Window.location", "deno", "*", false],
+  "Collector reporting earlier version than confirmed in https://bugzil.la/1887729",
+  ["api.OffscreenCanvas.contextlost_event", "firefox", "105-124", false],
+  ["api.OffscreenCanvas.contextrestored_event", "firefox", "105-124", false]
 ]
