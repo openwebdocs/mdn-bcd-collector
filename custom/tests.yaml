@@ -2477,8 +2477,12 @@ api:
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('bitmaprenderer');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('bitmaprenderer');
+            return !!ctx;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
         bitmaprenderer_context.options_alpha_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2491,8 +2495,12 @@ api:
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('webgl');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('webgl');
+            return !!ctx;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
         webgl_context.options_alpha_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2529,8 +2537,12 @@ api:
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('webgl2');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('webgl2');
+            return !!ctx;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
         webgl2_context.options_alpha_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2567,8 +2579,12 @@ api:
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('2d');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('2d');
+            return !!ctx;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
         2d_context.options_alpha_parameter: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
@@ -2607,8 +2623,12 @@ api:
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('webgpu');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('webgpu');
+            return !!ctx;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   HTMLCollection:
     __base: var instance = document.forms;
   HTMLContentElement:
@@ -3612,39 +3632,63 @@ api:
       };
       var instance = reusableInstances.webGL2.getExtension('OVR_multiview2');
   OffscreenCanvas:
-    __base: var instance = new OffscreenCanvas(1024, 1024);
+    __base: |-
+      if (!('OffscreenCanvas' in self)) {
+        return {result: false, message: 'OffscreenCanvas is not defined'}
+      }
+      var instance = new OffscreenCanvas(1024, 1024);
     getContext:
       __additional:
         bitmaprenderer_context: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('bitmaprenderer');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('bitmaprenderer');
+            return !!ctx;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
         webgl_context: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('webgl');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('webgl');
+            return !!ctx;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
         webgl2_context: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('webgl2');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('webgl2');
+            return !!ctx;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
         webgpu_context: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('webgpu');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('webgpu');
+            return !!ctx;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
         2d_context: |-
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
-          var ctx = instance.getContext('2d');
-          return !!ctx;
+          try {
+            var ctx = instance.getContext('2d');
+            return !!ctx;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
     __additional:
       convertToBlob.option_type_parameter_webp: |-
         instance.getContext('2d');
