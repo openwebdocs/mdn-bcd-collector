@@ -214,6 +214,19 @@ $colors: (
 
 // End Variables, Functions, Mixins
 
+// Animations
+
+@keyframes pulse-animation {
+  0% {
+    filter: saturate(1) brightness(1);
+  }
+  100% {
+    filter: saturate(1.5) brightness(1.5);
+  }
+}
+
+// End animations
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@500&display=swap");
 
 :root {
@@ -314,6 +327,18 @@ input {
     cursor: not-allowed;
     @include themedProperty(background, "input-disabled-bg");
     @include themedProperty(color, "input-placeholder");
+  }
+
+  &.pulse {
+    animation-name: pulse-animation;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+
+    &:hover {
+      animation-play-state: paused;
+    }
   }
 }
 
