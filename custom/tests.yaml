@@ -4200,7 +4200,21 @@ api:
     body:
       __additional:
         readable_byte_stream: |-
-          return !!instance.body && 'getReader' in instance.body;
+          if (!instance.body) {
+            return {result: false, message: "Response.body is not defined"};
+          }
+          if (!('getReader' in instance.body)) {
+            return {result: false, message: "Response.body.getReader is not defined"};
+          }
+          try {
+            instance.body.getReader({mode: 'byob'});
+            return true;
+          } catch(e) {
+            if (e instanceof TypeError) {
+              return {result: false, message: e.message};
+            }
+            return e;
+          }
     __additional:
       json_static: |-
         return 'Response' in self && 'json' in Response;
