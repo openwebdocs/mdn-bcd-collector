@@ -14,7 +14,8 @@ See the LICENSE file for copyright details
 <p id="status">Ready to start tests</p>
 <form id="export" action="/export" method="post">
   <button id="export-download" class="export-button" type="submit" name="download" value="download" disabled><span class="mdi mdi-download"></span> Download results file</button>
-  <button id="export-github" class="export-button <% if (!github) {%>always-disabled<% } %>" type="submit" name="github" value="github" disabled><span class="mdi mdi-github"></span> <% if (github) {%>Send results to mdn-bcd-results GitHub repo<% } else { %>GitHub export disabled<% } %></button>
+  <% const githubDisabled = !github || ident.includes('.'); %>
+  <button id="export-github" class="export-button <% if (githubDisabled) {%>always-disabled<% } %>" type="submit" name="github" value="github" disabled><span class="mdi mdi-github"></span> <% if (!githubDisabled) {%>Send results to mdn-bcd-results GitHub repo<% } else { %>GitHub export disabled<% } %></button>
 </form>
 <div id="results">
   <hr />
