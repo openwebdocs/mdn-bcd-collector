@@ -11,8 +11,8 @@
     "url": "https://github.com/openwebdocs/mdn-bcd-collector.git"
   },
   "engines": {
-    "node": ">=20",
-    "npm": ">=10"
+    "node": "^20",
+    "npm": "^10"
   },
   "scripts": {
     "prepare": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning prepare.ts",
