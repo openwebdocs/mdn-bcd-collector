@@ -472,6 +472,7 @@ app.all("/tests/*", (req: Request, res: Response) => {
   if (foundTests && foundTests.length) {
     res.render("tests", {
       title: `${ident || "All Tests"}`,
+      ident,
       tests: foundTests,
       resources: tests.resources,
       selenium: req.query.selenium,
