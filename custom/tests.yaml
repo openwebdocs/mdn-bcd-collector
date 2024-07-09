@@ -6728,7 +6728,7 @@ javascript:
             options_parameter.options_dayPeriod_parameter: return bcd.testOptionParam(construct, null, 'dayPeriod', 'narrow');
             options_parameter.options_fractionalSecondDigits_parameter: return bcd.testOptionParam(construct, null, 'fractionalSecondDigits', 2);
             options_parameter.options_hourCycle_parameter: return bcd.testOptionParam(construct, null, 'hourCycle', 'h23');
-            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'latn');
             options_parameter.options_timeStyle_parameter: return bcd.testOptionParam(construct, null, 'timeStyle', 'full');
             options_parameter.options_timeZone_parameter: return bcd.testOptionParam(construct, null, 'timeZone', 'UTC');
             options_parameter.options_timeZone_parameter.iana_time_zones: return bcd.testOptionParam(construct, null, 'timeZone', 'Asia/Shanghai');
@@ -6766,7 +6766,7 @@ javascript:
             options_parameter.options_minimumIntegerDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumIntegerDigits', 10);
             options_parameter.options_minimumSignificantDigits_parameter: return bcd.testOptionParam(construct, null, 'minimumSignificantDigits', 10);
             options_parameter.options_notation_parameter: return bcd.testOptionParam(construct, null, 'notation', 'compact');
-            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'latn');
             options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
             options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
             options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
@@ -6827,7 +6827,7 @@ javascript:
               // The style parameter was one of the first options available
               return bcd.testOptionParam(construct, null, 'style', 'currency');
             options_parameter.options_localeMatcher_parameter: return bcd.testOptionParam(construct, null, 'localeMatcher', 'lookup');
-            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'hans');
+            options_parameter.options_numberingSystem_parameter: return bcd.testOptionParam(construct, null, 'numberingSystem', 'latn');
             options_parameter.options_numeric_parameter: return bcd.testOptionParam(construct, null, 'numeric', 'auto');
             options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
       Segments:
