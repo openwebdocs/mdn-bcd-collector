@@ -1,5 +1,13 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.1
+
+Released July 9, 2024
+
+### Commits
+
+- Require NodeJS v20 ([#1647](https://github.com/openwebdocs/mdn-bcd-collector/pull/1647))
+
 ## v10.12.0
 
 Released July 9, 2024
