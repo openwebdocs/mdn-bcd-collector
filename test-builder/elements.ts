@@ -167,7 +167,8 @@ const build = async (specElements, customElements) => {
       }
 
       // Add tests for the attributes
-      if (data.attributes) {
+      // XXX attribute tests for SVG and MathML disabled, need to determine how to properly test them
+      if (data.attributes && category === "html") {
         for (const [attrName, attrProp] of data.attributes.entries() as [
           string,
           string,
