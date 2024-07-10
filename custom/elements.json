@@ -568,113 +568,6 @@
         "style"
       ]
     },
-    "cursor": {
-      "interfaceName": "SVGCursorElement",
-      "attributes": ["href", "x", "xlink_href", "y"]
-    },
-    "font-face-format": {
-      "interfaceName": "SVGFontFaceFormatElement",
-      "attributes": ["string"]
-    },
-    "font-face-name": {
-      "interfaceName": "SVGFontFaceNameElement",
-      "attributes": ["name"]
-    },
-    "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
-    "font-face-uri": {
-      "interfaceName": "SVGFontFaceUriElement",
-      "attributes": ["xlink_href"]
-    },
-    "font-face": {
-      "interfaceName": "SVGFontFaceElement",
-      "attributes": [
-        "accent-height",
-        "alphabetic",
-        "ascent",
-        "bbox",
-        "cap-height",
-        "descent",
-        "font-family",
-        "font-size",
-        "font-stretch",
-        "font-style",
-        "font-variant",
-        "font-weight",
-        "hanging",
-        "ideographic",
-        "mathematical",
-        "overline-position",
-        "overline-thickness",
-        "panose-1",
-        "slope",
-        "stemh",
-        "stemv",
-        "strikethrough-position",
-        "strikethrough-thickness",
-        "underline-position",
-        "underline-thickness",
-        "unicode-range",
-        "units-per-em",
-        "v-alphabetic",
-        "v-hanging",
-        "v-ideographic",
-        "v-mathematical",
-        "widths",
-        "x-height"
-      ]
-    },
-    "font": {
-      "interfaceName": "SVGFontElement",
-      "attributes": [
-        "horiz-adv-x",
-        "horiz-origin-x",
-        "horiz-origin-y",
-        "vert-adv-y",
-        "vert-origin-x",
-        "vert-origin-y"
-      ]
-    },
-    "glyph": {
-      "interfaceName": "SVGGlyphElement",
-      "attributes": [
-        "arabic-form",
-        "d",
-        "glyph-name",
-        "horiz-adv-x",
-        "lang",
-        "orientation",
-        "unicode",
-        "vert-adv-y",
-        "vert-origin-x",
-        "vert-origin-y"
-      ]
-    },
-    "glyphRef": {
-      "interfaceName": "SVGGlyphRefElement",
-      "attributes": ["dx", "dy", "format", "glyphRef", "x", "xlink_href", "y"]
-    },
-    "hkern": {
-      "interfaceName": "SVGHKernElement",
-      "attributes": ["g1", "g2", "k", "u1", "u2"]
-    },
-    "missing-glyph": {
-      "interfaceName": "SVGMissingGlyphElement",
-      "attributes": [
-        "d",
-        "horiz-adv-x",
-        "vert-adv-y",
-        "vert-origin-x",
-        "vert-origin-y"
-      ]
-    },
-    "tref": {
-      "interfaceName": "SVGTRefElement",
-      "attributes": ["xlink_href"]
-    },
-    "vkern": {
-      "interfaceName": "SVGVKernElement",
-      "attributes": ["g1", "g2", "k", "u1", "u2"]
-    },
     "a": {
       "attributes": [
         "download",
@@ -682,6 +575,7 @@
         "hreflang",
         "ping",
         "rel",
+        "systemLanguage",
         "target",
         "type",
         "xlink_actuate",
@@ -698,6 +592,7 @@
         "from",
         "href",
         "repeatCount",
+        "systemLanguage",
         "to"
       ]
     },
@@ -708,13 +603,23 @@
         "keyPoints",
         "origin",
         "path",
-        "rotate"
+        "rotate",
+        "systemLanguage"
       ]
     },
-    "animateTransform": {"attributes": ["by", "from", "href", "to", "type"]},
-    "circle": {"attributes": ["cx", "cy", "r"]},
-    "clipPath": {"attributes": ["clipPathUnits"]},
-    "ellipse": {"attributes": ["cx", "cy", "rx", "ry"]},
+    "animateTransform": {
+      "attributes": ["by", "from", "href", "systemLanguage", "to", "type"]
+    },
+    "circle": {"attributes": ["cx", "cy", "r", "systemLanguage"]},
+    "clipPath": {"attributes": ["clipPathUnits", "systemLanguage"]},
+    "cursor": {
+      "interfaceName": "SVGCursorElement",
+      "attributes": ["href", "systemLanguage", "x", "xlink_href", "y"]
+    },
+    "defs": {
+      "attributes": ["systemLanguage"]
+    },
+    "ellipse": {"attributes": ["cx", "cy", "rx", "ry", "systemLanguage"]},
     "feBlend": {"attributes": [{"in": "in1"}, "in2", "mode"]},
     "feColorMatrix": {"attributes": [{"in": "in1"}, "type", "values"]},
     "feComponentTransfer": {"attributes": [{"in": "in1"}]},
@@ -817,7 +722,97 @@
         "y"
       ]
     },
-    "foreignObject": {"attributes": ["height", "width", "x", "y"]},
+    "font": {
+      "interfaceName": "SVGFontElement",
+      "attributes": [
+        "horiz-adv-x",
+        "horiz-origin-x",
+        "horiz-origin-y",
+        "vert-adv-y",
+        "vert-origin-x",
+        "vert-origin-y"
+      ]
+    },
+    "font-face": {
+      "interfaceName": "SVGFontFaceElement",
+      "attributes": [
+        "accent-height",
+        "alphabetic",
+        "ascent",
+        "bbox",
+        "cap-height",
+        "descent",
+        "font-family",
+        "font-size",
+        "font-stretch",
+        "font-style",
+        "font-variant",
+        "font-weight",
+        "hanging",
+        "ideographic",
+        "mathematical",
+        "overline-position",
+        "overline-thickness",
+        "panose-1",
+        "slope",
+        "stemh",
+        "stemv",
+        "strikethrough-position",
+        "strikethrough-thickness",
+        "underline-position",
+        "underline-thickness",
+        "unicode-range",
+        "units-per-em",
+        "v-alphabetic",
+        "v-hanging",
+        "v-ideographic",
+        "v-mathematical",
+        "widths",
+        "x-height"
+      ]
+    },
+    "font-face-format": {
+      "interfaceName": "SVGFontFaceFormatElement",
+      "attributes": ["string"]
+    },
+    "font-face-name": {
+      "interfaceName": "SVGFontFaceNameElement",
+      "attributes": ["name"]
+    },
+    "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
+    "font-face-uri": {
+      "interfaceName": "SVGFontFaceUriElement",
+      "attributes": ["xlink_href"]
+    },
+    "foreignObject": {
+      "attributes": ["height", "systemLanguage", "width", "x", "y"]
+    },
+    "g": {
+      "attributes": ["systemLanguage"]
+    },
+    "glyph": {
+      "interfaceName": "SVGGlyphElement",
+      "attributes": [
+        "arabic-form",
+        "d",
+        "glyph-name",
+        "horiz-adv-x",
+        "lang",
+        "orientation",
+        "unicode",
+        "vert-adv-y",
+        "vert-origin-x",
+        "vert-origin-y"
+      ]
+    },
+    "glyphRef": {
+      "interfaceName": "SVGGlyphRefElement",
+      "attributes": ["dx", "dy", "format", "glyphRef", "x", "xlink_href", "y"]
+    },
+    "hkern": {
+      "interfaceName": "SVGHKernElement",
+      "attributes": ["g1", "g2", "k", "u1", "u2"]
+    },
     "image": {
       "attributes": [
         {"crossorigin": "crossOrigin"},
@@ -825,13 +820,14 @@
         "height",
         "href",
         "preserveAspectRatio",
+        "systemLanguage",
         "width",
         "x",
         "xlink_href",
         "y"
       ]
     },
-    "line": {"attributes": ["x1", "x2", "y1", "y2"]},
+    "line": {"attributes": ["systemLanguage", "x1", "x2", "y1", "y2"]},
     "linearGradient": {
       "attributes": [
         "gradientTransform",
@@ -861,13 +857,24 @@
         "height",
         "maskContentUnits",
         "maskUnits",
+        "systemLanguage",
         "width",
         "x",
         "y"
       ]
     },
+    "missing-glyph": {
+      "interfaceName": "SVGMissingGlyphElement",
+      "attributes": [
+        "d",
+        "horiz-adv-x",
+        "vert-adv-y",
+        "vert-origin-x",
+        "vert-origin-y"
+      ]
+    },
     "mpath": {"attributes": ["href", "xlink_href"]},
-    "path": {"attributes": ["d"]},
+    "path": {"attributes": ["d", "systemLanguage"]},
     "pattern": {
       "attributes": [
         "height",
@@ -875,14 +882,15 @@
         "patternContentUnits",
         "patternTransform",
         "patternUnits",
+        "systemLanguage",
         "width",
         "x",
         "xlink_href",
         "y"
       ]
     },
-    "polygon": {"attributes": ["points"]},
-    "polyline": {"attributes": ["points"]},
+    "polygon": {"attributes": ["points", "systemLanguage"]},
+    "polyline": {"attributes": ["points", "systemLanguage"]},
     "radialGradient": {
       "attributes": [
         "cx",
@@ -898,9 +906,11 @@
         "xlink_href"
       ]
     },
-    "rect": {"attributes": ["height", "rx", "ry", "width", "x", "y"]},
+    "rect": {
+      "attributes": ["height", "systemLanguage", "rx", "ry", "width", "x", "y"]
+    },
     "script": {"attributes": ["href", "type", "xlink_href"]},
-    "set": {"attributes": ["href", "to"]},
+    "set": {"attributes": ["href", "systemLanguage", "to"]},
     "stop": {"attributes": ["offset", "stop-color", "stop-opacity"]},
     "style": {"attributes": ["media", "title", "type"]},
     "svg": {
@@ -910,6 +920,7 @@
         "contentStyleType",
         "height",
         "preserveAspectRatio",
+        "systemLanguage",
         "version",
         "viewBox",
         "width",
@@ -918,7 +929,7 @@
         "zoomAndPan"
       ]
     },
-    "switch": {"attributes": ["allowReorder"]},
+    "switch": {"attributes": ["allowReorder", "systemLanguage"]},
     "symbol": {"attributes": ["preserveAspectRatio", "viewBox"]},
     "text": {
       "attributes": [
@@ -926,6 +937,7 @@
         "dy",
         "lengthAdjust",
         "rotate",
+        "systemLanguage",
         "textLength",
         "x",
         "y"
@@ -938,8 +950,13 @@
         "side",
         "spacing",
         "startOffset",
+        "systemLanguage",
         "xlink_href"
       ]
+    },
+    "tref": {
+      "interfaceName": "SVGTRefElement",
+      "attributes": ["systemLanguage", "xlink_href"]
     },
     "tspan": {
       "attributes": [
@@ -947,13 +964,22 @@
         "dy",
         "lengthAdjust",
         "rotate",
+        "systemLanguage",
         "textLength",
         "x",
         "y"
       ]
     },
     "use": {
-      "attributes": ["height", "href", "width", "x", "xlink_href", "y"]
+      "attributes": [
+        "height",
+        "href",
+        "systemLanguage",
+        "width",
+        "x",
+        "xlink_href",
+        "y"
+      ]
     },
     "view": {
       "attributes": [
@@ -962,6 +988,10 @@
         "viewTarget",
         "zoomAndPan"
       ]
+    },
+    "vkern": {
+      "interfaceName": "SVGVKernElement",
+      "attributes": ["g1", "g2", "k", "u1", "u2"]
     }
   },
   "mathml": {},
