@@ -577,11 +577,7 @@
         "rel",
         "systemLanguage",
         "target",
-        "type",
-        "xlink_actuate",
-        "xlink_href",
-        "xlink_show",
-        "xlink_title"
+        "type"
       ]
     },
     "animate": {
@@ -614,7 +610,7 @@
     "clipPath": {"attributes": ["clipPathUnits", "systemLanguage"]},
     "cursor": {
       "interfaceName": "SVGCursorElement",
-      "attributes": ["href", "systemLanguage", "x", "xlink_href", "y"]
+      "attributes": ["href", "systemLanguage", "x", "y"]
     },
     "defs": {
       "attributes": ["systemLanguage"]
@@ -670,8 +666,7 @@
       "attributes": [
         {"crossorigin": "crossOrigin"},
         "href",
-        "preserveAspectRatio",
-        "xlink_href"
+        "preserveAspectRatio"
       ]
     },
     "feMergeNode": {"attributes": [{"in": "in1"}]},
@@ -718,7 +713,6 @@
         "primitiveUnits",
         "width",
         "x",
-        "xlink_href",
         "y"
       ]
     },
@@ -781,8 +775,7 @@
     },
     "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
     "font-face-uri": {
-      "interfaceName": "SVGFontFaceUriElement",
-      "attributes": ["xlink_href"]
+      "interfaceName": "SVGFontFaceUriElement"
     },
     "foreignObject": {
       "attributes": ["height", "systemLanguage", "width", "x", "y"]
@@ -807,7 +800,7 @@
     },
     "glyphRef": {
       "interfaceName": "SVGGlyphRefElement",
-      "attributes": ["dx", "dy", "format", "glyphRef", "x", "xlink_href", "y"]
+      "attributes": ["dx", "dy", "format", "glyphRef", "x", "y"]
     },
     "hkern": {
       "interfaceName": "SVGHKernElement",
@@ -823,7 +816,6 @@
         "systemLanguage",
         "width",
         "x",
-        "xlink_href",
         "y"
       ]
     },
@@ -836,7 +828,6 @@
         "spreadMethod",
         "x1",
         "x2",
-        "xlink_href",
         "y1",
         "y2"
       ]
@@ -873,7 +864,7 @@
         "vert-origin-y"
       ]
     },
-    "mpath": {"attributes": ["href", "xlink_href"]},
+    "mpath": {"attributes": ["href"]},
     "path": {"attributes": ["d", "systemLanguage"]},
     "pattern": {
       "attributes": [
@@ -885,7 +876,6 @@
         "systemLanguage",
         "width",
         "x",
-        "xlink_href",
         "y"
       ]
     },
@@ -902,14 +892,13 @@
         "gradientUnits",
         "href",
         "r",
-        "spreadMethod",
-        "xlink_href"
+        "spreadMethod"
       ]
     },
     "rect": {
       "attributes": ["height", "systemLanguage", "rx", "ry", "width", "x", "y"]
     },
-    "script": {"attributes": ["href", "type", "xlink_href"]},
+    "script": {"attributes": ["href", "type"]},
     "set": {"attributes": ["href", "systemLanguage", "to"]},
     "stop": {"attributes": ["offset", "stop-color", "stop-opacity"]},
     "style": {"attributes": ["media", "title", "type"]},
@@ -950,13 +939,12 @@
         "side",
         "spacing",
         "startOffset",
-        "systemLanguage",
-        "xlink_href"
+        "systemLanguage"
       ]
     },
     "tref": {
       "interfaceName": "SVGTRefElement",
-      "attributes": ["systemLanguage", "xlink_href"]
+      "attributes": ["systemLanguage"]
     },
     "tspan": {
       "attributes": [
@@ -971,15 +959,7 @@
       ]
     },
     "use": {
-      "attributes": [
-        "height",
-        "href",
-        "systemLanguage",
-        "width",
-        "x",
-        "xlink_href",
-        "y"
-      ]
+      "attributes": ["height", "href", "systemLanguage", "width", "x", "y"]
     },
     "view": {
       "attributes": [
