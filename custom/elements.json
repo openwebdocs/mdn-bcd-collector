@@ -585,6 +585,7 @@
         {"dur": "getSimpleDuration"},
         "attributeName",
         "attributeType",
+        "fill",
         "from",
         "href",
         "repeatCount",
@@ -595,6 +596,7 @@
     "animateMotion": {
       "attributes": [
         "calcMode",
+        "fill",
         "href",
         "keyPoints",
         "origin",
@@ -604,9 +606,17 @@
       ]
     },
     "animateTransform": {
-      "attributes": ["by", "from", "href", "systemLanguage", "to", "type"]
+      "attributes": [
+        "by",
+        "fill",
+        "from",
+        "href",
+        "systemLanguage",
+        "to",
+        "type"
+      ]
     },
-    "circle": {"attributes": ["cx", "cy", "r", "systemLanguage"]},
+    "circle": {"attributes": ["cx", "cy", "fill", "r", "systemLanguage"]},
     "clipPath": {"attributes": ["clipPathUnits", "systemLanguage"]},
     "cursor": {
       "interfaceName": "SVGCursorElement",
@@ -615,7 +625,9 @@
     "defs": {
       "attributes": ["systemLanguage"]
     },
-    "ellipse": {"attributes": ["cx", "cy", "rx", "ry", "systemLanguage"]},
+    "ellipse": {
+      "attributes": ["cx", "cy", "fill", "rx", "ry", "systemLanguage"]
+    },
     "feBlend": {"attributes": [{"in": "in1"}, "in2", "mode"]},
     "feColorMatrix": {"attributes": [{"in": "in1"}, "type", "values"]},
     "feComponentTransfer": {"attributes": [{"in": "in1"}]},
@@ -865,7 +877,7 @@
       ]
     },
     "mpath": {"attributes": ["href"]},
-    "path": {"attributes": ["d", "systemLanguage"]},
+    "path": {"attributes": ["d", "fill", "systemLanguage"]},
     "pattern": {
       "attributes": [
         "height",
@@ -879,8 +891,8 @@
         "y"
       ]
     },
-    "polygon": {"attributes": ["points", "systemLanguage"]},
-    "polyline": {"attributes": ["points", "systemLanguage"]},
+    "polygon": {"attributes": ["fill", "points", "systemLanguage"]},
+    "polyline": {"attributes": ["fill", "points", "systemLanguage"]},
     "radialGradient": {
       "attributes": [
         "cx",
@@ -896,10 +908,19 @@
       ]
     },
     "rect": {
-      "attributes": ["height", "systemLanguage", "rx", "ry", "width", "x", "y"]
+      "attributes": [
+        "fill",
+        "height",
+        "systemLanguage",
+        "rx",
+        "ry",
+        "width",
+        "x",
+        "y"
+      ]
     },
     "script": {"attributes": ["href", "type"]},
-    "set": {"attributes": ["href", "systemLanguage", "to"]},
+    "set": {"attributes": ["fill", "href", "systemLanguage", "to"]},
     "stop": {"attributes": ["offset", "stop-color", "stop-opacity"]},
     "style": {"attributes": ["media", "title", "type"]},
     "svg": {
@@ -924,6 +945,7 @@
       "attributes": [
         "dx",
         "dy",
+        "fill",
         "lengthAdjust",
         "rotate",
         "systemLanguage",
@@ -934,6 +956,7 @@
     },
     "textPath": {
       "attributes": [
+        "fill",
         "href",
         "path",
         "side",
@@ -944,12 +967,13 @@
     },
     "tref": {
       "interfaceName": "SVGTRefElement",
-      "attributes": ["systemLanguage"]
+      "attributes": ["fill", "systemLanguage"]
     },
     "tspan": {
       "attributes": [
         "dx",
         "dy",
+        "fill",
         "lengthAdjust",
         "rotate",
         "systemLanguage",
