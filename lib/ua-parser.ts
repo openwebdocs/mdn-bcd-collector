@@ -97,6 +97,10 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
         : ua.engine.version;
     }
   } else if (os === "ios") {
+    if (data.browser.id === "webkit") {
+      data.browser = {id: "webview", name: "WebView"};
+    }
+
     data.browser.id += "_ios";
     data.browser.name += " iOS";
 
