@@ -79,8 +79,8 @@ interface Counter {
 };
 
 partial interface CSSStyleDeclaration {
-  CSSValue getPropertyCSSValue(DOMString property);
-  iterable<CSSNumericValue>;
+  // non-standard in WebKit
+  CSSValue getPropertyCSSValue(DOMString property); 
 };
 
 // Non-standard stuff
