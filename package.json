@@ -123,7 +123,7 @@
     "jsonc-parser": "^3.3.1",
     "listr2": "8.2.3",
     "minimatch": "10.0.1",
-    "mocha": "10.6.0",
+    "mocha": "10.7.0",
     "node-fetch": "3.3.2",
     "nodemon": "3.1.4",
     "open-cli": "8.0.0",
