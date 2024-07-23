@@ -57,9 +57,9 @@
       }
     },
     "Promise": {
-      "__comment": "Remove when https://tc39.es/proposal-promise-with-resolvers/#sec-promise.withResolvers is merged into the main ECMAScript spec.",
+      "__comment": "Remove when https://tc39.es/proposal-promise-try and https://tc39.es/proposal-promise-with-resolvers/#sec-promise.withResolvers are merged into the main ECMAScript spec.",
       "members": {
-        "static": ["withResolvers"]
+        "static": ["try", "withResolvers"]
       }
     },
     "RegExp": {
