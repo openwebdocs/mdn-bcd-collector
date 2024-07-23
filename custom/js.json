@@ -81,7 +81,7 @@
     "Uint8Array": {
       "__comment": "Remove members when https://tc39.es/proposal-arraybuffer-base64/spec/ is merged into the main ECMAScript spec.",
       "members": {
-        "instance": ["toBase64", "toHex", "setFromBase64", "setFromHex" ],
+        "instance": ["toBase64", "toHex", "setFromBase64", "setFromHex"],
         "static": ["fromBase64", "fromHex"]
       }
     },
