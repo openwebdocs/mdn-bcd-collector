@@ -78,6 +78,13 @@
     "String": {
       "members": {"instance": ["contains", "length"]}
     },
+    "Uint8Array": {
+      "__comment": "Remove members when https://tc39.es/proposal-arraybuffer-base64/spec/ is merged into the main ECMAScript spec.",
+      "members": {
+        "instance": ["toBase64", "toHex", "setFromBase64", "setFromHex"],
+        "static": ["fromBase64", "fromHex"]
+      }
+    },
     "Intl": {
       "__comment": "XXX Intl is defined in another specification that the es-scraper does not load data from.",
       "members": {
