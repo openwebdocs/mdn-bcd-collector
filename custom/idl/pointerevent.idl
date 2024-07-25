@@ -1,0 +1,5 @@
+// Remove when https://github.com/w3c/pointerevents/pull/495 is merged
+
+partial interface PointerEvent {
+    readonly attribute unsigned long persistentDeviceId;
+};
