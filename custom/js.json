@@ -304,23 +304,18 @@
         "static": [
           "add",
           "compare",
-          "epochMicroseconds",
           "epochMilliseconds",
           "epochNanoseconds",
-          "epochSeconds",
           "equals",
           "from",
-          "fromEpochMicroseconds",
           "fromEpochMilliseconds",
           "fromEpochNanoseconds",
-          "fromEpochSeconds",
           "round",
           "since",
           "subtract",
           "toJSON",
           "toLocaleString",
           "toString",
-          "toZonedDateTime",
           "toZonedDateTimeISO",
           "until",
           "valueOf"
@@ -331,12 +326,9 @@
       "members": {
         "static": [
           "instant",
-          "plainDate",
           "plainDateISO",
-          "plainDateTime",
           "plainDateTimeISO",
-          "timeZone",
-          "zonedDateTime",
+          "timeZoneId",
           "zonedDateTimeISO"
         ]
       }
@@ -346,7 +338,7 @@
       "members": {
         "static": [
           "add",
-          "calendar",
+          "calendarId",
           "compare",
           "day",
           "dayOfWeek",
@@ -377,7 +369,8 @@
           "weekOfYear",
           "with",
           "withCalendar",
-          "year"
+          "year",
+          "yearOfWeek"
         ]
       }
     },
@@ -386,7 +379,7 @@
       "members": {
         "static": [
           "add",
-          "calendar",
+          "calendarId",
           "compare",
           "day",
           "dayOfWeek",
@@ -415,9 +408,7 @@
           "toJSON",
           "toLocaleString",
           "toPlainDate",
-          "toPlainMonthDay",
           "toPlainTime",
-          "toPlainYearMonth",
           "toString",
           "toZonedDateTime",
           "until",
@@ -425,9 +416,9 @@
           "weekOfYear",
           "with",
           "withCalendar",
-          "withPlainDate",
           "withPlainTime",
-          "year"
+          "year",
+          "yearOfWeek"
         ]
       }
     },
@@ -435,7 +426,7 @@
       "ctor": {},
       "members": {
         "static": [
-          "calendar",
+          "calendarId",
           "day",
           "equals",
           "from",
@@ -455,7 +446,6 @@
       "members": {
         "static": [
           "add",
-          "calendar",
           "compare",
           "equals",
           "from",
@@ -471,9 +461,7 @@
           "subtract",
           "toJSON",
           "toLocaleString",
-          "toPlainDateTime",
           "toString",
-          "toZonedDateTime",
           "until",
           "valueOf",
           "with"
@@ -485,7 +473,7 @@
       "members": {
         "static": [
           "add",
-          "calendar",
+          "calendarId",
           "compare",
           "daysInMonth",
           "daysInYear",
@@ -517,12 +505,10 @@
         "static": [
           "from",
           "getInstantFor",
-          "getNextTransition",
           "getOffsetNanosecondsFor",
           "getOffsetStringFor",
           "getPlainDateTimeFor",
           "getPossibleInstantsFor",
-          "getPreviousTransition",
           "id",
           "toJSON",
           "toString"
@@ -534,7 +520,7 @@
       "members": {
         "static": [
           "add",
-          "calendar",
+          "calendarId",
           "compare",
           "day",
           "dayOfWeek",
@@ -542,15 +528,14 @@
           "daysInMonth",
           "daysInWeek",
           "daysInYear",
-          "epochMicroseconds",
           "epochMilliseconds",
           "epochNanoseconds",
-          "epochSeconds",
           "equals",
           "era",
           "eraYear",
           "from",
           "getISOFields",
+          "getTimeZoneTransition",
           "hour",
           "hoursInDay",
           "inLeapYear",
@@ -568,25 +553,23 @@
           "since",
           "startOfDay",
           "subtract",
-          "timeZone",
+          "timeZoneId",
           "toInstant",
           "toJSON",
           "toLocaleString",
           "toPlainDate",
           "toPlainDateTime",
-          "toPlainMonthDay",
           "toPlainTime",
-          "toPlainYearMonth",
           "toString",
           "until",
           "valueOf",
           "weekOfYear",
           "with",
           "withCalendar",
-          "withPlainDate",
           "withPlainTime",
           "withTimeZone",
-          "year"
+          "year",
+          "yearOfWeek"
         ]
       }
     }
