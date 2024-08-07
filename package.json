@@ -64,7 +64,7 @@
     "json-stable-stringify": "1.1.1",
     "marked": "^13.0.3",
     "marked-gfm-heading-id": "^4.0.1",
-    "marked-mangle": "^1.1.8",
+    "marked-mangle": "^1.1.9",
     "mermaid": "^10.9.1",
     "slugify": "1.6.6",
     "ts-node": "10.9.2",
