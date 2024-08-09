@@ -153,7 +153,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 marked.use(gfmHeadingId());
 
 marked.use({
-  useNewRenderer: true,
   renderer: {
     /**
      * Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
