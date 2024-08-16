@@ -1085,6 +1085,10 @@ api:
     __base: |-
       var stylesheet = reusableInstances.createStyleSheet('@font-face {font-family: somefont; src: url(somefont.ttf);}');
       var instance = stylesheet.cssRules.item(0);
+  CSSFontFeatureValuesMap:
+    __base: |-
+      <%api.CSSFontFeatureValuesRule:rule%>
+      var instance = rule.annotation;
   CSSFontFeatureValuesRule:
     __resources:
       - createStyleSheet
