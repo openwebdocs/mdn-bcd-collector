@@ -1,5 +1,124 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.2
+
+Released August 19, 2024
+
+### Test Changes
+
+#### Added
+
+- api.AudioContext.error_event
+- api.CSSFunctionRule
+- api.CSSMediaRule.matches
+- api.CSSPageDescriptors.page-orientation
+- api.CSSPageDescriptors.pageOrientation
+- api.CSSPositionTryDescriptors.position-area
+- api.CSSPositionTryDescriptors.positionArea
+- api.CSSSupportsRule.matches
+- api.InterestGroupBiddingAndScoringScriptRunnerGlobalScope.realTimeReporting
+- api.PointerEvent.persistentDeviceId
+- api.RealTimeReporting
+- css.properties.height.percentage
+- css.properties.height.size
+- css.properties.height.any
+- css.properties.interpolate-size
+- css.properties.max-height.percentage
+- css.properties.max-height.size
+- css.properties.max-height.any
+- css.properties.max-width.percentage
+- css.properties.max-width.size
+- css.properties.max-width.any
+- css.properties.min-height.percentage
+- css.properties.min-height.size
+- css.properties.min-height.any
+- css.properties.min-width.percentage
+- css.properties.min-width.size
+- css.properties.min-width.any
+- css.properties.position-area
+- css.properties.width.percentage
+- css.properties.width.size
+- css.properties.width.any
+- javascript.builtins.Uint8Array.fromBase64
+- javascript.builtins.Uint8Array.fromHex
+- javascript.builtins.Uint8Array.toBase64
+- javascript.builtins.Uint8Array.toHex
+- javascript.builtins.Uint8Array.setFromBase64
+- javascript.builtins.Uint8Array.setFromHex
+- javascript.builtins.Promise.try
+- javascript.builtins.Temporal.Now.timeZoneId
+- javascript.builtins.Temporal.PlainDate.calendarId
+- javascript.builtins.Temporal.PlainDate.yearOfWeek
+- javascript.builtins.Temporal.PlainDateTime.calendarId
+- javascript.builtins.Temporal.PlainDateTime.yearOfWeek
+- javascript.builtins.Temporal.PlainMonthDay.calendarId
+- javascript.builtins.Temporal.PlainYearMonth.calendarId
+- javascript.builtins.Temporal.ZonedDateTime.calendarId
+- javascript.builtins.Temporal.ZonedDateTime.getTimeZoneTransition
+- javascript.builtins.Temporal.ZonedDateTime.timeZoneId
+- javascript.builtins.Temporal.ZonedDateTime.yearOfWeek
+
+#### Removed
+
+- api.CanvasRenderingContext2D.scrollPathIntoView
+- api.CSSPageDescriptors.orientation
+- api.CSSPositionTryDescriptors.inset-area
+- api.CSSPositionTryDescriptors.insetArea
+- api.FontFaceSet.FontFaceSet
+- api.MLActivation
+- css.properties.inset-area
+- css.properties.masonry-auto-flow
+- css.properties.scroll-start
+- css.properties.scroll-start-block
+- css.properties.scroll-start-inline
+- css.properties.scroll-start-x
+- css.properties.scroll-start-y
+- javascript.builtins.Temporal.Instant.epochMicroseconds
+- javascript.builtins.Temporal.Instant.epochSeconds
+- javascript.builtins.Temporal.Instant.fromEpochMicroseconds
+- javascript.builtins.Temporal.Instant.fromEpochSeconds
+- javascript.builtins.Temporal.Instant.toZonedDateTime
+- javascript.builtins.Temporal.Now.plainDate
+- javascript.builtins.Temporal.Now.plainDateTime
+- javascript.builtins.Temporal.Now.timeZone
+- javascript.builtins.Temporal.Now.zonedDateTime
+- javascript.builtins.Temporal.PlainDate.calendar
+- javascript.builtins.Temporal.PlainDateTime.calendar
+- javascript.builtins.Temporal.PlainDateTime.toPlainMonthDay
+- javascript.builtins.Temporal.PlainDateTime.toPlainYearMonth
+- javascript.builtins.Temporal.PlainDateTime.withPlainDate
+- javascript.builtins.Temporal.PlainMonthDay.calendar
+- javascript.builtins.Temporal.PlainTime.calendar
+- javascript.builtins.Temporal.PlainTime.toPlainDateTime
+- javascript.builtins.Temporal.PlainTime.toZonedDateTime
+- javascript.builtins.Temporal.PlainYearMonth.calendar
+- javascript.builtins.Temporal.TimeZone.getNextTransition
+- javascript.builtins.Temporal.TimeZone.getPreviousTransition
+- javascript.builtins.Temporal.ZonedDateTime.calendar
+- javascript.builtins.Temporal.ZonedDateTime.epochMicroseconds
+- javascript.builtins.Temporal.ZonedDateTime.epochSeconds
+- javascript.builtins.Temporal.ZonedDateTime.timeZone
+- javascript.builtins.Temporal.ZonedDateTime.toPlainMonthDay
+- javascript.builtins.Temporal.ZonedDateTime.toPlainYearMonth
+- javascript.builtins.Temporal.ZonedDateTime.withPlainDate
+
+#### Changed
+
+- api.CSSFontFeatureValuesMap
+
+### Commits
+
+- Add custom test for CSSFontFeatureValuesMap ([#1747](https://github.com/openwebdocs/mdn-bcd-collector/pull/1747))
+- Update description on page ([#1746](https://github.com/openwebdocs/mdn-bcd-collector/pull/1746))
+- Add PointerEvent.deviceProperties ([#1692](https://github.com/openwebdocs/mdn-bcd-collector/pull/1692))
+- Update Temporal builtins ([#1710](https://github.com/openwebdocs/mdn-bcd-collector/pull/1710))
+- Add tests for Promise.try ([#1683](https://github.com/openwebdocs/mdn-bcd-collector/pull/1683))
+- Add Uint8Array additions ([#1684](https://github.com/openwebdocs/mdn-bcd-collector/pull/1684))
+- Update UA parser to handle WKWebView on iOS ([#1657](https://github.com/openwebdocs/mdn-bcd-collector/pull/1657))
+- Add SVG fill attribute ([#1656](https://github.com/openwebdocs/mdn-bcd-collector/pull/1656))
+- Remove xlink SVG attributes ([#1655](https://github.com/openwebdocs/mdn-bcd-collector/pull/1655))
+- Add "systemLanguage" SVG attribute to many SVG elements ([#1654](https://github.com/openwebdocs/mdn-bcd-collector/pull/1654))
+
 ## v10.12.1
 
 Released July 9, 2024
