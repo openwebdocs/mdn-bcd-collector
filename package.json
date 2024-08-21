@@ -108,7 +108,7 @@
     "chalk": "5.3.0",
     "chalk-template": "1.1.0",
     "cheerio": "^1.0.0",
-    "core-js": "^3.38.0",
+    "core-js": "^3.38.1",
     "ejs-lint": "github:RyanZim/EJS-Lint#7e7d5681ba8d2c768e15a3d77c84662a78ea8db1",
     "enquirer": "2.4.1",
     "es-scraper": "^0.0.13",
