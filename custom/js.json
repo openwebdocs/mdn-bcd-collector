@@ -65,6 +65,7 @@
     "RegExp": {
       "members": {
         "static": [
+          "escape",
           "input",
           "lastIndex",
           "lastMatch",
