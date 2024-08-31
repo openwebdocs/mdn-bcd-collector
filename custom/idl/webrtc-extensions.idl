@@ -15,7 +15,6 @@ partial interface RTCRtpTransceiver {
 partial dictionary RTCRtpEncodingParameters {
   unsigned long ptime;
   boolean adaptivePtime = false;
-  RTCRtpCodec codec;
 };
 
 partial dictionary RTCSetParameterOptions {
