@@ -23,7 +23,10 @@ const mergeMembers = (target, source) => {
   const targetMembers = new Set(target.members.map((m) => m.name));
   const sourceMembers = new Set();
   for (const member of source.members) {
-    if (targetMembers.has(member.name)) {
+    if (!member.name) {
+      // Constructors and other nameless members should just be added
+      sourceMembers.add(member);
+    } else if (targetMembers.has(member.name)) {
       const targetMember = target.members.find((m) => m.name);
       // Static members may have the same name as a non-static member.
       // If target has static member with same name, remove from target.

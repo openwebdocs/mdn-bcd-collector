@@ -1,0 +1,13 @@
+// https://github.com/whatwg/html/pull/9841 -- renamed to command attributes
+
+partial interface HTMLButtonElement {
+  attribute DOMString invokeaction;
+  attribute DOMString invoketarget;
+};
+
+[Exposed=Window]
+interface InvokeEvent {
+  constructor();
+  attribute DOMString invoker;
+  attribute DOMString action;
+};

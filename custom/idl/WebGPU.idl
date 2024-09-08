@@ -10,3 +10,13 @@ partial interface GPUComputePassEncoder {
 partial interface GPURenderPassEncoder {
   undefined writeTimestamp();
 };
+
+// Removed from the spec
+
+partial interface GPUAdapter {
+  undefined requestAdapterInfo();
+};
+
+partial interface GPUSupportedLimits {
+  attribute long maxInterStageShaderComponents;
+};

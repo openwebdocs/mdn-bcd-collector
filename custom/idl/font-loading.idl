@@ -3,3 +3,9 @@
 partial interface FontFace {
   attribute CSSOMString variant;
 };
+
+// Non-standard
+
+partial interface FontFaceSet {
+  constructor();
+};

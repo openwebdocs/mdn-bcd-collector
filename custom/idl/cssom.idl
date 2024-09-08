@@ -93,3 +93,10 @@ partial interface Document {
   readonly attribute FrozenArray<DOMString> styleSheetSets;
   undefined enableStyleSheetsForSet(DOMString? name);
 };
+
+// Moved to CSSStyleProperties in spec, but has not yet been moved in browser implementations
+
+[Exposed=Window]
+partial interface CSSStyleDeclaration {
+  [CEReactions] attribute [LegacyNullToEmptyString] CSSOMString cssFloat;
+};

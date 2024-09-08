@@ -1,0 +1,26 @@
+// Removed from the spec
+
+[Exposed=Window]
+interface SharedStorageOperation {};
+
+[Exposed=Window]
+interface SharedStorageRunOperation {
+  attribute any run;
+};
+
+[Exposed=Window]
+interface SharedStorageSelectURLOperation {
+  attribute any run;
+};
+
+[Exposed=Window]
+interface WindowSharedStorage {
+  attribute SharedStorageRunOperation run;
+  attribute SharedStorageSelectURLOperation selectURL;
+  attribute WorkletSharedStorage worklet;
+};
+
+[Exposed=Window]
+interface WorkletSharedStorage {
+  maplike<DOMString, any>;
+};
