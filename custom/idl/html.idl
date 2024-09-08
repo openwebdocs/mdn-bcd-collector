@@ -273,3 +273,9 @@ partial interface HTMLMediaElement {
 partial interface HTMLAnchorElement {
   [CEReactions]attribute DOMString hrefTranslate;
 };
+
+// Non-standard
+
+partial interface HTMLElement {
+  attribute HTMLAnchorElement anchorElement;
+};

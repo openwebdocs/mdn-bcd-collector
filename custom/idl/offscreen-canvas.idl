@@ -1,0 +1,3 @@
+partial interface OffscreenCanvasRenderingContext2D {
+  undefined commit();
+};
