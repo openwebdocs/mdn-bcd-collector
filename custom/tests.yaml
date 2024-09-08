@@ -472,6 +472,41 @@ api:
         return {result: false, message: 'Audio context is not available'};
       }
       var instance = reusableInstances.audioContext.destination;
+  AudioEncoder:
+    __base: |-
+      if (!('AudioEncoder' in self)) {
+        return {result: false, message: 'AudioEncoder is not defined'}
+      }
+      var instance = new AudioEncoder({
+        output: function(){},
+        error: function(){}
+      });
+    configure:
+      __additional:
+        bitrateMode: "return bcd.testOptionParam(instance, 'configure', 'bitrateMode', 'constant', {bitrate: 320000, codec: 'mp3', numberOfChannels: 2, sampleRate: 44100});"
+        opus: "return bcd.testOptionParam(instance, 'configure', 'opus', {}, {bitrate: 320000, codec: 'mp3', numberOfChannels: 2, sampleRate: 44100});"
+        opus.opus_application: |-
+          function configure(opus) {
+            instance.configure({
+              bitrate: 320000,
+              codec: 'mp3',
+              numberOfChannels: 2,
+              sampleRate: 44100,
+              opus: opus
+            });
+          }
+          return bcd.testOptionParam(configure, null, 'application', 'voip');
+        opus.opus_signal: |-
+          function configure(opus) {
+            instance.configure({
+              bitrate: 320000,
+              codec: 'mp3',
+              numberOfChannels: 2,
+              sampleRate: 44100,
+              opus: opus
+            });
+          }
+          return bcd.testOptionParam(configure, null, 'signal', 'voice');
   AudioListener:
     __resources:
       - audioContext
