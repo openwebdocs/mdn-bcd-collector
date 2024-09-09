@@ -1,5 +1,124 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.3
+
+Released September 8, 2024
+
+### Test Changes
+
+#### Added
+
+- api.AudioEncoder.configure.bitrateMode
+- api.AudioEncoder.configure.opus
+- api.CrashReportBody.stack
+- api.CSSStyleDeclaration.cssFloat
+- api.FontFaceSet.FontFaceSet
+- api.GPUAdapter.requestAdapterInfo
+- api.HTMLButtonElement.invokeaction
+- api.HTMLButtonElement.invoketarget
+- api.HTMLElement.anchorElement
+- api.HTMLElement.autocorrect
+- api.HTMLFencedFrameElement.sandbox
+- api.InvokeEvent
+- api.MLContext.opSupportLimits
+- api.Navigator.getInterestGroupAdAuctionData
+- api.Navigator.getUserMedia
+- api.OffscreenCanvasRenderingContext2D.commit
+- api.PublicKeyCredential.signalAllAcceptedCredentials_static
+- api.PublicKeyCredential.signalCurrentUserDetails_static
+- api.PublicKeyCredential.signalUnknownCredential_static
+- api.SharedStorage.@@asyncIterator
+- api.SharedStorage.createWorklet
+- api.SharedStorage.entries
+- api.SharedStorage.get
+- api.SharedStorage.keys
+- api.SharedStorage.length
+- api.SharedStorage.remainingBudget
+- api.SharedStorage.run
+- api.SharedStorage.selectURL
+- api.SharedStorage.values
+- api.SharedStorage.worklet
+- api.SharedStorageOperation
+- api.SharedStorageRunOperation
+- api.SharedStorageSelectURLOperation
+- api.Viewport
+- api.Window.viewport
+- api.WorkletSharedStorage.@@iterator
+- api.WorkletSharedStorage.clear
+- api.WorkletSharedStorage.delete
+- api.WorkletSharedStorage.forEach
+- api.WorkletSharedStorage.has
+- api.WorkletSharedStorage.set
+- api.WorkletSharedStorage.size
+- css.properties.background-repeat-block
+- css.properties.background-repeat-inline
+- css.properties.background-repeat-x
+- css.properties.background-repeat-y
+- css.properties.container-type.scroll-state
+- css.properties.display.masonry
+- css.properties.display.inline-masonry
+- css.properties.grid-auto-flow.row-reverse
+- css.properties.grid-auto-flow.column-reverse
+- css.properties.grid-auto-flow.wrap-reverse
+- css.properties.line-fit-edge
+- css.properties.masonry-auto-tracks
+- css.properties.masonry-direction
+- css.properties.masonry-fill
+- css.properties.masonry-flow
+- css.properties.masonry-template-areas
+- css.properties.masonry-template-tracks
+- css.properties.masonry-track
+- css.properties.masonry-track-end
+- css.properties.masonry-track-start
+- css.properties.position-anchor.auto
+- css.properties.text-box
+- css.properties.text-box-edge.auto
+- css.properties.text-box-trim.trim-start
+- css.properties.text-box-trim.trim-end
+- css.properties.text-box-trim.trim-both
+- css.properties.view-transition-group
+- css.selectors.state
+- javascript.builtins.RegExp.escape
+
+#### Removed
+
+- api.FencedFrameConfig.containerHeight
+- api.FencedFrameConfig.containerWidth
+- api.FencedFrameConfig.contentHeight
+- api.FencedFrameConfig.contentWidth
+- api.WindowSharedStorage.createWorklet
+- api.WorkletSharedStorage.@@asyncIterator
+- api.WorkletSharedStorage.length
+- api.WorkletSharedStorage.remainingBudget
+- css.properties.-webkit-initial-letter
+- css.properties.height.percentage
+- css.properties.max-height.percentage
+- css.properties.max-width.percentage
+- css.properties.min-height.percentage
+- css.properties.min-width.percentage
+- css.properties.text-box-edge.leading
+- css.properties.text-box-edge.text
+- css.properties.text-box-edge.cap
+- css.properties.text-box-edge.ex
+- css.properties.text-box-edge.ideographic
+- css.properties.text-box-edge.ideographic-ink
+- css.properties.text-box-edge.alphabetic
+- css.properties.text-box-trim.start
+- css.properties.text-box-trim.end
+- css.properties.text-box-trim.both
+- css.properties.width.percentage
+
+#### Changed
+
+- api.AudioEncoder
+
+### Commits
+
+- Add IDL for several missing features ([#1795](https://github.com/openwebdocs/mdn-bcd-collector/pull/1795))
+- Add custom tests for AudioEncoder.configure parameters ([#1794](https://github.com/openwebdocs/mdn-bcd-collector/pull/1794))
+- Add RegExp.escape ([#1764](https://github.com/openwebdocs/mdn-bcd-collector/pull/1764))
+- Remove -webkit-initial-letter ([#1763](https://github.com/openwebdocs/mdn-bcd-collector/pull/1763))
+
 ## v10.12.2
 
 Released August 19, 2024
