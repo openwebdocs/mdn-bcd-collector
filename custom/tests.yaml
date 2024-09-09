@@ -3132,6 +3132,13 @@ api:
         <%api.CanvasRenderingContext2D:ctx%>
         instance = ctx.createImageData(16, 16);
       }
+    __additional:
+      ImageData.settings_parameter: |-
+        if (!('ImageData' in self)) {
+          return {result: false, message: 'ImageData is not defined'}
+        }
+        instance = new ImageData(16, 16, { colorSpace: "display-p3" });
+        return instance.colorSpace == "display-p3";
   InkPresenter:
     __base: |-
       if (!('ink' in navigator)) {
