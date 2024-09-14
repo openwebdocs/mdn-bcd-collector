@@ -1,5 +1,0 @@
-// Removed from the spec
-
-partial interface InkPresenter {
-  attribute boolean expectedImprovement;
-};
