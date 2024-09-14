@@ -450,7 +450,6 @@
     "mask-origin": {
       "__values": ["content", "padding", "border"]
     },
-    "masonry": {},
     "max-block-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)"
