@@ -310,7 +310,10 @@ const compileCustomTest = async (
 
     try {
       // Use Prettier to format code
-      code = await prettier.format(code, {parser: "babel"});
+      code = await prettier.format(code, {
+        parser: "babel",
+        trailingComma: "none",
+      });
     } catch (e) {
       if (e instanceof SyntaxError) {
         const errorMsg = `Test is malformed: ${e.message}`;
