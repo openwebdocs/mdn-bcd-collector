@@ -644,7 +644,7 @@ api:
             return {result: false, message: 'instance.decodeAudioData is not defined'};
           }
           var value = instance.decodeAudioData(new ArrayBuffer());
-          return 'then' in value;
+          return !!value && 'then' in value;
   BatteryManager:
     __base: |-
       if (!('getBattery' in navigator)) {
@@ -1384,7 +1384,7 @@ api:
             return {result: false, message: 'Promises are not supported'};
           }
           var value = document.exitFullscreen();
-          return 'then' in value;
+          return !!value && 'then' in value;
   DocumentFragment:
     __base: |-
       if (!('createDocumentFragment' in document)) {
@@ -1632,7 +1632,7 @@ api:
             return {result: false, message: 'instance.requestFullscreen is not defined'};
           }
           var value = instance.requestFullscreen();
-          return 'then' in value;
+          return !!value && 'then' in value;
     requestPointerLock:
       __additional:
         options_unadjustedMovement_parameter: return bcd.testOptionParam(instance, 'requestFullscreen', 'unadjustedMovement', false);
@@ -2864,7 +2864,7 @@ api:
           bcd.addCleanup(function() {
             instance.pause();
           });
-          return 'then' in value;
+          return !!value && 'then' in value;
   HTMLMenuElement:
     __base: var instance = document.createElement('menu');
     __test: return bcd.testObjectName(instance, 'HTMLMenuElement');
@@ -3585,7 +3585,7 @@ api:
             return {result: false, message: 'instance.startRendering is not defined'};
           }
           var value = instance.startRendering();
-          return 'then' in value;
+          return !!value && 'then' in value;
   OscillatorNode:
     __resources:
       - audioContext
@@ -4331,7 +4331,7 @@ api:
             return {result: false, message: 'instance.addIceCandidate is not defined'};
           }
           var value = instance.addIceCandidate(candidate);
-          return 'then' in value;
+          return !!value && 'then' in value;
     addTransceiver:
       __additional:
         init_direction_parameter: |-
@@ -4357,7 +4357,7 @@ api:
             return {result: false, message: 'instance.createAnswer is not defined'};
           }
           var value = instance.createAnswer();
-          return 'then' in value;
+          return !!value && 'then' in value;
     createOffer:
       __additional:
         returns_promise: |-
@@ -4365,7 +4365,7 @@ api:
             return {result: false, message: 'instance.createOffer is not defined'};
           }
           var value = instance.createOffer();
-          return 'then' in value;
+          return !!value && 'then' in value;
     getStats:
       __additional:
         returns_promise: |-
@@ -4373,7 +4373,7 @@ api:
             return {result: false, message: 'instance.getStats is not defined'};
           }
           var value = instance.getStats();
-          return 'then' in value;
+          return !!value && 'then' in value;
     setLocalDescription:
       __additional:
         description_parameter_optional: |-
