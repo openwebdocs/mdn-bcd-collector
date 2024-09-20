@@ -3805,7 +3805,14 @@ api:
           function measure(options) {
             instance.measure('foo', options);
           }
-          return bcd.testOptionParam(measure, null, 'detail', 'bar', {'start': 0});
+          try {
+            return bcd.testOptionParam(measure, null, 'detail', 'bar', {'start': 0});
+          } catch(e) {
+            if (e instanceof SyntaxError) {
+              return {result: false, message: e.message}
+            }
+            return e;
+          }
         returns_performancemeasure: return !!instance.measure('foo');
   PerformanceEntry:
     __base: |-
