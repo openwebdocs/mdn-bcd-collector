@@ -4298,7 +4298,7 @@ api:
       }
       var instance = new RTCDTMFToneChangeEvent('tonechange', {tone: ''});
   RTCIceCandidate:
-    __base: "var instance = new RTCIceCandidate({candidate: 'candidate:4234997325 1 udp 2043278322 192.168.0.56 44323 typ host', sdpMid: ''});"
+    __base: "var instance = new (self.RTCIceCandidate || self.mozRTCIceCandidate)({candidate: 'candidate:4234997325 1 udp 2043278322 192.168.0.56 44323 typ host', sdpMid: ''});"
   RTCIdentityAssertion:
     __base: |-
       <%api.RTCPeerConnection:rpc%>
@@ -4309,7 +4309,7 @@ api:
   RTCPeerConnection:
     __base: |-
       /* Firefox briefly defines RTCPeerConnection in older versions, but it is not a valid constructor until later versions. */
-      var constructor = window.mozRTCPeerConnection || window.RTCPeerConnection || window.webkitRTCPeerConnection;
+      var constructor = self.mozRTCPeerConnection || self.RTCPeerConnection || self.webkitRTCPeerConnection;
       if (!constructor) {
         return {result: false, message: '(moz/webkit)RTCPeerConnection is not defined or is falsy'};
       };
