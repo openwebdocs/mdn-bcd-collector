@@ -160,11 +160,11 @@ describe("build (common)", () => {
           },
         },
         result: {
-          test: '(function () {\n  if (!("createImageBitmap" in self)) {\n    return { result: false, message: "createImageBitmap is not defined" };\n  }\n  function create(options) {\n    return createImageBitmap(\n      document.getElementById("resource-image-black"),\n      options,\n    );\n  }\n  return true;\n})();\n',
+          test: '(function () {\n  if (!("createImageBitmap" in self)) {\n    return { result: false, message: "createImageBitmap is not defined" };\n  }\n  function create(options) {\n    return createImageBitmap(\n      document.getElementById("resource-image-black"),\n      options\n    );\n  }\n  return true;\n})();\n',
           resources: ["image-black"],
           additional: {
             options_colorSpaceConversion_parameter:
-              '(function () {\n  if (!("createImageBitmap" in self)) {\n    return { result: false, message: "createImageBitmap is not defined" };\n  }\n  function create(options) {\n    return createImageBitmap(\n      document.getElementById("resource-image-black"),\n      options,\n    );\n  }\n  return bcd.testOptionParam(create, null, "colorSpaceConversion", "default");\n})();\n',
+              '(function () {\n  if (!("createImageBitmap" in self)) {\n    return { result: false, message: "createImageBitmap is not defined" };\n  }\n  function create(options) {\n    return createImageBitmap(\n      document.getElementById("resource-image-black"),\n      options\n    );\n  }\n  return bcd.testOptionParam(create, null, "colorSpaceConversion", "default");\n})();\n',
           },
         },
       },
