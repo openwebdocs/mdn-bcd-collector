@@ -82,7 +82,6 @@ __resources:
         function(reports, observer) {
           var instance = reports.length && reports[0].body;
           clearTimeout(timeout);
-          console.log(instance);
           callback(instance);
           el.remove();
           observer.disconnect();
