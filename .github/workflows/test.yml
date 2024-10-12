@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - name: Linux
-            runs-on: ubuntu-latest
+            runs-on: ubuntu-22.04
           # - name: macOS
           #   runs-on: macos-latest
     name: Test (${{ matrix.name }})
