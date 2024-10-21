@@ -1,5 +1,73 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.5
+
+Released October 21, 2024
+
+### Test Changes
+
+#### Added
+
+- api.GPUCanvasContext.getConfiguration
+- css.properties.appearance.base
+- css.properties.masonry-slack.infinite
+- css.properties.offset-anchor.top
+- css.properties.offset-anchor.right
+- css.properties.offset-anchor.bottom
+- css.properties.offset-anchor.left
+- css.properties.offset-anchor.y-start
+- css.properties.offset-anchor.y-end
+- css.properties.offset-anchor.x-start
+- css.properties.offset-anchor.x-end
+- css.properties.offset-anchor.block-start
+- css.properties.offset-anchor.block-end
+- css.properties.offset-anchor.inline-start
+- css.properties.offset-anchor.inline-end
+- css.properties.offset-anchor.center
+- css.properties.offset-position.top
+- css.properties.offset-position.right
+- css.properties.offset-position.bottom
+- css.properties.offset-position.left
+- css.properties.offset-position.y-start
+- css.properties.offset-position.y-end
+- css.properties.offset-position.x-start
+- css.properties.offset-position.x-end
+- css.properties.offset-position.block-start
+- css.properties.offset-position.block-end
+- css.properties.offset-position.inline-start
+- css.properties.offset-position.inline-end
+- css.properties.offset-position.center
+- css.properties.text-wrap-style.avoid-orphans
+- css.selectors.search-text
+- css.selectors.has-slotted
+- css.selectors.xr-overlay
+
+#### Removed
+
+- css.properties.block-size.stretch
+- css.properties.block-size.fit-content
+- css.properties.block-size.contain
+- css.properties.inline-size.stretch
+- css.properties.inline-size.fit-content
+- css.properties.inline-size.contain
+- css.properties.max-block-size.stretch
+- css.properties.max-block-size.fit-content
+- css.properties.max-block-size.contain
+- css.properties.max-inline-size.stretch
+- css.properties.max-inline-size.fit-content
+- css.properties.max-inline-size.contain
+- css.properties.min-block-size.stretch
+- css.properties.min-block-size.fit-content
+- css.properties.min-block-size.contain
+- css.properties.min-inline-size.stretch
+- css.properties.min-inline-size.fit-content
+- css.properties.min-inline-size.contain
+
+### Commits
+
+- Use Ubuntu 22.04 in workflows ([#1884](https://github.com/openwebdocs/mdn-bcd-collector/pull/1884))
+- Remove leftover debugging
+
 ## v10.12.4
 
 Released September 24, 2024
