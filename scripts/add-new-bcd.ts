@@ -45,6 +45,7 @@ const template = {
       safari_ios: "mirror",
       samsunginternet_android: "mirror",
       webview_android: "mirror",
+      webview_ios: "mirror",
     },
     status: {experimental: true, standard_track: true, deprecated: false},
   },
