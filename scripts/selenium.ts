@@ -35,7 +35,7 @@ import {RESULTS_DIR} from "../lib/constants.js";
 import filterVersionsLib from "../lib/filter-versions.js";
 import getSecrets from "../lib/secrets.js";
 
-import type {BrowserName} from "@mdn/browser-compat-data";
+import type {BrowserName, BrowserStatement} from "@mdn/browser-compat-data";
 
 import "../lib/selenium-keepalive.js";
 
@@ -122,6 +122,10 @@ const earliestBrowserVersions = {
   safari: "5.1",
 };
 
+const isBeta = (browser: BrowserName, version: string): boolean => {
+  return (bcdBrowsers[browser] as BrowserStatement).releases[version]?.status === 'beta';
+}
+
 /**
  * Returns a formatted string representing the browser name, version, and operating system.
  * @param browser - The browser name.
@@ -134,6 +138,9 @@ const prettyName = (
   version: string,
   os: string,
 ): string => {
+  if (isBeta(browser, version)) {
+    version = `${version}-beta`;
+  };
   return `${bcdBrowsers[browser].name} ${version} on ${os}`;
 };
 
@@ -646,7 +653,10 @@ const run = async (
     const downloadUrl = await downloadEl.getAttribute("href");
 
     if (!ctx.testenv) {
-      const filename = path.basename(new URL(downloadUrl).pathname);
+      let filename = path.basename(new URL(downloadUrl).pathname);
+      if (isBeta(browser, version)) {
+        filename.replace(browser, `${browser}-beta`);
+      }
       log(task, `Downloading ${filename} ...`);
       const report = await (await fetch(downloadUrl)).buffer();
       await fs.writeFile(path.join(RESULTS_DIR, filename), report);
