@@ -122,6 +122,12 @@ const earliestBrowserVersions = {
   safari: "5.1",
 };
 
+/**
+ * Checks if a browser version has beta status.
+ * @param browser - The browser name.
+ * @param version - The browser version.
+ * @returns True if the version has beta status, false otherwise.
+ */
 const isBeta = (browser: BrowserName, version: string): boolean => {
   return (bcdBrowsers[browser] as BrowserStatement).releases[version]?.status === 'beta';
 }
@@ -140,7 +146,7 @@ const prettyName = (
 ): string => {
   if (isBeta(browser, version)) {
     version = `${version}-beta`;
-  };
+  }
   return `${bcdBrowsers[browser].name} ${version} on ${os}`;
 };
 
@@ -655,10 +661,10 @@ const run = async (
     if (!ctx.testenv) {
       let filename = path.basename(new URL(downloadUrl).pathname);
       if (isBeta(browser, version)) {
-        filename.replace(browser, `${browser}-beta`);
+        filename = filename.replace(browser, `${browser}-beta`);
       }
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).json();
+      const report = await (await fetch(downloadUrl)).json() as any;
       report['release'] = bcdBrowsers[browser].releases[version];
       await fs.writeFile(path.join(RESULTS_DIR, filename), JSON.stringify(report));
     }
