@@ -35,7 +35,7 @@ import {RESULTS_DIR} from "../lib/constants.js";
 import filterVersionsLib from "../lib/filter-versions.js";
 import getSecrets from "../lib/secrets.js";
 
-import type {BrowserName} from "@mdn/browser-compat-data";
+import type {BrowserName, BrowserStatement} from "@mdn/browser-compat-data";
 
 import "../lib/selenium-keepalive.js";
 
@@ -123,6 +123,16 @@ const earliestBrowserVersions = {
 };
 
 /**
+ * Checks if a browser version has beta status.
+ * @param browser - The browser name.
+ * @param version - The browser version.
+ * @returns True if the version has beta status, false otherwise.
+ */
+const isBeta = (browser: BrowserName, version: string): boolean => {
+  return (bcdBrowsers[browser] as BrowserStatement).releases[version]?.status === 'beta';
+}
+
+/**
  * Returns a formatted string representing the browser name, version, and operating system.
  * @param browser - The browser name.
  * @param version - The browser version.
@@ -134,6 +144,9 @@ const prettyName = (
   version: string,
   os: string,
 ): string => {
+  if (isBeta(browser, version)) {
+    version = `${version}-beta`;
+  }
   return `${bcdBrowsers[browser].name} ${version} on ${os}`;
 };
 
@@ -646,10 +659,14 @@ const run = async (
     const downloadUrl = await downloadEl.getAttribute("href");
 
     if (!ctx.testenv) {
-      const filename = path.basename(new URL(downloadUrl).pathname);
+      let filename = path.basename(new URL(downloadUrl).pathname);
+      if (isBeta(browser, version)) {
+        filename = filename.replace(browser, `${browser}-beta`);
+      }
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).buffer();
-      await fs.writeFile(path.join(RESULTS_DIR, filename), report);
+      const report = await (await fetch(downloadUrl)).json() as any;
+      report['release'] = bcdBrowsers[browser].releases[version];
+      await fs.writeFile(path.join(RESULTS_DIR, filename), JSON.stringify(report));
     }
   } finally {
     driver.quit().catch(() => {});
