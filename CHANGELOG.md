@@ -1,5 +1,25 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.6
+
+Released November 14, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Fence.notifyEvent
+- api.HTMLInputElement.alpha
+- api.HTMLInputElement.colorSpace
+- api.PerformanceResourceTiming.finalResponseHeadersStart
+- api.VideoFrame.flip
+- api.VideoFrame.rotation
+- api.XRSession.trackedSources
+
+### Commits
+
+- Add webview_ios to template for new compat data ([#1912](https://github.com/openwebdocs/mdn-bcd-collector/pull/1912))
+
 ## v10.12.5
 
 Released October 21, 2024
