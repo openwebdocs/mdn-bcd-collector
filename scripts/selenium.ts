@@ -658,8 +658,9 @@ const run = async (
         filename.replace(browser, `${browser}-beta`);
       }
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).buffer();
-      await fs.writeFile(path.join(RESULTS_DIR, filename), report);
+      const report = await (await fetch(downloadUrl)).json();
+      report['release'] = bcdBrowsers[browser].releases[version];
+      await fs.writeFile(path.join(RESULTS_DIR, filename), JSON.stringify(report));
     }
   } finally {
     driver.quit().catch(() => {});
