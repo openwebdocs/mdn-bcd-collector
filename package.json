@@ -61,7 +61,7 @@
     "fs-extra": "11.2.0",
     "highlight.js": "^11.10.0",
     "json-stable-stringify": "1.1.1",
-    "marked": "^15.0.0",
+    "marked": "^15.0.1",
     "marked-gfm-heading-id": "^4.1.1",
     "marked-mangle": "^1.1.10",
     "mermaid": "^11.4.0",
