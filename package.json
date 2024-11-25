@@ -101,7 +101,7 @@
     "@webref/idl": "3.56.1",
     "c8": "10.1.2",
     "chai": "4.5.0",
-    "chai-as-promised": "8.0.0",
+    "chai-as-promised": "8.0.1",
     "chai-fs": "2.0.0",
     "chai-http": "5.1.1",
     "chai-subset": "1.6.0",
