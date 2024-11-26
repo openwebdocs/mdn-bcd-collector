@@ -80,7 +80,7 @@ describe("parseUA", () => {
         browser: {id: "chrome", name: "Chrome"},
         version: "85",
         fullVersion: "85.0.4183.121",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: true,
       },
     );
@@ -96,7 +96,7 @@ describe("parseUA", () => {
         browser: {id: "chrome", name: "Chrome"},
         version: "1000.1",
         fullVersion: "1000.1.4183.121",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: false,
       },
     );
@@ -224,7 +224,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "14",
         fullVersion: "14.0",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: true,
       },
     );
@@ -240,7 +240,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "14",
         fullVersion: "14.1",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: true,
       },
     );
@@ -256,7 +256,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "15",
         fullVersion: "15.0",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: true,
       },
     );
@@ -272,7 +272,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "15.2",
         fullVersion: "15.2",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: true,
       },
     );
@@ -288,7 +288,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "15.3",
         fullVersion: "15.3",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: false,
       },
     );
@@ -304,7 +304,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "16.0",
         fullVersion: "16.0",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: false,
       },
     );
@@ -320,7 +320,7 @@ describe("parseUA", () => {
         browser: {id: "safari", name: "Safari"},
         version: "7.1",
         fullVersion: "7.1",
-        os: {name: "Mac OS", version: "10.15.6"},
+        os: {name: "macOS", version: "10.15.6"},
         inBcd: false,
       },
     );

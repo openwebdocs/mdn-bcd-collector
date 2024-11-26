@@ -11,7 +11,7 @@ import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
 } from "compare-versions";
-import uaParser from "ua-parser-js";
+import {UAParser} from "ua-parser-js";
 import {ParsedUserAgent} from "../types/types";
 
 /**
@@ -41,7 +41,7 @@ const getMajorMinorVersion = (version: string): string => {
  * @returns An object containing the parsed browser and operating system information.
  */
 const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
-  const ua = uaParser(userAgent);
+  const ua = UAParser(userAgent);
   const data: ParsedUserAgent = {
     browser: {id: "", name: ""},
     version: "",
@@ -66,10 +66,10 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     data.os.version = ua.os.version || "";
   }
 
+  data.browser.id = data.browser.id.replace("mobile_", "");
+  data.browser.name = data.browser.name.replace("Mobile ", "");
+
   switch (data.browser.id) {
-    case "mobile_safari":
-      data.browser.id = "safari";
-      break;
     case "oculus_browser":
       data.browser.id = "oculus";
       break;
@@ -92,9 +92,10 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
 
     if (ua.browser.name === "Android Browser") {
       // For early WebView Android, use the OS version
-      data.fullVersion = compareVersions(ua.os.version, "5.0", "<")
-        ? ua.os.version
-        : ua.engine.version;
+      data.fullVersion =
+        (compareVersions(ua.os.version || "0", "5.0", "<")
+          ? ua.os.version
+          : ua.engine.version) || "0";
     }
   } else if (os === "ios") {
     if (data.browser.id === "webkit") {
@@ -105,10 +106,10 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     data.browser.name += " iOS";
 
     // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines.md#safari-for-ios-versioning
-    data.fullVersion = ua.os.version;
+    data.fullVersion = ua.os.version || "0";
   }
 
-  data.fullVersion = data.fullVersion || ua.browser.version;
+  data.fullVersion = data.fullVersion || ua.browser.version || "0";
   data.version = getMajorMinorVersion(data.fullVersion);
 
   if (!(data.browser.id in browsers)) {
