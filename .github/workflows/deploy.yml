@@ -33,7 +33,7 @@ jobs:
           git push origin v${{steps.check.outputs.version}}
       - name: Deploy to Heroku
         if: steps.check.outputs.changed == 'true'
-        uses: akhileshns/heroku-deploy@v3.13.15
+        uses: akhileshns/heroku-deploy@v4
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
