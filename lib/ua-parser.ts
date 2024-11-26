@@ -66,10 +66,10 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     data.os.version = ua.os.version || "";
   }
 
+  data.browser.id = data.browser.id.replace("mobile_", "");
+  data.browser.name = data.browser.name.replace("Mobile ", "");
+
   switch (data.browser.id) {
-    case "mobile_safari":
-      data.browser.id = "safari";
-      break;
     case "oculus_browser":
       data.browser.id = "oculus";
       break;
