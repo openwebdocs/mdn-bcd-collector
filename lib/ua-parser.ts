@@ -11,7 +11,7 @@ import {
   compare as compareVersions,
   compareVersions as compareVersionsSort,
 } from "compare-versions";
-import uaParser from "ua-parser-js";
+import {UAParser} from "ua-parser-js";
 import {ParsedUserAgent} from "../types/types";
 
 /**
@@ -41,7 +41,7 @@ const getMajorMinorVersion = (version: string): string => {
  * @returns An object containing the parsed browser and operating system information.
  */
 const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
-  const ua = uaParser(userAgent);
+  const ua = UAParser(userAgent);
   const data: ParsedUserAgent = {
     browser: {id: "", name: ""},
     version: "",
