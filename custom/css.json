@@ -236,7 +236,7 @@
       }
     },
     "cursor": {
-      "__values": ["-moz-zoom", "-webkit-zoom", "inherit"],
+      "__values": ["-moz-zoom", "-webkit-zoom"],
       "__additional_values": {
         "url": "url(hand.cur), pointer",
         "url_positioning_syntax": "url(cursor_1.png) 4 12, auto"
