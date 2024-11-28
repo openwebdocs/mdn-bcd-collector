@@ -197,6 +197,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
           "grid-gap",
           "grid-column-gap",
           "grid-row-gap",
+          'word-wrap',
         ].includes(prop.name)
       ) {
         // Ignore any aliases defined in specs
