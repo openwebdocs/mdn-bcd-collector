@@ -64,7 +64,7 @@
     "marked": "^15.0.2",
     "marked-gfm-heading-id": "^4.1.1",
     "marked-mangle": "^1.1.10",
-    "mermaid": "^11.4.0",
+    "mermaid": "^11.4.1",
     "slugify": "1.6.6",
     "ts-node": "10.9.2",
     "ua-parser-js": "2.0.0",
