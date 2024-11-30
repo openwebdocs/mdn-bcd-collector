@@ -54,8 +54,7 @@
       "attributes": [
         {
           "nohref": "noHref",
-          "referrerpolicy": "referrerPolicy",
-          "tabindex": "tabIndex"
+          "referrerpolicy": "referrerPolicy"
         },
         "alt",
         "coords",
@@ -340,7 +339,6 @@
         {
           "codebase": "codeBase",
           "codetype": "codeType",
-          "tabindex": "tabIndex",
           "usemap": "useMap"
         },
         "archive",
