@@ -35,11 +35,6 @@
     "-webkit-margin-after": {},
     "-webkit-margin-before": {},
     "-webkit-marquee": {},
-    "-webkit-mask-box-image-outset": {},
-    "-webkit-mask-box-image-repeat": {},
-    "-webkit-mask-box-image-slice": {},
-    "-webkit-mask-box-image-source": {},
-    "-webkit-mask-box-image-width": {},
     "-webkit-mask-box-image": {},
     "-webkit-mask-composite": {},
     "-webkit-mask-position-x": {},
@@ -57,7 +52,6 @@
     "-webkit-rtl-ordering": {},
     "-webkit-tap-highlight-color": {},
     "-webkit-text-combine": {},
-    "-webkit-text-decoration-skip": {},
     "-webkit-text-decorations-in-effect": {},
     "-webkit-text-fill-color": {},
     "-webkit-text-security": {},
@@ -70,7 +64,6 @@
     "-webkit-transform-origin-y": {},
     "-webkit-transform-origin-z": {},
     "-webkit-user-drag": {},
-    "-webkit-user-modify": {},
     "alt": {},
     "animation-timing-function": {
       "__additional_values": {
@@ -243,7 +236,7 @@
       }
     },
     "cursor": {
-      "__values": ["-moz-zoom", "-webkit-zoom", "inherit"],
+      "__values": ["-moz-zoom", "-webkit-zoom"],
       "__additional_values": {
         "url": "url(hand.cur), pointer",
         "url_positioning_syntax": "url(cursor_1.png) 4 12, auto"
