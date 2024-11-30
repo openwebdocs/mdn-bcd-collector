@@ -1,5 +1,63 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.7
+
+Released November 30, 2024
+
+### Test Changes
+
+#### Added
+
+- api.Animation.overallProgress
+- api.Fence.disableUntrustedNetwork
+- api.GPUDevice.adapterInfo
+- api.HTMLAreaElement.attributionSrc
+- api.IdentityProvider.resolve_static
+- api.MLContext.createTensor
+- api.MLContext.dispatch
+- api.MLContext.readTensor
+- api.MLContext.writeTensor
+- api.MLTensor
+- api.PerformanceLongAnimationFrameTiming.paintTime
+- api.PerformanceLongAnimationFrameTiming.presentationTime
+- api.PerformancePaintTiming.paintTime
+- api.PerformancePaintTiming.presentationTime
+- api.SharedStorageWorkletGlobalScope.interestGroups
+- css.properties.block-step-insert.margin-box
+- css.properties.block-step-insert.padding-box
+- css.properties.block-step-insert.content-box
+- css.selectors.target-current
+- css.selectors.scroll-button
+
+#### Removed
+
+- api.Animation.progress
+- api.NavigateEvent.canTransition
+- api.NavigateEvent.restoreScroll
+- api.NavigateEvent.transitionWhile
+- css.properties.-webkit-mask-box-image-outset
+- css.properties.-webkit-mask-box-image-repeat
+- css.properties.-webkit-mask-box-image-slice
+- css.properties.-webkit-mask-box-image-source
+- css.properties.-webkit-mask-box-image-width
+- css.properties.-webkit-text-decoration-skip
+- css.properties.-webkit-user-modify
+- css.properties.block-step-insert.margin
+- css.properties.block-step-insert.padding
+- css.properties.cursor.inherit
+- css.properties.word-wrap
+- html.elements.area.tabindex
+- html.elements.object.tabindex
+
+### Commits
+
+- Update CSS tests ([#1997](https://github.com/openwebdocs/mdn-bcd-collector/pull/1997))
+- Remove tabIndex from &lt;area&gt; and &lt;object&gt; ([#1999](https://github.com/openwebdocs/mdn-bcd-collector/pull/1999))
+- Remove custom IDL for NavigateEvent ([#1989](https://github.com/openwebdocs/mdn-bcd-collector/pull/1989))
+- Use Dependabot to update GitHub Actions ([#1956](https://github.com/openwebdocs/mdn-bcd-collector/pull/1956))
+- Add overrides for font-variant-position ([#1748](https://github.com/openwebdocs/mdn-bcd-collector/pull/1748))
+- chore(workflows): use Node version from .nvmrc ([#1954](https://github.com/openwebdocs/mdn-bcd-collector/pull/1954))
+
 ## v10.12.6
 
 Released November 14, 2024
