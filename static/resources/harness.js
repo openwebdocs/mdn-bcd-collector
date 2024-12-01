@@ -14,9 +14,9 @@
  */
 
 /* global self, console, document, window, location, navigator, setTimeout, clearTimeout,
-          Promise, XMLHttpRequest, HTMLElement, MessageChannel, Event, MessageEvent,
-          Worker, SharedWorker, ServiceWorkerRegistration,
-          hljs, wasmFeatureDetect */
+          Promise, XMLHttpRequest, Element, HTMLElement, MessageChannel, Event,
+          MessageEvent, Worker, SharedWorker, ServiceWorkerRegistration, hljs,
+          wasmFeatureDetect */
 
 // This harness should work on as old browsers as possible and shouldn't depend
 // on any modern JavaScript features.
@@ -140,6 +140,19 @@
     return string.indexOf(search) !== -1;
   }
   global.stringIncludes = stringIncludes;
+
+  /**
+   * Checks if the element has a specific class
+   * @param {Element} element - The element to check
+   * @param {string} className - The name of the class to check for
+   * @returns {boolean} `true` if the class is applied to the element, otherwise `false`.
+   */
+  function hasClass(element, className) {
+    if (element.classList) {
+      return element.classList.contains(className);
+    }
+    return element.className.split(" ").includes(className);
+  }
 
   // End non-invasive polyfills
 
@@ -596,7 +609,7 @@
     if ("style" in div) {
       // Use .setProperty() if supported
       if ("setProperty" in div.style) {
-        div.style.setProperty(name, value);
+        div.style.setProperty(name, value, "");
         return div.style.getPropertyValue(name) == value;
       }
 
@@ -1670,7 +1683,7 @@
           var exportButtons = document.getElementsByClassName("export-button");
           for (var i = 0; i < exportButtons.length; i++) {
             var btn = exportButtons[i];
-            if (!btn.classList.contains("always-disabled")) {
+            if (!hasClass(btn, "always-disabled")) {
               btn.disabled = false;
             }
           }
