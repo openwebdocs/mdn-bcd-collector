@@ -14,9 +14,9 @@
  */
 
 /* global self, console, document, window, location, navigator, setTimeout, clearTimeout,
-          Promise, XMLHttpRequest, HTMLElement, MessageChannel, Event, MessageEvent,
-          Worker, SharedWorker, ServiceWorkerRegistration,
-          hljs, wasmFeatureDetect */
+          Promise, XMLHttpRequest, Element, HTMLElement, MessageChannel, Event,
+          MessageEvent, Worker, SharedWorker, ServiceWorkerRegistration, hljs,
+          wasmFeatureDetect */
 
 // This harness should work on as old browsers as possible and shouldn't depend
 // on any modern JavaScript features.
