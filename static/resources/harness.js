@@ -141,6 +141,19 @@
   }
   global.stringIncludes = stringIncludes;
 
+  /**
+   * Checks if the element has a specific class
+   * @param {Element} element - The element to check
+   * @param {string} className - The name of the class to check for
+   * @returns {boolean} `true` if the class is applied to the element, otherwise `false`.
+   */
+  function hasClass(element, className) {
+    if (element.classList) {
+      return element.classList.contains(className);
+    }
+    return element.className.split(" ").includes(className);
+  }
+
   // End non-invasive polyfills
 
   /**
@@ -596,7 +609,7 @@
     if ("style" in div) {
       // Use .setProperty() if supported
       if ("setProperty" in div.style) {
-        div.style.setProperty(name, value);
+        div.style.setProperty(name, value, "");
         return div.style.getPropertyValue(name) == value;
       }
 
@@ -1670,7 +1683,7 @@
           var exportButtons = document.getElementsByClassName("export-button");
           for (var i = 0; i < exportButtons.length; i++) {
             var btn = exportButtons[i];
-            if (!btn.classList.contains("always-disabled")) {
+            if (!hasClass(btn, "always-disabled")) {
               btn.disabled = false;
             }
           }
