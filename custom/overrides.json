@@ -1193,5 +1193,10 @@
   ["api.Window.location", "deno", "*", false],
   "Collector reporting earlier version than confirmed in https://bugzil.la/1887729",
   ["api.OffscreenCanvas.contextlost_event", "firefox", "105-124", false],
-  ["api.OffscreenCanvas.contextrestored_event", "firefox", "105-124", false]
+  ["api.OffscreenCanvas.contextrestored_event", "firefox", "105-124", false],
+  "https://github.com/mdn/browser-compat-data/pull/24386#discussion_r1792287025",
+  ["css.properties.display.flow", "chrome", "*", false],
+  ["css.properties.display.flow", "edge", "*", false],
+  ["css.properties.display.flow", "firefox", "*", false],
+  ["css.properties.display.flow", "safari", "*", false]
 ]
