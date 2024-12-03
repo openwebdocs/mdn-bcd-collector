@@ -3544,6 +3544,12 @@ api:
         data_text_parameter: |-
           // If `canShare` supports the parameter, `share` does
           return bcd.testOptionParam(instance, 'canShare', 'text', 'foo bar');
+  NavigationActivation:
+    __base: |-
+      if (!('navigation' in self)) {
+        return {result: false, message: 'navigation is not defined'}
+      }
+      var instance = navigation.activation;
   Node:
     __base: var instance = document;
   NodeList:
