@@ -14,7 +14,7 @@ This project is under the Apache License 2.0 license. See the LICENSE file for m
 
 ## Setup
 
-This project requires Node.js 18 through 20.
+This project requires Node.js 20.
 
 ```sh
 npm install
