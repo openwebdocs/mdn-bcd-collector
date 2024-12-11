@@ -1,5 +1,44 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.8
+
+Released December 11, 2024
+
+### Test Changes
+
+#### Added
+
+- api.CaptureController.forwardWheel
+- api.CaptureController.getSupportedZoomLevels
+- api.CaptureController.getZoomLevel
+- api.CaptureController.capturedzoomlevelchange_event
+- api.CaptureController.setZoomLevel
+- api.Sanitizer.allowAttribute
+- api.Sanitizer.allowElement
+- api.Sanitizer.removeAttribute
+- api.Sanitizer.removeElement
+- api.Sanitizer.removeUnsafe
+- api.Sanitizer.replaceElementWithChildren
+- api.Sanitizer.setComments
+- api.Sanitizer.setDataAttributes
+
+#### Removed
+
+- api.MLContext.compute
+- api.Sanitizer.getUnsafe
+- css.selectors.closed
+
+#### Changed
+
+- api.NavigationActivation
+
+### Commits
+
+- docs(README): update Node.js version number ([#2017](https://github.com/openwebdocs/mdn-bcd-collector/pull/2017))
+- Add custom test for NavigationActivation ([#2009](https://github.com/openwebdocs/mdn-bcd-collector/pull/2009))
+- Override `display: flow` ([#1975](https://github.com/openwebdocs/mdn-bcd-collector/pull/1975))
+- Improve harness.js compatibility with older browsers ([#2005](https://github.com/openwebdocs/mdn-bcd-collector/pull/2005))
+
 ## v10.12.7
 
 Released November 30, 2024
