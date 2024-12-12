@@ -506,7 +506,6 @@
     "offset-path": {
       "__additional_values": {
         "basic_shape": "circle(50px at 0 100px)",
-        "coord_box": "content-box",
         "path": "path('M20,20 L50,80 L80,20')",
         "ray": "ray(45deg closest-side contain)",
         "url": "url(test.png)"
