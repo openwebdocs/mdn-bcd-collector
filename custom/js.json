@@ -235,38 +235,6 @@
     "Temporal": {
       "__comment": "XXX Temporal is still in draft stages, so the es-scraper will not include its data."
     },
-    "Temporal.Calendar": {
-      "ctor": {},
-      "members": {
-        "static": [
-          "dateAdd",
-          "dateFromFields",
-          "dateUntil",
-          "day",
-          "dayOfWeek",
-          "dayOfYear",
-          "daysInMonth",
-          "daysInWeek",
-          "daysInYear",
-          "era",
-          "eraYear",
-          "fields",
-          "from",
-          "id",
-          "inLeapYear",
-          "mergeFields",
-          "month",
-          "monthCode",
-          "monthDayFromFields",
-          "monthsInYear",
-          "toJSON",
-          "toString",
-          "weekOfYear",
-          "year",
-          "yearMonthFromFields"
-        ]
-      }
-    },
     "Temporal.Duration": {
       "ctor": {},
       "members": {
@@ -329,6 +297,7 @@
           "instant",
           "plainDateISO",
           "plainDateTimeISO",
+          "plainTimeISO",
           "timeZoneId",
           "zonedDateTimeISO"
         ]
@@ -351,7 +320,6 @@
           "era",
           "eraYear",
           "from",
-          "getISOFields",
           "inLeapYear",
           "month",
           "monthCode",
@@ -392,7 +360,6 @@
           "era",
           "eraYear",
           "from",
-          "getISOFields",
           "hour",
           "inLeapYear",
           "microsecond",
@@ -450,7 +417,6 @@
           "compare",
           "equals",
           "from",
-          "getISOFields",
           "hour",
           "microsecond",
           "millisecond",
@@ -482,7 +448,6 @@
           "era",
           "eraYear",
           "from",
-          "getISOFields",
           "inLeapYear",
           "month",
           "monthCode",
@@ -497,22 +462,6 @@
           "valueOf",
           "with",
           "year"
-        ]
-      }
-    },
-    "Temporal.TimeZone": {
-      "ctor": {},
-      "members": {
-        "static": [
-          "from",
-          "getInstantFor",
-          "getOffsetNanosecondsFor",
-          "getOffsetStringFor",
-          "getPlainDateTimeFor",
-          "getPossibleInstantsFor",
-          "id",
-          "toJSON",
-          "toString"
         ]
       }
     },
@@ -535,7 +484,6 @@
           "era",
           "eraYear",
           "from",
-          "getISOFields",
           "getTimeZoneTransition",
           "hour",
           "hoursInDay",
