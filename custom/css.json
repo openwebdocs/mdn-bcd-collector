@@ -840,8 +840,8 @@
       "property": "background-blend-mode",
       "value": "normal"
     },
-    "calc-constant": {
-      "syntax": "<calc-constant>",
+    "calc-keyword": {
+      "syntax": "<calc-keyword>",
       "property": "width",
       "value": "calc(100px * pi)",
       "additionalValues": {
