@@ -3136,8 +3136,20 @@ api:
         if (!('ImageData' in self)) {
           return {result: false, message: 'ImageData is not defined'}
         }
-        instance = new ImageData(16, 16, { colorSpace: "display-p3" });
+        instance = new ImageData(new Uint8ClampedArray(4*16*16), 16, 16, { colorSpace: "display-p3" });
         return instance.colorSpace == "display-p3";
+      ImageData.settings_parameter.colorSpace_option: |-
+        if (!('ImageData' in self)) {
+          return {result: false, message: 'ImageData is not defined'}
+        }
+        instance = new ImageData(new Uint8ClampedArray(4*16*16), 16, 16, { colorSpace: "display-p3" });
+        return instance.colorSpace == "display-p3";
+      ImageData.settings_parameter.desynchronized_option: |-
+        if (!('ImageData' in self)) {
+          return {result: false, message: 'ImageData is not defined'}
+        }
+        instance = new ImageData(new Uint8ClampedArray(4*16*16), 16, 16, { desynchronized: true });
+        return instance.desynchronized == true;
   InkPresenter:
     __base: |-
       if (!('ink' in navigator)) {
