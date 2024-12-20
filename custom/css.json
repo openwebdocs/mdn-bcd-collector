@@ -740,7 +740,6 @@
     "::-webkit-search-results-button": {},
     "::-webkit-slider-runnable-track": {},
     "::-webkit-slider-thumb": {},
-    ":popover-open": {},
     "id": {
       "syntax": "#foo"
     },
