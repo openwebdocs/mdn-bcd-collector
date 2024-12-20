@@ -25,7 +25,7 @@ import type {Report, ReportMeta} from "../types/types.js";
  * @returns - The metadata object containing various properties extracted from the report.
  */
 const getReportMeta = (report: Report): ReportMeta => {
-  const json = stringify(report);
+  const json = stringify(report) as string;
   const buffer = Buffer.from(json);
 
   /* eslint-disable-next-line max-len */
