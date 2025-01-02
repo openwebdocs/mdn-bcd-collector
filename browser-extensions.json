@@ -1,6 +1,5 @@
 [
   {
-    "key": "nordpass",
     "name": "NordPass",
     "message": "NordPass performs polyfill-like transformations on navigator.credentials, affecting tests for the CredentialsContainer API.",
     "affectedTests": ["api.CredentialsContainer"],
