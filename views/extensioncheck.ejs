@@ -111,13 +111,11 @@ See the LICENSE file for copyright details
         return;
       }
 
-      var extensionsToCheck = Object.keys(extensions);
-      var remaining = extensionsToCheck.length;
+      var remaining = extensions.length;
 
       var foundExtensions = [];
 
-      extensionsToCheck.forEach(function(k) {
-        var extension = extensions[k];
+      extensions.forEach(function(extension) {
         checkExtension(extension, function(result) {
           if (result) {
             foundExtensions.push(k);
