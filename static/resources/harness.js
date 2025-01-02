@@ -1748,7 +1748,12 @@
 
         // Render code and support for reusable instances
         for (var key in reusableInstances.__sources) {
-          if (Object.prototype.hasOwnProperty.call(reusableInstances.__sources, key)) {
+          if (
+            Object.prototype.hasOwnProperty.call(
+              reusableInstances.__sources,
+              key
+            )
+          ) {
             renderReInstReportEl(reusableInstances.__sources[key], resultsEl);
           }
         }
