@@ -587,6 +587,23 @@
   }
 
   /**
+   * Converts a value to JSON-like representation.
+   * @param {any} value - The value to convert
+   * @returns {string} The jsonified valued
+   */
+  function jsonify(value) {
+    if ("JSON" in window && JSON.stringify) {
+      return JSON.stringify(value);
+    }
+
+    if (typeof value == "string") {
+      return '"' + value + '"';
+    }
+
+    return stringify(value);
+  }
+
+  /**
    * Test a CSS property for support
    * @param {string} name - The CSS property name
    * @param {string} [value] - The CSS property value
@@ -600,27 +617,69 @@
 
     // Use CSS.supports if available
     if ("CSS" in window && window.CSS.supports) {
-      return window.CSS.supports(name, value);
+      var result = window.CSS.supports(name, value);
+      return {
+        result: result,
+        message:
+          "CSS.supports(" +
+          jsonify(name) +
+          ", " +
+          jsonify(value) +
+          ") returned " +
+          jsonify(result)
+      };
     }
 
     // Use div.style fallback
     var div = document.createElement("div");
 
     if ("style" in div) {
+      var actualValue;
       // Use .setProperty() if supported
       if ("setProperty" in div.style) {
         div.style.setProperty(name, value, "");
-        return div.style.getPropertyValue(name) == value;
+        actualValue = div.style.getPropertyValue(name);
+
+        return {
+          result: actualValue == value,
+          message:
+            "getPropertyValue(" +
+            jsonify(name) +
+            ") returned " +
+            jsonify(actualValue) +
+            " after setProperty(" +
+            jsonify(name) +
+            ", " +
+            jsonify(value) +
+            ")"
+        };
       }
 
       // Use getter/setter fallback
       if (name in div.style) {
         div.style[name] = value;
-        return div.style[name] == value;
-      }
-    }
+        actualValue = div.style[name];
 
-    return { result: null, message: "Detection methods are not supported" };
+        return {
+          result: actualValue == value,
+          message:
+            "div.style[" +
+            jsonify(name) +
+            "] returned " +
+            jsonify(actualValue) +
+            " after setting to " +
+            jsonify(value) +
+            ""
+        };
+      } else {
+        return {
+          result: null,
+          message: jsonify(name) + " not found in div.style"
+        };
+      }
+    } else {
+      return { result: null, message: jsonify("style") + " not found in div" };
+    }
   }
 
   /**
