@@ -1747,9 +1747,10 @@
         renderHarnessLink(resultsEl);
 
         // Render code and support for reusable instances
-        var reInstKeys = Object.keys(reusableInstances.__sources);
-        for (var i = 0; i < reInstKeys.length; i++) {
-          renderReInstReportEl(reInstKeys[i], resultsEl);
+        for (var key in reusableInstances.__sources) {
+          if (Object.prototype.hasOwnProperty.call(reusableInstances.__sources, key)) {
+            renderReInstReportEl(reusableInstances.__sources[key], resultsEl);
+          }
         }
 
         // Add divider
