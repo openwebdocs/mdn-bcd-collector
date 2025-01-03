@@ -25,7 +25,7 @@
     "build:tests": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning test-builder/index.ts",
     "build:resources": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning prepare-resources.ts",
     "gcp-build": "npm run build",
-    "start": "node app.js",
+    "start": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning app.ts",
     "dev": "npm i && npm run build:tests && npm run build:resources && nf -j Procfile.dev start",
     "unittest": "NODE_ENV=test c8 mocha --recursive './**/*.test.ts'",
     "coverage": "npm run coverage:report && npm run coverage:open",
