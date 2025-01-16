@@ -63,3 +63,27 @@ interface DirectoryEntrySync {};
 partial interface FileSystemDirectoryEntry {
   undefined removeRecursively(VoidFunction successCallback, optional ErrorCallback errorCallback);
 };
+
+
+// Remove when https://github.com/whatwg/fs/pull/165 is merged
+
+dictionary FileSystemObserverObserveOptions { boolean recursive = false; };
+
+callback FileSystemObserverCallback = undefined (sequence<FileSystemChangeRecord> records, FileSystemObserver observer);
+
+[Exposed=(DedicatedWorker,SharedWorker,Window),SecureContext]
+interface FileSystemObserver {
+  constructor(FileSystemObserverCallback callback);  
+  Promise<undefined> observe(FileSystemHandle handle, optional FileSystemObserverObserveOptions options = {});  
+  undefined unobserve(FileSystemHandle handle);  undefined disconnect();
+};
+
+enum FileSystemChangeType {  "appeared",  "disappeared",  "errored",  "modified",  "moved",  "unknown", };
+
+dictionary FileSystemChangeRecord {  
+  required FileSystemHandle root;  
+  FileSystemHandle? changedHandle;  
+  required sequence<DOMString> relativePathComponents;  
+  required FileSystemChangeType type;  
+  sequence<DOMString>? relativePathMovedFrom;
+};
