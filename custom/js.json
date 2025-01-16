@@ -21,6 +21,11 @@
         ]
       }
     },
+    "Atomics": {
+      "members": {
+        "static": ["pause"]
+      }
+    },
     "DataView": {
       "__comment": "Remove instance members when https://tc39.es/proposal-float16array is merged into the main ECMAScript spec.",
       "members": {

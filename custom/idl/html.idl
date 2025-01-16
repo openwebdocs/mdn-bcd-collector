@@ -279,3 +279,8 @@ partial interface HTMLAnchorElement {
 partial interface HTMLElement {
   attribute HTMLAnchorElement anchorElement;
 };
+
+// Remove when https://github.com/whatwg/dom/pull/1307 is merged
+partial interface mixin ParentNode {
+  [CEReactions] undefined moveBefore(Node node, Node? child);
+};
