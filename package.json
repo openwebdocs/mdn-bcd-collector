@@ -58,7 +58,7 @@
     "express-csp-header": "^6.0.0",
     "express-ejs-layouts": "2.5.1",
     "express-session": "^1.18.1",
-    "fs-extra": "11.2.0",
+    "fs-extra": "11.3.0",
     "highlight.js": "^11.11.1",
     "json-stable-stringify": "1.2.1",
     "marked": "^15.0.6",
