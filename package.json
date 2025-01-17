@@ -117,7 +117,7 @@
     "eslint-plugin-jsdoc": "^50.6.1",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^56.0.1",
-    "fdir": "6.4.2",
+    "fdir": "6.4.3",
     "foreman": "^3.0.1",
     "json3": "3.3.3",
     "jsonc-parser": "^3.3.1",
