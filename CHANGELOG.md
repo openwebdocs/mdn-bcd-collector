@@ -1,5 +1,103 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.9
+
+Released January 19, 2025
+
+### Test Changes
+
+#### Added
+
+- api.CSSFontFaceDescriptors.font-size
+- api.CSSFontFaceDescriptors.fontSize
+- api.CSSFontFaceDescriptors.size-adjust
+- api.CSSFontFaceDescriptors.sizeAdjust
+- api.CSSFontFaceDescriptors.subscript-position-override
+- api.CSSFontFaceDescriptors.subscript-size-override
+- api.CSSFontFaceDescriptors.subscriptPositionOverride
+- api.CSSFontFaceDescriptors.subscriptSizeOverride
+- api.CSSFontFaceDescriptors.superscript-position-override
+- api.CSSFontFaceDescriptors.superscript-size-override
+- api.CSSFontFaceDescriptors.superscriptPositionOverride
+- api.CSSFontFaceDescriptors.superscriptSizeOverride
+- api.CSSFunctionDeclarations
+- api.CSSFunctionDescriptors
+- api.Document.moveBefore
+- api.DocumentFragment.moveBefore
+- api.Element.moveBefore
+- api.FileSystemObserver
+- api.HTMLDialogElement.closedBy
+- api.HTMLDialogElement.requestClose
+- api.ImageData.ImageData.settings_parameter.colorSpace_option
+- api.ImageData.ImageData.settings_parameter.desynchronized_option
+- api.MLContext.destroy
+- api.MLContext.lost
+- api.MLGraph.destroy
+- api.Navigator.login
+- api.NavigatorLogin
+- api.PerformanceElementTiming.paintTime
+- api.PerformanceElementTiming.presentationTime
+- api.PermissionsPolicyViolationReportBody.allowAttribute
+- api.SharedStorage.batchUpdate
+- api.SharedStorageAppendMethod
+- api.SharedStorageClearMethod
+- api.SharedStorageDeleteMethod
+- api.SharedStorageModifierMethod
+- api.SharedStorageSetMethod
+- api.SharedStorageWorkletGlobalScope.navigator
+- api.SharedStorageWorkletNavigator
+- css.properties.column-rule-break
+- css.properties.column-rule-outset
+- css.properties.gap-rule
+- css.properties.gap-rule-break
+- css.properties.gap-rule-color
+- css.properties.gap-rule-outset
+- css.properties.gap-rule-paint-order
+- css.properties.gap-rule-style
+- css.properties.gap-rule-width
+- css.properties.masonry-fill.tie-start
+- css.properties.masonry-fill.tie-end
+- css.properties.row-rule
+- css.properties.row-rule-break
+- css.properties.row-rule-color
+- css.properties.row-rule-outset
+- css.properties.row-rule-style
+- css.properties.row-rule-width
+- css.properties.scroll-initial-target
+- css.types.calc-keyword
+- javascript.builtins.Atomics.pause
+- javascript.builtins.Temporal.Now.plainTimeISO
+
+#### Removed
+
+- css.properties.masonry-fill.normal
+- css.properties.masonry-fill.reverse
+- css.properties.offset-path.coord_box
+- css.properties.scroll-start-target
+- css.types.calc-constant
+- javascript.builtins.Temporal.Calendar
+- javascript.builtins.Temporal.PlainDate.getISOFields
+- javascript.builtins.Temporal.PlainDateTime.getISOFields
+- javascript.builtins.Temporal.PlainTime.getISOFields
+- javascript.builtins.Temporal.PlainYearMonth.getISOFields
+- javascript.builtins.Temporal.TimeZone
+- javascript.builtins.Temporal.ZonedDateTime.getISOFields
+
+#### Changed
+
+- api.ImageData.ImageData.settings_parameter
+- css.properties.alignment-baseline.text-before-edge
+- css.properties.alignment-baseline.text-after-edge
+
+### Commits
+
+- Explain testCSSProperty() results ([#2051](https://github.com/openwebdocs/mdn-bcd-collector/pull/2051))
+- Add Atomics.pause, FileSystemObserver, ParentNode.moveBefore ([#2079](https://github.com/openwebdocs/mdn-bcd-collector/pull/2079))
+- Temporal removals ([#2033](https://github.com/openwebdocs/mdn-bcd-collector/pull/2033))
+- Update custom tests for ImageData settings parameter ([#2037](https://github.com/openwebdocs/mdn-bcd-collector/pull/2037))
+- Rename calc-constant -&gt; calc-keyword ([#2036](https://github.com/openwebdocs/mdn-bcd-collector/pull/2036))
+- Remove coord_box from offset-path ([#2024](https://github.com/openwebdocs/mdn-bcd-collector/pull/2024))
+
 ## v10.12.8
 
 Released December 11, 2024
