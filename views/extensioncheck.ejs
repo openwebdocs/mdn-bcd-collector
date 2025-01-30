@@ -111,6 +111,11 @@ See the LICENSE file for copyright details
         return;
       }
 
+      if (!('keys' in Object)) {
+        // A browser that doesn't have Object.keys probably doesn't have extensions
+        return;
+      }
+
       var extensionsToCheck = Object.keys(extensions);
       var remaining = extensionsToCheck.length;
 
