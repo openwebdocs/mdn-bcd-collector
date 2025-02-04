@@ -1198,5 +1198,17 @@
   ["css.properties.display.flow", "chrome", "*", false],
   ["css.properties.display.flow", "edge", "*", false],
   ["css.properties.display.flow", "firefox", "*", false],
-  ["css.properties.display.flow", "safari", "*", false]
+  ["css.properties.display.flow", "safari", "*", false],
+  "Value recognized, but had no effect yet",
+  ["css.properties.line-break.anywhere", "chrome", "80-81", false],
+  ["css.properties.line-break.anywhere", "edge", "80-81", false],
+  ["css.properties.overscroll-behavior", "safari", "14-15.6", false],
+  ["css.properties.overscroll-behavior", "safari_ios", "14-15.6", false],
+  ["css.properties.overscroll-behavior-x", "safari", "14-15.6", false],
+  ["css.properties.overscroll-behavior-x", "safari_ios", "14-15.6", false],
+  ["css.properties.overscroll-behavior-y", "safari", "14-15.6", false],
+  ["css.properties.overscroll-behavior-y", "safari_ios", "14-15.6", false],
+  "Only supported in the prefixed version",
+  ["css.properties.ruby-position.inter-character", "chrome", "84+", false],
+  ["css.properties.ruby-position.inter-character", "edge", "84+", false]
 ]
