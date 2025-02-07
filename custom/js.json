@@ -541,8 +541,7 @@
     "regular_expression_literals": "var x = /ab+c/g;",
     "string_literals": "var x = 'foo';",
     "unicode_escape_sequences": "var x = '\\u00A9';",
-    "unicode_point_escapes": "var x = '\\u{2F804}';",
-    "using_keyword": "using x = true;"
+    "unicode_point_escapes": "var x = '\\u{2F804}';"
   },
   "operators": {
     "addition": "var x = 1 + 1;",
@@ -648,6 +647,7 @@
     "return": "/* Return statement automatically generated below */",
     "switch": "switch (1) {\n  case 1:\n    break;\n};",
     "try_catch": "/* This function is already wrapped in a try-catch */",
+    "using": "function* g() { using x = true };",
     "var": "var x = 1;"
   }
 }
