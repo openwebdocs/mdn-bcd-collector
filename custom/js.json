@@ -647,6 +647,7 @@
     "return": "/* Return statement automatically generated below */",
     "switch": "switch (1) {\n  case 1:\n    break;\n};",
     "try_catch": "/* This function is already wrapped in a try-catch */",
+    "using": "function* g() { using x = true };",
     "var": "var x = 1;"
   }
 }
