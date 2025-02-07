@@ -541,7 +541,8 @@
     "regular_expression_literals": "var x = /ab+c/g;",
     "string_literals": "var x = 'foo';",
     "unicode_escape_sequences": "var x = '\\u00A9';",
-    "unicode_point_escapes": "var x = '\\u{2F804}';"
+    "unicode_point_escapes": "var x = '\\u{2F804}';",
+    "using_keyword": "using x = true;"
   },
   "operators": {
     "addition": "var x = 1 + 1;",
