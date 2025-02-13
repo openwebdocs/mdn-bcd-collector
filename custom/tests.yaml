@@ -6015,6 +6015,20 @@ api:
       }
   Window:
     __base: var instance = window;
+    postMessage:
+      __additional:
+        options_delegate_parameter: |-
+          function postMessage(options) {
+            window.postMessage('', options);
+          }
+          try {
+            return bcd.testOptionParam(postMessage, null, 'delegate', 'test');
+          } catch(e) {
+            if (e.name === 'NotSupportedError' && stringIncludes(e.message, "Delegation of 'test' is not supported.")) {
+              return true;
+            }
+            throw e;
+          }
     scroll:
       __additional:
         options_behavior_parameter: return bcd.testOptionParam(instance, 'scroll', 'behavior', 'auto');
