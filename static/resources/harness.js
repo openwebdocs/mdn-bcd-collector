@@ -1570,6 +1570,24 @@
     resultsEl.appendChild(container);
   }
 
+  function formatCode(code) {
+    var formattedCode;
+    if ("hljs" in self) {
+      formattedCode = hljs.highlight(code, {
+        language: "js"
+      }).value;
+    } else {
+      formattedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    return (formattedCode || code).replace(
+      /\n([^\S\r\n]*)/g,
+      function (match, p1) {
+        return "<br>" + p1.replace(/ /g, "&nbsp;");
+      }
+    );
+  }
+
   /**
    * Render a reusable instance like a report element
    * @param {string} instanceId - The identifier of the reusable instance
@@ -1622,20 +1640,8 @@
       " = " +
       reusableInstances.__sources[instanceId];
 
-    var formattedCode;
-    if ("hljs" in self) {
-      formattedCode = hljs.highlight(code, {
-        language: "js"
-      }).value;
-    }
-
     resultCodeEl.className = "result-code";
-    resultCodeEl.innerHTML = (formattedCode || code).replace(
-      /\n([^\S\r\n]*)/g,
-      function (match, p1) {
-        return "<br>" + p1.replace(/ /g, "&nbsp;");
-      }
-    );
+    resultCodeEl.innerHTML = formatCode(code);
     resultInfoEl.appendChild(resultCodeEl);
 
     resultEl.appendChild(resultInfoEl);
@@ -1687,20 +1693,8 @@
       var resultCodeEl = document.createElement("code");
       var code = result.info.code;
 
-      var formattedCode;
-      if ("hljs" in self) {
-        formattedCode = hljs.highlight(code, {
-          language: "js"
-        }).value;
-      }
-
       resultCodeEl.className = "result-code";
-      resultCodeEl.innerHTML = (formattedCode || code).replace(
-        /\n([^\S\r\n]*)/g,
-        function (match, p1) {
-          return "<br>" + p1.replace(/ /g, "&nbsp;");
-        }
-      );
+      resultCodeEl.innerHTML = formatCode(code);
       resultInfoEl.appendChild(resultCodeEl);
     }
 
