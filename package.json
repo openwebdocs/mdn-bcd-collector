@@ -16,8 +16,8 @@
   },
   "scripts": {
     "prepare": "node --loader=ts-node/esm --no-warnings=ExperimentalWarning prepare.ts",
-    "format": "eslint . && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\" --color && ejslint views/*",
-    "format:fix": "eslint --fix . && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\"",
+    "format": "ESLINT_USE_FLAT_CONFIG=false eslint . && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\" --color && ejslint views/*",
+    "format:fix": "ESLINT_USE_FLAT_CONFIG=false eslint --fix . && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\"",
     "fix": "npm run format:fix",
     "clean": "rm -rf .nyc_output coverage generated tests.json",
     "build": "npm run build:compile && npm run build:tests && npm run build:resources",
