@@ -7114,6 +7114,15 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
+  regular_expressions:
+    named_backreference: |-
+      try {
+        var regex = new RegExp(/title=(?<quote>["'])(.*?)\k<quote>/);
+        result = 'title="foo"'.match(regex)[2];
+        return result == "foo";
+      } catch(e) {
+        return {result: false, message: e.message};
+      }
 
 # Features defined here also need to be in test-builder/webassembly.ts.
 webassembly:
