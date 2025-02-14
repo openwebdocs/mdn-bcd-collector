@@ -63,7 +63,7 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         run: |
           npm install -D typescript
-          npm install -D ts-node
+          npm install -D tsx
           RESULTS_DIR=mdn-bcd-results npm run selenium
         env:
           SECRETS_JSON: ${{secrets.SECRETS_JSON}}
