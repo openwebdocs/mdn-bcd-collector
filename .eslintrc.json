@@ -43,7 +43,7 @@
     "require-jsdoc": "off",
     "space-before-function-paren": "off",
     "unicorn/prefer-node-protocol": "error",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": ["error", {"caughtErrors": "none"}],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off"
   },

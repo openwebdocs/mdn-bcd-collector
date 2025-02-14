@@ -11,6 +11,7 @@
     "indent": "off",
     "max-len": "off",
     "no-invalid-this": "off",
+    "no-unused-vars": ["error", { "caughtErrors": "none" }],
     "no-var": "off",
     "prefer-arrow/prefer-arrow-functions": "off",
     "quotes": "off",
