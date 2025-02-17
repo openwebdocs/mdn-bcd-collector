@@ -7,8 +7,6 @@
 // See the LICENSE file for copyright details
 //
 
-/* global AudioWorkletProcessor, registerProcessor */
-
 /**
  * Process the audio inputs and generate white noise.
  * @param {Array} inputs - The audio inputs.

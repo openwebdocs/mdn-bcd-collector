@@ -28,7 +28,6 @@ const getReportMeta = (report: Report): ReportMeta => {
   const json = stringify(report) as string;
   const buffer = Buffer.from(json);
 
-  /* eslint-disable-next-line max-len */
   // like https://github.com/web-platform-tests/wpt.fyi/blob/26805a0122ea01076ac22c0a96313c1cf5cc30d6/results-processor/wptreport.py#L79
   const digest = crypto
     .createHash("sha1")
