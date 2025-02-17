@@ -258,7 +258,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
           (v) => !(ignoredValues[prop.name] || []).includes(v.name),
         ),
         types,
-        customCSS,
+        // customCSS,
       );
 
       if (properties.has(prop.name)) {
