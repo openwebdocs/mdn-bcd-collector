@@ -104,14 +104,14 @@
       }
     },
     "String": {
-      "members": {"static": ["asyncDispose", "dispose"]}
+      "members": {"instance": ["contains", "length"]}
     },
     "SuppressedError": {
       "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
       "ctor": {}
     },
     "Symbol": {
-      "members": {"instance": ["contains", "length"]}
+      "members": {"static": ["asyncDispose", "dispose"]}
     },
     "Uint8Array": {
       "__comment": "Remove members when https://tc39.es/proposal-arraybuffer-base64/spec/ is merged into the main ECMAScript spec.",
