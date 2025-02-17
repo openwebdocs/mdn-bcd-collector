@@ -1,5 +1,109 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.10
+
+Released February 16, 2025
+
+### Test Changes
+
+#### Added
+
+- api.Animation.trigger
+- api.AnimationTrigger
+- api.CaptureController.decreaseZoomLevel
+- api.CaptureController.increaseZoomLevel
+- api.CaptureController.zoomlevelchange_event
+- api.CaptureController.resetZoomLevel
+- api.GPUAdapterInfo.subgroupMaxSize
+- api.GPUAdapterInfo.subgroupMinSize
+- api.HighlightRegistry.highlightsFromPoint
+- api.NavigateEvent.sourceElement
+- api.OffscreenCanvasRenderingContext2D.getContextAttributes
+- api.PermissionsPolicyViolationReportBody.srcAttribute
+- api.SpeechRecognition.installOnDeviceSpeechRecognition
+- api.SpeechRecognition.mode
+- api.SpeechRecognition.onDeviceWebSpeechAvailable
+- api.Window.postMessage.options_delegate_parameter
+- css.properties.animation-trigger
+- css.properties.animation-trigger-exit-range
+- css.properties.animation-trigger-exit-range-end
+- css.properties.animation-trigger-exit-range-start
+- css.properties.animation-trigger-range
+- css.properties.animation-trigger-range-end
+- css.properties.animation-trigger-range-start
+- css.properties.animation-trigger-timeline
+- css.properties.animation-trigger-type
+- css.properties.border-shape
+- css.properties.corner-block-end-shape
+- css.properties.corner-block-start-shape
+- css.properties.corner-bottom-left-shape
+- css.properties.corner-bottom-right-shape
+- css.properties.corner-bottom-shape
+- css.properties.corner-end-end-shape
+- css.properties.corner-end-start-shape
+- css.properties.corner-inline-end-shape
+- css.properties.corner-inline-start-shape
+- css.properties.corner-left-shape
+- css.properties.corner-right-shape
+- css.properties.corner-start-end-shape
+- css.properties.corner-start-start-shape
+- css.properties.corner-top-left-shape
+- css.properties.corner-top-right-shape
+- css.properties.corner-top-shape
+- css.properties.dynamic-range-limit.no-limit
+- css.properties.interactivity
+- css.properties.item-cross
+- css.properties.item-direction
+- css.properties.item-flow
+- css.properties.item-pack
+- css.properties.item-slack
+- css.properties.item-track
+- css.properties.item-wrap
+- css.properties.reading-order
+- javascript.statements.using
+
+#### Removed
+
+- api.CaptureController.capturedzoomlevelchange_event
+- api.CaptureController.setZoomLevel
+- api.SpeechGrammar
+- api.SpeechGrammarList
+- api.SpeechRecognition.grammars
+- css.properties.corner-shape.round
+- css.properties.corner-shape.angle
+- css.properties.corners
+- css.properties.display.masonry
+- css.properties.display.inline-masonry
+- css.properties.dynamic-range-limit.high
+- css.properties.grid-auto-flow.row-reverse
+- css.properties.grid-auto-flow.column-reverse
+- css.properties.grid-auto-flow.wrap-reverse
+- css.properties.masonry
+- css.properties.masonry-auto-tracks
+- css.properties.masonry-direction
+- css.properties.masonry-fill
+- css.properties.masonry-flow
+- css.properties.masonry-slack
+- css.properties.masonry-template-areas
+- css.properties.masonry-template-tracks
+- css.properties.masonry-track
+- css.properties.masonry-track-end
+- css.properties.masonry-track-start
+
+#### Changed
+
+- javascript.regular_expressions.named_backreference
+
+### Commits
+
+- Migrate to ESLint flat config ([#2145](https://github.com/openwebdocs/mdn-bcd-collector/pull/2145))
+- Switch from ts-node to tsx ([#2135](https://github.com/openwebdocs/mdn-bcd-collector/pull/2135))
+- Ensure code is always formatted when displayed ([#2105](https://github.com/openwebdocs/mdn-bcd-collector/pull/2105))
+- Add custom test for named backreference ([#2106](https://github.com/openwebdocs/mdn-bcd-collector/pull/2106))
+- Add custom test for postMessage delegate option ([#2107](https://github.com/openwebdocs/mdn-bcd-collector/pull/2107))
+- feat(js): test "using" keyword ([#2120](https://github.com/openwebdocs/mdn-bcd-collector/pull/2120))
+- Replace usages of `Object.keys()` ([#2054](https://github.com/openwebdocs/mdn-bcd-collector/pull/2054))
+
 ## v10.12.9
 
 Released January 19, 2025
