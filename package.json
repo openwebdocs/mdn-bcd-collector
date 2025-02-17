@@ -16,8 +16,8 @@
   },
   "scripts": {
     "prepare": "tsx prepare.ts",
-    "format": "eslint . && eslint static -c static/eslint.config.js && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\" --color && ejslint views/*",
-    "format:fix": "eslint --fix . && eslint --fix static -c static/eslint.config.js && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\"",
+    "format": "eslint . && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\" --color && ejslint views/*",
+    "format:fix": "eslint --fix . && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.scss\" \"**/*.yaml\"",
     "fix": "npm run format:fix",
     "clean": "rm -rf .nyc_output coverage generated tests.json",
     "build": "npm run build:compile && npm run build:tests && npm run build:resources",
