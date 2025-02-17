@@ -13,10 +13,7 @@
  * @typedef {import('../../types/types.js').TestResult} TestResult
  */
 
-/* global self, console, document, window, location, navigator, setTimeout, clearTimeout,
-          Promise, XMLHttpRequest, Element, HTMLElement, MessageChannel, Event,
-          MessageEvent, Worker, SharedWorker, ServiceWorkerRegistration, hljs,
-          wasmFeatureDetect */
+/* global hljs, wasmFeatureDetect */
 
 // This harness should work on as old browsers as possible and shouldn't depend
 // on any modern JavaScript features.
@@ -278,7 +275,6 @@
         if (noNew) {
           iface();
         } else {
-          // eslint-disable-next-line new-cap
           new iface();
         }
       }
@@ -358,7 +354,6 @@
       if (typeof iface == "string") {
         eval(iface + "()");
       } else {
-        // eslint-disable-next-line new-cap
         iface();
       }
 

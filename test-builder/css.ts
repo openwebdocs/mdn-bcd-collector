@@ -97,10 +97,10 @@ const getCSSTypes = (specCSS) => {
  * Remap the CSS property values from Webref into usable map entries
  * @param input - The value from Webref
  * @param types - The types from webref
- * @param customCSS - The custom CSS data to draw type information from
+ * // @param customCSS - The custom CSS data to draw type information from
  * @returns A two-value array to add to a map, or null if no test should be created for the value
  */
-const remapPropertyValues = (input, types, customCSS) => {
+const remapPropertyValues = (input, types /*, customCSS*/) => {
   if (!input) {
     return [];
   }
@@ -118,10 +118,10 @@ const remapPropertyValues = (input, types, customCSS) => {
       }
     } else {
       // XXX Remove me once all these have been transferred to custom/css.json
-      const typeRemappings = {
-        "<string>+": ["type_multi_string", "'foo' 'bar'"],
-        "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
-      };
+      // const typeRemappings = {
+      //   "<string>+": ["type_multi_string", "'foo' 'bar'"],
+      //   "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
+      // };
 
       if (
         ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
@@ -136,26 +136,26 @@ const remapPropertyValues = (input, types, customCSS) => {
         // Skip any and all types for now until we're ready to add them
         continue;
 
-        if (val.name in typeRemappings) {
-          values.set(typeRemappings[val.name][0], typeRemappings[val.name][1]);
-          continue;
-        }
+        // if (val.name in typeRemappings) {
+        //   values.set(typeRemappings[val.name][0], typeRemappings[val.name][1]);
+        //   continue;
+        // }
 
-        for (const [type, typedata] of Object.entries(
-          customCSS.types,
-        ) as any[]) {
-          if (
-            Array.isArray(typedata.syntax)
-              ? typedata.syntax.includes(val.name)
-              : val.name === typedata.syntax
-          ) {
-            values.set("type_" + type, typedata.value);
-            continue;
-          }
-        }
+        // for (const [type, typedata] of Object.entries(
+        //   customCSS.types,
+        // ) as any[]) {
+        //   if (
+        //     Array.isArray(typedata.syntax)
+        //       ? typedata.syntax.includes(val.name)
+        //       : val.name === typedata.syntax
+        //   ) {
+        //     values.set("type_" + type, typedata.value);
+        //     continue;
+        //   }
+        // }
 
-        console.warn(`Type ${val.name} unknown!`);
-        continue;
+        // console.warn(`Type ${val.name} unknown!`);
+        // continue;
       }
 
       values.set(
@@ -258,7 +258,7 @@ const buildPropertyTests = async (specCSS, customCSS) => {
           (v) => !(ignoredValues[prop.name] || []).includes(v.name),
         ),
         types,
-        customCSS,
+        // customCSS,
       );
 
       if (properties.has(prop.name)) {

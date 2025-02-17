@@ -85,7 +85,6 @@ describe("GitHub export", () => {
   const octokit = new Octokit();
 
   describe("happy path", () => {
-    // eslint-disable-next-line guard-for-in
     for (const i in REPORTS) {
       // XXX Mocking GitHub is currently broken since
       // @octokit/plugin-rest-endpoint-methods 8.0.0...
