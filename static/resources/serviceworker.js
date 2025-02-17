@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-/* global self, caches, Request, Response, bcd */
+/* global bcd */
 
 self.importScripts("harness.js");
 

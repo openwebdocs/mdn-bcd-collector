@@ -6,8 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-/* global mocha, chai, sinon, describe, it, beforeEach, afterEach, window,
-          location, document */
+/* global chai, sinon */
 /* global bcd, reusableInstances */
 
 mocha.setup({

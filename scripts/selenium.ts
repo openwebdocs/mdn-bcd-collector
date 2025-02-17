@@ -358,7 +358,6 @@ const buildDriver = async (
       }
     }
 
-    // eslint-disable-next-line guard-for-in
     for (const [osName, osVersion] of getOsesToTest(service, os)) {
       const capabilities = new Capabilities();
 
@@ -704,7 +703,6 @@ const runAll = async (
   );
   const tasks: ListrTask[] = [];
 
-  // eslint-disable-next-line guard-for-in
   for (const [browser, versions] of Object.entries(browsersToTest) as [
     BrowserName,
     string[],
