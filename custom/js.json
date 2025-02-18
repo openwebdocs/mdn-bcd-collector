@@ -21,6 +21,20 @@
         ]
       }
     },
+    "AsyncDisposableStack": {
+      "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
+      "ctor": {},
+      "members": {
+        "instance": [
+          "adopt",
+          "defer",
+          "disposeAsync",
+          "disposed",
+          "move",
+          "use"
+        ]
+      }
+    },
     "Atomics": {
       "members": {
         "static": ["pause"]
@@ -30,6 +44,13 @@
       "__comment": "Remove instance members when https://tc39.es/proposal-float16array is merged into the main ECMAScript spec.",
       "members": {
         "instance": ["getFloat16", "setFloat16"]
+      }
+    },
+    "DisposableStack": {
+      "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
+      "ctor": {},
+      "members": {
+        "instance": ["adopt", "defer", "dispose", "disposed", "move", "use"]
       }
     },
     "Error": {
@@ -42,7 +63,8 @@
           "message",
           "name",
           "stack"
-        ]
+        ],
+        "static": ["captureStackTrace", "stackTraceLimit"]
       }
     },
     "Float16Array": {
@@ -56,9 +78,9 @@
       "ctor": {}
     },
     "Math": {
-      "__comment": "Remove instance member when https://tc39.es/proposal-float16array is merged into the main ECMAScript spec.",
+      "__comment": "Remove when https://tc39.es/proposal-float16array and/or https://github.com/tc39/proposal-math-sum are merged into the main ECMAScript spec.",
       "members": {
-        "static": ["f16round"]
+        "static": ["f16round", "sumPrecise"]
       }
     },
     "Promise": {
@@ -83,6 +105,13 @@
     },
     "String": {
       "members": {"instance": ["contains", "length"]}
+    },
+    "SuppressedError": {
+      "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
+      "ctor": {}
+    },
+    "Symbol": {
+      "members": {"static": ["asyncDispose", "dispose"]}
     },
     "Uint8Array": {
       "__comment": "Remove members when https://tc39.es/proposal-arraybuffer-base64/spec/ is merged into the main ECMAScript spec.",
