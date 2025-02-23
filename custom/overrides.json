@@ -1210,5 +1210,225 @@
   ["css.properties.overscroll-behavior-y", "safari_ios", "14-15.6", false],
   "Only supported in the prefixed version",
   ["css.properties.ruby-position.inter-character", "chrome", "84+", false],
-  ["css.properties.ruby-position.inter-character", "edge", "84+", false]
+  ["css.properties.ruby-position.inter-character", "edge", "84+", false],
+  "Recognized but has no effect yet",
+  ["api.HTMLInputElement.webkitdirectory", "safari_ios", "*", false],
+  ["api.HTMLInputElement.webkitdirectory", "webview_ios", "*", false],
+  "Supported on iPad but not on iPhone",
+  ["api.MediaSource", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource", "webview_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.MediaSource", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.MediaSource", "webview_ios", "safari_ios", "13+", true],
+  [
+    "api.MediaSource.activeSourceBuffers",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.activeSourceBuffers",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  ["api.MediaSource.addSourceBuffer", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.addSourceBuffer", "webview_ios", "safari_ios", "13+", true],
+  [
+    "api.MediaSource.clearLiveSeekableRange",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.clearLiveSeekableRange",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  ["api.MediaSource.duration", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.duration", "webview_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.endOfStream", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.endOfStream", "webview_ios", "safari_ios", "13+", true],
+  [
+    "api.MediaSource.isTypeSupported_static",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.isTypeSupported_static",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  ["api.MediaSource.readyState", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.readyState", "webview_ios", "safari_ios", "13+", true],
+  [
+    "api.MediaSource.removeSourceBuffer",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.removeSourceBuffer",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.setLiveSeekableRange",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.setLiveSeekableRange",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  ["api.MediaSource.sourceBuffers", "safari_ios", "safari_ios", "13+", true],
+  ["api.MediaSource.sourceBuffers", "webview_ios", "safari_ios", "13+", true],
+  [
+    "api.MediaSource.sourceclose_event",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.sourceclose_event",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.sourceended_event",
+    "safari_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.sourceended_event",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  ["api.MediaSource.sourceopen_event", "safari_ios", "safari_ios", "13+", true],
+  [
+    "api.MediaSource.sourceopen_event",
+    "webview_ios",
+    "safari_ios",
+    "13+",
+    true
+  ],
+  [
+    "api.MediaSource.canConstructInDedicatedWorker_static",
+    "safari_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  [
+    "api.MediaSource.canConstructInDedicatedWorker_static",
+    "webview_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  ["api.MediaSource.handle", "safari_ios", "safari_ios", "18+", true],
+  ["api.MediaSource.handle", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.abort", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.abort", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.abort_event", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.abort_event", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.appendBuffer", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.appendBuffer", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.appendWindowEnd", "safari_ios", "safari_ios", "18+", true],
+  [
+    "api.SourceBuffer.appendWindowEnd",
+    "webview_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  [
+    "api.SourceBuffer.appendWindowStart",
+    "safari_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  [
+    "api.SourceBuffer.appendWindowStart",
+    "webview_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  ["api.SourceBuffer.audioTracks", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.audioTracks", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.buffered", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.buffered", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.changeType", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.changeType", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.error_event", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.error_event", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.mode", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.mode", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.remove", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.remove", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.textTracks", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.textTracks", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.timestampOffset", "safari_ios", "safari_ios", "18+", true],
+  [
+    "api.SourceBuffer.timestampOffset",
+    "webview_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  ["api.SourceBuffer.update_event", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.update_event", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.updateend_event", "safari_ios", "safari_ios", "18+", true],
+  [
+    "api.SourceBuffer.updateend_event",
+    "webview_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  [
+    "api.SourceBuffer.updatestart_event",
+    "safari_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  [
+    "api.SourceBuffer.updatestart_event",
+    "webview_ios",
+    "safari_ios",
+    "18+",
+    true
+  ],
+  ["api.SourceBuffer.updating", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.updating", "webview_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.videoTracks", "safari_ios", "safari_ios", "18+", true],
+  ["api.SourceBuffer.videoTracks", "webview_ios", "safari_ios", "18+", true]
 ]
