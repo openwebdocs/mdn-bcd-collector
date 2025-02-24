@@ -12,12 +12,7 @@
   "Exposed but doesn't actually work in 60. Tested with this test:",
   "https://mdn.github.io/webassembly-examples/js-api-examples/compile-streaming.html",
   ["javascript.builtins.WebAssembly.compileStreaming", "chrome", "60", false],
-  [
-    "javascript.builtins.WebAssembly.instantiateStreaming",
-    "chrome",
-    "60",
-    false
-  ],
+  ["javascript.builtins.WebAssembly.instantiateStreaming", "chrome", "60", false],
   "https://github.com/mdn/browser-compat-data/pull/17365#issuecomment-1216459968",
   ["api.FontFaceSetLoadEvent", "chrome", "35-57", true],
   ["api.FontFaceSetLoadEvent.fontfaces", "chrome", "35-57", true],
@@ -64,18 +59,8 @@
   ["api.CredentialsContainer.get.identity_option", "chrome", "105-107", false],
   ["api.CredentialsContainer.get.identity_option", "edge", "105-107", false],
   "Has partial implementation",
-  [
-    "api.Element.animate.options_pseudoElement_parameter",
-    "chrome",
-    "81-83",
-    false
-  ],
-  [
-    "api.Element.animate.options_pseudoElement_parameter",
-    "edge",
-    "81-83",
-    false
-  ],
+  ["api.Element.animate.options_pseudoElement_parameter", "chrome", "81-83", false],
+  ["api.Element.animate.options_pseudoElement_parameter", "edge", "81-83", false],
   "The Sanitizer API was briefly enabled in Firefox 82 before quickly hidden behind a flag. Simply ignore the single version.",
   ["api.Sanitizer", "firefox", "82", false],
   ["api.Sanitizer.sanitize", "firefox", "82", false],
@@ -85,35 +70,15 @@
   ["api.OVR_multiview2", "firefox", "71-80", true],
   ["api.WEBGL_compressed_texture_astc", "firefox", "53-80", true],
   ["api.WEBGL_debug_shaders", "firefox", "56-80", true],
-  [
-    "api.WEBGL_debug_shaders.getTranslatedShaderSource",
-    "firefox",
-    "56-80",
-    true
-  ],
+  ["api.WEBGL_debug_shaders.getTranslatedShaderSource", "firefox", "56-80", true],
   ["api.HTMLCanvasElement.getContext.webgl2_context", "firefox", "51-80", true],
-  [
-    "api.HTMLCanvasElement.getContext.webgl2_context.options_alpha_parameter",
-    "firefox",
-    "30-80",
-    true
-  ],
-  [
-    "api.HTMLCanvasElement.getContext.webgl2_context.options_failIfMajorPerformanceCaveat_parameter",
-    "firefox",
-    "41-80",
-    true
-  ],
+  ["api.HTMLCanvasElement.getContext.webgl2_context.options_alpha_parameter", "firefox", "30-80", true],
+  ["api.HTMLCanvasElement.getContext.webgl2_context.options_failIfMajorPerformanceCaveat_parameter", "firefox", "41-80", true],
   ["api.WebGL2RenderingContext", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.activeTexture", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.attachShader", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.beginQuery", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.beginTransformFeedback",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.beginTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bindAttribLocation", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bindBuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bindBufferBase", "firefox", "51-80", true],
@@ -122,33 +87,18 @@
   ["api.WebGL2RenderingContext.bindRenderbuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bindSampler", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bindTexture", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.bindTransformFeedback",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.bindTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bindVertexArray", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.blendColor", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.blendEquation", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.blendEquationSeparate",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.blendEquationSeparate", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.blendFunc", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.blendFuncSeparate", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.blitFramebuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bufferData", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.bufferSubData", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.canvas", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.checkFramebufferStatus",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.checkFramebufferStatus", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.clear", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.clearBufferfi", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.clearBufferfv", "firefox", "51-80", true],
@@ -162,18 +112,8 @@
   ["api.WebGL2RenderingContext.compileShader", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.compressedTexImage2D", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.compressedTexImage3D", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.compressedTexSubImage2D",
-    "firefox",
-    "51-80",
-    true
-  ],
-  [
-    "api.WebGL2RenderingContext.compressedTexSubImage3D",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.compressedTexSubImage2D", "firefox", "51-80", true],
+  ["api.WebGL2RenderingContext.compressedTexSubImage3D", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.copyBufferSubData", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.copyTexImage2D", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.copyTexSubImage2D", "firefox", "51-80", true],
@@ -186,12 +126,7 @@
   ["api.WebGL2RenderingContext.createSampler", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.createShader", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.createTexture", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.createTransformFeedback",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.createTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.createVertexArray", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.cullFace", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.deleteBuffer", "firefox", "51-80", true],
@@ -203,78 +138,38 @@
   ["api.WebGL2RenderingContext.deleteShader", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.deleteSync", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.deleteTexture", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.deleteTransformFeedback",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.deleteTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.deleteVertexArray", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.depthFunc", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.depthMask", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.depthRange", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.detachShader", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.disable", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.disableVertexAttribArray",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.disableVertexAttribArray", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawArrays", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawArraysInstanced", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawBuffers", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawElements", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.drawElementsInstanced",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.drawElementsInstanced", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawingBufferHeight", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawingBufferWidth", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.drawRangeElements", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.enable", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.enableVertexAttribArray",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.enableVertexAttribArray", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.endQuery", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.endTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.fenceSync", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.finish", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.flush", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.framebufferRenderbuffer",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.framebufferRenderbuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.framebufferTexture2D", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.framebufferTextureLayer",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.framebufferTextureLayer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.frontFace", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.generateMipmap", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getActiveAttrib", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getActiveUniform", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getActiveUniformBlockName",
-    "firefox",
-    "51-80",
-    true
-  ],
-  [
-    "api.WebGL2RenderingContext.getActiveUniformBlockParameter",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getActiveUniformBlockName", "firefox", "51-80", true],
+  ["api.WebGL2RenderingContext.getActiveUniformBlockParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getActiveUniforms", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getAttachedShaders", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getAttribLocation", "firefox", "51-80", true],
@@ -284,79 +179,34 @@
   ["api.WebGL2RenderingContext.getError", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getExtension", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getFragDataLocation", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getFramebufferAttachmentParameter",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getFramebufferAttachmentParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getIndexedParameter", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getInternalformatParameter",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getInternalformatParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getProgramInfoLog", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getProgramParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getQuery", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getQueryParameter", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getRenderbufferParameter",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getRenderbufferParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getSamplerParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getShaderInfoLog", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getShaderParameter", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getShaderPrecisionFormat",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getShaderPrecisionFormat", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getShaderSource", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getSupportedExtensions",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getSupportedExtensions", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getSyncParameter", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getTransformFeedbackVarying",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getTransformFeedbackVarying", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getTexParameter", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getUniform", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getUniformBlockIndex", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getUniformIndices", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getUniformLocation", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.getVertexAttrib", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.getVertexAttribOffset",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.getVertexAttribOffset", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.hint", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.isEnabled", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.invalidateFramebuffer",
-    "firefox",
-    "51-80",
-    true
-  ],
-  [
-    "api.WebGL2RenderingContext.invalidateSubFramebuffer",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.invalidateFramebuffer", "firefox", "51-80", true],
+  ["api.WebGL2RenderingContext.invalidateSubFramebuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.isBuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.isContextLost", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.isFramebuffer", "firefox", "51-80", true],
@@ -371,29 +221,14 @@
   ["api.WebGL2RenderingContext.isVertexArray", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.lineWidth", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.linkProgram", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.pauseTransformFeedback",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.pauseTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.pixelStorei", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.polygonOffset", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.readBuffer", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.readPixels", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.renderbufferStorage", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.renderbufferStorageMultisample",
-    "firefox",
-    "51-80",
-    true
-  ],
-  [
-    "api.WebGL2RenderingContext.resumeTransformFeedback",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.renderbufferStorageMultisample", "firefox", "51-80", true],
+  ["api.WebGL2RenderingContext.resumeTransformFeedback", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.sampleCoverage", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.samplerParameterf", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.samplerParameteri", "firefox", "51-80", true],
@@ -413,12 +248,7 @@
   ["api.WebGL2RenderingContext.texStorage3D", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.texSubImage2D", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.texSubImage3D", "firefox", "51-80", true],
-  [
-    "api.WebGL2RenderingContext.transformFeedbackVaryings",
-    "firefox",
-    "51-80",
-    true
-  ],
+  ["api.WebGL2RenderingContext.transformFeedbackVaryings", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.uniform1f", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.uniform1fv", "firefox", "51-80", true],
   ["api.WebGL2RenderingContext.uniform1i", "firefox", "51-80", true],
@@ -485,59 +315,19 @@
   ["api.MediaStreamTrackProcessor", "opera_android", "66+", true],
   ["api.MediaStreamTrackProcessor", "samsunginternet_android", "17.0+", true],
   ["api.MediaStreamTrackProcessor", "webview_android", "94+", true],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "chrome",
-    "94+",
-    true
-  ],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "chrome_android",
-    "94+",
-    true
-  ],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "edge",
-    "94+",
-    true
-  ],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "opera",
-    "81+",
-    true
-  ],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "opera_android",
-    "66+",
-    true
-  ],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "samsunginternet_android",
-    "17.0+",
-    true
-  ],
-  [
-    "api.MediaStreamTrackProcessor.MediaStreamTrackProcessor",
-    "webview_android",
-    "94+",
-    true
-  ],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "chrome", "94+", true],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "chrome_android", "94+", true],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "edge", "94+", true],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "opera", "81+", true],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "opera_android", "66+", true],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "samsunginternet_android", "17.0+", true],
+  ["api.MediaStreamTrackProcessor.MediaStreamTrackProcessor", "webview_android", "94+", true],
   ["api.MediaStreamTrackProcessor.readable", "chrome", "94+", true],
   ["api.MediaStreamTrackProcessor.readable", "chrome_android", "94+", true],
   ["api.MediaStreamTrackProcessor.readable", "edge", "94+", true],
   ["api.MediaStreamTrackProcessor.readable", "opera", "81+", true],
   ["api.MediaStreamTrackProcessor.readable", "opera_android", "66+", true],
-  [
-    "api.MediaStreamTrackProcessor.readable",
-    "samsunginternet_android",
-    "17.0+",
-    true
-  ],
+  ["api.MediaStreamTrackProcessor.readable", "samsunginternet_android", "17.0+", true],
   ["api.MediaStreamTrackProcessor.readable", "webview_android", "94+", true],
   "Only supported in Chrome OS",
   ["api.NetworkInformation.downlinkMax", "chrome", "61+", true],
@@ -545,12 +335,7 @@
   "In early versions of Chrome and Safari, this interface has an alt. name",
   ["api.PictureInPictureEvent.pictureInPictureWindow", "chrome", "69-85", true],
   ["api.PictureInPictureEvent.pictureInPictureWindow", "edge", "69-85", true],
-  [
-    "api.PictureInPictureEvent.pictureInPictureWindow",
-    "safari",
-    "13.1-16",
-    true
-  ],
+  ["api.PictureInPictureEvent.pictureInPictureWindow", "safari", "13.1-16", true],
   "XXX These properties are initially prefixed.",
   ["css.properties.appearance.auto", "chrome", "83", true],
   ["css.properties.appearance.auto", "edge", "83", true],
@@ -607,39 +392,14 @@
   ["css.properties.box-decoration-break.slice", "edge", "79+", true],
   ["css.properties.box-decoration-break.slice", "safari", "7+", true],
   ["css.properties.tab-size.length", "firefox", "53-91", true],
-  [
-    "css.properties.text-emphasis-position.left_and_right",
-    "chrome",
-    "62-99",
-    true
-  ],
-  [
-    "css.properties.text-emphasis-position.left_and_right",
-    "edge",
-    "62-99",
-    true
-  ],
+  ["css.properties.text-emphasis-position.left_and_right", "chrome", "62-99", true],
+  ["css.properties.text-emphasis-position.left_and_right", "edge", "62-99", true],
   ["css.properties.text-orientation.sideways", "safari", "7-14", true],
   ["css.properties.background-clip.text", "chrome", "3+", true],
-  [
-    "css.properties.background-clip.text",
-    "samsunginternet_android",
-    "1.0+",
-    true
-  ],
-  [
-    "css.properties.user-modify.read-write-plaintext-only",
-    "chrome",
-    "1+",
-    true
-  ],
+  ["css.properties.background-clip.text", "samsunginternet_android", "1.0+", true],
+  ["css.properties.user-modify.read-write-plaintext-only", "chrome", "1+", true],
   ["css.properties.user-modify.read-write-plaintext-only", "edge", "12+", true],
-  [
-    "css.properties.user-modify.read-write-plaintext-only",
-    "safari",
-    "3+",
-    true
-  ],
+  ["css.properties.user-modify.read-write-plaintext-only", "safari", "3+", true],
   ["css.properties.user-select.all", "safari", "16+", true],
   ["css.properties.user-select.auto", "safari", "2+", true],
   ["css.properties.user-select.none", "safari", "2+", true],
@@ -681,30 +441,10 @@
   ["api.WEBGL_compressed_texture_astc", "edge", "79-92", true],
   ["api.WEBGL_compressed_texture_astc", "firefox", "53+", true],
   ["api.WEBGL_compressed_texture_astc", "safari", "12+", true],
-  [
-    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
-    "chrome",
-    "47-92",
-    true
-  ],
-  [
-    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
-    "edge",
-    "79-92",
-    true
-  ],
-  [
-    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
-    "firefox",
-    "53+",
-    true
-  ],
-  [
-    "api.WEBGL_compressed_texture_astc.getSupportedProfiles",
-    "safari",
-    "12+",
-    true
-  ],
+  ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "chrome", "47-92", true],
+  ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "edge", "79-92", true],
+  ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "firefox", "53+", true],
+  ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "safari", "12+", true],
   ["api.WEBGL_compressed_texture_etc", "safari", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc", "safari_ios", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc", "webview_ios", "13.1+", true],
@@ -727,97 +467,22 @@
   ["css.properties.list-style-type.binary", "firefox", "*", false],
   ["css.properties.list-style-type.ethiopic", "firefox", "*", false],
   ["css.properties.list-style-type.ethiopic-abegede", "firefox", "*", false],
-  [
-    "css.properties.list-style-type.ethiopic-abegede-am-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-abegede-gez",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-abegede-ti-er",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-abegede-ti-et",
-    "firefox",
-    "*",
-    false
-  ],
+  ["css.properties.list-style-type.ethiopic-abegede-am-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-abegede-gez", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-abegede-ti-er", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-abegede-ti-et", "firefox", "*", false],
   ["css.properties.list-style-type.ethiopic-halehame", "firefox", "*", false],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-aa-er",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-aa-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-am",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-am-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-gez",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-om-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-sid-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-so-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-ti-er",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-ti-et",
-    "firefox",
-    "*",
-    false
-  ],
-  [
-    "css.properties.list-style-type.ethiopic-halehame-tig",
-    "firefox",
-    "*",
-    false
-  ],
+  ["css.properties.list-style-type.ethiopic-halehame-aa-er", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-aa-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-am", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-am-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-gez", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-om-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-sid-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-so-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-ti-er", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-ti-et", "firefox", "*", false],
+  ["css.properties.list-style-type.ethiopic-halehame-tig", "firefox", "*", false],
   ["css.properties.list-style-type.footnotes", "firefox", "*", false],
   ["css.properties.list-style-type.hangul", "firefox", "*", false],
   ["css.properties.list-style-type.hangul-consonant", "firefox", "*", false],
@@ -839,12 +504,7 @@
   "XXX Chrome and Safari access this parameter before performing a flag check; need to write a test that checks behavior",
   ["api.Element.animate.options_composite_parameter", "chrome", "1-83", false],
   ["api.Element.animate.options_composite_parameter", "edge", "12-83", false],
-  [
-    "api.Element.animate.options_composite_parameter",
-    "safari",
-    "1-15.6",
-    false
-  ],
+  ["api.Element.animate.options_composite_parameter", "safari", "1-15.6", false],
   "XXX Event interfaces",
   ["api.SpeechSynthesisEvent", "safari", "7+", true],
   ["api.SpeechSynthesisEvent.charIndex", "safari", "7+", true],
@@ -903,12 +563,7 @@
   ["api.PushManager.getSubscription", "safari_ios", "16.4+", true],
   ["api.PushManager.permissionState", "safari_ios", "16.4+", true],
   ["api.PushManager.subscribe", "safari_ios", "16.4+", true],
-  [
-    "api.PushManager.supportedContentEncodings_static",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
+  ["api.PushManager.supportedContentEncodings_static", "safari_ios", "16.4+", true],
   ["api.PushMessageData", "safari_ios", "16.4+", true],
   ["api.PushMessageData.arrayBuffer", "safari_ios", "16.4+", true],
   ["api.PushMessageData.blob", "safari_ios", "16.4+", true],
@@ -922,81 +577,26 @@
   ["api.PushSubscription.toJSON", "safari_ios", "16.4+", true],
   ["api.PushSubscription.unsubscribe", "safari_ios", "16.4+", true],
   ["api.PushSubscriptionChangeEvent", "safari_ios", "16.4+", true],
-  [
-    "api.PushSubscriptionChangeEvent.PushSubscriptionChangeEvent",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
-  [
-    "api.PushSubscriptionChangeEvent.newSubscription",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
-  [
-    "api.PushSubscriptionChangeEvent.oldSubscription",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
+  ["api.PushSubscriptionChangeEvent.PushSubscriptionChangeEvent", "safari_ios", "16.4+", true],
+  ["api.PushSubscriptionChangeEvent.newSubscription", "safari_ios", "16.4+", true],
+  ["api.PushSubscriptionChangeEvent.oldSubscription", "safari_ios", "16.4+", true],
   ["api.PushSubscriptionOptions", "safari_ios", "16.4+", true],
-  [
-    "api.PushSubscriptionOptions.applicationServerKey",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
+  ["api.PushSubscriptionOptions.applicationServerKey", "safari_ios", "16.4+", true],
   ["api.PushSubscriptionOptions.userVisibleOnly", "safari_ios", "16.4+", true],
-  [
-    "api.ServiceWorkerRegistration.getNotifications",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
+  ["api.ServiceWorkerRegistration.getNotifications", "safari_ios", "16.4+", true],
   ["api.ServiceWorkerRegistration.pushManager", "safari_ios", "16.4+", true],
-  [
-    "api.ServiceWorkerRegistration.showNotification",
-    "safari_ios",
-    "16.4+",
-    true
-  ],
+  ["api.ServiceWorkerRegistration.showNotification", "safari_ios", "16.4+", true],
   "https://bugzil.la/1517786#c8",
-  [
-    "api.HTMLCanvasElement.getContext.2d_context.options_colorSpace_parameter",
-    "firefox",
-    "117+",
-    false
-  ],
-  [
-    "api.HTMLCanvasElement.getContext.2d_context.options_desynchronized_parameter",
-    "firefox",
-    "117+",
-    false
-  ],
+  ["api.HTMLCanvasElement.getContext.2d_context.options_colorSpace_parameter", "firefox", "117+", false],
+  ["api.HTMLCanvasElement.getContext.2d_context.options_desynchronized_parameter", "firefox", "117+", false],
   "Voices don't appear to be loaded in BrowserStack before Safari 14",
   ["api.SpeechSynthesisVoice", "safari", "7-14", true],
   ["api.SpeechSynthesisVoice.default", "safari", "7-14", true],
   ["api.SpeechSynthesisVoice.lang", "safari", "7-14", true],
   "Read by Chrome before support was implemented",
-  [
-    "api.Element.animate.options_rangeStart_parameter",
-    "chrome",
-    "111-114",
-    false
-  ],
-  [
-    "api.Element.animate.options_rangeEnd_parameter",
-    "chrome",
-    "111-114",
-    false
-  ],
-  [
-    "api.Element.animate.options_rangeStart_parameter",
-    "edge",
-    "111-114",
-    false
-  ],
+  ["api.Element.animate.options_rangeStart_parameter", "chrome", "111-114", false],
+  ["api.Element.animate.options_rangeEnd_parameter", "chrome", "111-114", false],
+  ["api.Element.animate.options_rangeStart_parameter", "edge", "111-114", false],
   ["api.Element.animate.options_rangeEnd_parameter", "edge", "111-114", false],
   "fetchPriority was fetchpriority for just one Chrome version",
   ["html.elements.img.fetchpriority", "chrome", "101", true],
@@ -1049,12 +649,7 @@
   ["api.CookieChangeEvent", "webview_ios", "17.2-17.3", false],
   ["api.CookieChangeEvent.CookieChangeEvent", "safari", "17.2-17.3", false],
   ["api.CookieChangeEvent.CookieChangeEvent", "safari_ios", "17.2-17.3", false],
-  [
-    "api.CookieChangeEvent.CookieChangeEvent",
-    "webview_ios",
-    "17.2-17.3",
-    false
-  ],
+  ["api.CookieChangeEvent.CookieChangeEvent", "webview_ios", "17.2-17.3", false],
   ["api.CookieChangeEvent.changed", "safari", "17.2-17.3", false],
   ["api.CookieChangeEvent.changed", "safari_ios", "17.2-17.3", false],
   ["api.CookieChangeEvent.changed", "webview_ios", "17.2-17.3", false],
@@ -1089,25 +684,10 @@
   ["api.PushSubscriptionOptions", "safari", "16", true],
   ["api.PushSubscriptionOptions.applicationServerKey", "safari", "16", true],
   ["api.PushSubscriptionOptions.userVisibleOnly", "safari", "16", true],
-  [
-    "api.ServiceWorkerGlobalScope.notificationclick_event",
-    "safari",
-    "16",
-    true
-  ],
-  [
-    "api.ServiceWorkerGlobalScope.notificationclose_event",
-    "safari",
-    "16",
-    true
-  ],
+  ["api.ServiceWorkerGlobalScope.notificationclick_event", "safari", "16", true],
+  ["api.ServiceWorkerGlobalScope.notificationclose_event", "safari", "16", true],
   ["api.ServiceWorkerGlobalScope.push_event", "safari", "16", true],
-  [
-    "api.ServiceWorkerGlobalScope.pushsubscriptionchange_event",
-    "safari",
-    "16",
-    true
-  ],
+  ["api.ServiceWorkerGlobalScope.pushsubscriptionchange_event", "safari", "16", true],
   ["api.ServiceWorkerRegistration.getNotifications", "safari", "16", true],
   ["api.ServiceWorkerRegistration.pushManager", "safari", "16", true],
   ["api.ServiceWorkerRegistration.showNotification", "safari", "16", true],
@@ -1219,135 +799,50 @@
   ["api.MediaSource", "webview_ios", "safari_ios", "13+", true],
   ["api.MediaSource.MediaSource", "safari_ios", "safari_ios", "13+", true],
   ["api.MediaSource.MediaSource", "webview_ios", "safari_ios", "13+", true],
-  [
-    "api.MediaSource.activeSourceBuffers",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.activeSourceBuffers", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.activeSourceBuffers",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.activeSourceBuffers", "webview_ios", "safari_ios", "13+",  true
   ],
   ["api.MediaSource.addSourceBuffer", "safari_ios", "safari_ios", "13+", true],
   ["api.MediaSource.addSourceBuffer", "webview_ios", "safari_ios", "13+", true],
-  [
-    "api.MediaSource.clearLiveSeekableRange",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.clearLiveSeekableRange", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.clearLiveSeekableRange",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.clearLiveSeekableRange", "webview_ios", "safari_ios", "13+",  true
   ],
   ["api.MediaSource.duration", "safari_ios", "safari_ios", "13+", true],
   ["api.MediaSource.duration", "webview_ios", "safari_ios", "13+", true],
   ["api.MediaSource.endOfStream", "safari_ios", "safari_ios", "13+", true],
   ["api.MediaSource.endOfStream", "webview_ios", "safari_ios", "13+", true],
-  [
-    "api.MediaSource.isTypeSupported_static",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.isTypeSupported_static", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.isTypeSupported_static",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.isTypeSupported_static", "webview_ios", "safari_ios", "13+",  true
   ],
   ["api.MediaSource.readyState", "safari_ios", "safari_ios", "13+", true],
   ["api.MediaSource.readyState", "webview_ios", "safari_ios", "13+", true],
-  [
-    "api.MediaSource.removeSourceBuffer",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.removeSourceBuffer", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.removeSourceBuffer",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.removeSourceBuffer", "webview_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.setLiveSeekableRange",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.setLiveSeekableRange", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.setLiveSeekableRange",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.setLiveSeekableRange", "webview_ios", "safari_ios", "13+",  true
   ],
   ["api.MediaSource.sourceBuffers", "safari_ios", "safari_ios", "13+", true],
   ["api.MediaSource.sourceBuffers", "webview_ios", "safari_ios", "13+", true],
-  [
-    "api.MediaSource.sourceclose_event",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.sourceclose_event", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.sourceclose_event",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.sourceclose_event", "webview_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.sourceended_event",
-    "safari_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.sourceended_event", "safari_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.sourceended_event",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.sourceended_event", "webview_ios", "safari_ios", "13+",  true
   ],
   ["api.MediaSource.sourceopen_event", "safari_ios", "safari_ios", "13+", true],
-  [
-    "api.MediaSource.sourceopen_event",
-    "webview_ios",
-    "safari_ios",
-    "13+",
-    true
+  ["api.MediaSource.sourceopen_event", "webview_ios", "safari_ios", "13+",  true
   ],
-  [
-    "api.MediaSource.canConstructInDedicatedWorker_static",
-    "safari_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.MediaSource.canConstructInDedicatedWorker_static", "safari_ios", "safari_ios", "18+",  true
   ],
-  [
-    "api.MediaSource.canConstructInDedicatedWorker_static",
-    "webview_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.MediaSource.canConstructInDedicatedWorker_static", "webview_ios", "safari_ios", "18+",  true
   ],
   ["api.MediaSource.handle", "safari_ios", "safari_ios", "18+", true],
   ["api.MediaSource.handle", "webview_ios", "safari_ios", "18+", true],
@@ -1360,26 +855,11 @@
   ["api.SourceBuffer.appendBuffer", "safari_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.appendBuffer", "webview_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.appendWindowEnd", "safari_ios", "safari_ios", "18+", true],
-  [
-    "api.SourceBuffer.appendWindowEnd",
-    "webview_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.appendWindowEnd", "webview_ios", "safari_ios", "18+",  true
   ],
-  [
-    "api.SourceBuffer.appendWindowStart",
-    "safari_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.appendWindowStart", "safari_ios", "safari_ios", "18+",  true
   ],
-  [
-    "api.SourceBuffer.appendWindowStart",
-    "webview_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.appendWindowStart", "webview_ios", "safari_ios", "18+",  true
   ],
   ["api.SourceBuffer.audioTracks", "safari_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.audioTracks", "webview_ios", "safari_ios", "18+", true],
@@ -1396,36 +876,16 @@
   ["api.SourceBuffer.textTracks", "safari_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.textTracks", "webview_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.timestampOffset", "safari_ios", "safari_ios", "18+", true],
-  [
-    "api.SourceBuffer.timestampOffset",
-    "webview_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.timestampOffset", "webview_ios", "safari_ios", "18+",  true
   ],
   ["api.SourceBuffer.update_event", "safari_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.update_event", "webview_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.updateend_event", "safari_ios", "safari_ios", "18+", true],
-  [
-    "api.SourceBuffer.updateend_event",
-    "webview_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.updateend_event", "webview_ios", "safari_ios", "18+",  true
   ],
-  [
-    "api.SourceBuffer.updatestart_event",
-    "safari_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.updatestart_event", "safari_ios", "safari_ios", "18+",  true
   ],
-  [
-    "api.SourceBuffer.updatestart_event",
-    "webview_ios",
-    "safari_ios",
-    "18+",
-    true
+  ["api.SourceBuffer.updatestart_event", "webview_ios", "safari_ios", "18+",  true
   ],
   ["api.SourceBuffer.updating", "safari_ios", "safari_ios", "18+", true],
   ["api.SourceBuffer.updating", "webview_ios", "safari_ios", "18+", true],
