@@ -10,6 +10,12 @@
       "options": {
         "singleQuote": false
       }
+    },
+    {
+      "files": ["custom/overrides.json"],
+      "options": {
+        "printWidth": 180
+      }
     }
   ]
 }
