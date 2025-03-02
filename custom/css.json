@@ -867,7 +867,7 @@
       "additionalValues": {
         "color": "color(display-p3 0.7 0.5 0)",
         "color-contrast": "color-contrast(wheat vs tan, sienna, #d2691e)",
-        "color-mix": "color-mix(in lch, plum, pink);",
+        "color-mix": "color-mix(in lch, plum, pink)",
         "currentcolor": "currentcolor",
         "hsl": "hsl(150, 30%, 60%)",
         "hwb": "hwb(12, 50%, 0%)",
