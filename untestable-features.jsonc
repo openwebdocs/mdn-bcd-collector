@@ -54,6 +54,7 @@
 
   /* Effect can be seen, but not programmatically tested */
   "api.console.substitution_strings",
+  "api.Animation.remove_filling_animation",
   "api.Element.animate.implicit_tofrom",
   "api.HTMLInputElement.showPicker.autocomplete_input",
   "api.HTMLInputElement.showPicker.color_input",
@@ -68,6 +69,10 @@
   /* Requires calling the methods which will result in page reloads or otherwise */
   "api.History.pushState.unused_parameter",
   "api.History.replaceState.unused_parameter",
+
+  /* Requires Bluetooth hardware */
+  "api.Bluetooth.requestDevice.options_exclusionFilters_parameter",
+  "api.Bluetooth.requestDevice.options_filter_manufacturerData_parameter",
 
   /* Can only be tested by looking at options available in a user prompt */
   "api.MediaDevices.getDisplayMedia.audio_capture_support",
