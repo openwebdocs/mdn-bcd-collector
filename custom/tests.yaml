@@ -375,6 +375,19 @@ api:
         options_colors_parameter: return bcd.testOptionParam(dir, null, 'colors', true);
         options_depth_parameter: return bcd.testOptionParam(dir, null, 'depth', 1);
         options_showHidden_parameter: return bcd.testOptionParam(dir, null, 'showHidden', true);
+  AbortController:
+    abort:
+      __additional:
+        reason_parameter: |-
+          if (!('AbortController' in self)) {
+            return {result: false, message: 'AbortController is not defined'};
+          }
+          var controller = new AbortController();
+          if (!('abort' in controller)) {
+            return {result: false, message: 'AbortController.abort is undefined'}
+          }
+          controller.abort('foo bar');
+          return controller.signal.aborted && controller.signal.reason == 'foo bar';
   AbortSignal:
     abort_static:
       __additional:
@@ -1099,6 +1112,10 @@ api:
       - cspViolationReportBody
     __base: var instance = reusableInstances.cspViolationReportBody;
     toJSON: return !!instance && 'toJSON' in instance;
+  CSS:
+    supports_static:
+      __additional:
+        optional_parens: "return CSS.supports('display: block');"
   CSSConditionRule:
     __resources:
       - createStyleSheet
@@ -1173,6 +1190,9 @@ api:
     __base: |-
       var stylesheet = reusableInstances.createStyleSheet('@page {margin: 1cm;}');
       var instance = stylesheet.cssRules.item(0);
+    style:
+      __additional:
+        type_CSSPageDescriptors: return bcd.testObjectName(instance.style, 'CSSPageDescriptors');
   CSSRule:
     __resources:
       - createStyleSheet
@@ -1197,6 +1217,13 @@ api:
     __resources:
       - createStyleSheet
     __base: "var instance = reusableInstances.createStyleSheet('p {color: red;}');"
+    CSSStyleSheet:
+      __additional:
+        options_baseURL_parameter: |-
+          function construct(options) {
+            new CSSStyleSheet(options);
+          }
+          return bcd.testOptionParam(construct, null, 'baseURL', 'https://mdn-bcd-collector.gooborg.com', {media: 'screen'});
     insertRule:
       __additional:
         index_parameter_optional: |-
