@@ -1802,7 +1802,7 @@
               key
             )
           ) {
-            renderReInstReportEl(reusableInstances.__sources[key], resultsEl);
+            renderReInstReportEl(key, resultsEl);
           }
         }
 
