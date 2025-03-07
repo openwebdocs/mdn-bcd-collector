@@ -40,6 +40,20 @@
   /* Requires a specific hardware configuration */
   "api.GPU.requestAdapter.discrete_adapter_default_ac",
   "api.PointerEvent.pointerType.fractional_coordinates",
+  "api.GPUSupportedFeatures.feature_bgra8unorm-storage",
+  "api.GPUSupportedFeatures.feature_clip-distances",
+  "api.GPUSupportedFeatures.feature_depth-clip-control",
+  "api.GPUSupportedFeatures.feature_depth32float-stencil8",
+  "api.GPUSupportedFeatures.feature_dual-source-blending",
+  "api.GPUSupportedFeatures.feature_float32-blendable",
+  "api.GPUSupportedFeatures.feature_float32-filterable",
+  "api.GPUSupportedFeatures.feature_indirect-first-instance",
+  "api.GPUSupportedFeatures.feature_rg11b10ufloat-renderable",
+  "api.GPUSupportedFeatures.feature_shader-f16",
+  "api.GPUSupportedFeatures.feature_texture-compression-astc",
+  "api.GPUSupportedFeatures.feature_texture-compression-bc",
+  "api.GPUSupportedFeatures.feature_texture-compression-etc2",
+  "api.GPUSupportedFeatures.feature_timestamp-query",
 
   /* Can't synthesize */
   "api.ExtendableEvent.waitUntil.async_waitUntil",

@@ -1,0 +1,3 @@
+partial interface MessageEvent {
+  attribute boolean userActivation;
+};
