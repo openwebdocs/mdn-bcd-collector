@@ -1,4 +1,0 @@
-// https://github.com/whatwg/html/pull/10873
-partial interface mixin CanvasTextDrawingStyles {
-	attribute DOMString lang;
-};
