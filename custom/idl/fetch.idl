@@ -1,0 +1,14 @@
+// Remove when https://github.com/whatwg/fetch/pull/1647 is merged
+
+ dictionary DeferredRequestInit : RequestInit {
+   DOMHighResTimeStamp activateAfter;
+ };
+
+ [Exposed=Window]
+ interface FetchLaterResult {
+   readonly attribute boolean activated;
+ };
+
+ partial interface Window {
+   [NewObject] FetchLaterResult fetchLater(RequestInfo input, optional DeferredRequestInit init = {});
+ };
