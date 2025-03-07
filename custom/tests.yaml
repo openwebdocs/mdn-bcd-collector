@@ -923,6 +923,10 @@ api:
     read:
       __additional:
         formats_unsanitized_parameter: return bcd.testOptionParam(instance, 'read', 'unsanitized', ['text/html']);
+    __additional:
+      type_image-png: return ClipboardItem.supports('image/png');
+      type_text-html: return ClipboardItem.supports('text/html');
+      type_text-plain: return ClipboardItem.supports('text/plain');
   CloseEvent:
     __base: |-
       var instance;
