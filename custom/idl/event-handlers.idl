@@ -1,0 +1,226 @@
+partial interface Document {
+  attribute EventHandler onscroll;
+  attribute EventHandler onscrollend;
+  attribute EventHandler onscrollsnapchange;
+  attribute EventHandler onscrollsnapchanging;
+  attribute EventHandler onsecuritypolicyviolation;
+  attribute EventHandler onselectionchange;
+};
+
+partial interface Element {
+  attribute EventHandler onafterscriptexecute;
+  attribute EventHandler onanimationcancel;
+  attribute EventHandler onanimationend;
+  attribute EventHandler onanimationiteration;
+  attribute EventHandler onanimationstart;
+  attribute EventHandler onauxclick;
+  attribute EventHandler onbeforeinput;
+  attribute EventHandler onbeforematch;
+  attribute EventHandler onbeforescriptexecute;
+  attribute EventHandler onbeforexrselect;
+  attribute EventHandler onblur;
+  attribute EventHandler onclick;
+  attribute EventHandler oncompositionend;
+  attribute EventHandler oncompositionstart;
+  attribute EventHandler oncompositionupdate;
+  attribute EventHandler oncontentvisibilityautostatechange;
+  attribute EventHandler oncontextmenu;
+  attribute EventHandler oncopy;
+  attribute EventHandler oncut;
+  attribute EventHandler ondblclick;
+  attribute EventHandler onfocus;
+  attribute EventHandler ongotpointercapture;
+  attribute EventHandler oninput;
+  attribute EventHandler onkeydown;
+  attribute EventHandler onkeypress;
+  attribute EventHandler onkeyup;
+  attribute EventHandler onlostpointercapture;
+  attribute EventHandler onmousedown;
+  attribute EventHandler onmouseenter;
+  attribute EventHandler onmouseleave;
+  attribute EventHandler onmousemove;
+  attribute EventHandler onmouseout;
+  attribute EventHandler onmouseover;
+  attribute EventHandler onmouseup;
+  attribute EventHandler onmousewheel;
+  attribute EventHandler onpaste;
+  attribute EventHandler onpointercancel;
+  attribute EventHandler onpointerdown;
+  attribute EventHandler onpointerenter;
+  attribute EventHandler onpointerleave;
+  attribute EventHandler onpointermove;
+  attribute EventHandler onpointerout;
+  attribute EventHandler onpointerover;
+  attribute EventHandler onpointerrawupdate;
+  attribute EventHandler onpointerup;
+  attribute EventHandler onscroll;
+  attribute EventHandler onscrollend;
+  attribute EventHandler onscrollsnapchange;
+  attribute EventHandler onscrollsnapchanging;
+  attribute EventHandler onsecuritypolicyviolation;
+  attribute EventHandler ontouchcancel;
+  attribute EventHandler ontouchend;
+  attribute EventHandler ontouchmove;
+  attribute EventHandler ontouchstart;
+  attribute EventHandler ontransitioncancel;
+  attribute EventHandler ontransitionend;
+  attribute EventHandler ontransitionrun;
+  attribute EventHandler ontransitionstart;
+  attribute EventHandler onwebkitmouseforcechanged;
+  attribute EventHandler onwebkitmouseforcedown;
+  attribute EventHandler onwebkitmouseforceup;
+  attribute EventHandler onwebkitmouseforcewillbegin;
+  attribute EventHandler onwheel;
+};
+
+partial interface Window {
+  attribute EventHandler onafterprint;
+  attribute EventHandler onbeforeprint;
+  attribute EventHandler onbeforeunload;
+  attribute EventHandler onblur;
+  attribute EventHandler onerror;
+  attribute EventHandler onfocus;
+  attribute EventHandler ongamepadconnected;
+  attribute EventHandler ongamepaddisconnected;
+  attribute EventHandler onhashchange;
+  attribute EventHandler onlanguagechange;
+  attribute EventHandler onload;
+  attribute EventHandler onmessage;
+  attribute EventHandler onmessageerror;
+  attribute EventHandler onoffline;
+  attribute EventHandler ononline;
+  attribute EventHandler onpagehide;
+  attribute EventHandler onpagereveal;
+  attribute EventHandler onpageshow;
+  attribute EventHandler onpageswap;
+  attribute EventHandler onpopstate;
+  attribute EventHandler onrejectionhandled;
+  attribute EventHandler onresize;
+  attribute EventHandler onscrollsnapchange;
+  attribute EventHandler onscrollsnapchanging;
+  attribute EventHandler onstorage;
+  attribute EventHandler onunhandledrejection;
+  attribute EventHandler onunload;
+};
+
+partial interface HTMLElement {
+  attribute EventHandler onbeforetoggle;
+  attribute EventHandler onchange;
+  attribute EventHandler oncommand;
+  attribute EventHandler ondrag;
+  attribute EventHandler ondragend;
+  attribute EventHandler ondragenter;
+  attribute EventHandler ondragexit;
+  attribute EventHandler ondragleave;
+  attribute EventHandler ondragover;
+  attribute EventHandler ondragstart;
+  attribute EventHandler ondrop;
+  attribute EventHandler onerror;
+  attribute EventHandler ontoggle;
+};
+
+partial interface HTMLCanvasElement {
+  attribute EventHandler oncontextlost;
+  attribute EventHandler oncontextrestored;
+  attribute EventHandler onwebglcontextcreationerror;
+  attribute EventHandler onwebglcontextlost;
+  attribute EventHandler onwebglcontextrestored;
+};
+
+partial interface HTMLDialogElement {
+  attribute EventHandler oncancel;
+  attribute EventHandler onclose;
+};
+
+partial interface HTMLFormElement {
+  attribute EventHandler onformdata;
+  attribute EventHandler onreset;
+  attribute EventHandler onsubmit;
+};
+
+partial interface HTMLInputElement {
+  attribute EventHandler oncancel;
+  attribute EventHandler oninvalid;
+  attribute EventHandler onselect;
+  attribute EventHandler onselectionchange;
+};
+
+partial interface HTMLMediaElement {
+  attribute EventHandler onabort;
+  attribute EventHandler oncanplay;
+  attribute EventHandler oncanplaythrough;
+  attribute EventHandler ondurationchange;
+  attribute EventHandler onemptied;
+  attribute EventHandler onended;
+  attribute EventHandler onloadeddata;
+  attribute EventHandler onloadedmetadata;
+  attribute EventHandler onloadstart;
+  attribute EventHandler onpause;
+  attribute EventHandler onplay;
+  attribute EventHandler onplaying;
+  attribute EventHandler onprogress;
+  attribute EventHandler onratechange;
+  attribute EventHandler onseeked;
+  attribute EventHandler onseeking;
+  attribute EventHandler onstalled;
+  attribute EventHandler onsuspend;
+  attribute EventHandler ontimeupdate;
+  attribute EventHandler onvolumechange;
+  attribute EventHandler onwaiting;
+};
+
+partial interface HTMLSlotElement {
+  attribute EventHandler onslotchange;
+};
+
+partial interface HTMLTextAreaElement {
+  attribute EventHandler onselect;
+  attribute EventHandler onselectionchange;
+};
+
+partial interface HTMLTrackElement {
+  attribute EventHandler oncuechange;
+};
+
+partial interface HTMLVideoElement {
+  attribute EventHandler onresize;
+};
+
+partial interface Node {
+  attribute EventHandler onselectstart;
+};
+
+partial interface SVGAnimationElement {
+  attribute EventHandler onbeginEvent;
+  attribute EventHandler onendEvent;
+  attribute EventHandler onrepeatEvent;
+};
+
+partial interface SVGElement {
+  attribute EventHandler onerror;
+  attribute EventHandler onload;
+};
+
+partial interface WorkerGlobalScope {
+  attribute EventHandler onsecuritypolicyviolation;
+};
+
+partial interface XMLHttpRequest {
+  attribute EventHandler onabort;
+  attribute EventHandler onerror;
+  attribute EventHandler onload;
+  attribute EventHandler onloadend;
+  attribute EventHandler onloadstart;
+  attribute EventHandler onprogress;
+  attribute EventHandler ontimeout;
+};
+
+partial interface XMLHttpRequestUpload {
+  attribute EventHandler onabort;
+  attribute EventHandler onerror;
+  attribute EventHandler onload;
+  attribute EventHandler onloadend;
+  attribute EventHandler onloadstart;
+  attribute EventHandler onprogress;
+  attribute EventHandler ontimeout;
+};

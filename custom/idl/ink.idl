@@ -1,0 +1,4 @@
+// Removed in https://github.com/WICG/ink-enhancement/pull/34
+partial interface DelegatedInkTrailPresenter {
+  attribute unsigned long expectedImprovement;
+};

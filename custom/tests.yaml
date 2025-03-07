@@ -920,6 +920,9 @@ api:
         options_includeUncontrolled_parameter: return bcd.testOptionParam(instance, 'matchAll', 'includeUncontrolled', true);
   Clipboard:
     __base: var instance = navigator.clipboard;
+    read:
+      __additional:
+        formats_unsanitized_parameter: return bcd.testOptionParam(instance, 'read', 'unsanitized', ['text/html']);
   CloseEvent:
     __base: |-
       var instance;
@@ -1017,29 +1020,155 @@ api:
       }
       var instance = cookieStore;
     __additional:
-      delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'one'});"
+      delete.partitioned_option: "return bcd.testOptionParam(cookieStore, 'delete', 'partitioned', true, {'name': 'test_delete_partitioned'});"
       set.partitioned_option: |-
         bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'two', 'partitioned': true});  
+          cookieStore.delete({'name': 'test_set_partitioned', 'partitioned': true});  
         });
-        return bcd.testOptionParam(cookieStore, 'set', 'partitioned', true, {'name': 'two', 'value': 'bar'});
+        return bcd.testOptionParam(cookieStore, 'set', 'partitioned', true, {'name': 'test_set_partitioned', 'value': 'bar'});
+      get.domain_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_domain'});  
+        });
+        return cookieStore.set({'name': 'test_get_domain', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_domain');
+        }).then(function(cookie) {
+          return 'domain' in cookie;
+        });
+      get.expires_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_expires'});  
+        });
+        return cookieStore.set({'name': 'test_get_expires', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_expires');
+        }).then(function(cookie) {
+          return 'expires' in cookie;
+        });
+      get.name_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_name'});  
+        });
+        return cookieStore.set({'name': 'test_get_name', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_name');
+        }).then(function(cookie) {
+          return 'name' in cookie;
+        });
       get.partitioned_return_property: |-
         bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'three', 'partitioned': true});  
+          cookieStore.delete({'name': 'test_get_partitioned', 'partitioned': true});  
         });
-        return cookieStore.set({'name': 'three', 'value': 'bar', 'partitioned': true}).then(function() {
-          return cookieStore.get('three');
+        return cookieStore.set({'name': 'test_get_partitioned', 'value': 'bar', 'partitioned': true}).then(function() {
+          return cookieStore.get('test_get_partitioned');
         }).then(function(cookie) {
           return 'partitioned' in cookie;
         });
+      get.path_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_path'});  
+        });
+        return cookieStore.set({'name': 'test_get_path', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_path');
+        }).then(function(cookie) {
+          return 'path' in cookie;
+        });
+      get.sameSite_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_sameSite'});  
+        });
+        return cookieStore.set({'name': 'test_get_sameSite', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_sameSite');
+        }).then(function(cookie) {
+          return 'sameSite' in cookie;
+        });
+      get.secure_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_secure'});  
+        });
+        return cookieStore.set({'name': 'test_get_secure', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_secure');
+        }).then(function(cookie) {
+          return 'secure' in cookie;
+        });
+      get.value_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_get_value'});  
+        });
+        return cookieStore.set({'name': 'test_get_value', 'value': 'bar'}).then(function() {
+          return cookieStore.get('test_get_value');
+        }).then(function(cookie) {
+          return 'value' in cookie;
+        });
+      getAll.domain_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_domain'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_domain', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_domain');
+        }).then(function(cookies) {
+          return 'domain' in cookies[0];
+        });
+      getAll.expires_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_expires'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_expires', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_expires');
+        }).then(function(cookies) {
+          return 'expires' in cookies[0];
+        });
+      getAll.name_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_name'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_name', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_name');
+        }).then(function(cookies) {
+          return 'name' in cookies[0];
+        });
       getAll.partitioned_return_property: |-
         bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'four', 'partitioned': true});  
+          cookieStore.delete({'name': 'test_getAll_partitioned', 'partitioned': true});  
         });
-        return cookieStore.set({'name': 'four', 'value': 'bar', 'partitioned': true}).then(function() {
-          return cookieStore.getAll();
+        return cookieStore.set({'name': 'test_getAll_partitioned', 'value': 'bar', 'partitioned': true}).then(function() {
+          return cookieStore.getAll('test_getAll_partitioned');
         }).then(function(cookies) {
           return 'partitioned' in cookies[0];
+        });
+      getAll.path_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_path'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_path', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_path');
+        }).then(function(cookies) {
+          return 'path' in cookies[0];
+        });
+      getAll.sameSite_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_sameSite'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_sameSite', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_sameSite');
+        }).then(function(cookies) {
+          return 'sameSite' in cookies[0];
+        });
+      getAll.secure_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_secure'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_secure', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_secure');
+        }).then(function(cookies) {
+          return 'secure' in cookies[0];
+        });
+      getAll.value_return_property: |-
+        bcd.addCleanup(function() {
+          cookieStore.delete({'name': 'test_getAll_value'});  
+        });
+        return cookieStore.set({'name': 'test_getAll_value', 'value': 'bar'}).then(function() {
+          return cookieStore.getAll('test_getAll_value');
+        }).then(function(cookies) {
+          return 'value' in cookies[0];
         });
   CountQueuingStrategy:
     __base: |-
@@ -1377,6 +1506,13 @@ api:
       }
   Document:
     __base: var instance = document;
+    caretPositionFromPoint:
+      __additional:
+        options_parameter: |-
+          function caretPositionFromPoint(options) {
+            document.caretPositionFromPoint(0, 0, options);
+          }
+          return bcd.testOptionParam(caretPositionFromPoint, null, 'shadowRoots', []);
     createElement:
       __additional:
         options_parameter: |-
@@ -1628,6 +1764,11 @@ api:
           // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
           var el = document.createElement('main');
           return bcd.testOptionParam(el, 'attachShadow', 'delegatesFocus', true, {mode: 'open'});
+        options_serializable_parameter: |-
+          // Only specific elements may have shadows attached -- see
+          // https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
+          var el = document.createElement('main');
+          return bcd.testOptionParam(el, 'attachShadow', 'serializable', true, {mode: 'open'});
     checkVisibility:
       __additional:
         options_checkOpacity_parameter: "return bcd.testOptionParam(instance, 'checkVisibility', 'checkOpacity', true);"
@@ -3981,6 +4122,15 @@ api:
         }).catch(function (e) {
           return {result: false, message: e.message};
         });
+      permission_compute-pressure: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'compute-pressure'}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
       permission_geolocation: |-
         if (!(instance && 'query' in instance)) {
           return {result: false, message: "Permissions.query is not defined"}
@@ -4067,6 +4217,15 @@ api:
           return {result: false, message: "Permissions.query is not defined"}
         }
         return instance.query({name: 'push', userVisibleOnly: true}).then(function() {
+          return true;
+        }).catch(function (e) {
+          return {result: false, message: e.message};
+        });
+      permission_screen-wake-lock: |-
+        if (!(instance && 'query' in instance)) {
+          return {result: false, message: "Permissions.query is not defined"}
+        }
+        return instance.query({name: 'screen-wake-lock'}).then(function() {
           return true;
         }).catch(function (e) {
           return {result: false, message: e.message};
@@ -6056,6 +6215,11 @@ api:
             }
             throw e;
           }
+        options_includeUserActivation_parameter: |-
+          function postMessage(options) {
+            window.postMessage('', options);
+          }
+          return bcd.testOptionParam(postMessage, null, 'includeUserActivation', true);
     scroll:
       __additional:
         options_behavior_parameter: return bcd.testOptionParam(instance, 'scroll', 'behavior', 'auto');
