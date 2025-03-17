@@ -67,7 +67,7 @@
     "mermaid": "^11.5.0",
     "slugify": "1.6.6",
     "tsx": "^4.19.3",
-    "ua-parser-js": "2.0.2",
+    "ua-parser-js": "2.0.3",
     "wasm-feature-detect": "^1.8.0",
     "winston": "3.17.0",
     "yargs": "17.7.2"
