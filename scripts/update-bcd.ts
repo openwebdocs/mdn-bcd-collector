@@ -12,6 +12,7 @@
 
 import {
   Browsers,
+  SupportStatement,
   SimpleSupportStatement,
   Identifier,
   BrowserName,
@@ -1264,8 +1265,9 @@ export const update = (
   )()) {
     results.push(pickLog(state));
     if (state.statements) {
-      state.shared.support[state.browser] =
-        state.statements.length === 1 ? state.statements[0] : state.statements;
+      state.shared.support[state.browser] = (
+        state.statements.length === 1 ? state.statements[0] : state.statements
+      ) as SupportStatement;
     }
     if (state.reason && (verbose || !state.reason.quiet)) {
       logger.warn(state.reason.message);

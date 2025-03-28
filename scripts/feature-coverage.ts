@@ -6,7 +6,11 @@
 // See the LICENSE file for copyright details
 //
 
-import {CompatData, CompatStatement} from "@mdn/browser-compat-data/types";
+import {
+  CompatData,
+  CompatStatement,
+  SimpleSupportStatement,
+} from "@mdn/browser-compat-data/types";
 import chalk from "chalk-template";
 import esMain from "es-main";
 import fs from "fs-extra";
@@ -63,10 +67,12 @@ const traverseFeatures = (
 
       if (includeAliases) {
         const aliases = new Set();
-        for (let statements of Object.values(compat.support)) {
-          if (!Array.isArray(statements)) {
-            statements = [statements];
-          }
+        for (const _statements of Object.values(compat.support)) {
+          const statements: SimpleSupportStatement[] = Array.isArray(
+            _statements,
+          )
+            ? _statements
+            : [_statements];
           for (const statement of statements) {
             if (statement.flags) {
               continue;
