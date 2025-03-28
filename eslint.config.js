@@ -1,8 +1,7 @@
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
+import ts from "typescript-eslint";
 import preferArrow from "eslint-plugin-prefer-arrow";
 import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 import js from "@eslint/js";
@@ -41,7 +40,7 @@ export default [
   {
     files: ["**/*.ts", "**/eslint.config.js"],
     plugins: {
-      "@typescript-eslint": typescriptEslint,
+      "@typescript-eslint": ts.plugin,
       "prefer-arrow": preferArrow,
       // jsdoc,
       unicorn,
@@ -53,7 +52,7 @@ export default [
         ...globals.node,
       },
 
-      parser: tsParser,
+      parser: ts.parser,
       ecmaVersion: 2022,
       sourceType: "module",
     },
