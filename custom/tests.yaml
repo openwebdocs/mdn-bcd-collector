@@ -3767,6 +3767,19 @@ api:
       - offlineAudioContext
     __base: var instance = reusableInstances.offlineAudioContext;
     __test: return 'OfflineAudioContext' in self;
+    OfflineAudioContext:
+      __additional:
+        options_parameter: |-
+          try {
+            new OfflineAudioContext({
+              numberOfChannels: 2,
+              length: 44100 * 40,
+              sampleRate: 44100,
+            });
+            return true;
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
     startRendering:
       __additional:
         returns_promise: |-
