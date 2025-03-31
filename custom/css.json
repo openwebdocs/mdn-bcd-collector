@@ -210,6 +210,9 @@
         "path": "path('M20,20 L50,80 L80,20')"
       }
     },
+    "color-interpolation": {
+      "__values": ["linearGradient", "sRGB"]
+    },
     "color-scheme": {
       "__additional_values": {
         "only_dark": "only dark",
