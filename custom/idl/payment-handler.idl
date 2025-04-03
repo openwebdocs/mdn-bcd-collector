@@ -8,39 +8,3 @@ interface AbortPaymentEvent : ExtendableEvent {
 partial interface ServiceWorkerGlobalScope {
   attribute EventHandler onabortpayment;
 };
-
-// https://github.com/w3c/payment-handler/pull/170
-partial interface CanMakePaymentEvent {
-  readonly attribute FrozenArray<PaymentDetailsModifier> modifiers;
-};
-
-partial interface PaymentRequestEvent {
-  // https://github.com/w3c/payment-handler/pull/393
-  readonly attribute DOMString instrumentKey;
-};
-
-
-partial interface CanMakePaymentEvent {
-  attribute DOMString paymentRequestOrigin;
-  attribute DOMString topOrigin;
-};
-
-// Removed in https://github.com/w3c/payment-handler/pull/409
-partial interface CanMakePaymentEvent {
-  attribute Float32Array methodData;
-};
-
-partial interface PaymentManager {
-  [SameObject] readonly attribute PaymentInstruments instruments;
-};
-
-
-[SecureContext, Exposed=(Window,Worker)]
-interface PaymentInstruments {
-  Promise<boolean> delete(DOMString instrumentKey);
-  Promise<any> get(DOMString instrumentKey);
-  Promise<sequence<DOMString>>  keys();
-  Promise<boolean> has(DOMString instrumentKey);
-  Promise<undefined> set(DOMString instrumentKey, any details);
-  Promise<undefined> clear();
-};
