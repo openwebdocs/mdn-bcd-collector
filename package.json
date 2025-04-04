@@ -131,7 +131,7 @@
     "open-cli": "8.0.0",
     "prettier": "3.5.3",
     "puppeteer": "24.6.0",
-    "sass": "1.86.2",
+    "sass": "1.86.3",
     "selenium-webdriver": "4.30.0",
     "sinon": "20.0.0",
     "typescript": "5.8.2",
