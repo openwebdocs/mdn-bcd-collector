@@ -344,7 +344,7 @@ app.get("/changelog", async (req: Request, res: Response) => {
   await renderMarkdown(new URL("./CHANGELOG.md", import.meta.url), req, res);
 });
 
-app.get("/changelog/*", async (req: Request, res: Response) => {
+app.get(/\/changelog\/(.*)/, async (req: Request, res: Response) => {
   await renderMarkdown(
     new URL(`./changelog/${req.params[0]}`, import.meta.url),
     req,
@@ -374,7 +374,7 @@ app.get("/docs", async (req: Request, res: Response) => {
   });
 });
 
-app.get("/docs/*", async (req: Request, res: Response) => {
+app.get(/\/docs\/(.*)/, async (req: Request, res: Response) => {
   await renderMarkdown(
     new URL(`./docs/${req.params["0"]}`, import.meta.url),
     req,
@@ -456,7 +456,7 @@ app.all("/export", async (req: Request, res: Response, next: NextFunction) => {
 });
 /* c8 ignore stop */
 
-app.all("/tests/*", (req: Request, res: Response) => {
+app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
   const ident = req.params["0"].replace(/\//g, ".");
   const ignoreIdents = req.query.ignore
     ? typeof req.query.ignore === "string"
