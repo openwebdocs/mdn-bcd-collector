@@ -602,12 +602,17 @@
    * Test a CSS property for support
    * @param {string} name - The CSS property name
    * @param {string} [value] - The CSS property value
+   * @param {string[]} [expectedReturn] - If we're expecting a different computed value to be returned, add it here
    * @returns {TestResult} - Whether the property is supported; if `value` is present, whether that value is supported with the property
    */
-  function testCSSProperty(name, value) {
+  function testCSSProperty(name, value, expectedReturn) {
     if (!value) {
       // Default to "inherit"
       value = "inherit";
+    }
+
+    if (!expectedReturn) {
+      expectedReturn = [value];
     }
 
     // Use CSS.supports if available
@@ -636,7 +641,7 @@
         actualValue = div.style.getPropertyValue(name);
 
         return {
-          result: actualValue == value,
+          result: expectedReturn.includes(actualValue),
           message:
             "getPropertyValue(" +
             jsonify(name) +
@@ -656,7 +661,7 @@
         actualValue = div.style[name];
 
         return {
-          result: actualValue == value,
+          result: expectedReturn.includes(actualValue),
           message:
             "div.style[" +
             jsonify(name) +
