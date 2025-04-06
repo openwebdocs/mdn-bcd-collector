@@ -33,26 +33,26 @@ flowchart TD
     entries --> pathFilters
 
     subgraph one [" "]
-        pathFilters{Match Optional\nPath Filters} -- Yes -->
-        provideSharedBrowserMap[[provideShared\nBrowserMap]] -->
+        pathFilters{Match Optional Path Filters} -- Yes -->
+        provideSharedBrowserMap[[provideShared BrowserMap]] -->
         hasBrowserMap{Has Browser Map?} -- Yes -->
-        provideSharedSupport[["provideShared\n#quot;Support#quot;"]] -->
-        provideSharedUnmodifiedSupport[["provideShared\n#quot;unmodifiedSupport#quot;"]]
+        provideSharedSupport[["provideShared #quot;Support#quot;"]] -->
+        provideSharedUnmodifiedSupport[["provideShared #quot;unmodifiedSupport#quot;"]]
     end
 
     provideSharedUnmodifiedSupport --> iterate
     pathFilters & hasBrowserMap -- No --> entries
 
     subgraph two [" "]
-        iterate((Iterate Browsers\nper BCD Entry)) -->
-        browserFilters{Match Optional\nBrowser Filters} -- Yes -->
-        provideAllStatements[[provide\nAll Statements]] -->
-        provideDefaultStatements[[provide\nDefault Statements]] -->
-        detectDiffs{Detect Diffs in\nSupport Matrix vs. BCD} -- Yes -->
-        provideInferredStatements[[provide\nInferred Statements]] -->
-        tooManyInferred{Too Many\nInferred Statements?} -- No -->
-        releaseFilters{Match Optional\nRelease Filters} -- Yes -->
-        defaultOrInferred{Has Default or\nInferred Statements?}
+        iterate((Iterate Browsers per BCD Entry)) -->
+        browserFilters{Match Optional Browser Filters} -- Yes -->
+        provideAllStatements[[provide All Statements]] -->
+        provideDefaultStatements[[provide Default Statements]] -->
+        detectDiffs{Detect Diffs in Support Matrix vs. BCD} -- Yes -->
+        provideInferredStatements[[provide Inferred Statements]] -->
+        tooManyInferred{Too Many Inferred Statements?} -- No -->
+        releaseFilters{Match Optional Release Filters} -- Yes -->
+        defaultOrInferred{Has Default or Inferred Statements?}
     end
 
     defaultOrInferred -- Yes --> persistNonDefault
@@ -60,16 +60,16 @@ flowchart TD
     tooManyInferred -- Yes --> entries
 
     subgraph three [" "]
-        persistNonDefault[[persist\nNon-Default\nStatements]] -->
-        tooManyDefault{Too Many\nDefault Statements?} -- No -->
-        hasVersionRemoved{Has #quot;Version\nRemoved#quot; Statement?} -- No -->
+        persistNonDefault[[persist Non-Default Statements]] -->
+        tooManyDefault{Too Many Default Statements?} -- No -->
+        hasVersionRemoved{Has #quot;Version Removed#quot; Statement?} -- No -->
         inferredStatementsOutdated{Inferred Statements Outdated?} -- No -->
-        persistInferredRange[[persist\nInferred Range]] -->
-        persistAddedOverPartial[[persist\nAdded Over\nPartial]] -->
-        persistAdded[[persist\nAdded]] -->
-        persistRemoved[[persist\nRemoved]] -->
+        persistInferredRange[[persist Inferred Range]] -->
+        persistAddedOverPartial[[persist Added Over Partial]] -->
+        persistAdded[[persist Added]] -->
+        persistRemoved[[persist Removed]] -->
         clearNonExact[[clearNonExact]] -->
-        stillHasStatements{Still has\nstatements?}
+        stillHasStatements{Still has statements?}
     end
 
     stillHasStatements -- Yes --> saveChanges[[Save Changes]] --> entries
