@@ -35,63 +35,6 @@ typedef object SVGPathSegCurvetoQuadraticSmoothRel;
 interface SVGAnimateColorElement : SVGAnimationElement {
 };
 
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGFontElement
-[Exposed=Window]
-interface SVGFontElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGFontFaceElement
-[Exposed=Window]
-interface SVGFontFaceElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGFontFaceFormatElement
-[Exposed=Window]
-interface SVGFontFaceFormatElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGFontFaceNameElement
-[Exposed=Window]
-interface SVGFontFaceNameElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGFontFaceSrcElement
-[Exposed=Window]
-interface SVGFontFaceSrcElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGFontFaceUriElement
-[Exposed=Window]
-interface SVGFontFaceUriElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGGlyphElement
-[Exposed=Window]
-interface SVGGlyphElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/text.html#InterfaceSVGGlyphRefElement
-[Exposed=Window]
-interface SVGGlyphRefElement : SVGElement {
-  attribute DOMString glyphRef;
-  attribute DOMString format;
-  attribute float x;
-  attribute float y;
-  attribute float dx;
-  attribute float dy;
-};
-SVGGlyphRefElement includes SVGURIReference;
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGHKernElement
-[Exposed=Window]
-interface SVGHKernElement : SVGElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGMissingGlyphElement
-[Exposed=Window]
-interface SVGMissingGlyphElement : SVGElement {
-};
-
 // https://www.w3.org/TR/SVG11/paths.html#InterfaceSVGPathElement
 partial interface SVGPathElement {
   unsigned long getPathSegAtLength(float distance);
@@ -137,16 +80,6 @@ interface SVGRenderingIntent {
   const unsigned short RENDERING_INTENT_ABSOLUTE_COLORIMETRIC = 5;
 };
 
-// https://www.w3.org/TR/SVG11/text.html#InterfaceSVGTRefElement
-[Exposed=Window]
-interface SVGTRefElement : SVGTextPositioningElement {
-};
-
-// https://www.w3.org/TR/SVG11/fonts.html#InterfaceSVGVKernElement
-[Exposed=Window]
-interface SVGVKernElement : SVGElement {
-};
-
 // ---
 
 partial interface SVGSVGElement {
@@ -163,5 +96,3 @@ partial interface SVGStyleElement {
   attribute boolean disabled;
 };
 
-[Exposed=Window]
-interface SVGCursorElement {};
