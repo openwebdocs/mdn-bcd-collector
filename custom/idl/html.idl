@@ -146,10 +146,6 @@ partial interface HTMLFrameSetElement {
   attribute EventHandler onorientationchange;
 };
 
-partial interface HTMLHeadElement {
-  attribute DOMString profile;
-};
-
 partial interface HTMLInputElement {
   // https://github.com/whatwg/html/issues/667
   attribute boolean incremental;
@@ -248,7 +244,6 @@ partial interface Window {
   undefined scrollMaxX();
   undefined scrollMaxY();
   undefined setResizable();
-  undefined showModalDialog();
   undefined sizeToContent();
   undefined updateCommands();
 
