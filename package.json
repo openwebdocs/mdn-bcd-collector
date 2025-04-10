@@ -84,7 +84,7 @@
     "@browser-logos/safari": "2.1.0",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.24.0",
-    "@listr2/prompt-adapter-enquirer": "^2.0.12",
+    "@listr2/prompt-adapter-enquirer": "^2.0.15",
     "@swc/cli": "^0.6.0",
     "@swc/helpers": "^0.5.15",
     "@types/cookie-parser": "^1.4.8",
