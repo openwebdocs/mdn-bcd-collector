@@ -1703,6 +1703,17 @@
   }
 
   /**
+   * Un-disables a button
+   * @param {string} id - the id of the button
+   */
+  function enableButton(id) {
+    var btn = document.getElementById(id);
+    if (btn && !hasClass(btn, "always-disabled")) {
+      btn.disabled = false;
+    }
+  }
+
+  /**
    * Send the results to the server
    * @param {TestResults} results - The results to send
    */
@@ -1733,13 +1744,8 @@
     client.onreadystatechange = function () {
       if (client.readyState == 4) {
         if (client.status >= 200 && client.status <= 299) {
-          var exportButtons = document.getElementsByClassName("export-button");
-          for (var i = 0; i < exportButtons.length; i++) {
-            var btn = exportButtons[i];
-            if (!hasClass(btn, "always-disabled")) {
-              btn.disabled = false;
-            }
-          }
+          enableButton("export-download");
+          enableButton("export-github");
           updateStatus("Results uploaded.", "success-notice");
         } else {
           updateStatus(
