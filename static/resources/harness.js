@@ -48,10 +48,10 @@
   // Set to true for debugging output, and 'full' to include completion logging
   var debugmode =
     "location" in self &&
-    "search" in location &&
-    stringIncludes(location.search, "debug=full")
+    "search" in self.location &&
+    stringIncludes(self.location.search, "debug=full")
       ? "full"
-      : stringIncludes(location.search, "debug=true");
+      : stringIncludes(self.location.search, "debug=true");
 
   /* c8 ignore start */
   // Non-invasive polyfills
