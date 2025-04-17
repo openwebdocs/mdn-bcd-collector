@@ -559,7 +559,11 @@
   "svg": {
     "global_attributes": {
       "attributes": [
-        {"class": "className", "tabindex": "tabIndex"},
+        {
+          "class": "className",
+          "data_attributes": "dataset",
+          "tabindex": "tabIndex"
+        },
         "id",
         "style"
       ]
