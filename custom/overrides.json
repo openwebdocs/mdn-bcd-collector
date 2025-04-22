@@ -869,6 +869,8 @@
   "Recognized but has no effect yet",
   ["api.HTMLInputElement.webkitdirectory", "safari_ios", "*", false],
   ["api.HTMLInputElement.webkitdirectory", "webview_ios", "*", false],
+  ["api.Notification.icon", "safari", "*", false],
+  ["api.Notification.tag", "safari", "*", false],
   "Supported on iPad but not on iPhone",
   ["api.MediaSource", "safari_ios", "13+", true],
   ["api.MediaSource", "webview_ios", "13+", true],
