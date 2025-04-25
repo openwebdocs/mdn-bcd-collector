@@ -611,7 +611,9 @@
       value = "inherit";
     }
 
-    if (!expectedReturn) {
+    if (expectedReturn) {
+      expectedReturn.push(value);
+    } else {
       expectedReturn = [value];
     }
 
