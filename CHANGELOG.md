@@ -1,5 +1,103 @@
 # mdn-bcd-collector Changelog
 
+## v10.12.12
+
+Released April 25, 2025
+
+### Test Changes
+
+#### Added
+
+- api.CSSFunctionRule.getParameters
+- api.CSSFunctionRule.name
+- api.CSSFunctionRule.returnType
+- api.CustomElementRegistry.CustomElementRegistry
+- api.CustomElementRegistry.initialize
+- api.Document.customElementRegistry
+- api.Element.customElementRegistry
+- api.GPUAdapterInfo.isFallbackAdapter
+- api.HTMLTemplateElement.shadowRootCustomElementRegistry
+- api.IdentityCredential.configURL
+- api.ImageData.pixelFormat
+- api.OfflineAudioContext.OfflineAudioContext.options_parameter
+- api.PaymentRequest.securePaymentConfirmationAvailability_static
+- api.ShadowRoot.customElementRegistry
+- api.SpeechRecognition.phrases
+- api.SpeechRecognitionPhrase
+- api.SpeechRecognitionPhraseList
+- api.WebTransportDatagramDuplexStream.createWritable
+- api.WebTransportDatagramsWritable
+- api.XRDepthInformation.view
+- api.XRRenderState.passthroughFullyObscured
+- api.XRSession.depthType
+- api.XRWebGLBinding.foveateBoundTexture
+- css.properties.color-interpolation.linearGradient
+- css.properties.color-interpolation.sRGB
+- css.properties.column-wrap.auto
+- css.properties.font-style.left
+- css.properties.font-style.right
+- css.properties.font-synthesis-style.oblique-only
+- css.properties.reading-flow.source-order
+- css.properties.slider-orientation
+- css.selectors.picker
+- css.selectors.picker-icon
+- css.selectors.checkmark
+- css.selectors.slider-thumb
+- css.selectors.slider-track
+- css.selectors.slider-fill
+- css.selectors.field-text
+- css.selectors.clear-icon
+- css.selectors.step-control
+- css.selectors.step-up
+- css.selectors.step-down
+- css.selectors.field-component
+- css.selectors.field-separator
+- css.selectors.color-swatch
+- css.selectors.low-value
+- css.selectors.high-value
+- css.selectors.optimal-value
+
+#### Removed
+
+- api.CanMakePaymentEvent.methodData
+- api.CanMakePaymentEvent.modifiers
+- api.CanMakePaymentEvent.paymentRequestOrigin
+- api.CanMakePaymentEvent.topOrigin
+- api.GPUAdapter.isFallbackAdapter
+- api.HTMLHeadElement.profile
+- api.PaymentInstruments
+- api.PaymentManager.instruments
+- api.PaymentRequest.isSecurePaymentConfirmationAvailable_static
+- api.PaymentRequestEvent.instrumentKey
+- api.SVGCursorElement
+- api.SVGFontElement
+- api.SVGFontFaceElement
+- api.SVGFontFaceFormatElement
+- api.SVGFontFaceNameElement
+- api.SVGFontFaceSrcElement
+- api.SVGFontFaceUriElement
+- api.SVGGlyphElement
+- api.SVGGlyphRefElement
+- api.SVGHKernElement
+- api.SVGMissingGlyphElement
+- api.SVGTRefElement
+- api.SVGVKernElement
+- api.WebTransportDatagramDuplexStream.writable
+- api.Window.showModalDialog
+
+### Commits
+
+- Improve expectedReturn option for testCSSProperty ([#2263](https://github.com/openwebdocs/mdn-bcd-collector/pull/2263))
+- Add `svg.global_attributes.data_attributes` ([#2285](https://github.com/openwebdocs/mdn-bcd-collector/pull/2285))
+- fix(harness): avoid document.getElementsByClassName() ([#2277](https://github.com/openwebdocs/mdn-bcd-collector/pull/2277))
+- fix(harness): access location via self ([#2278](https://github.com/openwebdocs/mdn-bcd-collector/pull/2278))
+- Remove irrelevant features ([#2264](https://github.com/openwebdocs/mdn-bcd-collector/pull/2264))
+- Fix workflow ([#2257](https://github.com/openwebdocs/mdn-bcd-collector/pull/2257))
+- Add an array option for testCSSProperty expected return values ([#2256](https://github.com/openwebdocs/mdn-bcd-collector/pull/2256))
+- Remove custom IDL for Payment handler APIs ([#2248](https://github.com/openwebdocs/mdn-bcd-collector/pull/2248))
+- Add values for color-interpolation CSS property ([#2236](https://github.com/openwebdocs/mdn-bcd-collector/pull/2236))
+- Add custom test for new OfflineAudioContext(options) ([#2235](https://github.com/openwebdocs/mdn-bcd-collector/pull/2235))
+
 ## v10.12.11
 
 Released March 9, 2025
