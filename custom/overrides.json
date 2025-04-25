@@ -1016,5 +1016,10 @@
   ["css.properties.cursor.zoom-in", "safari_ios", "*", false],
   ["css.properties.cursor.zoom-in", "webview_ios", "*", false],
   ["css.properties.cursor.zoom-out", "safari_ios", "*", false],
-  ["css.properties.cursor.zoom-out", "webview_ios", "*", false]
+  ["css.properties.cursor.zoom-out", "webview_ios", "*", false],
+  "Alternative name used in tests",
+  ["api.DOMMatrix", "safari", "1-10.1", false],
+  ["api.DOMMatrix", "safari_ios", "1-10.1", false],
+  ["api.DOMMatrix.DOMMatrix", "safari", "1-10.1", false],
+  ["api.DOMMatrix.DOMMatrix", "safari_ios", "1-10.1", false]
 ]
