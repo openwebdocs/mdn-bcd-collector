@@ -655,7 +655,7 @@ const run = async (
 
     log(task, "Exporting results...");
     await goToPage(driver, browser, version, `${host}/export`);
-    const downloadEl = await driver.findElement(By.id("download"));
+    const downloadEl = await driver.findElement(By.id("export-download"));
     const downloadUrl = await downloadEl.getAttribute("href");
 
     if (!ctx.testenv) {
