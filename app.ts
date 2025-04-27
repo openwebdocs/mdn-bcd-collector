@@ -401,7 +401,7 @@ app.get(
 // Accept both GET and POST requests. The form uses POST, but selenium.ts
 // instead simply navigates to /export.
 app.all("/export", async (req: Request, res: Response, next: NextFunction) => {
-  const github = !!req.body.github;
+  const github = !!req.body?.github;
   const results = await storage.getAll((req as RequestWithSession).session.id);
 
   if (!results) {
