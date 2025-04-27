@@ -7,8 +7,6 @@ Released April 26, 2025
 ### Commits
 
 - Fix export page under Selenium context ([#2313](https://github.com/openwebdocs/mdn-bcd-collector/pull/2313))
-- Revert "Fix Selenium script" ([#2312](https://github.com/openwebdocs/mdn-bcd-collector/pull/2312))
-- Fix Selenium script ([#2311](https://github.com/openwebdocs/mdn-bcd-collector/pull/2311))
 
 ## v10.12.12
 
