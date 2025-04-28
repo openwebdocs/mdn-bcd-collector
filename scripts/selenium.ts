@@ -19,7 +19,7 @@ import {
   WebDriver,
   WebElement,
 } from "selenium-webdriver";
-import bcd from "@mdn/browser-compat-data" assert {type: "json"};
+import bcd from "@mdn/browser-compat-data" with {type: "json"};
 
 const bcdBrowsers = bcd.browsers;
 import {compare as compareVersions} from "compare-versions";

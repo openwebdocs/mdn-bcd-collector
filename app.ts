@@ -12,7 +12,7 @@ import querystring from "node:querystring";
 import readline from "node:readline";
 
 import fs from "fs-extra";
-import bcd from "@mdn/browser-compat-data" assert {type: "json"};
+import bcd from "@mdn/browser-compat-data" with {type: "json"};
 const bcdBrowsers = bcd.browsers;
 import esMain from "es-main";
 import express, {Request, Response, NextFunction} from "express";
