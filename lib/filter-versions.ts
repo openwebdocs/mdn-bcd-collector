@@ -6,7 +6,7 @@
 // See the LICENSE file for copyright details
 //
 
-import bcd from "@mdn/browser-compat-data" assert {type: "json"};
+import bcd from "@mdn/browser-compat-data" with {type: "json"};
 
 import type {BrowserStatement, BrowserName} from "@mdn/browser-compat-data";
 
