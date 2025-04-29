@@ -135,7 +135,7 @@
     "selenium-webdriver": "4.31.0",
     "sinon": "20.0.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "^8.31.0",
+    "typescript-eslint": "^8.31.1",
     "webidl2": "24.4.1",
     "yaml": "2.7.1"
   }
