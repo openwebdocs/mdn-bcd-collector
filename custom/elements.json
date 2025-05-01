@@ -144,7 +144,7 @@
     },
     "del": {"attributes": [{"datetime": "dateTime"}, "cite"]},
     "details": {"attributes": ["open"]},
-    "dialog": {"attributes": ["open", "closedby"]},
+    "dialog": {"attributes": [{"closedby": "closedBy"}, "open"]},
     "dir": {
       "interfaceName": "HTMLDirectoryElement",
       "attributes": ["compact", "align"]
