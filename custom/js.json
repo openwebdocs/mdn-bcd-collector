@@ -46,6 +46,11 @@
         "instance": ["getFloat16", "setFloat16"]
       }
     },
+    "Date": {
+      "members": {
+        "instance": ["toTemporalInstant"]
+      }
+    },
     "DisposableStack": {
       "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
       "ctor": {},
@@ -272,13 +277,12 @@
     "Temporal.Duration": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["compare", "from"],
+        "instance": [
           "abs",
           "add",
           "blank",
-          "compare",
           "days",
-          "from",
           "hours",
           "microseconds",
           "milliseconds",
@@ -305,14 +309,16 @@
       "ctor": {},
       "members": {
         "static": [
-          "add",
           "compare",
+          "from",
+          "fromEpochMilliseconds",
+          "fromEpochNanoseconds"
+        ],
+        "instance": [
+          "add",
           "epochMilliseconds",
           "epochNanoseconds",
           "equals",
-          "from",
-          "fromEpochMilliseconds",
-          "fromEpochNanoseconds",
           "round",
           "since",
           "subtract",
@@ -340,10 +346,10 @@
     "Temporal.PlainDate": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["compare", "from"],
+        "instance": [
           "add",
           "calendarId",
-          "compare",
           "day",
           "dayOfWeek",
           "dayOfYear",
@@ -353,7 +359,6 @@
           "equals",
           "era",
           "eraYear",
-          "from",
           "inLeapYear",
           "month",
           "monthCode",
@@ -380,10 +385,10 @@
     "Temporal.PlainDateTime": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["compare", "from"],
+        "instance": [
           "add",
           "calendarId",
-          "compare",
           "day",
           "dayOfWeek",
           "dayOfYear",
@@ -393,7 +398,6 @@
           "equals",
           "era",
           "eraYear",
-          "from",
           "hour",
           "inLeapYear",
           "microsecond",
@@ -427,11 +431,11 @@
     "Temporal.PlainMonthDay": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["from"],
+        "instance": [
           "calendarId",
           "day",
           "equals",
-          "from",
           "getISOFields",
           "monthCode",
           "toJSON",
@@ -446,11 +450,10 @@
     "Temporal.PlainTime": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["compare", "from"],
+        "instance": [
           "add",
-          "compare",
           "equals",
-          "from",
           "hour",
           "microsecond",
           "millisecond",
@@ -472,16 +475,15 @@
     "Temporal.PlainYearMonth": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["compare", "from"],
+        "instance": [
           "add",
           "calendarId",
-          "compare",
           "daysInMonth",
           "daysInYear",
           "equals",
           "era",
           "eraYear",
-          "from",
           "inLeapYear",
           "month",
           "monthCode",
@@ -502,10 +504,10 @@
     "Temporal.ZonedDateTime": {
       "ctor": {},
       "members": {
-        "static": [
+        "static": ["compare", "from"],
+        "instance": [
           "add",
           "calendarId",
-          "compare",
           "day",
           "dayOfWeek",
           "dayOfYear",
@@ -517,7 +519,6 @@
           "equals",
           "era",
           "eraYear",
-          "from",
           "getTimeZoneTransition",
           "hour",
           "hoursInDay",
