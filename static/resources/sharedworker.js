@@ -23,6 +23,7 @@ self.onconnect = function (connectEvent) {
    */
   port.onmessage = function (event) {
     var data = JSON.parse(event.data);
+    self.browserInfo = event.browser;
 
     for (var i in data.instances) {
       bcd.addInstance(i, data.instances[i]);

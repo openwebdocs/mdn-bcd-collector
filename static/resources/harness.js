@@ -35,7 +35,8 @@
     completed: false
   };
   var cleanupFunctions = [];
-  var browser = {
+
+  global.browserInfo = {
     name: "",
     version: ""
   };
@@ -238,12 +239,12 @@
    */
   function skipIf(reason, browserName, browserVersion) {
     if (browserName) {
-      if (browserName !== browser.name) {
+      if (browserName !== global.browserInfo.name) {
         return;
       }
 
       if (browserVersion) {
-        if (browserVersion !== browser.version) {
+        if (browserVersion !== global.browserInfo.version) {
           return;
         }
       }
@@ -1007,7 +1008,8 @@
         myWorker.postMessage(
           JSON.stringify({
             instances: reusableInstances.__sources,
-            tests: pending.Worker
+            tests: pending.Worker,
+            browser: global.browserInfo
           })
         );
       } else {
@@ -1078,7 +1080,8 @@
         myWorker.port.postMessage(
           JSON.stringify({
             instances: reusableInstances.__sources,
-            tests: pending.SharedWorker
+            tests: pending.SharedWorker,
+            browser: global.browserInfo
           })
         );
       } else {
@@ -1147,7 +1150,8 @@
               reg.active.postMessage(
                 JSON.stringify({
                   instances: reusableInstances.__sources,
-                  tests: pending.ServiceWorker
+                  tests: pending.ServiceWorker,
+                  browser: global.browserInfo
                 }),
                 [messageChannel.port2]
               );
@@ -1505,13 +1509,13 @@
    * @param {((results: TestResults) => void)?} onComplete - The callback to call once tests are completed
    * @param {number?} resourceCount - The number of resources required
    * @param {boolean} hideResults - Whether to keep the results hidden afterwards
-   * @param {{name: string, version: string}} browserInfo - The info of the current browser
+   * @param {{name: string, version: string}} browser - The info of the current browser
    * @callback TestResults - The processed result of the tests
    */
-  function go(onComplete, resourceCount, hideResults, browserInfo) {
-    if (browserInfo) {
-      browser.name = browserInfo.name;
-      browser.version = browserInfo.version;
+  function go(onComplete, resourceCount, hideResults, browser) {
+    if (browser) {
+      global.browserInfo.name = browser.name;
+      global.browserInfo.version = browser.version;
     }
 
     loadResources(function () {
