@@ -3918,6 +3918,7 @@ api:
               return {result: false, message: e.message};
             }
         webgpu_context: |-
+          bcd.skipIf('Generating a WebGPU context in Safari 18.4 causes a browser crash', 'safari', '18.4');
           if (!(instance && instance.getContext)) {
             return {result: false, message: 'instance.getContext is not defined'};
           }
