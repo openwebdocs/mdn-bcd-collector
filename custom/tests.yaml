@@ -5582,7 +5582,7 @@ api:
       - image-black
     __base: |-
       var instance = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-      svgimg.href.baseVal = document.getElementById("resource-image-black").src; // Set a source for the image, required for certain tests
+      instance.href.baseVal = document.getElementById("resource-image-black").src; // Set a source for the image, required for certain tests
     __test: return bcd.testObjectName(instance, 'SVGImageElement');
   SVGLength:
     __base: |-
