@@ -482,6 +482,11 @@ app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
       ident,
       suggestion: tests.didYouMean(ident),
       query: querystring.encode(req.query as any),
+      queryNoExposure: querystring.encode({
+        ...req.query,
+        exposure: undefined,
+      } as any),
+      exposure: req.query.exposure,
     });
   }
 });

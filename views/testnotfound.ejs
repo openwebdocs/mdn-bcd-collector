@@ -9,7 +9,9 @@ See the LICENSE file for copyright details
 <%- contentFor('body') %>
 <h1>Test Not Found</h1>
 <p>Could not find a test for <code><%= ident %></code>. 
-  <% if (suggestion) { %>
+  <% if (exposure) { %>
+    <span class="notice">Tests are limited to the <code><%= exposure %></code> exposure; why not try with <a href="/tests/<%= `${ident}${query ? `?${queryNoExposure}`: ''}` %>">any exposure</a>?</span>
+  <% } else if (suggestion) { %>
     <span class="notice">Did you mean <a href="/tests/<%= `${suggestion.replace(/\./g, '/')}${query ? `?${query}`: ''}` %>"><code><%= suggestion %></code></a>?</span>
   <% } %>
 </p>
