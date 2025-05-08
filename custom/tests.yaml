@@ -3322,6 +3322,12 @@ api:
         }
         instance = new ImageData(new Uint8ClampedArray(4*16*16), 16, 16, { desynchronized: true });
         return instance.desynchronized == true;
+      ImageData.settings_parameter.pixelFormat_option: |-
+        if (!('ImageData' in self)) {
+          return {result: false, message: 'ImageData is not defined'}
+        }
+        instance = new ImageData(new Uint8ClampedArray(4*16*16), 16, 16, { pixelFormat: "rgba-float16" });
+        return instance.pixelFormat == "rgba-float16";
   InkPresenter:
     __base: |-
       if (!('ink' in navigator)) {
