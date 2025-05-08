@@ -327,7 +327,8 @@
           "is not a non-null object",
           "is not a function",
           "Failed to construct", // Used by workerd
-          "Error calling function with"
+          "Error calling function with",
+          "can't convert"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
