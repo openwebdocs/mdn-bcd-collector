@@ -1081,5 +1081,10 @@
   ["api.CookieStore.set", "firefox", "136", false],
   ["api.CookieStore.set.partitioned_option", "firefox", "136", false],
   ["api.ServiceWorkerGlobalScope.cookieStore", "firefox", "136", false],
-  ["api.Window.cookieStore", "firefox", "136", false]
+  ["api.Window.cookieStore", "firefox", "136", false],
+  "Finched features",
+  ["api.HTMLIFrameElement.sharedStorageWritable", "chrome", "124-125", false],
+  ["api.HTMLIFrameElement.sharedStorageWritable", "edge", "124-125", false],
+  ["api.HTMLImageElement.sharedStorageWritable", "chrome", "124-125", false],
+  ["api.HTMLImageElement.sharedStorageWritable", "edge", "124-125", false]
 ]
