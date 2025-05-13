@@ -445,8 +445,6 @@ api:
           throw e;
         }
       }
-  ApplicationCache:
-    __base: var instance = window.applicationCache;
   AudioBuffer:
     __resources:
       - audioContext
