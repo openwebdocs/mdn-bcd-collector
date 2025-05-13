@@ -274,7 +274,7 @@
     },
     "font": {
       "__additional_values": {
-        "font_stretch_support": "ultra-expanded 12px sans-serif"
+        "font-width_keyword_values": "ultra-expanded 12px sans-serif"
       }
     },
     "font-display": {},
