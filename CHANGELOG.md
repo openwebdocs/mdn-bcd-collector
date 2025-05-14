@@ -1,5 +1,64 @@
 # mdn-bcd-collector Changelog
 
+## v10.13.1
+
+Released May 14, 2025
+
+### Test Changes
+
+#### Added
+
+- api.CrashReportBody.is_top_level
+- api.CrashReportBody.page_visibility
+- api.ImageData.ImageData.settings_parameter.pixelFormat_option
+- api.LanguageDetector
+- api.LargestContentfulPaint.paintTime
+- api.LargestContentfulPaint.presentationTime
+- api.Translator
+- css.properties.dynamic-range-limit.constrained
+- css.properties.font.font-width_keyword_values
+- css.properties.position-area.self-block-start
+- css.properties.position-area.self-block-end
+- css.properties.position-area.self-inline-start
+- css.properties.position-area.self-inline-end
+- css.properties.position-area.span-self-start
+- css.properties.position-area.span-self-end
+- css.properties.position-area.span-y-self-start
+- css.properties.position-area.span-y-self-end
+- css.properties.position-area.span-x-self-start
+- css.properties.position-area.span-x-self-end
+- css.properties.position-area.span-self-block-start
+- css.properties.position-area.span-self-block-end
+- css.properties.position-area.span-self-inline-start
+- css.properties.position-area.span-self-inline-end
+- css.properties.visibility.force-hidden
+- javascript.builtins.WeakRef.WeakRef.symbol_as_target
+- javascript.builtins.FinalizationRegistry.FinalizationRegistry.symbol_as_target
+
+#### Removed
+
+- api.ApplicationCache
+- api.LargestContentfulPaint.renderTime
+- css.properties.custom-property.var
+- css.properties.custom-property.env
+- css.properties.dynamic-range-limit.constrained-high
+- css.properties.font.font_stretch_support
+- css.properties.position-area.block-self-start
+- css.properties.position-area.block-self-end
+- css.properties.position-area.inline-self-start
+- css.properties.position-area.inline-self-end
+- javascript.builtins.WeakRef.symbol_as_target
+- javascript.builtins.FinalizationRegistry.symbol_as_target
+
+### Commits
+
+- env() and var() removed from custom-property tree ([#2380](https://github.com/openwebdocs/mdn-bcd-collector/pull/2380))
+- CSS font subfeature was renamed ([#2379](https://github.com/openwebdocs/mdn-bcd-collector/pull/2379))
+- Remove AppCache ([#2378](https://github.com/openwebdocs/mdn-bcd-collector/pull/2378))
+- Move symbol_as_target features ([#2370](https://github.com/openwebdocs/mdn-bcd-collector/pull/2370))
+- Update constructor test to handle more error messages ([#2366](https://github.com/openwebdocs/mdn-bcd-collector/pull/2366))
+- Add test for ImageData pixelFormat constructor option ([#2359](https://github.com/openwebdocs/mdn-bcd-collector/pull/2359))
+
 ## v10.13.0
 
 Released May 7, 2025
