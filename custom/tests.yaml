@@ -5424,9 +5424,6 @@ api:
   SVGComponentTransferFunctionElement:
     __base: <%api.SVGFEFuncAElement:instance%>
     __test: return bcd.testObjectName(instance, 'SVGFEFuncAElement');
-  SVGCursorElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'cursor');
-    __test: return bcd.testObjectName(instance, 'SVGCursorElement');
   SVGDefsElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     __test: return bcd.testObjectName(instance, 'SVGDefsElement');
@@ -5522,24 +5519,6 @@ api:
   SVGFilterElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
     __test: return bcd.testObjectName(instance, 'SVGFilterElement');
-  SVGFontElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font');
-    __test: return bcd.testObjectName(instance, 'SVGFontElement');
-  SVGFontFaceElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font-face');
-    __test: return bcd.testObjectName(instance, 'SVGFontFaceElement');
-  SVGFontFaceFormatElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font-face-format');
-    __test: return bcd.testObjectName(instance, 'SVGFontFaceFormatElement');
-  SVGFontFaceNameElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font-face-name');
-    __test: return bcd.testObjectName(instance, 'SVGFontFaceNameElement');
-  SVGFontFaceSrcElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font-face-src');
-    __test: return bcd.testObjectName(instance, 'SVGFontFaceSrcElement');
-  SVGFontFaceUriElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'font-face-uri');
-    __test: return bcd.testObjectName(instance, 'SVGFontFaceUriElement');
   SVGForeignObjectElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
     __test: return bcd.testObjectName(instance, 'SVGForeignObjectElement');
@@ -5567,21 +5546,12 @@ api:
           } catch (e) {
             return {result: false, message: e.message};
           }
-  SVGGlyphElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'glyph');
-    __test: return bcd.testObjectName(instance, 'SVGGlyphElement');
-  SVGGlyphRefElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'glyphRef');
-    __test: return bcd.testObjectName(instance, 'SVGGlyphRefElement');
   SVGGradientElement:
     __base: <%api.SVGLinearGradientElement:instance%>
     __test: return bcd.testObjectName(instance, 'SVGLinearGradientElement');
   SVGGraphicsElement:
     __base: <%api.SVGImageElement:instance%>
     __test: return bcd.testObjectName(instance, 'SVGImageElement');
-  SVGHKernElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'hkern');
-    __test: return bcd.testObjectName(instance, 'SVGHKernElement');
   SVGImageElement:
     __resources:
       - image-black
@@ -5615,9 +5585,6 @@ api:
   SVGMetadataElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'metadata');
     __test: return bcd.testObjectName(instance, 'SVGMetadataElement');
-  SVGMissingGlyphElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'missing-glyph');
-    __test: return bcd.testObjectName(instance, 'SVGMissingGlyphElement');
   SVGMPathElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
     __test: return bcd.testObjectName(instance, 'SVGMPathElement');
@@ -5714,9 +5681,6 @@ api:
     __base: |-
       <%api.SVGAnimatedTransformList:list%>
       var instance = list.baseVal;
-  SVGTRefElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'tref');
-    __test: return bcd.testObjectName(instance, 'SVGTRefElement');
   SVGTSpanElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
     __test: return bcd.testObjectName(instance, 'SVGTSpanElement');
@@ -5729,9 +5693,6 @@ api:
   SVGViewElement:
     __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'view');
     __test: return bcd.testObjectName(instance, 'SVGViewElement');
-  SVGVKernElement:
-    __base: var instance = document.createElementNS('http://www.w3.org/2000/svg', 'vkern');
-    __test: return bcd.testObjectName(instance, 'SVGVKernElement');
   Text:
     __base: |-
       var el = document.createElement('b');
