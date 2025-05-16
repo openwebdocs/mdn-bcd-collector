@@ -188,7 +188,6 @@
       "interfaceName": "HTMLFrameSetElement",
       "attributes": ["cols", "rows"]
     },
-    "head": {"attributes": ["profile"]},
     "hr": {
       "attributes": [{"noshade": "noShade"}, "align", "color", "size", "width"]
     },
@@ -618,10 +617,6 @@
     },
     "circle": {"attributes": ["cx", "cy", "fill", "r", "systemLanguage"]},
     "clipPath": {"attributes": ["clipPathUnits", "systemLanguage"]},
-    "cursor": {
-      "interfaceName": "SVGCursorElement",
-      "attributes": ["href", "systemLanguage", "x", "y"]
-    },
     "defs": {
       "attributes": ["systemLanguage"]
     },
@@ -728,95 +723,11 @@
         "y"
       ]
     },
-    "font": {
-      "interfaceName": "SVGFontElement",
-      "attributes": [
-        "horiz-adv-x",
-        "horiz-origin-x",
-        "horiz-origin-y",
-        "vert-adv-y",
-        "vert-origin-x",
-        "vert-origin-y"
-      ]
-    },
-    "font-face": {
-      "interfaceName": "SVGFontFaceElement",
-      "attributes": [
-        "accent-height",
-        "alphabetic",
-        "ascent",
-        "bbox",
-        "cap-height",
-        "descent",
-        "font-family",
-        "font-size",
-        "font-stretch",
-        "font-style",
-        "font-variant",
-        "font-weight",
-        "hanging",
-        "ideographic",
-        "mathematical",
-        "overline-position",
-        "overline-thickness",
-        "panose-1",
-        "slope",
-        "stemh",
-        "stemv",
-        "strikethrough-position",
-        "strikethrough-thickness",
-        "underline-position",
-        "underline-thickness",
-        "unicode-range",
-        "units-per-em",
-        "v-alphabetic",
-        "v-hanging",
-        "v-ideographic",
-        "v-mathematical",
-        "widths",
-        "x-height"
-      ]
-    },
-    "font-face-format": {
-      "interfaceName": "SVGFontFaceFormatElement",
-      "attributes": ["string"]
-    },
-    "font-face-name": {
-      "interfaceName": "SVGFontFaceNameElement",
-      "attributes": ["name"]
-    },
-    "font-face-src": {"interfaceName": "SVGFontFaceSrcElement"},
-    "font-face-uri": {
-      "interfaceName": "SVGFontFaceUriElement"
-    },
     "foreignObject": {
       "attributes": ["height", "systemLanguage", "width", "x", "y"]
     },
     "g": {
       "attributes": ["systemLanguage"]
-    },
-    "glyph": {
-      "interfaceName": "SVGGlyphElement",
-      "attributes": [
-        "arabic-form",
-        "d",
-        "glyph-name",
-        "horiz-adv-x",
-        "lang",
-        "orientation",
-        "unicode",
-        "vert-adv-y",
-        "vert-origin-x",
-        "vert-origin-y"
-      ]
-    },
-    "glyphRef": {
-      "interfaceName": "SVGGlyphRefElement",
-      "attributes": ["dx", "dy", "format", "glyphRef", "x", "y"]
-    },
-    "hkern": {
-      "interfaceName": "SVGHKernElement",
-      "attributes": ["g1", "g2", "k", "u1", "u2"]
     },
     "image": {
       "attributes": [
@@ -864,16 +775,6 @@
         "width",
         "x",
         "y"
-      ]
-    },
-    "missing-glyph": {
-      "interfaceName": "SVGMissingGlyphElement",
-      "attributes": [
-        "d",
-        "horiz-adv-x",
-        "vert-adv-y",
-        "vert-origin-x",
-        "vert-origin-y"
       ]
     },
     "mpath": {"attributes": ["href"]},
@@ -965,10 +866,6 @@
         "systemLanguage"
       ]
     },
-    "tref": {
-      "interfaceName": "SVGTRefElement",
-      "attributes": ["fill", "systemLanguage"]
-    },
     "tspan": {
       "attributes": [
         "dx",
@@ -992,10 +889,6 @@
         "viewTarget",
         "zoomAndPan"
       ]
-    },
-    "vkern": {
-      "interfaceName": "SVGVKernElement",
-      "attributes": ["g1", "g2", "k", "u1", "u2"]
     }
   },
   "mathml": {},
