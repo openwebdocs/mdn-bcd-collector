@@ -634,6 +634,8 @@
     "strict_inequality": "false !== null;",
     "subtraction": "var x = 1 - 1;",
     "subtraction_assignment": "var x = 2;\nx -= 1;",
+    "super": "class Foo {\n  constructor(name) {\n    this.name = name;\n  }\n}\nclass FooBar extends Foo {\n  constructor(name) {\n    super(name);\n  }\n}\nvar firstFooBar = new FooBar('foo');",
+    "this": "function getThis() {\n  return this;\n}\ngetThis();",
     "typeof": "typeof 'foo' == 'string';",
     "unary_negation": "var x = 4;\nvar y = -x;",
     "unary_plus": "var x = +true;",
