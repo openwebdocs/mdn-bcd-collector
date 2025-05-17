@@ -8,9 +8,15 @@ interface Exception {
   readonly attribute DOMString stack;
 };
 
-[Exposed=*, LegacyNamespace=WebAssembly] interface CompileError : Exception {};
-[Exposed=*, LegacyNamespace=WebAssembly] interface LinkError : Exception {};
-[Exposed=*, LegacyNamespace=WebAssembly] interface RuntimeError : Exception {};
+[Exposed=*, LegacyNamespace=WebAssembly] interface CompileError : Exception {
+  constructor();
+};
+[Exposed=*, LegacyNamespace=WebAssembly] interface LinkError : Exception {
+  constructor();
+};
+[Exposed=*, LegacyNamespace=WebAssembly] interface RuntimeError : Exception {
+  constructor();
+};
 
 [Exposed=*, LegacyNamespace=WebAssembly]
 interface Tag {
