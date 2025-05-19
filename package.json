@@ -83,7 +83,7 @@
     "@browser-logos/opera": "1.1.11",
     "@browser-logos/safari": "2.1.0",
     "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^9.27.0",
     "@listr2/prompt-adapter-enquirer": "^2.0.16",
     "@swc/cli": "^0.7.7",
     "@swc/helpers": "^0.5.17",
