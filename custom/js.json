@@ -672,7 +672,7 @@
     "class": "const Rectangle = class {};",
     "const": "const x = 1;",
     "continue": "for (var x = 1; x < 3; x++) {\n  continue;\n}",
-    "do_while": "do {} while (i < 5);",
+    "do_while": "var i = 0;\ndo {} while (i++ < 5);",
     "empty": "var arr = [1, 2, 3];\n for (let i = 0; i < arr.length; arr[i++] = 0) /* empty statement */ ;",
     "for": "for (var x = 1; x < 3; x++) {}",
     "for_in": "var object = { a: 1, b: 2, c: 3 };\nfor (var property in object) {}",
