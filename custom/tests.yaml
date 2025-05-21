@@ -3142,6 +3142,9 @@ api:
           } catch(e) {
             return {result: false, message: e.message};
           }
+  HTMLSelectedContentElement:
+    __base: var instance = document.createElement('selectedcontent');
+    __test: return bcd.testObjectName(instance, 'HTMLSelectedContentElement');
   HTMLShadowElement:
     __base: var instance = document.createElement('shadow');
     __test: return bcd.testObjectName(instance, 'HTMLShadowElement');
