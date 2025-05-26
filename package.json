@@ -47,7 +47,7 @@
     "@google-cloud/storage": "7.16.0",
     "@mdi/font": "7.4.47",
     "@mdn/browser-compat-data": "6.0.17",
-    "@octokit/rest": "21.1.1",
+    "@octokit/rest": "22.0.0",
     "@swc/core": "1.11.13",
     "compare-versions": "6.1.1",
     "cookie-parser": "1.4.7",
