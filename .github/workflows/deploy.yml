@@ -17,6 +17,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
       - name: Check for version change
         id: check
         uses: EndBug/version-check@v2
