@@ -1,5 +1,69 @@
 # mdn-bcd-collector Changelog
 
+## v10.13.2
+
+Released May 30, 2025
+
+### Test Changes
+
+#### Added
+
+- api.AnimationTrigger.behavior
+- webassembly.api.CompileError.CompileError
+- api.Element.setHTML
+- api.HTMLElement.scrollParent
+- api.HTMLSelectedContentElement
+- api.IntegrityPolicyViolationReportBody
+- webassembly.api.LinkError.LinkError
+- api.PerformancePaintTiming.toJSON
+- webassembly.api.RuntimeError.RuntimeError
+- api.SpeechRecognition.available_static
+- api.SpeechRecognition.install_static
+- api.SpeechRecognition.processLocally
+- api.WebTransport.exportKeyingMaterial
+- css.properties.animation-trigger-behavior
+- css.properties.scroll-target-group
+- html.elements.selectedcontent
+- javascript.operators.super
+- javascript.operators.this
+- javascript.statements.break
+- javascript.statements.do_while
+- javascript.statements.empty
+- javascript.statements.for_in
+- javascript.statements.for_of
+- javascript.statements.throw
+- javascript.statements.while
+- javascript.statements.with
+
+#### Removed
+
+- api.AnimationTrigger.type
+- api.SpeechRecognition.availableOnDevice_static
+- api.SpeechRecognition.installOnDevice_static
+- api.SpeechRecognition.mode
+- css.properties.animation-trigger-type
+- html.elements.head.profile
+- svg.elements.cursor
+- svg.elements.font
+- svg.elements.font-face
+- svg.elements.font-face-format
+- svg.elements.font-face-name
+- svg.elements.font-face-src
+- svg.elements.font-face-uri
+- svg.elements.glyph
+- svg.elements.glyphRef
+- svg.elements.hkern
+- svg.elements.missing-glyph
+- svg.elements.tref
+- svg.elements.vkern
+
+### Commits
+
+- Add custom test for HTMLSelectedContentElement ([#2284](https://github.com/openwebdocs/mdn-bcd-collector/pull/2284))
+- fix: infinite loop in do-while test ([#2399](https://github.com/openwebdocs/mdn-bcd-collector/pull/2399))
+- Add more tests ([#2393](https://github.com/openwebdocs/mdn-bcd-collector/pull/2393))
+- Remove obsolete features ([#2391](https://github.com/openwebdocs/mdn-bcd-collector/pull/2391))
+
 ## v10.13.1
 
 Released May 14, 2025
