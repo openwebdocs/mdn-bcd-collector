@@ -15,6 +15,7 @@ partial interface GPURenderPassEncoder {
 
 partial interface GPUAdapter {
   undefined requestAdapterInfo();
+  readonly attribute boolean isFallbackAdapter;
 };
 
 partial interface GPUSupportedLimits {
