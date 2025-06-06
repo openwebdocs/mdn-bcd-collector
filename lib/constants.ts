@@ -18,7 +18,7 @@ export const BASE_DIR = new URL("..", import.meta.url);
  * Otherwise, it uses the resolved path of "../browser-compat-data" relative to BASE_DIR.
  */
 const _get_bcd_dir = {
-  confirmed_path: null,
+  confirmed_path: "",
   /**
    * Tests a specified path to see if it's a local checkout of mdn/browser-compat-data
    * @param dir The directory to test
@@ -27,7 +27,7 @@ const _get_bcd_dir = {
   try_bcd_dir: (dir) => {
     try {
       const packageJsonFile = fs.readFileSync(`${dir}/package.json`);
-      const packageJson = JSON.parse(packageJsonFile);
+      const packageJson = JSON.parse(packageJsonFile.toString("utf8"));
       if (packageJson.name == "@mdn/browser-compat-data") {
         return true;
       }
