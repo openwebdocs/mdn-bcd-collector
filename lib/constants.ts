@@ -17,9 +17,14 @@ export const BASE_DIR = new URL("..", import.meta.url);
  * If the environment variable BCD_DIR is set, it uses the resolved path of BCD_DIR.
  * Otherwise, it uses the resolved path of "../browser-compat-data" relative to BASE_DIR.
  */
-let _get_bcd_dir = {
+const _get_bcd_dir = {
   confirmed_path: null,
-  try_bcd_dir(dir) {
+  /**
+   * Tests a specified path to see if it's a local checkout of mdn/browser-compat-data
+   * @param dir The directory to test
+   * @returns {boolean} If the directory is a BCD checkout
+   */
+  try_bcd_dir: (dir) => {
     try {
       const packageJsonFile = fs.readFileSync(`${dir}/package.json`);
       const packageJson = JSON.parse(packageJsonFile);
@@ -32,6 +37,11 @@ let _get_bcd_dir = {
       return false;
     }
   },
+  /**
+   * Returns a valid BCD directory path based upon environment variable or relative path, or throws an error if none is found
+   * @returns {string} The BCD path detected
+   * @throws An error if no valid BCD path detected
+   */
   get dir() {
     if (this.confirmed_path) {
       return this.confirmed_path;
