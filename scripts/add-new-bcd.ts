@@ -15,7 +15,7 @@ import esMain from "es-main";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
-import {BCD_DIR} from "../lib/constants.js";
+import {BCD_DIR, RESULTS_DIR} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
 import {getMissing} from "./feature-coverage.js";
@@ -272,7 +272,7 @@ if (esMain(import.meta)) {
           describe: "The report files to update from (also accepts folders)",
           type: "string",
           array: true,
-          default: ["../mdn-bcd-results/"],
+          default: [RESULTS_DIR],
         })
         .option("verbose", {
           alias: "v",
