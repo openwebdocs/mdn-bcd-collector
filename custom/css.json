@@ -1281,6 +1281,16 @@
         "rect": "rect(10px, 20px, 20px, 10px)"
       }
     },
+    "sibling-count": {
+      "syntax": "<sibling-count()>",
+      "property": "width",
+      "value": "calc(100px * sibling-count())"
+    },
+    "sibling-index": {
+      "syntax": "<sibling-index()>",
+      "property": "width",
+      "value": "calc(100px * sibling-index())"
+    },
     "sign": {
       "syntax": "<sign()>",
       "property": "top",
