@@ -251,6 +251,9 @@ const buildPropertyTests = async (specCSS, customCSS) => {
           "skewX",
           "skewY",
         ],
+        // https://github.com/openwebdocs/mdn-bcd-collector/issues/2381
+        "accent-color": ["<color>"],
+        "column-rule-color": ["<color>"],
       };
 
       const propertyValues = remapPropertyValues(
