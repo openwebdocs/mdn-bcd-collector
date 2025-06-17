@@ -37,7 +37,6 @@ const template = {
       edge: "mirror",
       firefox: {version_added: null},
       firefox_android: "mirror",
-      ie: {version_added: false},
       oculus: "mirror",
       opera: "mirror",
       opera_android: "mirror",
