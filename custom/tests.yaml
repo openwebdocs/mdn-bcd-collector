@@ -6863,7 +6863,7 @@ javascript:
             var e = new Error('foo', {cause: 'testing'});
             return e.cause === 'testing';
     FinalizationRegistry:
-      FinalizationRegistry:
+      register:
         __additional:
           symbol_as_target: |-
             try {
