@@ -17,10 +17,12 @@ import {hideBin} from "yargs/helpers";
 import {CompatData} from "@mdn/browser-compat-data/types";
 
 import {Report, ReportStats} from "../types/types.js";
-import {BCD_DIR} from "../lib/constants.js";
+import {getBCDDir} from "../lib/constants.js";
 import {parseUA} from "../lib/ua-parser.js";
 
 import {findMissing} from "./feature-coverage.js";
+
+const BCD_DIR = getBCDDir();
 
 const {default: bcd}: {default: CompatData} = await import(
   `${BCD_DIR}/index.js`

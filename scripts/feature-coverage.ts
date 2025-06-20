@@ -19,7 +19,9 @@ import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
 import {Tests} from "../types/types.js";
-import {BCD_DIR} from "../lib/constants.js";
+import {getBCDDir} from "../lib/constants.js";
+
+const BCD_DIR = getBCDDir();
 
 const untestableFeatures = jsonc.parse(
   await fs.readFile(
