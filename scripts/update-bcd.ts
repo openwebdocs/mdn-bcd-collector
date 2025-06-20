@@ -42,9 +42,12 @@ import {Minimatch} from "minimatch";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
-import {BCD_DIR, RESULTS_DIR} from "../lib/constants.js";
+import {getBCDDir, getResultsDir} from "../lib/constants.js";
 import logger from "../lib/logger.js";
 import {parseUA} from "../lib/ua-parser.js";
+
+const BCD_DIR = getBCDDir();
+const RESULTS_DIR = getResultsDir();
 
 const {default: mirror} = await import(`${BCD_DIR}/scripts/build/mirror.js`);
 

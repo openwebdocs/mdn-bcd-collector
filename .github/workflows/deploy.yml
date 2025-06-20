@@ -11,7 +11,6 @@ permissions:
 
 env:
   FORCE_COLOR: 3
-  BCD_DIR: ./browser-compat-data
   RESULTS_DIR: ./mdn-bcd-results
 
 jobs:
@@ -46,12 +45,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-      - name: Clone browser-compat-data
-        uses: actions/checkout@v4
-        if: steps.check.outputs.changed == 'true'
-        with:
-          repository: mdn/browser-compat-data
-          path: browser-compat-data
       - name: Checkout mdn-bcd-results
         uses: actions/checkout@v4
         if: steps.check.outputs.changed == 'true'
