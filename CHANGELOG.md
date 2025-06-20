@@ -1,5 +1,163 @@
 # mdn-bcd-collector Changelog
 
+## v10.13.3
+
+Released June 19, 2025
+
+### Test Changes
+
+#### Added
+
+- api.GPUAdapter.isFallbackAdapter
+- api.LargestContentfulPaint.renderTime
+- api.PerformanceResourceTiming.contentEncoding
+- api.PointerTimeline
+- api.ToggleEvent.source
+- api.WebTransportDatagramDuplexStream.writable
+- css.properties.animation-range-center
+- css.properties.appearance.base-select
+- css.properties.background-clip.border-area
+- css.properties.block-size.anchor-size
+- css.properties.block-size.fit-content
+- css.properties.bottom.anchor
+- css.properties.bottom.anchor-size
+- css.properties.continue.-webkit-legacy
+- css.properties.continue.collapse
+- css.properties.font-family.ui-monospace
+- css.properties.font-family.ui-rounded
+- css.properties.font-family.ui-sans-serif
+- css.properties.font-family.ui-serif
+- css.properties.font-width.percentage
+- css.properties.height.anchor-size
+- css.properties.inline-size.anchor-size
+- css.properties.inline-size.fit-content
+- css.properties.inset.anchor
+- css.properties.inset.anchor-size
+- css.properties.inset-block.anchor
+- css.properties.inset-block.anchor-size
+- css.properties.inset-block-end.anchor
+- css.properties.inset-block-end.anchor-size
+- css.properties.inset-block-start.anchor
+- css.properties.inset-block-start.anchor-size
+- css.properties.inset-inline.anchor
+- css.properties.inset-inline.anchor-size
+- css.properties.inset-inline-end.anchor
+- css.properties.inset-inline-end.anchor-size
+- css.properties.inset-inline-start.anchor
+- css.properties.inset-inline-start.anchor-size
+- css.properties.left.anchor
+- css.properties.left.anchor-size
+- css.properties.line-clamp.-webkit-legacy
+- css.properties.margin.anchor-size
+- css.properties.margin-block.anchor-size
+- css.properties.margin-block-end.anchor-size
+- css.properties.margin-block-start.anchor-size
+- css.properties.margin-bottom.anchor-size
+- css.properties.margin-inline.anchor-size
+- css.properties.margin-inline-end.anchor-size
+- css.properties.margin-inline-start.anchor-size
+- css.properties.margin-left.anchor-size
+- css.properties.margin-right.anchor-size
+- css.properties.margin-top.anchor-size
+- css.properties.max-block-size.anchor-size
+- css.properties.max-block-size.fit-content
+- css.properties.max-height.anchor-size
+- css.properties.max-inline-size.anchor-size
+- css.properties.max-inline-size.fit-content
+- css.properties.max-width.anchor-size
+- css.properties.min-block-size.anchor-size
+- css.properties.min-block-size.fit-content
+- css.properties.min-height.anchor-size
+- css.properties.min-inline-size.anchor-size
+- css.properties.min-inline-size.fit-content
+- css.properties.min-width.anchor-size
+- css.properties.place-items.anchor-center
+- css.properties.place-self.anchor-center
+- css.properties.pointer-timeline
+- css.properties.pointer-timeline-axis
+- css.properties.pointer-timeline-name
+- css.properties.position-try-fallbacks.position-area
+- css.properties.right.anchor
+- css.properties.right.anchor-size
+- css.properties.text-emphasis-position.auto
+- css.properties.top.anchor
+- css.properties.top.anchor-size
+- css.properties.transition.transition-behavior
+- css.properties.width.anchor-size
+- css.types.sibling-count
+- css.types.sibling-index
+- javascript.builtins.FinalizationRegistry.register.symbol_as_target
+
+#### Removed
+
+- css.properties.accent-color.none
+- css.properties.accent-color.transparent
+- css.properties.accent-color.currentcolor
+- css.properties.accent-color.ActiveBorder
+- css.properties.accent-color.ActiveCaption
+- css.properties.accent-color.AppWorkspace
+- css.properties.accent-color.Background
+- css.properties.accent-color.ButtonHighlight
+- css.properties.accent-color.ButtonShadow
+- css.properties.accent-color.CaptionText
+- css.properties.accent-color.InactiveBorder
+- css.properties.accent-color.InactiveCaption
+- css.properties.accent-color.InactiveCaptionText
+- css.properties.accent-color.InfoBackground
+- css.properties.accent-color.InfoText
+- css.properties.accent-color.Menu
+- css.properties.accent-color.MenuText
+- css.properties.accent-color.Scrollbar
+- css.properties.accent-color.ThreeDDarkShadow
+- css.properties.accent-color.ThreeDFace
+- css.properties.accent-color.ThreeDHighlight
+- css.properties.accent-color.ThreeDLightShadow
+- css.properties.accent-color.ThreeDShadow
+- css.properties.accent-color.Window
+- css.properties.accent-color.WindowFrame
+- css.properties.accent-color.WindowText
+- css.properties.column-rule-color.none
+- css.properties.column-rule-color.transparent
+- css.properties.column-rule-color.currentcolor
+- css.properties.column-rule-color.ActiveBorder
+- css.properties.column-rule-color.ActiveCaption
+- css.properties.column-rule-color.AppWorkspace
+- css.properties.column-rule-color.Background
+- css.properties.column-rule-color.ButtonHighlight
+- css.properties.column-rule-color.ButtonShadow
+- css.properties.column-rule-color.CaptionText
+- css.properties.column-rule-color.InactiveBorder
+- css.properties.column-rule-color.InactiveCaption
+- css.properties.column-rule-color.InactiveCaptionText
+- css.properties.column-rule-color.InfoBackground
+- css.properties.column-rule-color.InfoText
+- css.properties.column-rule-color.Menu
+- css.properties.column-rule-color.MenuText
+- css.properties.column-rule-color.Scrollbar
+- css.properties.column-rule-color.ThreeDDarkShadow
+- css.properties.column-rule-color.ThreeDFace
+- css.properties.column-rule-color.ThreeDHighlight
+- css.properties.column-rule-color.ThreeDLightShadow
+- css.properties.column-rule-color.ThreeDShadow
+- css.properties.column-rule-color.Window
+- css.properties.column-rule-color.WindowFrame
+- css.properties.column-rule-color.WindowText
+- css.properties.continue.-webkit-discard
+- javascript.builtins.FinalizationRegistry.FinalizationRegistry.symbol_as_target
+
+### Commits
+
+- Correctly move symbol_as_target ([#2483](https://github.com/openwebdocs/mdn-bcd-collector/pull/2483))
+- Add custom tests for sibling-count() and sibling-index() ([#2453](https://github.com/openwebdocs/mdn-bcd-collector/pull/2453))
+- Don't add IE = false when adding new features ([#2477](https://github.com/openwebdocs/mdn-bcd-collector/pull/2477))
+- Add overrides for `break-before/after: avoid` in Firefox/Safari ([#2476](https://github.com/openwebdocs/mdn-bcd-collector/pull/2476))
+- Ignore system color variables for accent-color and column-rule-color ([#2446](https://github.com/openwebdocs/mdn-bcd-collector/pull/2446))
+- Improve handling of BCD and results paths in scripts ([#2444](https://github.com/openwebdocs/mdn-bcd-collector/pull/2444))
+- Add tests for CSS property values ([#2439](https://github.com/openwebdocs/mdn-bcd-collector/pull/2439))
+- Add test for api.WebTransportDatagramDuplexStream.writable ([#2428](https://github.com/openwebdocs/mdn-bcd-collector/pull/2428))
+- Add IDL for features removed from the spec ([#2427](https://github.com/openwebdocs/mdn-bcd-collector/pull/2427))
+- Set up Node in deployment script ([#2424](https://github.com/openwebdocs/mdn-bcd-collector/pull/2424))
+
 ## v10.13.2
 
 Released May 30, 2025
