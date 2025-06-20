@@ -9,6 +9,11 @@ permissions:
   contents: write
   deployments: write
 
+env:
+  FORCE_COLOR: 3
+  BCD_DIR: ./browser-compat-data
+  RESULTS_DIR: ./mdn-bcd-results
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -41,6 +46,12 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+      - name: Clone browser-compat-data
+        uses: actions/checkout@v4
+        if: steps.check.outputs.changed == 'true'
+        with:
+          repository: mdn/browser-compat-data
+          path: browser-compat-data
       - name: Checkout mdn-bcd-results
         uses: actions/checkout@v4
         if: steps.check.outputs.changed == 'true'
@@ -67,7 +78,7 @@ jobs:
         run: |
           npm install -D typescript
           npm install -D tsx
-          RESULTS_DIR=mdn-bcd-results npm run selenium
+          npm run selenium
         env:
           SECRETS_JSON: ${{secrets.SECRETS_JSON}}
       - name: Submit all results to the results repo
