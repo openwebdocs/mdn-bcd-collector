@@ -2,29 +2,3 @@ partial interface SpeechRecognitionEvent {
   readonly attribute USVString emma;
   readonly attribute DOMString interpretation;
 };
-
-// https://github.com/WebAudio/web-speech-api/pull/117
-
-partial interface SpeechRecognition {
-  attribute SpeechGrammarList grammars;
-};
-
-// The object representing a speech grammar
-[Exposed=Window]
-interface SpeechGrammar {
-    constructor();
-    attribute DOMString src;
-    attribute float weight;
-};
-
-// The object representing a speech grammar collection
-[Exposed=Window]
-interface SpeechGrammarList {
-    constructor();
-    readonly attribute unsigned long length;
-    getter SpeechGrammar item(unsigned long index);
-    undefined addFromURI(DOMString src,
-                    optional float weight = 1.0);
-    undefined addFromString(DOMString string,
-                    optional float weight = 1.0);
-};
