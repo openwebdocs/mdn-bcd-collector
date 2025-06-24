@@ -95,9 +95,11 @@ export const getBCDDir = () =>
  * @throws An error if no valid mdn-bcd-results path detected
  */
 export const getResultsDir = () =>
-  get_dir(
-    "RESULTS_DIR",
-    "../mdn-bcd-results",
-    "https://github.com/openwebdocs/mdn-bcd-results",
-    try_results_dir,
-  );
+  process.env.NODE_ENV === "test"
+    ? ""
+    : get_dir(
+        "RESULTS_DIR",
+        "../mdn-bcd-results",
+        "https://github.com/openwebdocs/mdn-bcd-results",
+        try_results_dir,
+      );
