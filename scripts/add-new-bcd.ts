@@ -15,11 +15,14 @@ import esMain from "es-main";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
-import {BCD_DIR, RESULTS_DIR} from "../lib/constants.js";
+import {getBCDDir, getResultsDir} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
 import {getMissing} from "./feature-coverage.js";
 import {main as updateBcd} from "./update-bcd.js";
+
+const BCD_DIR = getBCDDir();
+const RESULTS_DIR = getResultsDir();
 
 const tests = await fs.readJson(new URL("../tests.json", import.meta.url));
 const overrides = await fs.readJson(

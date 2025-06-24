@@ -31,13 +31,15 @@ import {Listr, ListrTask, ListrTaskWrapper} from "listr2";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
-import {RESULTS_DIR} from "../lib/constants.js";
+import {getResultsDir} from "../lib/constants.js";
 import filterVersionsLib from "../lib/filter-versions.js";
 import getSecrets from "../lib/secrets.js";
 
 import type {BrowserName} from "@mdn/browser-compat-data";
 
 import "../lib/selenium-keepalive.js";
+
+const RESULTS_DIR = getResultsDir();
 
 type Task = ListrTaskWrapper<any, any, any>;
 

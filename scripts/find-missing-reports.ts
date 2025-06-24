@@ -21,13 +21,16 @@ import fs from "fs-extra";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
 
-import {BCD_DIR, RESULTS_DIR} from "../lib/constants.js";
+import {getBCDDir, getResultsDir} from "../lib/constants.js";
 import filterVersions from "../lib/filter-versions.js";
 import {parseUA} from "../lib/ua-parser.js";
 
 import {loadJsonFiles} from "./update-bcd.js";
 
 import type {BrowserName} from "@mdn/browser-compat-data";
+
+const BCD_DIR = getBCDDir();
+const RESULTS_DIR = getResultsDir();
 
 const {default: bcd}: {default: CompatData} = await import(
   `${BCD_DIR}/index.js`
