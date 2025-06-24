@@ -11,6 +11,7 @@ permissions:
 env:
   FORCE_COLOR: 3
   BCD_DIR: ./browser-compat-data
+  RESULTS_DIR: ./mdn-bcd-results
 
 jobs:
   test:
@@ -37,6 +38,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+      - name: Checkout mdn-bcd-results
+        uses: actions/checkout@v4
+        if: steps.check.outputs.changed == 'true'
+        with:
+          repository: openwebdocs/mdn-bcd-results
+          path: mdn-bcd-results
       - name: Prepare browser-compat-data
         run: npm ci
         working-directory: browser-compat-data
