@@ -1913,8 +1913,7 @@ describe("BCD updater", () => {
         userAgent: firefox92UaString,
       };
       const expectedBcd = clone(initialBcd);
-      expectedBcd.api.AbortController.__compat.support.firefox.version_added =
-        false;
+      expectedBcd.api.AbortController.__compat.support.firefox.version_added = false;
 
       const sm = getSupportMatrix([report], initialBcd.browsers, []);
 
