@@ -47,8 +47,12 @@ const try_results_dir = (dir) => {
 
 /**
  * Returns a valid directory path based upon environment variable or relative path and a checker function, or throws an error if none is found
- * @returns {string} The BCD path detected
- * @throws An error if no valid BCD path detected
+ * @param env_variable The name of the environment variable to check
+ * @param relative_path The expected relative path
+ * @param github_url The URL to the GitHub repository for the expected folder
+ * @param try_func The function to run to test if the path is a valid checkout of the expected repository
+ * @returns {string} The path detected
+ * @throws An error if no valid path detected
  */
 const get_dir = (env_variable, relative_path, github_url, try_func) => {
   if (process.env[env_variable]) {
@@ -72,6 +76,8 @@ const get_dir = (env_variable, relative_path, github_url, try_func) => {
  * The directory path for the Browser Compatibility Data (BCD) repository.
  * If the environment variable BCD_DIR is set, it uses the resolved path of BCD_DIR.
  * Otherwise, it uses the resolved path of "../browser-compat-data" relative to BASE_DIR.
+ * @returns The directory where BCD is located
+ * @throws An error if no valid BCD path detected
  */
 export const getBCDDir = () =>
   get_dir(
@@ -85,6 +91,8 @@ export const getBCDDir = () =>
  * The directory path where the results are stored.
  * If the RESULTS_DIR environment variable is set, it will be used.
  * Otherwise, the default path is resolved relative to the BASE_DIR.
+ * @returns The directory where mdn-bcd-results is located
+ * @throws An error if no valid mdn-bcd-results path detected
  */
 export const getResultsDir = () =>
   get_dir(
