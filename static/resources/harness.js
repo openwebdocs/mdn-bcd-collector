@@ -645,7 +645,7 @@
         actualValue = div.style.getPropertyValue(name);
 
         return {
-          result: expectedReturn.includes(actualValue),
+          result: expectedReturn.indexOf(actualValue) > -1,
           message:
             "getPropertyValue(" +
             jsonify(name) +
@@ -665,7 +665,7 @@
         actualValue = div.style[name];
 
         return {
-          result: expectedReturn.includes(actualValue),
+          result: expectedReturn.indexOf(actualValue) > -1,
           message:
             "div.style[" +
             jsonify(name) +
