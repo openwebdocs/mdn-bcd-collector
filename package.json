@@ -113,7 +113,7 @@
     "ejs-lint": "github:RyanZim/EJS-Lint#7e7d5681ba8d2c768e15a3d77c84662a78ea8db1",
     "enquirer": "2.4.1",
     "es-scraper": "^0.0.13",
-    "eslint": "9.29.0",
+    "eslint": "9.30.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^51.3.1",
     "eslint-plugin-prefer-arrow": "1.2.3",
