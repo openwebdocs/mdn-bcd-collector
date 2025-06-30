@@ -79,9 +79,6 @@
     "animation-duration": {
       "__values": ["scroll", "view"]
     },
-    "appearance": {
-      "__values": ["base-select"]
-    },
     "background": {
       "__additional_values": {
         "background-clip": "red border-box",
