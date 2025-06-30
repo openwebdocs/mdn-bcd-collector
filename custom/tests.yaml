@@ -128,7 +128,8 @@ __resources:
       ) {
         // Create the audio noise stream
         var oscillator = reusableInstances.audioContext.createOscillator();
-        var dst = oscillator.connect(reusableInstances.audioContext.createMediaStreamDestination());
+        var dst = reusableInstances.audioContext.createMediaStreamDestination()
+        oscillator.connect(dst);
         oscillator.start();
         var audioTrack = dst.stream.getAudioTracks()[0];
         stream.addTrack(audioTrack);
