@@ -1,5 +1,44 @@
 # mdn-bcd-collector Changelog
 
+## v10.13.4
+
+Released June 30, 2025
+
+### Test Changes
+
+#### Added
+
+- api.Attribution
+- api.AttributionAggregationServices
+- api.DigitalCredential.userAgentAllowsProtocol_static
+- api.IdentityCredentialError
+- api.Navigator.attribution
+- css.selectors.view-transition-group-children
+
+#### Removed
+
+- api.CrashReportBody
+- api.CSPViolationReportBody
+- api.DeprecationReportBody
+- api.IntegrityPolicyViolationReportBody
+- api.InterventionReportBody
+- api.Navigator.privateAttribution
+- api.PermissionsPolicyViolationReportBody
+- api.PrivateAttribution
+- api.PrivateAttributionAggregationServices
+- api.Report
+- api.ReportBody
+- api.ScriptingPolicyReportBody
+- api.SpeechGrammar.SpeechGrammar
+
+### Commits
+
+- Use Array.indexOf(), not Array.includes() ([#2511](https://github.com/openwebdocs/mdn-bcd-collector/pull/2511))
+- Fix variables in RTCStats test ([#2510](https://github.com/openwebdocs/mdn-bcd-collector/pull/2510))
+- Turn directory constants into getter functions ([#2487](https://github.com/openwebdocs/mdn-bcd-collector/pull/2487))
+- Add well-known funding urls file ([#2495](https://github.com/openwebdocs/mdn-bcd-collector/pull/2495))
+- Fix deployment action ([#2486](https://github.com/openwebdocs/mdn-bcd-collector/pull/2486))
+
 ## v10.13.3
 
 Released June 19, 2025
