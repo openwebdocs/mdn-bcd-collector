@@ -250,12 +250,16 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
       switch (service) {
         case "saucelabs":
           osesToTest = [
+            ["macOS", "15"],
             ["macOS", "13"],
             ["macOS", "10.14"],
           ];
           break;
         case "lambdatest":
           osesToTest = [
+            ["macOS", "Sequoia"],
+            ["macOS", "Sonoma"],
+            ["macOS", "Ventura"],
             ["macOS", "Monterey"],
             ["macOS", "Big Sur"],
             ["macOS", "Mojave"],
@@ -265,6 +269,9 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
         default:
           // BrowserStack
           osesToTest = [
+            ["OS X", "Sequoia"],
+            ["OS X", "Sonoma"],
+            ["OS X", "Ventura"],
             ["OS X", "Monterey"],
             ["OS X", "Big Sur"],
             ["OS X", "Mojave"],
