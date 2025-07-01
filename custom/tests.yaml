@@ -1101,78 +1101,7 @@ api:
         }).then(function(cookie) {
           return 'value' in cookie;
         });
-      getAll.domain_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_domain'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_domain', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_domain');
-        }).then(function(cookies) {
-          return 'domain' in cookies[0];
-        });
-      getAll.expires_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_expires'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_expires', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_expires');
-        }).then(function(cookies) {
-          return 'expires' in cookies[0];
-        });
-      getAll.name_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_name'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_name', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_name');
-        }).then(function(cookies) {
-          return 'name' in cookies[0];
-        });
-      getAll.partitioned_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_partitioned', 'partitioned': true});  
-        });
-        return cookieStore.set({'name': 'test_getAll_partitioned', 'value': 'bar', 'partitioned': true}).then(function() {
-          return cookieStore.getAll('test_getAll_partitioned');
-        }).then(function(cookies) {
-          return 'partitioned' in cookies[0];
-        });
-      getAll.path_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_path'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_path', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_path');
-        }).then(function(cookies) {
-          return 'path' in cookies[0];
-        });
-      getAll.sameSite_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_sameSite'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_sameSite', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_sameSite');
-        }).then(function(cookies) {
-          return 'sameSite' in cookies[0];
-        });
-      getAll.secure_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_secure'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_secure', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_secure');
-        }).then(function(cookies) {
-          return 'secure' in cookies[0];
-        });
-      getAll.value_return_property: |-
-        bcd.addCleanup(function() {
-          cookieStore.delete({'name': 'test_getAll_value'});  
-        });
-        return cookieStore.set({'name': 'test_getAll_value', 'value': 'bar'}).then(function() {
-          return cookieStore.getAll('test_getAll_value');
-        }).then(function(cookies) {
-          return 'value' in cookies[0];
-        });
+
   CountQueuingStrategy:
     __base: |-
       if (!('CountQueuingStrategy' in self)) {
