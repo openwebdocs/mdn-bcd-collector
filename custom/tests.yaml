@@ -6096,7 +6096,7 @@ api:
       if (!constructor) {
         return {result: false, message: '(Moz)WebSocket is not defined or falsy'};
       }
-      var instance = new constructor('wss://' + location.hostname);
+      var instance = new constructor('wss://echo.websocket.org');
       bcd.addCleanup(function() {
         instance.close();
       });
