@@ -85,7 +85,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.30.0",
     "@listr2/prompt-adapter-enquirer": "^2.0.16",
-    "@swc/cli": "^0.7.7",
+    "@swc/cli": "^0.7.8",
     "@swc/helpers": "^0.5.17",
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
