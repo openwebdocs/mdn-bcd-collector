@@ -92,7 +92,7 @@
     "@types/express-ejs-layouts": "^2.5.4",
     "@types/fs-extra": "^11.0.4",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.0.12",
+    "@types/node": "24.0.13",
     "@types/selenium-webdriver": "^4.1.28",
     "@types/superagent": "^8.1.9",
     "@types/webidl2": "^24.4.3",
