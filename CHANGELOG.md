@@ -1,5 +1,47 @@
 # mdn-bcd-collector Changelog
 
+## v10.13.5
+
+Released July 15, 2025
+
+### Test Changes
+
+#### Added
+
+- api.DigitalCredential.toJSON
+- api.WebTransportWriter.commit
+- css.properties.flow-from.none
+- css.properties.flow-into.none
+- css.properties.flow-into.element
+- css.properties.flow-into.content
+- css.properties.flow-into.specified_flow
+- css.properties.interest-delay
+- css.properties.interest-delay-end
+- css.properties.interest-delay-start
+- css.selectors.heading
+
+#### Removed
+
+- api.CookieStore.getAll.domain_return_property
+- api.CookieStore.getAll.expires_return_property
+- api.CookieStore.getAll.name_return_property
+- api.CookieStore.getAll.partitioned_return_property
+- api.CookieStore.getAll.path_return_property
+- api.CookieStore.getAll.sameSite_return_property
+- api.CookieStore.getAll.secure_return_property
+- api.CookieStore.getAll.value_return_property
+- api.SpeechRecognitionPhraseList
+
+#### Changed
+
+- api.WebSocket
+
+### Commits
+
+- Use a dedicated web socket test URL ([#2534](https://github.com/openwebdocs/mdn-bcd-collector/pull/2534))
+- Remove now-redundant tests for CookieStore getAll() method ([#2523](https://github.com/openwebdocs/mdn-bcd-collector/pull/2523))
+- Run Selenium tests on newer macOS versions ([#2522](https://github.com/openwebdocs/mdn-bcd-collector/pull/2522))
+
 ## v10.13.4
 
 Released June 30, 2025
