@@ -112,6 +112,10 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
   data.fullVersion = data.fullVersion || ua.browser.version || "0";
   data.version = getMajorMinorVersion(data.fullVersion);
 
+  if (data.browser.id == "bun") {
+    data.version = data.fullVersion;
+  }
+
   if (!(data.browser.id in browsers)) {
     return data;
   }
