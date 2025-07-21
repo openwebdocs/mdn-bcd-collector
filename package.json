@@ -108,7 +108,7 @@
     "chai-subset": "1.6.0",
     "chalk": "5.4.1",
     "chalk-template": "1.1.0",
-    "cheerio": "^1.1.0",
+    "cheerio": "^1.1.2",
     "core-js": "^3.44.0",
     "ejs-lint": "github:RyanZim/EJS-Lint#7e7d5681ba8d2c768e15a3d77c84662a78ea8db1",
     "enquirer": "2.4.1",
