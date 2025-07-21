@@ -14,6 +14,7 @@ import {
 import {UAParser} from "ua-parser-js";
 
 import type {ParsedUserAgent} from "../types/types.d.ts";
+import {RUNTIME_IDS_WITH_PATCH_VERSIONING} from "./constants.js";
 
 /**
  * Returns the major version from a given version string.
@@ -111,7 +112,12 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
   }
 
   data.fullVersion = data.fullVersion || ua.browser.version || "0";
-  data.version = getMajorMinorVersion(data.fullVersion);
+
+  if (RUNTIME_IDS_WITH_PATCH_VERSIONING.has(data.browser.id)) {
+    data.version = data.fullVersion;
+  } else {
+    data.version = getMajorMinorVersion(data.fullVersion);
+  }
 
   if (data.browser.id == "bun") {
     data.version = data.fullVersion;
@@ -155,16 +161,24 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
   // with this, find the pair of versions in |versions| that sandwiches
   // |version|, and use the first of this pair. For example, given |version|
   // "10.1" and |versions| entries "10.0" and "10.2", return "10.0".
-  for (let i = 0; i < versions.length - 1; i++) {
-    const current = versions[i];
-    const next = versions[i + 1];
-    if (
-      compareVersions(data.version, current, ">=") &&
-      compareVersions(data.version, next, "<")
-    ) {
+  // However, for Bun, we need exact version matches because patch versions can add features.
+  if (RUNTIME_IDS_WITH_PATCH_VERSIONING.has(data.browser.id)) {
+    // For Bun, only mark as inBcd if exact version exists
+    if (versions.includes(data.version)) {
       data.inBcd = true;
-      data.version = current;
-      break;
+    }
+  } else {
+    for (let i = 0; i < versions.length - 1; i++) {
+      const current = versions[i];
+      const next = versions[i + 1];
+      if (
+        compareVersions(data.version, current, ">=") &&
+        compareVersions(data.version, next, "<")
+      ) {
+        data.inBcd = true;
+        data.version = current;
+        break;
+      }
     }
   }
 
@@ -172,19 +186,21 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
   // we have to check if it looks like a significant release or not. By default
   // that means a new major version, but for Safari and Samsung Internet the
   // major and minor version are significant.
-  let normalize = getMajorVersion;
-  if (
-    data.browser.id.startsWith("safari") ||
-    data.browser.id === "samsunginternet_android"
-  ) {
-    normalize = getMajorMinorVersion;
-  }
-  if (
-    data.inBcd == false &&
-    normalize(data.version) === normalize(versions[versions.length - 1])
-  ) {
-    data.inBcd = true;
-    data.version = versions[versions.length - 1];
+  if (!RUNTIME_IDS_WITH_PATCH_VERSIONING.has(data.browser.id)) {
+    let normalize = getMajorVersion;
+    if (
+      data.browser.id.startsWith("safari") ||
+      data.browser.id === "samsunginternet_android"
+    ) {
+      normalize = getMajorMinorVersion;
+    }
+    if (
+      data.inBcd == false &&
+      normalize(data.version) === normalize(versions[versions.length - 1])
+    ) {
+      data.inBcd = true;
+      data.version = versions[versions.length - 1];
+    }
   }
 
   return data;
