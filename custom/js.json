@@ -31,8 +31,16 @@
           "disposeAsync",
           "disposed",
           "move",
-          "use"
+          "use",
+          "@@asyncDispose"
         ]
+      }
+    },
+    "AsynIterator": {
+      "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
+      "ctor": {},
+      "members": {
+        "instance": ["@@asyncDispose"]
       }
     },
     "Atomics": {
@@ -55,7 +63,15 @@
       "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
       "ctor": {},
       "members": {
-        "instance": ["adopt", "defer", "dispose", "disposed", "move", "use"]
+        "instance": [
+          "adopt",
+          "defer",
+          "dispose",
+          "disposed",
+          "move",
+          "use",
+          "@@dispose"
+        ]
       }
     },
     "Error": {
@@ -113,7 +129,8 @@
     },
     "SuppressedError": {
       "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
-      "ctor": {}
+      "ctor": {},
+      "instance": ["error", "suppressed"]
     },
     "Symbol": {
       "members": {"static": ["asyncDispose", "dispose"]}
@@ -253,7 +270,8 @@
           "reduce",
           "some",
           "take",
-          "toArray"
+          "toArray",
+          "@@dispose"
         ]
       }
     },
