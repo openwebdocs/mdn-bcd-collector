@@ -213,7 +213,8 @@ const flattenMembers = (iface) => {
         members.push({name: iface.name, type: "constructor"});
         break;
       case "iterable":
-        if (member.async) {
+      case "async_iterable":
+        if (member.async || member.type === "async_iterable") {
           // https://webidl.spec.whatwg.org/#idl-async-iterable
           members.push(
             {name: "@@asyncIterator", type: "symbol"},
