@@ -660,7 +660,7 @@ describe("build (API)", () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface ReadableStream {
-             async iterable<any>;
+             async_iterable<any>;
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {
@@ -683,7 +683,7 @@ describe("build (API)", () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
            interface AsyncMap {
-             async iterable<DOMString, any>;
+             async_iterable<DOMString, any>;
            };`,
       );
       assert.deepEqual(await buildIDLTests(ast, [], scopes), {

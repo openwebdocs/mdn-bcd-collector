@@ -404,10 +404,13 @@ const getExposureSet = (node, scopes): Set<Exposure> => {
 const validateIDL = (ast) => {
   const validations = WebIDL2.validate(ast).filter((v) => {
     // Ignore the [LegacyNoInterfaceObject] rule.
-    // XXX Also temporarily ignore the "[AllowShared] BufferSource -> AllowSharedBufferSource" rule until specs are fixed.
-    return !["no-nointerfaceobject", "migrate-allowshared"].includes(
-      v.ruleName,
-    );
+    // Also ignore the "async iterable -> async_iterable" rule until specs are fixed.
+    // Also ignore the rule that dictionary arguments without required fields must be marked optional (until the RTC spec is fixed)
+    return ![
+      "no-nointerfaceobject",
+      "obsolete-async-iterable-syntax",
+      "dict-arg-optional",
+    ].includes(v.ruleName);
   });
   if (validations.length) {
     const message = validations
