@@ -36,7 +36,7 @@
         ]
       }
     },
-    "AsynIterator": {
+    "AsyncIterator": {
       "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
       "ctor": {},
       "members": {
@@ -130,7 +130,7 @@
     "SuppressedError": {
       "__comment": "Remove when https://arai-a.github.io/ecma262-compare/?pr=3000 is merged into the main ECMAScript spec.",
       "ctor": {},
-      "instance": ["error", "suppressed"]
+      "members": {"instance": ["error", "suppressed"]}
     },
     "Symbol": {
       "members": {"static": ["asyncDispose", "dispose"]}
