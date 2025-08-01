@@ -1,5 +1,28 @@
 # mdn-bcd-collector Changelog
 
+## v10.13.6
+
+Released July 29, 2025
+
+### Test Changes
+
+#### Added
+
+- api.CredentialsContainer.get.identity_option.providers_option_loginHint
+- javascript.builtins.Iterator.@@dispose
+- javascript.builtins.AsyncDisposableStack.@@asyncDispose
+- javascript.builtins.AsynIterator
+- javascript.builtins.DisposableStack.@@dispose
+
+#### Removed
+
+- api.CredentialsContainer.get.identity_option.loginHint
+
+### Commits
+
+- Add more JS builtins for Explicit Resource Management ([#2589](https://github.com/openwebdocs/mdn-bcd-collector/pull/2589))
+- Rename key for loginHint ([#2586](https://github.com/openwebdocs/mdn-bcd-collector/pull/2586))
+
 ## v10.13.5
 
 Released July 18, 2025

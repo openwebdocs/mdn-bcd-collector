@@ -240,12 +240,6 @@ partial interface HTMLAnchorElement {
   [CEReactions]attribute DOMString hrefTranslate;
 };
 
-// https://github.com/whatwg/html/pull/10633
-[Exposed=Window]
-interface HTMLSelectedContentElement : HTMLElement {
-  [HTMLConstructor] constructor();
-};
-
 // Non-standard
 
 partial interface HTMLElement {
