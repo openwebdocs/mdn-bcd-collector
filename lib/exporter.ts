@@ -41,10 +41,11 @@ const getReportMeta = (report: Report): ReportMeta => {
   const os = `${ua.os.name} ${ua.os.version}`;
   const desc = `${browser} / ${os}`;
 
+  // XXX Casting slugify to "any" to mitigate NodeNext module resolution issue
   const slug = `${report.__version.toLowerCase()}-${ua.browser.id.replace(
     /_/g,
     "-",
-  )}-${ua.fullVersion}-${slugify(os, {lower: true})}-${digest}`;
+  )}-${ua.fullVersion}-${(slugify as any)(os, {lower: true})}-${digest}`;
 
   return {
     json,
