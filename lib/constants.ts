@@ -11,6 +11,7 @@ import path from "node:path";
 import fs from "node:fs";
 
 export const BASE_DIR = new URL("..", import.meta.url);
+export const RUNTIME_IDS_WITH_PATCH_VERSIONING = new Set(["bun"]); // List of browsers/runtimes that might add features in patches
 
 /**
  * Tests a specified path to see if it's a local checkout of mdn/browser-compat-data
