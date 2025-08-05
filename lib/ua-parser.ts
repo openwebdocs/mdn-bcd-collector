@@ -12,7 +12,8 @@ import {
   compareVersions as compareVersionsSort,
 } from "compare-versions";
 import {UAParser} from "ua-parser-js";
-import {ParsedUserAgent} from "../types/types";
+
+import type {ParsedUserAgent} from "../types/types.d.ts";
 
 /**
  * Returns the major version from a given version string.

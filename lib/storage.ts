@@ -10,7 +10,8 @@ import assert from "node:assert/strict";
 
 import fs from "fs-extra";
 import {Storage as GAEStorage, Bucket} from "@google-cloud/storage";
-import {Extensions, ReportStore, TestResult} from "../types/types";
+
+import type {Extensions, ReportStore, TestResult} from "../types/types.d.ts";
 
 /**
  * Represents a base storage class for storing and retrieving data.

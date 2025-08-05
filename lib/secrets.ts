@@ -7,7 +7,8 @@
 //
 
 import fs from "fs-extra";
-import {Secrets} from "../types/types";
+
+import type {Secrets} from "../types/types.d.ts";
 
 /**
  * Retrieves the secrets based on the current environment.
