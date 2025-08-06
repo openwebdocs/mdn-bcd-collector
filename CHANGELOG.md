@@ -4,6 +4,10 @@
 
 Released August 5, 2025
 
+### Notable Changes
+
+Due to unforseen issues with testing event handlers for events, all event-related tests have been disabled for the time being.
+
 ### Test Changes
 
 #### Added
