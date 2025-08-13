@@ -266,7 +266,7 @@ app.post(
     try {
       [url, results] = parseResults(req.query.for as string, req.body);
     } catch (error) {
-      res.status(400).send((error as Error).message);
+      res.status(400).type("text/plain").send((error as Error).message);
       return;
     }
 
