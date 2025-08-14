@@ -16,6 +16,7 @@ import bcd from "@mdn/browser-compat-data" with {type: "json"};
 const bcdBrowsers = bcd.browsers;
 import esMain from "es-main";
 import express, {Request, Response, NextFunction} from "express";
+import expressCache from "cache-express";
 import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
@@ -110,7 +111,6 @@ app.use(
     secret: secrets.cookies,
     resave: true,
     saveUninitialized: true,
-    cookies: {secure: true},
   }),
 );
 app.use(express.urlencoded({extended: true}));
@@ -252,12 +252,12 @@ app.post(
   "/api/results",
   async (req: Request, res: Response, next: NextFunction) => {
     if (!req.is("json")) {
-      res.status(400).send("body should be JSON");
+      res.status(400).type("text/plain").send("body should be JSON");
       return;
     }
 
     if (Array.isArray(req.query.for) || req.query.for === undefined) {
-      res.status(400).send("for should be a single string");
+      res.status(400).type("text/plain").send("for should be a single string");
       return;
     }
 
@@ -266,7 +266,10 @@ app.post(
     try {
       [url, results] = parseResults(req.query.for as string, req.body);
     } catch (error) {
-      res.status(400).send((error as Error).message);
+      res
+        .status(400)
+        .type("text/plain")
+        .send((error as Error).message);
       return;
     }
 
@@ -286,7 +289,7 @@ app.get("/api/results", async (req: Request, res: Response) => {
 
 app.post("/api/browserExtensions", async (req: Request, res: Response) => {
   if (!req.is("json")) {
-    res.status(400).send("body should be JSON");
+    res.status(400).type("text/plain").send("body should be JSON");
     return;
   }
 
@@ -303,7 +306,10 @@ app.post("/api/browserExtensions", async (req: Request, res: Response) => {
   }
 
   if (!Array.isArray(req.body)) {
-    res.status(400).send("body should be an array of strings");
+    res
+      .status(400)
+      .type("text/plain")
+      .send("body should be an array of strings");
     return;
   }
 
@@ -352,35 +358,47 @@ app.get(/\/changelog\/(.*)/, async (req: Request, res: Response) => {
   );
 });
 
-app.get("/docs", async (req: Request, res: Response) => {
-  const docs: Record<string, string> = {};
-  for (const f of await fs.readdir(new URL("./docs", import.meta.url))) {
-    const readable = fs.createReadStream(
-      new URL(`./docs/${f}`, import.meta.url),
-    );
-    const reader = readline.createInterface({input: readable});
-    const line: string = await new Promise((resolve) => {
-      reader.on("line", (line) => {
-        reader.close();
-        resolve(line);
+app.get(
+  "/docs",
+  expressCache({
+    timeOut: 60000,
+  }),
+  async (req: Request, res: Response) => {
+    const docs: Record<string, string> = {};
+    for (const f of await fs.readdir(new URL("./docs", import.meta.url))) {
+      const readable = fs.createReadStream(
+        new URL(`./docs/${f}`, import.meta.url),
+      );
+      const reader = readline.createInterface({input: readable});
+      const line: string = await new Promise((resolve) => {
+        reader.on("line", (line) => {
+          reader.close();
+          resolve(line);
+        });
       });
+      readable.close();
+
+      docs[f] = line.replace("# ", "");
+    }
+    res.render("docs", {
+      docs,
     });
-    readable.close();
+  },
+);
 
-    docs[f] = line.replace("# ", "");
-  }
-  res.render("docs", {
-    docs,
-  });
-});
-
-app.get(/\/docs\/(.*)/, async (req: Request, res: Response) => {
-  await renderMarkdown(
-    new URL(`./docs/${req.params["0"]}`, import.meta.url),
-    req,
-    res,
-  );
-});
+app.get(
+  /\/docs\/(.*)/,
+  expressCache({
+    timeOut: 60000,
+  }),
+  async (req: Request, res: Response) => {
+    await renderMarkdown(
+      new URL(`./docs/${req.params["0"]}`, import.meta.url),
+      req,
+      res,
+    );
+  },
+);
 
 /* c8 ignore start */
 app.get(

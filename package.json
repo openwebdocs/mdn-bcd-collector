@@ -49,6 +49,7 @@
     "@mdn/browser-compat-data": "6.1.2",
     "@octokit/rest": "22.0.0",
     "@swc/core": "1.13.3",
+    "cache-express": "^1.0.2",
     "compare-versions": "6.1.1",
     "cookie-parser": "1.4.7",
     "didyoumean": "1.2.2",

@@ -155,6 +155,26 @@
   // End non-invasive polyfills
 
   /**
+   * Encode a string for safe HTML output, preserving <br> tags.
+   * @param {string} str
+   * @returns {string}
+   */
+  function encodeHTMLPreserveBr(str) {
+    // Split on <br> tags (case-insensitive)
+    return str
+      .split(/<br\s*\/?>/i)
+      .map(function (segment) {
+        return segment
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      })
+      .join("<br>");
+  }
+
+  /**
    * Update the status field with a new message
    * @param {string} newStatus - The new status message
    * @param {string} className - A class name to set on the status field element
@@ -172,11 +192,11 @@
 
     if (state.timedout) {
       statusElement.innerHTML =
-        newStatus +
+        encodeHTMLPreserveBr(newStatus) +
         "<br>The tests seem to be taking a long time; " +
         "they may have crashed. Check the console for errors.";
     } else {
-      statusElement.innerHTML = newStatus;
+      statusElement.innerHTML = encodeHTMLPreserveBr(newStatus);
     }
 
     if (className) {
