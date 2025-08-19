@@ -11,6 +11,7 @@ import {assert} from "chai";
 import {getMajorMinorVersion, parseUA} from "./ua-parser.js";
 
 const browsers = {
+  bun: {name: "Bun", releases: {"1.0.0": {}, "1.1.15": {}, "1.2.0": {}}},
   chrome: {name: "Chrome", releases: {82: {}, 83: {}, 84: {}, 85: {}}},
   chrome_android: {name: "Chrome Android", releases: {85: {}}},
   deno: {name: "Deno", releases: {1.42: {}}},
@@ -519,6 +520,46 @@ describe("parseUA", () => {
       fullVersion: "1.42",
       os: {name: "", version: ""},
       inBcd: true,
+    });
+  });
+
+  it("Bun 1.0.0 (preserves patch version)", () => {
+    assert.deepEqual(parseUA("!! bun/1.0.0", browsers), {
+      browser: {id: "bun", name: "Bun"},
+      version: "1.0.0",
+      fullVersion: "1.0.0",
+      os: {name: "", version: ""},
+      inBcd: true,
+    });
+  });
+
+  it("Bun 1.1.15 (preserves patch version)", () => {
+    assert.deepEqual(parseUA("!! bun/1.1.15", browsers), {
+      browser: {id: "bun", name: "Bun"},
+      version: "1.1.15",
+      fullVersion: "1.1.15",
+      os: {name: "", version: ""},
+      inBcd: true,
+    });
+  });
+
+  it("Bun 1.2.0 (preserves patch version)", () => {
+    assert.deepEqual(parseUA("!! bun/1.2.0", browsers), {
+      browser: {id: "bun", name: "Bun"},
+      version: "1.2.0",
+      fullVersion: "1.2.0",
+      os: {name: "", version: ""},
+      inBcd: true,
+    });
+  });
+
+  it("Bun 1.1.16 (not in BCD)", () => {
+    assert.deepEqual(parseUA("!! bun/1.1.16", browsers), {
+      browser: {id: "bun", name: "Bun"},
+      version: "1.1.16",
+      fullVersion: "1.1.16",
+      os: {name: "", version: ""},
+      inBcd: false,
     });
   });
 

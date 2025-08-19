@@ -50,7 +50,7 @@ const generateReportMap = (filter: string) => {
   for (const browser of Object.keys(browsers)) {
     if (
       filter !== "all" &&
-      ["ie", "nodejs", "deno", "oculus"].includes(browser)
+      ["ie", "nodejs", "deno", "bun", "oculus"].includes(browser)
     ) {
       continue;
     }
