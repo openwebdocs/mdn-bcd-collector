@@ -99,7 +99,7 @@
     "@types/yargs": "^17.0.33",
     "@webref/css": "6.23.7",
     "@webref/elements": "^2.5.0",
-    "@webref/idl": "3.66.2",
+    "@webref/idl": "3.66.3",
     "c8": "10.1.3",
     "chai": "4.5.0",
     "chai-as-promised": "8.0.2",
