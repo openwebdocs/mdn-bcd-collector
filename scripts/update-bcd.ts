@@ -839,19 +839,12 @@ const isSupported = (
       return false;
     }
 
-    // In the case of general boolean statements, only show support if the version from the test result does not show specific support, otherwise we should ignore generic boolean support statements in favor of specific version support info from a test result
-    if (version_added === true && !hasSupport) {
-      return true;
-    }
-
     if (
       version_added &&
-      typeof version_added === "string" &&
       compareVersions(version, version_added.replace("≤", ""), ">=")
     ) {
       if (
         version_removed &&
-        typeof version_removed === "string" &&
         compareVersions(version, version_removed.replace("≤", ""), ">=")
       ) {
         continue;
@@ -934,10 +927,6 @@ const persistAddedOverPartial = provideStatements(
         typeof inferredStatement.version_added === "string" &&
         inferredStatement.version_added.includes("≤")
       ) &&
-      !(
-        typeof simpleStatement.version_added === "string" &&
-        inferredStatement.version_added === true
-      ) &&
       simpleStatement.version_added !== inferredStatement.version_added
     ) {
       // When a "mirrored" statement will be replaced with a statement
@@ -972,10 +961,6 @@ const persistAddedOver = provideStatements(
         typeof simpleStatement.version_added === "string" &&
         typeof inferredStatement.version_added === "string" &&
         inferredStatement.version_added.includes("≤")
-      ) &&
-      !(
-        typeof simpleStatement.version_added === "string" &&
-        inferredStatement.version_added === true
       ) &&
       simpleStatement.version_added !== inferredStatement.version_added &&
       !(
