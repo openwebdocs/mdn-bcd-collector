@@ -920,31 +920,13 @@ describe("BCD updater", () => {
       );
     });
 
-    it("detects updates in statements with boolean values", () => {
+    it("detects updates in statements with false values", () => {
       assert.isFalse(
         hasSupportUpdates(new Map([["80", false]]), [
           {
             version_added: false,
           },
         ]),
-        "skips generic false statements",
-      );
-
-      assert.isTrue(
-        hasSupportUpdates(new Map([["80", false]]), [
-          {
-            version_added: true,
-          },
-        ]),
-      );
-
-      assert.isTrue(
-        hasSupportUpdates(new Map([["80", true]]), [
-          {
-            version_added: true,
-          },
-        ]),
-        "catches specific support updates over generic true statements",
       );
 
       assert.isTrue(
