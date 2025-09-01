@@ -1,5 +1,49 @@
 # mdn-bcd-collector Changelog
 
+## v10.14.1
+
+Released September 1, 2025
+
+### Test Changes
+
+#### Added
+
+- api.MLGraphBuilder.isInfinite
+- api.MLGraphBuilder.isNaN
+- api.NavigationPrecommitController
+- api.NavigationTransition.committed
+- api.PushEvent.notification
+- css.properties.block-ellipsis.no-ellipsis
+- css.properties.corner
+- css.properties.corner-block-end
+- css.properties.corner-block-start
+- css.properties.corner-bottom
+- css.properties.corner-bottom-left
+- css.properties.corner-bottom-right
+- css.properties.corner-end-end
+- css.properties.corner-end-start
+- css.properties.corner-inline-end
+- css.properties.corner-inline-start
+- css.properties.corner-left
+- css.properties.corner-right
+- css.properties.corner-start-end
+- css.properties.corner-start-start
+- css.properties.corner-top
+- css.properties.corner-top-left
+- css.properties.corner-top-right
+- css.properties.rule-overlap
+- css.selectors.interest-source
+- css.selectors.interest-target
+
+#### Removed
+
+- css.properties.block-ellipsis.none
+- css.properties.rule-paint-order
+
+### Commits
+
+- Support Bun with patch changes ([#2582](https://github.com/openwebdocs/mdn-bcd-collector/pull/2582))
+
 ## v10.14.0
 
 Released August 5, 2025
