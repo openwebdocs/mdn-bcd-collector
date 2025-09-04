@@ -4,6 +4,11 @@ updates:
     directory: /
     schedule:
       interval: daily
+    groups:
+      listr2:
+        patterns:
+          - "listr2"
+          - "@listr2/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
