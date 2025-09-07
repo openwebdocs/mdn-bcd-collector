@@ -3280,6 +3280,11 @@ api:
           }
         }
       );
+      promise.then(function (inst) {
+        if (!('getCapabilities' in inst)) {
+          return {result: false, message: 'Instance is only parent type MediaDeviceInfo, not InputDeviceInfo'}
+        }
+      });
   InputEvent:
     __base: |-
       if (!('InputEvent' in self)) {
