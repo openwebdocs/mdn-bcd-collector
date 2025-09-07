@@ -1274,5 +1274,12 @@
   "Supported, but differs too heavily from the specification to call it the same feature",
   ["api.Element.setHTML", "chrome", "105-119", false],
   ["api.Element.setHTML", "chrome_android", "105-119", false],
-  ["api.Element.setHTML", "edge", "105-119", false]
+  ["api.Element.setHTML", "edge", "105-119", false],
+  "Supported only in service workers first",
+  ["api.Cache", "chrome", "40-42", true],
+  ["api.CacheStorage.delete", "chrome", "40-42", true],
+  ["api.CacheStorage.has", "chrome", "40-42", true],
+  ["api.CacheStorage.keys", "chrome", "40-42", true],
+  ["api.CacheStorage.open", "chrome", "40-42", true],
+  ["api.Clients", "chrome", "40-42", true]
 ]
