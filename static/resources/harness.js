@@ -328,7 +328,8 @@
           "is not a function",
           "Failed to construct", // Used by workerd
           "Error calling function with",
-          "can't convert"
+          "can't convert",
+          "needs a"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
