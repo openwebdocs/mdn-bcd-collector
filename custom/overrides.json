@@ -1281,5 +1281,12 @@
   ["api.CacheStorage.has", "chrome", "40-42", true],
   ["api.CacheStorage.keys", "chrome", "40-42", true],
   ["api.CacheStorage.open", "chrome", "40-42", true],
-  ["api.Clients", "chrome", "40-42", true]
+  ["api.Clients", "chrome", "40-42", true],
+  "Exposed but has no effect",
+  ["api.Notification.badge", "safari", "14+", false],
+  ["api.Notification.badge", "safari_ios", "14+", false],
+  ["api.Notification.badge", "webview_ios", "14+", false],
+  ["api.SpeechSynthesisEvent.utterance", "safari", "1-15.6", false],
+  ["api.SpeechSynthesisEvent.utterance", "safari_ios", "1-15.6", false],
+  ["api.SpeechSynthesisEvent.utterance", "webview_ios", "1-15.6", false]
 ]
