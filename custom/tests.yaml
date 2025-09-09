@@ -7039,6 +7039,16 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
+    SuppressedError:
+      __base: |-
+        if (!('SuppressedError' in self)) {
+          return {result: false, message: 'SuppressedError is not defined'};
+        }
+        var instance = new SuppressedError(
+          new Error("New error"),
+          new Error("Original error"),
+          "Hello"
+        );
     TypedArray:
       __base: |-
         if (!('Int8Array' in self)) {
