@@ -121,6 +121,12 @@ describe("build (JavaScript)", () => {
           },
         },
       },
+      classes: {
+        __base: "class Foo {}",
+      },
+      functions: {
+        __base: "(function() {})()",
+      },
       grammar: {
         array_literals: "var x = [1, 2, 3];",
       },
@@ -226,6 +232,29 @@ describe("build (JavaScript)", () => {
 `,
         exposure: ["Window"],
       },
+      "javascript.classes": {
+        code: `(function() {
+  try {
+    class Foo {}
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+      "javascript.functions": {
+        code: `(function() {
+  try {
+    (function() {})();
+    return true;
+  } catch(e) {
+    return {result: false, message: e.message};
+  }
+})();`,
+        exposure: ["Window"],
+      },
+
       "javascript.grammar.array_literals": {
         code: `(function() {
   try {
