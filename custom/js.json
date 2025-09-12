@@ -576,6 +576,41 @@
       }
     }
   },
+  "classes": {
+    "__base": "class Foo {}",
+    "constructor": "class Foo { constructor() {} }",
+    "extends": "class Foo extends Object {}",
+    "static": "class Foo { static method() {} }",
+    "private_class_fields": "class Foo { #field = 1; }",
+    "private_class_fields_in": "class Foo { #field; hasField(obj) { return #field in obj; } }",
+    "private_class_methods": "class Foo { #method() {} }",
+    "public_class_fields": "class Foo { field = 1; }",
+    "static.class_fields": "class Foo { static field = 1; }",
+    "static.initialization_blocks": "class Foo { static { this.x = 1; } }"
+  },
+  "functions": {
+    "__base": "(function() {})()",
+    "arrow_functions": "() => {}",
+    "default_parameters": "function foo(x = 1) {}",
+    "rest_parameters": "function foo(...args) {}",
+    "method_definitions": "const obj = { method() {} }",
+    "get": "const obj = { get prop() { return 1; } }",
+    "set": "const obj = { set prop(val) {} }",
+    "arguments": "function foo() {\n  if (typeof arguments !== 'object') throw new Error('Unsupported');\n  }\n  foo();",
+    "block_level_functions": "if (true) {\nfunction foo() {\nreturn 1;\n}\n}",
+    "arguments.@@iterator": "function foo() {\nif (typeof arguments[Symbol.iterator] !== 'function') throw new Error('Unsupported');\n}\nfoo(1, 2, 3);",
+    "arguments.callee": "function foo() {\nif (typeof arguments.callee !== 'function') throw new Error('Unsupported');\n}\nfoo();",
+    "arguments.length": "function foo() {\nif (arguments.length !== 3) throw new Error('Unsupported');\n}\nfoo(1, 2, 3);",
+    "arrow_functions.trailing_comma": "(a,) => {}",
+    "default_parameters.destructured_parameter_with_default_value_assignment": "function foo({x = 1} = {}) {}",
+    "default_parameters.parameters_without_defaults_after_default_parameters": "function foo(x = 1, y) {}",
+    "get.computed_property_names": "const prop = 'x'; const obj = { get [prop]() { return 1; } }",
+    "set.computed_property_names": "const prop = 'x'; const obj = { set [prop](val) {} }",
+    "method_definitions.async_generator_methods": "const obj = { async *method() { yield 1; } }",
+    "method_definitions.async_methods": "const obj = { async method() {} }",
+    "javascript.functions.method_definitions.generator_methods_not_constructable": "const obj = {\n*method() {\nyield 1;\n},\n};\ntry {\nnew obj.method();\nthrow new Error('Unsupported - generator methods should not be constructable');\n} catch (e) {\nif (e.message === 'Unsupported - generator methods should not be constructable') {\nthrow e;\n}\n}",
+    "javascript.functions.rest_parameters.destructuring": "function foo(...[a, b]) {}"
+  },
   "grammar": {
     "array_literals": "var x = [1, 2, 3];",
     "binary_numeric_literals": "var x = 0b0001;",

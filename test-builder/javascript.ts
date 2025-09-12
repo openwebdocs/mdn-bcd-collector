@@ -400,6 +400,8 @@ const buildSyntax = async (customJS) => {
   const tests = {};
 
   for (const subcategory of [
+    "classes",
+    "functions",
     "grammar",
     "operators",
     "regular_expressions",
@@ -411,7 +413,7 @@ const buildSyntax = async (customJS) => {
 
       const customTest = await getCustomTest(path, category, true);
 
-      tests[path] = compileTest({
+      tests[name === "__base" ? category : path] = compileTest({
         raw: {
           code:
             customTest.test ||
