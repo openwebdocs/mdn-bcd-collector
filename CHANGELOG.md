@@ -1,5 +1,73 @@
 # mdn-bcd-collector Changelog
 
+## v10.15.0
+
+Released September 16, 2025
+
+### Test Changes
+
+#### Added
+
+- api.Document.activeViewTransition
+- api.SubtleCrypto.decapsulateBits
+- api.SubtleCrypto.decapsulateKey
+- api.SubtleCrypto.encapsulateBits
+- api.SubtleCrypto.encapsulateKey
+- api.SubtleCrypto.getPublicKey
+- api.SubtleCrypto.supports_static
+- css.properties.corner-shape.round
+- css.properties.corner-shape.squircle
+- css.properties.corner-shape.square
+- css.properties.corner-shape.bevel
+- css.properties.corner-shape.scoop
+- css.properties.corner-shape.notch
+- css.selectors.target-before
+- css.selectors.target-after
+- javascript.classes
+- javascript.functions
+- javascript.grammar.shorthand_object_literals
+- javascript.grammar.template_literals
+- javascript.grammar.trailing_commas
+- javascript.operators.destructuring.computed_property_names
+- javascript.operators.destructuring.rest_in_arrays
+- javascript.operators.destructuring.rest_in_objects
+- javascript.operators.function.trailing_comma
+- javascript.operators.generator_function.trailing_comma
+- javascript.operators.new_target
+- javascript.operators.object_initializer.computed_property_names
+- javascript.operators.object_initializer.shorthand_method_names
+- javascript.operators.object_initializer.shorthand_property_names
+- javascript.operators.object_initializer.spread_properties
+- javascript.operators.spread.spread_in_arrays
+- javascript.operators.spread.spread_in_function_calls
+- javascript.operators.spread.spread_in_object_literals
+- javascript.regular_expressions.character_escape.unicode
+- javascript.regular_expressions.modifier
+- javascript.statements.await_using
+- javascript.statements.for_await_of
+- javascript.statements.for_of.async_iterators
+- javascript.statements.for_of.closing_iterators
+- javascript.statements.function.trailing_comma_in_parameters
+- javascript.statements.generator_function.IteratorResult_object
+- javascript.statements.generator_function.not_constructable_with_new
+- javascript.statements.generator_function.trailing_comma_in_parameters
+- javascript.statements.label
+- javascript.statements.try_catch.optional_catch_binding
+
+#### Changed
+
+- api.InputDeviceInfo
+- javascript.builtins.SuppressedError
+
+### Commits
+
+- Add additional JavaScript feature tests ([#2721](https://github.com/openwebdocs/mdn-bcd-collector/pull/2721))
+- Add tests for JavaScript classes and functions categories ([#2719](https://github.com/openwebdocs/mdn-bcd-collector/pull/2719))
+- Add custom test for SuppressedError ([#2704](https://github.com/openwebdocs/mdn-bcd-collector/pull/2704))
+- Catch an additional Safari constructor error message ([#2702](https://github.com/openwebdocs/mdn-bcd-collector/pull/2702))
+- Ensure InputDeviceInfo isn't just MediaDeviceInfo instance ([#2695](https://github.com/openwebdocs/mdn-bcd-collector/pull/2695))
+- Dependabot: group listr2 updates together ([#2691](https://github.com/openwebdocs/mdn-bcd-collector/pull/2691))
+
 ## v10.14.1
 
 Released September 1, 2025
