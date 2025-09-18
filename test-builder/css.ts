@@ -6,12 +6,25 @@
 // See the LICENSE file for copyright details
 //
 
+import {definitionSyntax as cssSyntaxParser} from "css-tree";
+
 import {getCustomTest, compileTest} from "./common.js";
 
 const ignoredSpecs = [
   "https://compat.spec.whatwg.org/", // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
   "https://drafts.csswg.org/css-values-4/", // The CSS Values and Units Module just defines primitive types
 ];
+
+const getValuesFromSyntax = (syntax) => {
+  const ast = cssSyntaxParser.parse(syntax);
+  const values = new Set();
+  cssSyntaxParser.walk(ast, (node) => {
+    if (node.type === "Keyword") {
+      values.add(node.name);
+    }
+  });
+  return values;
+};
 
 /**
  * Get the type data from Webref and flatten enumerated types
@@ -34,43 +47,19 @@ const getCSSTypes = (specCSS) => {
   };
 
   // Get the type data from the spec
-  for (const data of Object.values(specCSS) as any[]) {
-    if (ignoredSpecs.includes(data.spec.url)) {
+  for (const val of Object.values(specCSS.types) as any[]) {
+    if (ignoredSpecs.some((u) => val.href.startsWith(u))) {
       continue;
     }
 
-    for (const val of data.values) {
-      if (!(val.name in types)) {
-        // Sets are used to automatically de-duplicate entries
-        types[val.name] = new Set();
-      }
+    if (!(val.name in types)) {
+      // Sets are used to automatically de-duplicate entries
+      types[val.name] = new Set();
+    }
 
-      for (const value of val.values || []) {
-        switch (value.type) {
-          case "function":
-            // Ignore functions for now
-            break;
-          case "value":
-            types[val.name].add(value.value);
-            break;
-          case "type":
-            if (value.values) {
-              types[val.name].add(
-                ...value.values
-                  .filter((v) => v.type === "value")
-                  .map((v) => v.value),
-              );
-            } else if (value.value?.includes(" | ")) {
-              for (const v of value.value.split(" | ")) {
-                types[val.name].add(v);
-              }
-            } else {
-              types[val.name].add(value.value);
-            }
-            break;
-          default:
-            throw new Error(`Unknown value type ${value.type} found!`);
-        }
+    if ("syntax" in val) {
+      for (const value of getValuesFromSyntax(val.syntax)) {
+        types[val.name].add(value);
       }
     }
   }
@@ -108,8 +97,8 @@ const remapPropertyValues = (input, types /*, customCSS*/) => {
   const values = new Map();
 
   for (const val of input) {
-    if (val.name in types) {
-      for (const v of types[val.name]) {
+    if (val in types) {
+      for (const v of types[val]) {
         if (v.includes("<")) {
           // Skip any unflattened types
           continue;
@@ -124,20 +113,18 @@ const remapPropertyValues = (input, types /*, customCSS*/) => {
       // };
 
       if (
-        ["inherit", "initial", "revert", "revert-layer", "unset"].includes(
-          val.name,
-        )
+        ["inherit", "initial", "revert", "revert-layer", "unset"].includes(val)
       ) {
         // Skip generic property values
         continue;
       }
 
-      if (val.name.includes("<")) {
+      if (val.includes("<")) {
         // Skip any and all types for now until we're ready to add them
         continue;
 
-        // if (val.name in typeRemappings) {
-        //   values.set(typeRemappings[val.name][0], typeRemappings[val.name][1]);
+        // if (val in typeRemappings) {
+        //   values.set(typeRemappings[val][0], typeRemappings[val][1]);
         //   continue;
         // }
 
@@ -146,24 +133,24 @@ const remapPropertyValues = (input, types /*, customCSS*/) => {
         // ) as any[]) {
         //   if (
         //     Array.isArray(typedata.syntax)
-        //       ? typedata.syntax.includes(val.name)
-        //       : val.name === typedata.syntax
+        //       ? typedata.syntax.includes(val)
+        //       : val === typedata.syntax
         //   ) {
         //     values.set("type_" + type, typedata.value);
         //     continue;
         //   }
         // }
 
-        // console.warn(`Type ${val.name} unknown!`);
+        // console.warn(`Type ${val} unknown!`);
         // continue;
       }
 
       values.set(
-        val.name
+        val
           .replace(/ /g, "_")
           .replace("fit-content()", "fit-content_function")
           .replace("()", ""),
-        val.value,
+        val,
       );
     }
   }
@@ -183,95 +170,94 @@ const buildPropertyTests = async (specCSS, customCSS) => {
 
   const types = getCSSTypes(specCSS);
 
-  for (const data of Object.values(specCSS) as any[]) {
-    if (ignoredSpecs.includes(data.spec.url)) {
+  for (const prop of specCSS.properties) {
+    if (ignoredSpecs.some((u) => prop.href.startsWith(u))) {
       continue;
     }
 
-    for (const prop of data.properties) {
-      if (
-        [
-          "-webkit-appearance",
-          "-webkit-user-select",
-          "-webkit-line-clamp",
-          "grid-gap",
-          "grid-column-gap",
-          "grid-row-gap",
-          "word-wrap",
-        ].includes(prop.name)
-      ) {
-        // Ignore any aliases defined in specs
-        continue;
+    if (
+      [
+        "-webkit-appearance",
+        "-webkit-user-select",
+        "-webkit-line-clamp",
+        "grid-gap",
+        "grid-column-gap",
+        "grid-row-gap",
+        "word-wrap",
+      ].includes(prop.name)
+    ) {
+      // Ignore any aliases defined in specs
+      continue;
+    }
+
+    const additionalPropTypeValues = {
+      display: [
+        "<display-outside>",
+        "<display-inside>",
+        "<display-listitem>",
+        "<display-internal>",
+        "<display-box>",
+        "<display-legacy>",
+      ],
+      "border-style": ["<line-style>"],
+      "outline-style": ["<outline-line-style>"],
+    };
+
+    // XXX Webref does not include these types, so we have to add them ourselves
+    // We don't have capabilities to parse types in custom/css.json
+    if (prop.name in additionalPropTypeValues) {
+      if (!prop.values) {
+        prop.values = [];
       }
-
-      const additionalPropTypeValues = {
-        display: [
-          "<display-outside>",
-          "<display-inside>",
-          "<display-listitem>",
-          "<display-internal>",
-          "<display-box>",
-          "<display-legacy>",
-        ],
-        "border-style": ["<line-style>"],
-        "outline-style": ["<outline-line-style>"],
-      };
-
-      // XXX Webref does not include these types, so we have to add them ourselves
-      // We don't have capabilities to parse types in custom/css.json
-      if (prop.name in additionalPropTypeValues) {
-        if (!prop.values) {
-          prop.values = [];
-        }
-        prop.values.push(
-          ...additionalPropTypeValues[prop.name].map((n) => ({
-            name: n,
-            value: n,
-            type: "type",
-          })),
-        );
-      }
-
-      const ignoredValues = {
-        "font-size-adjust": [
-          "ex-height | cap-height | ch-width | ic-width | ic-height",
-        ],
-        "text-justify": ["distribute"],
-        "text-orientation": ["sideways-right"],
-        overflow: ["overlay"],
-        "overflow-x": ["overlay"],
-        "overflow-y": ["overlay"],
-        transform: [
-          "matrix",
-          "translate",
-          "translateX",
-          "translateY",
-          "rotate",
-          "skew",
-          "skewX",
-          "skewY",
-        ],
-        // https://github.com/openwebdocs/mdn-bcd-collector/issues/2381
-        "accent-color": ["<color>"],
-        "column-rule-color": ["<color>"],
-      };
-
-      const propertyValues = remapPropertyValues(
-        prop.values?.filter(
-          (v) => !(ignoredValues[prop.name] || []).includes(v.name),
-        ),
-        types,
-        // customCSS,
+      prop.values.push(
+        ...additionalPropTypeValues[prop.name].map((n) => ({
+          name: n,
+          value: n,
+          type: "type",
+        })),
       );
+    }
 
-      if (properties.has(prop.name)) {
-        properties.set(
-          prop.name,
-          new Map([...properties.get(prop.name), ...propertyValues]),
-        );
-      } else {
-        properties.set(prop.name, new Map(propertyValues));
-      }
+    const ignoredValues = {
+      "font-size-adjust": [
+        "ex-height | cap-height | ch-width | ic-width | ic-height",
+      ],
+      "text-justify": ["distribute"],
+      "text-orientation": ["sideways-right"],
+      overflow: ["overlay"],
+      "overflow-x": ["overlay"],
+      "overflow-y": ["overlay"],
+      transform: [
+        "matrix",
+        "translate",
+        "translateX",
+        "translateY",
+        "rotate",
+        "skew",
+        "skewX",
+        "skewY",
+      ],
+      // https://github.com/openwebdocs/mdn-bcd-collector/issues/2381
+      "accent-color": ["<color>"],
+      "column-rule-color": ["<color>"],
+    };
+
+    const valuesFromSyntax = getValuesFromSyntax(prop.syntax || "");
+    const propertyValues = remapPropertyValues(
+      Array.from(valuesFromSyntax).filter(
+        (v) => !(ignoredValues[prop.name] || []).includes(v),
+      ),
+      types,
+      // customCSS,
+    );
+
+    if (properties.has(prop.name)) {
+      properties.set(
+        prop.name,
+        new Map([...properties.get(prop.name), ...propertyValues]),
+      );
+    } else {
+      properties.set(prop.name, new Map(propertyValues));
     }
   }
 
@@ -360,20 +346,17 @@ const buildSelectorTests = async (specCSS, customCSS) => {
   const selectors = new Map();
   const tests = {};
 
-  for (const data of Object.values(specCSS) as any[]) {
-    if (data.spec.url == "https://compat.spec.whatwg.org/") {
-      // The Compatibility Standard contains legacy prefixed aliases for properties, ignore
+  for (const selector of specCSS.selectors) {
+    if (ignoredSpecs.some((u) => selector.href.startsWith(u))) {
       continue;
     }
 
-    for (const selector of data.selectors) {
-      if ([":matches()"].includes(selector.name)) {
-        // Ignore legacy aliases
-        continue;
-      }
-
-      selectors.set(selector.name, {});
+    if ([":matches()"].includes(selector.name)) {
+      // Ignore legacy aliases
+      continue;
     }
+
+    selectors.set(selector.name, {});
   }
 
   for (const [name, value] of Object.entries(customCSS.selectors) as any[]) {
