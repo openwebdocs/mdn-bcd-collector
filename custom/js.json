@@ -288,6 +288,18 @@
         ]
       }
     },
+    "Map": {
+      "__comment": "Remove when https://tc39.es/proposal-upsert/ is merged into the main ECMAScript spec.",
+      "members": {
+        "instance": ["getOrInsert", "getOrInsertComputed"]
+      }
+    },
+    "WeakMap": {
+      "__comment": "Remove when https://tc39.es/proposal-upsert/ is merged into the main ECMAScript spec.",
+      "members": {
+        "instance": ["getOrInsert", "getOrInsertComputed"]
+      }
+    },
 
     "Temporal": {
       "__comment": "XXX Temporal is still in draft stages, so the es-scraper will not include its data."
