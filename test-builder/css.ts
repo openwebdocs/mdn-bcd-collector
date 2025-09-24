@@ -21,6 +21,8 @@ const getValuesFromSyntax = (syntax) => {
   cssSyntaxParser.walk(ast, (node) => {
     if (node.type === "Keyword") {
       values.add(node.name);
+    } else if (node.type === "Type") {
+      values.add("<" + node.name + ">");
     }
   });
   return values;
@@ -34,16 +36,11 @@ const getValuesFromSyntax = (syntax) => {
 const getCSSTypes = (specCSS) => {
   // Some types are manually defined to mitigate Webref data issues
   const types = {
-    "<layout-box>": new Set(["<visual-box>", "margin-box"]),
-    "<paint-box>": new Set(["<layout-box>", "fill-box", "stroke-box"]),
-    "<coord-box>": new Set(["<paint-box>", "view-box"]),
-    "<counter-style>": new Set(["<counter-style-name>"]),
-    "<outline-line-style>": new Set(["auto", "<line-style>"]),
-    "<offset-path> || <coord-box>": new Set(["<offset-path>", "<coord-box>"]),
-    "<track-list> | <auto-track-list>": new Set([
-      "<track-list>",
-      "<auto-track-list>",
-    ]),
+    "layout-box": new Set(["<visual-box>", "margin-box"]),
+    "paint-box": new Set(["<layout-box>", "fill-box", "stroke-box"]),
+    "coord-box": new Set(["<paint-box>", "view-box"]),
+    "counter-style": new Set(["<counter-style-name>"]),
+    "outline-line-style": new Set(["auto", "<line-style>"]),
   };
 
   // Get the type data from the spec
@@ -67,7 +64,7 @@ const getCSSTypes = (specCSS) => {
   for (const [type, values] of Object.entries(types) as any[]) {
     // Check for values that reference other types
     for (const value of values) {
-      if (value in types) {
+      if (Object.keys(types).some((t) => t === `<${value}>`)) {
         types[type].delete(value);
         for (const v of types[value]) {
           types[type].add(v);
