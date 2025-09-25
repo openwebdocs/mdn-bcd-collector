@@ -15,7 +15,12 @@ const ignoredSpecs = [
   "https://drafts.csswg.org/css-values-4/", // The CSS Values and Units Module just defines primitive types
 ];
 
-const getValuesFromSyntax = (syntax) => {
+/**
+ * Parses a CSS syntax string and extracts keyword and type values.
+ * @param syntax - The CSS syntax string to parse.
+ * @returns A Set of extracted values from the syntax.
+ */
+const getValuesFromSyntax = (syntax: string) => {
   const ast = cssSyntaxParser.parse(syntax);
   const values = new Set();
   cssSyntaxParser.walk(ast, (node) => {
@@ -28,8 +33,17 @@ const getValuesFromSyntax = (syntax) => {
   return values;
 };
 
-const resolveValuesFromTypes = (values, types) => {
-  const resolved = [];
+/**
+ * Recursively resolves values from types, expanding type references.
+ * @param values - The values to resolve.
+ * @param types - The map of types to their possible values.
+ * @returns An array of resolved values.
+ */
+const resolveValuesFromTypes = (
+  values: string[],
+  types: Record<string, string[]>,
+): string[] => {
+  const resolved: string[] = [];
 
   for (const value of values) {
     if (value.startsWith("<")) {
