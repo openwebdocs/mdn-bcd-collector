@@ -28,6 +28,25 @@ const getValuesFromSyntax = (syntax) => {
   return values;
 };
 
+const resolveValuesFromTypes = (values, types) => {
+  const resolved = [];
+
+  for (const value of values) {
+    if (value.startsWith("<")) {
+      const type = value.replace("<", "").replace(">", "");
+      if (type in types) {
+        resolved.push(...resolveValuesFromTypes(types[type], types));
+      } else {
+        resolved.push(value);
+      }
+    } else {
+      resolved.push(value);
+    }
+  }
+
+  return resolved;
+};
+
 /**
  * Get the type data from Webref and flatten enumerated types
  * @param specCSS - The specification CSS data.
@@ -83,73 +102,35 @@ const getCSSTypes = (specCSS) => {
  * Remap the CSS property values from Webref into usable map entries
  * @param input - The value from Webref
  * @param types - The types from webref
- * // @param customCSS - The custom CSS data to draw type information from
  * @returns A two-value array to add to a map, or null if no test should be created for the value
  */
-const remapPropertyValues = (input, types /*, customCSS*/) => {
+const remapPropertyValues = (input, types) => {
   if (!input) {
     return [];
   }
 
   const values = new Map();
 
-  for (const val of input) {
-    if (val in types) {
-      for (const v of types[val]) {
-        if (v.includes("<")) {
-          // Skip any unflattened types
-          continue;
-        }
-        values.set(v, v);
-      }
-    } else {
-      // XXX Remove me once all these have been transferred to custom/css.json
-      // const typeRemappings = {
-      //   "<string>+": ["type_multi_string", "'foo' 'bar'"],
-      //   "auto && <ratio>": ["type_auto_and_ratio", "auto 16/9"],
-      // };
-
-      if (
-        ["inherit", "initial", "revert", "revert-layer", "unset"].includes(val)
-      ) {
-        // Skip generic property values
-        continue;
-      }
-
-      if (val.includes("<")) {
-        // Skip any and all types for now until we're ready to add them
-        continue;
-
-        // if (val in typeRemappings) {
-        //   values.set(typeRemappings[val][0], typeRemappings[val][1]);
-        //   continue;
-        // }
-
-        // for (const [type, typedata] of Object.entries(
-        //   customCSS.types,
-        // ) as any[]) {
-        //   if (
-        //     Array.isArray(typedata.syntax)
-        //       ? typedata.syntax.includes(val)
-        //       : val === typedata.syntax
-        //   ) {
-        //     values.set("type_" + type, typedata.value);
-        //     continue;
-        //   }
-        // }
-
-        // console.warn(`Type ${val} unknown!`);
-        // continue;
-      }
-
-      values.set(
-        val
-          .replace(/ /g, "_")
-          .replace("fit-content()", "fit-content_function")
-          .replace("()", ""),
-        val,
-      );
+  for (const val of resolveValuesFromTypes(input, types)) {
+    if (
+      ["inherit", "initial", "revert", "revert-layer", "unset"].includes(val)
+    ) {
+      // Skip generic property values
+      continue;
     }
+
+    if (val.includes("<")) {
+      // Skip any and all types for now until we're ready to add them
+      continue;
+    }
+
+    values.set(
+      val
+        .replace(/ /g, "_")
+        .replace("fit-content()", "fit-content_function")
+        .replace("()", ""),
+      val,
+    );
   }
 
   return values;
