@@ -620,8 +620,8 @@
     "set.computed_property_names": "const prop = 'x'; const obj = { set [prop](val) {} }",
     "method_definitions.async_generator_methods": "const obj = { async *method() { yield 1; } }",
     "method_definitions.async_methods": "const obj = { async method() {} }",
-    "javascript.functions.method_definitions.generator_methods_not_constructable": "const obj = {\n*method() {\nyield 1;\n},\n};\ntry {\nnew obj.method();\nthrow new Error('Unsupported - generator methods should not be constructable');\n} catch (e) {\nif (e.message === 'Unsupported - generator methods should not be constructable') {\nthrow e;\n}\n}",
-    "javascript.functions.rest_parameters.destructuring": "function foo(...[a, b]) {}"
+    "method_definitions.generator_methods_not_constructable": "const obj = {\n*method() {\nyield 1;\n},\n};\ntry {\nnew obj.method();\nthrow new Error('Unsupported - generator methods should not be constructable');\n} catch (e) {\nif (e.message === 'Unsupported - generator methods should not be constructable') {\nthrow e;\n}\n}",
+    "rest_parameters.destructuring": "function foo(...[a, b]) {}"
   },
   "grammar": {
     "array_literals": "var x = [1, 2, 3];",
