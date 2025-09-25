@@ -47,7 +47,7 @@ const resolveValuesFromTypes = (
 
   for (const value of values) {
     if (value.startsWith("<")) {
-      const type = value.replace(/<|>/g, "");
+      const type = value.replace(/^<(.*)>$/, "$1");
       if (type in types) {
         resolved.push(...resolveValuesFromTypes(types[type], types));
       } else {
