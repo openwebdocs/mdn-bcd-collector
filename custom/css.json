@@ -92,9 +92,6 @@
         "multiple_backgrounds": "fixed, scroll"
       }
     },
-    "background-clip": {
-      "__values": ["text", "border-area"]
-    },
     "background-image": {
       "__additional_values": {
         "element": "element(#foo)",
@@ -197,10 +194,6 @@
     },
     "caption-side": {
       "__values": [
-        "top",
-        "bottom",
-        "left",
-        "right",
         "inline-start",
         "inline-end",
         "top-outside",
@@ -272,16 +265,6 @@
       }
     },
     "font-display": {},
-    "font-family": {
-      "__values": [
-        "math",
-        "system-ui",
-        "ui-monospace",
-        "ui-rounded",
-        "ui-sans-serif",
-        "ui-serif"
-      ]
-    },
     "font-size": {
       "__additional_values": {
         "rem_values": "10rem"
@@ -303,9 +286,6 @@
       "__additional_values": {
         "oblique-angle": "oblique 10deg"
       }
-    },
-    "font-synthesis": {
-      "__values": ["position"]
     },
     "font-variant-alternates": {
       "__additional_values": {
