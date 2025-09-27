@@ -1,5 +1,54 @@
 # mdn-bcd-collector Changelog
 
+## v10.15.1
+
+Released September 26, 2025
+
+### Test Changes
+
+#### Added
+
+- api.HTMLElement.headingOffset
+- api.HTMLElement.headingReset
+- webassembly.api.JSTag_static
+- api.Window.pushManager
+- api.XRBody
+- api.XRBodySpace
+- api.XRFrame.body
+- css.properties.align-items.dialog
+- css.properties.align-self.dialog
+- css.properties.item-tolerance
+- css.properties.justify-items.dialog
+- css.properties.justify-self.dialog
+- css.properties.position-area.span-left
+- css.properties.position-area.span-right
+- css.selectors.reveal-icon
+- javascript.builtins.Map.getOrInsert
+- javascript.builtins.Map.getOrInsertComputed
+- javascript.builtins.WeakMap.getOrInsert
+- javascript.builtins.WeakMap.getOrInsertComputed
+- javascript.functions.method_definitions.generator_methods_not_constructable
+- javascript.functions.rest_parameters.destructuring
+
+#### Removed
+
+- webassembly.api.CompileError
+- webassembly.api.LinkError
+- api.RTCRtpSender.generateKeyFrame
+- webassembly.api.RuntimeError
+- api.SVGAElement.text
+- api.SVGDiscardElement
+- webassembly.api.Tag.type
+- css.properties.item-slack
+- html.elements.discard
+- javascript.functions.javascript.functions.method_definitions.generator_methods_not_constructable
+- javascript.functions.javascript.functions.rest_parameters.destructuring
+
+### Commits
+
+- Fix JS custom tests ([#2757](https://github.com/openwebdocs/mdn-bcd-collector/pull/2757))
+- Add WeakMap/Map.getOrInsert proposal ([#2732](https://github.com/openwebdocs/mdn-bcd-collector/pull/2732))
+
 ## v10.15.0
 
 Released September 16, 2025
