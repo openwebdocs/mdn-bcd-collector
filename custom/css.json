@@ -129,7 +129,7 @@
     "block-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["max-content", "min-content", "fit-content"]
     },
@@ -177,7 +177,7 @@
     "bottom": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "box-align": {},
@@ -356,7 +356,7 @@
     "height": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "image-orientation": {
@@ -371,50 +371,50 @@
     "inline-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["max-content", "min-content", "fit-content"]
     },
     "inset-block-end": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "inset-block-start": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "inset-block": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "inset-inline-end": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "inset-inline-start": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "inset-inline": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "inset": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "layout-grid": {},
@@ -425,7 +425,7 @@
     "left": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "list-style": {
@@ -485,61 +485,61 @@
     "margin": {
       "__values": ["auto"],
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-block-end": {
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-block-start": {
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-block": {
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-bottom": {
       "__values": ["auto"],
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-inline-end": {
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-inline-start": {
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-inline": {
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-left": {
       "__values": ["auto"],
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-right": {
       "__values": ["auto"],
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "margin-top": {
       "__values": ["auto"],
       "__additional_values": {
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "marker-offset": {},
@@ -557,54 +557,54 @@
     "max-block-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["max-content", "min-content", "fit-content"]
     },
     "max-height": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "max-inline-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["max-content", "min-content", "fit-content"]
     },
     "max-width": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "max-zoom": {},
     "min-block-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["max-content", "min-content", "fit-content"]
     },
     "min-height": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "min-inline-size": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["max-content", "min-content", "fit-content"]
     },
     "min-width": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "min-zoom": {},
@@ -666,7 +666,7 @@
     "right": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "rotate": {
@@ -781,7 +781,7 @@
     "top": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       }
     },
     "touch-action": {
@@ -833,7 +833,7 @@
     "width": {
       "__additional_values": {
         "fit-content_function": "fit-content(10px)",
-        "anchor-size": "anchor-size(100px)"
+        "anchor-size": "anchor-size(block, 10%)"
       },
       "__values": ["fill"]
     },
