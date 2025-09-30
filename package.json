@@ -69,7 +69,7 @@
     "tsx": "^4.20.6",
     "ua-parser-js": "2.0.5",
     "wasm-feature-detect": "^1.8.0",
-    "winston": "3.17.0",
+    "winston": "3.18.1",
     "yargs": "18.0.0"
   },
   "devDependencies": {
