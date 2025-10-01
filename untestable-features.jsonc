@@ -417,6 +417,9 @@
     "javascript.statements.import.service_worker_support",
     "javascript.statements.import.worklet_support",
 
+    /* None of the tests run as top-level, so this would require some finnicky testing code */
+    "javascript.operators.await.top_level",
+
     /* Impossible to test support for non-HTML attributes via JavaScript */
     "mathml.elements.maction.actiontype",
     "mathml.elements.maction.actiontype.toggle",
