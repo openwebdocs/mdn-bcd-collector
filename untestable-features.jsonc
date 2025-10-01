@@ -1,6 +1,10 @@
 {
   "categories": [
     // Untestable categories
+    "http.headers", // Most HTTP headers don't have effects that can be detected in JavaScript
+    "http.methods", // Can't be tested via JavaScript; too low level
+    "http.status", // Unable to test via JavaScript
+    "manifests.webapp", // Has no effects that can be detected in JavaScript
     "webdriver", // Collector is not designed to test WebDriver
     "webextensions", // Would need to write an extension, which would be a separate project
   ],
