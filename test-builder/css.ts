@@ -144,13 +144,7 @@ const remapPropertyValues = (input, types) => {
       continue;
     }
 
-    values.set(
-      val
-        .replace(/ /g, "_")
-        .replace("fit-content()", "fit-content_function")
-        .replace("()", ""),
-      val,
-    );
+    values.set(val.replace(/ /g, "_").replace("()", "_function"), val);
   }
 
   return values;
