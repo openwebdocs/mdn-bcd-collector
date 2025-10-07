@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@google-cloud/logging-winston": "6.0.1",
-    "@google-cloud/storage": "7.17.1",
+    "@google-cloud/storage": "7.17.2",
     "@mdi/font": "7.4.47",
     "@mdn/browser-compat-data": "7.1.10",
     "@octokit/rest": "22.0.0",
