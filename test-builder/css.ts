@@ -31,8 +31,9 @@ const getValuesFromSyntax = (syntax: string, properties) => {
       values.add("<" + node.name + ">");
     } else if (node.type === "Property") {
       const prop = properties.find((p) => p.name == node.name);
-      if (prop) {
-        values.add(...getValuesFromSyntax(prop.syntax || "", properties));
+      const newValues = getValuesFromSyntax(prop?.syntax || "", properties);
+      for (const v of newValues) {
+        values.add(v);
       }
     }
   });
