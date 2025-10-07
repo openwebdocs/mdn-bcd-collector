@@ -107,6 +107,18 @@ const traverseFeatures = (
 };
 
 /**
+ * Indicates whether a feature identifier is untestable, based upon a curated list.
+ * @param ident - The identifier to check.
+ * @returns A boolean on whether the feature identifier is a known untestable feature.
+ */
+const isUntestable = (ident: string) => {
+  return (
+    untestableFeatures.features.includes(ident) ||
+    untestableFeatures.categories.some((c) => ident.startsWith(c + "."))
+  );
+};
+
+/**
  * Finds the missing entries in the given array of entries compared to the array of all entries.
  * @param entries - The array of entries to check against.
  * @param allEntries - The array of all entries.
@@ -127,14 +139,14 @@ const findMissing = (entries: string[], allEntries: string[]): FeatureList => {
       all: allEntries,
     },
     testable: {
-      missing: missing.filter((f) => !untestableFeatures.includes(f)),
-      found: found.filter((f) => !untestableFeatures.includes(f)),
-      all: allEntries.filter((f) => !untestableFeatures.includes(f)),
+      missing: missing.filter((f) => !isUntestable(f)),
+      found: found.filter((f) => !isUntestable(f)),
+      all: allEntries.filter((f) => !isUntestable(f)),
     },
     untestable: {
-      missing: missing.filter((f) => untestableFeatures.includes(f)),
-      found: found.filter((f) => untestableFeatures.includes(f)),
-      all: allEntries.filter((f) => untestableFeatures.includes(f)),
+      missing: missing.filter((f) => isUntestable(f)),
+      found: found.filter((f) => isUntestable(f)),
+      all: allEntries.filter((f) => isUntestable(f)),
     },
   };
 };
@@ -303,7 +315,7 @@ const main = (bcd: CompatData, tests: Tests) => {
           100.0
         ).toFixed(
           2,
-        )}%)} of {cyan ${data.testable.all.length}/${data.all.all.length}} entries tracked in {red.bold ${direction[1]}} ({red ${data.testable.missing.length} (${(
+        )}%)} of {cyan ${data.testable.all.length}/${data.all.all.length}} entries in {red.bold ${direction[1]}} ({red ${data.testable.missing.length} (${(
           (data.testable.missing.length / data.testable.all.length) *
           100.0
         ).toFixed(2)}%/${(
@@ -312,7 +324,7 @@ const main = (bcd: CompatData, tests: Tests) => {
         ).toFixed(2)}%)} missing, {gray ${data.untestable.all.length} (${(
           (data.untestable.all.length / data.all.all.length) *
           100.0
-        ).toFixed(2)}%) untestable})`,
+        ).toFixed(2)}%) untestable by collector})`,
     );
 
     if (firstEntry) {
