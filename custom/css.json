@@ -784,7 +784,7 @@
     "text-underline-style": {},
     "text-underline-width": {},
     "text-wrap": {
-      "__values": ["balance", "nowrap", "pretty", "stable", "wrap"]
+      "__values": ["balance", "nowrap", "pretty", "stable"]
     },
     "top": {
       "__additional_values": {

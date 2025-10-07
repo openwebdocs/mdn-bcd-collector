@@ -18,9 +18,10 @@ const ignoredSpecs = [
 /**
  * Parses a CSS syntax string and extracts keyword and type values.
  * @param syntax - The CSS syntax string to parse.
+ * @param properties - The properties from the specification
  * @returns A Set of extracted values from the syntax.
  */
-const getValuesFromSyntax = (syntax: string) => {
+const getValuesFromSyntax = (syntax: string, properties) => {
   const ast = cssSyntaxParser.parse(syntax);
   const values = new Set();
   cssSyntaxParser.walk(ast, (node) => {
@@ -28,6 +29,11 @@ const getValuesFromSyntax = (syntax: string) => {
       values.add(node.name);
     } else if (node.type === "Type") {
       values.add("<" + node.name + ">");
+    } else if (node.type === "Property") {
+      const prop = properties.find((p) => p.name == node.name);
+      if (prop) {
+        values.add(...getValuesFromSyntax(prop.syntax || "", properties));
+      }
     }
   });
   return values;
@@ -88,7 +94,7 @@ const getCSSTypes = (specCSS) => {
     }
 
     if ("syntax" in val) {
-      for (const value of getValuesFromSyntax(val.syntax)) {
+      for (const value of getValuesFromSyntax(val.syntax, specCSS.properties)) {
         types[val.name].add(value);
       }
     }
@@ -234,7 +240,10 @@ const buildPropertyTests = async (specCSS, customCSS) => {
       "column-rule-color": ["<color>"],
     };
 
-    const valuesFromSyntax = getValuesFromSyntax(prop.syntax || "");
+    const valuesFromSyntax = getValuesFromSyntax(
+      prop.syntax || "",
+      specCSS.properties,
+    );
     const propertyValues = remapPropertyValues(
       Array.from(valuesFromSyntax).filter(
         (v) => !(ignoredValues[prop.name] || []).includes(v),
