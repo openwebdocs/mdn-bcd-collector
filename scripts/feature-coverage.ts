@@ -269,6 +269,12 @@ const main = (bcd: CompatData, tests: Tests) => {
           type: "string",
           default: "collector-from-bcd",
         })
+        .option("list", {
+          alias: "l",
+          describe: "List all features supported by the collector",
+          type: "boolean",
+          default: false,
+        })
         .option("path", {
           alias: "p",
           describe: "The path(s) to filter for",
@@ -284,6 +290,13 @@ const main = (bcd: CompatData, tests: Tests) => {
         });
     },
   );
+
+  if (argv.list) {
+    Object.keys(tests)
+      .filter((p) => !p.startsWith("__"))
+      .forEach((key) => console.log(key));
+    return;
+  }
 
   const direction = argv.direction.split("-from-");
 
