@@ -64,6 +64,9 @@
     "-webkit-transform-origin-y": {},
     "-webkit-transform-origin-z": {},
     "-webkit-user-drag": {},
+    "alignment-baseline": {
+      "__values": ["text-after-edge", "text-before-edge"]
+    },
     "alt": {},
     "animation-timing-function": {
       "__additional_values": {
@@ -122,6 +125,9 @@
         "2-value": "repeat no-repeat",
         "multiple_backgrounds": "repeat, no-repeat"
       }
+    },
+    "baseline-shift": {
+      "__values": ["baseline"]
     },
     "block-size": {
       "__additional_values": {
@@ -194,6 +200,8 @@
     },
     "caption-side": {
       "__values": [
+        "left",
+        "right",
         "inline-start",
         "inline-end",
         "top-outside",
@@ -224,10 +232,17 @@
         "url": "url(test.png)"
       }
     },
+    "counter-increment": {
+      "__values": ["list-item"]
+    },
     "counter-reset": {
+      "__values": ["list-item"],
       "__additional_values": {
         "reversed": "reversed(my-counter)"
       }
+    },
+    "counter-set": {
+      "__values": ["list-item"]
     },
     "cursor": {
       "__values": ["-moz-zoom", "-webkit-zoom"],
@@ -658,13 +673,20 @@
       "__values": ["invert"]
     },
     "overflow": {
+      "__values": ["hidden", "clip", "scroll", "auto"],
       "__additional_values": {
         "multiple_keywords": "hidden visible"
       }
     },
+    "overflow-block": {
+      "__values": ["overlay"]
+    },
     "overflow-clip-box": {},
     "overflow-clip-box-block": {},
     "overflow-clip-box-inline": {},
+    "overflow-inline": {
+      "__values": ["overlay"]
+    },
     "pen-action": {},
     "place-items": {
       "__values": ["anchor-center"]
@@ -834,9 +856,26 @@
       "__values": ["read-write-plaintext-only"]
     },
     "user-zoom": {},
+    "vertical-align": {
+      "__values": [
+        "auto",
+        "text-bottom",
+        "alphabetic",
+        "ideographic",
+        "middle",
+        "central",
+        "mathematical",
+        "text-top",
+        "sub",
+        "super",
+        "top",
+        "center",
+        "bottom"
+      ]
+    },
     "viewport-fit": {},
     "white-space": {
-      "__values": ["-moz-pre-wrap"]
+      "__values": ["-moz-pre-wrap", "nowrap", "break-spaces"]
     },
     "width": {
       "__additional_values": {
