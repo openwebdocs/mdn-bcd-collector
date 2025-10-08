@@ -55,7 +55,7 @@
     "ejs": "3.1.10",
     "es-main": "1.4.0",
     "express": "5.1.0",
-    "express-csp-header": "^6.0.0",
+    "express-csp-header": "^6.2.0",
     "express-ejs-layouts": "2.5.1",
     "express-session": "^1.18.2",
     "fs-extra": "11.3.2",
