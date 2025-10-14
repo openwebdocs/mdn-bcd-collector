@@ -34,7 +34,7 @@ jobs:
           repository: mdn/browser-compat-data
           path: browser-compat-data
       - name: Setup NodeJS
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
       - name: Prepare browser-compat-data
