@@ -97,7 +97,7 @@
     "@types/superagent": "^8.1.9",
     "@types/webidl2": "^24.4.3",
     "@types/yargs": "^17.0.33",
-    "@webref/css": "7.0.11",
+    "@webref/css": "7.1.4",
     "@webref/elements": "^2.5.1",
     "@webref/idl": "3.68.2",
     "c8": "10.1.3",
