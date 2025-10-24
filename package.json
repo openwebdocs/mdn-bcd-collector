@@ -96,7 +96,7 @@
     "@types/selenium-webdriver": "^4.35.2",
     "@types/superagent": "^8.1.9",
     "@types/webidl2": "^24.4.3",
-    "@types/yargs": "^17.0.33",
+    "@types/yargs": "^17.0.34",
     "@webref/css": "8.0.0",
     "@webref/elements": "^2.5.1",
     "@webref/idl": "3.68.3",
