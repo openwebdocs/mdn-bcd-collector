@@ -87,7 +87,7 @@
     "@listr2/prompt-adapter-enquirer": "^3.0.5",
     "@swc/cli": "^0.7.8",
     "@swc/helpers": "^0.5.17",
-    "@types/cookie-parser": "^1.4.9",
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.4",
     "@types/express-ejs-layouts": "^2.5.4",
     "@types/fs-extra": "^11.0.4",
