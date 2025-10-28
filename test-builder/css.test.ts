@@ -18,39 +18,20 @@ import {build} from "./css.js";
 describe("build (CSS)", () => {
   it("valid input", async () => {
     const webrefCSS = {
-      "css-fonts": {
-        spec: {
-          title: "CSS Fonts Fake",
-          url: "",
+      properties: [
+        {name: "font-family", href: "https://foo.bar"},
+        {
+          name: "font-weight",
+          href: "https://foo.bar",
+          syntax: "<font-weight-absolute> | bolder | lighter",
         },
-        properties: [
-          {name: "font-family"},
-          {
-            name: "font-weight",
-            values: [{name: "normal", value: "normal", type: "value"}],
-          },
-        ],
-        selectors: [],
-        values: [],
-      },
-      "css-grid": {
-        spec: {
-          title: "CSS Grid Fake",
-          url: "",
-        },
-        properties: [{name: "grid"}],
-        selectors: [],
-        values: [],
-      },
-      selectors: {
-        spec: {
-          title: "CSS Selectors Fake",
-          url: "",
-        },
-        properties: [],
-        selectors: [{name: "+"}, {name: ":nth-of-type()"}],
-        values: [],
-      },
+        {name: "grid", href: "https://foo.bar"},
+      ],
+      selectors: [
+        {name: "+", href: "https://foo.bar"},
+        {name: ":nth-of-type()", href: "https://foo.bar"},
+      ],
+      types: [],
     };
 
     const customCSS = {
@@ -90,8 +71,12 @@ describe("build (CSS)", () => {
         code: 'bcd.testCSSProperty("font-weight")',
         exposure: ["Window"],
       },
-      "css.properties.font-weight.normal": {
-        code: 'bcd.testCSSProperty("font-weight", "normal")',
+      "css.properties.font-weight.bolder": {
+        code: 'bcd.testCSSProperty("font-weight", "bolder")',
+        exposure: ["Window"],
+      },
+      "css.properties.font-weight.lighter": {
+        code: 'bcd.testCSSProperty("font-weight", "lighter")',
         exposure: ["Window"],
       },
       "css.properties.grid": {
@@ -119,15 +104,9 @@ describe("build (CSS)", () => {
 
   it("with custom test", async () => {
     const css = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
-        },
-        properties: [{name: "foo"}],
-        selectors: [],
-        values: [],
-      },
+      properties: [{name: "foo", href: "https://foo.bar"}],
+      selectors: [],
+      types: [],
     };
 
     assert.deepEqual(
@@ -146,15 +125,9 @@ describe("build (CSS)", () => {
 
   it("double-defined property", async () => {
     const css = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
-        },
-        properties: [{name: "foo"}],
-        selectors: [],
-        values: [],
-      },
+      properties: [{name: "foo", href: "https://foo.bar"}],
+      selectors: [],
+      types: [],
     };
 
     await assert.isRejected(
@@ -165,15 +138,15 @@ describe("build (CSS)", () => {
 
   it("double-defined property value", async () => {
     const css = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
+      properties: [
+        {
+          name: "foo",
+          href: "https://foo.bar",
+          syntax: "bar",
         },
-        properties: [{name: "foo", values: [{name: "bar", value: "bar"}]}],
-        selectors: [],
-        values: [],
-      },
+      ],
+      selectors: [],
+      types: [],
     };
 
     await assert.isRejected(
@@ -193,22 +166,22 @@ describe("build (CSS)", () => {
     };
 
     await assert.isRejected(
-      build({}, customCSS),
+      build({properties: [], selectors: [], types: []}, customCSS),
       "CSS property value is double-defined in custom CSS: foo.bar",
     );
   });
 
   it("double-defined property value", async () => {
     const webrefCSS = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
+      properties: [
+        {
+          name: "foo",
+          href: "https://foo.bar",
+          syntax: "bar",
         },
-        properties: [{name: "foo", values: [{name: "bar", value: "bar"}]}],
-        selectors: [],
-        values: [],
-      },
+      ],
+      selectors: [],
+      types: [],
     };
 
     const customCSS = {
@@ -225,15 +198,15 @@ describe("build (CSS)", () => {
 
   it("__additional_values overwrites spec value", async () => {
     const webrefCSS = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
+      properties: [
+        {
+          name: "one",
+          href: "https://foo.bar",
+          syntax: "two",
         },
-        properties: [{name: "one", values: [{name: "two", value: "two"}]}],
-        selectors: [],
-        values: [],
-      },
+      ],
+      selectors: [],
+      types: [],
     };
 
     const customCSS = {
@@ -256,15 +229,9 @@ describe("build (CSS)", () => {
 
   it("double-defined selector", async () => {
     const css = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
-        },
-        properties: [],
-        selectors: [{name: "foo"}],
-        values: [],
-      },
+      properties: [],
+      selectors: [{name: "foo", href: "https://foo.bar"}],
+      types: [],
     };
 
     await assert.isRejected(
@@ -276,15 +243,9 @@ describe("build (CSS)", () => {
   it("invalid import", async () => {
     const consoleError = sinon.stub(console, "error");
     const css = {
-      "css-dummy": {
-        spec: {
-          title: "CSS Dummy",
-          url: "",
-        },
-        properties: [{name: "bar"}],
-        selectors: [],
-        values: [],
-      },
+      properties: [{name: "bar", href: "https://foo.bar"}],
+      selectors: [],
+      types: [],
     };
 
     const error =
