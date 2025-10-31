@@ -1,5 +1,90 @@
 # mdn-bcd-collector Changelog
 
+## v10.16.1
+
+Released October 31, 2025
+
+### Test Changes
+
+#### Added
+
+- api.CSSSupportsConditionRule
+- api.PerformanceEventTiming.targetSelector
+- api.SFrameDecrypterStream
+- api.SFrameEncrypterStream
+- api.ViewTransition.waitUntil
+- css.properties.align-items.dialog
+- css.properties.align-self.dialog
+- css.properties.border-shape.half-border-box
+- css.properties.clip-path.half-border-box
+- css.properties.contain.view-transition
+- css.properties.item-tolerance
+- css.properties.justify-items.dialog
+- css.properties.justify-self.dialog
+- css.properties.mask.half-border-box
+- css.properties.place-items.dialog
+- css.properties.place-self.dialog
+- css.properties.position-area.self-x-start
+- css.properties.position-area.self-x-end
+- css.properties.position-area.span-self-x-start
+- css.properties.position-area.span-self-x-end
+- css.properties.position-area.self-y-start
+- css.properties.position-area.self-y-end
+- css.properties.position-area.span-self-y-start
+- css.properties.position-area.span-self-y-end
+- css.properties.position-try.self-x-start
+- css.properties.position-try.self-x-end
+- css.properties.position-try.span-self-x-start
+- css.properties.position-try.span-self-x-end
+- css.properties.position-try.self-y-start
+- css.properties.position-try.self-y-end
+- css.properties.position-try.span-self-y-start
+- css.properties.position-try.span-self-y-end
+- css.properties.position-try-fallbacks.self-x-start
+- css.properties.position-try-fallbacks.self-x-end
+- css.properties.position-try-fallbacks.span-self-x-start
+- css.properties.position-try-fallbacks.span-self-x-end
+- css.properties.position-try-fallbacks.self-y-start
+- css.properties.position-try-fallbacks.self-y-end
+- css.properties.position-try-fallbacks.span-self-y-start
+- css.properties.position-try-fallbacks.span-self-y-end
+- css.properties.shape-outside.half-border-box
+- css.selectors.reveal-icon
+
+#### Removed
+
+- api.SFrameTransform.readable
+- api.SFrameTransform.writable
+- css.properties.item-slack
+- css.properties.position-area.x-self-start
+- css.properties.position-area.x-self-end
+- css.properties.position-area.span-x-self-start
+- css.properties.position-area.span-x-self-end
+- css.properties.position-area.y-self-start
+- css.properties.position-area.y-self-end
+- css.properties.position-area.span-y-self-start
+- css.properties.position-area.span-y-self-end
+- css.properties.position-try.x-self-start
+- css.properties.position-try.x-self-end
+- css.properties.position-try.span-x-self-start
+- css.properties.position-try.span-x-self-end
+- css.properties.position-try.y-self-start
+- css.properties.position-try.y-self-end
+- css.properties.position-try.span-y-self-start
+- css.properties.position-try.span-y-self-end
+- css.properties.position-try-fallbacks.x-self-start
+- css.properties.position-try-fallbacks.x-self-end
+- css.properties.position-try-fallbacks.span-x-self-start
+- css.properties.position-try-fallbacks.span-x-self-end
+- css.properties.position-try-fallbacks.y-self-start
+- css.properties.position-try-fallbacks.y-self-end
+- css.properties.position-try-fallbacks.span-y-self-start
+- css.properties.position-try-fallbacks.span-y-self-end
+
+### Commits
+
+- feat(scripts/feature-coverage): add --list option ([#2790](https://github.com/openwebdocs/mdn-bcd-collector/pull/2790))
+
 ## v10.16.0
 
 Released October 7, 2025
