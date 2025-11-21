@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           submodules: true
       - uses: actions/setup-node@v6
@@ -46,7 +46,7 @@ jobs:
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
       - name: Checkout mdn-bcd-results
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         if: steps.check.outputs.changed == 'true'
         with:
           repository: openwebdocs/mdn-bcd-results
