@@ -1,5 +1,129 @@
 # mdn-bcd-collector Changelog
 
+## v10.16.2
+
+Released December 5, 2025
+
+### Test Changes
+
+#### Added
+
+- api.ClipboardChangeEvent
+- api.GPUSupportedLimits.maxStorageBuffersInFragmentStage
+- api.GPUSupportedLimits.maxStorageBuffersInVertexStage
+- api.GPUSupportedLimits.maxStorageTexturesInFragmentStage
+- api.GPUSupportedLimits.maxStorageTexturesInVertexStage
+- api.GPUTexture.textureBindingViewDimension
+- api.MLContext.accelerated
+- css.properties.all.revert-rule
+- css.properties.background.repeat-block
+- css.properties.background.repeat-inline
+- css.properties.background.border-area
+- css.properties.background.text
+- css.properties.background-repeat.repeat-block
+- css.properties.background-repeat.repeat-inline
+- css.properties.background-tbd.repeat-block
+- css.properties.background-tbd.repeat-inline
+- css.properties.background-tbd.border-area
+- css.properties.background-tbd.text
+- css.properties.border-block-clip
+- css.properties.border-block-end-clip
+- css.properties.border-block-start-clip
+- css.properties.border-bottom-clip
+- css.properties.border-clip.none
+- css.properties.border-inline-clip
+- css.properties.border-inline-end-clip
+- css.properties.border-inline-start-clip
+- css.properties.border-left-clip
+- css.properties.border-right-clip
+- css.properties.border-top-clip
+- css.properties.contain-intrinsic-block-size.from-element
+- css.properties.contain-intrinsic-height.from-element
+- css.properties.contain-intrinsic-inline-size.from-element
+- css.properties.contain-intrinsic-size.from-element
+- css.properties.contain-intrinsic-width.from-element
+- css.properties.event-trigger
+- css.properties.event-trigger-name
+- css.properties.event-trigger-source
+- css.properties.fill-repeat.repeat-block
+- css.properties.fill-repeat.repeat-inline
+- css.properties.mask.repeat-block
+- css.properties.mask.repeat-inline
+- css.properties.mask-repeat.repeat-block
+- css.properties.mask-repeat.repeat-inline
+- css.properties.position-try.flip-x
+- css.properties.position-try.flip-y
+- css.properties.position-try-fallbacks.flip-x
+- css.properties.position-try-fallbacks.flip-y
+- css.properties.stroke-repeat.repeat-block
+- css.properties.stroke-repeat.repeat-inline
+- css.properties.text-decoration-inset
+- css.properties.timeline-trigger
+- css.properties.timeline-trigger-exit-range
+- css.properties.timeline-trigger-exit-range-end
+- css.properties.timeline-trigger-exit-range-start
+- css.properties.timeline-trigger-name
+- css.properties.timeline-trigger-range
+- css.properties.timeline-trigger-range-end
+- css.properties.timeline-trigger-range-start
+- css.properties.timeline-trigger-source
+- css.selectors.link-to
+
+#### Removed
+
+- css.properties.align-items.dialog
+- css.properties.align-self.dialog
+- css.properties.animation-trigger.once
+- css.properties.animation-trigger.repeat
+- css.properties.animation-trigger.alternate
+- css.properties.animation-trigger.state
+- css.properties.animation-trigger.auto
+- css.properties.animation-trigger.normal
+- css.properties.animation-trigger-behavior
+- css.properties.animation-trigger-exit-range
+- css.properties.animation-trigger-exit-range-end
+- css.properties.animation-trigger-exit-range-start
+- css.properties.animation-trigger-range
+- css.properties.animation-trigger-range-end
+- css.properties.animation-trigger-range-start
+- css.properties.animation-trigger-timeline
+- css.properties.border-clip.normal
+- css.properties.border-clip-bottom
+- css.properties.border-clip-left
+- css.properties.border-clip-right
+- css.properties.border-clip-top
+- css.properties.justify-items.dialog
+- css.properties.justify-self.dialog
+- css.properties.place-items.dialog
+- css.properties.place-self.dialog
+- css.properties.text-decoration-trim
+
+### Commits
+
+- build(deps): bump jws from 4.0.0 to 4.0.1 ([#2918](https://github.com/openwebdocs/mdn-bcd-collector/pull/2918))
+- build(deps): bump tsx from 4.20.6 to 4.21.0 ([#2917](https://github.com/openwebdocs/mdn-bcd-collector/pull/2917))
+- build(deps): bump @google-cloud/storage from 7.17.3 to 7.18.0 ([#2916](https://github.com/openwebdocs/mdn-bcd-collector/pull/2916))
+- build(deps-dev): bump puppeteer from 24.31.0 to 24.32.0 ([#2915](https://github.com/openwebdocs/mdn-bcd-collector/pull/2915))
+- build(deps-dev): bump prettier from 3.7.3 to 3.7.4 ([#2914](https://github.com/openwebdocs/mdn-bcd-collector/pull/2914))
+- build(deps): bump mermaid from 11.12.1 to 11.12.2 ([#2913](https://github.com/openwebdocs/mdn-bcd-collector/pull/2913))
+- build(deps-dev): bump @webref/idl from 3.69.0 to 3.69.1 ([#2911](https://github.com/openwebdocs/mdn-bcd-collector/pull/2911))
+- build(deps-dev): bump @webref/css from 8.1.0 to 8.1.1 ([#2912](https://github.com/openwebdocs/mdn-bcd-collector/pull/2912))
+- build(deps-dev): bump prettier from 3.7.1 to 3.7.3 ([#2909](https://github.com/openwebdocs/mdn-bcd-collector/pull/2909))
+- build(deps-dev): bump @eslint/eslintrc from 3.3.1 to 3.3.3 ([#2908](https://github.com/openwebdocs/mdn-bcd-collector/pull/2908))
+- build(deps-dev): bump typescript-eslint from 8.48.0 to 8.48.1 ([#2907](https://github.com/openwebdocs/mdn-bcd-collector/pull/2907))
+- build(deps): bump express-csp-header from 6.2.0 to 6.2.1 ([#2906](https://github.com/openwebdocs/mdn-bcd-collector/pull/2906))
+- build(deps-dev): bump yaml from 2.8.1 to 2.8.2 ([#2905](https://github.com/openwebdocs/mdn-bcd-collector/pull/2905))
+- build(deps): bump express from 5.1.0 to 5.2.0 ([#2904](https://github.com/openwebdocs/mdn-bcd-collector/pull/2904))
+- build(deps): bump actions/checkout from 5 to 6 ([#2895](https://github.com/openwebdocs/mdn-bcd-collector/pull/2895))
+- build(deps-dev): bump prettier from 3.7.0 to 3.7.1 ([#2903](https://github.com/openwebdocs/mdn-bcd-collector/pull/2903))
+- build(deps-dev): bump prettier from 3.6.2 to 3.7.0 ([#2902](https://github.com/openwebdocs/mdn-bcd-collector/pull/2902))
+- build(deps-dev): bump @webref/idl from 3.68.4 to 3.69.0 ([#2901](https://github.com/openwebdocs/mdn-bcd-collector/pull/2901))
+- build(deps-dev): bump @webref/css from 8.0.2 to 8.1.0 ([#2900](https://github.com/openwebdocs/mdn-bcd-collector/pull/2900))
+- build(deps): bump @mdn/browser-compat-data from 7.1.22 to 7.1.23 ([#2899](https://github.com/openwebdocs/mdn-bcd-collector/pull/2899))
+- build(deps): bump body-parser from 2.2.0 to 2.2.1 ([#2898](https://github.com/openwebdocs/mdn-bcd-collector/pull/2898))
+- build(deps-dev): bump typescript-eslint from 8.47.0 to 8.48.0 ([#2897](https://github.com/openwebdocs/mdn-bcd-collector/pull/2897))
+- build(deps-dev): bump eslint-plugin-jsdoc from 61.4.0 to 61.4.1 ([#2896](https://github.com/openwebdocs/mdn-bcd-collector/pull/2896))
+
 ## v10.16.1
 
 Released October 31, 2025
