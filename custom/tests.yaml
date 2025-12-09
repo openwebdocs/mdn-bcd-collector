@@ -2140,7 +2140,7 @@ api:
       <%api.GPU:gpu%>
       var promise = gpu.requestAdapter();
     __additional:
-      requestDevice.lost_device_on_duplicate: |-
+      requestDevice.handles_duplicate_calls: |-
         return promise.then(function(adapter) {
           return adapter.requestDevice().then(function(device1) {
             bcd.addCleanup(function() {
