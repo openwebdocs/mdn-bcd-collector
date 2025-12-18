@@ -527,11 +527,6 @@ const buildIDLMemberTests = async (
       ? `${member.name.replace(/^on/, "")}_event`
       : member.name + (isStatic ? "_static" : "");
 
-    // XXX Event testing isn't working properly
-    if (isEventHandler) {
-      continue;
-    }
-
     if (handledMemberNames.has(name)) {
       continue;
     }
