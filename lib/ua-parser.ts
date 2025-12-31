@@ -57,6 +57,16 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     const [runtime, runtimeVersion] = userAgent.replace("!! ", "").split("/");
     data.browser.id = runtime;
     data.fullVersion = runtimeVersion;
+  } else if (userAgent.includes("Servo/")) {
+    // Servo browser detection
+    const servoMatch = userAgent.match(/Servo\/([\d.]+)/);
+    if (servoMatch) {
+      data.browser.id = "servo";
+      data.browser.name = "Servo";
+      data.fullVersion = servoMatch[1];
+    }
+    data.os.name = ua.os.name || "";
+    data.os.version = ua.os.version || "";
   } else {
     if (!ua.browser.name) {
       return data;
