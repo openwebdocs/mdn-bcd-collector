@@ -197,6 +197,9 @@
     "box-sizing": {
       "__values": ["padding-box"]
     },
+    "buffered-rendering": {
+      "__values": ["auto", "dynamic", "static"]
+    },
     "caption-side": {
       "__values": [
         "left",
@@ -216,6 +219,9 @@
     },
     "color-interpolation": {
       "__values": ["linearGradient"]
+    },
+    "color-rendering": {
+      "__values": ["auto", "optimizeSpeed", "optimizeQuality"]
     },
     "column-progression": {},
     "contain-intrinsic-size": {
