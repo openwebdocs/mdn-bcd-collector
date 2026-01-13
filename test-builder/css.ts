@@ -205,7 +205,7 @@ const ignoredColorNames = [
   "white",
   "whitesmoke",
   "yellow",
-  "yellowgreen"
+  "yellowgreen",
 ];
 
 /**
