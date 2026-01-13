@@ -705,14 +705,46 @@
   }
 
   /**
+   * Check if two values are equivalent, with optional equivalents map
+   * @param {string} computedValue - The computed value from the browser
+   * @param {string} expectedValue - The expected value
+   * @param {Object} [equivalents] - Map of expected values to arrays of equivalent computed values
+   * @returns {boolean} - Whether the values are equivalent
+   */
+  function valuesAreEquivalent(computedValue, expectedValue, equivalents) {
+    // Normalize basic formatting
+    var normalized1 = (computedValue || "").toLowerCase().replace(/-/g, "");
+    var normalized2 = (expectedValue || "").toLowerCase().replace(/-/g, "");
+
+    if (normalized1 === normalized2) {
+      return true;
+    }
+
+    // Check equivalents map if provided
+    if (equivalents && expectedValue in equivalents) {
+      var equivalentValues = equivalents[expectedValue];
+      equivalentValues = Array.isArray(equivalentValues) ? equivalentValues : [equivalentValues];
+      for (var i = 0; i < equivalentValues.length; i++) {
+        var normalizedEquivalent = equivalentValues[i].toLowerCase().replace(/-/g, "");
+        if (normalized1 === normalizedEquivalent) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Test an SVG attribute for support
    * @param {string} name - The SVG attribute name
    * @param {string} value - The SVG attribute value to test
    * @param {string} [elementName] - The SVG element name to test on (defaults to 'rect')
    * @param {boolean} [checkComputedStyle] - Whether to also verify the computed style (defaults to true for presentation attributes)
+   * @param {Object} [equivalents] - Map of expected values to arrays of equivalent computed values
    * @returns {TestResult} - Whether the attribute value is supported
    */
-  function testSVGAttribute(name, value, elementName, checkComputedStyle) {
+  function testSVGAttribute(name, value, elementName, checkComputedStyle, equivalents) {
     if (!elementName) {
       elementName = "rect";
     }
@@ -763,11 +795,8 @@
 
       if (checkComputedStyle && "getComputedStyle" in window) {
         var computedValue = getComputedStyle(el)[name] || getComputedStyle(el).getPropertyValue(name);
-        // Normalize the comparison - computed values are often lowercase
-        var normalizedValue = value.toLowerCase().replace(/-/g, "");
-        var normalizedComputed = (computedValue || "").toLowerCase().replace(/-/g, "");
 
-        if (normalizedComputed !== normalizedValue) {
+        if (!valuesAreEquivalent(computedValue, value, equivalents)) {
           document.body.removeChild(el);
           return {
             result: false,

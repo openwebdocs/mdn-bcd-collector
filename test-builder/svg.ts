@@ -24,6 +24,7 @@ const buildGlobalAttributeTests = async (customSVG) => {
     const additionalValues =
       "__additional_values" in data ? data["__additional_values"] : {};
     const elementName = data["__element"] || "rect";
+    const equivalent = data["__equivalent_values"] ? JSON.stringify(data["__equivalent_values"]) : "undefined";
 
     const ident = `svg.global_attributes.${name}`;
     const customTest = await getCustomTest(
@@ -37,7 +38,7 @@ const buildGlobalAttributeTests = async (customSVG) => {
       raw: {
         code:
           customTest.test ||
-          `bcd.testSVGAttribute("${name}", "${testValue}", "${elementName}")`,
+          `bcd.testSVGAttribute("${name}", "${testValue}", "${elementName}", true, ${equivalent})`,
       },
       exposure: ["Window"],
     });
@@ -56,7 +57,7 @@ const buildGlobalAttributeTests = async (customSVG) => {
           raw: {
             code:
               customValueTest.test ||
-              `bcd.testSVGAttribute("${name}", "${value}", "${elementName}")`,
+              `bcd.testSVGAttribute("${name}", "${value}", "${elementName}", true, ${equivalent})`,
           },
           exposure: ["Window"],
         });
@@ -75,7 +76,7 @@ const buildGlobalAttributeTests = async (customSVG) => {
         raw: {
           code:
             customValueTest.test ||
-            `bcd.testSVGAttribute("${name}", "${testValue}", "${elementName}")`,
+            `bcd.testSVGAttribute("${name}", "${testValue}", "${elementName}", true, ${equivalent})`,
         },
         exposure: ["Window"],
       });
@@ -109,6 +110,7 @@ const buildAttributeTests = async (customSVG) => {
       const testValue = attrData["__initial"] ?? attrData["__example"] ?? "auto";
       const additionalValues = (attrData["__additional_values"] ?? {});
       const testElement = attrData["__element"] || elementName;
+      const equivalent = attrData["__equivalent_values"] ? JSON.stringify(attrData["__equivalent_values"]) : "undefined";
 
       const ident = `svg.elements.${elementName}.${attrName}`;
       const customTest = await getCustomTest(ident, "svg.attributes", true);
@@ -118,7 +120,7 @@ const buildAttributeTests = async (customSVG) => {
         raw: {
           code:
             customTest.test ||
-            `bcd.testSVGAttribute("${attrName}", "${testValue}", "${testElement}")`,
+            `bcd.testSVGAttribute("${attrName}", "${testValue}", "${testElement}", true, ${equivalent})`,
         },
         exposure: ["Window"],
       });
@@ -137,7 +139,7 @@ const buildAttributeTests = async (customSVG) => {
             raw: {
               code:
                 customValueTest.test ||
-                `bcd.testSVGAttribute("${attrName}", "${value}", "${testElement}")`,
+                `bcd.testSVGAttribute("${attrName}", "${value}", "${testElement}", true, ${equivalent})`,
             },
             exposure: ["Window"],
           });
@@ -156,7 +158,7 @@ const buildAttributeTests = async (customSVG) => {
           raw: {
             code:
               customValueTest.test ||
-              `bcd.testSVGAttribute("${attrName}", "${testValue}", "${testElement}")`,
+              `bcd.testSVGAttribute("${attrName}", "${testValue}", "${testElement}", true, ${equivalent})`,
           },
           exposure: ["Window"],
         });

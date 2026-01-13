@@ -16,7 +16,10 @@
         "https://svgwg.org/svg2-draft/text.html#BaselineShiftProperty"
       ],
       "__initial": "0",
-      "__values": ["sub", "super", "top", "center", "bottom"]
+      "__values": ["sub", "super", "top", "center", "bottom"],
+      "__equivalent_values": {
+        "0": "0px"
+      }
     },
     "clip": {
       "__spec": "https://drafts.csswg.org/css-masking/#clip-property",
@@ -36,7 +39,10 @@
         "https://drafts.csswg.org/css-color/#the-color-property",
         "https://svgwg.org/svg2-draft/painting.html#ColorProperty"
       ],
-      "__example": ["red"]
+      "__example": ["red"],
+      "__equivalent_values": {
+        "red": "rgb(255, 0, 0)"
+      }
     },
     "color-interpolation": {
       "__spec": "https://svgwg.org/svg2-draft/painting.html#ColorInterpolationProperty",
@@ -103,7 +109,10 @@
     "flood-color": {
       "__spec": "https://drafts.csswg.org/filter-effects/#FloodColorProperty",
       "__initial": "black",
-      "__values": ["<color>"]
+      "__values": ["<color>"],
+      "__equivalent_values": {
+        "black": "rgb(0, 0, 0)"
+      }
     },
     "flood-opacity": {
       "__spec": "https://drafts.csswg.org/filter-effects/#FloodOpacityProperty",
@@ -120,7 +129,10 @@
     "font-size": {
       "__spec": "https://drafts.csswg.org/css-fonts/#font-size-prop",
       "__initial": "medium",
-      "__values": ["<absolute-size>", "<relative-size>", "<length-percentage>", "math"]
+      "__values": ["<absolute-size>", "<relative-size>", "<length-percentage>", "math"],
+      "__equivalent_values": {
+        "medium": "16px"
+      }
     },
     "font-size-adjust": {
       "__spec": "https://drafts.csswg.org/css-fonts/#font-size-adjust-prop",
@@ -133,7 +145,18 @@
         "https://svgwg.org/svg2-draft/styling.html#:~:text=font-stretch"
       ],
       "__initial": "normal",
-      "__values": ["normal", "<percentage>", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded"]
+      "__values": ["normal", "<percentage>", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded"],
+      "__equivalent_values": {
+        "normal": "100%",
+        "ultra-condensed": "50%",
+        "extra-condensed": "62.5%",
+        "condensed": "75%",
+        "semi-condensed": "87.5%",
+        "semi-expanded": "112.5%",
+        "expanded": "125%",
+        "extra-expanded": "150%",
+        "ultra-expanded": "200%"
+      }
     },
     "font-style": {
       "__spec": "https://drafts.csswg.org/css-fonts/#font-style-prop",
@@ -151,7 +174,13 @@
     "font-weight": {
       "__spec": "https://drafts.csswg.org/css-fonts/#font-weight-prop",
       "__initial": "normal",
-      "__values": ["<font-weight-absolute>", "normal", "bold", "bolder", "lighter"]
+      "__values": ["<font-weight-absolute>", "normal", "bold", "bolder", "lighter"],
+      "__equivalent_values": {
+        "normal": "400",
+        "bold": "700",
+        "bolder": "700",
+        "lighter": "100"
+      }
     },
     "image-rendering": {
       "__spec": [
@@ -180,7 +209,10 @@
     "lighting-color": {
       "__spec": "https://drafts.csswg.org/filter-effects/#LightingColorProperty",
       "__initial": "white",
-      "__values": ["<color>"]
+      "__values": ["<color>"],
+      "__equivalent_values": {
+        "white": ["rgb(255, 255, 255)"]
+      }
     },
     "marker-end": {
       "__spec": "https://svgwg.org/svg2-draft/painting.html#MarkerEndProperty",
@@ -243,7 +275,10 @@
     "stop-color": {
       "__spec": "https://svgwg.org/svg2-draft/pservers.html#StopColorProperty",
       "__initial": "black",
-      "__values": ["<'color'>"]
+      "__values": ["<'color'>"],
+      "__equivalent_values": {
+        "black": "rgb(0, 0, 0)"
+      }
     },
     "stop-opacity": {
       "__spec": "https://svgwg.org/svg2-draft/pservers.html#StopOpacityProperty",
@@ -263,7 +298,10 @@
     "stroke-dashoffset": {
       "__spec": "https://svgwg.org/svg2-draft/painting.html#StrokeDashoffsetProperty",
       "__initial": "0",
-      "__values": ["<length-percentage>", "<number>"]
+      "__values": ["<length-percentage>", "<number>"],
+      "__equivalent_values": {
+        "0": "0px"
+      }
     },
     "stroke-linecap": {
       "__spec": "https://svgwg.org/svg2-draft/painting.html#LineCaps",
@@ -299,6 +337,7 @@
         "https://drafts.csswg.org/css-text-decor/#text-decoration-property",
         "https://svgwg.org/svg2-draft/text.html#TextDecorationProperties"
       ],
+      "__initial": "none",
       "__values": ["none", "underline", "overline", "line-through", "blink", "solid", "double", "dotted", "dashed", "wavy"]
     },
     "text-overflow": {
@@ -361,7 +400,10 @@
         "https://svgwg.org/svg2-draft/text.html#WordSpacingProperty"
       ],
       "__initial": "normal",
-      "__values": ["normal", "<length>"]
+      "__values": ["normal", "<length>"],
+      "__equivalent_values": {
+        "normal": "0px"
+      }
     },
     "writing-mode": {
       "__spec": [
