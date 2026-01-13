@@ -7187,177 +7187,18 @@ javascript:
 
 svg:
   global_attributes:
-    pointer-events:
-      __base: |-
-        var instance = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        document.body.appendChild(instance);
-      __test: |-
-        try {
-          instance.setAttribute('pointer-events', 'auto');
-          var result = instance.getAttribute('pointer-events') === 'auto';
-          document.body.removeChild(instance);
-          return result;
-        } catch(e) {
-          if (instance.parentNode) {
-            document.body.removeChild(instance);
-          }
-          return {result: false, message: e.message};
-        }
-      __additional:
-        auto: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'auto');
-            var result = el.getAttribute('pointer-events') === 'auto' && getComputedStyle(el).pointerEvents === 'auto';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        bounding-box: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'bounding-box');
-            var result = el.getAttribute('pointer-events') === 'bounding-box' && getComputedStyle(el).pointerEvents === 'bounding-box';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        visiblePainted: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'visiblePainted');
-            var result = el.getAttribute('pointer-events') === 'visiblePainted' && getComputedStyle(el).pointerEvents === 'visiblepainted';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        visibleFill: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'visibleFill');
-            var result = el.getAttribute('pointer-events') === 'visibleFill' && getComputedStyle(el).pointerEvents === 'visiblefill';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        visibleStroke: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'visibleStroke');
-            var result = el.getAttribute('pointer-events') === 'visibleStroke' && getComputedStyle(el).pointerEvents === 'visiblestroke';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        visible: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'visible');
-            var result = el.getAttribute('pointer-events') === 'visible' && getComputedStyle(el).pointerEvents === 'visible';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        painted: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'painted');
-            var result = el.getAttribute('pointer-events') === 'painted' && getComputedStyle(el).pointerEvents === 'painted';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        fill: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'fill');
-            var result = el.getAttribute('pointer-events') === 'fill' && getComputedStyle(el).pointerEvents === 'fill';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        stroke: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'stroke');
-            var result = el.getAttribute('pointer-events') === 'stroke' && getComputedStyle(el).pointerEvents === 'stroke';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        all: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'all');
-            var result = el.getAttribute('pointer-events') === 'all' && getComputedStyle(el).pointerEvents === 'all';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
-        none: |-
-          try {
-            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            document.body.appendChild(el);
-            el.setAttribute('pointer-events', 'none');
-            var result = el.getAttribute('pointer-events') === 'none' && getComputedStyle(el).pointerEvents === 'none';
-            document.body.removeChild(el);
-            return result;
-          } catch(e) {
-            if (el && el.parentNode) {
-              document.body.removeChild(el);
-            }
-            return {result: false, message: e.message};
-          }
+    pointer-events: return bcd.testSVGAttribute('pointer-events', 'auto');
+    pointer-events.auto: return bcd.testSVGAttribute('pointer-events', 'auto');
+    pointer-events.bounding-box: return bcd.testSVGAttribute('pointer-events', 'bounding-box');
+    pointer-events.visiblePainted: return bcd.testSVGAttribute('pointer-events', 'visiblePainted');
+    pointer-events.visibleFill: return bcd.testSVGAttribute('pointer-events', 'visibleFill');
+    pointer-events.visibleStroke: return bcd.testSVGAttribute('pointer-events', 'visibleStroke');
+    pointer-events.visible: return bcd.testSVGAttribute('pointer-events', 'visible');
+    pointer-events.painted: return bcd.testSVGAttribute('pointer-events', 'painted');
+    pointer-events.fill: return bcd.testSVGAttribute('pointer-events', 'fill');
+    pointer-events.stroke: return bcd.testSVGAttribute('pointer-events', 'stroke');
+    pointer-events.all: return bcd.testSVGAttribute('pointer-events', 'all');
+    pointer-events.none: return bcd.testSVGAttribute('pointer-events', 'none');
 
 # Features defined here also need to be in test-builder/webassembly.ts.
 webassembly:

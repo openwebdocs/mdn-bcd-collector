@@ -705,6 +705,108 @@
   }
 
   /**
+   * Test an SVG attribute for support
+   * @param {string} name - The SVG attribute name
+   * @param {string} value - The SVG attribute value to test
+   * @param {string} [elementName] - The SVG element name to test on (defaults to 'rect')
+   * @param {boolean} [checkComputedStyle] - Whether to also verify the computed style (defaults to true for presentation attributes)
+   * @returns {TestResult} - Whether the attribute value is supported
+   */
+  function testSVGAttribute(name, value, elementName, checkComputedStyle) {
+    if (!elementName) {
+      elementName = "rect";
+    }
+
+    if (checkComputedStyle === undefined) {
+      checkComputedStyle = true;
+    }
+
+    if (!("document" in self && "createElementNS" in document)) {
+      return {
+        result: null,
+        message: "document.createElementNS is not supported"
+      };
+    }
+
+    var el;
+    try {
+      el = document.createElementNS("http://www.w3.org/2000/svg", elementName);
+      if (!el) {
+        return {
+          result: false,
+          message: "Failed to create SVG element " + jsonify(elementName)
+        };
+      }
+
+      document.body.appendChild(el);
+      el.setAttribute(name, value);
+
+      var attrValue = el.getAttribute(name);
+      var attrMatches = attrValue === value;
+
+      if (!attrMatches) {
+        document.body.removeChild(el);
+        return {
+          result: false,
+          message:
+            "getAttribute(" +
+            jsonify(name) +
+            ") returned " +
+            jsonify(attrValue) +
+            " after setAttribute(" +
+            jsonify(name) +
+            ", " +
+            jsonify(value) +
+            ")"
+        };
+      }
+
+      if (checkComputedStyle && "getComputedStyle" in window) {
+        var computedValue = getComputedStyle(el)[name] || getComputedStyle(el).getPropertyValue(name);
+        // Normalize the comparison - computed values are often lowercase
+        var normalizedValue = value.toLowerCase().replace(/-/g, "");
+        var normalizedComputed = (computedValue || "").toLowerCase().replace(/-/g, "");
+
+        if (normalizedComputed !== normalizedValue) {
+          document.body.removeChild(el);
+          return {
+            result: false,
+            message:
+              "getComputedStyle(" +
+              jsonify(name) +
+              ") returned " +
+              jsonify(computedValue) +
+              " (expected " +
+              jsonify(value) +
+              ")"
+          };
+        }
+      }
+
+      document.body.removeChild(el);
+      return {
+        result: true,
+        message:
+          "setAttribute(" +
+          jsonify(name) +
+          ", " +
+          jsonify(value) +
+          ") succeeded" +
+          (checkComputedStyle ? " and computed style matched" : "")
+      };
+    } catch (err) {
+      if (el && el.parentNode) {
+        try {
+          document.body.removeChild(el);
+        } catch (cleanupErr) {
+          // Ignore cleanup errors
+        }
+      }
+      return { result: false, message: "threw " + stringify(err) };
+    }
+  }
+
+  /**
    * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
    * @param {string} feature - The web assembly feature name as defined in `wasm-feature-detect`
    * @returns {TestResult} - Whether the web assembly feature is supported
@@ -1948,6 +2050,7 @@
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
     testCSSSelector: testCSSSelector,
+    testSVGAttribute: testSVGAttribute,
     testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,
