@@ -19,7 +19,8 @@ const buildGlobalAttributeTests = async (customSVG) => {
   for (const [name, data] of Object.entries(
     customSVG.global_attributes,
   ) as any[]) {
-    const values = "__values" in data ? data["__values"] : [];
+    const values = (data["__values"] ?? []).filter(value => !(value.startsWith("<")));
+    const testValue = data["__initial"] ?? data["__example"] ?? "auto";
     const additionalValues =
       "__additional_values" in data ? data["__additional_values"] : {};
     const elementName = data["__element"] || "rect";
@@ -36,28 +37,30 @@ const buildGlobalAttributeTests = async (customSVG) => {
       raw: {
         code:
           customTest.test ||
-          `bcd.testSVGAttribute("${name}", "${values[0] || "auto"}", "${elementName}")`,
+          `bcd.testSVGAttribute("${name}", "${testValue}", "${elementName}")`,
       },
       exposure: ["Window"],
     });
 
-    // Tests for values
-    for (const value of values) {
-      const valueKey = value.replace(/-/g, "-");
-      const valueIdent = `${ident}.${valueKey}`;
-      const customValueTest = await getCustomTest(
-        valueIdent,
-        "svg.global_attributes",
-        true,
-      );
-      tests[valueIdent] = compileTest({
-        raw: {
-          code:
-            customValueTest.test ||
-            `bcd.testSVGAttribute("${name}", "${value}", "${elementName}")`,
-        },
-        exposure: ["Window"],
-      });
+    if (!(values.length === 1 && values[0] === testValue)) {
+      // Tests for values
+      for (const value of values) {
+        const valueKey = value.replace(/-/g, "-");
+        const valueIdent = `${ident}.${valueKey}`;
+        const customValueTest = await getCustomTest(
+          valueIdent,
+          "svg.global_attributes",
+          true,
+        );
+        tests[valueIdent] = compileTest({
+          raw: {
+            code:
+              customValueTest.test ||
+              `bcd.testSVGAttribute("${name}", "${value}", "${elementName}")`,
+          },
+          exposure: ["Window"],
+        });
+      }
     }
 
     // Tests for additional values with custom test values
@@ -102,10 +105,9 @@ const buildAttributeTests = async (customSVG) => {
     customSVG.attributes,
   ) as any[]) {
     for (const [attrName, attrData] of Object.entries(elementData) as any[]) {
-      const values = "__values" in attrData ? attrData["__values"] : [];
-      const initialValue = "__initial" in attrData ? attrData["__initial"] : "auto";
-      const additionalValues =
-        "__additional_values" in attrData ? attrData["__additional_values"] : {};
+      const values = (attrData["__values"] ?? []).filter(value => !(value.startsWith("<")));
+      const testValue = attrData["__initial"] ?? attrData["__example"] ?? "auto";
+      const additionalValues = (attrData["__additional_values"] ?? {});
       const testElement = attrData["__element"] || elementName;
 
       const ident = `svg.elements.${elementName}.${attrName}`;
@@ -116,28 +118,30 @@ const buildAttributeTests = async (customSVG) => {
         raw: {
           code:
             customTest.test ||
-            `bcd.testSVGAttribute("${attrName}", "${initialValue}", "${testElement}")`,
+            `bcd.testSVGAttribute("${attrName}", "${testValue}", "${testElement}")`,
         },
         exposure: ["Window"],
       });
 
-      // Tests for values
-      for (const value of values) {
-        const valueKey = value.replace(/-/g, "-");
-        const valueIdent = `${ident}.${valueKey}`;
-        const customValueTest = await getCustomTest(
-          valueIdent,
-          "svg.attributes",
-          true,
-        );
-        tests[valueIdent] = compileTest({
-          raw: {
-            code:
-              customValueTest.test ||
-              `bcd.testSVGAttribute("${attrName}", "${value}", "${testElement}")`,
-          },
-          exposure: ["Window"],
-        });
+      if (!(values.length === 1 && values[0] === testValue)) {
+        // Tests for values
+        for (const value of values) {
+          const valueKey = value.replace(/-/g, "-");
+          const valueIdent = `${ident}.${valueKey}`;
+          const customValueTest = await getCustomTest(
+            valueIdent,
+            "svg.attributes",
+            true,
+          );
+          tests[valueIdent] = compileTest({
+            raw: {
+              code:
+                customValueTest.test ||
+                `bcd.testSVGAttribute("${attrName}", "${value}", "${testElement}")`,
+            },
+            exposure: ["Window"],
+          });
+        }
       }
 
       // Tests for additional values with custom test values
