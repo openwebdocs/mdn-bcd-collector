@@ -7185,21 +7185,6 @@ javascript:
         return {result: false, message: e.message};
       }
 
-svg:
-  global_attributes:
-    pointer-events: return bcd.testSVGAttribute('pointer-events', 'auto');
-    pointer-events.auto: return bcd.testSVGAttribute('pointer-events', 'auto');
-    pointer-events.bounding-box: return bcd.testSVGAttribute('pointer-events', 'bounding-box');
-    pointer-events.visiblePainted: return bcd.testSVGAttribute('pointer-events', 'visiblePainted');
-    pointer-events.visibleFill: return bcd.testSVGAttribute('pointer-events', 'visibleFill');
-    pointer-events.visibleStroke: return bcd.testSVGAttribute('pointer-events', 'visibleStroke');
-    pointer-events.visible: return bcd.testSVGAttribute('pointer-events', 'visible');
-    pointer-events.painted: return bcd.testSVGAttribute('pointer-events', 'painted');
-    pointer-events.fill: return bcd.testSVGAttribute('pointer-events', 'fill');
-    pointer-events.stroke: return bcd.testSVGAttribute('pointer-events', 'stroke');
-    pointer-events.all: return bcd.testSVGAttribute('pointer-events', 'all');
-    pointer-events.none: return bcd.testSVGAttribute('pointer-events', 'none');
-
 # Features defined here also need to be in test-builder/webassembly.ts.
 webassembly:
   # Features defined here also need to be in https://webassembly.github.io/spec/web-api/index.html or custom/idl/webassembly.idl.
