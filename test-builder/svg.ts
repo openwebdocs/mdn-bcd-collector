@@ -103,6 +103,7 @@ const buildAttributeTests = async (customSVG) => {
   ) as any[]) {
     for (const [attrName, attrData] of Object.entries(elementData) as any[]) {
       const values = "__values" in attrData ? attrData["__values"] : [];
+      const initialValue = "__initial" in attrData ? attrData["__initial"] : "auto";
       const additionalValues =
         "__additional_values" in attrData ? attrData["__additional_values"] : {};
       const testElement = attrData["__element"] || elementName;
@@ -115,7 +116,7 @@ const buildAttributeTests = async (customSVG) => {
         raw: {
           code:
             customTest.test ||
-            `bcd.testSVGAttribute("${attrName}", "${values[0] || "auto"}", "${testElement}")`,
+            `bcd.testSVGAttribute("${attrName}", "${initialValue}", "${testElement}")`,
         },
         exposure: ["Window"],
       });

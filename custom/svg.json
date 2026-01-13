@@ -1,7 +1,9 @@
 {
   "global_attributes": {
     "pointer-events": {
+      "__initial": "auto",
       "__values": [
+        "auto",
         "bounding-box",
         "visiblePainted",
         "visibleFill",
