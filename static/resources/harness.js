@@ -723,9 +723,13 @@
     // Check equivalents map if provided
     if (equivalents && expectedValue in equivalents) {
       var equivalentValues = equivalents[expectedValue];
-      equivalentValues = Array.isArray(equivalentValues) ? equivalentValues : [equivalentValues];
+      equivalentValues = Array.isArray(equivalentValues)
+        ? equivalentValues
+        : [equivalentValues];
       for (var i = 0; i < equivalentValues.length; i++) {
-        var normalizedEquivalent = equivalentValues[i].toLowerCase().replace(/-/g, "");
+        var normalizedEquivalent = equivalentValues[i]
+          .toLowerCase()
+          .replace(/-/g, "");
         if (normalized1 === normalizedEquivalent) {
           return true;
         }
@@ -744,7 +748,13 @@
    * @param {Object} [equivalents] - Map of expected values to arrays of equivalent computed values
    * @returns {TestResult} - Whether the attribute value is supported
    */
-  function testSVGAttribute(name, value, elementName, checkComputedStyle, equivalents) {
+  function testSVGAttribute(
+    name,
+    value,
+    elementName,
+    checkComputedStyle,
+    equivalents
+  ) {
     if (!elementName) {
       elementName = "rect";
     }
@@ -794,7 +804,9 @@
       }
 
       if (checkComputedStyle && "getComputedStyle" in window) {
-        var computedValue = getComputedStyle(el)[name] || getComputedStyle(el).getPropertyValue(name);
+        var computedValue =
+          getComputedStyle(el)[name] ||
+          getComputedStyle(el).getPropertyValue(name);
 
         if (!valuesAreEquivalent(computedValue, value, equivalents)) {
           document.body.removeChild(el);

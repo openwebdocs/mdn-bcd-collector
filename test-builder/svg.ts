@@ -19,12 +19,16 @@ const buildGlobalAttributeTests = async (customSVG) => {
   for (const [name, data] of Object.entries(
     customSVG.global_attributes,
   ) as any[]) {
-    const values = (data["__values"] ?? []).filter(value => !(value.startsWith("<")));
+    const values = (data["__values"] ?? []).filter(
+      (value) => !value.startsWith("<"),
+    );
     const testValue = data["__initial"] ?? data["__example"] ?? "auto";
     const additionalValues =
       "__additional_values" in data ? data["__additional_values"] : {};
     const elementName = data["__element"] || "rect";
-    const equivalent = data["__equivalent_values"] ? JSON.stringify(data["__equivalent_values"]) : "undefined";
+    const equivalent = data["__equivalent_values"]
+      ? JSON.stringify(data["__equivalent_values"])
+      : "undefined";
 
     const ident = `svg.global_attributes.${name}`;
     const customTest = await getCustomTest(
@@ -106,11 +110,16 @@ const buildAttributeTests = async (customSVG) => {
     customSVG.attributes,
   ) as any[]) {
     for (const [attrName, attrData] of Object.entries(elementData) as any[]) {
-      const values = (attrData["__values"] ?? []).filter(value => !(value.startsWith("<")));
-      const testValue = attrData["__initial"] ?? attrData["__example"] ?? "auto";
-      const additionalValues = (attrData["__additional_values"] ?? {});
+      const values = (attrData["__values"] ?? []).filter(
+        (value) => !value.startsWith("<"),
+      );
+      const testValue =
+        attrData["__initial"] ?? attrData["__example"] ?? "auto";
+      const additionalValues = attrData["__additional_values"] ?? {};
       const testElement = attrData["__element"] || elementName;
-      const equivalent = attrData["__equivalent_values"] ? JSON.stringify(attrData["__equivalent_values"]) : "undefined";
+      const equivalent = attrData["__equivalent_values"]
+        ? JSON.stringify(attrData["__equivalent_values"])
+        : "undefined";
 
       const ident = `svg.elements.${elementName}.${attrName}`;
       const customTest = await getCustomTest(ident, "svg.attributes", true);
