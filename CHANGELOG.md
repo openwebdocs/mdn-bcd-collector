@@ -1,5 +1,107 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.1
+
+Released January 13, 2026
+
+### Test Changes
+
+#### Added
+
+- api.SFrameDecrypterStream.addDecryptionKey
+- api.SFrameDecrypterStream.removeDecryptionKey
+- api.SFrameReceiverTransform
+- api.SFrameSenderTransform
+- css.properties.accent-color.transparent
+- css.properties.accent-color.currentColor
+- css.properties.buffered-rendering
+- css.properties.color-rendering
+- css.properties.column-rule-edge-inset
+- css.properties.column-rule-edge-inset-end
+- css.properties.column-rule-edge-inset-start
+- css.properties.column-rule-inset
+- css.properties.column-rule-inset-end
+- css.properties.column-rule-inset-start
+- css.properties.column-rule-interior-inset
+- css.properties.column-rule-interior-inset-end
+- css.properties.column-rule-interior-inset-start
+- css.properties.font.xx-small
+- css.properties.font.x-small
+- css.properties.font.small
+- css.properties.font.medium
+- css.properties.font.large
+- css.properties.font.x-large
+- css.properties.font.xx-large
+- css.properties.font.larger
+- css.properties.font.smaller
+- css.properties.font-feature-settings.on
+- css.properties.font-feature-settings.off
+- css.properties.font-size.xx-small
+- css.properties.font-size.x-small
+- css.properties.font-size.small
+- css.properties.font-size.medium
+- css.properties.font-size.large
+- css.properties.font-size.x-large
+- css.properties.font-size.xx-large
+- css.properties.font-size.larger
+- css.properties.font-size.smaller
+- css.properties.position-anchor.none
+- css.properties.row-rule-edge-inset
+- css.properties.row-rule-edge-inset-end
+- css.properties.row-rule-edge-inset-start
+- css.properties.row-rule-inset
+- css.properties.row-rule-inset-end
+- css.properties.row-rule-inset-start
+- css.properties.row-rule-interior-inset
+- css.properties.row-rule-interior-inset-end
+- css.properties.row-rule-interior-inset-start
+- css.properties.rule-edge-inset
+- css.properties.rule-inset
+- css.properties.rule-inset-end
+- css.properties.rule-inset-start
+- css.properties.rule-interior-inset
+- css.properties.stop-color.transparent
+- css.properties.stop-color.currentColor
+- css.properties.trigger-scope
+
+#### Removed
+
+- api.SFrameDecrypterStream.setEncryptionKey
+- api.SFrameTransform
+- css.properties.column-rule-outset
+- css.properties.row-rule-outset
+- css.properties.rule-outset
+
+### Commits
+
+- Update package-lock
+- Bring back transparent value ([#2980](https://github.com/openwebdocs/mdn-bcd-collector/pull/2980))
+- Don't add CSS color name values, second try ([#2979](https://github.com/openwebdocs/mdn-bcd-collector/pull/2979))
+- Do not add tons of &lt;color&gt; values to CSS properties ([#2977](https://github.com/openwebdocs/mdn-bcd-collector/pull/2977))
+- Use node v25 ([#2975](https://github.com/openwebdocs/mdn-bcd-collector/pull/2975))
+- build(deps-dev): bump eslint-plugin-jsdoc from 61.5.0 to 62.0.0 ([#2967](https://github.com/openwebdocs/mdn-bcd-collector/pull/2967))
+- Add custom CSS tests for {buffered,color}-rendering ([#2968](https://github.com/openwebdocs/mdn-bcd-collector/pull/2968))
+- build(deps-dev): bump globals from 16.5.0 to 17.0.0 ([#2961](https://github.com/openwebdocs/mdn-bcd-collector/pull/2961))
+- build(deps-dev): bump typescript-eslint from 8.52.0 to 8.53.0 ([#2974](https://github.com/openwebdocs/mdn-bcd-collector/pull/2974))
+- build(deps-dev): bump @types/node from 25.0.6 to 25.0.7 ([#2973](https://github.com/openwebdocs/mdn-bcd-collector/pull/2973))
+- build(deps-dev): bump @babel/preset-env from 7.28.5 to 7.28.6 ([#2972](https://github.com/openwebdocs/mdn-bcd-collector/pull/2972))
+- build(deps-dev): bump @types/node from 25.0.3 to 25.0.6 ([#2970](https://github.com/openwebdocs/mdn-bcd-collector/pull/2970))
+- build(deps-dev): bump puppeteer from 24.34.0 to 24.35.0 ([#2969](https://github.com/openwebdocs/mdn-bcd-collector/pull/2969))
+- build(deps): bump @mdn/browser-compat-data from 7.2.2 to 7.2.3 ([#2966](https://github.com/openwebdocs/mdn-bcd-collector/pull/2966))
+- build(deps-dev): bump typescript-eslint from 8.51.0 to 8.52.0 ([#2965](https://github.com/openwebdocs/mdn-bcd-collector/pull/2965))
+- build(deps-dev): bump sass from 1.97.1 to 1.97.2 ([#2964](https://github.com/openwebdocs/mdn-bcd-collector/pull/2964))
+- build(deps-dev): bump @webref/idl from 3.70.1 to 3.70.2 ([#2963](https://github.com/openwebdocs/mdn-bcd-collector/pull/2963))
+- build(deps-dev): bump @webref/css from 8.1.2 to 8.1.3 ([#2962](https://github.com/openwebdocs/mdn-bcd-collector/pull/2962))
+- build(deps): bump qs from 6.14.0 to 6.14.1 ([#2960](https://github.com/openwebdocs/mdn-bcd-collector/pull/2960))
+- build(deps-dev): bump typescript-eslint from 8.50.1 to 8.51.0 ([#2959](https://github.com/openwebdocs/mdn-bcd-collector/pull/2959))
+- build(deps-dev): bump @swc/helpers from 0.5.17 to 0.5.18 ([#2957](https://github.com/openwebdocs/mdn-bcd-collector/pull/2957))
+- build(deps-dev): bump typescript-eslint from 8.50.0 to 8.50.1 ([#2956](https://github.com/openwebdocs/mdn-bcd-collector/pull/2956))
+- build(deps-dev): bump sinon from 21.0.0 to 21.0.1 ([#2955](https://github.com/openwebdocs/mdn-bcd-collector/pull/2955))
+- build(deps-dev): bump sass from 1.97.0 to 1.97.1 ([#2954](https://github.com/openwebdocs/mdn-bcd-collector/pull/2954))
+- build(deps): bump express-csp-header from 6.2.1 to 6.3.0 ([#2953](https://github.com/openwebdocs/mdn-bcd-collector/pull/2953))
+- build(deps-dev): bump puppeteer from 24.33.0 to 24.34.0 ([#2952](https://github.com/openwebdocs/mdn-bcd-collector/pull/2952))
+- build(deps): bump fs-extra from 11.3.2 to 11.3.3 ([#2951](https://github.com/openwebdocs/mdn-bcd-collector/pull/2951))
+
 ## v10.17.0
 
 Released December 18, 2025
