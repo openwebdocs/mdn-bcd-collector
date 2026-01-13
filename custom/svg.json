@@ -2,7 +2,6 @@
   "global_attributes": {
     "pointer-events": {
       "__values": [
-        "auto",
         "bounding-box",
         "visiblePainted",
         "visibleFill",
