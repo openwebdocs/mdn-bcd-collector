@@ -1,42 +1,5 @@
 {
   "global_attributes": {
-    "autofocus": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#autofocusattribute",
-      "__values": ["true", "false"]
-    },
-    "id": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#Core.attrib",
-      "__example": "test-id"
-    },
-    "lang": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#LangSpaceAttrs",
-      "__example": "en"
-    },
-    "tabindex": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#tabindexattribute",
-      "__example": "1"
-    },
-    "xml_lang": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#LangSpaceAttrs",
-      "__example": "en"
-    },
-    "xml_space": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#WhitespaceProcessingXMLSpaceAttribute",
-      "__initial": "default",
-      "__values": ["default", "preserve"]
-    },
-    "data_attributes": {
-      "__spec": "https://svgwg.org/svg2-draft/struct.html#DataAttributes",
-      "__example": "test-value"
-    },
-    "class": {
-      "__spec": "https://svgwg.org/svg2-draft/styling.html#ElementSpecificStyling",
-      "__example": "test-class"
-    },
-    "style": {
-      "__spec": "https://svgwg.org/svg2-draft/styling.html#ElementSpecificStyling",
-      "__example": "fill: red;"
-    },
     "alignment-baseline": {
       "__spec": [
         "https://drafts.csswg.org/css-inline/#alignment-baseline-property",
