@@ -1257,6 +1257,16 @@
       "property": "aspect-ratio",
       "value": "16 / 9"
     },
+    "random": {
+      "syntax": "<random()>",
+      "property": "width",
+      "value": "random(100px, 300px)",
+      "additionalValues": {
+        "step": "random(100px, 300px, by 50px)",
+        "per-element": "random(per-element, 10px, 20px)",
+        "dashed-ident": "random(--my-seed, 10px, 20px)"
+      }
+    },
     "ray": {
       "syntax": "<ray()>",
       "property": "offset-path",
