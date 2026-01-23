@@ -274,7 +274,8 @@
         "pattern",
         "placeholder",
         "src",
-        "step"
+        "step",
+        "switch"
       ]
     },
     "ins": {"attributes": [{"datetime": "dateTime"}, "cite"]},
