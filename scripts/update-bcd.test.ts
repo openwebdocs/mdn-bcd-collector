@@ -45,7 +45,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -131,7 +131,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -227,7 +227,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -317,7 +317,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -332,7 +332,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -347,7 +347,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -367,7 +367,7 @@ const reports: Report[] = [
     __version: "0.3.1",
     extensions: [],
     results: {
-      "https://mdn-bcd-collector.gooborg.com/tests/": [
+      "https://collector.openwebdocs.org/tests/": [
         {
           name: "api.AbortController",
           exposure: "Window",
@@ -735,7 +735,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1337,7 +1337,7 @@ describe("BCD updater", () => {
             __version: "0.3.1",
             extensions: [],
             results: {
-              "https://mdn-bcd-collector.gooborg.com/tests/": [
+              "https://collector.openwebdocs.org/tests/": [
                 {
                   name: "api.FakeInterface",
                   exposure: "Window",
@@ -1623,7 +1623,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1662,7 +1662,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1708,7 +1708,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1757,7 +1757,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1796,7 +1796,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1835,7 +1835,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1884,7 +1884,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",
@@ -1967,7 +1967,7 @@ describe("BCD updater", () => {
         __version: "0.3.1",
         extensions: [],
         results: {
-          "https://mdn-bcd-collector.gooborg.com/tests/": [
+          "https://collector.openwebdocs.org/tests/": [
             {
               name: "api.AbortController",
               exposure: "Window",

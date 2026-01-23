@@ -2442,7 +2442,7 @@ api:
     __base: var instance = document.createElement('a');
     __test: return bcd.testObjectName(instance, 'HTMLAnchorElement');
     toString: |-
-      instance.href = 'https://mdn-bcd-collector.gooborg.com/';
+      instance.href = 'https://collector.openwebdocs.org/';
       return instance.toString() == instance.href;
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
@@ -2467,7 +2467,7 @@ api:
     __base: var instance = document.createElement('area');
     __test: return bcd.testObjectName(instance, 'HTMLAreaElement');
     toString: |-
-      instance.href = 'https://mdn-bcd-collector.gooborg.com/';
+      instance.href = 'https://collector.openwebdocs.org/';
       return instance.toString() == instance.href;
     __additional:
       referrerPolicy.no-referrer-when-downgrade: |-
@@ -4308,7 +4308,7 @@ api:
         return response.body;
       }).catch(function() {
         // Browsers need a relative path for CORS, but JS runtimes need an absolute path to reference
-        return fetch('https://mdn-bcd-collector.gooborg.com/favicon/favicon.ico').then(function(response) {
+        return fetch('https://collector.openwebdocs.org/favicon/favicon.ico').then(function(response) {
           return response.body;
         })
       });
@@ -5759,12 +5759,12 @@ api:
       if (!('URLPattern' in self)) {
         return {result: false, message: 'URLPattern is not defined'};
       }
-      var instance = new URLPattern('https://mdn-bcd-collector.gooborg.com/tests/*');
+      var instance = new URLPattern('https://collector.openwebdocs.org/tests/*');
     URLPattern:
       __additional:
         ignoreCase_option: |-
           function constructor(options) {
-            new URLPattern('https://mdn-bcd-collector.gooborg.com/tests/*', options);
+            new URLPattern('https://collector.openwebdocs.org/tests/*', options);
           }
           return bcd.testOptionParam(constructor, null, 'ignoreCase', true);
   URLSearchParams:
