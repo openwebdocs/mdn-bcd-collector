@@ -1262,8 +1262,8 @@
       "property": "width",
       "value": "random(100px, 300px)",
       "additionalValues": {
-        "step": "random(100px, 300px, by 50px)",
-        "per-element": "random(per-element, 10px, 20px)",
+        "step": "random(100px, 300px, 50px)",
+        "element-shared": "random(element-shared, 10px, 20px)",
         "dashed-ident": "random(--my-seed, 10px, 20px)"
       }
     },
