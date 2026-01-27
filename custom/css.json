@@ -1372,5 +1372,12 @@
       "property": "background-image",
       "value": "url('https://mdn-bcd-collector.gooborg.com')"
     }
+  },
+  "at-rules": {
+    "media": {
+      "scan": {},
+      "scan.interlace": {},
+      "scan.progressive": {}
+    }
   }
 }
