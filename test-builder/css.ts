@@ -635,6 +635,35 @@ const buildTypeTests = async (customCSS) => {
 };
 
 /**
+ * Builds tests for CSS at-rules based on the provided customCSS.
+ * @param customCSS - The custom CSS data.
+ * @returns - The tests for CSS at-rules.
+ */
+const buildAtRuleTests = async (customCSS) => {
+  const tests = {};
+
+  for (const [atRule, atRuleData] of Object.entries(
+    customCSS["at-rules"] || {},
+  ) as any[]) {
+    for (const [feature] of Object.entries(atRuleData) as any[]) {
+      const ident = `css.at-rules.${atRule}.${feature}`;
+      const customTest = await getCustomTest(ident, "css.at-rules", true);
+
+      if (customTest.test) {
+        tests[ident] = compileTest({
+          raw: {
+            code: customTest.test,
+          },
+          exposure: ["Window"],
+        });
+      }
+    }
+  }
+
+  return tests;
+};
+
+/**
  * Builds tests for CSS features based on the provided specCSS and customCSS.
  * @param specCSS - The specification CSS data.
  * @param customCSS - The custom CSS data.
@@ -646,6 +675,7 @@ const build = async (specCSS, customCSS) => {
   Object.assign(tests, await buildPropertyTests(specCSS, customCSS));
   Object.assign(tests, await buildSelectorTests(specCSS, customCSS));
   Object.assign(tests, await buildTypeTests(customCSS));
+  Object.assign(tests, await buildAtRuleTests(customCSS));
 
   return tests;
 };
