@@ -121,7 +121,7 @@
     "eslint-plugin-unicorn": "^62.0.0",
     "fdir": "6.5.0",
     "foreman": "^3.0.1",
-    "globals": "^17.1.0",
+    "globals": "^17.2.0",
     "json3": "3.3.3",
     "jsonc-parser": "^3.3.1",
     "listr2": "10.1.0",
