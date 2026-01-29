@@ -288,8 +288,7 @@
     "font-size": {
       "__additional_values": {
         "rem_values": "10rem"
-      },
-      "__values": ["xxx-large"]
+      }
     },
     "font-size-adjust": {
       "__additional_values": {
