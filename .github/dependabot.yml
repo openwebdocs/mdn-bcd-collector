@@ -5,10 +5,12 @@ updates:
     schedule:
       interval: daily
     groups:
-      listr2:
+      data:
         patterns:
-          - "listr2"
-          - "@listr2/*"
+          - "@webref/*"
+      dev:
+        exclude-patterns:
+          - "@webref/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
