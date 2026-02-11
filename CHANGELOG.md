@@ -1,5 +1,137 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.2
+
+Released February 11, 2026
+
+### Test Changes
+
+#### Added
+
+- api.AudioContext.playbackStats
+- api.AudioPlaybackStats
+- api.AutofillEvent
+- api.CrashReportContext
+- api.CSSApplyBlockRule
+- api.CSSApplyStatementRule
+- api.CSSContentsBlockRule
+- api.CSSContentsStatementRule
+- api.CSSMixinRule
+- api.HTMLGeolocationElement
+- api.HTMLModelElement.boundingBoxCenter
+- api.HTMLModelElement.boundingBoxExtents
+- api.HTMLModelElement.entityTransform
+- api.HTMLModelElement.ready
+- api.HTMLPermissionElement
+- api.MediaStreamTrackHandle
+- api.Window.crashReport
+- api.XRSession.maxRenderLayers
+- css.properties.column-rule-visibility-items
+- css.properties.flow-tolerance
+- css.properties.font.xxx-large
+- css.properties.position-anchor.normal
+- css.properties.row-rule-visibility-items
+- css.properties.rule-visibility-items
+- css.properties.view-transition-scope
+- css.types.random
+- html.elements.geolocation
+- html.elements.input.switch
+- html.elements.permission
+- mathml.elements.a
+
+#### Removed
+
+- api.Credential.willRequestConditionalCreation_static
+- api.SFrameEncrypterStream.error_event
+- api.SFrameSenderTransform.error_event
+- css.properties.column-rule-edge-inset-end.auto
+- css.properties.column-rule-edge-inset-start.auto
+- css.properties.column-rule-inset-end.auto
+- css.properties.column-rule-inset-start.auto
+- css.properties.column-rule-interior-inset-end.auto
+- css.properties.column-rule-interior-inset-start.auto
+- css.properties.contain.view-transition
+- css.properties.item-cross
+- css.properties.item-direction
+- css.properties.item-flow
+- css.properties.item-pack
+- css.properties.item-tolerance
+- css.properties.item-track
+- css.properties.item-wrap
+- css.properties.row-rule-edge-inset-end.auto
+- css.properties.row-rule-edge-inset-start.auto
+- css.properties.row-rule-inset-end.auto
+- css.properties.row-rule-inset-start.auto
+- css.properties.row-rule-interior-inset-end.auto
+- css.properties.row-rule-interior-inset-start.auto
+- css.properties.rule-inset-end.auto
+- css.properties.rule-inset-start.auto
+
+#### Changed
+
+- api.CSSStyleSheet.CSSStyleSheet.options_baseURL_parameter
+- api.EventSource.EventSource.options_withCredentials_parameter
+- api.HTMLAnchorElement.toString
+- api.HTMLAreaElement.toString
+- api.ReadableStream
+- api.ReadableStreamDefaultReader
+- api.Response.Response.accept_readablestream
+- api.URLPattern
+- css.types.image
+- css.types.url
+
+### Commits
+
+- build(deps): bump the dev group across 1 directory with 6 updates ([#3044](https://github.com/openwebdocs/mdn-bcd-collector/pull/3044))
+- Use collector.openwebdocs.org URL ([#3042](https://github.com/openwebdocs/mdn-bcd-collector/pull/3042))
+- chore(custom): add CSS random() test ([#2992](https://github.com/openwebdocs/mdn-bcd-collector/pull/2992))
+- Add custom test for HTML `&lt;input switch&gt;` ([#3013](https://github.com/openwebdocs/mdn-bcd-collector/pull/3013))
+- build(deps-dev): bump the data group with 2 updates ([#3040](https://github.com/openwebdocs/mdn-bcd-collector/pull/3040))
+- build(deps): bump the dev group with 5 updates ([#3037](https://github.com/openwebdocs/mdn-bcd-collector/pull/3037))
+- build(deps-dev): bump the dev group with 2 updates ([#3036](https://github.com/openwebdocs/mdn-bcd-collector/pull/3036))
+- build(deps): bump the dev group across 1 directory with 8 updates ([#3035](https://github.com/openwebdocs/mdn-bcd-collector/pull/3035))
+- build(deps-dev): bump the data group with 2 updates ([#3034](https://github.com/openwebdocs/mdn-bcd-collector/pull/3034))
+- build(deps-dev): bump @webref/css from 8.1.3 to 8.2.3 ([#3026](https://github.com/openwebdocs/mdn-bcd-collector/pull/3026))
+- Dependabot groups: data and dev ([#3030](https://github.com/openwebdocs/mdn-bcd-collector/pull/3030))
+- Remove automerge ([#3029](https://github.com/openwebdocs/mdn-bcd-collector/pull/3029))
+- build(deps-dev): bump @webref/idl from 3.71.1 to 3.72.0 ([#3028](https://github.com/openwebdocs/mdn-bcd-collector/pull/3028))
+- build(deps-dev): bump globals from 17.1.0 to 17.2.0 ([#3027](https://github.com/openwebdocs/mdn-bcd-collector/pull/3027))
+- build(deps-dev): bump puppeteer from 24.36.0 to 24.36.1 ([#3025](https://github.com/openwebdocs/mdn-bcd-collector/pull/3025))
+- build(deps-dev): bump the listr2 group with 2 updates ([#3021](https://github.com/openwebdocs/mdn-bcd-collector/pull/3021))
+- build(deps-dev): bump typescript-eslint from 8.53.1 to 8.54.0 ([#3023](https://github.com/openwebdocs/mdn-bcd-collector/pull/3023))
+- build(deps-dev): bump globals from 17.0.0 to 17.1.0 ([#3022](https://github.com/openwebdocs/mdn-bcd-collector/pull/3022))
+- build(deps): bump @mdn/browser-compat-data from 7.2.4 to 7.2.5 ([#3018](https://github.com/openwebdocs/mdn-bcd-collector/pull/3018))
+- build(deps-dev): bump cheerio from 1.1.2 to 1.2.0 ([#3017](https://github.com/openwebdocs/mdn-bcd-collector/pull/3017))
+- build(deps-dev): bump eslint-plugin-jsdoc from 62.3.1 to 62.4.1 ([#3015](https://github.com/openwebdocs/mdn-bcd-collector/pull/3015))
+- build(deps-dev): bump @types/node from 25.0.9 to 25.0.10 ([#3016](https://github.com/openwebdocs/mdn-bcd-collector/pull/3016))
+- build(deps-dev): bump @webref/idl from 3.71.0 to 3.71.1 ([#3010](https://github.com/openwebdocs/mdn-bcd-collector/pull/3010))
+- build(deps-dev): bump eslint-plugin-jsdoc from 62.3.0 to 62.3.1 ([#3012](https://github.com/openwebdocs/mdn-bcd-collector/pull/3012))
+- build(deps-dev): bump puppeteer from 24.35.0 to 24.36.0 ([#3011](https://github.com/openwebdocs/mdn-bcd-collector/pull/3011))
+- build(deps): bump express-session from 1.18.2 to 1.19.0 ([#3009](https://github.com/openwebdocs/mdn-bcd-collector/pull/3009))
+- build(deps-dev): bump core-js from 3.47.0 to 3.48.0 ([#3006](https://github.com/openwebdocs/mdn-bcd-collector/pull/3006))
+- build(deps-dev): bump prettier from 3.8.0 to 3.8.1 ([#3005](https://github.com/openwebdocs/mdn-bcd-collector/pull/3005))
+- build(deps-dev): bump sass from 1.97.2 to 1.97.3 ([#3003](https://github.com/openwebdocs/mdn-bcd-collector/pull/3003))
+- build(deps-dev): bump @webref/elements from 2.6.0 to 2.6.1 ([#3004](https://github.com/openwebdocs/mdn-bcd-collector/pull/3004))
+- build(deps-dev): bump eslint-plugin-jsdoc from 62.2.0 to 62.3.0 ([#3002](https://github.com/openwebdocs/mdn-bcd-collector/pull/3002))
+- build(deps-dev): bump eslint-plugin-jsdoc from 62.1.0 to 62.2.0 ([#3001](https://github.com/openwebdocs/mdn-bcd-collector/pull/3001))
+- build(deps-dev): bump typescript-eslint from 8.53.0 to 8.53.1 ([#3000](https://github.com/openwebdocs/mdn-bcd-collector/pull/3000))
+- build(deps-dev): bump eslint-plugin-jsdoc from 62.0.0 to 62.1.0 ([#2999](https://github.com/openwebdocs/mdn-bcd-collector/pull/2999))
+- build(deps-dev): bump selenium-webdriver from 4.39.0 to 4.40.0 ([#2998](https://github.com/openwebdocs/mdn-bcd-collector/pull/2998))
+- build(deps-dev): bump @webref/elements from 2.5.4 to 2.6.0 ([#2997](https://github.com/openwebdocs/mdn-bcd-collector/pull/2997))
+- build(deps-dev): bump @types/node from 25.0.8 to 25.0.9 ([#2995](https://github.com/openwebdocs/mdn-bcd-collector/pull/2995))
+- build(deps-dev): bump @babel/eslint-parser from 7.28.5 to 7.28.6 ([#2994](https://github.com/openwebdocs/mdn-bcd-collector/pull/2994))
+- build(deps): bump @mdn/browser-compat-data from 7.2.3 to 7.2.4 ([#2993](https://github.com/openwebdocs/mdn-bcd-collector/pull/2993))
+- build(deps-dev): bump the listr2 group with 2 updates ([#2987](https://github.com/openwebdocs/mdn-bcd-collector/pull/2987))
+- build(deps): bump ejs from 3.1.10 to 4.0.1 ([#2988](https://github.com/openwebdocs/mdn-bcd-collector/pull/2988))
+- build(deps-dev): bump @types/selenium-webdriver from 4.35.4 to 4.35.5 ([#2991](https://github.com/openwebdocs/mdn-bcd-collector/pull/2991))
+- build(deps-dev): bump @swc/cli from 0.7.9 to 0.7.10 ([#2990](https://github.com/openwebdocs/mdn-bcd-collector/pull/2990))
+- build(deps-dev): bump prettier from 3.7.4 to 3.8.0 ([#2989](https://github.com/openwebdocs/mdn-bcd-collector/pull/2989))
+- build(deps-dev): bump @babel/plugin-syntax-import-assertions from 7.27.1 to 7.28.6 ([#2986](https://github.com/openwebdocs/mdn-bcd-collector/pull/2986))
+- build(deps-dev): bump @types/node from 25.0.7 to 25.0.8 ([#2984](https://github.com/openwebdocs/mdn-bcd-collector/pull/2984))
+- build(deps-dev): bump @babel/core from 7.28.5 to 7.28.6 ([#2985](https://github.com/openwebdocs/mdn-bcd-collector/pull/2985))
+- build(deps-dev): bump @webref/idl from 3.70.2 to 3.71.0 ([#2983](https://github.com/openwebdocs/mdn-bcd-collector/pull/2983))
+- build(deps): bump ua-parser-js from 2.0.7 to 2.0.8 ([#2982](https://github.com/openwebdocs/mdn-bcd-collector/pull/2982))
+
 ## v10.17.1
 
 Released January 13, 2026
