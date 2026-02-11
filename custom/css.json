@@ -1153,7 +1153,7 @@
     "image": {
       "syntax": "<image>",
       "property": "background-image",
-      "value": "url('https://mdn-bcd-collector.gooborg.com')"
+      "value": "url('https://collector.openwebdocs.org/')"
     },
     "integer": {
       "syntax": "<integer>",
@@ -1379,7 +1379,7 @@
     "url": {
       "syntax": ["<url>", "<uri>"],
       "property": "background-image",
-      "value": "url('https://mdn-bcd-collector.gooborg.com')"
+      "value": "url('https://collector.openwebdocs.org/')"
     }
   }
 }

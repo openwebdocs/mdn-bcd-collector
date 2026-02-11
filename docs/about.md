@@ -12,7 +12,7 @@ This project was started by [Philip Jägenstedt](https://foolip.org/) at Google,
 
 The collector project has two main parts:
 
-- The website (https://mdn-bcd-collector.gooborg.com)
+- The website (https://collector.openwebdocs.org)
   - Run a specific test on a specific browser to check if the browser supports that feature
   - Run all tests in a specific browser to determine what that browser does and does not support
   - Check to see what code was run to determine support or lack of, often during reviews of BCD PRs based on collector data

@@ -1,6 +1,6 @@
 # The report JSON schema
 
-This document details the structure of reports produced by https://mdn-bcd-collector.gooborg.com/.
+This document details the structure of reports produced by https://collector.openwebdocs.org/.
 
 ## JSON structure
 
@@ -10,7 +10,7 @@ Below is an example of the report data:
 {
   "__version": "10.2.4",
   "results": {
-    "https://mdn-bcd-collector.gooborg.com/tests/": [
+    "https://collector.openwebdocs.org/tests/": [
       {
         "exposure": "ServiceWorker",
         "name": "api.AbortController.AbortController",

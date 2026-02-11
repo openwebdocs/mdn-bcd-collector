@@ -52,7 +52,7 @@ const secrets = await getSecrets();
 const testenv = process.env.NODE_ENV === "test";
 const host = testenv
   ? "http://localhost:8080"
-  : "https://mdn-bcd-collector.gooborg.com";
+  : "https://collector.openwebdocs.org";
 
 const seleniumUrls = {
   browserstack: "https://${username}:${key}@hub-cloud.browserstack.com/wd/hub",
