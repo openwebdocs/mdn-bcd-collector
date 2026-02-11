@@ -51,7 +51,7 @@ const REPORTS: {
     report: {
       __version: "1.2.3",
       results: {
-        "https://mdn-bcd-collector.gooborg.com/tests/": [],
+        "https://collector.openwebdocs.org/tests/": [],
       },
       userAgent:
         "Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36",
@@ -60,15 +60,15 @@ const REPORTS: {
       slug: "1.2.3-samsunginternet-android-12.1-android-11-804fe4cd9d",
       title:
         "Results from Samsung Internet 12.1 / Android 11 / Collector v1.2.3",
-      body: "User Agent: Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36\nBrowser: Samsung Internet 12.1 (on Android 11)\nHash Digest: 804fe4cd9d\nTest URLs: https://mdn-bcd-collector.gooborg.com/tests/",
+      body: "User Agent: Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36\nBrowser: Samsung Internet 12.1 (on Android 11)\nHash Digest: 804fe4cd9d\nTest URLs: https://collector.openwebdocs.org/tests/",
     },
   },
   {
     report: {
       __version: "1.2.3",
       results: {
-        "https://mdn-bcd-collector.gooborg.com/tests/?exposure=Window": [],
-        "https://mdn-bcd-collector.gooborg.com/tests/?exposure=Worker": [],
+        "https://collector.openwebdocs.org/tests/?exposure=Window": [],
+        "https://collector.openwebdocs.org/tests/?exposure=Worker": [],
       },
       userAgent:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36",
@@ -76,7 +76,7 @@ const REPORTS: {
     expected: {
       slug: "1.2.3-chrome-800.0.1.2-mac-os-11.0.0-ee13f09a68",
       title: "Results from Chrome 800.0 / macOS 11.0.0 / Collector v1.2.3",
-      body: "User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36\nBrowser: Chrome 800.0 (on Mac OS 11.0.0) - **Not in BCD**\nHash Digest: ee13f09a68\nTest URLs: https://mdn-bcd-collector.gooborg.com/tests/?exposure=Window, https://mdn-bcd-collector.gooborg.com/tests/?exposure=Worker",
+      body: "User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36\nBrowser: Chrome 800.0 (on Mac OS 11.0.0) - **Not in BCD**\nHash Digest: ee13f09a68\nTest URLs: https://collector.openwebdocs.org/tests/?exposure=Window, https://collector.openwebdocs.org/tests/?exposure=Worker",
     },
   },
 ];
