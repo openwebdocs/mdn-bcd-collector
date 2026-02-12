@@ -212,7 +212,8 @@
           "numeric",
           "region",
           "script",
-          "toString"
+          "toString",
+          "variants"
         ]
       }
     },
@@ -258,7 +259,7 @@
     "Iterator": {
       "ctor": {},
       "members": {
-        "static": ["from"],
+        "static": ["concat", "from"],
         "instance": [
           "drop",
           "every",
