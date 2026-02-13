@@ -742,7 +742,7 @@
     "literal_character": "/foo/i",
     "lookahead_assertion": "/(?!foobar)/i",
     "lookbehind_assertion": "/(?<!foobar)/i",
-    "modifier": "/a/i",
+    "modifier": "/^[a-z](?-i:[a-z])$/i;",
     "named_backreference": "/\\k<foo>/i",
     "named_capturing_group": "/(?<foo>bar)/i",
     "non_capturing_group": "/(?:bar)/i",
