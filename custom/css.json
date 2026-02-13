@@ -1315,8 +1315,8 @@
     },
     "sign": {
       "syntax": "<sign()>",
-      "property": "top",
-      "value": "sign(20vh - 100px)"
+      "property": "aspect-ratio",
+      "value": "sign(1rem - 1px)"
     },
     "sin": {
       "syntax": "<sin()>",
