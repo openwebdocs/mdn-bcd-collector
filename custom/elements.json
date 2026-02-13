@@ -33,8 +33,7 @@
     "a": {
       "attributes": [
         {
-          "referrerpolicy": "referrerPolicy",
-          "hreftranslate": "hrefTranslate"
+          "referrerpolicy": "referrerPolicy"
         },
         "charset",
         "coords",
