@@ -186,10 +186,7 @@ const getBrowsersToTest = (
     chrome: filterVersions("chrome", since, reverse),
     edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
-    safari: filterVersions("safari", since, reverse).filter((v) =>
-      // CIs don't have good coverage of Safari 15 and above
-      compareVersions(v, "16", "<"),
-    ),
+    safari: filterVersions("safari", since, reverse),
   };
 
   if (limitBrowsers) {
