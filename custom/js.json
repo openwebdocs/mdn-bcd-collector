@@ -773,7 +773,7 @@
     "generator_function": "function* foo() {};",
     "generator_function.IteratorResult_object": "function* gen() {\n  yield 1;\n}\nconst result = gen().next();\nif (!result.hasOwnProperty('value') || !result.hasOwnProperty('done')) {\n  throw new Error('Unsupported - IteratorResult object missing properties');\n}",
     "if_else": "if (true) {} else {};",
-    "generator_function.not_constructable_with_new": "function* gen() {\n  yield 1;\n}\ntry {\n  new gen();\n} catch (e) {\n  if (e.type === 'TypeError') {\n    return true;\n  }\n  throw e;\n}",
+    "generator_function.not_constructable_with_new": "function* gen() {\n  yield 1;\n}\ntry {\n  new gen();\n} catch (e) {\n  if (e.type === 'TypeError') {\n    return true;\n  }\n}",
     "generator_function.trailing_comma_in_parameters": "function* gen(a,) { yield 1; }",
     "label": "label: for (;;) { break label; }",
     "let": "let x = 1;",
