@@ -1,5 +1,42 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.3
+
+Released February 13, 2026
+
+### Test Changes
+
+#### Added
+
+- javascript.builtins.Iterator.concat
+- javascript.builtins.Intl.Locale.variants
+
+#### Removed
+
+- api.HTMLAnchorElement.hrefTranslate
+- html.elements.a.hreftranslate
+- html.elements.input.list
+
+#### Changed
+
+- css.types.sign
+- javascript.regular_expressions.modifier
+- javascript.statements.generator_function.not_constructable_with_new
+
+### Commits
+
+- Fix test for CSS sign() type ([#3055](https://github.com/openwebdocs/mdn-bcd-collector/pull/3055))
+- Try to run more Safari versions in selenium ([#3056](https://github.com/openwebdocs/mdn-bcd-collector/pull/3056))
+- Remove hreftranslate tests ([#3054](https://github.com/openwebdocs/mdn-bcd-collector/pull/3054))
+- Add overrides for char/charoff ([#3053](https://github.com/openwebdocs/mdn-bcd-collector/pull/3053))
+- build(deps): bump qs from 6.14.1 to 6.14.2 ([#3052](https://github.com/openwebdocs/mdn-bcd-collector/pull/3052))
+- build(deps-dev): bump minimatch from 10.1.2 to 10.2.0 in the dev group ([#3051](https://github.com/openwebdocs/mdn-bcd-collector/pull/3051))
+- JS regex tests: test for i modifier, not just i flag ([#3050](https://github.com/openwebdocs/mdn-bcd-collector/pull/3050))
+- Fix throwing test for generators without new ([#3049](https://github.com/openwebdocs/mdn-bcd-collector/pull/3049))
+- Add Iterator.concat and Intl.Locale.prototype.variants ([#3048](https://github.com/openwebdocs/mdn-bcd-collector/pull/3048))
+- build(deps): bump marked from 17.0.1 to 17.0.2 in the dev group ([#3047](https://github.com/openwebdocs/mdn-bcd-collector/pull/3047))
+- Remove html.elements.input.list test ([#3046](https://github.com/openwebdocs/mdn-bcd-collector/pull/3046))
+
 ## v10.17.2
 
 Released February 11, 2026
