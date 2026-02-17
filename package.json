@@ -125,7 +125,7 @@
     "json3": "3.3.3",
     "jsonc-parser": "^3.3.1",
     "listr2": "10.1.0",
-    "minimatch": "10.2.0",
+    "minimatch": "10.2.1",
     "mocha": "11.7.5",
     "node-fetch": "3.3.2",
     "nodemon": "3.1.11",
@@ -136,7 +136,7 @@
     "selenium-webdriver": "4.40.0",
     "sinon": "21.0.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "~8.55.0",
+    "typescript-eslint": "~8.56.0",
     "webidl2": "24.5.0",
     "yaml": "2.8.2"
   }
