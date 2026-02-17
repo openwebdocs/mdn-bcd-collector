@@ -441,7 +441,13 @@
       ]
     },
     "template": {
-      "attributes": [{"shadowrootmode": "shadowRootMode"}]
+      "attributes": [
+        {"shadowrootmode": "shadowRootMode"},
+        {"shadowrootdelegatesfocus ": "shadowRootDelegatesFocus"},
+        {"shadowrootclonable ": "shadowRootClonable"},
+        {"shadowrootserializable": "shadowRootSerializable"},
+        {"shadowrootcustomelementregistry": "shadowRootCustomElementRegistry"}
+      ]
     },
     "textarea": {
       "attributes": [
