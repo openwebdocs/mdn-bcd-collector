@@ -1,5 +1,47 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.4
+
+Released February 23, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Document.ariaNotify
+- api.Element.ariaNotify
+- api.ModelContext
+- api.ModelContextClient
+- api.Navigator.modelContext
+- css.properties.alignment-baseline.hanging
+- css.properties.column-rule-break.normal
+- css.properties.row-rule-break.normal
+- css.properties.rule-break.normal
+- css.properties.vertical-align.hanging
+- html.elements.template.shadowrootdelegatesfocus
+- html.elements.template.shadowrootclonable
+- html.elements.template.shadowrootserializable
+- html.elements.template.shadowrootcustomelementregistry
+
+#### Removed
+
+- api.GeolocationSensor
+- css.properties.column-rule-break.spanning-item
+- css.properties.row-rule-break.spanning-item
+- css.properties.rule-break.spanning-item
+
+### Commits
+
+- build(deps): bump the dev group with 5 updates ([#3067](https://github.com/openwebdocs/mdn-bcd-collector/pull/3067))
+- build(deps-dev): bump the dev group with 5 updates ([#3066](https://github.com/openwebdocs/mdn-bcd-collector/pull/3066))
+- build(deps-dev): bump the data group with 2 updates ([#3065](https://github.com/openwebdocs/mdn-bcd-collector/pull/3065))
+- build(deps-dev): bump the dev group with 3 updates ([#3064](https://github.com/openwebdocs/mdn-bcd-collector/pull/3064))
+- build(deps): bump the dev group with 3 updates ([#3063](https://github.com/openwebdocs/mdn-bcd-collector/pull/3063))
+- build(deps): bump fast-xml-parser from 5.3.4 to 5.3.6 ([#3062](https://github.com/openwebdocs/mdn-bcd-collector/pull/3062))
+- build(deps-dev): bump the dev group with 2 updates ([#3061](https://github.com/openwebdocs/mdn-bcd-collector/pull/3061))
+- build(deps): bump the dev group with 3 updates ([#3058](https://github.com/openwebdocs/mdn-bcd-collector/pull/3058))
+- Add missing attributes for &lt;template&gt; ([#3059](https://github.com/openwebdocs/mdn-bcd-collector/pull/3059))
+
 ## v10.17.3
 
 Released February 13, 2026
