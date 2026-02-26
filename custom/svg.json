@@ -1,0 +1,482 @@
+{
+  "global_attributes": {
+    "alignment-baseline": {
+      "__spec": [
+        "https://drafts.csswg.org/css-inline/#alignment-baseline-property",
+        "https://svgwg.org/svg2-draft/text.html#AlignmentBaselineProperty"
+      ],
+      "__initial": "baseline",
+      "__values": [
+        "baseline",
+        "text-bottom",
+        "alphabetic",
+        "ideographic",
+        "middle",
+        "central",
+        "mathematical",
+        "text-top"
+      ]
+    },
+    "baseline-shift": {
+      "__spec": [
+        "https://drafts.csswg.org/css-inline/#baseline-shift-property",
+        "https://svgwg.org/svg2-draft/text.html#BaselineShiftProperty"
+      ],
+      "__initial": "0",
+      "__values": ["sub", "super", "top", "center", "bottom"],
+      "__equivalent_values": {
+        "0": "0px"
+      }
+    },
+    "clip": {
+      "__spec": "https://drafts.csswg.org/css-masking/#clip-property",
+      "__initial": "auto"
+    },
+    "clip-path": {
+      "__spec": "https://drafts.csswg.org/css-masking/#the-clip-path",
+      "__initial": "none"
+    },
+    "clip-rule": {
+      "__spec": "https://drafts.csswg.org/css-masking/#the-clip-rule",
+      "__initial": "nonzero",
+      "__values": ["nonzero", "evenodd"]
+    },
+    "color": {
+      "__spec": [
+        "https://drafts.csswg.org/css-color/#the-color-property",
+        "https://svgwg.org/svg2-draft/painting.html#ColorProperty"
+      ],
+      "__example": ["red"],
+      "__equivalent_values": {
+        "red": "rgb(255, 0, 0)"
+      }
+    },
+    "color-interpolation": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#ColorInterpolationProperty",
+      "__initial": "sRGB",
+      "__values": ["auto", "sRGB", "linearRGB"]
+    },
+    "color-interpolation-filters": {
+      "__spec": "https://drafts.csswg.org/filter-effects/#ColorInterpolationFiltersProperty",
+      "__initial": "linearRGB",
+      "__values": ["auto", "sRGB", "linearRGB"]
+    },
+    "cursor": {
+      "__spec": "https://drafts.csswg.org/css-ui/#cursor",
+      "__initial": "auto"
+    },
+    "direction": {
+      "__spec": [
+        "https://drafts.csswg.org/css-writing-modes/#direction",
+        "https://svgwg.org/svg2-draft/text.html#DirectionProperty"
+      ],
+      "__initial": "ltr",
+      "__values": ["ltr", "rtl"]
+    },
+    "display": {
+      "__spec": [
+        "https://drafts.csswg.org/css-display/#the-display-properties",
+        "https://svgwg.org/svg2-draft/render.html#VisibilityControl"
+      ],
+      "__initial": "inline"
+    },
+    "dominant-baseline": {
+      "__spec": [
+        "https://drafts.csswg.org/css-inline/#dominant-baseline-property",
+        "https://svgwg.org/svg2-draft/text.html#DominantBaselineProperty"
+      ],
+      "__initial": "auto",
+      "__values": [
+        "auto",
+        "text-bottom",
+        "alphabetic",
+        "ideographic",
+        "middle",
+        "central",
+        "mathematical",
+        "hanging",
+        "text-top"
+      ]
+    },
+    "fill-opacity": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#FillOpacity",
+      "__initial": "1",
+      "__values": ["<'opacity'>"]
+    },
+    "fill-rule": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#WindingRule",
+      "__initial": "nonzero",
+      "__values": ["nonzero", "evenodd"]
+    },
+    "filter": {
+      "__spec": "https://drafts.csswg.org/filter-effects/#FilterProperty",
+      "__initial": "none",
+      "__values": ["none", "<filter-value-list>"]
+    },
+    "flood-color": {
+      "__spec": "https://drafts.csswg.org/filter-effects/#FloodColorProperty",
+      "__initial": "black",
+      "__values": ["<color>"],
+      "__equivalent_values": {
+        "black": "rgb(0, 0, 0)"
+      }
+    },
+    "flood-opacity": {
+      "__spec": "https://drafts.csswg.org/filter-effects/#FloodOpacityProperty",
+      "__initial": "1",
+      "__values": ["<'opacity'>"]
+    },
+    "font-family": {
+      "__spec": [
+        "https://drafts.csswg.org/css-fonts/#generic-font-families",
+        "https://drafts.csswg.org/css-fonts/#font-family-prop"
+      ],
+      "__example": "serif"
+    },
+    "font-size": {
+      "__spec": "https://drafts.csswg.org/css-fonts/#font-size-prop",
+      "__initial": "medium",
+      "__values": [
+        "<absolute-size>",
+        "<relative-size>",
+        "<length-percentage>",
+        "math"
+      ],
+      "__equivalent_values": {
+        "medium": "16px"
+      }
+    },
+    "font-size-adjust": {
+      "__spec": "https://drafts.csswg.org/css-fonts/#font-size-adjust-prop",
+      "__initial": "none",
+      "__values": ["none", "<number>"]
+    },
+    "font-stretch": {
+      "__spec": [
+        "https://drafts.csswg.org/css-fonts/#font-stretch-prop",
+        "https://svgwg.org/svg2-draft/styling.html#:~:text=font-stretch"
+      ],
+      "__initial": "normal",
+      "__values": [
+        "normal",
+        "<percentage>",
+        "ultra-condensed",
+        "extra-condensed",
+        "condensed",
+        "semi-condensed",
+        "semi-expanded",
+        "expanded",
+        "extra-expanded",
+        "ultra-expanded"
+      ],
+      "__equivalent_values": {
+        "normal": "100%",
+        "ultra-condensed": "50%",
+        "extra-condensed": "62.5%",
+        "condensed": "75%",
+        "semi-condensed": "87.5%",
+        "semi-expanded": "112.5%",
+        "expanded": "125%",
+        "extra-expanded": "150%",
+        "ultra-expanded": "200%"
+      }
+    },
+    "font-style": {
+      "__spec": "https://drafts.csswg.org/css-fonts/#font-style-prop",
+      "__initial": "normal",
+      "__values": ["normal", "italic", "left", "right", "oblique"]
+    },
+    "font-variant": {
+      "__spec": [
+        "https://drafts.csswg.org/css-fonts/#font-variant-prop",
+        "https://svgwg.org/svg2-draft/text.html#FontVariantProperty"
+      ],
+      "__initial": "normal",
+      "__values": ["normal", "none"]
+    },
+    "font-weight": {
+      "__spec": "https://drafts.csswg.org/css-fonts/#font-weight-prop",
+      "__initial": "normal",
+      "__values": [
+        "<font-weight-absolute>",
+        "normal",
+        "bold",
+        "bolder",
+        "lighter"
+      ],
+      "__equivalent_values": {
+        "normal": "400",
+        "bold": "700",
+        "bolder": "700",
+        "lighter": "100"
+      }
+    },
+    "image-rendering": {
+      "__spec": [
+        "https://drafts.csswg.org/css-images/#the-image-rendering",
+        "https://svgwg.org/svg2-draft/painting.html#ImageRendering"
+      ],
+      "__initial": "auto",
+      "__values": [
+        "auto",
+        "optimizeQuality",
+        "optimizeSpeed",
+        "smooth",
+        "high-quality",
+        "pixelated",
+        "crisp-edges"
+      ]
+    },
+    "letter-spacing": {
+      "__spec": [
+        "https://drafts.csswg.org/css-text/#letter-spacing-property",
+        "https://svgwg.org/svg2-draft/text.html#LetterSpacingProperty"
+      ],
+      "__initial": "normal",
+      "__values": ["normal", "<length>"]
+    },
+    "lighting-color": {
+      "__spec": "https://drafts.csswg.org/filter-effects/#LightingColorProperty",
+      "__initial": "white",
+      "__values": ["<color>"],
+      "__equivalent_values": {
+        "white": ["rgb(255, 255, 255)"]
+      }
+    },
+    "marker-end": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#MarkerEndProperty",
+      "__initial": "none",
+      "__values": ["none", "<marker-ref>"]
+    },
+    "marker-mid": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#MarkerMidProperty",
+      "__initial": "none",
+      "__values": ["none", "<marker-ref>"]
+    },
+    "marker-start": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#MarkerStartProperty",
+      "__initial": "none",
+      "__values": ["none", "<marker-ref>"]
+    },
+    "opacity": {
+      "__spec": [
+        "https://drafts.csswg.org/css-color/#propdef-opacity",
+        "https://svgwg.org/svg2-draft/render.html#ObjectAndGroupOpacityProperties"
+      ],
+      "__initial": "1",
+      "__values": ["<opacity-value>"]
+    },
+    "overflow": {
+      "__spec": [
+        "https://drafts.csswg.org/css-overflow/#propdef-overflow",
+        "https://svgwg.org/svg2-draft/render.html#OverflowAndClipProperties"
+      ],
+      "__initial": "visible",
+      "__values": ["visible", "hidden", "clip", "scroll", "auto"]
+    },
+    "paint-order": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#PaintOrderProperty",
+      "__initial": "normal",
+      "__values": ["normal", "fill", "stroke", "markers"]
+    },
+    "pointer-events": {
+      "__spec": "https://svgwg.org/svg2-draft/interact.html#PointerEventsProperty",
+      "__initial": "auto",
+      "__values": [
+        "auto",
+        "bounding-box",
+        "visiblePainted",
+        "visibleFill",
+        "visibleStroke",
+        "visible",
+        "painted",
+        "fill",
+        "stroke",
+        "all",
+        "none"
+      ]
+    },
+    "shape-rendering": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#ShapeRendering",
+      "__initial": "auto",
+      "__values": ["auto", "optimizeSpeed", "crispEdges", "geometricPrecision"]
+    },
+    "stop-color": {
+      "__spec": "https://svgwg.org/svg2-draft/pservers.html#StopColorProperty",
+      "__initial": "black",
+      "__values": ["<'color'>"],
+      "__equivalent_values": {
+        "black": "rgb(0, 0, 0)"
+      }
+    },
+    "stop-opacity": {
+      "__spec": "https://svgwg.org/svg2-draft/pservers.html#StopOpacityProperty",
+      "__initial": "1",
+      "__values": ["<'opacity'>"]
+    },
+    "stroke": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#SpecifyingStrokePaint",
+      "__initial": "none",
+      "__values": ["<paint>"]
+    },
+    "stroke-dasharray": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#StrokeDashing",
+      "__initial": "none",
+      "__values": ["none", "<dasharray>"]
+    },
+    "stroke-dashoffset": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#StrokeDashoffsetProperty",
+      "__initial": "0",
+      "__values": ["<length-percentage>", "<number>"],
+      "__equivalent_values": {
+        "0": "0px"
+      }
+    },
+    "stroke-linecap": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#LineCaps",
+      "__initial": "butt",
+      "__values": ["butt", "round", "square"]
+    },
+    "stroke-linejoin": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#LineJoin",
+      "__initial": "miter",
+      "__values": ["miter", "round", "bevel", "arcs", "miter-clip"]
+    },
+    "stroke-miterlimit": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#StrokeMiterlimitProperty",
+      "__initial": "4",
+      "__values": ["<number>"]
+    },
+    "stroke-opacity": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#StrokeOpacity",
+      "__initial": "1"
+    },
+    "stroke-width": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#StrokeWidth",
+      "__initial": "1px",
+      "__values": ["<length-percentage>", "<number>"]
+    },
+    "text-anchor": {
+      "__spec": "https://svgwg.org/svg2-draft/text.html#TextAnchorProperty",
+      "__initial": "start",
+      "__values": ["start", "middle", "end"]
+    },
+    "text-decoration": {
+      "__spec": [
+        "https://drafts.csswg.org/css-text-decor/#text-decoration-property",
+        "https://svgwg.org/svg2-draft/text.html#TextDecorationProperties"
+      ],
+      "__initial": "none",
+      "__values": [
+        "none",
+        "underline",
+        "overline",
+        "line-through",
+        "blink",
+        "solid",
+        "double",
+        "dotted",
+        "dashed",
+        "wavy"
+      ]
+    },
+    "text-overflow": {
+      "__spec": [
+        "https://drafts.csswg.org/css-overflow/#text-overflow",
+        "https://svgwg.org/svg2-draft/text.html#TextOverflowProperty"
+      ],
+      "__initial": "clip",
+      "__values": ["clip", "ellipsis"]
+    },
+    "text-rendering": {
+      "__spec": "https://svgwg.org/svg2-draft/painting.html#TextRenderingProperty",
+      "__initial": "auto",
+      "__values": [
+        "auto",
+        "optimizeSpeed",
+        "optimizeLegibility",
+        "geometricPrecision"
+      ]
+    },
+    "transform": {
+      "__spec": [
+        "https://drafts.csswg.org/css-transforms/#svg-transform",
+        "https://svgwg.org/svg2-draft/coords.html#TransformProperty"
+      ],
+      "__initial": "none",
+      "__values": ["none", "<transform-list>"]
+    },
+    "transform-origin": {
+      "__spec": [
+        "https://drafts.csswg.org/css-transforms/#transform-origin-property",
+        "https://svgwg.org/svg2-draft/styling.html#PresentationAttributes"
+      ],
+      "__initial": "50% 50%"
+    },
+    "unicode-bidi": {
+      "__spec": "https://drafts.csswg.org/css-writing-modes/#unicode-bidi",
+      "__initial": "normal",
+      "__values": [
+        "normal",
+        "embed",
+        "isolate",
+        "bidi-override",
+        "isolate-override",
+        "plaintext"
+      ]
+    },
+    "vector-effect": {
+      "__spec": "https://svgwg.org/svg2-draft/coords.html#VectorEffectProperty",
+      "__initial": "none",
+      "__values": [
+        "none",
+        "non-scaling-stroke",
+        "non-scaling-size",
+        "non-rotation",
+        "fixed-position"
+      ]
+    },
+    "visibility": {
+      "__spec": [
+        "https://drafts.csswg.org/css-display/#visibility",
+        "https://svgwg.org/svg2-draft/render.html#VisibilityControl"
+      ],
+      "__initial": "visible",
+      "__values": ["visible", "hidden", "collapse"]
+    },
+    "white-space": {
+      "__spec": [
+        "https://drafts.csswg.org/css-text-4/#white-space-property",
+        "https://svgwg.org/svg2-draft/text.html#TextWhiteSpace"
+      ],
+      "__initial": "normal",
+      "__values": ["normal", "pre", "pre-wrap", "pre-line"]
+    },
+    "word-spacing": {
+      "__spec": [
+        "https://drafts.csswg.org/css-text/#word-spacing-property",
+        "https://svgwg.org/svg2-draft/text.html#WordSpacingProperty"
+      ],
+      "__initial": "normal",
+      "__values": ["normal", "<length>"],
+      "__equivalent_values": {
+        "normal": "0px"
+      }
+    },
+    "writing-mode": {
+      "__spec": [
+        "https://drafts.csswg.org/css-writing-modes/#block-flow",
+        "https://svgwg.org/svg2-draft/text.html#WritingModeProperty"
+      ],
+      "__initial": "horizontal-tb",
+      "__values": [
+        "horizontal-tb",
+        "vertical-rl",
+        "vertical-lr",
+        "sideways-rl",
+        "sideways-lr"
+      ]
+    }
+  },
+  "attributes": {}
+}
