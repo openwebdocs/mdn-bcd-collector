@@ -42,6 +42,14 @@ const browsers = {
     name: "WebView Android",
     releases: {1.1: {}, 4.4: {}, "4.4.3": {}, 37: {}, 86: {}},
   },
+  servo: {
+    name: "Servo",
+    releases: {"0.0.1": {}},
+  },
+  servo_android: {
+    name: "Servo Android",
+    releases: {"0.0.1": {}},
+  },
 };
 
 describe("getMajorMinorVersion", () => {
@@ -403,6 +411,38 @@ describe("parseUA", () => {
         fullVersion: "12.2",
         os: {name: "Android", version: "11"},
         inBcd: false,
+      },
+    );
+  });
+
+  it("Servo 140 Linux", () => {
+    assert.deepEqual(
+      parseUA(
+        "Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Servo/0.0.1 Firefox/140.0",
+        browsers,
+      ),
+      {
+        browser: {id: "servo", name: "Servo"},
+        version: "0.0.1",
+        fullVersion: "0.0.1",
+        os: {name: "Linux", version: ""},
+        inBcd: true,
+      },
+    );
+  });
+
+  it("Servo 140 Android", () => {
+    assert.deepEqual(
+      parseUA(
+        "Mozilla/5.0 (Android 10; Mobile; rv:140.0) Servo/0.0.1 Firefox/140.0",
+        browsers,
+      ),
+      {
+        browser: {id: "servo_android", name: "Servo Android"},
+        version: "0.0.1",
+        fullVersion: "0.0.1",
+        os: {name: "Android", version: "10"},
+        inBcd: true,
       },
     );
   });
