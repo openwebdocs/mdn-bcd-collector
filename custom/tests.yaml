@@ -6269,6 +6269,12 @@ css:
     first: "return {result: null, message: 'Testing :first is not yet implemented'};"
     left: "return {result: null, message: 'Testing :left is not yet implemented'};"
     right: "return {result: null, message: 'Testing :right is not yet implemented'};"
+  at-rules:
+    media:
+      scan:
+        __test: "return window.matchMedia('not (scan: interlace)').matches || window.matchMedia('not (scan: progressive)').matches;"
+        interlace: "return window.matchMedia('not (scan: interlace)').matches;"
+        progressive: "return window.matchMedia('not (scan: progressive)').matches;"
 
 html:
   # Features defined here also need to be in @webref/elements or custom/elements.json.
