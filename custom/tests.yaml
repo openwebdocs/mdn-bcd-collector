@@ -3293,13 +3293,19 @@ api:
       var instance = new InputEvent('input');
   InstallEvent:
     __base: |-
+      if (!('InstallEvent' in self)) {
+        return {result: false, message: 'InstallEvent is not defined'}
+      }
       // During the installation of the service worker, we set an "installEvent" global variable so that we may easily reuse it here:
       //   var installEvent = null;
       //   self.addEventListener('install', function (event) {
       //     installEvent = event;
       //   });
-
-      var instance = installEvent;
+      var name = installEvent.constructor.name;
+      if (name !== 'InstallEvent') {
+        return {result: true, message: 'InstallEvent is defined, but install event is an instance of ' + name}
+      }
+      var instance = installEvent instanceof InstallEvent ? installEvent : undefined;
   IntersectionObserver:
     IntersectionObserver:
       __additional:
