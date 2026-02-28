@@ -125,7 +125,7 @@
     "json3": "3.3.3",
     "jsonc-parser": "^3.3.1",
     "listr2": "10.1.1",
-    "minimatch": "10.2.2",
+    "minimatch": "10.2.4",
     "mocha": "11.7.5",
     "node-fetch": "3.3.2",
     "nodemon": "3.1.14",
