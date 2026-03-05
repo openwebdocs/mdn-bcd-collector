@@ -139,5 +139,10 @@
     "typescript-eslint": "~8.56.1",
     "webidl2": "24.5.0",
     "yaml": "2.8.2"
+  },
+  "overrides": {
+    "c8": {
+      "yargs": "^18.0.0"
+    }
   }
 }
