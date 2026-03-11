@@ -1,5 +1,107 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.5
+
+Released March 11, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CSSPseudoElement.selectorText
+- api.PaymentRequest.getSecurePaymentConfirmationCapabilities_static
+- api.Summarizer.preference
+- api.TextDetector.availability_static
+- api.TextDetector.create_static
+- api.WebTransport.responseHeaders
+- css.properties.border.hairline
+- css.properties.border-block.hairline
+- css.properties.border-block-end.hairline
+- css.properties.border-block-end-width.hairline
+- css.properties.border-block-start.hairline
+- css.properties.border-block-start-width.hairline
+- css.properties.border-block-width.hairline
+- css.properties.border-bottom.hairline
+- css.properties.border-bottom-width.hairline
+- css.properties.border-inline.hairline
+- css.properties.border-inline-end.hairline
+- css.properties.border-inline-end-width.hairline
+- css.properties.border-inline-start.hairline
+- css.properties.border-inline-start-width.hairline
+- css.properties.border-inline-width.hairline
+- css.properties.border-left.hairline
+- css.properties.border-left-width.hairline
+- css.properties.border-right.hairline
+- css.properties.border-right-width.hairline
+- css.properties.border-top.hairline
+- css.properties.border-top-width.hairline
+- css.properties.border-width.hairline
+- css.properties.column-gap.hairline
+- css.properties.column-gap.thin
+- css.properties.column-gap.medium
+- css.properties.column-gap.thick
+- css.properties.column-rule.hairline
+- css.properties.column-rule-width.hairline
+- css.properties.event-trigger.interest
+- css.properties.event-trigger-source.interest
+- css.properties.gap.hairline
+- css.properties.gap.thin
+- css.properties.gap.medium
+- css.properties.gap.thick
+- css.properties.image-animation
+- css.properties.outline.hairline
+- css.properties.outline-width.hairline
+- css.properties.row-gap.hairline
+- css.properties.row-gap.thin
+- css.properties.row-gap.medium
+- css.properties.row-gap.thick
+- css.properties.row-rule.hairline
+- css.properties.row-rule-width.hairline
+- css.properties.rule.hairline
+- css.properties.rule-width.hairline
+- css.properties.text-decoration.hairline
+- css.properties.text-decoration.thin
+- css.properties.text-decoration.medium
+- css.properties.text-decoration.thick
+- css.properties.text-decoration-thickness.hairline
+- css.properties.text-decoration-thickness.thin
+- css.properties.text-decoration-thickness.medium
+- css.properties.text-decoration-thickness.thick
+- css.properties.timeline-trigger-activation-range
+- css.properties.timeline-trigger-activation-range-end
+- css.properties.timeline-trigger-activation-range-start
+- css.properties.timeline-trigger-active-range
+- css.properties.timeline-trigger-active-range-end
+- css.properties.timeline-trigger-active-range-start
+- css.properties.view-transition-scope.all
+- css.selectors.animated-image
+- html.elements.template.shadowrootdelegatesfocus
+- html.elements.template.shadowrootclonable
+
+#### Removed
+
+- api.HTMLPermissionElement
+- api.ModelContext.clearContext
+- api.ModelContext.provideContext
+- css.properties.timeline-trigger-exit-range
+- css.properties.timeline-trigger-exit-range-end
+- css.properties.timeline-trigger-exit-range-start
+- css.properties.timeline-trigger-range
+- css.properties.timeline-trigger-range-end
+- css.properties.timeline-trigger-range-start
+- css.properties.view-transition-scope.auto
+- html.elements.permission
+- html.elements.template.shadowrootdelegatesfocus
+- html.elements.template.shadowrootclonable
+
+### Commits
+
+- build(deps-dev): bump the data group across 1 directory with 3 updates ([#3082](https://github.com/openwebdocs/mdn-bcd-collector/pull/3082))
+- build(deps): bump fast-xml-parser from 5.3.6 to 5.4.2 ([#3078](https://github.com/openwebdocs/mdn-bcd-collector/pull/3078))
+- build(deps): bump the dev group across 1 directory with 19 updates ([#3087](https://github.com/openwebdocs/mdn-bcd-collector/pull/3087))
+- Fix whitespace typos ([#3070](https://github.com/openwebdocs/mdn-bcd-collector/pull/3070))
+- build(deps-dev): bump the dev group with 5 updates ([#3069](https://github.com/openwebdocs/mdn-bcd-collector/pull/3069))
+
 ## v10.17.4
 
 Released February 23, 2026
