@@ -1,5 +1,15 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.6
+
+Released March 14, 2026
+
+### Commits
+
+- build(deps): bump undici from 7.19.1 to 7.24.1 ([#3093](https://github.com/openwebdocs/mdn-bcd-collector/pull/3093))
+- build(deps-dev): bump the dev group with 2 updates ([#3090](https://github.com/openwebdocs/mdn-bcd-collector/pull/3090))
+- build(deps): bump the dev group with 2 updates ([#3089](https://github.com/openwebdocs/mdn-bcd-collector/pull/3089))
+
 ## v10.17.5
 
 Released March 11, 2026
