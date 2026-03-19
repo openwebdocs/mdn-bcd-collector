@@ -34,7 +34,7 @@ GET /api/tests
 
 ```json
 [
-  "https://mdn-bcd-collector.gooborg.com/tests/api/Sensor",
+  "https://collector.openwebdocs.org/tests/api/Sensor",
   "http://mdn-bcd-collector.gooborg.com/tests/css/properties/dot-supports"
 ]
 ```
@@ -83,7 +83,7 @@ GET /api/results
 
 ```json
 {
-  "https://mdn-bcd-collector.gooborg.com/tests/api/Sensor": {
+  "https://collector.openwebdocs.org/tests/api/Sensor": {
     "some-data": "some-value"
   }
 }

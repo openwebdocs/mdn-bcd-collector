@@ -33,8 +33,7 @@
     "a": {
       "attributes": [
         {
-          "referrerpolicy": "referrerPolicy",
-          "hreftranslate": "hrefTranslate"
+          "referrerpolicy": "referrerPolicy"
         },
         "charset",
         "coords",
@@ -266,7 +265,6 @@
         "checked",
         "disabled",
         "form",
-        "list",
         "max",
         "min",
         "multiple",
@@ -274,7 +272,8 @@
         "pattern",
         "placeholder",
         "src",
-        "step"
+        "step",
+        "switch"
       ]
     },
     "ins": {"attributes": [{"datetime": "dateTime"}, "cite"]},
@@ -442,7 +441,13 @@
       ]
     },
     "template": {
-      "attributes": [{"shadowrootmode": "shadowRootMode"}]
+      "attributes": [
+        {"shadowrootmode": "shadowRootMode"},
+        {"shadowrootdelegatesfocus": "shadowRootDelegatesFocus"},
+        {"shadowrootclonable": "shadowRootClonable"},
+        {"shadowrootserializable": "shadowRootSerializable"},
+        {"shadowrootcustomelementregistry": "shadowRootCustomElementRegistry"}
+      ]
     },
     "textarea": {
       "attributes": [
