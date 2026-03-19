@@ -52,7 +52,7 @@ const secrets = await getSecrets();
 const testenv = process.env.NODE_ENV === "test";
 const host = testenv
   ? "http://localhost:8080"
-  : "https://mdn-bcd-collector.gooborg.com";
+  : "https://collector.openwebdocs.org";
 
 const seleniumUrls = {
   browserstack: "https://${username}:${key}@hub-cloud.browserstack.com/wd/hub",
@@ -186,10 +186,7 @@ const getBrowsersToTest = (
     chrome: filterVersions("chrome", since, reverse),
     edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
-    safari: filterVersions("safari", since, reverse).filter((v) =>
-      // CIs don't have good coverage of Safari 15 and above
-      compareVersions(v, "16", "<"),
-    ),
+    safari: filterVersions("safari", since, reverse),
   };
 
   if (limitBrowsers) {
