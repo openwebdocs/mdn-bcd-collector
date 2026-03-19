@@ -288,8 +288,7 @@
     "font-size": {
       "__additional_values": {
         "rem_values": "10rem"
-      },
-      "__values": ["xxx-large"]
+      }
     },
     "font-size-adjust": {
       "__additional_values": {
@@ -1154,7 +1153,7 @@
     "image": {
       "syntax": "<image>",
       "property": "background-image",
-      "value": "url('https://mdn-bcd-collector.gooborg.com')"
+      "value": "url('https://collector.openwebdocs.org/')"
     },
     "integer": {
       "syntax": "<integer>",
@@ -1257,6 +1256,16 @@
       "property": "aspect-ratio",
       "value": "16 / 9"
     },
+    "random": {
+      "syntax": "<random()>",
+      "property": "width",
+      "value": "random(100px, 300px)",
+      "additionalValues": {
+        "step": "random(100px, 300px, 50px)",
+        "element-shared": "random(element-shared, 10px, 20px)",
+        "dashed-ident": "random(--my-seed, 10px, 20px)"
+      }
+    },
     "ray": {
       "syntax": "<ray()>",
       "property": "offset-path",
@@ -1306,8 +1315,8 @@
     },
     "sign": {
       "syntax": "<sign()>",
-      "property": "top",
-      "value": "sign(20vh - 100px)"
+      "property": "aspect-ratio",
+      "value": "sign(1rem - 1px)"
     },
     "sin": {
       "syntax": "<sin()>",
@@ -1370,7 +1379,7 @@
     "url": {
       "syntax": ["<url>", "<uri>"],
       "property": "background-image",
-      "value": "url('https://mdn-bcd-collector.gooborg.com')"
+      "value": "url('https://collector.openwebdocs.org/')"
     }
   }
 }
