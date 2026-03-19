@@ -217,9 +217,18 @@ const ignoredColorNames = [
 const getValuesFromSyntax = (syntax: string, properties) => {
   const ast = cssSyntaxParser.parse(syntax);
   const values = new Set();
+  let currentFunction: string | null = null;
   cssSyntaxParser.walk(ast, (node) => {
-    if (node.type === "Keyword") {
-      values.add(node.name);
+    if (node.type === "Function") {
+      currentFunction = node.name;
+    } else if (node.type === "Token" && node.value === ")") {
+      currentFunction = null;
+    } else if (node.type === "Keyword") {
+      if (currentFunction) {
+        values.add(`${currentFunction}(${node.name})`);
+      } else {
+        values.add(node.name);
+      }
     } else if (node.type === "Type") {
       values.add("<" + node.name + ">");
     } else if (node.type === "Property") {
@@ -345,7 +354,11 @@ const remapPropertyValues = (input, types) => {
       continue;
     }
 
-    values.set(val.replace(/ /g, "_").replace("()", "_function"), val);
+    const key = val
+      .replace(/ /g, "_")
+      .replace("()", "_function")
+      .replace(/\(([^)]+)\)/g, "_$1");
+    values.set(key, val);
   }
 
   return values;
