@@ -26,7 +26,7 @@ jobs:
           node-version-file: ".nvmrc"
       - name: Check for version change
         id: check
-        uses: EndBug/version-check@v2
+        uses: EndBug/version-check@v3
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Configure Git
