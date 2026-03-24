@@ -1,0 +1,73 @@
+name: Diff features
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+
+jobs:
+  diff-features:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number }}-diff-features
+      cancel-in-progress: true
+
+    steps:
+      - name: Clone collector (base)
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.base_ref }}
+          path: base
+          persist-credentials: false
+          submodules: true
+
+      - name: Clone collector (PR)
+        uses: actions/checkout@v6
+        with:
+          path: pr
+          persist-credentials: false
+          submodules: true
+
+      - name: Clone browser-compat-data
+        uses: actions/checkout@v6
+        with:
+          repository: mdn/browser-compat-data
+          path: bcd
+          persist-credentials: false
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: pr/.nvmrc
+
+      - name: Install
+        run: |
+          cd bcd && npm ci | sed "s/^/[bcd] /" &
+          cd base && npm ci | sed "s/^/[base] /" &
+          cd pr && npm ci | sed "s/^/[pr] /" &
+          wait
+
+      - name: Build tests
+        run: |
+          cd base && npm run build:tests | sed "s/^/[base] /" &
+          cd pr && npm run build:tests | sed "s/^/[pr] /" &
+          wait
+
+      - name: Feature coverage
+        run: |
+          cd base && npm run feature-coverage -- -l > ../base-features.txt | sed "s/^/[base] /" &
+          cd pr && npm run feature-coverage -- -l > ../pr-features.txt | sed "s/^/[pr] /" &
+          wait
+        env:
+          BCD_DIR: ../bcd
+
+      - name: Diff
+        run: git diff --color=always --no-index base-features.txt pr-features.txt || true
+        env:
+          FORCE_COLOR: 3
+
