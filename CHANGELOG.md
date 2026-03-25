@@ -1,5 +1,110 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.6
+
+Released March 25, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Element.containertiming
+- api.Element.containertimingIgnore
+- api.HTMLMediaElement.loading
+- api.HTMLModelElement.environmentMap
+- api.HTMLModelElement.environmentMapReady
+- api.HTMLModelElement.stageMode
+- api.PerformanceContainerTiming
+- api.RTCSFrameReceiverTransform
+- api.RTCSFrameSenderTransform
+- api.WebTransportDatagramDuplexStream.incomingMaxBufferedDatagrams
+- api.WebTransportDatagramDuplexStream.outgoingMaxBufferedDatagrams
+- css.properties.column-rule.repeat_auto
+- css.properties.column-rule-color.repeat_auto
+- css.properties.column-rule-style.repeat_auto
+- css.properties.column-rule-width.repeat_auto
+- css.properties.font.generic_fangsong
+- css.properties.font.generic_kai
+- css.properties.font.generic_khmer-mul
+- css.properties.font.generic_nastaliq
+- css.properties.font-family.generic_fangsong
+- css.properties.font-family.generic_kai
+- css.properties.font-family.generic_khmer-mul
+- css.properties.font-family.generic_nastaliq
+- css.properties.grid.repeat_auto-fill
+- css.properties.grid.repeat_auto-fit
+- css.properties.grid-template.repeat_auto-fill
+- css.properties.grid-template.repeat_auto-fit
+- css.properties.grid-template-columns.repeat_auto-fill
+- css.properties.grid-template-columns.repeat_auto-fit
+- css.properties.grid-template-rows.repeat_auto-fill
+- css.properties.grid-template-rows.repeat_auto-fit
+- css.properties.image-animation.stopped
+- css.properties.row-rule.repeat_auto
+- css.properties.row-rule-color.repeat_auto
+- css.properties.row-rule-style.repeat_auto
+- css.properties.row-rule-width.repeat_auto
+- css.properties.rule.repeat_auto
+- css.properties.rule-color.repeat_auto
+- css.properties.rule-style.repeat_auto
+- css.properties.rule-width.repeat_auto
+- css.properties.scroll-marker-group.links
+- css.properties.scroll-marker-group.tabs
+- css.properties.shape-outside.xywh
+
+#### Removed
+
+- api.SFrameReceiverTransform
+- api.SFrameSenderTransform
+- api.WebTransportDatagramDuplexStream.incomingHighWaterMark
+- api.WebTransportDatagramDuplexStream.outgoingHighWaterMark
+- css.properties.column-rule.auto
+- css.properties.column-rule-color.auto
+- css.properties.column-rule-style.auto
+- css.properties.column-rule-width.auto
+- css.properties.font.fangsong
+- css.properties.font.kai
+- css.properties.font.khmer-mul
+- css.properties.font.nastaliq
+- css.properties.font-family.fangsong
+- css.properties.font-family.kai
+- css.properties.font-family.khmer-mul
+- css.properties.font-family.nastaliq
+- css.properties.grid.auto-fill
+- css.properties.grid.auto-fit
+- css.properties.grid-template.auto-fill
+- css.properties.grid-template.auto-fit
+- css.properties.grid-template-columns.auto-fill
+- css.properties.grid-template-columns.auto-fit
+- css.properties.grid-template-rows.auto-fill
+- css.properties.grid-template-rows.auto-fit
+- css.properties.row-rule.auto
+- css.properties.row-rule-color.auto
+- css.properties.row-rule-style.auto
+- css.properties.row-rule-width.auto
+- css.properties.rule.auto
+- css.properties.rule-color.auto
+- css.properties.rule-style.auto
+- css.properties.rule-width.auto
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3110](https://github.com/openwebdocs/mdn-bcd-collector/pull/3110))
+- Add diff-features workflow ([#3109](https://github.com/openwebdocs/mdn-bcd-collector/pull/3109))
+- Add custom CSS test for `shape-outside: xywh()` ([#3104](https://github.com/openwebdocs/mdn-bcd-collector/pull/3104))
+- build(deps): bump the dev group across 1 directory with 4 updates ([#3106](https://github.com/openwebdocs/mdn-bcd-collector/pull/3106))
+- build(deps): bump EndBug/version-check from 2 to 3 ([#3105](https://github.com/openwebdocs/mdn-bcd-collector/pull/3105))
+- build(deps-dev): bump flatted from 3.3.3 to 3.4.2 ([#3102](https://github.com/openwebdocs/mdn-bcd-collector/pull/3102))
+- build(deps): bump fast-xml-parser from 5.5.6 to 5.5.7 ([#3101](https://github.com/openwebdocs/mdn-bcd-collector/pull/3101))
+- build(deps-dev): bump the data group with 2 updates ([#3100](https://github.com/openwebdocs/mdn-bcd-collector/pull/3100))
+- build(deps): bump fast-xml-parser from 5.5.2 to 5.5.6 ([#3099](https://github.com/openwebdocs/mdn-bcd-collector/pull/3099))
+- build(deps): bump yauzl from 3.2.0 to 3.2.1 ([#3096](https://github.com/openwebdocs/mdn-bcd-collector/pull/3096))
+- build(deps): bump the dev group across 1 directory with 6 updates ([#3098](https://github.com/openwebdocs/mdn-bcd-collector/pull/3098))
+- fix(test-builder): preserve CSS functions when extracting values ([#3092](https://github.com/openwebdocs/mdn-bcd-collector/pull/3092))
+- build(deps): bump undici from 7.19.1 to 7.24.1 ([#3093](https://github.com/openwebdocs/mdn-bcd-collector/pull/3093))
+- build(deps-dev): bump the dev group with 2 updates ([#3090](https://github.com/openwebdocs/mdn-bcd-collector/pull/3090))
+- build(deps): bump the dev group with 2 updates ([#3089](https://github.com/openwebdocs/mdn-bcd-collector/pull/3089))
+
 ## v10.17.5
 
 Released March 11, 2026
