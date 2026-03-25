@@ -135,8 +135,8 @@
     "sass": "1.98.0",
     "selenium-webdriver": "4.41.0",
     "sinon": "21.0.3",
-    "typescript": "5.9.3",
-    "typescript-eslint": "~8.57.1",
+    "typescript": "6.0.2",
+    "typescript-eslint": "~8.57.2",
     "webidl2": "24.5.0",
     "yaml": "2.8.3"
   }
