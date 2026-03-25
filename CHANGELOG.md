@@ -1,5 +1,20 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.7
+
+Released March 25, 2026
+
+### Test Changes
+
+#### Removed
+
+- css.properties.-webkit-margin-after
+- css.properties.-webkit-margin-before
+
+### Commits
+
+- Remove -webkit-margin-{after,before} ([#3112](https://github.com/openwebdocs/mdn-bcd-collector/pull/3112))
+
 ## v10.17.6
 
 Released March 25, 2026
