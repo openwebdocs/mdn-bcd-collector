@@ -89,6 +89,7 @@ jobs:
           node-version-file: pr/.nvmrc
       - name: Install
         run: |
+          PUPPETEER_SKIP_DOWNLOAD=1
           cd bcd && npm ci | sed "s/^/[bcd] /" &
           cd base && npm ci | sed "s/^/[base] /" &
           cd pr && npm ci | sed "s/^/[pr] /" &
