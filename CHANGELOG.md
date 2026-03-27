@@ -1,5 +1,21 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.8
+
+Released March 27, 2026
+
+### Test Changes
+
+#### Added
+
+- css.properties.shape-outside.rect
+
+### Commits
+
+- Add custom CSS test for `shape-outside: rect()` ([#3115](https://github.com/openwebdocs/mdn-bcd-collector/pull/3115))
+- build(deps): bump picomatch ([#3114](https://github.com/openwebdocs/mdn-bcd-collector/pull/3114))
+- Prevent diff-features job of test workflow from failing silently ([#3116](https://github.com/openwebdocs/mdn-bcd-collector/pull/3116))
+
 ## v10.17.7
 
 Released March 25, 2026
