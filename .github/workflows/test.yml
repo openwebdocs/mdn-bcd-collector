@@ -63,6 +63,8 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number }}-diff-features
       cancel-in-progress: true
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 1
     steps:
       - name: Clone collector (base)
         uses: actions/checkout@v6
@@ -89,18 +91,20 @@ jobs:
           node-version-file: pr/.nvmrc
       - name: Install
         run: |
-          PUPPETEER_SKIP_DOWNLOAD=1
+          set -eo pipefail
           cd bcd && npm ci | sed "s/^/[bcd] /" &
           cd base && npm ci | sed "s/^/[base] /" &
           cd pr && npm ci | sed "s/^/[pr] /" &
           wait
       - name: Build tests
         run: |
+          set -eo pipefail
           cd base && npm run build:tests | sed "s/^/[base] /" &
           cd pr && npm run build:tests | sed "s/^/[pr] /" &
           wait
       - name: Feature coverage
         run: |
+          set -eo pipefail
           cd base && npm run feature-coverage -- -l > ../base-features.txt | sed "s/^/[base] /" &
           cd pr && npm run feature-coverage -- -l > ../pr-features.txt | sed "s/^/[pr] /" &
           wait
