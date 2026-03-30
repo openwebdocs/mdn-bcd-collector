@@ -1,5 +1,13 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.9
+
+Released March 30, 2026
+
+### Commits
+
+- build(deps): bump path-to-regexp from 8.3.0 to 8.4.0 ([#3121](https://github.com/openwebdocs/mdn-bcd-collector/pull/3121))
+
 ## v10.17.8
 
 Released March 27, 2026
