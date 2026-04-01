@@ -94,8 +94,6 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
     if (dfn.type === "includes") {
       const skipIncludes = [
         "WindowOrWorkerGlobalScope", // handled separately as globals
-        "GlobalEventHandlers", // XXX needs special handling
-        "WindowEventHandlers", // XXX needs special handling
       ];
       if (skipIncludes.includes(dfn.includes)) {
         continue;
