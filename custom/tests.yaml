@@ -1658,7 +1658,7 @@ api:
     __base: |-
       var instance;
       try {
-        instance = document.createElementNS('http://www.w3.org/1999/xhtml', 'el');
+        instance = document.createElementNS('', 'el');
       } catch(e) {
         instance = document.createElement('b');
       }
