@@ -1,5 +1,51 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.10
+
+Released April 9, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CSSContainerRule.conditions
+- css.properties.column-rule-visibility-items.normal
+- css.properties.frame-sizing
+- css.properties.position-anchor.match-parent
+- css.properties.row-rule-visibility-items.normal
+- css.properties.ruby-overhang.spaces
+- css.properties.rule-visibility-items.normal
+- css.properties.stroke-width.hairline
+- css.properties.stroke-width.thin
+- css.properties.stroke-width.medium
+- css.properties.stroke-width.thick
+
+#### Removed
+
+- api.ModelContext.unregisterTool
+- css.properties.align-items.anchor-center
+- css.properties.contain-intrinsic-block-size.from-element
+- css.properties.contain-intrinsic-height.from-element
+- css.properties.contain-intrinsic-inline-size.from-element
+- css.properties.contain-intrinsic-size.from-element
+- css.properties.contain-intrinsic-width.from-element
+- css.properties.justify-items.anchor-center
+- css.properties.place-items.anchor-center
+- css.properties.ruby-overhang.none
+
+### Commits
+
+- build(deps-dev): bump basic-ftp from 5.2.0 to 5.2.1 ([#3134](https://github.com/openwebdocs/mdn-bcd-collector/pull/3134))
+- build(deps-dev): bump typescript-eslint from 8.58.0 to 8.58.1 in the dev group ([#3133](https://github.com/openwebdocs/mdn-bcd-collector/pull/3133))
+- build(deps-dev): bump the data group with 3 updates ([#3132](https://github.com/openwebdocs/mdn-bcd-collector/pull/3132))
+- build(deps): bump the dev group with 3 updates ([#3131](https://github.com/openwebdocs/mdn-bcd-collector/pull/3131))
+- build(deps): bump the dev group with 2 updates ([#3130](https://github.com/openwebdocs/mdn-bcd-collector/pull/3130))
+- build(deps): bump the dev group across 1 directory with 4 updates ([#3129](https://github.com/openwebdocs/mdn-bcd-collector/pull/3129))
+- build(deps): bump the dev group with 3 updates ([#3127](https://github.com/openwebdocs/mdn-bcd-collector/pull/3127))
+- build(deps-dev): bump the data group with 2 updates ([#3126](https://github.com/openwebdocs/mdn-bcd-collector/pull/3126))
+- build(deps): bump the dev group across 1 directory with 8 updates ([#3124](https://github.com/openwebdocs/mdn-bcd-collector/pull/3124))
+- build(deps): bump codecov/codecov-action from 5 to 6 ([#3118](https://github.com/openwebdocs/mdn-bcd-collector/pull/3118))
+
 ## v10.17.9
 
 Released March 30, 2026
