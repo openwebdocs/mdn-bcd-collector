@@ -346,6 +346,7 @@ const remapPropertyValues = (input, types) => {
         "initial",
         "revert",
         "revert-layer",
+        "revert-rule",
         "unset",
         ...ignoredColorNames,
       ].includes(val)
