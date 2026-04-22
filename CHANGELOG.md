@@ -1,5 +1,42 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.11
+
+Released April 22, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLImageElement.controls
+- api.HTMLTemplateElement.shadowRootSlotAssignment
+- api.MediaStreamTrackProcessor.discardedFrames
+- api.MediaStreamTrackProcessor.totalFrames
+- api.Sanitizer.allowProcessingInstruction
+- api.Sanitizer.removeProcessingInstruction
+
+#### Removed
+
+- css.properties.all.revert-rule
+
+### Commits
+
+- Ignore revert-rule global CSS keyword ([#3153](https://github.com/openwebdocs/mdn-bcd-collector/pull/3153))
+- build(deps-dev): bump @webref/idl from 3.75.2 to 3.75.3 in the data group ([#3151](https://github.com/openwebdocs/mdn-bcd-collector/pull/3151))
+- build(deps-dev): bump typescript-eslint from 8.58.2 to 8.59.0 in the dev group ([#3150](https://github.com/openwebdocs/mdn-bcd-collector/pull/3150))
+- build(deps): bump the dev group with 3 updates ([#3149](https://github.com/openwebdocs/mdn-bcd-collector/pull/3149))
+- build(deps): bump the dev group across 1 directory with 3 updates ([#3148](https://github.com/openwebdocs/mdn-bcd-collector/pull/3148))
+- build(deps): bump protobufjs from 7.5.4 to 7.5.5 ([#3147](https://github.com/openwebdocs/mdn-bcd-collector/pull/3147))
+- build(deps): bump dompurify from 3.3.3 to 3.4.0 ([#3145](https://github.com/openwebdocs/mdn-bcd-collector/pull/3145))
+- build(deps-dev): bump prettier from 3.8.2 to 3.8.3 in the dev group ([#3144](https://github.com/openwebdocs/mdn-bcd-collector/pull/3144))
+- build(deps): bump akhileshns/heroku-deploy from 3.14.15 to 3.15.15 ([#3143](https://github.com/openwebdocs/mdn-bcd-collector/pull/3143))
+- build(deps-dev): bump follow-redirects from 1.15.11 to 1.16.0 ([#3141](https://github.com/openwebdocs/mdn-bcd-collector/pull/3141))
+- build(deps-dev): bump typescript-eslint from 8.58.1 to 8.58.2 in the dev group ([#3140](https://github.com/openwebdocs/mdn-bcd-collector/pull/3140))
+- build(deps): bump the dev group with 4 updates ([#3139](https://github.com/openwebdocs/mdn-bcd-collector/pull/3139))
+- build(deps-dev): bump basic-ftp from 5.2.1 to 5.2.2 ([#3138](https://github.com/openwebdocs/mdn-bcd-collector/pull/3138))
+- build(deps-dev): bump the dev group with 4 updates ([#3137](https://github.com/openwebdocs/mdn-bcd-collector/pull/3137))
+- build(deps-dev): bump selenium-webdriver from 4.41.0 to 4.42.0 in the dev group ([#3136](https://github.com/openwebdocs/mdn-bcd-collector/pull/3136))
+
 ## v10.17.10
 
 Released April 9, 2026
