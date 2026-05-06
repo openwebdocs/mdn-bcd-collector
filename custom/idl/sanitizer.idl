@@ -1,5 +1,0 @@
-// https://wicg.github.io/sanitizer-api/#dom-element-sethtml
-
-partial interface Element {
-  [CEReactions] undefined setHTML(DOMString html, optional SetHTMLOptions options = {});
-};
