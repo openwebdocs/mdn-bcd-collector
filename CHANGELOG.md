@@ -1,5 +1,116 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.12
+
+Released May 6, 2026
+
+### Test Changes
+
+#### Added
+
+- api.AnimationEvent.animation
+- api.Document.parseHTML_static
+- api.LanguageModel
+- api.LanguageModelParams
+- api.ShadowRoot.setHTML
+- api.TransitionEvent.animation
+- api.Window.requestResize
+- css.properties.column-rule-inset-cap
+- css.properties.column-rule-inset-cap-end
+- css.properties.column-rule-inset-cap-start
+- css.properties.column-rule-inset-junction
+- css.properties.column-rule-inset-junction-end
+- css.properties.column-rule-inset-junction-start
+- css.properties.overscroll-behavior.chain
+- css.properties.overscroll-behavior-block.chain
+- css.properties.overscroll-behavior-inline.chain
+- css.properties.overscroll-behavior-x.chain
+- css.properties.overscroll-behavior-y.chain
+- css.properties.path-length
+- css.properties.row-rule-inset-cap
+- css.properties.row-rule-inset-cap-end
+- css.properties.row-rule-inset-cap-start
+- css.properties.row-rule-inset-junction
+- css.properties.row-rule-inset-junction-end
+- css.properties.row-rule-inset-junction-start
+- css.properties.rule-inset-cap
+- css.properties.rule-inset-junction
+- css.properties.text-fit
+- css.types.color.contrast-color
+
+#### Removed
+
+- api.Document.requestStorageAccessFor
+- api.ForDebuggingOnly
+- api.HTMLAnchorElement.attributionSrc
+- api.HTMLAreaElement.attributionSrc
+- api.HTMLIFrameElement.adAuctionHeaders
+- api.HTMLIFrameElement.sharedStorageWritable
+- api.HTMLImageElement.attributionSrc
+- api.HTMLImageElement.sharedStorageWritable
+- api.HTMLScriptElement.attributionSrc
+- api.InterestGroupBiddingAndScoringScriptRunnerGlobalScope
+- api.InterestGroupBiddingScriptRunnerGlobalScope
+- api.InterestGroupReportingScriptRunnerGlobalScope
+- api.InterestGroupScoringScriptRunnerGlobalScope
+- api.InterestGroupScriptRunnerGlobalScope
+- api.Navigator.canLoadAdAuctionFencedFrame
+- api.Navigator.clearOriginJoinedAdInterestGroups
+- api.Navigator.createAuctionNonce
+- api.Navigator.deprecatedRunAdAuctionEnforcesKAnonymity
+- api.Navigator.getInterestGroupAdAuctionData
+- api.Navigator.joinAdInterestGroup
+- api.Navigator.leaveAdInterestGroup
+- api.Navigator.protectedAudience
+- api.Navigator.runAdAuction
+- api.Navigator.updateAdInterestGroups
+- api.PrivateAggregation
+- api.ProtectedAudience
+- api.ProtectedAudienceUtilities
+- api.RealTimeReporting
+- api.SharedStorage
+- api.SharedStorageAppendMethod
+- api.SharedStorageClearMethod
+- api.SharedStorageDeleteMethod
+- api.SharedStorageModifierMethod
+- api.SharedStorageSetMethod
+- api.SharedStorageWorklet
+- api.SharedStorageWorkletGlobalScope
+- api.SharedStorageWorkletNavigator
+- api.SVGElement.correspondingElement
+- api.SVGElement.correspondingUseElement
+- api.Window.sharedStorage
+- api.XMLHttpRequest.setAttributionReporting
+- css.properties.column-rule-edge-inset
+- css.properties.column-rule-edge-inset-end
+- css.properties.column-rule-edge-inset-start
+- css.properties.column-rule-interior-inset
+- css.properties.column-rule-interior-inset-end
+- css.properties.column-rule-interior-inset-start
+- css.properties.row-rule-edge-inset
+- css.properties.row-rule-edge-inset-end
+- css.properties.row-rule-edge-inset-start
+- css.properties.row-rule-interior-inset
+- css.properties.row-rule-interior-inset-end
+- css.properties.row-rule-interior-inset-start
+- css.properties.rule-edge-inset
+- css.properties.rule-interior-inset
+- css.properties.shape-subtract
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3164](https://github.com/openwebdocs/mdn-bcd-collector/pull/3164))
+- build(deps-dev): bump the dev group with 3 updates ([#3165](https://github.com/openwebdocs/mdn-bcd-collector/pull/3165))
+- build(deps-dev): bump typescript-eslint from 8.59.1 to 8.59.2 in the dev group ([#3163](https://github.com/openwebdocs/mdn-bcd-collector/pull/3163))
+- build(deps): bump the dev group with 3 updates ([#3162](https://github.com/openwebdocs/mdn-bcd-collector/pull/3162))
+- build(deps): bump the dev group with 2 updates ([#3161](https://github.com/openwebdocs/mdn-bcd-collector/pull/3161))
+- build(deps-dev): bump @webref/css from 8.5.3 to 8.5.4 in the data group ([#3160](https://github.com/openwebdocs/mdn-bcd-collector/pull/3160))
+- build(deps-dev): bump @webref/idl from 3.75.3 to 3.76.0 in the data group ([#3159](https://github.com/openwebdocs/mdn-bcd-collector/pull/3159))
+- build(deps-dev): bump typescript-eslint from 8.59.0 to 8.59.1 in the dev group ([#3158](https://github.com/openwebdocs/mdn-bcd-collector/pull/3158))
+- build(deps): bump @mdn/browser-compat-data from 7.3.12 to 7.3.13 in the dev group ([#3157](https://github.com/openwebdocs/mdn-bcd-collector/pull/3157))
+- Add custom test for CSS `contrast-color()` ([#3156](https://github.com/openwebdocs/mdn-bcd-collector/pull/3156))
+- build(deps): bump fast-xml-parser from 5.5.7 to 5.7.1 ([#3155](https://github.com/openwebdocs/mdn-bcd-collector/pull/3155))
+
 ## v10.17.11
 
 Released April 22, 2026
