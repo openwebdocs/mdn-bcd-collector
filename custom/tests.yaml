@@ -4356,17 +4356,18 @@ api:
       }
       var instance = new Request('https://example.com');
     Request:
-      __additional:
-        init_priority_parameter: |-
-          function construct(options) {
-            new Request('https://example.com', options);
-          }
-          return bcd.testOptionParam(construct, null, 'priority', 'auto');
-        init_referrer_parameter: |-
-          function construct(options) {
-            new Request('https://example.com', options);
-          }
-          return bcd.testOptionParam(construct, null, 'referrer', 'no-referrer');
+      options_parameter:
+        __additional:
+          priority: |-
+            function construct(options) {
+              new Request('https://example.com', options);
+            }
+            return bcd.testOptionParam(construct, null, 'priority', 'auto');
+          referrer: |-
+            function construct(options) {
+              new Request('https://example.com', options);
+            }
+            return bcd.testOptionParam(construct, null, 'referrer', 'no-referrer');
     cache:
       __additional:
         only-if-cached: |-
