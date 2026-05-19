@@ -1,5 +1,71 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.13
+
+Released May 19, 2026
+
+### Test Changes
+
+#### Added
+
+- api.GPUComputePassEncoder.setImmediates
+- api.GPURenderBundleEncoder.setImmediates
+- api.GPURenderPassEncoder.setImmediates
+- api.GPUSupportedLimits.maxImmediateSize
+- api.MathMLAnchorElement
+- css.properties.column-rule-inset.overlap-join
+- css.properties.column-rule-inset-cap.overlap-join
+- css.properties.column-rule-inset-cap-end.overlap-join
+- css.properties.column-rule-inset-cap-start.overlap-join
+- css.properties.column-rule-inset-end.overlap-join
+- css.properties.column-rule-inset-junction.overlap-join
+- css.properties.column-rule-inset-junction-end.overlap-join
+- css.properties.column-rule-inset-junction-start.overlap-join
+- css.properties.column-rule-inset-start.overlap-join
+- css.properties.flex-flow.balance
+- css.properties.flex-line-count
+- css.properties.flex-wrap.balance
+- css.properties.position-visibility.anchor-valid
+- css.properties.position-visibility.anchor-visible
+- css.properties.row-rule-inset.overlap-join
+- css.properties.row-rule-inset-cap.overlap-join
+- css.properties.row-rule-inset-cap-end.overlap-join
+- css.properties.row-rule-inset-cap-start.overlap-join
+- css.properties.row-rule-inset-end.overlap-join
+- css.properties.row-rule-inset-junction.overlap-join
+- css.properties.row-rule-inset-junction-end.overlap-join
+- css.properties.row-rule-inset-junction-start.overlap-join
+- css.properties.row-rule-inset-start.overlap-join
+- css.properties.rule-inset.overlap-join
+- css.properties.rule-inset-cap.overlap-join
+- css.properties.rule-inset-end.overlap-join
+- css.properties.rule-inset-junction.overlap-join
+- css.properties.rule-inset-start.overlap-join
+- css.properties.window-drag
+- css.selectors.active-navigation
+
+#### Removed
+
+- api.Request.Request.init_priority_parameter
+- api.Request.Request.init_referrer_parameter
+- css.properties.position-visibility.anchors-valid
+- css.properties.position-visibility.anchors-visible
+
+### Commits
+
+- build(deps): bump the dev group with 5 updates ([#3180](https://github.com/openwebdocs/mdn-bcd-collector/pull/3180))
+- Follow Fetch option renames from BCD ([#3179](https://github.com/openwebdocs/mdn-bcd-collector/pull/3179))
+- build(deps): bump the dev group with 2 updates ([#3178](https://github.com/openwebdocs/mdn-bcd-collector/pull/3178))
+- build(deps-dev): bump the data group with 2 updates ([#3175](https://github.com/openwebdocs/mdn-bcd-collector/pull/3175))
+- build(deps): bump the dev group across 1 directory with 2 updates ([#3177](https://github.com/openwebdocs/mdn-bcd-collector/pull/3177))
+- build(deps): bump @protobufjs/utf8 from 1.1.0 to 1.1.1 ([#3174](https://github.com/openwebdocs/mdn-bcd-collector/pull/3174))
+- build(deps): bump protobufjs from 7.5.5 to 7.5.8 ([#3173](https://github.com/openwebdocs/mdn-bcd-collector/pull/3173))
+- build(deps-dev): bump @types/node from 25.6.2 to 25.7.0 in the dev group ([#3172](https://github.com/openwebdocs/mdn-bcd-collector/pull/3172))
+- build(deps): bump the dev group with 5 updates ([#3170](https://github.com/openwebdocs/mdn-bcd-collector/pull/3170))
+- build(deps): bump fast-xml-builder from 1.1.5 to 1.2.0 ([#3169](https://github.com/openwebdocs/mdn-bcd-collector/pull/3169))
+- build(deps-dev): bump the dev group with 2 updates ([#3168](https://github.com/openwebdocs/mdn-bcd-collector/pull/3168))
+- build(deps): bump fs-extra from 11.3.4 to 11.3.5 in the dev group ([#3167](https://github.com/openwebdocs/mdn-bcd-collector/pull/3167))
+
 ## v10.17.12
 
 Released May 6, 2026
