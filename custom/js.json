@@ -267,6 +267,7 @@
           "find",
           "flatMap",
           "forEach",
+          "includes",
           "map",
           "reduce",
           "some",
