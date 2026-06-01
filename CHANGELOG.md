@@ -1,5 +1,44 @@
 # mdn-bcd-collector Changelog
 
+## v10.17.14
+
+Released June 1, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLAreaElement.hreflang
+- api.HTMLAreaElement.type
+- api.MathMLAnchorElement.hreflang
+- api.MathMLAnchorElement.type
+- api.ModelContext.toolchange_event
+- api.RTCRtpSFrameDecrypter
+- api.RTCRtpSFrameEncrypter
+- api.SpeechRecognition.unspokenPunctuation
+- api.WheelEvent.momentum
+- javascript.builtins.Iterator.chunks
+- javascript.builtins.Iterator.includes
+- javascript.builtins.Iterator.join
+- javascript.builtins.Iterator.windows
+
+#### Removed
+
+- api.RTCSFrameReceiverTransform
+- api.RTCSFrameSenderTransform
+
+### Commits
+
+- Add Iterator join and chunking ([#3194](https://github.com/openwebdocs/mdn-bcd-collector/pull/3194))
+- Add Iterator.prototype.includes ([#3193](https://github.com/openwebdocs/mdn-bcd-collector/pull/3193))
+- build(deps): bump the dev group across 1 directory with 13 updates ([#3192](https://github.com/openwebdocs/mdn-bcd-collector/pull/3192))
+- build(deps-dev): bump the data group with 2 updates ([#3190](https://github.com/openwebdocs/mdn-bcd-collector/pull/3190))
+- build(deps): bump qs from 6.14.2 to 6.15.2 ([#3187](https://github.com/openwebdocs/mdn-bcd-collector/pull/3187))
+- build(deps): bump @tootallnate/once from 2.0.0 to 2.0.1 ([#3185](https://github.com/openwebdocs/mdn-bcd-collector/pull/3185))
+- build(deps-dev): bump tmp from 0.2.5 to 0.2.7 ([#3191](https://github.com/openwebdocs/mdn-bcd-collector/pull/3191))
+- build(deps-dev): bump the dev group with 2 updates ([#3183](https://github.com/openwebdocs/mdn-bcd-collector/pull/3183))
+- build(deps): bump the dev group with 3 updates ([#3182](https://github.com/openwebdocs/mdn-bcd-collector/pull/3182))
+
 ## v10.17.13
 
 Released May 19, 2026
