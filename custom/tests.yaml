@@ -1787,6 +1787,10 @@ api:
           throw e;
         }
       }
+    initEvent:
+      __test: |-
+        instance.initEvent('test', true, true);
+        return instance.type === 'test' && instance.bubbles === true && instance.cancelable === true;
   EventSource:
     __base: |-
       if (!('EventSource' in self)) {
