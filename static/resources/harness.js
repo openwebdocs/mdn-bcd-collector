@@ -705,6 +705,149 @@
   }
 
   /**
+   * Check if two values are equivalent, with optional equivalents map
+   * @param {string} computedValue - The computed value from the browser
+   * @param {string} expectedValue - The expected value
+   * @param {Object} [equivalents] - Map of expected values to arrays of equivalent computed values
+   * @returns {boolean} - Whether the values are equivalent
+   */
+  function valuesAreEquivalent(computedValue, expectedValue, equivalents) {
+    // Normalize basic formatting
+    var normalized1 = (computedValue || "").toLowerCase().replace(/-/g, "");
+    var normalized2 = (expectedValue || "").toLowerCase().replace(/-/g, "");
+
+    if (normalized1 === normalized2) {
+      return true;
+    }
+
+    // Check equivalents map if provided
+    if (equivalents && expectedValue in equivalents) {
+      var equivalentValues = equivalents[expectedValue];
+      equivalentValues = Array.isArray(equivalentValues)
+        ? equivalentValues
+        : [equivalentValues];
+      for (var i = 0; i < equivalentValues.length; i++) {
+        var normalizedEquivalent = equivalentValues[i]
+          .toLowerCase()
+          .replace(/-/g, "");
+        if (normalized1 === normalizedEquivalent) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Test an SVG attribute for support
+   * @param {string} name - The SVG attribute name
+   * @param {string} value - The SVG attribute value to test
+   * @param {string} [elementName] - The SVG element name to test on (defaults to 'rect')
+   * @param {boolean} [checkComputedStyle] - Whether to also verify the computed style (defaults to true for presentation attributes)
+   * @param {Object} [equivalents] - Map of expected values to arrays of equivalent computed values
+   * @returns {TestResult} - Whether the attribute value is supported
+   */
+  function testSVGAttribute(
+    name,
+    value,
+    elementName,
+    checkComputedStyle,
+    equivalents
+  ) {
+    if (!elementName) {
+      elementName = "rect";
+    }
+
+    if (checkComputedStyle === undefined) {
+      checkComputedStyle = true;
+    }
+
+    if (!("document" in self && "createElementNS" in document)) {
+      return {
+        result: null,
+        message: "document.createElementNS is not supported"
+      };
+    }
+
+    var el;
+    try {
+      el = document.createElementNS("http://www.w3.org/2000/svg", elementName);
+      if (!el) {
+        return {
+          result: false,
+          message: "Failed to create SVG element " + jsonify(elementName)
+        };
+      }
+
+      document.body.appendChild(el);
+      el.setAttribute(name, value);
+
+      var attrValue = el.getAttribute(name);
+      var attrMatches = attrValue === value;
+
+      if (!attrMatches) {
+        document.body.removeChild(el);
+        return {
+          result: false,
+          message:
+            "getAttribute(" +
+            jsonify(name) +
+            ") returned " +
+            jsonify(attrValue) +
+            " after setAttribute(" +
+            jsonify(name) +
+            ", " +
+            jsonify(value) +
+            ")"
+        };
+      }
+
+      if (checkComputedStyle && "getComputedStyle" in window) {
+        var computedValue =
+          getComputedStyle(el)[name] ||
+          getComputedStyle(el).getPropertyValue(name);
+
+        if (!valuesAreEquivalent(computedValue, value, equivalents)) {
+          document.body.removeChild(el);
+          return {
+            result: false,
+            message:
+              "getComputedStyle(" +
+              jsonify(name) +
+              ") returned " +
+              jsonify(computedValue) +
+              " (expected " +
+              jsonify(value) +
+              ")"
+          };
+        }
+      }
+
+      document.body.removeChild(el);
+      return {
+        result: true,
+        message:
+          "setAttribute(" +
+          jsonify(name) +
+          ", " +
+          jsonify(value) +
+          ") succeeded" +
+          (checkComputedStyle ? " and computed style matched" : "")
+      };
+    } catch (err) {
+      if (el && el.parentNode) {
+        try {
+          document.body.removeChild(el);
+        } catch (cleanupErr) {
+          // Ignore cleanup errors
+        }
+      }
+      return { result: false, message: "threw " + stringify(err) };
+    }
+  }
+
+  /**
    * Test a web assembly feature for support, using the `wasm-feature-detect` Node package
    * @param {string} feature - The web assembly feature name as defined in `wasm-feature-detect`
    * @returns {TestResult} - Whether the web assembly feature is supported
@@ -1948,6 +2091,7 @@
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
     testCSSSelector: testCSSSelector,
+    testSVGAttribute: testSVGAttribute,
     testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,

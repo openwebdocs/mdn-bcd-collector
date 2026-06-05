@@ -20,6 +20,7 @@ import {build as buildAPI} from "./api.js";
 import {build as buildCSS} from "./css.js";
 import {build as buildElements} from "./elements.js";
 import {build as buildJS} from "./javascript.js";
+import {build as buildSVG} from "./svg.js";
 import {build as buildWasm} from "./webassembly.js";
 import {customTests} from "./common.js";
 
@@ -34,6 +35,9 @@ const customElements = await fs.readJson(
 );
 const customJS = await fs.readJson(
   new URL("../custom/js.json", import.meta.url),
+);
+const customSVG = await fs.readJson(
+  new URL("../custom/svg.json", import.meta.url),
 );
 
 /* c8 ignore start */
@@ -55,6 +59,7 @@ const build = async () => {
     await buildCSS(specCSS, customCSS),
     await buildElements(specElements, customElements),
     await buildJS(specJS, customJS),
+    await buildSVG(customSVG),
     await buildWasm(wasmFeatures),
   );
 
