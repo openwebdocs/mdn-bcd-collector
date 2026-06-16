@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/report-stats.test.ts
-// Unittest for the script to print statistics about a reports file
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {expect} from "chai";
 import fs from "fs-extra";
 

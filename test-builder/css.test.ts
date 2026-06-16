@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/unit/css.test.ts
-// Unittest for the CSS-specific test builder functions
-//
-// © Gooborg Studios, Google LLC, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import chai, {assert} from "chai";
 import chaiSubset from "chai-subset";
 import chaiAsPromised from "chai-as-promised";

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: results.ts
-// Module to parse and handle test results
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import type {TestResult, Exposure, InternalTestResult} from "../types/types.js";
 
 /**

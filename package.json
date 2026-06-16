@@ -5,7 +5,7 @@
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
-  "author": "Gooborg Studios (https://www.gooborg.com)",
+  "author": "Open Web Docs (https://www.openwebdocs.org)",
   "repository": {
     "type": "git",
     "url": "https://github.com/openwebdocs/mdn-bcd-collector.git"

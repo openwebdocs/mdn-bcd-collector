@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/unit/tests.test.ts
-// Unittest for the Tests class
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import {assert} from "chai";
 
 import Tests from "./tests.js";

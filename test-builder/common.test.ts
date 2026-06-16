@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/test-builder/common.test.ts
-// Unittest for the common functions in the test builder script
-//
-// © Gooborg Studios, Google LLC, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import chai, {assert} from "chai";
 import chaiSubset from "chai-subset";
 import chaiAsPromised from "chai-as-promised";

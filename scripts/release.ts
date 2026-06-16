@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/release.ts
-// Script to perform a new mdn-bcd-collector release
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import chalk from "chalk-template";
 import esMain from "es-main";
 import fs from "fs-extra";

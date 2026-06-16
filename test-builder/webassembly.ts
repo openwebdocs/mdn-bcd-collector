@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/webassembly.ts
-// Functions directly related to building all of the WebAssembly tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import {compileTest} from "./common.js";
 
 /**

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/scripts/update-bcd.test.ts
-// Unittest for the BCD updater script
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import {assert} from "chai";
 import sinon from "sinon";
 import fs from "fs-extra";

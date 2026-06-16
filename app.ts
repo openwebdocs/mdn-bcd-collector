@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: app.ts
-// Main app backend for the website
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import https from "node:https";
 import http from "node:http";
 import querystring from "node:querystring";

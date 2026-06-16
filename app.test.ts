@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/app/app.test.ts
-// Unittest for the main app backend
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import chai, {assert, expect} from "chai";
 import chaiHttp from "chai-http";
 chai.use(chaiHttp);

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/unit/results.test.ts
-// Unittest for the results parsing script
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import {assert} from "chai";
 
 import parseResults from "./results.js";

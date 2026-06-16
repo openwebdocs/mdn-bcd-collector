@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/javascript.ts
-// Functions directly related to building all of the JavaScript tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import {getCustomTest, compileCustomTest, compileTest} from "./common.js";
 
 import type {RawTestCodeExpr} from "../types/types.js";
