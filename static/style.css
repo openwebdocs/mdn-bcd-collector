@@ -1,58 +1,32 @@
-/* VARIABLES */
+/*
+CSS for the BCD collector front-end
 
-:root {
-  /*BORDERS */
-  --divider: var(--accent-1) 1px solid;
+=== Important note ===
+Write CSS like it is 1998!
+The site needs to work in very old browsers!
+Progressive enhancement is fine
+======================
 
-  /* COLORS: CONSTANT */
-  --button-fg: white;
-  --accent-1: rgb(200 182 249);
-  --accent-2: #f7f4fe00;
-
-  /* COLORS: DARK THEME (DEFAULT) */
-  --foreground: white;
-  --background: #090057;
-  --callout-background: #43279c;
-  --link: white;
-  --link-hover: #ff61e5;
-  --button-bg: #9900a1;
-  --button-bg-hover: #6b0070;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --foreground: black;
-    --background: white;
-    --callout-background: #d2bbfd;
-    --link: black;
-    --link-hover: #9900a1;
-    --button-bg: #9900a1;
-    --button-bg-hover: #e000eb;
-  }
-}
-
-/* ELEMENTS */
-
-:root {
-  color-scheme: light dark;
-}
+COLORS
+--foreground: black;
+--background: white;
+--callout-background: #d2bbfd;
+--link: black;
+--link-hover: #9900a1;
+--button-bg: #9900a1;
+--button-bg-hover: #e000eb;
+*/
 
 html {
-  background: var(--background);
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
   font-family: sans-serif;
 }
 
 a {
-  color: var(--link);
+  color: black;
 }
 
 a:hover {
-  color: var(--link-hover);
+  color: #9900a1;
 }
 
 code {
@@ -63,8 +37,8 @@ code {
 button,
 select,
 input {
-  background: var(--button-bg);
-  color: var(--button-fg);
+  background: #9900a1;
+  color: white;
 }
 
 button,
@@ -88,19 +62,19 @@ select:hover:focus,
 input:hover,
 input:hover:focus {
   cursor: pointer;
-  background: var(--button-bg-hover);
+  background: #e000eb;
 }
 
 button:focus,
 select:focus,
 input:focus {
-  background: var(--button-bg-hover);
+  background: #e000eb;
 }
 
 button:focus,
 select:focus,
 input:focus {
-  outline-color: var(--button-bg-hover);
+  outline-color: #e000eb;
 }
 
 button:focus-visible,
@@ -117,15 +91,6 @@ input:disabled:hover {
   cursor: not-allowed;
   background: #636363;
 }
-@media (prefers-color-scheme: light) {
-  button:disabled, button:disabled:hover,
-  select:disabled,
-  select:disabled:hover,
-  input:disabled,
-  input:disabled:hover {
-    background: #636363;
-  }
-}
 button:disabled, button:disabled:hover,
 select:disabled,
 select:disabled:hover,
@@ -133,41 +98,9 @@ input:disabled,
 input:disabled:hover {
   color: #cccccc;
 }
-@media (prefers-color-scheme: light) {
-  button:disabled, button:disabled:hover,
-  select:disabled,
-  select:disabled:hover,
-  input:disabled,
-  input:disabled:hover {
-    color: #cccccc;
-  }
-}
-button.pulse,
-select.pulse,
-input.pulse {
-  animation-name: pulse-animation;
-  animation-duration: 2s;
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-}
-button.pulse:hover,
-select.pulse:hover,
-input.pulse:hover {
-  animation-play-state: paused;
-}
-
 input {
   text-align: left;
   margin-left: -2px;
-}
-input::placeholder {
-  color: #cccccc;
-}
-@media (prefers-color-scheme: light) {
-  input::placeholder {
-    color: #cccccc;
-  }
 }
 
 footer {
@@ -178,7 +111,6 @@ footer p {
   margin: 0.2em
 }
 
-/* NAVBAR */
 
 nav#navbar {
   position: fixed;
@@ -186,7 +118,7 @@ nav#navbar {
   left: 0;
   right: 0;
   display: block;
-  background: var(--callout-background) 0%; /* Old browsers */
+  background: #d2bbfd;
 }
 
 nav#navbar {
@@ -207,12 +139,8 @@ nav#navbar a:last-child {
   margin-right: 0;
 }
 
-/* FOOTER */ 
-
-
-
 .paper {
-  background: var(--callout-background);
+  background: #d2bbfd;
 }
 .paper {
   padding: 1em 8px;
@@ -221,31 +149,16 @@ nav#navbar a:last-child {
 }
 
 .error-notice {
-  color: #ffaaaa;
+  color: #770000;
   font-weight: bold;
-}
-@media (prefers-color-scheme: light) {
-  .error-notice {
-    color: #770000;
-  }
 }
 
 .warning-notice {
-  color: #ffffaa;
-}
-@media (prefers-color-scheme: light) {
-  .warning-notice {
-    color: #777700;
-  }
+  color: #777700;
 }
 
 .success-notice {
-  color: #aaffaa;
-}
-@media (prefers-color-scheme: light) {
-  .success-notice {
-    color: #007700;
-  }
+  color: #007700;
 }
 
 .hidden {
@@ -339,13 +252,9 @@ h1 {
 }
 
 #extension-warnings {
-  background: #330000;
+  background: #ffaaaa;
 }
-@media (prefers-color-scheme: light) {
-  #extension-warnings {
-    background: #ffaaaa;
-  }
-}
+
 #extension-warnings {
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -358,15 +267,9 @@ h1 {
 #extension-warnings h2,
 #extension-warnings h3,
 #extension-warnings #extension-warnings-disable-or-switch {
-  color: #ffaaaa;
+  color: #770000;
 }
-@media (prefers-color-scheme: light) {
-  #extension-warnings h2,
-  #extension-warnings h3,
-  #extension-warnings #extension-warnings-disable-or-switch {
-    color: #770000;
-  }
-}
+
 #extension-warnings h3 {
   margin-bottom: 0;
 }
@@ -378,20 +281,12 @@ h1 {
   list-style-position: inside;
 }
 #known-caveats #known-caveats-file-issue {
-  color: #ffaaaa;
-}
-@media (prefers-color-scheme: light) {
-  #known-caveats #known-caveats-file-issue {
-    color: #770000;
-  }
-}
-#known-caveats #known-caveats-file-issue {
+  color: #770000;
   font-weight: bold;
 }
 #privacy-notice {
   text-align: center;
 }
-
 
 #status {
   font-weight: bold;
@@ -415,42 +310,21 @@ h1 {
   margin-top: 0.2em;
 }
 .result.result-true {
-  background: rgba(0, 51, 0, 0.3) 0%;
+  background: rgba(170, 255, 170, 0.3);
 }
-@media (prefers-color-scheme: light) {
-  .result.result-true {
-    background: rgba(170, 255, 170, 0.3) 0%; /* Old browsers */
-  }
-}
+
 .result.result-true .result-value {
-  color: #aaffaa;
+  color: #007700;
 }
-@media (prefers-color-scheme: light) {
-  .result.result-true .result-value {
-    color: #007700;
-  }
-}
+
 .result.result-false {
-  background: rgba(51, 0, 0, 0.3) 0%; /* Old browsers */
+  background: rgba(255, 170, 170, 0.3);
 }
-@media (prefers-color-scheme: light) {
-  .result.result-false {
-    background: rgba(255, 170, 170, 0.3) 0%; /* Old browsers */
-  }
-}
+
 .result.result-false .result-value {
-  color: #ffaaaa;
+  color: #770000;
 }
-@media (prefers-color-scheme: light) {
-  .result.result-false .result-value {
-    color: #770000;
-  }
-}
+
 .result.result-null .result-value {
   color: #cccccc;
-}
-@media (prefers-color-scheme: light) {
-  .result.result-null .result-value {
-    color: #cccccc;
-  }
 }
