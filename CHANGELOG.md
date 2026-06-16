@@ -1,5 +1,58 @@
 # mdn-bcd-collector Changelog
 
+## v10.18.0
+
+Released June 16, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Blob.textStream
+- api.Document.modelContext
+- api.Request.textStream
+- api.Response.textStream
+- css.selectors.trigger-link
+- html.elements.model.stagemode
+- html.elements.model.autoplay
+- html.elements.model.crossorigin
+- html.elements.model.height
+- html.elements.model.loading
+- html.elements.model.loop
+- html.elements.model.poster
+- html.elements.model.src
+- html.elements.model.width
+
+#### Removed
+
+- api.Navigator.modelContext
+- api.XRWebGLSubImage.motionVectorTextureHeight
+- api.XRWebGLSubImage.motionVectorTextureWidth
+
+### Commits
+
+- build(deps): bump the dev group across 1 directory with 7 updates ([#3220](https://github.com/openwebdocs/mdn-bcd-collector/pull/3220))
+- build(deps-dev): bump js-yaml from 4.1.1 to 4.2.0 ([#3218](https://github.com/openwebdocs/mdn-bcd-collector/pull/3218))
+- Babelv8 migration: remove import assertion plugin ([#3219](https://github.com/openwebdocs/mdn-bcd-collector/pull/3219))
+- build(deps): bump form-data ([#3214](https://github.com/openwebdocs/mdn-bcd-collector/pull/3214))
+- Remove md rendering; add owd logo to homepage ([#3217](https://github.com/openwebdocs/mdn-bcd-collector/pull/3217))
+- Remove sass from the front-end ([#3215](https://github.com/openwebdocs/mdn-bcd-collector/pull/3215))
+- Remove unneeded license headers; update maintainership wordings ([#3212](https://github.com/openwebdocs/mdn-bcd-collector/pull/3212))
+- build(deps): bump esbuild from 0.28.0 to 0.28.1 ([#3209](https://github.com/openwebdocs/mdn-bcd-collector/pull/3209))
+- build(deps-dev): bump sass from 1.100.0 to 1.101.0 in the dev group ([#3208](https://github.com/openwebdocs/mdn-bcd-collector/pull/3208))
+- build(deps): bump @grpc/grpc-js from 1.14.0 to 1.14.4 ([#3207](https://github.com/openwebdocs/mdn-bcd-collector/pull/3207))
+- build(deps-dev): bump @types/node from 25.9.2 to 25.9.3 in the dev group ([#3206](https://github.com/openwebdocs/mdn-bcd-collector/pull/3206))
+- build(deps-dev): bump shell-quote from 1.8.3 to 1.8.4 ([#3205](https://github.com/openwebdocs/mdn-bcd-collector/pull/3205))
+- build(deps-dev): bump prettier from 3.8.3 to 3.8.4 in the dev group ([#3204](https://github.com/openwebdocs/mdn-bcd-collector/pull/3204))
+- build(deps-dev): bump @webref/idl from 3.80.0 to 3.81.0 in the data group ([#3203](https://github.com/openwebdocs/mdn-bcd-collector/pull/3203))
+- Add &lt;model&gt; element ([#3201](https://github.com/openwebdocs/mdn-bcd-collector/pull/3201))
+- build(deps): bump the dev group with 3 updates ([#3202](https://github.com/openwebdocs/mdn-bcd-collector/pull/3202))
+- build(deps): bump codecov/codecov-action from 6 to 7 ([#3199](https://github.com/openwebdocs/mdn-bcd-collector/pull/3199))
+- build(deps-dev): bump the dev group with 3 updates ([#3200](https://github.com/openwebdocs/mdn-bcd-collector/pull/3200))
+- build(deps): bump the dev group with 3 updates ([#3198](https://github.com/openwebdocs/mdn-bcd-collector/pull/3198))
+- build(deps-dev): bump the data group with 2 updates ([#3197](https://github.com/openwebdocs/mdn-bcd-collector/pull/3197))
+- build(deps): bump the dev group with 4 updates ([#3196](https://github.com/openwebdocs/mdn-bcd-collector/pull/3196))
+
 ## v10.17.14
 
 Released June 1, 2026
