@@ -49,14 +49,17 @@ input {
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  transition: background-color 0.2s, outline-color 0.2s;
+  transition:
+    background-color 0.2s,
+    outline-color 0.2s;
   padding: 8px;
   outline-color: rgba(0, 0, 0, 0);
   outline-style: none;
   outline-width: 0;
 }
 
-button:hover, button:hover:focus,
+button:hover,
+button:hover:focus,
 select:hover,
 select:hover:focus,
 input:hover,
@@ -83,7 +86,8 @@ input:focus-visible {
   outline-style: auto;
   outline-width: 1px;
 }
-button:disabled, button:disabled:hover,
+button:disabled,
+button:disabled:hover,
 select:disabled,
 select:disabled:hover,
 input:disabled,
@@ -91,7 +95,8 @@ input:disabled:hover {
   cursor: not-allowed;
   background: #636363;
 }
-button:disabled, button:disabled:hover,
+button:disabled,
+button:disabled:hover,
 select:disabled,
 select:disabled:hover,
 input:disabled,
@@ -108,9 +113,8 @@ footer {
   text-align: center;
 }
 footer p {
-  margin: 0.2em
+  margin: 0.2em;
 }
-
 
 nav#navbar {
   position: fixed;
@@ -169,7 +173,6 @@ nav#navbar a:last-child {
   /* Ensure that *something* shows up on older browsers */
   content: "�";
 }
-
 
 h1 {
   font-size: 36pt;
