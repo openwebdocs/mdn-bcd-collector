@@ -18,15 +18,6 @@ const copyResources = async () => {
     ["mocha/mocha.js", "unittest"],
     ["mocha/mocha.js.map", "unittest"],
     ["sinon/pkg/sinon.js", "unittest"],
-    ["@browser-logos/chrome/chrome_64x64.png", "browser-logos", "chrome.png"],
-    ["@browser-logos/edge/edge_64x64.png", "browser-logos", "edge.png"],
-    [
-      "@browser-logos/firefox/firefox_64x64.png",
-      "browser-logos",
-      "firefox.png",
-    ],
-    ["@browser-logos/opera/opera_64x64.png", "browser-logos", "opera.png"],
-    ["@browser-logos/safari/safari_64x64.png", "browser-logos", "safari.png"],
     ["@mdi/font/css/materialdesignicons.min.css", "resources"],
     ["@mdi/font/fonts/materialdesignicons-webfont.eot", "fonts"],
     ["@mdi/font/fonts/materialdesignicons-webfont.ttf", "fonts"],
@@ -34,7 +25,6 @@ const copyResources = async () => {
     ["@mdi/font/fonts/materialdesignicons-webfont.woff2", "fonts"],
     ["highlight.js/styles/stackoverflow-dark.css", "resources/highlight.js"],
     ["highlight.js/styles/stackoverflow-light.css", "resources/highlight.js"],
-    ["mermaid/dist/mermaid.min.js", "resources"],
     [
       "wasm-feature-detect/dist/umd/index.js",
       "resources",
@@ -55,14 +45,6 @@ const copyResources = async () => {
   }
 };
 
-/**
- * Prepares the necessary resources for the application.
- * This function copies resources and generates CSS.
- */
-const prepareResources = async () => {
-  await copyResources();
-};
-
 if (esMain(import.meta)) {
-  await prepareResources();
+  await copyResources();
 }
