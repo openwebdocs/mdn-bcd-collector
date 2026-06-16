@@ -1,11 +1,3 @@
-/*
- * mdn-bcd-collector: style.scss
- * Styling for the web app
- *
- * © Gooborg Studios, Google LLC
- * See the LICENSE file for copyright details
- */
-
 @use "sass:map";
 @use "sass:list";
 
@@ -517,8 +509,7 @@ blockquote {
   font-size: 36pt;
   font-weight: 500;
   text-align: center;
-  margin-top: 0.5em;
-  margin-bottom: 0.1em;
+  margin: 0.5em 0;
 
   img {
     width: 48px;

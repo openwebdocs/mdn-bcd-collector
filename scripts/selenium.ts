@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/selenium.ts
-// Script to collect results from various browsers using Selenium webdriver
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
 
 import {

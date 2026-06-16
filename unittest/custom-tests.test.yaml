@@ -1,11 +1,3 @@
-#
-# mdn-bcd-collector: unittest/custom-tests.test.yaml
-# Unittest helper containing custom test code
-#
-# © Gooborg Studios
-# See the LICENSE file for copyright details
-#
-
 __resources:
   audio-blip:
     type: audio

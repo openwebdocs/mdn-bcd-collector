@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/css.ts
-// Functions directly related to building all of the CSS tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import {definitionSyntax as cssSyntaxParser} from "css-tree";
 
 import {getCustomTest, compileTest} from "./common.js";

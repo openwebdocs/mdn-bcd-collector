@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/constants.ts
-// Common variables used throughout all of the collector
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {fileURLToPath} from "node:url";
 import path from "node:path";
 import fs from "node:fs";

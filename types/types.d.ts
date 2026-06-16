@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: types/types.d.ts
-// TypeScript definitions for the collector
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {BrowserName, SupportStatement} from "@mdn/browser-compat-data/types";
 
 import type * as WebIDL2 from "webidl2";

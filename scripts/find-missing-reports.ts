@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/find-missing-reports.ts
-// Script to find browser versions that don't have a result file in mdn-bcd-results
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {CompatData} from "@mdn/browser-compat-data/types";
 
 import {Report} from "../types/types.js";

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: static/unittest/test.js
-// Unittests for harness.js
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 /* global chai, sinon */
 /* global bcd, reusableInstances */
 

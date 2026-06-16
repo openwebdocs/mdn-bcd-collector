@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/common.ts
-// Common functions for generating tests, including obtaining custom test data
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import fs from "fs-extra";
 import prettier from "prettier";
 import * as YAML from "yaml";

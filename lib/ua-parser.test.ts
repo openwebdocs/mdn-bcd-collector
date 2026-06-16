@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/unit/ua-parser.test.ts
-// Unittest for the user agent parser
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {assert} from "chai";
 
 import {getMajorMinorVersion, parseUA} from "./ua-parser.js";

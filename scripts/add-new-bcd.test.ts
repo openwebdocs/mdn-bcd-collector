@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/scripts/add-new-bcd.test.ts
-// Unittest for the script to add new features to BCD
-//
-// © Gooborg Studios, Google LLC
-// See LICENSE.txt for copyright details
-//
-
 import {assert} from "chai";
 
 import {recursiveAdd, getFilePath} from "./add-new-bcd.js";

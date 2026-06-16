@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/unit/storage.test.ts
-// Unittest for the temporary storage handler
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import {assert} from "chai";
 
 import {CloudStorage, MemoryStorage, getStorage} from "./storage.js";

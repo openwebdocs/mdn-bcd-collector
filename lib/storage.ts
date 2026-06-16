@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/storage.ts
-// Module to handle temporary storage for the web app, locally or in GAE
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import assert from "node:assert/strict";
 
 import fs from "fs-extra";

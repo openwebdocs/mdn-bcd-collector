@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/add-new-bcd.ts
-// Adds missing entries to BCD that have support in some browser version
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
 import {execSync} from "node:child_process";
 

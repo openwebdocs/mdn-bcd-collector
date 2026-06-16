@@ -6,15 +6,13 @@ Feature detection tests are generated based on machine-readable data (Web IDL an
 
 This service is part of an effort to [assist BCD updates with automation](https://github.com/mdn/browser-compat-data/issues/3308), and exists to run lots of small tests in browsers to determine the support status of a feature in a browser, and save those results.
 
-## Copyright
-
-© 2023 [Gooborg Studios](https://www.gooborg.com/) + [Open Web Docs](https://www.openwebdocs.org) + [various contributors](https://github.com/openwebdocs/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
+## License
 
 This project is under the Apache License 2.0 license. See the LICENSE file for more details.
 
 ## Setup
 
-This project requires Node.js 20.
+This project requires Node.js 25.
 
 ```sh
 npm install

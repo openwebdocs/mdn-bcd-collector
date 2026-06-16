@@ -1,12 +1,3 @@
-//
-// mdn-bcd-collector: prepare-resources.ts
-// Script to prepare resources for the webserver, including SCSS compilation and
-// copying files from node modules
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 

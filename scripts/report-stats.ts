@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/report-stats.ts
-// Script to print statistics about a reports file
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
 import {Stats} from "node:fs";
 

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: static/resources/serviceworker.js
-// JavaScript to run tests within service workers
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 /* global bcd */
 
 self.importScripts("harness.js");

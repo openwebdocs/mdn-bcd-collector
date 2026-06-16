@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/app-version.ts
-// Get and export the app version
-//
-// Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import fs from "fs-extra";
 
 import exec from "./exec.js";

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/exec.ts
-// Execute a command
-//
-// Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import childProcess from "node:child_process";
 
 /**

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/feature-coverage.ts
-// Script to find features that are in the collector or BCD but not the other
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import {
   CompatData,
   CompatStatement,

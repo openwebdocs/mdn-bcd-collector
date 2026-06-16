@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: prepare.ts
-// A main entry point to run various scripts in a cross-platform friendly way
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import fs from "node:fs";
 
 import esMain from "es-main";

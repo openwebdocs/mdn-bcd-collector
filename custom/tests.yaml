@@ -1,11 +1,3 @@
-#
-# mdn-bcd-collector: custom-tests.yaml
-# Custom test code to override auto-generated test code
-#
-# © Gooborg Studios, Mozilla Corporation, Google LLC, Apple Inc
-# See the LICENSE file for copyright details
-#
-
 # See docs/custom-tests.md for instructions on how to modify this file
 
 # Reusable resources
