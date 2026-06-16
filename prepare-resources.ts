@@ -3,7 +3,6 @@ import {fileURLToPath} from "node:url";
 
 import esMain from "es-main";
 import fs from "fs-extra";
-import * as sass from "sass";
 
 const generatedDir = fileURLToPath(new URL("./generated", import.meta.url));
 
@@ -57,23 +56,11 @@ const copyResources = async () => {
 };
 
 /**
- * Generates CSS from SCSS file and writes it to the specified output path.
- * @returns A promise that resolves when the CSS generation and writing is complete.
- */
-const generateCSS = async () => {
-  const scssPath = fileURLToPath(new URL("./style.scss", import.meta.url));
-  const outPath = path.join(generatedDir, "resources", "style.css");
-  const result = sass.compile(scssPath);
-  await fs.writeFile(outPath, result.css.toString(), "utf8");
-};
-
-/**
  * Prepares the necessary resources for the application.
  * This function copies resources and generates CSS.
  */
 const prepareResources = async () => {
   await copyResources();
-  await generateCSS();
 };
 
 if (esMain(import.meta)) {
