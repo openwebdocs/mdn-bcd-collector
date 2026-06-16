@@ -1,6 +1,13 @@
 <%- contentFor('body') %>
 <h1 id="title">BCD collector <% if (dev) { %> (dev)<% } %></h1>
-<p id="subtitle">Browser compatibility data collection for <a href="https://github.com/mdn/browser-compat-data">@mdn/browser-compat-data</a>.<br> <br> Maintained by <a href="https://openwebdocs.org/">Open Web Docs</a>.</p>
+<div id="subtitle">
+  <p>Browser compatibility data collection for <a href="https://github.com/mdn/browser-compat-data">@mdn/browser-compat-data</a>. <p>
+
+  <p> <a href="https://openwebdocs.org/"><img src="/owd-logo-light.png" alt="Open Web Docs logo"></a></p>
+
+  <p>The BCD collector is maintained by Open Web Docs. <br> You can support this project via
+  <a href="https://opencollective.com/open-web-docs">sponsorships</a> on Open Source Collective.</p>
+</div>
 
 <%- include('extensioncheck') %>
 
@@ -38,25 +45,11 @@
 
 <div id="supported-browsers">
   <h2>Supported browsers</h2>
-  <div class="compat-table">
-    <div class="compat-table-entry">
-      <img src="/browser-logos/chrome.png" alt="" /><p>Chrome 1+</p>
-    </div>
-    <div class="compat-table-entry">
-      <img src="/browser-logos/edge.png" alt="" /><p>Edge 12+</p>
-    </div>
-    <div class="compat-table-entry">
-      <img src="/browser-logos/firefox.png" alt="" /><p>Firefox 1+</p>
-    </div>
-    <div class="compat-table-separator"></div>
-    <div class="compat-table-entry">
-      <img src="/browser-logos/opera.png" alt="" /><p>Opera 9.5+</p>
-    </div>
-    <div class="compat-table-entry">
-      <img src="/browser-logos/safari.png" alt="" /><p>Safari 3+</p>
-    </div>
-  </div>
-</div>
+  <p>Various browsers and environments are supported:</p>
+  <p>Chrome 1+ / Edge 12+ / Firefox 1+ / Opera 9.5+ / Safari 3+</p>
+  <p>Samsung Internet / Android & iOS WebViews / Oculus / and more</p>
+  <p>Nodejs (see also the <a href="https://github.com/unjs/runtime-compat">RCD</a> project)</p>
+</div> 
 
 <div id="known-caveats" class="paper">
   <h2><span class="mdi mdi-glass-fragile"></span>Double check results</h2>
