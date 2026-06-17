@@ -68,9 +68,9 @@
     "yargs": "18.0.0"
   },
   "devDependencies": {
-    "@babel/core": "8.0.0",
-    "@babel/eslint-parser": "8.0.0",
-    "@babel/preset-env": "8.0.0",
+    "@babel/core": "8.0.1",
+    "@babel/eslint-parser": "8.0.1",
+    "@babel/preset-env": "8.0.1",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.4",
     "@listr2/prompt-adapter-enquirer": "^4.2.1",
@@ -99,7 +99,7 @@
     "ejs-lint": "^2.0.1",
     "enquirer": "2.4.1",
     "es-scraper": "^0.0.13",
-    "eslint": "9.39.4",
+    "eslint": "10.5.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^63.0.5",
     "eslint-plugin-prefer-arrow": "1.2.3",
