@@ -24,6 +24,7 @@ import appVersion from "./lib/app-version.js";
 import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
 import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
+import {coverageData} from "./views/stats.js";
 
 type RequestWithSession = Request & {
   session: expressSession.Session;
@@ -237,6 +238,10 @@ app.get("/", (req: Request, res: Response) => {
     selenium: req.query.selenium,
     ignore: req.query.ignore,
   });
+});
+
+app.get("/stats", async (req: Request, res: Response) => {
+  res.render("stats", {coverageData});
 });
 
 /* c8 ignore start */
