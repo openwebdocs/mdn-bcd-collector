@@ -91,7 +91,7 @@ const startsWithUpperCase = (s: string): boolean => {
  * Returns the file path corresponding to the given BCD path.
  * @param ident - An array representing the BCD path.
  * @returns The file path as a string.
- * @throws If the file path cannot be determined from the BCD path.
+ * @throws {Error} If the file path cannot be determined from the BCD path.
  */
 export const getFilePath = (ident: string[]): string => {
   // Shorten or modify the path depending on the section of BCD. Make a copy
