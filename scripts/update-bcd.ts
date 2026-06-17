@@ -1100,7 +1100,7 @@ const pickFeatureList = <T extends UpdateLog>({
  * @param prefix - The prefix to be prepended to each key.
  * @param entry - The root object to traverse.
  * @returns A generator that yields key-value pairs.
- * @yields The next key-value pair in the object tree.
+ * @yields {Array} The next key-value pair in the object tree.
  */
 export const walkEntries = function* (
   prefix: string,
