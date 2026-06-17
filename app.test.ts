@@ -1,11 +1,12 @@
-import chai, {assert, expect} from "chai";
-import chaiHttp from "chai-http";
-chai.use(chaiHttp);
+import {assert, expect, use} from "chai";
+import {default as chaiHttp, request} from "chai-http";
+
+use(chaiHttp);
 
 import fs from "fs-extra";
 
 import {app, version} from "./app.js";
-const agent = chai.request.agent(app);
+const agent = request.agent(app);
 
 const tests = Object.entries(
   await fs.readJson(new URL("./tests.json", import.meta.url)),

@@ -1,7 +1,6 @@
-import chai, {assert} from "chai";
-import chaiSubset from "chai-subset";
+import {assert, use} from "chai";
 import chaiAsPromised from "chai-as-promised";
-chai.use(chaiSubset).use(chaiAsPromised);
+use(chaiAsPromised);
 
 import sinon from "sinon";
 
