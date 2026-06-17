@@ -1,6 +1,6 @@
-import chai, {assert, expect} from "chai";
+import {assert, expect, use} from "chai";
 import chaiAsPromised from "chai-as-promised";
-chai.use(chaiAsPromised);
+use(chaiAsPromised);
 
 import sinon from "sinon";
 import {Octokit} from "@octokit/rest";

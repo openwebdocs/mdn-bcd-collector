@@ -1,9 +1,5 @@
-import chai, {assert} from "chai";
-import chaiSubset from "chai-subset";
-chai.use(chaiSubset);
-
+import {assert} from "chai";
 import * as WebIDL2 from "webidl2";
-// import sinon from 'sinon';
 
 import {
   flattenIDL,

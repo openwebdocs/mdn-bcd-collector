@@ -1,7 +1,4 @@
-import chai, {assert} from "chai";
-import chaiSubset from "chai-subset";
-chai.use(chaiSubset);
-
+import {assert} from "chai";
 import {build} from "./webassembly.js";
 
 describe("build (WebAssembly)", () => {

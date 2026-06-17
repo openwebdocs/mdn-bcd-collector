@@ -13,7 +13,8 @@ const generatedDir = fileURLToPath(new URL("./generated", import.meta.url));
 const copyResources = async () => {
   const resources = [
     ["json3/lib/json3.min.js", "resources"],
-    ["chai/chai.js", "unittest"],
+    ["chai/index.js", "unittest"],
+    ["chai/register-assert.js", "unittest"],
     ["mocha/mocha.css", "unittest"],
     ["mocha/mocha.js", "unittest"],
     ["mocha/mocha.js.map", "unittest"],

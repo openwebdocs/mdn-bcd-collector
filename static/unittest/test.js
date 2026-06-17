@@ -6,8 +6,6 @@ mocha.setup({
   reporter: location.hash === "#reporter=json" ? "json" : "html"
 });
 
-var assert = chai.assert;
-
 describe("harness.js", function () {
   describe("addInstance", function () {
     beforeEach(function () {
