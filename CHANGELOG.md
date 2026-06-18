@@ -1,5 +1,14 @@
 # mdn-bcd-collector Changelog
 
+## v10.19.1
+
+Released June 18, 2026
+
+### Commits
+
+- build(deps): bump undici from 7.24.1 to 7.28.0 ([#3234](https://github.com/openwebdocs/mdn-bcd-collector/pull/3234))
+- Revert "Add a statistics page ([#3229](https://github.com/openwebdocs/mdn-bcd-collector/pull/3229))" ([#3235](https://github.com/openwebdocs/mdn-bcd-collector/pull/3235))
+
 ## v10.19.0
 
 Released June 18, 2026
