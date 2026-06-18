@@ -4,7 +4,7 @@ import fs from "fs-extra";
 
 import bcd from "../unittest/bcd.test.js";
 
-import {traverseFeatures, getMissing} from "./feature-coverage.js";
+import {traverseFeatures, getMissing} from "../lib/coverage.js";
 
 const tests = await fs.readJson(
   new URL("../unittest/tests.test.json", import.meta.url),
