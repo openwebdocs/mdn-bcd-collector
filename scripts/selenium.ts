@@ -1,4 +1,5 @@
 import path from "node:path";
+import {styleText} from "node:util";
 
 import {
   Browser,
@@ -18,7 +19,6 @@ import {compare as compareVersions} from "compare-versions";
 import fetch from "node-fetch";
 import esMain from "es-main";
 import fs from "fs-extra";
-import chalk from "chalk-template";
 import {Listr, ListrTask, ListrTaskWrapper} from "listr2";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -686,13 +686,18 @@ const runAll = async (
 ) => {
   if (!Object.keys(secrets.selenium).length) {
     console.error(
-      chalk`{red.bold A Selenium remote WebDriver URL is not defined in secrets.json.  Please define your Selenium remote(s).}`,
+      styleText(
+        ["red", "bold"],
+        "A Selenium remote WebDriver URL is not defined in secrets.json. Please define your Selenium remote(s).",
+      ),
     );
     return false;
   }
 
   if (testenv) {
-    console.warn(chalk`{yellow.bold Test mode: results are not saved.}`);
+    console.warn(
+      styleText(["yellow", "bold"], "Test mode: results are not saved."),
+    );
   }
 
   const browsersToTest = getBrowsersToTest(
