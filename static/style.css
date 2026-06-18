@@ -21,6 +21,10 @@ html {
   font-family: sans-serif;
 }
 
+body {
+  margin-top: 50px;
+}
+
 a {
   color: black;
 }
