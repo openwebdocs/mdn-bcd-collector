@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import {getBCDDir} from "../lib/constants.js";
 const BCD_DIR = getBCDDir();
 const {default: bcd} = await import(`${BCD_DIR}/index.js`);
-import {getMissing} from "../scripts/feature-coverage.js";
+import {getMissing} from "../lib/coverage.js";
 
 const testsPath = new URL("../tests.json", import.meta.url);
 if (!fs.existsSync(testsPath)) {
