@@ -1,7 +1,7 @@
 import path from "node:path";
 import {Stats} from "node:fs";
+import {styleText} from "node:util";
 
-import chalk from "chalk-template";
 import esMain from "es-main";
 import fs from "fs-extra";
 import yargs from "yargs";
@@ -57,7 +57,7 @@ const percentage = (value: number, total: number): string => {
 const loadFile = async (file: string): Promise<Report | undefined> => {
   // Check file argument to ensure it's a valid JSON file
   if (!file) {
-    console.error(chalk`{red No file has been specified!}`);
+    console.error(styleText("red", "No file has been specified!"));
     return;
   }
 
@@ -67,13 +67,17 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   try {
     fsStats = await fs.stat(file);
   } catch (e) {
-    console.error(chalk`{red File {bold ${file}} doesn't exist!}`);
+    console.error(
+      styleText("red", `File ${styleText("bold", file)} doesn't exist!`),
+    );
     return;
   }
 
   // Check if file is a file and ends in .json
   if (!(fsStats.isFile() && path.extname(file) === ".json")) {
-    console.error(chalk`{red File {bold ${file}} is not a JSON file!}`);
+    console.error(
+      styleText("red", `File ${styleText("bold", file)} is not a JSON file!`),
+    );
     return;
   }
 
@@ -83,14 +87,19 @@ const loadFile = async (file: string): Promise<Report | undefined> => {
   try {
     data = await fs.readJson(file);
   } catch (e) {
-    console.error(chalk`{red Could not parse JSON from {bold ${file}}!}`);
+    console.error(
+      styleText("red", `Could not parse JSON from ${styleText("bold", file)}!`),
+    );
     return;
   }
 
   // Check to make sure it's a valid report file
   if (!("__version" in data && "results" in data && "userAgent" in data)) {
     console.error(
-      chalk`{red File {bold ${file}} does not seem to be a collector report file!  Expected "__version", "results" and "userAgent" keys.}`,
+      styleText(
+        "red",
+        `File ${styleText("bold", file)} does not seem to be a collector report file! Expected "__version", "results" and "userAgent" keys.!`,
+      ),
     );
   }
 
@@ -153,56 +162,59 @@ export const getStats = (data: Report, featureQuery: string[]): ReportStats => {
  */
 const printStats = (stats: ReportStats, verboseNull: boolean): void => {
   console.log(
-    chalk` -=- Statistics for {bold ${stats.browser.browser.name} ${stats.browser.version}} (${stats.browser.os.name} ${stats.browser.os.version}) -=-`,
+    `-=- Statistics for ${stats.browser.browser.name} ${stats.browser.version} (${stats.browser.os.name} ${stats.browser.os.version}) -=-`,
   );
 
   if (!stats.browser.inBcd) {
     if (stats.browser.inBcd === false) {
-      console.log(chalk`{red Warning: browser version is {bold not} in BCD.}`);
+      console.log(
+        styleText(
+          "red",
+          `Warning: browser version is ${styleText("bold", "not")} in BCD.`,
+        ),
+      );
     } else {
-      console.log(chalk`{red Warning: browser is {bold not} in BCD.}`);
+      console.log(
+        styleText(
+          "red",
+          `Warning: browser is ${styleText("bold", "not")} in BCD.`,
+        ),
+      );
     }
   }
 
   if (stats.urls.length == 0) {
-    console.log(chalk`{yellow Report file has no results!}\n`);
+    console.log(styleText("yellow", "Report file has no results!\n"));
     return;
   }
 
-  console.log(
-    chalk`{bold URLs Run:}\n${stats.urls.map((u) => ` - ${u}`).join("\n")}`,
-  );
+  console.log(`URLs Run:\n${stats.urls.map((u) => ` - ${u}`).join("\n")}`);
 
   const totalTests = stats.testResults.total;
-  console.log(chalk`Tests Run: {bold ${totalTests}}`);
+  console.log(`Tests Run: ${styleText("bold", totalTests.toString())}`);
 
   for (const {name, color} of Object.values(statuses)) {
     const status = name.toLowerCase();
     const testResults = stats.testResults[status].length;
     console.log(
-      chalk` - {${color} ${name}: {bold ${testResults}} features ({bold ${percentage(
+      ` - ${color} ${name}: ${testResults} features (${percentage(
         testResults,
         totalTests,
-      )}} of tested / {bold ${percentage(
-        testResults,
-        tests.length,
-      )}} of total)}`,
+      )} of tested / ${percentage(testResults, tests.length)} of total)`,
     );
   }
 
   if (verboseNull) {
     for (const f of stats.testResults.unknown) {
-      console.log(chalk`   - {yellow ${f}}`);
+      console.log(`   - ${styleText("yellow", f)}`);
     }
   }
 
   console.log(
-    chalk` - {gray Missing: {bold ${
-      stats.testResults.missing.length
-    }} features ({bold ${percentage(
+    ` -  Missing: ${stats.testResults.missing.length} features (${percentage(
       stats.testResults.missing.length,
       tests.length,
-    )}})}`,
+    )})`,
   );
 
   if (stats.featuresQueried.length) {
@@ -210,7 +222,7 @@ const printStats = (stats: ReportStats, verboseNull: boolean): void => {
     for (const feature of stats.featuresQueried) {
       const status = statuses[JSON.stringify(feature.result)] || statuses.null;
       console.log(
-        chalk` - ${feature.name} ({bold ${feature.exposure}} exposure): {${
+        ` - ${feature.name} (${feature.exposure} exposure): {${
           status.color || "bold"
         } ${status.name}}` + (feature.message ? ` - ${feature.message}` : ""),
       );

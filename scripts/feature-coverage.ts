@@ -1,9 +1,11 @@
+import {styleText} from "node:util";
+
 import {
   CompatData,
   CompatStatement,
   SimpleSupportStatement,
 } from "@mdn/browser-compat-data/types";
-import chalk from "chalk-template";
+
 import esMain from "es-main";
 import fs from "fs-extra";
 import jsonc from "jsonc-parser";
@@ -294,7 +296,10 @@ const main = (bcd: CompatData, tests: Tests) => {
 
   if (!argv.countOnly) {
     console.log(
-      chalk`{yellow Finding entries that are missing in {red.bold ${direction[0]}} but present in {green.bold ${direction[1]}}...}\n`,
+      styleText(
+        "yellow",
+        `Finding entries that are missing in ${styleText(["red", "bold"], direction[0])} but present in ${styleText(["green", "bold"], direction[1])}\n`,
+      ),
     );
   }
 
@@ -311,8 +316,8 @@ const main = (bcd: CompatData, tests: Tests) => {
 
   for (const [filter, data] of Object.entries(missingFeatures)) {
     console.log(
-      (filter ? chalk`{blue ${filter}}: ` : "") +
-        chalk`{green.bold ${direction[0]}} covers {green ${data.all.found.length} (${(
+      (filter ? `${filter}: ` : "") +
+        `${direction[0]} covers ${data.all.found.length} (${(
           (data.testable.found.length / data.testable.all.length) *
           100.0
         ).toFixed(2)}%/${(
@@ -320,16 +325,16 @@ const main = (bcd: CompatData, tests: Tests) => {
           100.0
         ).toFixed(
           2,
-        )}%)} of {cyan ${data.testable.all.length}/${data.all.all.length}} entries in {red.bold ${direction[1]}} ({red ${data.testable.missing.length} (${(
+        )}%)} of ${data.testable.all.length}/${data.all.all.length} entries in ${direction[1]} (${data.testable.missing.length} (${(
           (data.testable.missing.length / data.testable.all.length) *
           100.0
         ).toFixed(2)}%/${(
           (data.all.missing.length / data.all.all.length) *
           100.0
-        ).toFixed(2)}%)} missing, {gray ${data.untestable.all.length} (${(
+        ).toFixed(2)}%) missing, ${data.untestable.all.length} (${(
           (data.untestable.all.length / data.all.all.length) *
           100.0
-        ).toFixed(2)}%) untestable by collector})`,
+        ).toFixed(2)}%) untestable by collector)`,
     );
 
     if (firstEntry) {
@@ -338,9 +343,7 @@ const main = (bcd: CompatData, tests: Tests) => {
 
       if (!argv.countOnly) {
         console.log(
-          chalk`{red Missing Features:}\n` +
-            data.testable.missing.join("\n") +
-            "\n",
+          "Missing Features: \n" + data.testable.missing.join("\n") + "\n",
         );
       }
     }
