@@ -202,7 +202,7 @@ const buildBuiltinsTest = async (
   const category = getCategory(parts);
   const isInSubcategory = category !== basePath;
 
-  let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[] = "";
+  let expr: string | RawTestCodeExpr | (string | RawTestCodeExpr)[];
 
   // We should be looking for an exact match if we're checking for a subfeature not
   // defined on the object prototype (in other words, static members and functions)

@@ -223,7 +223,7 @@ const getSafariOS = (version: string): string | undefined => {
  * @throws {Error} - If the provided OS is unknown or unsupported.
  */
 const getOsesToTest = (service: string, os: string): [string, string][] => {
-  let osesToTest: [string, string][] = [];
+  let osesToTest: [string, string][];
 
   switch (os) {
     case "Windows":
@@ -639,6 +639,7 @@ const run = async (
       if ((e as Error).name == "TimeoutError") {
         throw new Error(
           task.title + " - " + "Timed out waiting for results to upload",
+          {cause: e},
         );
       }
 

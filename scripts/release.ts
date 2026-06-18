@@ -30,6 +30,7 @@ const prepare = (): ListrTask[] => {
         } catch (e) {
           throw new Error(
             chalk`{red This script depends on {bold git}. Please {bold install} git using the following instructions:} {blue https://git-scm.com/book/en/v2/Getting-Started-Installing-Git}`,
+            {cause: e},
           );
         }
       },
@@ -45,6 +46,7 @@ const prepare = (): ListrTask[] => {
         } catch (e) {
           throw new Error(
             chalk`{red This script depends on the {bold GitHub CLI}. Please {bold install} the CLI using the following instructions:} {blue https://cli.github.com/}`,
+            {cause: e},
           );
         }
       },
