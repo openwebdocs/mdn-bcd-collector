@@ -1,5 +1,19 @@
 # mdn-bcd-collector Changelog
 
+## v10.19.0
+
+Released June 18, 2026
+
+### Commits
+
+- Add a statistics page ([#3229](https://github.com/openwebdocs/mdn-bcd-collector/pull/3229))
+- Replace chalk with styleText ([#3232](https://github.com/openwebdocs/mdn-bcd-collector/pull/3232))
+- build(deps-dev): bump the dev group across 1 directory with 7 updates ([#3230](https://github.com/openwebdocs/mdn-bcd-collector/pull/3230))
+- Remove eslint-plugin-import ([#3231](https://github.com/openwebdocs/mdn-bcd-collector/pull/3231))
+- Update eslint-plugin-jsdoc; fix jsdoc warnings ([#3224](https://github.com/openwebdocs/mdn-bcd-collector/pull/3224))
+- Update chai ([#3223](https://github.com/openwebdocs/mdn-bcd-collector/pull/3223))
+- Remove unneeded swc dependency ([#3222](https://github.com/openwebdocs/mdn-bcd-collector/pull/3222))
+
 ## v10.18.0
 
 Released June 16, 2026
