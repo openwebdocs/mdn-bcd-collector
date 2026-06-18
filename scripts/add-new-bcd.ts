@@ -10,7 +10,7 @@ import {hideBin} from "yargs/helpers";
 import {getBCDDir, getResultsDir} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
-import {getMissing} from "../lib/coverage.js";
+import {getMissing} from "./feature-coverage.js";
 import {main as updateBcd} from "./update-bcd.js";
 
 const BCD_DIR = getBCDDir();
