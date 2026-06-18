@@ -1,7 +1,5 @@
 import fs from "fs-extra";
-import {getBCDDir} from "../lib/constants.js";
-const BCD_DIR = getBCDDir();
-const {default: bcd} = await import(`${BCD_DIR}/index.js`);
+import bcd from "@mdn/browser-compat-data" with {type: "json"};
 import {getMissing} from "../lib/coverage.js";
 
 const testsPath = new URL("../tests.json", import.meta.url);
