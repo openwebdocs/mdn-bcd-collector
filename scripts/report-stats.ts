@@ -12,7 +12,7 @@ import {Report, ReportStats} from "../types/types.js";
 import {getBCDDir} from "../lib/constants.js";
 import {parseUA} from "../lib/ua-parser.js";
 
-import {findMissing} from "../lib/coverage.js";
+import {findMissing} from "./feature-coverage.js";
 
 const BCD_DIR = getBCDDir();
 
