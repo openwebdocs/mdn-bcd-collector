@@ -31,7 +31,7 @@ const parseResults = (
   try {
     url = new URL(url).toString();
   } catch (e) {
-    throw new Error("invalid URL");
+    throw new Error("invalid URL", {cause: e});
   }
 
   if (!Array.isArray(results)) {
