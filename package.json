@@ -92,8 +92,6 @@
     "chai": "^6.2.2",
     "chai-as-promised": "8.0.2",
     "chai-http": "5.1.2",
-    "cheerio": "^1.2.0",
-    "core-js": "^3.49.0",
     "css-tree": "^3.2.1",
     "ejs-lint": "^2.0.1",
     "enquirer": "2.4.1",
