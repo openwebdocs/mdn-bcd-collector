@@ -16,7 +16,6 @@ import bcd from "@mdn/browser-compat-data" with {type: "json"};
 
 const bcdBrowsers = bcd.browsers;
 import {compare as compareVersions} from "compare-versions";
-import fetch from "node-fetch";
 import esMain from "es-main";
 import fs from "fs-extra";
 import {Listr, ListrTask, ListrTaskWrapper} from "listr2";
@@ -660,8 +659,8 @@ const run = async (
     if (!ctx.testenv) {
       const filename = path.basename(new URL(downloadUrl).pathname);
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).buffer();
-      await fs.writeFile(path.join(RESULTS_DIR, filename), report);
+      const report = await (await fetch(downloadUrl)).arrayBuffer();
+      await fs.writeFile(path.join(RESULTS_DIR, filename), Buffer.from(report));
     }
   } finally {
     driver.quit().catch(() => {});
