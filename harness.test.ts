@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/puppeteer/harness.test.ts
-// Unittest for testing harness.js in multiple browsers
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation
-// See the LICENSE file for copyright details
-//
-
 import {fileURLToPath} from "node:url";
 
 import {assert} from "chai";

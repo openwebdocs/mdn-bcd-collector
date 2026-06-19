@@ -1,15 +1,6 @@
-//
-// mdn-bcd-collector: app.ts
-// Main app backend for the website
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import https from "node:https";
 import http from "node:http";
 import querystring from "node:querystring";
-import readline from "node:readline";
 
 import fs from "fs-extra";
 import bcd from "@mdn/browser-compat-data" with {type: "json"};
@@ -19,9 +10,6 @@ import express, {Request, Response, NextFunction} from "express";
 import {expressCspHeader, INLINE, SELF, EVAL} from "express-csp-header";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
-import {marked, Tokens as MarkedToken} from "marked";
-import {gfmHeadingId} from "marked-gfm-heading-id";
-import hljs from "highlight.js";
 import expressLayouts from "express-ejs-layouts";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -36,6 +24,7 @@ import appVersion from "./lib/app-version.js";
 import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
 import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
+import {coverageData} from "./views/stats.js";
 
 type RequestWithSession = Request & {
   session: expressSession.Session;
@@ -147,91 +136,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Configure marked
-
-// Add IDs to headers
-marked.use(gfmHeadingId());
-
-marked.use({
-  renderer: {
-    /**
-     * Support for GFM note blockquotes; https://github.com/orgs/community/discussions/16925
-     * @param token - The blockquote token
-     * @returns The rendered blockquote element.
-     */
-    blockquote: (token: MarkedToken.Blockquote): string | false => {
-      if (!token.text) {
-        return false;
-      }
-      const noteblockTypes = ["NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"];
-      const regex = new RegExp(`\\[!(${noteblockTypes.join("|")})\\]`);
-
-      const lines = token.text.split("\n");
-      const match = lines[0].match(regex);
-
-      if (!match) {
-        // If the blockquote is not a GFM note, return
-        return false;
-      }
-
-      const type = match[1];
-      const text = lines.slice(1).join("\n");
-      const contents = (marked.parse(text) as string)
-        .replace(/^<p>/, "")
-        .replace(/<\/p>$/, "");
-
-      return `<blockquote class="${type.toLowerCase()}block">
-        <p><strong class="blockquote-header">${type}</strong>: ${contents}
-      </blockquote>`;
-    },
-    /**
-     * Code syntax highlighting and Mermaid flowchart rendering
-     * @param token - The codeblock token
-     * @returns The rendered code element.
-     */
-    code: (token: MarkedToken.Code): string => {
-      if (!token.lang) {
-        return `<pre><code class="hljs language-plaintext">${token.text}</code><pre>`;
-      }
-
-      const [lang, ...classes] = token.lang.split(" ");
-      if (lang === "mermaid") {
-        return `<pre class="mermaid ${classes.join(" ")}">${token.text}</pre>`;
-      }
-
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      const renderedCode = hljs.highlight(token.text, {language}).value;
-      return `<pre><code class="hljs language-${language} ${classes.join(" ")}">${renderedCode}</code></pre>`;
-    },
-  },
-});
-
-// Markdown renderer
-/**
- * Renders the Markdown file.
- * @param filepath - The path to the Markdown file.
- * @param req - The request object.
- * @param res - The response object.
- * @returns - A promise that resolves when the rendering is complete.
- */
-const renderMarkdown = async (
-  filepath: URL | string,
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  if (!fs.existsSync(filepath)) {
-    res.status(404).render("error", {
-      title: "Page Not Found",
-      message: "The requested page was not found.",
-      url: req.url,
-    });
-    return;
-  }
-
-  const fileData = await fs.readFile(filepath, "utf8");
-  res.render("md", {md: marked.parse(fileData)});
-};
-
 // Backend API
 
 app.post("/api/get", (req: Request, res: Response) => {
@@ -336,50 +240,8 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-app.get("/about", async (req: Request, res: Response) => {
-  res.redirect("/docs/about.md");
-});
-
-app.get("/changelog", async (req: Request, res: Response) => {
-  await renderMarkdown(new URL("./CHANGELOG.md", import.meta.url), req, res);
-});
-
-app.get(/\/changelog\/(.*)/, async (req: Request, res: Response) => {
-  await renderMarkdown(
-    new URL(`./changelog/${req.params[0]}`, import.meta.url),
-    req,
-    res,
-  );
-});
-
-app.get("/docs", async (req: Request, res: Response) => {
-  const docs: Record<string, string> = {};
-  for (const f of await fs.readdir(new URL("./docs", import.meta.url))) {
-    const readable = fs.createReadStream(
-      new URL(`./docs/${f}`, import.meta.url),
-    );
-    const reader = readline.createInterface({input: readable});
-    const line: string = await new Promise((resolve) => {
-      reader.on("line", (line) => {
-        reader.close();
-        resolve(line);
-      });
-    });
-    readable.close();
-
-    docs[f] = line.replace("# ", "");
-  }
-  res.render("docs", {
-    docs,
-  });
-});
-
-app.get(/\/docs\/(.*)/, async (req: Request, res: Response) => {
-  await renderMarkdown(
-    new URL(`./docs/${req.params["0"]}`, import.meta.url),
-    req,
-    res,
-  );
+app.get("/stats", async (req: Request, res: Response) => {
+  res.render("stats", {coverageData});
 });
 
 /* c8 ignore start */

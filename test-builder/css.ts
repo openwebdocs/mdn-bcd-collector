@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/css.ts
-// Functions directly related to building all of the CSS tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import {definitionSyntax as cssSyntaxParser} from "css-tree";
 
 import {getCustomTest, compileTest} from "./common.js";
@@ -255,6 +247,11 @@ const resolveValuesFromTypes = (
   const resolved: string[] = [];
 
   for (const value of values) {
+    // See https://github.com/openwebdocs/mdn-bcd-collector/pull/3110#issuecomment-4125211642
+    // There is a circular reference to <color> from <light-dark-color>, so we ignore this type for now.
+    if (value === "<light-dark-color>") {
+      continue;
+    }
     if (value.startsWith("<")) {
       const type = value.replace(/^<(.*)>$/, "$1");
       if (type in types) {
@@ -341,6 +338,7 @@ const remapPropertyValues = (input, types) => {
         "initial",
         "revert",
         "revert-layer",
+        "revert-rule",
         "unset",
         ...ignoredColorNames,
       ].includes(val)

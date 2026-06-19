@@ -1,0 +1,57 @@
+<%- contentFor('body') %>
+
+<h1>Statistics</h1>
+<p style="text-align: center;">
+  <strong>Collector</strong>: v<%- appVersion %> <br>
+  <strong>BCD</strong>: v<%- bcdVersion %>
+</p>
+
+
+<div class="paper">
+  <h2>How many existing BCD keys are covered by the Collector?</h2>
+
+  <ul>
+    <li>Total BCD keys: <%-coverageData.bcd.total%></li>
+    <li>BCD keys covered: <%-coverageData.bcd.covered%> (<strong><%-coverageData.bcd.uncoveredPercentage%>%</strong>)</li>
+    <li>BCD keys <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/untestable-features.jsonc">not testable</a>: <%-coverageData.bcd.untestable%> (HTTP, WebExtensions, WebDriver, and more)</li>
+    <li>Testable BCD keys not covered: <%-coverageData.bcd.testableUncovered%> (see list below)</li>
+    <li>Collector coverage of testable BCD keys: <strong><%-coverageData.bcd.percentage%>%</strong></li>
+  </ul>
+
+  <p> List of testable BCD keys not covered: <br> (Either need to be marked as untestable, or a test needs to written)</p>
+  <details>
+    <ol>
+    <% for (item of coverageData.bcd.missingList) { %>
+      <li><%- item %></li>
+    <% } %>
+    </ol>
+  </details>
+</div>
+
+<div class="paper">
+  <h2>How many new ("early") BCD keys are in the Collector but not in BCD?</h2>
+
+  <ul>
+    <li>Early Collector keys not in BCD: <strong><%-coverageData.collector.total%></strong></li>
+  </ul>
+
+  <p>List of early Collector keys: <br>(Need to test for support in nightly and/or behind flags, or add as an "all-false" feature, or declare as "too early" / "spec fiction")</p>
+  <details>
+    <ol>
+    <% for (item of coverageData.collector.missingList) { %>
+      <li><%- item %></li>
+    <% } %>
+    </ol>
+  </details>
+
+  <p>If a key is not in the "early" feature list, it can have a variety of reasons:</p>
+
+  <ul>
+    <li>The feature is not defined in a specification that is registered in <a href="https://github.com/w3c/browser-specs">w3c/browser-specs</a>. Maybe it is just part of an explainer or an open PR against an existing specification.</li>
+    <li>The specification is not marked with <code>standing: good</code>.</li>
+    <li>The <a href="https://github.com/w3c/reffy">w3c/reffy</a> crawler did not recognize the feature from the specification text.</li>
+    <li>The latest version of <a href="https://github.com/w3c/webref">w3c/webref</a> does not include the feature yet.</li>
+    <li>The Collector has not been updated to the latest webref version yet.</li>
+    <li>The Collector has no support for discovering this kind of feature yet. (for example, the list of HTML elements and their attributes is currently not picked up automatically from webref; instead it is maintained manually).</li>
+  </ul>
+</div>

@@ -32,8 +32,6 @@
     "-webkit-locale": {},
     "-webkit-logical-height": {},
     "-webkit-logical-width": {},
-    "-webkit-margin-after": {},
-    "-webkit-margin-before": {},
     "-webkit-marquee": {},
     "-webkit-mask-box-image": {},
     "-webkit-mask-composite": {},
@@ -719,7 +717,9 @@
         "image": "url(test.png)",
         "inset": "inset(10px 10px 10px 10px)",
         "path": "path('M20,20 L50,80 L80,20')",
-        "polygon": "polygon(10px 10px, 20px 20px, 30px 30px)"
+        "polygon": "polygon(10px 10px, 20px 20px, 30px 30px)",
+        "rect": "rect(50px 70px 80% 20%)",
+        "xywh": "xywh(0 1% 2px 3% round 0 1px 2% 3px)"
       }
     },
     "src": {},
@@ -1038,6 +1038,7 @@
         "color": "color(display-p3 0.7 0.5 0)",
         "color-contrast": "color-contrast(wheat vs tan, sienna, #d2691e)",
         "color-mix": "color-mix(in lch, plum, pink)",
+        "contrast-color": "contrast-color(wheat)",
         "currentcolor": "currentcolor",
         "hsl": "hsl(150, 30%, 60%)",
         "hwb": "hwb(12, 50%, 0%)",

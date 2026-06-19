@@ -1,18 +1,10 @@
-//
-// mdn-bcd-collector: unittest/scripts/feature-coverage.test.ts
-// Unittest for the feature coverage report script
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import {assert} from "chai";
 import sinon from "sinon";
 import fs from "fs-extra";
 
 import bcd from "../unittest/bcd.test.js";
 
-import {traverseFeatures, getMissing} from "./feature-coverage.js";
+import {traverseFeatures, getMissing} from "../lib/coverage.js";
 
 const tests = await fs.readJson(
   new URL("../unittest/tests.test.json", import.meta.url),

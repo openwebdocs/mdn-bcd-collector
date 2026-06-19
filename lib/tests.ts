@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/tests.ts
-// Module for handling the tests for the web app
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import didYouMean from "didyoumean";
 
 import type {Exposure, Resources, Tests as TestsType} from "../types/types.js";

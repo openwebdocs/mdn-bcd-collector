@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/elements.ts
-// Functions directly related to building all of the HTML, SVG and MathML element tests
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {getCustomTest, compileTest} from "./common.js";
 
 const categories: Record<

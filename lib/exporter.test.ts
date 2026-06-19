@@ -1,14 +1,6 @@
-//
-// mdn-bcd-collector: unittest/unit/exporter.test.ts
-// Unittest for the results exporter script
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
-import chai, {assert, expect} from "chai";
+import {assert, expect, use} from "chai";
 import chaiAsPromised from "chai-as-promised";
-chai.use(chaiAsPromised);
+use(chaiAsPromised);
 
 import sinon from "sinon";
 import {Octokit} from "@octokit/rest";
@@ -98,7 +90,7 @@ describe("GitHub export", () => {
           .expects("createRef")
           .once()
           .withArgs({
-            owner: "GooborgStudios",
+            owner: "openwebdocs",
             ref: `refs/heads/collector/${expected.slug}`,
             repo: "mdn-bcd-results",
             sha: "753c6ed8e991e9729353a63d650ff0f5bd902b69",
@@ -110,7 +102,7 @@ describe("GitHub export", () => {
           .once()
           .withArgs(
             sinon.match({
-              owner: "GooborgStudios",
+              owner: "openwebdocs",
               repo: "mdn-bcd-results",
               path: `${expected.slug}.json`,
               message: expected.title,
@@ -124,7 +116,7 @@ describe("GitHub export", () => {
           .expects("create")
           .once()
           .withArgs({
-            owner: "GooborgStudios",
+            owner: "openwebdocs",
             repo: "mdn-bcd-results",
             title: expected.title,
             head: `collector/${expected.slug}`,

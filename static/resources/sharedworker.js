@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: static/resources/sharedworker.js
-// JavaScript to run tests within shared workers
-//
-// © Mozilla Corporation, Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 /* global bcd */
 
 self.importScripts("harness.js");

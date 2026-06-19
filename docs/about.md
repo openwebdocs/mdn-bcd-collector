@@ -6,7 +6,7 @@ Feature detection tests are generated based on machine-readable data (Web IDL, C
 
 ## Project History
 
-This project was started by [Philip Jägenstedt](https://foolip.org/) at Google, who later contracted [Vinyl Da.i'gyu-Kazotetsu](https://www.queengoob.org) to help develop the project further. Vinyl had since forked the project and had been maintaining her own version under her own company, [Gooborg Studios](https://www.gooborg.com). The project now lives under [Open Web Docs](https://www.openwebdocs.org) ownership, with [Gooborg Studios](https://www.gooborg.com) continuing to handle the hosting.
+This project was started by [Philip Jägenstedt](https://foolip.org/) at Google, who later contracted [Vinyl Da.i'gyu-Kazotetsu](https://www.queengoob.org) to help develop the project further. Vinyl had since forked the project and had been maintaining her own version under her own company, [Gooborg Studios](https://www.gooborg.com). The project is now maintained by [Open Web Docs](https://www.openwebdocs.org).
 
 ## How to Use
 
@@ -121,8 +121,6 @@ While some of our code is based on MDN Web Docs examples, it is modified to fit 
 
 While some of our code is based on WPT.live tests, it is modified to fit our needs better.
 
-## Copyright
-
-© 2023 [Gooborg Studios](https://www.gooborg.com/) + [Open Web Docs](https://www.openwebdocs.org) + [various contributors](https://github.com/openwebdocs/mdn-bcd-collector/graphs/contributors), © 2020-2022 Google LLC, Mozilla Corporation and [Gooborg Studios](https://www.gooborg.com/).
+## License
 
 This project is under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) license.

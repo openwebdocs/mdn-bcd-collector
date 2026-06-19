@@ -1,12 +1,4 @@
-//
-// mdn-bcd-collector: scripts/release.ts
-// Script to perform a new mdn-bcd-collector release
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
-import chalk from "chalk-template";
+import {styleText} from "node:util";
 import esMain from "es-main";
 import fs from "fs-extra";
 import {Listr, ListrTask} from "listr2";
@@ -37,7 +29,11 @@ const prepare = (): ListrTask[] => {
           await exec("git --version");
         } catch (e) {
           throw new Error(
-            chalk`{red This script depends on {bold git}. Please {bold install} git using the following instructions:} {blue https://git-scm.com/book/en/v2/Getting-Started-Installing-Git}`,
+            styleText(
+              "red",
+              `This script depends on ${styleText("bold", "git")}. Please {${styleText("bold", "install")} git using the following instructions: ${styleText("blue", "https://git-scm.com/book/en/v2/Getting-Started-Installing-Git")}`,
+            ),
+            {cause: e},
           );
         }
       },
@@ -52,7 +48,11 @@ const prepare = (): ListrTask[] => {
           await exec("gh --version");
         } catch (e) {
           throw new Error(
-            chalk`{red This script depends on the {bold GitHub CLI}. Please {bold install} the CLI using the following instructions:} {blue https://cli.github.com/}`,
+            styleText(
+              "red",
+              `This script depends on the ${styleText("bold", "GitHub CLI")}. Please {${styleText("bold", "install")} the CLI using the following instructions: ${styleText("blue", "https://cli.github.com/")}`,
+            ),
+            {cause: e},
           );
         }
       },
@@ -71,7 +71,10 @@ const prepare = (): ListrTask[] => {
         const changes = await exec("git status -s");
         if (changes.length) {
           throw new Error(
-            chalk`{red You currently have {bold uncommitted changes}. Please {bold commit} or {bold stash} your changes and try again.}`,
+            styleText(
+              "red",
+              `You currently have ${styleText("bold", "uncommitted changes")}. Please ${styleText("bold", "commit")} or ${styleText("bold", "stash")} your changes and try again.`,
+            ),
           );
         }
       },
@@ -119,19 +122,19 @@ const getNewVersion = async (ctx, task) => {
     message: "How should we bump the version?",
     choices: [
       {
-        message: chalk`Major {blue (${newVersions[0]})}`,
+        message: `Major ${styleText("blue", newVersions[0])}`,
         name: newVersions[0],
       },
       {
-        message: chalk`Minor {blue (${newVersions[1]})}`,
+        message: `Minor ${styleText("blue", newVersions[1])}`,
         name: newVersions[1],
       },
       {
-        message: chalk`Patch {blue (${newVersions[2]})}`,
+        message: `Patch ${styleText("blue", newVersions[2])}`,
         name: newVersions[2],
       },
       {
-        message: chalk`{yellow Cancel}`,
+        message: styleText("yellow", "Cancel"),
         name: "cancel",
       },
     ],
@@ -139,7 +142,7 @@ const getNewVersion = async (ctx, task) => {
   });
 
   if (ctx.newVersion === "cancel") {
-    throw new Error(chalk`{yellow Release cancelled by user}`);
+    throw new Error(styleText("yellow", "Release cancelled by user"));
   }
 };
 
@@ -432,12 +435,12 @@ const main = async () => {
   const tasks = new Listr(
     [
       {
-        title: "Check prerequesites",
+        title: "Check prerequisites",
         /**
-         * Check prerequesites.
+         * Check prerequisites.
          * @param _ - The context object.
          * @param task - The task object.
-         * @returns - A promise that resolves when the prerequesites are checked.
+         * @returns - A promise that resolves when the prerequisites are checked.
          */
         task: (_, task) => task.newListr(prepare()),
       },
@@ -492,7 +495,10 @@ const main = async () => {
 
           if (!confirm) {
             throw new Error(
-              chalk`{yellow Release cancelled by user, reverting package[-lock.json] changes (changelog retained)}`,
+              styleText(
+                "yellow",
+                "Release cancelled by user, reverting package[-lock.json] changes (changelog retained)",
+              ),
             );
           }
         },

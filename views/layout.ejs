@@ -1,17 +1,9 @@
-<!--
-mdn-bcd-collector: views/layout.ejs
-Main page layout
-
-© Gooborg Studios, Google LLC
-See the LICENSE file for copyright details
--->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Web feature detections designed to assist the @mdn/browser-compat-data project.">
+    <meta name="description" content="An Open Web Docs project to collect compatibility data for browser-compat-data (BCD).">
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
@@ -33,28 +25,28 @@ See the LICENSE file for copyright details
     <meta name="theme-color" content="#260037">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ead4ff">
 
-    <title><% if (locals.title) {%><%= title %> | <% } %>mdn-bcd-collector<% if (dev) {%> (dev)<% } %></title>
+    <title><% if (locals.title) {%><%= title %> | <% } %>BCD Collector<% if (dev) {%> (dev)<% } %></title>
 
-    <link rel="stylesheet" type="text/css" href="/resources/style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/resources/materialdesignicons.min.css">
   </head>
   <body>
     <nav id="navbar">
       <a href="/"><span class="mdi mdi-home"></span> Home</a>
-      <a href="/docs/about.md"><span class="mdi mdi-information"></span> About</a>
-      <a href="/docs"><span class="mdi mdi-file-document-multiple"></span> Docs</a>
+      <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/docs/about.md"><span class="mdi mdi-information"></span> About</a>
+      <a href="https://github.com/openwebdocs/mdn-bcd-collector/tree/main/docs"><span class="mdi mdi-file-document-multiple"></span> Docs</a>
       <a href="https://opencollective.com/open-web-docs"><span class="mdi mdi-hand-coin"></span> Donate</a>
       <a href="https://github.com/openwebdocs/mdn-bcd-collector"><span class="mdi mdi-github"></span> GitHub</a>
-      <a href="/changelog">v<%- appVersion %></a>
+      <a href="/stats"><span class="mdi mdi-counter"></span> Stats</a>
+      <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/CHANGELOG.md">v<%- appVersion %></a>
     </nav>
 
     <%- body %>
 
     <footer>
-      <p>Maintained with <span class="mdi mdi-heart"></span> by <a href="https://www.gooborg.com">Gooborg Studios</a> + <a href="https://www.openwebdocs.org">Open Web Docs</a><br />
-      Designed by <a href="https://foolip.org">@foolip</a> and <a href="https://www.queengoob.org">@queengooborg</a><br />
-      &copy; 2020-<%- new Date().getFullYear() %> <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a><br />
-      <%- include('browserinfo') %>
+      <p>Maintained with <span class="mdi mdi-heart"></span> by <a href="https://www.openwebdocs.org">Open Web Docs</a></p>
+      <p> Original work by <a href="https://foolip.org">@foolip</a> and <a href="https://www.queengoob.org">@queengooborg</a></p>
+      <p> &copy; 2020-<%- new Date().getFullYear() %> <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a></p>
     </footer>
 
     <%- script %>

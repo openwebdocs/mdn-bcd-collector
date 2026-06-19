@@ -1,13 +1,6 @@
-//
-// mdn-bcd-collector: scripts/update-bcd.ts
-// Script to update the BCD data using collected results
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 // Base eslint no-unused-vars misunderstands typescript function types as having
 // unused variables. Replace with @typescript-eslint/no-unused-vars for this file.
+
 /* eslint no-unused-vars: "off", @typescript-eslint/no-unused-vars: "error" */
 
 import {
@@ -1107,7 +1100,7 @@ const pickFeatureList = <T extends UpdateLog>({
  * @param prefix - The prefix to be prepended to each key.
  * @param entry - The root object to traverse.
  * @returns A generator that yields key-value pairs.
- * @yields The next key-value pair in the object tree.
+ * @yields {Array} The next key-value pair in the object tree.
  */
 export const walkEntries = function* (
   prefix: string,

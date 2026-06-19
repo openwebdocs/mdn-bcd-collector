@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/constants.ts
-// Common variables used throughout all of the collector
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {fileURLToPath} from "node:url";
 import path from "node:path";
 import fs from "node:fs";
@@ -53,7 +45,7 @@ const try_results_dir = (dir) => {
  * @param github_url The URL to the GitHub repository for the expected folder
  * @param try_func The function to run to test if the path is a valid checkout of the expected repository
  * @returns {string} The path detected
- * @throws An error if no valid path detected
+ * @throws {Error} An error if no valid path detected
  */
 const get_dir = (env_variable, relative_path, github_url, try_func) => {
   if (process.env[env_variable]) {
@@ -78,7 +70,7 @@ const get_dir = (env_variable, relative_path, github_url, try_func) => {
  * If the environment variable BCD_DIR is set, it uses the resolved path of BCD_DIR.
  * Otherwise, it uses the resolved path of "../browser-compat-data" relative to BASE_DIR.
  * @returns The directory where BCD is located
- * @throws An error if no valid BCD path detected
+ * @throws {Error} An error if no valid BCD path detected
  */
 export const getBCDDir = () =>
   get_dir(
@@ -93,7 +85,7 @@ export const getBCDDir = () =>
  * If the RESULTS_DIR environment variable is set, it will be used.
  * Otherwise, the default path is resolved relative to the BASE_DIR.
  * @returns The directory where mdn-bcd-results is located
- * @throws An error if no valid mdn-bcd-results path detected
+ * @throws {Error} An error if no valid mdn-bcd-results path detected
  */
 export const getResultsDir = () =>
   process.env.NODE_ENV === "test"

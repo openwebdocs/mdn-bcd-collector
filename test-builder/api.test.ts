@@ -1,17 +1,5 @@
-//
-// mdn-bcd-collector: unittest/unit/api.test.ts
-// Unittest for the web API-specific test builder functions
-//
-// © Gooborg Studios, Google LLC, Apple Inc
-// See the LICENSE file for copyright details
-//
-
-import chai, {assert} from "chai";
-import chaiSubset from "chai-subset";
-chai.use(chaiSubset);
-
+import {assert} from "chai";
 import * as WebIDL2 from "webidl2";
-// import sinon from 'sinon';
 
 import {
   flattenIDL,

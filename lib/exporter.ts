@@ -1,12 +1,3 @@
-//
-// mdn-bcd-collector: lib/exporter.ts
-// This module is responsible for getting results/reports out of the collector
-// web service into JSON files that can be used by update-bcd.ts.
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import crypto from "node:crypto";
 
 import slugify from "slugify";

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/api.ts
-// Functions directly related to building all of the web API tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import * as WebIDL2 from "webidl2";
 
 import {getCustomTest, compileTest} from "./common.js";

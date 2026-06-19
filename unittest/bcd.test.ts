@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: unittest/unit/bcd.test.ts
-// Unittest helper containing pseudo BCD
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import type {CompatData} from "@mdn/browser-compat-data";
 
 export default {

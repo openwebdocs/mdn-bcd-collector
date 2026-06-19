@@ -1,11 +1,3 @@
-<!--
-mdn-bcd-collector: views/unsecurewarning.ejs
-Snippet to warn the user when they're not using a secure connection
-
-© Gooborg Studios
-See the LICENSE file for copyright details
--->
-
 <% if (process.env.NODE_ENV === "production") { %>
 <p id="unsecure-warning"><a href="https://collector.openwebdocs.org" class="error-notice" id="unsecure-warning-link"><span class="mdi mdi-lock-off"></span> Warning: not using HTTPS!</a></p>
 

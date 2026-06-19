@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: static/unittest/test.js
-// Unittests for harness.js
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 /* global chai, sinon */
 /* global bcd, reusableInstances */
 
@@ -13,8 +5,6 @@ mocha.setup({
   ui: "bdd",
   reporter: location.hash === "#reporter=json" ? "json" : "html"
 });
-
-var assert = chai.assert;
 
 describe("harness.js", function () {
   describe("addInstance", function () {

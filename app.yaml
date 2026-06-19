@@ -1,11 +1,3 @@
-#
-# mdn-bcd-collector: app.yaml
-# Google App Engine configuration for the collector
-#
-# © Gooborg Studios, Google LLC
-# See the LICENSE file for copyright details
-#
-
 runtime: nodejs20
 env_variables:
   GCLOUD_STORAGE_BUCKET: mdn-bcd-buffer

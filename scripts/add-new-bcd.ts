@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: scripts/add-new-bcd.ts
-// Adds missing entries to BCD that have support in some browser version
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
 import {execSync} from "node:child_process";
 
@@ -18,7 +10,7 @@ import {hideBin} from "yargs/helpers";
 import {getBCDDir, getResultsDir} from "../lib/constants.js";
 import {namespaces as jsNamespaces} from "../test-builder/javascript.js";
 
-import {getMissing} from "./feature-coverage.js";
+import {getMissing} from "../lib/coverage.js";
 import {main as updateBcd} from "./update-bcd.js";
 
 const BCD_DIR = getBCDDir();
@@ -99,7 +91,7 @@ const startsWithUpperCase = (s: string): boolean => {
  * Returns the file path corresponding to the given BCD path.
  * @param ident - An array representing the BCD path.
  * @returns The file path as a string.
- * @throws If the file path cannot be determined from the BCD path.
+ * @throws {Error} If the file path cannot be determined from the BCD path.
  */
 export const getFilePath = (ident: string[]): string => {
   // Shorten or modify the path depending on the section of BCD. Make a copy

@@ -1,12 +1,3 @@
-//
-// mdn-bcd-collector: static/resources/custom-tests/api/AudioWorkletNode/WhiteNoiseProcessor.js
-// Custom test worklet for api.AudioWorkletNode, example copied from:
-// https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode
-//
-// © Mozilla Corporation, Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 /**
  * Process the audio inputs and generate white noise.
  * @param {Array} inputs - The audio inputs.
