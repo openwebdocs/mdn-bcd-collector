@@ -122,3 +122,10 @@ npm run coverage
 ```sh
 npm run clean
 ```
+
+## Acknowledgments
+
+Thanks to:
+
+- foolip and queengooborg for the original work on this project.
+- BrowserStack: This project is tested with BrowserStack.
