@@ -14,6 +14,7 @@ const REPORTS: {
     os: string;
     desc: string;
     title: string;
+    urls?: string[];
     slug: string;
     filename: string;
     branch: string;
@@ -48,19 +49,27 @@ const REPORTS: {
       __version: "1.2.3",
       preview: true,
       extensions: [],
-      results: {},
+      results: {
+        "https://collector.openwebdocs.org/tests/?preview=true": [],
+        "https://collector.openwebdocs.org/tests/?exposure=Worker&preview=true":
+          [],
+      },
       userAgent:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
     },
     expected: {
-      digest: "29af89b022",
+      digest: "80818584fc",
       browser: "Safari 12",
       os: "macOS 10.14",
       desc: "Safari 12-preview / macOS 10.14",
       title: "Results from Safari 12-preview / macOS 10.14 / Collector v1.2.3",
-      slug: "1.2.3-safari-12.0-preview-macos-10.14-29af89b022",
-      filename: "1.2.3-safari-12.0-preview-macos-10.14-29af89b022.json",
-      branch: "collector/1.2.3-safari-12.0-preview-macos-10.14-29af89b022",
+      urls: [
+        "https://collector.openwebdocs.org/tests/?preview=true",
+        "https://collector.openwebdocs.org/tests/?exposure=Worker&preview=true",
+      ],
+      slug: "1.2.3-safari-12.0-preview-macos-10.14-80818584fc",
+      filename: "1.2.3-safari-12.0-preview-macos-10.14-80818584fc.json",
+      branch: "collector/1.2.3-safari-12.0-preview-macos-10.14-80818584fc",
       version: "1.2.3",
       preview: true,
     },
@@ -106,6 +115,7 @@ const REPORTS: {
       desc: "Samsung Internet 12.1 / Android 11",
       title:
         "Results from Samsung Internet 12.1 / Android 11 / Collector v1.2.3",
+      urls: ["https://collector.openwebdocs.org/tests/"],
       slug: "1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00",
       filename: "1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00.json",
       branch:
@@ -132,6 +142,10 @@ const REPORTS: {
       os: "macOS 11.0.0",
       desc: "Chrome 800.0 / macOS 11.0.0",
       title: "Results from Chrome 800.0 / macOS 11.0.0 / Collector v1.2.3",
+      urls: [
+        "https://collector.openwebdocs.org/tests/?exposure=Window",
+        "https://collector.openwebdocs.org/tests/?exposure=Worker",
+      ],
       slug: "1.2.3-chrome-800.0.1.2-macos-11.0.0-b4ed5c5b0d",
       filename: "1.2.3-chrome-800.0.1.2-macos-11.0.0-b4ed5c5b0d.json",
       branch: "collector/1.2.3-chrome-800.0.1.2-macos-11.0.0-b4ed5c5b0d",
@@ -149,7 +163,13 @@ describe("exporter", () => {
         const reportData = getReportMeta(report);
         for (const prop of Object.keys(expected)) {
           it(prop, async () => {
-            assert.equal(expected[prop], reportData[prop]);
+            if (prop === "urls") {
+              for (const url of reportData["urls"]) {
+                assert.equal(expected.urls.includes(url), true);
+              }
+            } else {
+              assert.equal(expected[prop], reportData[prop]);
+            }
           });
         }
       });
