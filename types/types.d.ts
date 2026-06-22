@@ -78,6 +78,7 @@ export interface Report {
   results: TestResults;
   extensions: Extensions;
   userAgent: string;
+  preview: boolean;
 }
 
 export type BrowserSupportMap = Map<string, TestResultValue>;
@@ -93,6 +94,7 @@ export type IDLFiles = Record<string, WebIDL2.IDLRootType[]>;
 
 export type ReportStore = {
   extensions?: Extensions;
+  preview?: boolean;
 } & TestResults;
 
 export interface ParsedUserAgent {
@@ -132,6 +134,7 @@ export interface ReportMeta {
   filename: string;
   branch: string;
   version: string;
+  preview: boolean;
 }
 
 export type InternalTestResult = TestResult & {

@@ -59,3 +59,7 @@ The `results` object is a required property and maps the collection page endpoin
 ### `userAgent`
 
 The `userAgent` string is a required property and states the user agent of the tested browser the results were collected from.
+
+### `preview`
+
+The `preview` boolean is an optional property and states if the user agent of the tested browser the results were collected from is a preview version like "Nightly", "Canary", or "Technical Preview".

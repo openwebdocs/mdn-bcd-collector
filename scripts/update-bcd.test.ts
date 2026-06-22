@@ -36,6 +36,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -122,6 +123,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -218,6 +220,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -308,6 +311,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -323,6 +327,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -338,6 +343,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -358,6 +364,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -442,6 +449,7 @@ describe("BCD updater", () => {
         getSupportMap({
           __version: "test",
           extensions: [],
+          preview: false,
           results: {},
           userAgent: "abc/1.2.3-beta",
         });
@@ -1328,6 +1336,7 @@ describe("BCD updater", () => {
           {
             __version: "0.3.1",
             extensions: [],
+            preview: false,
             results: {
               "https://collector.openwebdocs.org/tests/": [
                 {
@@ -1614,6 +1623,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1653,6 +1663,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1699,6 +1710,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1748,6 +1760,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1787,6 +1800,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1826,6 +1840,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1875,6 +1890,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1958,6 +1974,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
