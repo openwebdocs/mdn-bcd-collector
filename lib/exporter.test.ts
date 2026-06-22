@@ -1,47 +1,98 @@
-import {assert, expect, use} from "chai";
+import {assert, use} from "chai";
 import chaiAsPromised from "chai-as-promised";
 use(chaiAsPromised);
 
-import sinon from "sinon";
-import {Octokit} from "@octokit/rest";
-
-import {exportAsPR} from "./exporter.js";
+import {getReportMeta} from "./exporter.js";
 
 import type {Report} from "../types/types.js";
 
 const REPORTS: {
   report: Report;
-  expected: {slug: string; title: string; body: string};
+  expected: {
+    digest: string;
+    browser: string;
+    os: string;
+    desc: string;
+    title: string;
+    slug: string;
+    filename: string;
+    branch: string;
+    version: string;
+    preview: boolean;
+  };
 }[] = [
   {
     report: {
       __version: "1.2.3",
       results: {},
+      extensions: [],
+      preview: false,
       userAgent:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
     },
     expected: {
-      slug: "1.2.3-safari-12.0-mac-os-10.14-cadc34e83f",
+      digest: "a562c83457",
+      browser: "Safari 12",
+      os: "macOS 10.14",
+      desc: "Safari 12 / macOS 10.14",
       title: "Results from Safari 12 / macOS 10.14 / Collector v1.2.3",
-      body: "User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15\nBrowser: Safari 12 (on Mac OS 10.14)\nHash Digest: cadc34e83f\nTest URLs: ",
-    },
-  },
-  {
-    report: {
-      __version: "1.2.3-dev",
-      results: {},
-      userAgent:
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
-    },
-    expected: {
-      slug: "1.2.3-dev-chrome-86.0.4240.198-mac-os-11.0.0-32f70f2e14",
-      title: "Results from Chrome 86 / macOS 11.0.0 / Collector v1.2.3-dev",
-      body: "User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36\nBrowser: Chrome 86 (on Mac OS 11.0.0)\nHash Digest: 32f70f2e14\nTest URLs: \n\n**WARNING:** this PR was created from a development/staging version!",
+      slug: "1.2.3-safari-12.0-macos-10.14-a562c83457",
+      filename: "1.2.3-safari-12.0-macos-10.14-a562c83457.json",
+      branch: "collector/1.2.3-safari-12.0-macos-10.14-a562c83457",
+      version: "1.2.3",
+      preview: false,
     },
   },
   {
     report: {
       __version: "1.2.3",
+      preview: true,
+      extensions: [],
+      results: {},
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
+    },
+    expected: {
+      digest: "29af89b022",
+      browser: "Safari 12",
+      os: "macOS 10.14",
+      desc: "Safari 12-preview / macOS 10.14",
+      title: "Results from Safari 12-preview / macOS 10.14 / Collector v1.2.3",
+      slug: "1.2.3-safari-12.0-preview-macos-10.14-29af89b022",
+      filename: "1.2.3-safari-12.0-preview-macos-10.14-29af89b022.json",
+      branch: "collector/1.2.3-safari-12.0-preview-macos-10.14-29af89b022",
+      version: "1.2.3",
+      preview: true,
+    },
+  },
+  {
+    report: {
+      __version: "1.2.3-dev",
+      preview: false,
+      extensions: [],
+      results: {},
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+    },
+    expected: {
+      digest: "324bfb6b8f",
+      browser: "Chrome 86",
+      os: "macOS 11.0.0",
+      desc: "Chrome 86 / macOS 11.0.0",
+      title: "Results from Chrome 86 / macOS 11.0.0 / Collector v1.2.3-dev",
+      slug: "1.2.3-dev-chrome-86.0.4240.198-macos-11.0.0-324bfb6b8f",
+      filename: "1.2.3-dev-chrome-86.0.4240.198-macos-11.0.0-324bfb6b8f.json",
+      branch:
+        "collector/1.2.3-dev-chrome-86.0.4240.198-macos-11.0.0-324bfb6b8f",
+      version: "1.2.3-dev",
+      preview: false,
+    },
+  },
+  {
+    report: {
+      __version: "1.2.3",
+      preview: false,
+      extensions: [],
       results: {
         "https://collector.openwebdocs.org/tests/": [],
       },
@@ -49,15 +100,25 @@ const REPORTS: {
         "Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36",
     },
     expected: {
-      slug: "1.2.3-samsunginternet-android-12.1-android-11-804fe4cd9d",
+      digest: "2b4d5a5f00",
+      browser: "Samsung Internet 12.1",
+      os: "Android 11",
+      desc: "Samsung Internet 12.1 / Android 11",
       title:
         "Results from Samsung Internet 12.1 / Android 11 / Collector v1.2.3",
-      body: "User Agent: Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36\nBrowser: Samsung Internet 12.1 (on Android 11)\nHash Digest: 804fe4cd9d\nTest URLs: https://collector.openwebdocs.org/tests/",
+      slug: "1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00",
+      filename: "1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00.json",
+      branch:
+        "collector/1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00",
+      version: "1.2.3",
+      preview: false,
     },
   },
   {
     report: {
       __version: "1.2.3",
+      preview: false,
+      extensions: [],
       results: {
         "https://collector.openwebdocs.org/tests/?exposure=Window": [],
         "https://collector.openwebdocs.org/tests/?exposure=Worker": [],
@@ -66,95 +127,32 @@ const REPORTS: {
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36",
     },
     expected: {
-      slug: "1.2.3-chrome-800.0.1.2-mac-os-11.0.0-ee13f09a68",
+      digest: "b4ed5c5b0d",
+      browser: "Chrome 800.0",
+      os: "macOS 11.0.0",
+      desc: "Chrome 800.0 / macOS 11.0.0",
       title: "Results from Chrome 800.0 / macOS 11.0.0 / Collector v1.2.3",
-      body: "User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/800.0.1.2 Safari/537.36\nBrowser: Chrome 800.0 (on Mac OS 11.0.0) - **Not in BCD**\nHash Digest: ee13f09a68\nTest URLs: https://collector.openwebdocs.org/tests/?exposure=Window, https://collector.openwebdocs.org/tests/?exposure=Worker",
+      slug: "1.2.3-chrome-800.0.1.2-macos-11.0.0-b4ed5c5b0d",
+      filename: "1.2.3-chrome-800.0.1.2-macos-11.0.0-b4ed5c5b0d.json",
+      branch: "collector/1.2.3-chrome-800.0.1.2-macos-11.0.0-b4ed5c5b0d",
+      version: "1.2.3",
+      preview: false,
     },
   },
 ];
 
-describe("GitHub export", () => {
-  const octokit = new Octokit();
-
-  describe("happy path", () => {
+describe("exporter", () => {
+  describe("getReportMeta()", () => {
     for (const i in REPORTS) {
-      // XXX Mocking GitHub is currently broken since
-      // @octokit/plugin-rest-endpoint-methods 8.0.0...
-      it.skip(`Report #${Number(i) + 1}`, async () => {
+      describe(`Report #${Number(i) + 1}`, async () => {
         const {report, expected} = REPORTS[i];
-
-        sinon.mock(octokit).expects("auth").once().resolves({type: "mocked"});
-
-        sinon
-          .mock(octokit.git)
-          .expects("createRef")
-          .once()
-          .withArgs({
-            owner: "openwebdocs",
-            ref: `refs/heads/collector/${expected.slug}`,
-            repo: "mdn-bcd-results",
-            sha: "753c6ed8e991e9729353a63d650ff0f5bd902b69",
+        const reportData = getReportMeta(report);
+        for (const prop of Object.keys(expected)) {
+          it(prop, async () => {
+            assert.equal(expected[prop], reportData[prop]);
           });
-
-        sinon
-          .mock(octokit.repos)
-          .expects("createOrUpdateFileContents")
-          .once()
-          .withArgs(
-            sinon.match({
-              owner: "openwebdocs",
-              repo: "mdn-bcd-results",
-              path: `${expected.slug}.json`,
-              message: expected.title,
-              content: sinon.match.string,
-              branch: `collector/${expected.slug}`,
-            }),
-          );
-
-        sinon
-          .mock(octokit.pulls)
-          .expects("create")
-          .once()
-          .withArgs({
-            owner: "openwebdocs",
-            repo: "mdn-bcd-results",
-            title: expected.title,
-            head: `collector/${expected.slug}`,
-            body: expected.body,
-            base: "main",
-          })
-          .resolves({
-            data: {
-              html_url:
-                "https://github.com/openwebdocs/mdn-bcd-results/pull/42",
-            },
-          });
-
-        const result = await exportAsPR(report, octokit);
-
-        assert.deepEqual(result, {
-          filename: `${expected.slug}.json`,
-          url: "https://github.com/openwebdocs/mdn-bcd-results/pull/42",
-        });
+        }
       });
     }
-
-    afterEach(() => {
-      sinon.restore();
-    });
-  });
-
-  it("no Octokit", async () => {
-    (expect(exportAsPR(REPORTS[0].report)).to.be as any).rejectedWith(
-      Error,
-      '"octokit" must be defined',
-    );
-  });
-
-  it("no auth token", async () => {
-    (expect(exportAsPR(REPORTS[0].report, octokit)).to.be as any).rejectedWith(
-      Error,
-      "Octokit authentication failure",
-    );
   });
 });
