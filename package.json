@@ -11,7 +11,7 @@
     "url": "https://github.com/openwebdocs/mdn-bcd-collector.git"
   },
   "engines": {
-    "node": "^25",
+    "node": "^26",
     "npm": "^11"
   },
   "scripts": {
@@ -117,5 +117,10 @@
     "typescript-eslint": "~8.62.0",
     "webidl2": "24.5.0",
     "yaml": "2.9.0"
+  },
+  "overrides": {
+    "c8": {
+      "yargs": "^17.7.3"
+    }
   }
 }
