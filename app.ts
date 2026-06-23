@@ -340,7 +340,7 @@ app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
       resources: tests.resources,
       selenium: req.query.selenium,
       github: !!secrets.github.token,
-      isPreview: !!req.query.preview,
+      isPreview: req.query.preview,
     });
   } else {
     res.status(404).render("testnotfound", {
