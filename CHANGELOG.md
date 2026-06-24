@@ -4,6 +4,11 @@
 
 Released June 24, 2026
 
+### Notable changes
+
+- Collecting "preview" compat data: This release adds a checkbox to the collector UI, asking the user whether the collector run should be considered in a "preview" environment (Firefox Nightly, Chrome Canary, Safari Technical Preview). See https://github.com/openwebdocs/mdn-bcd-collector/pull/3245 for details.
+- Collector statistics: exposes how many BCD keys the collector covers and how many "early" features the collector knows about that aren't part of BCD yet. See https://github.com/openwebdocs/mdn-bcd-collector/pull/3237 and https://collector.openwebdocs.org/stats.
+
 ### Test Changes
 
 #### Added
