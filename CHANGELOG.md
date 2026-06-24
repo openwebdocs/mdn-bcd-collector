@@ -1,5 +1,52 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.0
+
+Released June 24, 2026
+
+### Notable changes
+
+- Collecting "preview" compat data: This release adds a checkbox to the collector UI, asking the user whether the collector run should be considered in a "preview" environment (Firefox Nightly, Chrome Canary, Safari Technical Preview). See https://github.com/openwebdocs/mdn-bcd-collector/pull/3245 for details.
+- Collector statistics: exposes how many BCD keys the collector covers and how many "early" features the collector knows about that aren't part of BCD yet. See https://github.com/openwebdocs/mdn-bcd-collector/pull/3237 and https://collector.openwebdocs.org/stats.
+
+### Test Changes
+
+#### Added
+
+- api.LanguageModel.samplingMode
+- api.RTCRtpSFrameDecryptor
+- api.RTCRtpSFrameEncryptor
+- api.SFrameDecryptorStream
+- api.SFrameEncryptorStream
+
+#### Removed
+
+- api.ModelContextClient
+- api.RTCRtpSFrameDecrypter
+- api.RTCRtpSFrameEncrypter
+- api.SFrameDecrypterStream
+- api.SFrameEncrypterStream
+- css.properties.path-length.unknown
+- css.properties.path-length.symbol
+- css.properties.path-length.number
+
+#### Changed
+
+- api.Event.initEvent
+
+### Commits
+
+- Allow collecting data from 'preview' browsers ([#3245](https://github.com/openwebdocs/mdn-bcd-collector/pull/3245))
+- build(deps): bump the dev group across 1 directory with 8 updates ([#3247](https://github.com/openwebdocs/mdn-bcd-collector/pull/3247))
+- Add Acknowledgements to readme ([#3244](https://github.com/openwebdocs/mdn-bcd-collector/pull/3244))
+- Add custom test for `Event.initEvent()` ([#3008](https://github.com/openwebdocs/mdn-bcd-collector/pull/3008))
+- Remove cheerio and core-js ([#3243](https://github.com/openwebdocs/mdn-bcd-collector/pull/3243))
+- Use native fetch ([#3242](https://github.com/openwebdocs/mdn-bcd-collector/pull/3242))
+- build(deps): bump actions/checkout from 6 to 7 ([#3239](https://github.com/openwebdocs/mdn-bcd-collector/pull/3239))
+- build(deps-dev): bump the data group with 2 updates ([#3240](https://github.com/openwebdocs/mdn-bcd-collector/pull/3240))
+- No content hidden behind the fixed-positioned navbar ([#3238](https://github.com/openwebdocs/mdn-bcd-collector/pull/3238))
+- Add a statistics page ([#3237](https://github.com/openwebdocs/mdn-bcd-collector/pull/3237))
+
 ## v10.19.1
 
 Released June 18, 2026
