@@ -34,6 +34,21 @@ describe("/api/results", () => {
       extensions: [],
       results: {},
       userAgent: "",
+      preview: false,
+    });
+  });
+
+  it("list results before (preview browser)", async () => {
+    const res = await agent.get("/api/results").send({
+      preview: "true",
+    });
+    assert.equal(res.status, 200);
+    assert.deepEqual(res.body, {
+      __version: version,
+      extensions: [],
+      results: {},
+      userAgent: "",
+      preview: true,
     });
   });
 
@@ -73,6 +88,7 @@ describe("/api/results", () => {
       extensions: [],
       results: {[testURL]: testResults},
       userAgent: "",
+      preview: false,
     });
   });
 
@@ -92,6 +108,7 @@ describe("/api/results", () => {
       extensions: [],
       results: {[testURL]: modifiedResults},
       userAgent: "",
+      preview: false,
     });
   });
 
@@ -112,6 +129,7 @@ describe("/api/results", () => {
       extensions: [],
       results: {[testURL]: modifiedResults, [testURL2]: testResults},
       userAgent: "",
+      preview: false,
     });
   });
 

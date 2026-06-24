@@ -36,6 +36,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -122,6 +123,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -218,6 +220,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -308,6 +311,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -323,6 +327,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -338,6 +343,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -358,6 +364,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -442,6 +449,7 @@ describe("BCD updater", () => {
         getSupportMap({
           __version: "test",
           extensions: [],
+          preview: false,
           results: {},
           userAgent: "abc/1.2.3-beta",
         });
@@ -1328,6 +1336,7 @@ describe("BCD updater", () => {
           {
             __version: "0.3.1",
             extensions: [],
+            preview: false,
             results: {
               "https://collector.openwebdocs.org/tests/": [
                 {
@@ -1614,6 +1623,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1653,6 +1663,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1699,6 +1710,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1748,6 +1760,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1787,6 +1800,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1826,6 +1840,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1875,6 +1890,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1958,6 +1974,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1976,6 +1993,90 @@ describe("BCD updater", () => {
 
       assert.equal(modified, false, "modified");
       assert.deepEqual(finalBcd, initialBcd);
+    });
+
+    it("creates preview support statement from preview browser", () => {
+      const initialBcd = {
+        api: {
+          AbortController: {
+            __compat: {
+              support: {
+                firefox: {version_added: false},
+              },
+            },
+          },
+        },
+        browsers: {
+          firefox: {
+            name: "Firefox",
+            preview_name: "Nightly",
+            releases: {92: {}},
+          },
+        } as unknown as Browsers,
+      };
+      const finalBcd = clone(initialBcd);
+      assert.deepEqual(finalBcd, initialBcd);
+
+      const reports: Report[] = [
+        {
+          __version: "0.3.1",
+          extensions: [],
+          preview: false,
+          results: {
+            "https://collector.openwebdocs.org/tests/": [
+              {
+                name: "api.AbortController",
+                exposure: "Window",
+                result: false,
+              },
+            ],
+          },
+          userAgent: firefox92UaString,
+        },
+        {
+          __version: "0.3.1",
+          extensions: [],
+          preview: true,
+          results: {
+            "https://collector.openwebdocs.org/tests/?preview=true": [
+              {
+                name: "api.AbortController",
+                exposure: "Window",
+                result: true,
+              },
+            ],
+          },
+          userAgent: firefox92UaString,
+        },
+      ];
+
+      const sm = getSupportMatrix(reports, initialBcd.browsers, []);
+
+      const expectedSM = new Map([
+        [
+          "api.AbortController",
+          new Map([
+            [
+              "firefox",
+              new Map([
+                ["92", false],
+                ["preview", true],
+              ]),
+            ],
+          ]),
+        ],
+      ]);
+      assert.deepEqual(expectedSM, sm, "supportMatrix");
+
+      const modified = update(finalBcd, sm, {});
+      const expectedModified = [
+        {
+          browser: "firefox",
+          path: "api.AbortController",
+          statements: [{version_added: "preview"}],
+        },
+      ];
+      assert.deepEqual(expectedModified, modified, "modified");
     });
   });
 });

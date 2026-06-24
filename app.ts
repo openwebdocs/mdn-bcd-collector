@@ -58,6 +58,7 @@ const createReport = (results: ReportStore, req: Request): Report => {
     results: testResults,
     extensions: extensions || [],
     userAgent: req.get("User-Agent") || "",
+    preview: !!req?.body?.preview,
   };
 };
 
@@ -144,11 +145,12 @@ app.post("/api/get", (req: Request, res: Response) => {
     selenium: req.body.selenium,
     ignore: req.body.ignore,
     exposure: req.body.limitExposure,
+    preview: req.body.preview,
   };
+
   const query = querystring.encode(
     Object.fromEntries(Object.entries(queryParams).filter(([, v]) => !!v)),
   );
-
   res.redirect(`/tests/${testSelection}${query ? `?${query}` : ""}`);
 });
 
@@ -338,6 +340,7 @@ app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
       resources: tests.resources,
       selenium: req.query.selenium,
       github: !!secrets.github.token,
+      isPreview: req.query.preview,
     });
   } else {
     res.status(404).render("testnotfound", {
