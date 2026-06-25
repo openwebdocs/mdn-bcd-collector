@@ -474,6 +474,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
             [
@@ -482,6 +483,7 @@ describe("BCD updater", () => {
                 ["13", null],
                 ["13.1", true],
                 ["14", null],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -496,6 +498,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -510,6 +513,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -524,6 +528,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -538,6 +543,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -551,6 +557,7 @@ describe("BCD updater", () => {
                 ["13", false],
                 ["13.1", false],
                 ["14", false],
+                ["preview", false],
               ]),
             ],
           ]),
@@ -565,6 +572,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", true],
                 ["85", false],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -579,6 +587,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -593,6 +602,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -607,6 +617,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -621,6 +632,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -635,6 +647,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", null],
                 ["85", null],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -649,6 +662,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -663,6 +677,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", false],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -677,6 +692,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -691,6 +707,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", null],
                 ["85", null],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -705,6 +722,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -1100,6 +1118,36 @@ describe("BCD updater", () => {
     it("detects updates for preview statements", () => {
       assert.isTrue(
         hasSupportUpdates(new Map([["81", true]]), [
+          {
+            version_added: "preview",
+          },
+        ]),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(new Map([["preview", true]]), [
+          {
+            version_added: false,
+          },
+        ]),
+      );
+
+      assert.isTrue(
+        hasSupportUpdates(
+          new Map([
+            ["92", false],
+            ["preview", false],
+          ]),
+          [
+            {
+              version_added: "preview",
+            },
+          ],
+        ),
+      );
+
+      assert.isFalse(
+        hasSupportUpdates(new Map([["preview", true]]), [
           {
             version_added: "preview",
           },
@@ -1995,13 +2043,29 @@ describe("BCD updater", () => {
       assert.deepEqual(finalBcd, initialBcd);
     });
 
-    it("creates preview support statement from preview browser", () => {
+    it("updates preview support statements correctly", () => {
+      // For api.AbortController, the test case is:
+      // current bcd: version_added: false
+      // preview report: true
+      // new bcd: version_added: "preview"
+
+      // For api.Event, the test case is:
+      // current bcd: version_added: "preview"
+      // preview report: false
+      // new bcd: version_added: false
       const initialBcd = {
         api: {
           AbortController: {
             __compat: {
               support: {
                 firefox: {version_added: false},
+              },
+            },
+          },
+          Event: {
+            __compat: {
+              support: {
+                firefox: {version_added: "preview"},
               },
             },
           },
@@ -2029,6 +2093,11 @@ describe("BCD updater", () => {
                 exposure: "Window",
                 result: false,
               },
+              {
+                name: "api.Event",
+                exposure: "Window",
+                result: false,
+              },
             ],
           },
           userAgent: firefox92UaString,
@@ -2043,6 +2112,11 @@ describe("BCD updater", () => {
                 name: "api.AbortController",
                 exposure: "Window",
                 result: true,
+              },
+              {
+                name: "api.Event",
+                exposure: "Window",
+                result: false,
               },
             ],
           },
@@ -2065,8 +2139,20 @@ describe("BCD updater", () => {
             ],
           ]),
         ],
+        [
+          "api.Event",
+          new Map([
+            [
+              "firefox",
+              new Map([
+                ["92", false],
+                ["preview", false],
+              ]),
+            ],
+          ]),
+        ],
       ]);
-      assert.deepEqual(expectedSM, sm, "supportMatrix");
+      assert.deepEqual(sm, expectedSM, "supportMatrix");
 
       const modified = update(finalBcd, sm, {});
       const expectedModified = [
@@ -2075,8 +2161,13 @@ describe("BCD updater", () => {
           path: "api.AbortController",
           statements: [{version_added: "preview"}],
         },
+        {
+          browser: "firefox",
+          path: "api.Event",
+          statements: [{version_added: false}],
+        },
       ];
-      assert.deepEqual(expectedModified, modified, "modified");
+      assert.deepEqual(modified, expectedModified, "modified");
     });
   });
 });
