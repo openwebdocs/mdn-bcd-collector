@@ -1,5 +1,14 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.1
+
+Released June 25, 2026
+
+### Commits
+
+- Fix update-bcd logic for preview browsers ([#3250](https://github.com/openwebdocs/mdn-bcd-collector/pull/3250))
+- build(deps-dev): bump the dev group with 6 updates ([#3251](https://github.com/openwebdocs/mdn-bcd-collector/pull/3251))
+
 ## v10.20.0
 
 Released June 24, 2026
