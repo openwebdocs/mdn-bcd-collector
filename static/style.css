@@ -40,14 +40,14 @@ code {
 
 button,
 select,
-input {
+#test-selection {
   background: #9900a1;
   color: white;
 }
 
 button,
 select,
-input {
+#test-selection {
   border: none;
   text-align: center;
   text-decoration: none;
@@ -66,27 +66,27 @@ button:hover,
 button:hover:focus,
 select:hover,
 select:hover:focus,
-input:hover,
-input:hover:focus {
+#test-selection:hover,
+#test-selection:hover:focus {
   cursor: pointer;
   background: #e000eb;
 }
 
 button:focus,
 select:focus,
-input:focus {
+#test-selection:focus {
   background: #e000eb;
 }
 
 button:focus,
 select:focus,
-input:focus {
+#test-selection:focus {
   outline-color: #e000eb;
 }
 
 button:focus-visible,
 select:focus-visible,
-input:focus-visible {
+#test-selection:focus-visible {
   outline-style: auto;
   outline-width: 1px;
 }
@@ -94,8 +94,8 @@ button:disabled,
 button:disabled:hover,
 select:disabled,
 select:disabled:hover,
-input:disabled,
-input:disabled:hover {
+#test-selection:disabled,
+#test-selection:disabled:hover {
   cursor: not-allowed;
   background: #636363;
 }
@@ -103,11 +103,11 @@ button:disabled,
 button:disabled:hover,
 select:disabled,
 select:disabled:hover,
-input:disabled,
-input:disabled:hover {
+#test-selection:disabled,
+#test-selection:disabled:hover {
   color: #cccccc;
 }
-input {
+#test-selection {
   text-align: left;
   margin-left: -2px;
 }
