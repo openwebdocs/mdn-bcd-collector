@@ -97,7 +97,7 @@
     "enquirer": "2.4.1",
     "es-scraper": "^0.0.13",
     "eslint": "10.5.0",
-    "eslint-plugin-jsdoc": "^63.0.8",
+    "eslint-plugin-jsdoc": "^63.0.9",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^69.0.0",
     "fdir": "6.5.0",
