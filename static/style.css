@@ -4,7 +4,7 @@ CSS for the BCD collector front-end
 === Important note ===
 Write CSS like it is 1998!
 The site needs to work in very old browsers!
-Progressive enhancement is fine.
+Progressive enhancement is fine
 ======================
 
 COLORS
@@ -17,7 +17,8 @@ COLORS
 --button-bg-hover: #e000eb;
 */
 
-html, ::marker {
+html,
+::marker {
   font-family: sans-serif;
   line-height: 1.6;
 }
@@ -34,7 +35,8 @@ a:hover {
   color: #9900a1;
 }
 
-code, details ol li {
+code,
+details ol li {
   font-family: monospace;
 }
 
