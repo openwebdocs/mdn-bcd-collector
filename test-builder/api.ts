@@ -469,6 +469,7 @@ const validateIDL = (ast) => {
     "unsigned short", // https://webidl.spec.whatwg.org/#idl-unsigned-short
     "USVString", // https://webidl.spec.whatwg.org/#idl-USVString
     "undefined", // https://webidl.spec.whatwg.org/#idl-undefined
+    "SVGMatrix", // LegacyWindowAlias=(SVGMatrix) for DOMMatrix
   ]);
   // Add any types defined by the (flattened) spec and custom IDL.
   for (const dfn of ast) {
