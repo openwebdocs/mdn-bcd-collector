@@ -1,5 +1,39 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.2
+
+Released July 2, 2026
+
+### Test Changes
+
+#### Added
+
+- api.ProcessingInstruction.getAttribute
+- api.ProcessingInstruction.getAttributeNames
+- api.ProcessingInstruction.hasAttribute
+- api.ProcessingInstruction.hasAttributes
+- api.ProcessingInstruction.ProcessingInstruction
+- api.ProcessingInstruction.removeAttribute
+- api.ProcessingInstruction.setAttribute
+- api.ProcessingInstruction.toggleAttribute
+- css.selectors.nav-source
+
+#### Removed
+
+- css.selectors.active-navigation
+- css.selectors.trigger-link
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3262](https://github.com/openwebdocs/mdn-bcd-collector/pull/3262))
+- build(deps-dev): bump the dev group with 2 updates ([#3263](https://github.com/openwebdocs/mdn-bcd-collector/pull/3263))
+- build(deps-dev): bump @types/node from 26.0.1 to 26.1.0 in the dev group ([#3261](https://github.com/openwebdocs/mdn-bcd-collector/pull/3261))
+- build(deps): bump the dev group with 3 updates ([#3260](https://github.com/openwebdocs/mdn-bcd-collector/pull/3260))
+- build(deps-dev): bump the dev group with 3 updates ([#3259](https://github.com/openwebdocs/mdn-bcd-collector/pull/3259))
+- some css to to slightly improve look ([#3258](https://github.com/openwebdocs/mdn-bcd-collector/pull/3258))
+- build(deps-dev): bump eslint-plugin-jsdoc from 63.0.8 to 63.0.9 in the dev group ([#3255](https://github.com/openwebdocs/mdn-bcd-collector/pull/3255))
+- fix(css): prevent hover flickering on preview checkbox ([#3254](https://github.com/openwebdocs/mdn-bcd-collector/pull/3254))
+
 ## v10.20.1
 
 Released June 25, 2026
