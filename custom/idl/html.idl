@@ -214,7 +214,6 @@ partial interface Window {
   undefined scrollByPages();
   undefined scrollMaxX();
   undefined scrollMaxY();
-  undefined setResizable();
   undefined sizeToContent();
   undefined updateCommands();
 
