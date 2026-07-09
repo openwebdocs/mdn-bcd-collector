@@ -227,6 +227,7 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
   switch (os) {
     case "Windows":
       osesToTest = [
+        ["Windows", "11"],
         ["Windows", "10"],
         ["Windows", "8.1"],
         ["Windows", "8"],
@@ -257,6 +258,7 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
         default:
           // BrowserStack
           osesToTest = [
+            ["OS X", "Tahoe"],
             ["OS X", "Sequoia"],
             ["OS X", "Sonoma"],
             ["OS X", "Ventura"],
