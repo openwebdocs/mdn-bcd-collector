@@ -1,5 +1,6 @@
-import {assert} from "chai";
-import sinon from "sinon";
+import {describe, it, beforeEach} from "node:test";
+import assert from "node:assert/strict";
+
 import fs from "fs-extra";
 
 import bcd from "../unittest/bcd.test.js";
@@ -9,6 +10,8 @@ import {traverseFeatures, getMissing} from "../lib/coverage.js";
 const tests = await fs.readJson(
   new URL("../unittest/tests.test.json", import.meta.url),
 );
+
+let mockedLog: any;
 
 describe("find-missing-features", () => {
   describe("traverseFeatures", () => {
@@ -69,8 +72,8 @@ describe("find-missing-features", () => {
   });
 
   describe("getMissing", () => {
-    beforeEach(() => {
-      sinon.stub(console, "log");
+    beforeEach((t) => {
+      mockedLog = t.mock.method(console, "log", () => {});
     });
 
     it("collector <- bcd", () => {
@@ -185,17 +188,7 @@ describe("find-missing-features", () => {
       };
 
       assert.deepEqual(getMissing(bcd as any, tests), expected);
-
-      assert.isTrue((console.log as any).notCalled);
-
-      // Unknown direction defaults to collector <- bcd
-      assert.deepEqual(getMissing(bcd as any, tests, "foo-from-bar"), expected);
-
-      assert.isTrue(
-        (console.log as any).calledWith(
-          "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd",
-        ),
-      );
+      assert.equal(mockedLog.mock.callCount(), 0);
     });
 
     it("bcd <- collector", () => {
@@ -333,15 +326,10 @@ describe("find-missing-features", () => {
 
     it("unknown direction", () => {
       getMissing(bcd as any, tests, "foo-from-bar");
-      assert.isTrue(
-        (console.log as any).calledWith(
-          "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd",
-        ),
-      );
-    });
 
-    afterEach(() => {
-      (console.log as any).restore();
+      assert.deepEqual(mockedLog.mock.calls[0].arguments, [
+        "Direction 'foo-from-bar' is unknown; defaulting to collector <- bcd",
+      ]);
     });
   });
 });

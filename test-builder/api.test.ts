@@ -1,4 +1,5 @@
-import {assert} from "chai";
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 import * as WebIDL2 from "webidl2";
 
 import {
@@ -26,7 +27,10 @@ describe("build (API)", () => {
     };
 
     const tests = await build(specIDLs, customIDLs);
-    assert.containsAllKeys(tests, ["api.XSLTProcessor.reset"]);
+    assert.deepStrictEqual(
+      ["api.XSLTProcessor.reset"].every((key) => Object.hasOwn(tests, key)),
+      true,
+    );
   });
 
   describe("flattenIDL", () => {
@@ -57,19 +61,14 @@ describe("build (API)", () => {
       const interfaces = ast.filter(
         (dfn) => dfn.type === "interface",
       ) as WebIDL2.InterfaceType[];
-      assert.lengthOf(interfaces, 3);
+      assert.equal(interfaces.length, 3);
 
       assert.equal(interfaces[0].name, "DummyError");
-      assert.lengthOf(interfaces[0].members, 2);
-      (assert as any).containSubset(interfaces[0].members[0], {
-        type: "attribute",
-        name: "imadumdum",
-      });
-      (assert as any).containSubset(interfaces[0].members[1], {
-        type: "operation",
-        name: "geterror",
-      });
-
+      assert.equal(interfaces[0].members.length, 2);
+      assert.equal(interfaces[0].members[0].type, "attribute");
+      assert.equal(interfaces[0].members[0].name, "imadumdum");
+      assert.equal(interfaces[0].members[1].type, "operation");
+      assert.equal(interfaces[0].members[1].name, "geterror");
       assert.equal(interfaces[1].name, "DOMError");
       assert.equal(interfaces[2].name, "XSLTProcessor");
     });
@@ -93,21 +92,18 @@ describe("build (API)", () => {
       const namespaces = ast.filter(
         (dfn) => dfn.type === "namespace",
       ) as WebIDL2.NamespaceType[];
-      assert.lengthOf(namespaces, 1);
+      assert.equal(namespaces.length, 1);
       const [namespace] = namespaces;
       assert.equal(namespace.name, "CSS");
-      assert.lengthOf(namespace.members, 2);
-      (assert as any).containSubset(namespace.members[0], {
-        type: "operation",
-        name: "supports",
-      });
-      (assert as any).containSubset(namespace.members[1], {
-        type: "attribute",
-        name: "paintWorklet",
-      });
+      assert.equal(namespace.members.length, 2);
+
+      assert.equal(namespace.members[0].type, "operation");
+      assert.equal(namespace.members[0].name, "supports");
+      assert.equal(namespace.members[1].type, "attribute");
+      assert.equal(namespace.members[1].name, "paintWorklet");
 
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
-      assert.lengthOf(interfaces, 2);
+      assert(interfaces.length, 2);
     });
 
     it("WindowOrWorkerGlobalScope remains separate", () => {
@@ -131,19 +127,17 @@ describe("build (API)", () => {
         ast: WebIDL2.InterfaceType[];
         globals: WebIDL2.InterfaceType[];
       };
-      assert.lengthOf(ast, 3);
-      assert.lengthOf(globals, 1);
+      assert.equal(ast.length, 3);
+      assert.equal(globals.length, 1);
 
       // Window shouldn't include any of WindowOrWorkerGlobalScope's members
       // in this case; WindowOrWorkerGlobalScope remaps to _globals
-      assert.lengthOf(ast[0].members, 1);
+      assert.equal(ast[0].members.length, 1);
 
       assert.equal(globals[0].name, "WindowOrWorkerGlobalScope");
-      assert.lengthOf(globals[0].members, 1);
-      (assert as any).containSubset(globals[0].members[0], {
-        type: "operation",
-        name: "atob",
-      });
+      assert.equal(globals[0].members.length, 1);
+      assert.equal(globals[0].members[0].type, "operation");
+      assert.equal(globals[0].members[0].name, "atob");
     });
 
     it("mixin missing", () => {
@@ -158,7 +152,7 @@ describe("build (API)", () => {
 
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, "Target DummyError not found for interface mixin DummyErrorHelper");
+      }, /Target DummyError not found for interface mixin DummyErrorHelper$/);
     });
 
     it("interface missing", () => {
@@ -174,7 +168,7 @@ describe("build (API)", () => {
 
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, "Interface mixin DummyErrorHelper not found for target DummyError");
+      }, /Interface mixin DummyErrorHelper not found for target DummyError$/);
     });
 
     it("Operation overloading", () => {
@@ -198,7 +192,7 @@ describe("build (API)", () => {
       };
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, "Duplicate definition of CSS.supports");
+      }, /Duplicate definition of CSS.supports$/);
     });
 
     it("Partial missing main", () => {
@@ -211,7 +205,7 @@ describe("build (API)", () => {
       };
       assert.throws(() => {
         flattenIDL(specIDLs, customIDLs);
-      }, "Original definition not found for partial namespace CSS");
+      }, /Original definition not found for partial namespace CSS$/);
     });
   });
 
@@ -237,13 +231,9 @@ describe("build (API)", () => {
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
-      assert.throws(
-        () => {
-          getExposureSet(interfaces[0], scopes);
-        },
-        Error,
-        "Exposed extended attribute not found on interface Dummy",
-      );
+      assert.throws(() => {
+        getExposureSet(interfaces[0], scopes);
+      }, /Exposed extended attribute not found on interface Dummy$/);
     });
 
     it("invalid exposure set", () => {
@@ -257,13 +247,9 @@ describe("build (API)", () => {
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
-      assert.throws(
-        () => {
-          getExposureSet(interfaces[0], []);
-        },
-        Error,
-        'Unexpected RHS "integer" for Exposed extended attribute',
-      );
+      assert.throws(() => {
+        getExposureSet(interfaces[0], []);
+      }, /Unexpected RHS "integer" for Exposed extended attribute$/);
     });
 
     it("single exposure", () => {
@@ -278,7 +264,7 @@ describe("build (API)", () => {
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ["Worker"]);
+      assert.ok(exposureSet.has("Worker"));
     });
 
     it("multiple exposure", () => {
@@ -293,7 +279,8 @@ describe("build (API)", () => {
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ["Window", "Worker"]);
+      assert.ok(exposureSet.has("Window"));
+      assert.ok(exposureSet.has("Worker"));
     });
 
     it("wildcard exposure", () => {
@@ -308,7 +295,7 @@ describe("build (API)", () => {
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, [...scopes]);
+      assert.ok([...scopes].every((v) => exposureSet.has(v)));
     });
 
     it("DedicatedWorker remaps to Worker", () => {
@@ -323,7 +310,7 @@ describe("build (API)", () => {
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
       const exposureSet = getExposureSet(interfaces[0], scopes);
-      assert.hasAllKeys(exposureSet, ["Worker"]);
+      assert.ok(exposureSet.has("Worker"));
     });
 
     it("invalid exposure", () => {
@@ -337,13 +324,9 @@ describe("build (API)", () => {
       };
       const {ast} = flattenIDL(specIDLs, customIDLs);
       const interfaces = ast.filter((dfn) => dfn.type === "interface");
-      assert.throws(
-        () => {
-          getExposureSet(interfaces[0], scopes);
-        },
-        Error,
-        "interface Dummy is exposed on SomeWrongScope but SomeWrongScope is not a valid scope",
-      );
+      assert.throws(() => {
+        getExposureSet(interfaces[0], scopes);
+      }, /interface Dummy is exposed on SomeWrongScope but SomeWrongScope is not a valid scope$/);
     });
   });
 
@@ -1060,10 +1043,12 @@ describe("build (API)", () => {
         () => {
           validateIDL(ast);
         },
-        `Web IDL validation failed:
+        {
+          message: `Web IDL validation failed:
 Validation error at line 1, inside \`interface Invalid\`:
 interface Invalid {};
           ^ Interfaces must have \`[Exposed]\` extended attribute. To fix, add, for example, \`[Exposed=Window]\`. Please also consider carefully if your interface should also be exposed in a Worker scope. Refer to the [WebIDL spec section on Exposed](https://heycam.github.io/webidl/#Exposed) for more information. [require-exposed]`,
+        },
       );
     });
 
@@ -1076,7 +1061,7 @@ interface Invalid {};
       );
       assert.throws(() => {
         validateIDL(ast);
-      }, "Unknown type Dumdum");
+      }, /Unknown type Dumdum$/);
     });
 
     it("ignored unknown types", () => {

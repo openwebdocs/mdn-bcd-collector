@@ -1,6 +1,5 @@
-import {assert, use} from "chai";
-import chaiAsPromised from "chai-as-promised";
-use(chaiAsPromised);
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 
 import {getReportMeta} from "./exporter.js";
 

@@ -1,4 +1,0 @@
-{
-  "extensions": ["ts", "tsx"],
-  "exclude": ["unittest/", "**/node_modules/**/*", "es-scraper/"]
-}

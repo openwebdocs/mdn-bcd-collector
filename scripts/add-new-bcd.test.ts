@@ -1,4 +1,5 @@
-import {assert} from "chai";
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 
 import {recursiveAdd, getFilePath} from "./add-new-bcd.js";
 

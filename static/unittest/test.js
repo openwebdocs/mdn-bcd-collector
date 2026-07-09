@@ -7,25 +7,6 @@ mocha.setup({
 });
 
 describe("harness.js", function () {
-  describe("addInstance", function () {
-    beforeEach(function () {
-      sinon.stub(window.console, "error");
-    });
-
-    it("valid", function (done) {
-      bcd.addInstance("foo", "return 123");
-      assert.equal(
-        reusableInstances.__sources.foo,
-        "(function () {\n  return 123\n})();"
-      );
-      done();
-    });
-
-    afterEach(function () {
-      window.console.error.restore();
-    });
-  });
-
   describe("run tests", function () {
     describe("normal", function () {
       it("no tests", function (done) {

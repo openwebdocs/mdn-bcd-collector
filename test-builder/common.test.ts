@@ -1,8 +1,5 @@
-import {assert, use} from "chai";
-import chaiAsPromised from "chai-as-promised";
-use(chaiAsPromised);
-
-import sinon from "sinon";
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 
 import {
   compileTestCode,
@@ -211,8 +208,8 @@ describe("build (common)", () => {
       });
     }
 
-    it("api.invalid (disable test if code is malformed)", async () => {
-      const consoleError = sinon.stub(console, "error");
+    it("api.invalid (disable test if code is malformed)", async (t) => {
+      const mockedLog = t.mock.method(console, "error", () => {});
       const customTest = await getCustomTest("api.invalid", "api");
       assert.ok(
         customTest.test &&
@@ -220,21 +217,20 @@ describe("build (common)", () => {
             '(function () {\n  throw "Test is malformed:',
           ),
       );
-      assert.ok(consoleError.calledOnce);
-      consoleError.restore();
+      assert.equal(mockedLog.mock.callCount(), 1);
     });
 
     it("api.badresource (throw error on bad resource reference)", async () => {
-      await assert.isRejected(
+      await assert.rejects(
         getCustomTest("api.badresource", "api"),
-        "Resource bad-resource is not defined but referenced in api.badresource",
+        /Resource bad-resource is not defined but referenced in api.badresource$/,
       );
     });
 
     it("api.otherbadresource (throw error on bad resource reference)", async () => {
-      await assert.isRejected(
+      await assert.rejects(
         getCustomTest("api.otherbadresource", "api"),
-        "Resource bad-resource is not defined but referenced in __resources.other-bad-resource",
+        /Resource bad-resource is not defined but referenced in __resources.other-bad-resource$/,
       );
     });
   });

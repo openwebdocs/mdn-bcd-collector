@@ -19,6 +19,7 @@
     "json3.min.js",
     "static/resources/worker.js",
     "static/resources/serviceworker.js",
-    "static/resources/sharedworker.js"
+    "static/resources/sharedworker.js",
+    "eslint.config.js"
   ]
 }

@@ -13,12 +13,6 @@ const generatedDir = fileURLToPath(new URL("./generated", import.meta.url));
 const copyResources = async () => {
   const resources = [
     ["json3/lib/json3.min.js", "resources"],
-    ["chai/index.js", "unittest"],
-    ["chai/register-assert.js", "unittest"],
-    ["mocha/mocha.css", "unittest"],
-    ["mocha/mocha.js", "unittest"],
-    ["mocha/mocha.js.map", "unittest"],
-    ["sinon/pkg/sinon.js", "unittest"],
     ["@mdi/font/css/materialdesignicons.min.css", "resources"],
     ["@mdi/font/fonts/materialdesignicons-webfont.eot", "fonts"],
     ["@mdi/font/fonts/materialdesignicons-webfont.ttf", "fonts"],
