@@ -1,8 +1,5 @@
-import {assert, use} from "chai";
-import chaiAsPromised from "chai-as-promised";
-use(chaiAsPromised);
-
-import sinon from "sinon";
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 
 import {build} from "./css.js";
 
@@ -121,9 +118,9 @@ describe("build (CSS)", () => {
       types: [],
     };
 
-    await assert.isRejected(
+    await assert.rejects(
       build(css, {properties: {foo: {}}, selectors: {}}),
-      "Custom CSS property already known: foo",
+      /Custom CSS property already known: foo$/,
     );
   });
 
@@ -140,9 +137,9 @@ describe("build (CSS)", () => {
       types: [],
     };
 
-    await assert.isRejected(
+    await assert.rejects(
       build(css, {properties: {foo: {_values: ["bar"]}}, selectors: {}}),
-      "Custom CSS property already known: foo",
+      /Custom CSS property already known: foo$/,
     );
 
     const customCSS = {
@@ -156,9 +153,9 @@ describe("build (CSS)", () => {
       types: {},
     };
 
-    await assert.isRejected(
+    await assert.rejects(
       build({properties: [], selectors: [], types: []}, customCSS),
-      "CSS property value is double-defined in custom CSS: foo.bar",
+      /CSS property value is double-defined in custom CSS: foo.bar$/,
     );
   });
 
@@ -181,9 +178,9 @@ describe("build (CSS)", () => {
       types: {},
     };
 
-    await assert.isRejected(
+    await assert.rejects(
       build(webrefCSS, customCSS),
-      "Custom CSS property already known: foo",
+      /Custom CSS property already known: foo$/,
     );
   });
 
@@ -225,14 +222,14 @@ describe("build (CSS)", () => {
       types: [],
     };
 
-    await assert.isRejected(
+    await assert.rejects(
       build(css, {properties: {}, selectors: {foo: {}}}),
-      "Custom CSS selector already known: foo",
+      /Custom CSS selector already known: foo$/,
     );
   });
 
-  it("invalid import", async () => {
-    const consoleError = sinon.stub(console, "error");
+  it("invalid import", async (t) => {
+    const mockedLog = t.mock.method(console, "error", () => {});
     const css = {
       properties: [{name: "bar", href: "https://foo.bar"}],
       selectors: [],
@@ -254,8 +251,10 @@ describe("build (CSS)", () => {
         },
       },
     );
-    assert.ok(consoleError.calledOnce);
-
-    consoleError.restore();
+    assert.equal(mockedLog.mock.callCount(), 1);
+    assert.deepEqual(mockedLog.mock.calls[0].arguments, [
+      "css.properties.foo",
+      error,
+    ]);
   });
 });
