@@ -787,7 +787,7 @@ if (esMain(import.meta)) {
           describe: "Limit to browser releases from this year on",
           alias: "s",
           type: "string",
-          default: "2020",
+          default: "2023",
           nargs: 1,
         })
         .option("os", {
