@@ -1,5 +1,33 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.3
+
+Released July 10, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Window.maximize
+- api.Window.minimize
+- api.Window.restore
+
+#### Removed
+
+- api.SVGUseElement.animatedInstanceRoot
+- api.SVGUseElement.instanceRoot
+
+### Commits
+
+- build(deps-dev): bump the dev group across 1 directory with 2 updates ([#3273](https://github.com/openwebdocs/mdn-bcd-collector/pull/3273))
+- Migrate to node testrunner ([#3274](https://github.com/openwebdocs/mdn-bcd-collector/pull/3274))
+- Use Windows 11 and macOS Tahoe in selenium runs ([#3272](https://github.com/openwebdocs/mdn-bcd-collector/pull/3272))
+- build(deps-dev): bump the data group with 2 updates ([#3268](https://github.com/openwebdocs/mdn-bcd-collector/pull/3268))
+- build(deps-dev): bump @types/node from 26.1.0 to 26.1.1 in the dev group ([#3269](https://github.com/openwebdocs/mdn-bcd-collector/pull/3269))
+- build(deps-dev): bump the dev group with 2 updates ([#3267](https://github.com/openwebdocs/mdn-bcd-collector/pull/3267))
+- build(deps): bump the dev group with 4 updates ([#3266](https://github.com/openwebdocs/mdn-bcd-collector/pull/3266))
+- build(deps): bump tsx from 4.22.4 to 4.22.5 in the dev group ([#3265](https://github.com/openwebdocs/mdn-bcd-collector/pull/3265))
+
 ## v10.20.2
 
 Released July 2, 2026
