@@ -81,7 +81,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "26.1.1",
     "@types/selenium-webdriver": "^4.35.6",
-    "@types/superagent": "^8.1.10",
+    "@types/superagent": "^8.1.11",
     "@types/webidl2": "^24.4.4",
     "@types/yargs": "^17.0.35",
     "@webref/css": "8.7.0",
@@ -108,7 +108,7 @@
     "puppeteer": "25.3.0",
     "selenium-webdriver": "4.46.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "~8.63.0",
+    "typescript-eslint": "~8.64.0",
     "webidl2": "24.5.0",
     "yaml": "2.9.0"
   },
