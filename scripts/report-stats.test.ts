@@ -1,4 +1,6 @@
-import {expect} from "chai";
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
+
 import fs from "fs-extra";
 
 import {Report} from "../types/types.js";
@@ -18,12 +20,12 @@ describe("getStats", () => {
     ];
     const stats = getStats(report, featureQuery);
 
-    expect(stats.version).to.equal("1.0.0");
-    expect(stats.browser.browser.name).to.equal("Chrome");
-    expect(stats.testResults.total).to.equal(3);
-    expect(stats.testResults.supported.length).to.equal(1);
-    expect(stats.testResults.unsupported.length).to.equal(1);
-    expect(stats.testResults.unknown.length).to.equal(1);
-    expect(stats.featuresQueried.length).to.equal(3);
+    assert.equal(stats.version, "1.0.0");
+    assert.equal(stats.browser.browser.name, "Chrome");
+    assert.equal(stats.testResults.total, 3);
+    assert.equal(stats.testResults.supported.length, 1);
+    assert.equal(stats.testResults.unsupported.length, 1);
+    assert.equal(stats.testResults.unknown.length, 1);
+    assert.equal(stats.featuresQueried.length, 3);
   });
 });

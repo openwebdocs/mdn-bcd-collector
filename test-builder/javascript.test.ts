@@ -1,4 +1,6 @@
-import {assert} from "chai";
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
+
 import {build} from "./javascript.js";
 
 describe("build (JavaScript)", () => {

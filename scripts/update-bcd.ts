@@ -209,6 +209,7 @@ export const getSupportMatrix = (
         )) {
           versionMap.set(browserVersion, null);
         }
+        versionMap.set("preview", null);
         browserMap.set(browser.id, versionMap);
       }
       assert(versionMap.has(version), `${browser.id} ${version} missing`);
@@ -278,7 +279,24 @@ export const getSupportMatrix = (
 export const inferSupportStatements = (
   versionMap: BrowserSupportMap,
 ): SimpleSupportStatement[] => {
-  const versions = Array.from(versionMap.keys()).sort(bcdCompareSort);
+  // Feature unsupported in all released versions but supported in preview.
+  const previewSupport = versionMap.get("preview");
+
+  const releasedVersions = Array.from(versionMap.entries()).filter(
+    ([version]) => version !== "preview",
+  );
+
+  const hasReleasedSupport = releasedVersions.some(
+    ([, support]) => support === true,
+  );
+
+  if (previewSupport === true && !hasReleasedSupport) {
+    return [{version_added: "preview"}];
+  }
+
+  const versions = Array.from(versionMap.keys())
+    .filter((v) => v !== "preview")
+    .sort(bcdCompareSort);
 
   const statements: SimpleSupportStatement[] = [];
   const lastKnown: {version: string; support: TestResultValue} = {
@@ -800,7 +818,6 @@ const skipCurrentBeforeSupport = skip("currentBeforeSupport", ({
         "",
       );
     if (
-      simpleStatement.version_added === "preview" ||
       bcdCompare(
         latestNonNullVersion,
         simpleStatement.version_added.replace("≤", ""),
@@ -833,6 +850,9 @@ const isSupported = (
     }
 
     if (version_added === "preview") {
+      if (version === "preview") {
+        return true;
+      }
       return false;
     }
 

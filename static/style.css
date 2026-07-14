@@ -17,8 +17,10 @@ COLORS
 --button-bg-hover: #e000eb;
 */
 
-html {
+html,
+::marker {
   font-family: sans-serif;
+  line-height: 1.6;
 }
 
 body {
@@ -33,21 +35,21 @@ a:hover {
   color: #9900a1;
 }
 
-code {
+code,
+details ol li {
   font-family: monospace;
-  font-size: 12px;
 }
 
 button,
 select,
-input {
+#test-selection {
   background: #9900a1;
   color: white;
 }
 
 button,
 select,
-input {
+#test-selection {
   border: none;
   text-align: center;
   text-decoration: none;
@@ -57,36 +59,33 @@ input {
     background-color 0.2s,
     outline-color 0.2s;
   padding: 8px;
-  outline-color: rgba(0, 0, 0, 0);
-  outline-style: none;
-  outline-width: 0;
 }
 
 button:hover,
 button:hover:focus,
 select:hover,
 select:hover:focus,
-input:hover,
-input:hover:focus {
+#test-selection:hover,
+#test-selection:hover:focus {
   cursor: pointer;
   background: #e000eb;
 }
 
 button:focus,
 select:focus,
-input:focus {
+#test-selection:focus {
   background: #e000eb;
 }
 
 button:focus,
 select:focus,
-input:focus {
+#test-selection:focus {
   outline-color: #e000eb;
 }
 
 button:focus-visible,
 select:focus-visible,
-input:focus-visible {
+#test-selection:focus-visible {
   outline-style: auto;
   outline-width: 1px;
 }
@@ -94,8 +93,8 @@ button:disabled,
 button:disabled:hover,
 select:disabled,
 select:disabled:hover,
-input:disabled,
-input:disabled:hover {
+#test-selection:disabled,
+#test-selection:disabled:hover {
   cursor: not-allowed;
   background: #636363;
 }
@@ -103,11 +102,11 @@ button:disabled,
 button:disabled:hover,
 select:disabled,
 select:disabled:hover,
-input:disabled,
-input:disabled:hover {
+#test-selection:disabled,
+#test-selection:disabled:hover {
   color: #cccccc;
 }
-input {
+#test-selection {
   text-align: left;
   margin-left: -2px;
 }
@@ -138,6 +137,9 @@ nav#navbar {
 nav#navbar a {
   text-decoration: none;
   margin: 0 0.1em;
+  @media (width > 30em) {
+    margin: 0 0.5em;
+  }
 }
 nav#navbar a:first-child {
   margin-left: 0;
@@ -149,8 +151,8 @@ nav#navbar a:last-child {
 
 .paper {
   background: #d2bbfd;
-}
-.paper {
+  width: 96vw;
+  overflow: auto;
   padding: 1em 8px;
   border-radius: 8px;
   margin: 1em auto;
@@ -193,7 +195,6 @@ h1 {
 }
 
 #run-tests {
-  width: 100%;
   max-width: -webkit-max-content;
   max-width: -moz-max-content;
   max-width: max-content;

@@ -1,5 +1,76 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.3
+
+Released July 10, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Window.maximize
+- api.Window.minimize
+- api.Window.restore
+
+#### Removed
+
+- api.SVGUseElement.animatedInstanceRoot
+- api.SVGUseElement.instanceRoot
+
+### Commits
+
+- build(deps-dev): bump the dev group across 1 directory with 2 updates ([#3273](https://github.com/openwebdocs/mdn-bcd-collector/pull/3273))
+- Migrate to node testrunner ([#3274](https://github.com/openwebdocs/mdn-bcd-collector/pull/3274))
+- Use Windows 11 and macOS Tahoe in selenium runs ([#3272](https://github.com/openwebdocs/mdn-bcd-collector/pull/3272))
+- build(deps-dev): bump the data group with 2 updates ([#3268](https://github.com/openwebdocs/mdn-bcd-collector/pull/3268))
+- build(deps-dev): bump @types/node from 26.1.0 to 26.1.1 in the dev group ([#3269](https://github.com/openwebdocs/mdn-bcd-collector/pull/3269))
+- build(deps-dev): bump the dev group with 2 updates ([#3267](https://github.com/openwebdocs/mdn-bcd-collector/pull/3267))
+- build(deps): bump the dev group with 4 updates ([#3266](https://github.com/openwebdocs/mdn-bcd-collector/pull/3266))
+- build(deps): bump tsx from 4.22.4 to 4.22.5 in the dev group ([#3265](https://github.com/openwebdocs/mdn-bcd-collector/pull/3265))
+
+## v10.20.2
+
+Released July 2, 2026
+
+### Test Changes
+
+#### Added
+
+- api.ProcessingInstruction.getAttribute
+- api.ProcessingInstruction.getAttributeNames
+- api.ProcessingInstruction.hasAttribute
+- api.ProcessingInstruction.hasAttributes
+- api.ProcessingInstruction.ProcessingInstruction
+- api.ProcessingInstruction.removeAttribute
+- api.ProcessingInstruction.setAttribute
+- api.ProcessingInstruction.toggleAttribute
+- css.selectors.nav-source
+
+#### Removed
+
+- css.selectors.active-navigation
+- css.selectors.trigger-link
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3262](https://github.com/openwebdocs/mdn-bcd-collector/pull/3262))
+- build(deps-dev): bump the dev group with 2 updates ([#3263](https://github.com/openwebdocs/mdn-bcd-collector/pull/3263))
+- build(deps-dev): bump @types/node from 26.0.1 to 26.1.0 in the dev group ([#3261](https://github.com/openwebdocs/mdn-bcd-collector/pull/3261))
+- build(deps): bump the dev group with 3 updates ([#3260](https://github.com/openwebdocs/mdn-bcd-collector/pull/3260))
+- build(deps-dev): bump the dev group with 3 updates ([#3259](https://github.com/openwebdocs/mdn-bcd-collector/pull/3259))
+- some css to to slightly improve look ([#3258](https://github.com/openwebdocs/mdn-bcd-collector/pull/3258))
+- build(deps-dev): bump eslint-plugin-jsdoc from 63.0.8 to 63.0.9 in the dev group ([#3255](https://github.com/openwebdocs/mdn-bcd-collector/pull/3255))
+- fix(css): prevent hover flickering on preview checkbox ([#3254](https://github.com/openwebdocs/mdn-bcd-collector/pull/3254))
+
+## v10.20.1
+
+Released June 25, 2026
+
+### Commits
+
+- Fix update-bcd logic for preview browsers ([#3250](https://github.com/openwebdocs/mdn-bcd-collector/pull/3250))
+- build(deps-dev): bump the dev group with 6 updates ([#3251](https://github.com/openwebdocs/mdn-bcd-collector/pull/3251))
+
 ## v10.20.0
 
 Released June 24, 2026

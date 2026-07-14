@@ -227,6 +227,7 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
   switch (os) {
     case "Windows":
       osesToTest = [
+        ["Windows", "11"],
         ["Windows", "10"],
         ["Windows", "8.1"],
         ["Windows", "8"],
@@ -257,6 +258,7 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
         default:
           // BrowserStack
           osesToTest = [
+            ["OS X", "Tahoe"],
             ["OS X", "Sequoia"],
             ["OS X", "Sonoma"],
             ["OS X", "Ventura"],
@@ -785,7 +787,7 @@ if (esMain(import.meta)) {
           describe: "Limit to browser releases from this year on",
           alias: "s",
           type: "string",
-          default: "2020",
+          default: "2023",
           nargs: 1,
         })
         .option("os", {
