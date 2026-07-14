@@ -11,17 +11,17 @@
   <h2>How many existing BCD keys are covered by the Collector?</h2>
 
   <ul>
-    <li>Total BCD keys: <%-coverageData.bcd.counts.all%></li>
-    <li>BCD keys covered: <%-coverageData.bcd.counts.covered%> (<strong><%-coverageData.bcd.counts.uncovered_percentage%>%</strong>)</li>
-    <li>BCD keys <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/untestable-features.jsonc">not testable</a>: <%-coverageData.bcd.counts.untestable%> (HTTP, WebExtensions, WebDriver, and more)</li>
-    <li>Testable BCD keys not covered: <%-coverageData.bcd.counts.testable_uncovered%> (see list below)</li>
-    <li>Collector coverage of testable BCD keys: <strong><%-coverageData.bcd.counts.testable_uncovered_percentage%>%</strong></li>
+    <li>Total BCD keys: <%-coverageData.bcd.summary.key_count%></li>
+    <li>BCD keys covered: <%-coverageData.bcd.summary.covered_keys_count%> (<strong><%-(coverageData.bcd.summary.uncovered_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    <li>BCD keys <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/untestable-features.jsonc">not testable</a>: <%-coverageData.bcd.summary.untestable_keys_count%> (HTTP, WebExtensions, WebDriver, and more)</li>
+    <li>Testable BCD keys not covered: <%-coverageData.bcd.summary.testable_uncovered_keys_count%> (see list below)</li>
+    <li>Collector coverage of testable BCD keys: <strong><%-(coverageData.bcd.summary.testable_uncovered_keys_ratio * 100).toFixed(2)%>%</strong></li>
   </ul>
 
   <p> List of testable BCD keys not covered: <br> (Either need to be marked as untestable, or a test needs to written)</p>
   <details>
     <ol>
-    <% for (item of coverageData.bcd.lists.testable_uncovered) { %>
+    <% for (item of coverageData.bcd.lists.testable_uncovered_keys) { %>
       <li><%- item %></li>
     <% } %>
     </ol>
@@ -32,13 +32,13 @@
   <h2>How many new ("early") BCD keys are in the Collector but not in BCD?</h2>
 
   <ul>
-    <li>Early Collector keys not in BCD: <strong><%-coverageData.collector.counts.early_features_not_in_bcd%></strong></li>
+    <li>Early Collector keys not in BCD: <strong><%-coverageData.collector.summary.early_keys_not_in_bcd%></strong></li>
   </ul>
 
   <p>List of early Collector keys: <br>(Need to test for support in nightly and/or behind flags, or add as an "all-false" feature, or declare as "too early" / "spec fiction")</p>
   <details>
     <ol>
-    <% for (item of coverageData.collector.lists.early_features_not_in_bcd) { %>
+    <% for (item of coverageData.collector.lists.early_keys_not_in_bcd) { %>
       <li><%- item %></li>
     <% } %>
     </ol>
