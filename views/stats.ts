@@ -62,6 +62,11 @@ const coverageData = {
     summary: {
       all_keys_count: collectorData.all.all.length,
 
+      keys_in_bcd_count: collectorData.testable.found.length,
+      keys_in_bcd_ratio: +(
+        collectorData.testable.found.length / collectorData.testable.all.length
+      ).toFixed(4),
+
       keys_not_in_bcd_count: collectorData.testable.missing.length,
       keys_not_in_bcd_ratio: +(
         collectorData.testable.missing.length /

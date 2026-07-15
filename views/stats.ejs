@@ -38,10 +38,13 @@
 </div>
 
 <div class="paper">
-  <h2>How many new ("early") BCD keys are in the Collector but not in BCD?</h2>
+  <h2>How many BCD keys are in the Collector but not in BCD?</h2>
 
   <ul>
     <li>Total keys in the Collector: <%-coverageData.collector.summary.all_keys_count%></li>
+    
+    <li>Collector keys in BCD: <%-coverageData.collector.summary.keys_in_bcd_count%> (<strong><%-(coverageData.collector.summary.keys_in_bcd_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
     <li>Collector keys not in BCD: <%-coverageData.collector.summary.keys_not_in_bcd_count%> (<strong><%-(coverageData.collector.summary.keys_not_in_bcd_ratio * 100).toFixed(2)%>%</strong>)</li>
   </ul>
 
