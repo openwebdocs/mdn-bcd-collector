@@ -21,32 +21,32 @@ const coverageData = {
       all_keys_count: bcdData.all.all.length,
 
       covered_keys_count: bcdData.all.found.length,
-      covered_keys_ratio: (
+      covered_keys_ratio: +(
         bcdData.all.found.length / bcdData.all.all.length
       ).toFixed(4),
 
       not_covered_keys_count: bcdData.all.missing.length,
-      not_covered_keys_ratio: (
+      not_covered_keys_ratio: +(
         bcdData.all.missing.length / bcdData.all.all.length
       ).toFixed(4),
 
       testable_keys_count: bcdData.testable.all.length,
-      testable_keys_ratio: (
+      testable_keys_ratio: +(
         bcdData.testable.all.length / bcdData.all.all.length
       ).toFixed(4),
 
       not_testable_keys_count: bcdData.untestable.all.length,
-      not_testable_keys_ratio: (
+      not_testable_keys_ratio: +(
         bcdData.untestable.all.length / bcdData.all.all.length
       ).toFixed(4),
 
       testable_covered_keys_count: bcdData.testable.found.length,
-      testable_covered_keys_ratio: (
+      testable_covered_keys_ratio: +(
         bcdData.testable.found.length / bcdData.testable.all.length
       ).toFixed(4),
 
       testable_not_covered_keys_count: bcdData.testable.missing.length,
-      testable_not_covered_keys_ratio: (
+      testable_not_covered_keys_ratio: +(
         bcdData.testable.missing.length / bcdData.testable.all.length
       ).toFixed(4),
     },
@@ -63,7 +63,7 @@ const coverageData = {
       all_keys_count: collectorData.all.all.length,
 
       keys_not_in_bcd_count: collectorData.testable.missing.length,
-      keys_not_in_bcd_ratio: (
+      keys_not_in_bcd_ratio: +(
         collectorData.testable.missing.length /
         collectorData.testable.all.length
       ).toFixed(4),
