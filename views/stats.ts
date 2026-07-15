@@ -18,31 +18,58 @@ const coverageData = {
   bcd: {
     version: bcd.__meta.version,
     summary: {
-      key_count: bcdData.all.all.length,
+      all_keys_count: bcdData.all.all.length,
+
       covered_keys_count: bcdData.all.found.length,
-      uncovered_keys_ratio: (
+      covered_keys_ratio: (
         bcdData.all.found.length / bcdData.all.all.length
       ).toFixed(4),
-      untestable_keys_count: bcdData.untestable.all.length,
-      testable_uncovered_keys_count: bcdData.testable.missing.length,
-      testable_uncovered_keys_ratio: (
+
+      not_covered_keys_count: bcdData.all.missing.length,
+      not_covered_keys_ratio: (
+        bcdData.all.missing.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      testable_keys_count: bcdData.testable.all.length,
+      testable_keys_ratio: (
+        bcdData.testable.all.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      not_testable_keys_count: bcdData.untestable.all.length,
+      not_testable_keys_ratio: (
+        bcdData.untestable.all.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      testable_covered_keys_count: bcdData.testable.found.length,
+      testable_covered_keys_ratio: (
         bcdData.testable.found.length / bcdData.testable.all.length
+      ).toFixed(4),
+
+      testable_not_covered_keys_count: bcdData.testable.missing.length,
+      testable_not_covered_keys_ratio: (
+        bcdData.testable.missing.length / bcdData.testable.all.length
       ).toFixed(4),
     },
     lists: {
       all_keys: bcdData.all.all,
       covered_keys: bcdData.all.found,
-      untestable_keys: bcdData.untestable.all,
-      testable_uncovered_keys: bcdData.testable.missing,
+      not_testable_keys: bcdData.untestable.all,
+      testable_not_covered_keys: bcdData.testable.missing,
     },
   },
   collector: {
     version: appVersion,
     summary: {
-      early_keys_not_in_bcd: collectorData.testable.missing.length,
+      all_keys_count: collectorData.all.all.length,
+
+      keys_not_in_bcd_count: collectorData.testable.missing.length,
+      keys_not_in_bcd_ratio: (
+        collectorData.testable.missing.length /
+        collectorData.testable.all.length
+      ).toFixed(4),
     },
     lists: {
-      early_keys_not_in_bcd: collectorData.testable.missing,
+      keys_not_in_bcd: collectorData.testable.missing,
     },
   },
 };
