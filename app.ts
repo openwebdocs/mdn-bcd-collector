@@ -246,6 +246,10 @@ app.get("/stats", async (req: Request, res: Response) => {
   res.render("stats", {coverageData});
 });
 
+app.get("/stats.json", async (req: Request, res: Response) => {
+  res.status(200).json(coverageData);
+});
+
 /* c8 ignore start */
 app.get(
   "/download/:filename",

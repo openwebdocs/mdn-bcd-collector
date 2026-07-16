@@ -11,17 +11,26 @@
   <h2>How many existing BCD keys are covered by the Collector?</h2>
 
   <ul>
-    <li>Total BCD keys: <%-coverageData.bcd.total%></li>
-    <li>BCD keys covered: <%-coverageData.bcd.covered%> (<strong><%-coverageData.bcd.uncoveredPercentage%>%</strong>)</li>
-    <li>BCD keys <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/untestable-features.jsonc">not testable</a>: <%-coverageData.bcd.untestable%> (HTTP, WebExtensions, WebDriver, and more)</li>
-    <li>Testable BCD keys not covered: <%-coverageData.bcd.testableUncovered%> (see list below)</li>
-    <li>Collector coverage of testable BCD keys: <strong><%-coverageData.bcd.percentage%>%</strong></li>
+    <li>Total keys in BCD: <%-coverageData.bcd.summary.all_keys_count%></li>
+
+    <li>BCD keys covered by the Collector: <%-coverageData.bcd.summary.covered_keys_count%> (<strong><%-(coverageData.bcd.summary.covered_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
+    <li>BCD keys not covered by the Collector: <%-coverageData.bcd.summary.not_covered_keys_count%> (<strong><%-(coverageData.bcd.summary.not_covered_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
+    <li>BCD keys testable in the Collector: <%-coverageData.bcd.summary.testable_keys_count%> (<strong><%-(coverageData.bcd.summary.testable_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
+    <li>BCD keys marked <a href="https://github.com/openwebdocs/mdn-bcd-collector/blob/main/untestable-features.jsonc">not testable</a> in the Collector: <%-coverageData.bcd.summary.not_testable_keys_count%> (<strong><%-(coverageData.bcd.summary.not_testable_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
+    <li>Collector coverage of testable BCD keys: <%-coverageData.bcd.summary.testable_covered_keys_count%> (<strong><%-(coverageData.bcd.summary.testable_covered_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
+    <li>Testable BCD keys not covered in the Collector: <%-coverageData.bcd.summary.testable_not_covered_keys_count%> (<strong><%-(coverageData.bcd.summary.testable_not_covered_keys_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
   </ul>
 
-  <p> List of testable BCD keys not covered: <br> (Either need to be marked as untestable, or a test needs to written)</p>
+  <p> List of <strong><%-coverageData.bcd.summary.testable_not_covered_keys_count%></strong> BCD keys not covered in the Collector (either need to be marked as untestable, or a collector test needs to written):</p>
   <details>
     <ol>
-    <% for (item of coverageData.bcd.missingList) { %>
+    <% for (item of coverageData.bcd.lists.testable_not_covered_keys) { %>
       <li><%- item %></li>
     <% } %>
     </ol>
@@ -29,22 +38,26 @@
 </div>
 
 <div class="paper">
-  <h2>How many new ("early") BCD keys are in the Collector but not in BCD?</h2>
+  <h2>How many BCD keys are in the Collector but not in BCD?</h2>
 
   <ul>
-    <li>Early Collector keys not in BCD: <strong><%-coverageData.collector.total%></strong></li>
+    <li>Total keys in the Collector: <%-coverageData.collector.summary.all_keys_count%></li>
+    
+    <li>Collector keys in BCD: <%-coverageData.collector.summary.keys_in_bcd_count%> (<strong><%-(coverageData.collector.summary.keys_in_bcd_ratio * 100).toFixed(2)%>%</strong>)</li>
+    
+    <li>Collector keys not in BCD: <%-coverageData.collector.summary.keys_not_in_bcd_count%> (<strong><%-(coverageData.collector.summary.keys_not_in_bcd_ratio * 100).toFixed(2)%>%</strong>)</li>
   </ul>
 
-  <p>List of early Collector keys: <br>(Need to test for support in nightly and/or behind flags, or add as an "all-false" feature, or declare as "too early" / "spec fiction")</p>
+  <p>List of <strong><%-coverageData.collector.summary.keys_not_in_bcd_count%></strong> Collector keys not in BCD: (need to test for support, might not be supported anywhere, meaning the keys are still <a href="https://ddbeck.com/notes/spec-fiction/">"spec fiction"</a>)</p>
   <details>
     <ol>
-    <% for (item of coverageData.collector.missingList) { %>
+    <% for (item of coverageData.collector.lists.keys_not_in_bcd) { %>
       <li><%- item %></li>
     <% } %>
     </ol>
   </details>
 
-  <p>If a key is not in the "early" feature list, it can have a variety of reasons:</p>
+  <p>Note: If a new key is not in the in the Collector, it can have a variety of reasons:</p>
 
   <ul>
     <li>The feature is not defined in a specification that is registered in <a href="https://github.com/w3c/browser-specs">w3c/browser-specs</a>. Maybe it is just part of an explainer or an open PR against an existing specification.</li>

@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import bcd from "@mdn/browser-compat-data" with {type: "json"};
 import {getMissing} from "../lib/coverage.js";
+import appVersion from "../lib/app-version.js";
 
 const testsPath = new URL("../tests.json", import.meta.url);
 if (!fs.existsSync(testsPath)) {
@@ -15,23 +16,65 @@ const collectorData = getMissing(bcd, tests, "bcd-from-collector")[""];
 
 const coverageData = {
   bcd: {
-    total: bcdData.all.all.length,
-    covered: bcdData.all.found.length,
-    uncoveredPercentage: (
-      (bcdData.all.found.length / bcdData.all.all.length) *
-      100.0
-    ).toFixed(2),
-    untestable: bcdData.untestable.all.length,
-    testableUncovered: bcdData.testable.missing.length,
-    missingList: bcdData.testable.missing,
-    percentage: (
-      (bcdData.testable.found.length / bcdData.testable.all.length) *
-      100.0
-    ).toFixed(2),
+    version: bcd.__meta.version,
+    summary: {
+      all_keys_count: bcdData.all.all.length,
+
+      covered_keys_count: bcdData.all.found.length,
+      covered_keys_ratio: +(
+        bcdData.all.found.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      not_covered_keys_count: bcdData.all.missing.length,
+      not_covered_keys_ratio: +(
+        bcdData.all.missing.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      testable_keys_count: bcdData.testable.all.length,
+      testable_keys_ratio: +(
+        bcdData.testable.all.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      not_testable_keys_count: bcdData.untestable.all.length,
+      not_testable_keys_ratio: +(
+        bcdData.untestable.all.length / bcdData.all.all.length
+      ).toFixed(4),
+
+      testable_covered_keys_count: bcdData.testable.found.length,
+      testable_covered_keys_ratio: +(
+        bcdData.testable.found.length / bcdData.testable.all.length
+      ).toFixed(4),
+
+      testable_not_covered_keys_count: bcdData.testable.missing.length,
+      testable_not_covered_keys_ratio: +(
+        bcdData.testable.missing.length / bcdData.testable.all.length
+      ).toFixed(4),
+    },
+    lists: {
+      covered_keys: bcdData.all.found,
+      not_testable_keys: bcdData.untestable.all,
+      testable_not_covered_keys: bcdData.testable.missing,
+    },
   },
   collector: {
-    total: collectorData.testable.missing.length,
-    missingList: collectorData.testable.missing,
+    version: appVersion,
+    summary: {
+      all_keys_count: collectorData.all.all.length,
+
+      keys_in_bcd_count: collectorData.testable.found.length,
+      keys_in_bcd_ratio: +(
+        collectorData.testable.found.length / collectorData.testable.all.length
+      ).toFixed(4),
+
+      keys_not_in_bcd_count: collectorData.testable.missing.length,
+      keys_not_in_bcd_ratio: +(
+        collectorData.testable.missing.length /
+        collectorData.testable.all.length
+      ).toFixed(4),
+    },
+    lists: {
+      keys_not_in_bcd: collectorData.testable.missing,
+    },
   },
 };
 
