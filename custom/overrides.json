@@ -1122,7 +1122,6 @@
   ["api.GPUAdapter", "firefox", "141+", true],
   ["api.GPUAdapter.features", "firefox", "141+", true],
   ["api.GPUAdapter.info", "firefox", "141+", true],
-  ["api.GPUAdapter.isFallbackAdapter", "firefox", "141+", true],
   ["api.GPUAdapter.limits", "firefox", "141+", true],
   ["api.GPUAdapter.requestAdapterInfo", "firefox", "141+", true],
   ["api.GPUAdapter.requestDevice", "firefox", "141+", true],
@@ -1178,7 +1177,7 @@
   ["api.GPUDevice.createTexture", "firefox", "141+", true],
   ["api.GPUDevice.destroy", "firefox", "141+", true],
   ["api.GPUDevice.features", "firefox", "141+", true],
-  ["api.GPUDevice.importExternalTexture", "firefox", "141+", true],
+  ["api.GPUDevice.importExternalTexture", "firefox", "144", true],
   ["api.GPUDevice.label", "firefox", "141+", true],
   ["api.GPUDevice.limits", "firefox", "141+", true],
   ["api.GPUDevice.lost", "firefox", "141+", true],
@@ -1292,5 +1291,6 @@
   ["html.elements.tr.charoff", "safari", "3+", false],
   "Needs specific graphics driver",
   ["api.EXT_texture_compression_bptc", "firefox", "68+", true],
-  ["api.EXT_texture_compression_rgtc", "firefox", "65+", true]
+  ["api.EXT_texture_compression_rgtc", "firefox", "65+", true],
+  ["api.HTMLCanvasElement.getContext.webgl2_context.options_powerPreference_parameter", "firefox", "63", true]
 ]
