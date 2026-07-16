@@ -54,7 +54,6 @@
   "In BrowserStack, WebGL2 doesn't work in a number of Firefox versions due to hardware.",
   ["api.EXT_color_buffer_float", "firefox", "51-80", true],
   ["api.OES_fbo_render_mipmap", "firefox", "71-80", true],
-  ["api.OVR_multiview2", "firefox", "71-80", true],
   ["api.WEBGL_compressed_texture_astc", "firefox", "53-80", true],
   ["api.WEBGL_debug_shaders", "firefox", "56-80", true],
   ["api.WEBGL_debug_shaders.getTranslatedShaderSource", "firefox", "56-80", true],
@@ -435,6 +434,8 @@
   ["api.Touch.Touch", "firefox", "52+", true],
   ["api.OVR_multiview2", "firefox", "71+", true],
   ["api.OVR_multiview2.framebufferTextureMultiviewOVR", "firefox", "71+", true],
+  ["api.OVR_multiview2", "chrome", "93+", true],
+  ["api.OVR_multiview2.framebufferTextureMultiviewOVR", "chrome", "93+", true],
   ["api.WEBGL_compressed_texture_astc", "chrome", "47-92", true],
   ["api.WEBGL_compressed_texture_astc", "edge", "79-92", true],
   ["api.WEBGL_compressed_texture_astc", "firefox", "53+", true],
@@ -443,9 +444,11 @@
   ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "edge", "79-92", true],
   ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "firefox", "53+", true],
   ["api.WEBGL_compressed_texture_astc.getSupportedProfiles", "safari", "12+", true],
+  ["api.WEBGL_compressed_texture_etc", "firefox", "55+", true],
   ["api.WEBGL_compressed_texture_etc", "safari", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc", "safari_ios", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc", "webview_ios", "13.1+", true],
+  ["api.WEBGL_compressed_texture_etc1", "firefox", "55+", true],
   ["api.WEBGL_compressed_texture_etc1", "safari", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc1", "safari_ios", "13.1+", true],
   ["api.WEBGL_compressed_texture_etc1", "webview_ios", "13.1+", true],
@@ -1286,5 +1289,8 @@
   ["html.elements.tr.char", "chrome", "1+", false],
   ["html.elements.tr.char", "safari", "3+", false],
   ["html.elements.tr.charoff", "chrome", "1+", false],
-  ["html.elements.tr.charoff", "safari", "3+", false]
+  ["html.elements.tr.charoff", "safari", "3+", false],
+  "Needs specific graphics driver",
+  ["api.EXT_texture_compression_bptc", "firefox", "68+", true],
+  ["api.EXT_texture_compression_rgtc", "firefox", "65+", true]
 ]
