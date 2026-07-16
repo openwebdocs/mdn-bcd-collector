@@ -51,7 +51,6 @@ const coverageData = {
       ).toFixed(4),
     },
     lists: {
-      all_keys: bcdData.all.all,
       covered_keys: bcdData.all.found,
       not_testable_keys: bcdData.untestable.all,
       testable_not_covered_keys: bcdData.testable.missing,
