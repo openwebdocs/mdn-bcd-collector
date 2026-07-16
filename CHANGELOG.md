@@ -1,5 +1,642 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.3
+
+Released July 10, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Window.maximize
+- api.Window.minimize
+- api.Window.restore
+
+#### Removed
+
+- api.SVGUseElement.animatedInstanceRoot
+- api.SVGUseElement.instanceRoot
+
+### Commits
+
+- build(deps-dev): bump the dev group across 1 directory with 2 updates ([#3273](https://github.com/openwebdocs/mdn-bcd-collector/pull/3273))
+- Migrate to node testrunner ([#3274](https://github.com/openwebdocs/mdn-bcd-collector/pull/3274))
+- Use Windows 11 and macOS Tahoe in selenium runs ([#3272](https://github.com/openwebdocs/mdn-bcd-collector/pull/3272))
+- build(deps-dev): bump the data group with 2 updates ([#3268](https://github.com/openwebdocs/mdn-bcd-collector/pull/3268))
+- build(deps-dev): bump @types/node from 26.1.0 to 26.1.1 in the dev group ([#3269](https://github.com/openwebdocs/mdn-bcd-collector/pull/3269))
+- build(deps-dev): bump the dev group with 2 updates ([#3267](https://github.com/openwebdocs/mdn-bcd-collector/pull/3267))
+- build(deps): bump the dev group with 4 updates ([#3266](https://github.com/openwebdocs/mdn-bcd-collector/pull/3266))
+- build(deps): bump tsx from 4.22.4 to 4.22.5 in the dev group ([#3265](https://github.com/openwebdocs/mdn-bcd-collector/pull/3265))
+
+## v10.20.2
+
+Released July 2, 2026
+
+### Test Changes
+
+#### Added
+
+- api.ProcessingInstruction.getAttribute
+- api.ProcessingInstruction.getAttributeNames
+- api.ProcessingInstruction.hasAttribute
+- api.ProcessingInstruction.hasAttributes
+- api.ProcessingInstruction.ProcessingInstruction
+- api.ProcessingInstruction.removeAttribute
+- api.ProcessingInstruction.setAttribute
+- api.ProcessingInstruction.toggleAttribute
+- css.selectors.nav-source
+
+#### Removed
+
+- css.selectors.active-navigation
+- css.selectors.trigger-link
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3262](https://github.com/openwebdocs/mdn-bcd-collector/pull/3262))
+- build(deps-dev): bump the dev group with 2 updates ([#3263](https://github.com/openwebdocs/mdn-bcd-collector/pull/3263))
+- build(deps-dev): bump @types/node from 26.0.1 to 26.1.0 in the dev group ([#3261](https://github.com/openwebdocs/mdn-bcd-collector/pull/3261))
+- build(deps): bump the dev group with 3 updates ([#3260](https://github.com/openwebdocs/mdn-bcd-collector/pull/3260))
+- build(deps-dev): bump the dev group with 3 updates ([#3259](https://github.com/openwebdocs/mdn-bcd-collector/pull/3259))
+- some css to to slightly improve look ([#3258](https://github.com/openwebdocs/mdn-bcd-collector/pull/3258))
+- build(deps-dev): bump eslint-plugin-jsdoc from 63.0.8 to 63.0.9 in the dev group ([#3255](https://github.com/openwebdocs/mdn-bcd-collector/pull/3255))
+- fix(css): prevent hover flickering on preview checkbox ([#3254](https://github.com/openwebdocs/mdn-bcd-collector/pull/3254))
+
+## v10.20.1
+
+Released June 25, 2026
+
+### Commits
+
+- Fix update-bcd logic for preview browsers ([#3250](https://github.com/openwebdocs/mdn-bcd-collector/pull/3250))
+- build(deps-dev): bump the dev group with 6 updates ([#3251](https://github.com/openwebdocs/mdn-bcd-collector/pull/3251))
+
+## v10.20.0
+
+Released June 24, 2026
+
+### Notable changes
+
+- Collecting "preview" compat data: This release adds a checkbox to the collector UI, asking the user whether the collector run should be considered in a "preview" environment (Firefox Nightly, Chrome Canary, Safari Technical Preview). See https://github.com/openwebdocs/mdn-bcd-collector/pull/3245 for details.
+- Collector statistics: exposes how many BCD keys the collector covers and how many "early" features the collector knows about that aren't part of BCD yet. See https://github.com/openwebdocs/mdn-bcd-collector/pull/3237 and https://collector.openwebdocs.org/stats.
+
+### Test Changes
+
+#### Added
+
+- api.LanguageModel.samplingMode
+- api.RTCRtpSFrameDecryptor
+- api.RTCRtpSFrameEncryptor
+- api.SFrameDecryptorStream
+- api.SFrameEncryptorStream
+
+#### Removed
+
+- api.ModelContextClient
+- api.RTCRtpSFrameDecrypter
+- api.RTCRtpSFrameEncrypter
+- api.SFrameDecrypterStream
+- api.SFrameEncrypterStream
+- css.properties.path-length.unknown
+- css.properties.path-length.symbol
+- css.properties.path-length.number
+
+#### Changed
+
+- api.Event.initEvent
+
+### Commits
+
+- Allow collecting data from 'preview' browsers ([#3245](https://github.com/openwebdocs/mdn-bcd-collector/pull/3245))
+- build(deps): bump the dev group across 1 directory with 8 updates ([#3247](https://github.com/openwebdocs/mdn-bcd-collector/pull/3247))
+- Add Acknowledgements to readme ([#3244](https://github.com/openwebdocs/mdn-bcd-collector/pull/3244))
+- Add custom test for `Event.initEvent()` ([#3008](https://github.com/openwebdocs/mdn-bcd-collector/pull/3008))
+- Remove cheerio and core-js ([#3243](https://github.com/openwebdocs/mdn-bcd-collector/pull/3243))
+- Use native fetch ([#3242](https://github.com/openwebdocs/mdn-bcd-collector/pull/3242))
+- build(deps): bump actions/checkout from 6 to 7 ([#3239](https://github.com/openwebdocs/mdn-bcd-collector/pull/3239))
+- build(deps-dev): bump the data group with 2 updates ([#3240](https://github.com/openwebdocs/mdn-bcd-collector/pull/3240))
+- No content hidden behind the fixed-positioned navbar ([#3238](https://github.com/openwebdocs/mdn-bcd-collector/pull/3238))
+- Add a statistics page ([#3237](https://github.com/openwebdocs/mdn-bcd-collector/pull/3237))
+
+## v10.19.1
+
+Released June 18, 2026
+
+### Commits
+
+- build(deps): bump undici from 7.24.1 to 7.28.0 ([#3234](https://github.com/openwebdocs/mdn-bcd-collector/pull/3234))
+- Revert "Add a statistics page ([#3229](https://github.com/openwebdocs/mdn-bcd-collector/pull/3229))" ([#3235](https://github.com/openwebdocs/mdn-bcd-collector/pull/3235))
+
+## v10.19.0
+
+Released June 18, 2026
+
+### Commits
+
+- Add a statistics page ([#3229](https://github.com/openwebdocs/mdn-bcd-collector/pull/3229))
+- Replace chalk with styleText ([#3232](https://github.com/openwebdocs/mdn-bcd-collector/pull/3232))
+- build(deps-dev): bump the dev group across 1 directory with 7 updates ([#3230](https://github.com/openwebdocs/mdn-bcd-collector/pull/3230))
+- Remove eslint-plugin-import ([#3231](https://github.com/openwebdocs/mdn-bcd-collector/pull/3231))
+- Update eslint-plugin-jsdoc; fix jsdoc warnings ([#3224](https://github.com/openwebdocs/mdn-bcd-collector/pull/3224))
+- Update chai ([#3223](https://github.com/openwebdocs/mdn-bcd-collector/pull/3223))
+- Remove unneeded swc dependency ([#3222](https://github.com/openwebdocs/mdn-bcd-collector/pull/3222))
+
+## v10.18.0
+
+Released June 16, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Blob.textStream
+- api.Document.modelContext
+- api.Request.textStream
+- api.Response.textStream
+- css.selectors.trigger-link
+- html.elements.model.stagemode
+- html.elements.model.autoplay
+- html.elements.model.crossorigin
+- html.elements.model.height
+- html.elements.model.loading
+- html.elements.model.loop
+- html.elements.model.poster
+- html.elements.model.src
+- html.elements.model.width
+
+#### Removed
+
+- api.Navigator.modelContext
+- api.XRWebGLSubImage.motionVectorTextureHeight
+- api.XRWebGLSubImage.motionVectorTextureWidth
+
+### Commits
+
+- build(deps): bump the dev group across 1 directory with 7 updates ([#3220](https://github.com/openwebdocs/mdn-bcd-collector/pull/3220))
+- build(deps-dev): bump js-yaml from 4.1.1 to 4.2.0 ([#3218](https://github.com/openwebdocs/mdn-bcd-collector/pull/3218))
+- Babelv8 migration: remove import assertion plugin ([#3219](https://github.com/openwebdocs/mdn-bcd-collector/pull/3219))
+- build(deps): bump form-data ([#3214](https://github.com/openwebdocs/mdn-bcd-collector/pull/3214))
+- Remove md rendering; add owd logo to homepage ([#3217](https://github.com/openwebdocs/mdn-bcd-collector/pull/3217))
+- Remove sass from the front-end ([#3215](https://github.com/openwebdocs/mdn-bcd-collector/pull/3215))
+- Remove unneeded license headers; update maintainership wordings ([#3212](https://github.com/openwebdocs/mdn-bcd-collector/pull/3212))
+- build(deps): bump esbuild from 0.28.0 to 0.28.1 ([#3209](https://github.com/openwebdocs/mdn-bcd-collector/pull/3209))
+- build(deps-dev): bump sass from 1.100.0 to 1.101.0 in the dev group ([#3208](https://github.com/openwebdocs/mdn-bcd-collector/pull/3208))
+- build(deps): bump @grpc/grpc-js from 1.14.0 to 1.14.4 ([#3207](https://github.com/openwebdocs/mdn-bcd-collector/pull/3207))
+- build(deps-dev): bump @types/node from 25.9.2 to 25.9.3 in the dev group ([#3206](https://github.com/openwebdocs/mdn-bcd-collector/pull/3206))
+- build(deps-dev): bump shell-quote from 1.8.3 to 1.8.4 ([#3205](https://github.com/openwebdocs/mdn-bcd-collector/pull/3205))
+- build(deps-dev): bump prettier from 3.8.3 to 3.8.4 in the dev group ([#3204](https://github.com/openwebdocs/mdn-bcd-collector/pull/3204))
+- build(deps-dev): bump @webref/idl from 3.80.0 to 3.81.0 in the data group ([#3203](https://github.com/openwebdocs/mdn-bcd-collector/pull/3203))
+- Add &lt;model&gt; element ([#3201](https://github.com/openwebdocs/mdn-bcd-collector/pull/3201))
+- build(deps): bump the dev group with 3 updates ([#3202](https://github.com/openwebdocs/mdn-bcd-collector/pull/3202))
+- build(deps): bump codecov/codecov-action from 6 to 7 ([#3199](https://github.com/openwebdocs/mdn-bcd-collector/pull/3199))
+- build(deps-dev): bump the dev group with 3 updates ([#3200](https://github.com/openwebdocs/mdn-bcd-collector/pull/3200))
+- build(deps): bump the dev group with 3 updates ([#3198](https://github.com/openwebdocs/mdn-bcd-collector/pull/3198))
+- build(deps-dev): bump the data group with 2 updates ([#3197](https://github.com/openwebdocs/mdn-bcd-collector/pull/3197))
+- build(deps): bump the dev group with 4 updates ([#3196](https://github.com/openwebdocs/mdn-bcd-collector/pull/3196))
+
+## v10.17.14
+
+Released June 1, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLAreaElement.hreflang
+- api.HTMLAreaElement.type
+- api.MathMLAnchorElement.hreflang
+- api.MathMLAnchorElement.type
+- api.ModelContext.toolchange_event
+- api.RTCRtpSFrameDecrypter
+- api.RTCRtpSFrameEncrypter
+- api.SpeechRecognition.unspokenPunctuation
+- api.WheelEvent.momentum
+- javascript.builtins.Iterator.chunks
+- javascript.builtins.Iterator.includes
+- javascript.builtins.Iterator.join
+- javascript.builtins.Iterator.windows
+
+#### Removed
+
+- api.RTCSFrameReceiverTransform
+- api.RTCSFrameSenderTransform
+
+### Commits
+
+- Add Iterator join and chunking ([#3194](https://github.com/openwebdocs/mdn-bcd-collector/pull/3194))
+- Add Iterator.prototype.includes ([#3193](https://github.com/openwebdocs/mdn-bcd-collector/pull/3193))
+- build(deps): bump the dev group across 1 directory with 13 updates ([#3192](https://github.com/openwebdocs/mdn-bcd-collector/pull/3192))
+- build(deps-dev): bump the data group with 2 updates ([#3190](https://github.com/openwebdocs/mdn-bcd-collector/pull/3190))
+- build(deps): bump qs from 6.14.2 to 6.15.2 ([#3187](https://github.com/openwebdocs/mdn-bcd-collector/pull/3187))
+- build(deps): bump @tootallnate/once from 2.0.0 to 2.0.1 ([#3185](https://github.com/openwebdocs/mdn-bcd-collector/pull/3185))
+- build(deps-dev): bump tmp from 0.2.5 to 0.2.7 ([#3191](https://github.com/openwebdocs/mdn-bcd-collector/pull/3191))
+- build(deps-dev): bump the dev group with 2 updates ([#3183](https://github.com/openwebdocs/mdn-bcd-collector/pull/3183))
+- build(deps): bump the dev group with 3 updates ([#3182](https://github.com/openwebdocs/mdn-bcd-collector/pull/3182))
+
+## v10.17.13
+
+Released May 19, 2026
+
+### Test Changes
+
+#### Added
+
+- api.GPUComputePassEncoder.setImmediates
+- api.GPURenderBundleEncoder.setImmediates
+- api.GPURenderPassEncoder.setImmediates
+- api.GPUSupportedLimits.maxImmediateSize
+- api.MathMLAnchorElement
+- css.properties.column-rule-inset.overlap-join
+- css.properties.column-rule-inset-cap.overlap-join
+- css.properties.column-rule-inset-cap-end.overlap-join
+- css.properties.column-rule-inset-cap-start.overlap-join
+- css.properties.column-rule-inset-end.overlap-join
+- css.properties.column-rule-inset-junction.overlap-join
+- css.properties.column-rule-inset-junction-end.overlap-join
+- css.properties.column-rule-inset-junction-start.overlap-join
+- css.properties.column-rule-inset-start.overlap-join
+- css.properties.flex-flow.balance
+- css.properties.flex-line-count
+- css.properties.flex-wrap.balance
+- css.properties.position-visibility.anchor-valid
+- css.properties.position-visibility.anchor-visible
+- css.properties.row-rule-inset.overlap-join
+- css.properties.row-rule-inset-cap.overlap-join
+- css.properties.row-rule-inset-cap-end.overlap-join
+- css.properties.row-rule-inset-cap-start.overlap-join
+- css.properties.row-rule-inset-end.overlap-join
+- css.properties.row-rule-inset-junction.overlap-join
+- css.properties.row-rule-inset-junction-end.overlap-join
+- css.properties.row-rule-inset-junction-start.overlap-join
+- css.properties.row-rule-inset-start.overlap-join
+- css.properties.rule-inset.overlap-join
+- css.properties.rule-inset-cap.overlap-join
+- css.properties.rule-inset-end.overlap-join
+- css.properties.rule-inset-junction.overlap-join
+- css.properties.rule-inset-start.overlap-join
+- css.properties.window-drag
+- css.selectors.active-navigation
+
+#### Removed
+
+- api.Request.Request.init_priority_parameter
+- api.Request.Request.init_referrer_parameter
+- css.properties.position-visibility.anchors-valid
+- css.properties.position-visibility.anchors-visible
+
+### Commits
+
+- build(deps): bump the dev group with 5 updates ([#3180](https://github.com/openwebdocs/mdn-bcd-collector/pull/3180))
+- Follow Fetch option renames from BCD ([#3179](https://github.com/openwebdocs/mdn-bcd-collector/pull/3179))
+- build(deps): bump the dev group with 2 updates ([#3178](https://github.com/openwebdocs/mdn-bcd-collector/pull/3178))
+- build(deps-dev): bump the data group with 2 updates ([#3175](https://github.com/openwebdocs/mdn-bcd-collector/pull/3175))
+- build(deps): bump the dev group across 1 directory with 2 updates ([#3177](https://github.com/openwebdocs/mdn-bcd-collector/pull/3177))
+- build(deps): bump @protobufjs/utf8 from 1.1.0 to 1.1.1 ([#3174](https://github.com/openwebdocs/mdn-bcd-collector/pull/3174))
+- build(deps): bump protobufjs from 7.5.5 to 7.5.8 ([#3173](https://github.com/openwebdocs/mdn-bcd-collector/pull/3173))
+- build(deps-dev): bump @types/node from 25.6.2 to 25.7.0 in the dev group ([#3172](https://github.com/openwebdocs/mdn-bcd-collector/pull/3172))
+- build(deps): bump the dev group with 5 updates ([#3170](https://github.com/openwebdocs/mdn-bcd-collector/pull/3170))
+- build(deps): bump fast-xml-builder from 1.1.5 to 1.2.0 ([#3169](https://github.com/openwebdocs/mdn-bcd-collector/pull/3169))
+- build(deps-dev): bump the dev group with 2 updates ([#3168](https://github.com/openwebdocs/mdn-bcd-collector/pull/3168))
+- build(deps): bump fs-extra from 11.3.4 to 11.3.5 in the dev group ([#3167](https://github.com/openwebdocs/mdn-bcd-collector/pull/3167))
+
+## v10.17.12
+
+Released May 6, 2026
+
+### Test Changes
+
+#### Added
+
+- api.AnimationEvent.animation
+- api.Document.parseHTML_static
+- api.LanguageModel
+- api.LanguageModelParams
+- api.ShadowRoot.setHTML
+- api.TransitionEvent.animation
+- api.Window.requestResize
+- css.properties.column-rule-inset-cap
+- css.properties.column-rule-inset-cap-end
+- css.properties.column-rule-inset-cap-start
+- css.properties.column-rule-inset-junction
+- css.properties.column-rule-inset-junction-end
+- css.properties.column-rule-inset-junction-start
+- css.properties.overscroll-behavior.chain
+- css.properties.overscroll-behavior-block.chain
+- css.properties.overscroll-behavior-inline.chain
+- css.properties.overscroll-behavior-x.chain
+- css.properties.overscroll-behavior-y.chain
+- css.properties.path-length
+- css.properties.row-rule-inset-cap
+- css.properties.row-rule-inset-cap-end
+- css.properties.row-rule-inset-cap-start
+- css.properties.row-rule-inset-junction
+- css.properties.row-rule-inset-junction-end
+- css.properties.row-rule-inset-junction-start
+- css.properties.rule-inset-cap
+- css.properties.rule-inset-junction
+- css.properties.text-fit
+- css.types.color.contrast-color
+
+#### Removed
+
+- api.Document.requestStorageAccessFor
+- api.ForDebuggingOnly
+- api.HTMLAnchorElement.attributionSrc
+- api.HTMLAreaElement.attributionSrc
+- api.HTMLIFrameElement.adAuctionHeaders
+- api.HTMLIFrameElement.sharedStorageWritable
+- api.HTMLImageElement.attributionSrc
+- api.HTMLImageElement.sharedStorageWritable
+- api.HTMLScriptElement.attributionSrc
+- api.InterestGroupBiddingAndScoringScriptRunnerGlobalScope
+- api.InterestGroupBiddingScriptRunnerGlobalScope
+- api.InterestGroupReportingScriptRunnerGlobalScope
+- api.InterestGroupScoringScriptRunnerGlobalScope
+- api.InterestGroupScriptRunnerGlobalScope
+- api.Navigator.canLoadAdAuctionFencedFrame
+- api.Navigator.clearOriginJoinedAdInterestGroups
+- api.Navigator.createAuctionNonce
+- api.Navigator.deprecatedRunAdAuctionEnforcesKAnonymity
+- api.Navigator.getInterestGroupAdAuctionData
+- api.Navigator.joinAdInterestGroup
+- api.Navigator.leaveAdInterestGroup
+- api.Navigator.protectedAudience
+- api.Navigator.runAdAuction
+- api.Navigator.updateAdInterestGroups
+- api.PrivateAggregation
+- api.ProtectedAudience
+- api.ProtectedAudienceUtilities
+- api.RealTimeReporting
+- api.SharedStorage
+- api.SharedStorageAppendMethod
+- api.SharedStorageClearMethod
+- api.SharedStorageDeleteMethod
+- api.SharedStorageModifierMethod
+- api.SharedStorageSetMethod
+- api.SharedStorageWorklet
+- api.SharedStorageWorkletGlobalScope
+- api.SharedStorageWorkletNavigator
+- api.SVGElement.correspondingElement
+- api.SVGElement.correspondingUseElement
+- api.Window.sharedStorage
+- api.XMLHttpRequest.setAttributionReporting
+- css.properties.column-rule-edge-inset
+- css.properties.column-rule-edge-inset-end
+- css.properties.column-rule-edge-inset-start
+- css.properties.column-rule-interior-inset
+- css.properties.column-rule-interior-inset-end
+- css.properties.column-rule-interior-inset-start
+- css.properties.row-rule-edge-inset
+- css.properties.row-rule-edge-inset-end
+- css.properties.row-rule-edge-inset-start
+- css.properties.row-rule-interior-inset
+- css.properties.row-rule-interior-inset-end
+- css.properties.row-rule-interior-inset-start
+- css.properties.rule-edge-inset
+- css.properties.rule-interior-inset
+- css.properties.shape-subtract
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3164](https://github.com/openwebdocs/mdn-bcd-collector/pull/3164))
+- build(deps-dev): bump the dev group with 3 updates ([#3165](https://github.com/openwebdocs/mdn-bcd-collector/pull/3165))
+- build(deps-dev): bump typescript-eslint from 8.59.1 to 8.59.2 in the dev group ([#3163](https://github.com/openwebdocs/mdn-bcd-collector/pull/3163))
+- build(deps): bump the dev group with 3 updates ([#3162](https://github.com/openwebdocs/mdn-bcd-collector/pull/3162))
+- build(deps): bump the dev group with 2 updates ([#3161](https://github.com/openwebdocs/mdn-bcd-collector/pull/3161))
+- build(deps-dev): bump @webref/css from 8.5.3 to 8.5.4 in the data group ([#3160](https://github.com/openwebdocs/mdn-bcd-collector/pull/3160))
+- build(deps-dev): bump @webref/idl from 3.75.3 to 3.76.0 in the data group ([#3159](https://github.com/openwebdocs/mdn-bcd-collector/pull/3159))
+- build(deps-dev): bump typescript-eslint from 8.59.0 to 8.59.1 in the dev group ([#3158](https://github.com/openwebdocs/mdn-bcd-collector/pull/3158))
+- build(deps): bump @mdn/browser-compat-data from 7.3.12 to 7.3.13 in the dev group ([#3157](https://github.com/openwebdocs/mdn-bcd-collector/pull/3157))
+- Add custom test for CSS `contrast-color()` ([#3156](https://github.com/openwebdocs/mdn-bcd-collector/pull/3156))
+- build(deps): bump fast-xml-parser from 5.5.7 to 5.7.1 ([#3155](https://github.com/openwebdocs/mdn-bcd-collector/pull/3155))
+
+## v10.17.11
+
+Released April 22, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLImageElement.controls
+- api.HTMLTemplateElement.shadowRootSlotAssignment
+- api.MediaStreamTrackProcessor.discardedFrames
+- api.MediaStreamTrackProcessor.totalFrames
+- api.Sanitizer.allowProcessingInstruction
+- api.Sanitizer.removeProcessingInstruction
+
+#### Removed
+
+- css.properties.all.revert-rule
+
+### Commits
+
+- Ignore revert-rule global CSS keyword ([#3153](https://github.com/openwebdocs/mdn-bcd-collector/pull/3153))
+- build(deps-dev): bump @webref/idl from 3.75.2 to 3.75.3 in the data group ([#3151](https://github.com/openwebdocs/mdn-bcd-collector/pull/3151))
+- build(deps-dev): bump typescript-eslint from 8.58.2 to 8.59.0 in the dev group ([#3150](https://github.com/openwebdocs/mdn-bcd-collector/pull/3150))
+- build(deps): bump the dev group with 3 updates ([#3149](https://github.com/openwebdocs/mdn-bcd-collector/pull/3149))
+- build(deps): bump the dev group across 1 directory with 3 updates ([#3148](https://github.com/openwebdocs/mdn-bcd-collector/pull/3148))
+- build(deps): bump protobufjs from 7.5.4 to 7.5.5 ([#3147](https://github.com/openwebdocs/mdn-bcd-collector/pull/3147))
+- build(deps): bump dompurify from 3.3.3 to 3.4.0 ([#3145](https://github.com/openwebdocs/mdn-bcd-collector/pull/3145))
+- build(deps-dev): bump prettier from 3.8.2 to 3.8.3 in the dev group ([#3144](https://github.com/openwebdocs/mdn-bcd-collector/pull/3144))
+- build(deps): bump akhileshns/heroku-deploy from 3.14.15 to 3.15.15 ([#3143](https://github.com/openwebdocs/mdn-bcd-collector/pull/3143))
+- build(deps-dev): bump follow-redirects from 1.15.11 to 1.16.0 ([#3141](https://github.com/openwebdocs/mdn-bcd-collector/pull/3141))
+- build(deps-dev): bump typescript-eslint from 8.58.1 to 8.58.2 in the dev group ([#3140](https://github.com/openwebdocs/mdn-bcd-collector/pull/3140))
+- build(deps): bump the dev group with 4 updates ([#3139](https://github.com/openwebdocs/mdn-bcd-collector/pull/3139))
+- build(deps-dev): bump basic-ftp from 5.2.1 to 5.2.2 ([#3138](https://github.com/openwebdocs/mdn-bcd-collector/pull/3138))
+- build(deps-dev): bump the dev group with 4 updates ([#3137](https://github.com/openwebdocs/mdn-bcd-collector/pull/3137))
+- build(deps-dev): bump selenium-webdriver from 4.41.0 to 4.42.0 in the dev group ([#3136](https://github.com/openwebdocs/mdn-bcd-collector/pull/3136))
+
+## v10.17.10
+
+Released April 9, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CSSContainerRule.conditions
+- css.properties.column-rule-visibility-items.normal
+- css.properties.frame-sizing
+- css.properties.position-anchor.match-parent
+- css.properties.row-rule-visibility-items.normal
+- css.properties.ruby-overhang.spaces
+- css.properties.rule-visibility-items.normal
+- css.properties.stroke-width.hairline
+- css.properties.stroke-width.thin
+- css.properties.stroke-width.medium
+- css.properties.stroke-width.thick
+
+#### Removed
+
+- api.ModelContext.unregisterTool
+- css.properties.align-items.anchor-center
+- css.properties.contain-intrinsic-block-size.from-element
+- css.properties.contain-intrinsic-height.from-element
+- css.properties.contain-intrinsic-inline-size.from-element
+- css.properties.contain-intrinsic-size.from-element
+- css.properties.contain-intrinsic-width.from-element
+- css.properties.justify-items.anchor-center
+- css.properties.place-items.anchor-center
+- css.properties.ruby-overhang.none
+
+### Commits
+
+- build(deps-dev): bump basic-ftp from 5.2.0 to 5.2.1 ([#3134](https://github.com/openwebdocs/mdn-bcd-collector/pull/3134))
+- build(deps-dev): bump typescript-eslint from 8.58.0 to 8.58.1 in the dev group ([#3133](https://github.com/openwebdocs/mdn-bcd-collector/pull/3133))
+- build(deps-dev): bump the data group with 3 updates ([#3132](https://github.com/openwebdocs/mdn-bcd-collector/pull/3132))
+- build(deps): bump the dev group with 3 updates ([#3131](https://github.com/openwebdocs/mdn-bcd-collector/pull/3131))
+- build(deps): bump the dev group with 2 updates ([#3130](https://github.com/openwebdocs/mdn-bcd-collector/pull/3130))
+- build(deps): bump the dev group across 1 directory with 4 updates ([#3129](https://github.com/openwebdocs/mdn-bcd-collector/pull/3129))
+- build(deps): bump the dev group with 3 updates ([#3127](https://github.com/openwebdocs/mdn-bcd-collector/pull/3127))
+- build(deps-dev): bump the data group with 2 updates ([#3126](https://github.com/openwebdocs/mdn-bcd-collector/pull/3126))
+- build(deps): bump the dev group across 1 directory with 8 updates ([#3124](https://github.com/openwebdocs/mdn-bcd-collector/pull/3124))
+- build(deps): bump codecov/codecov-action from 5 to 6 ([#3118](https://github.com/openwebdocs/mdn-bcd-collector/pull/3118))
+
+## v10.17.9
+
+Released March 30, 2026
+
+### Commits
+
+- build(deps): bump path-to-regexp from 8.3.0 to 8.4.0 ([#3121](https://github.com/openwebdocs/mdn-bcd-collector/pull/3121))
+
+## v10.17.8
+
+Released March 27, 2026
+
+### Test Changes
+
+#### Added
+
+- css.properties.shape-outside.rect
+
+### Commits
+
+- Add custom CSS test for `shape-outside: rect()` ([#3115](https://github.com/openwebdocs/mdn-bcd-collector/pull/3115))
+- build(deps): bump picomatch ([#3114](https://github.com/openwebdocs/mdn-bcd-collector/pull/3114))
+- Prevent diff-features job of test workflow from failing silently ([#3116](https://github.com/openwebdocs/mdn-bcd-collector/pull/3116))
+
+## v10.17.7
+
+Released March 25, 2026
+
+### Test Changes
+
+#### Removed
+
+- css.properties.-webkit-margin-after
+- css.properties.-webkit-margin-before
+
+### Commits
+
+- Remove -webkit-margin-{after,before} ([#3112](https://github.com/openwebdocs/mdn-bcd-collector/pull/3112))
+
+## v10.17.6
+
+Released March 25, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Element.containertiming
+- api.Element.containertimingIgnore
+- api.HTMLMediaElement.loading
+- api.HTMLModelElement.environmentMap
+- api.HTMLModelElement.environmentMapReady
+- api.HTMLModelElement.stageMode
+- api.PerformanceContainerTiming
+- api.RTCSFrameReceiverTransform
+- api.RTCSFrameSenderTransform
+- api.WebTransportDatagramDuplexStream.incomingMaxBufferedDatagrams
+- api.WebTransportDatagramDuplexStream.outgoingMaxBufferedDatagrams
+- css.properties.column-rule.repeat_auto
+- css.properties.column-rule-color.repeat_auto
+- css.properties.column-rule-style.repeat_auto
+- css.properties.column-rule-width.repeat_auto
+- css.properties.font.generic_fangsong
+- css.properties.font.generic_kai
+- css.properties.font.generic_khmer-mul
+- css.properties.font.generic_nastaliq
+- css.properties.font-family.generic_fangsong
+- css.properties.font-family.generic_kai
+- css.properties.font-family.generic_khmer-mul
+- css.properties.font-family.generic_nastaliq
+- css.properties.grid.repeat_auto-fill
+- css.properties.grid.repeat_auto-fit
+- css.properties.grid-template.repeat_auto-fill
+- css.properties.grid-template.repeat_auto-fit
+- css.properties.grid-template-columns.repeat_auto-fill
+- css.properties.grid-template-columns.repeat_auto-fit
+- css.properties.grid-template-rows.repeat_auto-fill
+- css.properties.grid-template-rows.repeat_auto-fit
+- css.properties.image-animation.stopped
+- css.properties.row-rule.repeat_auto
+- css.properties.row-rule-color.repeat_auto
+- css.properties.row-rule-style.repeat_auto
+- css.properties.row-rule-width.repeat_auto
+- css.properties.rule.repeat_auto
+- css.properties.rule-color.repeat_auto
+- css.properties.rule-style.repeat_auto
+- css.properties.rule-width.repeat_auto
+- css.properties.scroll-marker-group.links
+- css.properties.scroll-marker-group.tabs
+- css.properties.shape-outside.xywh
+
+#### Removed
+
+- api.SFrameReceiverTransform
+- api.SFrameSenderTransform
+- api.WebTransportDatagramDuplexStream.incomingHighWaterMark
+- api.WebTransportDatagramDuplexStream.outgoingHighWaterMark
+- css.properties.column-rule.auto
+- css.properties.column-rule-color.auto
+- css.properties.column-rule-style.auto
+- css.properties.column-rule-width.auto
+- css.properties.font.fangsong
+- css.properties.font.kai
+- css.properties.font.khmer-mul
+- css.properties.font.nastaliq
+- css.properties.font-family.fangsong
+- css.properties.font-family.kai
+- css.properties.font-family.khmer-mul
+- css.properties.font-family.nastaliq
+- css.properties.grid.auto-fill
+- css.properties.grid.auto-fit
+- css.properties.grid-template.auto-fill
+- css.properties.grid-template.auto-fit
+- css.properties.grid-template-columns.auto-fill
+- css.properties.grid-template-columns.auto-fit
+- css.properties.grid-template-rows.auto-fill
+- css.properties.grid-template-rows.auto-fit
+- css.properties.row-rule.auto
+- css.properties.row-rule-color.auto
+- css.properties.row-rule-style.auto
+- css.properties.row-rule-width.auto
+- css.properties.rule.auto
+- css.properties.rule-color.auto
+- css.properties.rule-style.auto
+- css.properties.rule-width.auto
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3110](https://github.com/openwebdocs/mdn-bcd-collector/pull/3110))
+- Add diff-features workflow ([#3109](https://github.com/openwebdocs/mdn-bcd-collector/pull/3109))
+- Add custom CSS test for `shape-outside: xywh()` ([#3104](https://github.com/openwebdocs/mdn-bcd-collector/pull/3104))
+- build(deps): bump the dev group across 1 directory with 4 updates ([#3106](https://github.com/openwebdocs/mdn-bcd-collector/pull/3106))
+- build(deps): bump EndBug/version-check from 2 to 3 ([#3105](https://github.com/openwebdocs/mdn-bcd-collector/pull/3105))
+- build(deps-dev): bump flatted from 3.3.3 to 3.4.2 ([#3102](https://github.com/openwebdocs/mdn-bcd-collector/pull/3102))
+- build(deps): bump fast-xml-parser from 5.5.6 to 5.5.7 ([#3101](https://github.com/openwebdocs/mdn-bcd-collector/pull/3101))
+- build(deps-dev): bump the data group with 2 updates ([#3100](https://github.com/openwebdocs/mdn-bcd-collector/pull/3100))
+- build(deps): bump fast-xml-parser from 5.5.2 to 5.5.6 ([#3099](https://github.com/openwebdocs/mdn-bcd-collector/pull/3099))
+- build(deps): bump yauzl from 3.2.0 to 3.2.1 ([#3096](https://github.com/openwebdocs/mdn-bcd-collector/pull/3096))
+- build(deps): bump the dev group across 1 directory with 6 updates ([#3098](https://github.com/openwebdocs/mdn-bcd-collector/pull/3098))
+- fix(test-builder): preserve CSS functions when extracting values ([#3092](https://github.com/openwebdocs/mdn-bcd-collector/pull/3092))
+- build(deps): bump undici from 7.19.1 to 7.24.1 ([#3093](https://github.com/openwebdocs/mdn-bcd-collector/pull/3093))
+- build(deps-dev): bump the dev group with 2 updates ([#3090](https://github.com/openwebdocs/mdn-bcd-collector/pull/3090))
+- build(deps): bump the dev group with 2 updates ([#3089](https://github.com/openwebdocs/mdn-bcd-collector/pull/3089))
+
 ## v10.17.5
 
 Released March 11, 2026

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/index.ts
-// Script to build all of the tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import esMain from "es-main";
 import fs from "fs-extra";
 import idl from "@webref/idl";

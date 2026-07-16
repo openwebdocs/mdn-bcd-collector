@@ -1,12 +1,5 @@
-//
-// mdn-bcd-collector: scripts/selenium.ts
-// Script to collect results from various browsers using Selenium webdriver
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
+import {styleText} from "node:util";
 
 import {
   Browser,
@@ -23,10 +16,8 @@ import bcd from "@mdn/browser-compat-data" with {type: "json"};
 
 const bcdBrowsers = bcd.browsers;
 import {compare as compareVersions} from "compare-versions";
-import fetch from "node-fetch";
 import esMain from "es-main";
 import fs from "fs-extra";
-import chalk from "chalk-template";
 import {Listr, ListrTask, ListrTaskWrapper} from "listr2";
 import yargs from "yargs";
 import {hideBin} from "yargs/helpers";
@@ -231,11 +222,12 @@ const getSafariOS = (version: string): string | undefined => {
  * @throws {Error} - If the provided OS is unknown or unsupported.
  */
 const getOsesToTest = (service: string, os: string): [string, string][] => {
-  let osesToTest: [string, string][] = [];
+  let osesToTest: [string, string][];
 
   switch (os) {
     case "Windows":
       osesToTest = [
+        ["Windows", "11"],
         ["Windows", "10"],
         ["Windows", "8.1"],
         ["Windows", "8"],
@@ -266,6 +258,7 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
         default:
           // BrowserStack
           osesToTest = [
+            ["OS X", "Tahoe"],
             ["OS X", "Sequoia"],
             ["OS X", "Sonoma"],
             ["OS X", "Ventura"],
@@ -647,6 +640,7 @@ const run = async (
       if ((e as Error).name == "TimeoutError") {
         throw new Error(
           task.title + " - " + "Timed out waiting for results to upload",
+          {cause: e},
         );
       }
 
@@ -662,13 +656,13 @@ const run = async (
     log(task, "Exporting results...");
     await goToPage(driver, browser, version, `${host}/export`);
     const downloadEl = await driver.findElement(By.id("download"));
-    const downloadUrl = await downloadEl.getAttribute("href");
+    const downloadUrl = (await downloadEl.getAttribute("href")) || "";
 
     if (!ctx.testenv) {
       const filename = path.basename(new URL(downloadUrl).pathname);
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).buffer();
-      await fs.writeFile(path.join(RESULTS_DIR, filename), report);
+      const report = await (await fetch(downloadUrl)).arrayBuffer();
+      await fs.writeFile(path.join(RESULTS_DIR, filename), Buffer.from(report));
     }
   } finally {
     driver.quit().catch(() => {});
@@ -693,13 +687,18 @@ const runAll = async (
 ) => {
   if (!Object.keys(secrets.selenium).length) {
     console.error(
-      chalk`{red.bold A Selenium remote WebDriver URL is not defined in secrets.json.  Please define your Selenium remote(s).}`,
+      styleText(
+        ["red", "bold"],
+        "A Selenium remote WebDriver URL is not defined in secrets.json. Please define your Selenium remote(s).",
+      ),
     );
     return false;
   }
 
   if (testenv) {
-    console.warn(chalk`{yellow.bold Test mode: results are not saved.}`);
+    console.warn(
+      styleText(["yellow", "bold"], "Test mode: results are not saved."),
+    );
   }
 
   const browsersToTest = getBrowsersToTest(
@@ -788,7 +787,7 @@ if (esMain(import.meta)) {
           describe: "Limit to browser releases from this year on",
           alias: "s",
           type: "string",
-          default: "2020",
+          default: "2023",
           nargs: 1,
         })
         .option("os", {

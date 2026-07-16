@@ -1,0 +1,338 @@
+/*
+CSS for the BCD collector front-end
+
+=== Important note ===
+Write CSS like it is 1998!
+The site needs to work in very old browsers!
+Progressive enhancement is fine
+======================
+
+COLORS
+--foreground: black;
+--background: white;
+--callout-background: #d2bbfd;
+--link: black;
+--link-hover: #9900a1;
+--button-bg: #9900a1;
+--button-bg-hover: #e000eb;
+*/
+
+html,
+::marker {
+  font-family: sans-serif;
+  line-height: 1.6;
+}
+
+body {
+  margin-top: 50px;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: #9900a1;
+}
+
+code,
+details ol li {
+  font-family: monospace;
+}
+
+button,
+select,
+#test-selection {
+  background: #9900a1;
+  color: white;
+}
+
+button,
+select,
+#test-selection {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  transition:
+    background-color 0.2s,
+    outline-color 0.2s;
+  padding: 8px;
+}
+
+button:hover,
+button:hover:focus,
+select:hover,
+select:hover:focus,
+#test-selection:hover,
+#test-selection:hover:focus {
+  cursor: pointer;
+  background: #e000eb;
+}
+
+button:focus,
+select:focus,
+#test-selection:focus {
+  background: #e000eb;
+}
+
+button:focus,
+select:focus,
+#test-selection:focus {
+  outline-color: #e000eb;
+}
+
+button:focus-visible,
+select:focus-visible,
+#test-selection:focus-visible {
+  outline-style: auto;
+  outline-width: 1px;
+}
+button:disabled,
+button:disabled:hover,
+select:disabled,
+select:disabled:hover,
+#test-selection:disabled,
+#test-selection:disabled:hover {
+  cursor: not-allowed;
+  background: #636363;
+}
+button:disabled,
+button:disabled:hover,
+select:disabled,
+select:disabled:hover,
+#test-selection:disabled,
+#test-selection:disabled:hover {
+  color: #cccccc;
+}
+#test-selection {
+  text-align: left;
+  margin-left: -2px;
+}
+
+footer {
+  display: block;
+  text-align: center;
+}
+footer p {
+  margin: 0.2em;
+}
+
+nav#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  background: #d2bbfd;
+}
+
+nav#navbar {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  padding-bottom: 0.75em;
+}
+
+nav#navbar a {
+  text-decoration: none;
+  margin: 0 0.1em;
+  @media (width > 30em) {
+    margin: 0 0.5em;
+  }
+}
+nav#navbar a:first-child {
+  margin-left: 0;
+}
+nav#navbar a:last-child {
+  float: right;
+  margin-right: 0;
+}
+
+.paper {
+  background: #d2bbfd;
+  width: 96vw;
+  overflow: auto;
+  padding: 1em 8px;
+  border-radius: 8px;
+  margin: 1em auto;
+}
+
+.error-notice {
+  color: #770000;
+  font-weight: bold;
+}
+
+.warning-notice {
+  color: #777700;
+}
+
+.success-notice {
+  color: #007700;
+}
+
+.hidden {
+  display: none;
+}
+
+.mdi:before {
+  /* Ensure that *something* shows up on older browsers */
+  content: "�";
+}
+
+h1 {
+  font-size: 36pt;
+  font-weight: bold;
+  text-align: center;
+  margin: 1.5em 0.5em 0.5em 0.5em;
+}
+
+#subtitle {
+  width: 90%;
+  margin: auto;
+  font-size: 16pt;
+  text-align: center;
+}
+
+#run-tests {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  margin: auto;
+  margin-top: 2em;
+  padding: 2em;
+  text-align: center;
+}
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+  #run-tests {
+    padding: 1em;
+  }
+}
+#run-tests #test-entry {
+  display: block;
+}
+#run-tests .browserinfo {
+  margin-bottom: 0;
+}
+#run-tests #unsecure-warning {
+  font-size: 125%;
+}
+
+#test-selection {
+  padding-left: 16px;
+  width: 240px;
+  max-width: 70%;
+}
+
+#supported-browsers {
+  text-align: center;
+  margin-top: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+}
+
+.compat-table {
+  margin: auto;
+  text-align: center;
+}
+.compat-table .compat-table-entry {
+  display: inline-block;
+  margin-right: 16px;
+}
+.compat-table .compat-table-entry img {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+.compat-table .compat-table-entry p {
+  display: inline-block;
+  margin: 0;
+  margin-left: 8px;
+}
+.compat-table .compat-table-separator {
+  display: none;
+}
+@media screen and (max-width: 900px), screen and (max-device-width: 900px) {
+  .compat-table .compat-table-separator {
+    display: block;
+  }
+}
+
+#extension-warnings {
+  background: #ffaaaa;
+}
+
+#extension-warnings {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: calc(100vw - 4em - 24px);
+  margin: 1em auto;
+  text-align: center;
+}
+
+#extension-warnings h2,
+#extension-warnings h3,
+#extension-warnings #extension-warnings-disable-or-switch {
+  color: #770000;
+}
+
+#extension-warnings h3 {
+  margin-bottom: 0;
+}
+#extension-warnings p {
+  margin-top: 0;
+}
+#known-caveats {
+  text-align: center;
+  list-style-position: inside;
+}
+#known-caveats #known-caveats-file-issue {
+  color: #770000;
+  font-weight: bold;
+}
+#privacy-notice {
+  text-align: center;
+}
+
+#status {
+  font-weight: bold;
+}
+.result {
+  margin-bottom: 0.5em;
+}
+.result summary {
+  word-break: break-all;
+}
+.result .result-value {
+  font-weight: bold;
+}
+.result .result-info {
+  display: block;
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+.result .result-message {
+  font-style: italic;
+  margin-top: 0.2em;
+}
+.result.result-true {
+  background: rgba(170, 255, 170, 0.3);
+}
+
+.result.result-true .result-value {
+  color: #007700;
+}
+
+.result.result-false {
+  background: rgba(255, 170, 170, 0.3);
+}
+
+.result.result-false .result-value {
+  color: #770000;
+}
+
+.result.result-null .result-value {
+  color: #cccccc;
+}

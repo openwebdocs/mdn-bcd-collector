@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: types/types.d.ts
-// TypeScript definitions for the collector
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import {BrowserName, SupportStatement} from "@mdn/browser-compat-data/types";
 
 import type * as WebIDL2 from "webidl2";
@@ -13,11 +5,7 @@ import type * as WebIDL2 from "webidl2";
 export type InternalSupportStatement = SupportStatement | "mirror";
 
 export type Exposure =
-  | "Window"
-  | "Worker"
-  | "SharedWorker"
-  | "ServiceWorker"
-  | "WebAssembly";
+  "Window" | "Worker" | "SharedWorker" | "ServiceWorker" | "WebAssembly";
 
 export type Resource =
   | {
@@ -86,6 +74,7 @@ export interface Report {
   results: TestResults;
   extensions: Extensions;
   userAgent: string;
+  preview: boolean;
 }
 
 export type BrowserSupportMap = Map<string, TestResultValue>;
@@ -101,6 +90,7 @@ export type IDLFiles = Record<string, WebIDL2.IDLRootType[]>;
 
 export type ReportStore = {
   extensions?: Extensions;
+  preview?: boolean;
 } & TestResults;
 
 export interface ParsedUserAgent {
@@ -140,6 +130,7 @@ export interface ReportMeta {
   filename: string;
   branch: string;
   version: string;
+  preview: boolean;
 }
 
 export type InternalTestResult = TestResult & {

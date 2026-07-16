@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: static/resources/worker.js
-// JavaScript to run tests within workers
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 /* global bcd */
 
 self.importScripts("harness.js");

@@ -261,17 +261,21 @@
       "members": {
         "static": ["concat", "from"],
         "instance": [
+          "chunks",
           "drop",
           "every",
           "filter",
           "find",
           "flatMap",
           "forEach",
+          "includes",
+          "join",
           "map",
           "reduce",
           "some",
           "take",
           "toArray",
+          "windows",
           "@@dispose"
         ]
       }

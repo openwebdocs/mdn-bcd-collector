@@ -1,13 +1,6 @@
-//
-// mdn-bcd-collector: unittest/scripts/update-bcd.test.ts
-// Unittest for the BCD updater script
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
+import {describe, it, beforeEach} from "node:test";
+import assert from "node:assert/strict";
 
-import {assert} from "chai";
-import sinon from "sinon";
 import fs from "fs-extra";
 import {Minimatch} from "minimatch";
 import {Browsers} from "@mdn/browser-compat-data/types";
@@ -29,6 +22,8 @@ const overrides = await fs.readJson(
   new URL("../unittest/overrides.test.json", import.meta.url),
 );
 
+let mockedWarnLogger: any;
+
 /**
  * Creates a deep copy of the given value using JSON serialization and deserialization.
  * @param value - The value to be cloned.
@@ -44,6 +39,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -130,6 +126,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -226,6 +223,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -316,6 +314,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -331,6 +330,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -346,6 +346,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -366,6 +367,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
         {
@@ -450,16 +452,17 @@ describe("BCD updater", () => {
         getSupportMap({
           __version: "test",
           extensions: [],
+          preview: false,
           results: {},
           userAgent: "abc/1.2.3-beta",
         });
-      }, 'Report for "abc/1.2.3-beta" has no results!');
+      }, /Report for "abc\/1.2.3-beta" has no results!$/);
     });
   });
 
   describe("getSupportMatrix", () => {
-    beforeEach(() => {
-      sinon.stub(logger, "warn");
+    beforeEach((t) => {
+      mockedWarnLogger = t.mock.method(logger, "warn", () => {});
     });
 
     it("normal", () => {
@@ -474,6 +477,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
             [
@@ -482,6 +486,7 @@ describe("BCD updater", () => {
                 ["13", null],
                 ["13.1", true],
                 ["14", null],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -496,6 +501,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -510,6 +516,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -524,6 +531,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -538,6 +546,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -551,6 +560,7 @@ describe("BCD updater", () => {
                 ["13", false],
                 ["13.1", false],
                 ["14", false],
+                ["preview", false],
               ]),
             ],
           ]),
@@ -565,6 +575,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", true],
                 ["85", false],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -579,6 +590,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -593,6 +605,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -607,6 +620,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -621,6 +635,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -635,6 +650,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", null],
                 ["85", null],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -649,6 +665,7 @@ describe("BCD updater", () => {
                 ["83", true],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -663,6 +680,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", false],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -677,6 +695,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", true],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -691,6 +710,7 @@ describe("BCD updater", () => {
                 ["83", null],
                 ["84", null],
                 ["85", null],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -705,6 +725,7 @@ describe("BCD updater", () => {
                 ["83", false],
                 ["84", false],
                 ["85", true],
+                ["preview", null],
               ]),
             ],
           ]),
@@ -713,21 +734,17 @@ describe("BCD updater", () => {
       const actual = getSupportMatrix(reports, bcd.browsers, overrides);
       assert.deepEqual(actual, expected);
 
-      assert.isTrue(
-        (logger.warn as any).calledWith(
-          "Ignoring unknown browser Yandex 17.6 (Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.749 Yowser/2.5 Safari/537.36)",
-        ),
-      );
-      assert.isTrue(
-        (logger.warn as any).calledWith(
-          "Ignoring unknown Chrome version 1000.1 (Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/1000.1.4183.83 Safari/537.36)",
-        ),
-      );
-      assert.isTrue(
-        (logger.warn as any).calledWith(
-          "Unable to parse browser from UA node-superagent/1.2.3",
-        ),
-      );
+      assert.deepEqual(mockedWarnLogger.mock.calls[0].arguments, [
+        "Ignoring unknown browser Yandex 17.6 (Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.749 Yowser/2.5 Safari/537.36)",
+      ]);
+
+      assert.deepEqual(mockedWarnLogger.mock.calls[1].arguments, [
+        "Ignoring unknown Chrome version 1000.1 (Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/1000.1.4183.83 Safari/537.36)",
+      ]);
+
+      assert.deepEqual(mockedWarnLogger.mock.calls[2].arguments, [
+        "Unable to parse browser from UA node-superagent/1.2.3",
+      ]);
     });
 
     it("Invalid results", () => {
@@ -749,11 +766,7 @@ describe("BCD updater", () => {
 
       assert.throws(() => {
         getSupportMatrix([report], bcd.browsers, overrides);
-      }, "result not true/false/null; got 87");
-    });
-
-    afterEach(() => {
-      (logger.warn as any).restore();
+      }, /result not true\/false\/null; got 87$/);
     });
   });
 
@@ -812,7 +825,7 @@ describe("BCD updater", () => {
 
       assert.throws(() => {
         inferSupportStatements(versionMap);
-      }, "result not true/false/null; got 87");
+      }, /result not true\/false\/null; got 87$/);
     });
 
     it("non-contiguous data, support added", () => {
@@ -849,33 +862,35 @@ describe("BCD updater", () => {
     it("fails for single versions", () => {
       assert.throws(() => {
         splitRange("23");
-      }, 'Unrecognized version range value: "23"');
+      }, /Unrecognized version range value: "23"$/);
     });
   });
 
   describe("hasSupportUpdates", () => {
     it("detects updates with nonexistent support statements", () => {
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(new Map([["80", true]]), [
           {
             version_added: null,
           },
         ]),
+        true,
       );
 
-      assert.isTrue(hasSupportUpdates(new Map([["80", true]]), []));
+      assert.equal(hasSupportUpdates(new Map([["80", true]]), []), true);
     });
 
     it("skips null support claims", () => {
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(new Map([["80", null]]), [
           {
             version_added: "≤80",
           },
         ]),
+        false,
       );
 
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["79", false],
@@ -889,47 +904,52 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        false,
         "skips new null test result",
       );
     });
 
     it("detects updates in statements with null values", () => {
       // Both a true and false test result is new information, but null is not.
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(new Map([["80", true]]), [
           {
             version_added: null,
           },
         ]),
+        true,
       );
 
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(new Map([["80", false]]), [
           {
             version_added: null,
           },
         ]),
+        true,
       );
 
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(new Map([["80", null]]), [
           {
             version_added: null,
           },
         ]),
+        false,
       );
     });
 
     it("detects updates in statements with false values", () => {
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(new Map([["80", false]]), [
           {
             version_added: false,
           },
         ]),
+        false,
       );
 
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["80", false],
@@ -937,11 +957,12 @@ describe("BCD updater", () => {
           ]),
           [{version_added: false}],
         ),
+        true,
       );
     });
 
     it("detects updates in statements with string values", () => {
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["79", false],
@@ -954,9 +975,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        true,
       );
 
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["79", false],
@@ -969,9 +991,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        false,
       );
 
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["v79.0.0", false],
@@ -984,9 +1007,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        false,
       );
 
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["79", false],
@@ -999,9 +1023,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        false,
       );
 
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["79", false],
@@ -1015,12 +1040,13 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        true,
         "detects possible support removal",
       );
     });
 
     it("detects updates across multiple default statements", () => {
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["10", true],
@@ -1037,9 +1063,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        false,
       );
 
-      assert.isFalse(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["19", true],
@@ -1056,9 +1083,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        false,
       );
 
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["9", true],
@@ -1075,9 +1103,10 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        true,
       );
 
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(
           new Map([
             ["10", true],
@@ -1094,24 +1123,60 @@ describe("BCD updater", () => {
             },
           ],
         ),
+        true,
       );
     });
 
     it("detects updates for preview statements", () => {
-      assert.isTrue(
+      assert.equal(
         hasSupportUpdates(new Map([["81", true]]), [
           {
             version_added: "preview",
           },
         ]),
+        true,
       );
 
-      assert.isFalse(
+      assert.equal(
+        hasSupportUpdates(new Map([["preview", true]]), [
+          {
+            version_added: false,
+          },
+        ]),
+        true,
+      );
+
+      assert.equal(
+        hasSupportUpdates(
+          new Map([
+            ["92", false],
+            ["preview", false],
+          ]),
+          [
+            {
+              version_added: "preview",
+            },
+          ],
+        ),
+        true,
+      );
+
+      assert.equal(
+        hasSupportUpdates(new Map([["preview", true]]), [
+          {
+            version_added: "preview",
+          },
+        ]),
+        false,
+      );
+
+      assert.equal(
         hasSupportUpdates(new Map([["81", false]]), [
           {
             version_added: "preview",
           },
         ]),
+        false,
       );
     });
   });
@@ -1336,6 +1401,7 @@ describe("BCD updater", () => {
           {
             __version: "0.3.1",
             extensions: [],
+            preview: false,
             results: {
               "https://collector.openwebdocs.org/tests/": [
                 {
@@ -1622,6 +1688,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1638,7 +1705,7 @@ describe("BCD updater", () => {
 
       const modified = update(finalBcd, sm, {});
 
-      assert.equal(modified, false, "modified");
+      assert.equal(modified.length, 0, "modified");
       assert.deepEqual(finalBcd, initialBcd);
     });
 
@@ -1661,6 +1728,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1677,7 +1745,7 @@ describe("BCD updater", () => {
 
       const modified = update(finalBcd, sm, {});
 
-      assert.equal(modified, false, "modified");
+      assert.equal(modified.length, 0, "modified");
       assert.deepEqual(finalBcd, initialBcd);
     });
 
@@ -1707,6 +1775,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1723,7 +1792,7 @@ describe("BCD updater", () => {
 
       const modified = update(finalBcd, sm, {});
 
-      assert.equal(modified, false, "modified");
+      assert.equal(modified.length, 0, "modified");
       assert.deepEqual(finalBcd, initialBcd);
     });
 
@@ -1756,6 +1825,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1772,7 +1842,7 @@ describe("BCD updater", () => {
 
       const modified = update(finalBcd, sm, {});
 
-      assert.equal(modified, false, "modified");
+      assert.equal(modified.length, 0, "modified");
       assert.deepEqual(finalBcd, initialBcd);
     });
 
@@ -1795,6 +1865,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1811,7 +1882,7 @@ describe("BCD updater", () => {
 
       const modified = update(finalBcd, sm, {});
 
-      assert.equal(modified, false, "modified");
+      assert.equal(modified.length, 0, "modified");
       assert.deepEqual(finalBcd, initialBcd);
     });
 
@@ -1834,6 +1905,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1883,6 +1955,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1966,6 +2039,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
             {
@@ -1982,8 +2056,135 @@ describe("BCD updater", () => {
 
       const modified = update(finalBcd, sm, {});
 
-      assert.equal(modified, false, "modified");
+      assert.equal(modified.length, 0, "modified");
       assert.deepEqual(finalBcd, initialBcd);
+    });
+
+    it("updates preview support statements correctly", () => {
+      // For api.AbortController, the test case is:
+      // current bcd: version_added: false
+      // preview report: true
+      // new bcd: version_added: "preview"
+
+      // For api.Event, the test case is:
+      // current bcd: version_added: "preview"
+      // preview report: false
+      // new bcd: version_added: false
+      const initialBcd = {
+        api: {
+          AbortController: {
+            __compat: {
+              support: {
+                firefox: {version_added: false},
+              },
+            },
+          },
+          Event: {
+            __compat: {
+              support: {
+                firefox: {version_added: "preview"},
+              },
+            },
+          },
+        },
+        browsers: {
+          firefox: {
+            name: "Firefox",
+            preview_name: "Nightly",
+            releases: {92: {}},
+          },
+        } as unknown as Browsers,
+      };
+      const finalBcd = clone(initialBcd);
+      assert.deepEqual(finalBcd, initialBcd);
+
+      const reports: Report[] = [
+        {
+          __version: "0.3.1",
+          extensions: [],
+          preview: false,
+          results: {
+            "https://collector.openwebdocs.org/tests/": [
+              {
+                name: "api.AbortController",
+                exposure: "Window",
+                result: false,
+              },
+              {
+                name: "api.Event",
+                exposure: "Window",
+                result: false,
+              },
+            ],
+          },
+          userAgent: firefox92UaString,
+        },
+        {
+          __version: "0.3.1",
+          extensions: [],
+          preview: true,
+          results: {
+            "https://collector.openwebdocs.org/tests/?preview=true": [
+              {
+                name: "api.AbortController",
+                exposure: "Window",
+                result: true,
+              },
+              {
+                name: "api.Event",
+                exposure: "Window",
+                result: false,
+              },
+            ],
+          },
+          userAgent: firefox92UaString,
+        },
+      ];
+
+      const sm = getSupportMatrix(reports, initialBcd.browsers, []);
+
+      const expectedSM = new Map([
+        [
+          "api.AbortController",
+          new Map([
+            [
+              "firefox",
+              new Map([
+                ["92", false],
+                ["preview", true],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.Event",
+          new Map([
+            [
+              "firefox",
+              new Map([
+                ["92", false],
+                ["preview", false],
+              ]),
+            ],
+          ]),
+        ],
+      ]);
+      assert.deepEqual(sm, expectedSM, "supportMatrix");
+
+      const modified = update(finalBcd, sm, {});
+      const expectedModified = [
+        {
+          browser: "firefox",
+          path: "api.AbortController",
+          statements: [{version_added: "preview"}],
+        },
+        {
+          browser: "firefox",
+          path: "api.Event",
+          statements: [{version_added: false}],
+        },
+      ];
+      assert.deepEqual(modified, expectedModified, "modified");
     });
   });
 });

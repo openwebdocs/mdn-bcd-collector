@@ -35,7 +35,7 @@ GET /api/tests
 ```json
 [
   "https://collector.openwebdocs.org/tests/api/Sensor",
-  "http://mdn-bcd-collector.gooborg.com/tests/css/properties/dot-supports"
+  "https://collector.openwebdocs.org/tests/css/properties/dot-supports"
 ]
 ```
 

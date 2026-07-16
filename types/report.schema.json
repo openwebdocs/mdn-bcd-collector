@@ -81,6 +81,10 @@
     "userAgent": {
       "type": "string",
       "description": "User agent of tested browser."
+    },
+    "preview": {
+      "type": "boolean",
+      "description": "Whether the report is from a preview browser (Nightly, Canary, Technical Preview)."
     }
   },
   "required": ["__version", "results", "userAgent"],

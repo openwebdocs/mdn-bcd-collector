@@ -1,12 +1,3 @@
-//
-// mdn-bcd-collector: lib/exporter.ts
-// This module is responsible for getting results/reports out of the collector
-// web service into JSON files that can be used by update-bcd.ts.
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import crypto from "node:crypto";
 
 import slugify from "slugify";
@@ -39,13 +30,14 @@ const getReportMeta = (report: Report): ReportMeta => {
   const ua = parseUA(report.userAgent, bcdBrowsers);
   const browser = `${ua.browser.name} ${ua.version}`;
   const os = `${ua.os.name} ${ua.os.version}`;
-  const desc = `${browser} / ${os}`;
+  const preview = report.preview ? "-preview" : "";
+  const desc = `${browser}${preview} / ${os}`;
 
   // XXX Casting slugify to "any" to mitigate NodeNext module resolution issue
   const slug = `${report.__version.toLowerCase()}-${ua.browser.id.replace(
     /_/g,
     "-",
-  )}-${ua.fullVersion}-${(slugify as any)(os, {lower: true})}-${digest}`;
+  )}-${ua.fullVersion}${preview}-${(slugify as any)(os, {lower: true})}-${digest}`;
 
   return {
     json,
@@ -62,6 +54,7 @@ const getReportMeta = (report: Report): ReportMeta => {
     filename: `${slug}.json`,
     branch: `collector/${slug}`,
     version: report.__version,
+    preview: report.preview,
   };
 };
 

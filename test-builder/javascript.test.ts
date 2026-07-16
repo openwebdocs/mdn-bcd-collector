@@ -1,14 +1,5 @@
-//
-// mdn-bcd-collector: unittest/unit/javascript.test.ts
-// Unittest for the JavaScript-specific test builder functions
-//
-// © Gooborg Studios, Google LLC, Apple Inc
-// See the LICENSE file for copyright details
-//
-
-import chai, {assert} from "chai";
-import chaiSubset from "chai-subset";
-chai.use(chaiSubset);
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 
 import {build} from "./javascript.js";
 

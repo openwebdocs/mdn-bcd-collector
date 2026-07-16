@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/replace-async.ts
-// Wrapper to add an async-friendly String.replace()
-//
-// © Gooborg Studios, Overcl9ck/Stack Overflow Users
-// See the LICENSE file for copyright details
-//
-
 /**
  * Replaces matches in a string using an asynchronous function.
  * @copyright https://stackoverflow.com/a/48032528

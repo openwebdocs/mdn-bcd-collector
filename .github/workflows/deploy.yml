@@ -18,15 +18,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: true
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
       - name: Check for version change
         id: check
-        uses: EndBug/version-check@v2
+        uses: EndBug/version-check@v3
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Configure Git
@@ -40,13 +40,13 @@ jobs:
           git push origin v${{steps.check.outputs.version}}
       - name: Deploy to Heroku
         if: steps.check.outputs.changed == 'true'
-        uses: akhileshns/heroku-deploy@v3.14.15
+        uses: akhileshns/heroku-deploy@v3.15.15
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
       - name: Checkout mdn-bcd-results
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         if: steps.check.outputs.changed == 'true'
         with:
           repository: openwebdocs/mdn-bcd-results

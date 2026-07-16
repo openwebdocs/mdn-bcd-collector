@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: custom-idl/index.ts
-// Loader script to load the custom IDL to supplement @webref/idl
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
 import path from "node:path";
 
 import fs from "fs-extra";

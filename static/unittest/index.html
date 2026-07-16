@@ -1,25 +1,20 @@
-<!--
-mdn-bcd-collector: static/unittest/index.html
-Unittests for harness.js
-
-© Gooborg Studios, Google LLC
-See the LICENSE file for copyright details
--->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <title>Mocha Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
     <script src="/resources/json3.min.js"></script>
     <script src="/resources/harness.js"></script>
-    <script src="chai.js"></script>
-    <script src="mocha.js"></script>
-    <script src="sinon.js"></script>
-    <link rel="stylesheet" href="mocha.css" />
+    <script type="module">
+      import { assert } from 'https://cdn.jsdelivr.net/npm/chai@5.1.1/+esm';
+      globalThis.assert = assert;
+    </script>
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+    <script src="test.js" type="module"></script>
   </head>
   <body>
     <div id="mocha"></div>
-    <script src="test.js"></script>
   </body>
 </html>

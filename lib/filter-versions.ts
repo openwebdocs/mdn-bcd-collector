@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/filter-versions.ts
-// A helper function to filter browser releases by release date
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import bcd from "@mdn/browser-compat-data" with {type: "json"};
 
 import type {BrowserStatement, BrowserName} from "@mdn/browser-compat-data";

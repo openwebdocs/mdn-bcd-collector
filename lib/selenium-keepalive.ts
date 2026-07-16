@@ -1,13 +1,3 @@
-//
-// mdn-bcd-collector: lib/selenium-keepalive.ts
-// Sets HTTP keep-alive for faster Selenium tests
-//
-// Copied and modified from https://www.browserstack.com/docs/automate/selenium/error-codes/keep-alive-not-used#Node_JS
-//
-// © BrowserStack, Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import http from "node:http";
 import https from "node:https";
 

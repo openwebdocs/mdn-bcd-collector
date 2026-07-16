@@ -1,11 +1,3 @@
-<!--
-mdn-bcd-collector: views/tests.ejs
-Page for running the specified tests
-
-© Gooborg Studios, Google LLC
-See the LICENSE file for copyright details
--->
-
 <%- contentFor('body') %>
 <%- include('unsecurewarning') %>
 <%- include('extensioncheck', {sendToServer: true}) %>
@@ -13,6 +5,7 @@ See the LICENSE file for copyright details
 
 <p id="status">Ready to start tests</p>
 <form id="export" action="/export" method="post">
+  <input type="hidden" name="preview" value="<%= isPreview %>">
   <button id="export-download" class="export-button" type="submit" name="download" value="download" disabled><span class="mdi mdi-download"></span> Download results file</button>
   <% const githubDisabled = !github || ident.includes('.'); %>
   <button id="export-github" class="export-button <% if (githubDisabled) {%>always-disabled<% } %>" type="submit" name="github" value="github" disabled><span class="mdi mdi-github"></span> <% if (!githubDisabled) {%>Send results to mdn-bcd-results GitHub repo<% } else { %>GitHub export disabled<% } %></button>

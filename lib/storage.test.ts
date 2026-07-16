@@ -1,12 +1,5 @@
-//
-// mdn-bcd-collector: unittest/unit/storage.test.ts
-// Unittest for the temporary storage handler
-//
-// © Gooborg Studios, Google LLC
-// See the LICENSE file for copyright details
-//
-
-import {assert} from "chai";
+import {describe, it, beforeEach, afterEach} from "node:test";
+import assert from "node:assert/strict";
 
 import {CloudStorage, MemoryStorage, getStorage} from "./storage.js";
 
@@ -168,7 +161,7 @@ describe("storage", () => {
         const bytes = Buffer.from("{}");
         await storage.saveFile(filename, bytes);
         const readBytes = await storage.readFile(filename);
-        assert.instanceOf(readBytes, Buffer);
+        assert(readBytes instanceof Buffer);
         assert.equal(readBytes.toString(), "{}");
       });
     });

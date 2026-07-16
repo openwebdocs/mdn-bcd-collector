@@ -1,14 +1,5 @@
-//
-// mdn-bcd-collector: test-builder/webassembly.test.ts
-// Unittest for the Webassembly-specific test builder functions
-//
-// © Open Web Docs
-// See the LICENSE file for copyright details
-//
-
-import chai, {assert} from "chai";
-import chaiSubset from "chai-subset";
-chai.use(chaiSubset);
+import {describe, it} from "node:test";
+import assert from "node:assert/strict";
 
 import {build} from "./webassembly.js";
 

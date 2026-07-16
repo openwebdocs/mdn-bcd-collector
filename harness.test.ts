@@ -1,14 +1,7 @@
-//
-// mdn-bcd-collector: unittest/puppeteer/harness.test.ts
-// Unittest for testing harness.js in multiple browsers
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation
-// See the LICENSE file for copyright details
-//
-
 import {fileURLToPath} from "node:url";
 
-import {assert} from "chai";
+import {describe, it, after, before} from "node:test";
+import assert from "node:assert/strict";
 import fs from "fs-extra";
 import puppeteer, {Product} from "puppeteer";
 
@@ -70,7 +63,12 @@ describe("harness.js", () => {
                 ),
               },
           )
-          .filter((it) => it && fs.existsSync(fileURLToPath(it.url)));
+          .filter(
+            (it) =>
+              it &&
+              it.url.startsWith("file://") &&
+              fs.existsSync(fileURLToPath(it.url)),
+          );
 
         coverage.forEach((it, idx) =>
           fs.writeFileSync(
@@ -83,8 +81,6 @@ describe("harness.js", () => {
       }
 
       assert.equal(report.stats.failures, 0);
-    })
-      .slow(10000)
-      .timeout(30000);
+    });
   }
 });

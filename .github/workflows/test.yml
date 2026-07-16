@@ -10,7 +10,6 @@ permissions:
 
 env:
   FORCE_COLOR: 3
-  BCD_DIR: ./browser-compat-data
 
 jobs:
   test:
@@ -23,18 +22,20 @@ jobs:
           #   runs-on: macos-latest
     name: Test (${{ matrix.name }})
     runs-on: ${{ matrix.runs-on }}
+    env:
+      BCD_DIR: ./browser-compat-data
     steps:
       - name: Clone collector
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: true
       - name: Clone browser-compat-data
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: mdn/browser-compat-data
           path: browser-compat-data
       - name: Setup NodeJS
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
       - name: Prepare browser-compat-data
@@ -53,4 +54,62 @@ jobs:
         env:
           NODE_ENV: production
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
+
+  diff-features:
+    if: github.event_name == 'pull_request'
+    name: Diff features
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number }}-diff-features
+      cancel-in-progress: true
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 1
+    steps:
+      - name: Clone collector (base)
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.base_ref }}
+          path: base
+          persist-credentials: false
+          submodules: true
+      - name: Clone collector (PR)
+        uses: actions/checkout@v7
+        with:
+          path: pr
+          persist-credentials: false
+          submodules: true
+      - name: Clone browser-compat-data
+        uses: actions/checkout@v7
+        with:
+          repository: mdn/browser-compat-data
+          path: bcd
+          persist-credentials: false
+      - name: Setup NodeJS
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: pr/.nvmrc
+      - name: Install
+        run: |
+          set -eo pipefail
+          cd bcd && npm ci | sed "s/^/[bcd] /" &
+          cd base && npm ci | sed "s/^/[base] /" &
+          cd pr && npm ci | sed "s/^/[pr] /" &
+          wait
+      - name: Build tests
+        run: |
+          set -eo pipefail
+          cd base && npm run build:tests | sed "s/^/[base] /" &
+          cd pr && npm run build:tests | sed "s/^/[pr] /" &
+          wait
+      - name: Feature coverage
+        run: |
+          set -eo pipefail
+          cd base && npm run feature-coverage -- -l > ../base-features.txt | sed "s/^/[base] /" &
+          cd pr && npm run feature-coverage -- -l > ../pr-features.txt | sed "s/^/[pr] /" &
+          wait
+        env:
+          BCD_DIR: ../bcd
+      - name: Diff
+        run: git diff --color=always --no-index base-features.txt pr-features.txt || true
+

@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: lib/secrets.ts
-// Module to parse data from secrets.json or SECRETS_JSON environment variable
-//
-// © Gooborg Studios
-// See the LICENSE file for copyright details
-//
-
 import fs from "fs-extra";
 
 import type {Secrets} from "../types/types.d.ts";

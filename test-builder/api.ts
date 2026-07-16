@@ -1,11 +1,3 @@
-//
-// mdn-bcd-collector: test-builder/api.ts
-// Functions directly related to building all of the web API tests
-//
-// © Gooborg Studios, Google LLC, Mozilla Corporation, Apple Inc
-// See the LICENSE file for copyright details
-//
-
 import * as WebIDL2 from "webidl2";
 
 import {getCustomTest, compileTest} from "./common.js";
@@ -477,6 +469,7 @@ const validateIDL = (ast) => {
     "unsigned short", // https://webidl.spec.whatwg.org/#idl-unsigned-short
     "USVString", // https://webidl.spec.whatwg.org/#idl-USVString
     "undefined", // https://webidl.spec.whatwg.org/#idl-undefined
+    "SVGMatrix", // LegacyWindowAlias=(SVGMatrix) for DOMMatrix
   ]);
   // Add any types defined by the (flattened) spec and custom IDL.
   for (const dfn of ast) {
