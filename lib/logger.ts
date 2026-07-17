@@ -8,7 +8,7 @@ import {LoggingWinston} from "@google-cloud/logging-winston";
  * @returns The logging transport.
  */
 const getTransport = (): winston.transport => {
-  /* c8 ignore next 3 */
+  /* node:coverage ignore next 3 */
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     return new LoggingWinston();
   }

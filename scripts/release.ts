@@ -556,8 +556,8 @@ const main = async () => {
   }
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 if (esMain(import.meta)) {
   await main();
 }
-/* c8 ignore stop */
+/* node:coverage enable */

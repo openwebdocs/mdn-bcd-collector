@@ -28,7 +28,7 @@ const customJS = await fs.readJson(
   new URL("../custom/js.json", import.meta.url),
 );
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Builds the tests.
  */
@@ -56,4 +56,4 @@ const build = async () => {
 if (esMain(import.meta)) {
   await build();
 }
-/* c8 ignore stop */
+/* node:coverage enable */

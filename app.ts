@@ -31,11 +31,11 @@ type RequestWithSession = Request & {
   sessionID: string;
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 const browserExtensions = await fs.readJson(
   new URL("./browser-extensions.json", import.meta.url),
 );
-/* c8 ignore stop */
+/* node:coverage enable */
 
 const secrets = await getSecrets();
 const storage = getStorage(appVersion);
@@ -250,7 +250,7 @@ app.get("/stats.json", async (req: Request, res: Response) => {
   res.status(200).json(coverageData);
 });
 
-/* c8 ignore start */
+/* node:coverage disable */
 app.get(
   "/download/:filename",
   async (req: Request, res: Response, next: NextFunction) => {
@@ -322,7 +322,7 @@ app.all("/export", async (req: Request, res: Response, next: NextFunction) => {
     next(e);
   }
 });
-/* c8 ignore stop */
+/* node:coverage disable */
 
 app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
   const ident = req.params["0"].replace(/\//g, ".");
@@ -369,7 +369,7 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-/* c8 ignore start */
+/* node:coverage disable */
 if (esMain(import.meta)) {
   const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
     "$0",
@@ -409,6 +409,6 @@ if (esMain(import.meta)) {
   }
   logger.info("Press Ctrl+C to quit.");
 }
-/* c8 ignore stop */
+/* node:coverage enable */
 
 export {app, appVersion as version};

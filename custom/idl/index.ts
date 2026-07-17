@@ -15,7 +15,7 @@ const parseIDL = async (): Promise<IDLFiles> => {
   files.sort();
   const results = {};
   for (const file of files) {
-    /* c8 ignore next 3 */
+    /* node:coverage ignore next 3 */
     if (path.extname(file) !== ".idl") {
       continue;
     }

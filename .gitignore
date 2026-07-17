@@ -1,7 +1,4 @@
 .DS_Store
-.nyc_output/
-coverage.lcov
-coverage/
 generated/
 node_modules/
 download/

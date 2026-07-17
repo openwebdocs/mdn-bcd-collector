@@ -13,7 +13,7 @@ import {getMissing} from "../lib/coverage.js";
 
 const BCD_DIR = getBCDDir();
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Finds missing entries between BCD and the collector tests.
  * @param bcd - The BCD data.
@@ -142,4 +142,4 @@ if (esMain(import.meta)) {
 
   main(bcd, tests);
 }
-/* c8 ignore stop */
+/* node:coverage enable */

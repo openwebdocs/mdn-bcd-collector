@@ -255,7 +255,7 @@ const main = async (
   }
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 if (esMain(import.meta)) {
   const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
     "$0 <files..>",
@@ -284,4 +284,4 @@ if (esMain(import.meta)) {
 
   await main(argv.files, argv.feature, argv.null);
 }
-/* c8 ignore stop */
+/* node:coverage enable */
