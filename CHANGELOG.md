@@ -1,5 +1,48 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.4
+
+Released July 17, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CrossOriginStorageManager
+- api.Document.createElement.customElementRegistry_option
+- api.Document.createElement.options_is_parameter
+- api.Document.createElementNS.customElementRegistry_option
+- api.Document.createElementNS.options_is_parameter
+- api.Navigator.cpuPerformance
+- api.Navigator.crossOriginStorage
+- api.Proofreader
+- api.WorkerNavigator.crossOriginStorage
+- api.XRGPUBinding
+- api.XRGPUSubImage
+
+#### Changed
+
+- api.Document.createElement.options_parameter
+- api.Document.createElementNS.options_parameter
+- api.InstallEvent
+
+### Commits
+
+- Migrate from c8 to node:coverage ([#3287](https://github.com/openwebdocs/mdn-bcd-collector/pull/3287))
+- build(deps-dev): bump the dev group across 1 directory with 2 updates ([#3286](https://github.com/openwebdocs/mdn-bcd-collector/pull/3286))
+- Fix createElement option tests ([#3282](https://github.com/openwebdocs/mdn-bcd-collector/pull/3282))
+- build(deps-dev): bump @webref/idl from 3.81.3 to 3.82.0 in the data group ([#3285](https://github.com/openwebdocs/mdn-bcd-collector/pull/3285))
+- Add a stats.json view ([#3249](https://github.com/openwebdocs/mdn-bcd-collector/pull/3249))
+- Add GPU overrides ([#3284](https://github.com/openwebdocs/mdn-bcd-collector/pull/3284))
+- Add overrides for WebGL extensions ([#3283](https://github.com/openwebdocs/mdn-bcd-collector/pull/3283))
+- Refine custom test for InstallEvent ([#3020](https://github.com/openwebdocs/mdn-bcd-collector/pull/3020))
+- Remove Edge overrides for LLM APIs ([#3281](https://github.com/openwebdocs/mdn-bcd-collector/pull/3281))
+- build(deps-dev): bump eslint-plugin-unicorn from 71.1.0 to 72.0.0 in the dev group ([#3280](https://github.com/openwebdocs/mdn-bcd-collector/pull/3280))
+- build(deps): bump actions/setup-node from 6 to 7 ([#3278](https://github.com/openwebdocs/mdn-bcd-collector/pull/3278))
+- build(deps-dev): bump the dev group with 2 updates ([#3279](https://github.com/openwebdocs/mdn-bcd-collector/pull/3279))
+- Default deploy: limit collection to browsers from 2023 onwards ([#3276](https://github.com/openwebdocs/mdn-bcd-collector/pull/3276))
+- build(deps): bump the dev group with 5 updates ([#3277](https://github.com/openwebdocs/mdn-bcd-collector/pull/3277))
+
 ## v10.20.3
 
 Released July 10, 2026
