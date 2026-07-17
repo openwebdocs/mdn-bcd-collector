@@ -1443,14 +1443,34 @@ api:
           function doTest(options) {
             instance.createElement('p', options);
           }
-          return bcd.testOptionParam(doTest, null, 'is', '');
+          return bcd.testOptionParam(doTest, null, 'is', '') || bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
+        customElementRegistry_option: |-
+          function doTest(options) {
+            instance.createElement('p', options);
+          }
+          return bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
+        options_is_parameter: |-
+          function doTest(options) {
+              instance.createElement('p', options);
+            }
+            return bcd.testOptionParam(doTest, null, 'is', '');
     createElementNS:
       __additional:
         options_parameter: |-
           function doTest(options) {
             instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
           }
-          return bcd.testOptionParam(doTest, null, 'is', '');
+          return bcd.testOptionParam(doTest, null, 'is', '') || bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
+        customElementRegistry_option: |-
+          function doTest(options) {
+            instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
+          }
+          return bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
+        options_is_parameter: |-
+          function doTest(options) {
+              instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
+            }
+            return bcd.testOptionParam(doTest, null, 'is', '');
     createTreeWalker:
       __additional:
         whatToShow_filter_parameters_optional: |-
