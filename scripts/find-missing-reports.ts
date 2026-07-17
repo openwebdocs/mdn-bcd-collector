@@ -124,7 +124,7 @@ const findMissingReports = async (
   return reportMap;
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Main function that finds and logs missing reports.
  * @param argv - The command line arguments.
@@ -181,6 +181,6 @@ if (esMain(import.meta)) {
 
   await main(argv);
 }
-/* c8 ignore stop */
+/* node:coverage enable */
 
 export default findMissingReports;

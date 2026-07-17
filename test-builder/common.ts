@@ -6,7 +6,7 @@ import replaceAsync from "../lib/replace-async.js";
 
 import type {Test, RawTest} from "../types/types.js";
 
-/* c8 ignore start */
+/* node:coverage disable */
 export const customTests = YAML.parse(
   await fs.readFile(
     new URL(
@@ -18,7 +18,7 @@ export const customTests = YAML.parse(
     "utf8",
   ),
 );
-/* c8 ignore stop */
+/* node:coverage enable */
 
 export interface CustomTestData {
   __base: string | false;
@@ -315,7 +315,7 @@ const compileCustomTest = async (
           resources,
         };
       }
-      /* c8 ignore next 3 */
+      /* node:coverage ignore next 3 */
       // We should never reach the next line
       throw e;
     }

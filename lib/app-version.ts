@@ -2,7 +2,7 @@ import fs from "fs-extra";
 
 import exec from "./exec.js";
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Retrieves the version of the application.
  * If the application is running in production mode, it returns the version from the package.json file.
@@ -35,4 +35,4 @@ const getAppVersion = async () => {
 const appVersion = await getAppVersion();
 
 export default appVersion;
-/* c8 ignore stop */
+/* node:coverage enable */

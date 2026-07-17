@@ -147,7 +147,7 @@ export const getFilePath = (ident: string[]): string => {
   return path.join(...parts);
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Writes the given object to a JSON file at the specified file path.
  * If the file already exists, it merges the new object with the existing data.
@@ -171,7 +171,7 @@ const writeFile = async (ident: string[], obj: any): Promise<void> => {
     {spaces: 2, replacer: orderFeatures},
   );
 };
-/* c8 ignore stop */
+/* node:coverage enable */
 
 /**
  * Traverses the features in the given object and writes the supported features to a file.
@@ -221,7 +221,7 @@ export const collectMissing = async (filepath: string): Promise<void> => {
   await fs.writeJSON(filepath, missing, {spaces: 2});
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Main function that generates missing BCD, updates BCD, injects BCD, cleans up, and completes the process.
  * @param paths - The report paths to get data from
@@ -279,4 +279,4 @@ if (esMain(import.meta)) {
 
   await main(argv.reports, argv.verbose);
 }
-/* c8 ignore stop */
+/* node:coverage enable */

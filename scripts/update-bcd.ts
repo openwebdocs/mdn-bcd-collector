@@ -1285,7 +1285,7 @@ export const update = (
   return updates;
 };
 
-/* c8 ignore start */
+/* node:coverage disable */
 /**
  * Loads JSON files from the specified paths and returns them as a single object.
  * @param paths - An array of paths to the JSON files or directories containing JSON files.
@@ -1471,4 +1471,4 @@ if (esMain(import.meta)) {
     argv.verbose,
   );
 }
-/* c8 ignore stop */
+/* node:coverage enable */

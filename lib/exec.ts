@@ -9,11 +9,11 @@ import childProcess from "node:child_process";
  */
 const exec = async (cmd: string, env?: any, pipe = true): Promise<string> => {
   env = {...process.env, ...env};
-  /* c8 ignore start */
+  /* node:coverage disable */
   if (!pipe) {
     console.log(`> ${cmd}`);
   }
-  /* c8 ignore stop */
+  /* node:coverage enable */
   const output = childProcess.execSync(cmd, {
     env,
     stdio: pipe ? "pipe" : "inherit",
