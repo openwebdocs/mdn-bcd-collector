@@ -19,7 +19,7 @@
     "format": "eslint . && prettier -c \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.css\" \"**/*.yaml\" --color && ejslint views/*",
     "format:fix": "eslint --fix . && prettier --write \"**/*.ts\" \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.css\" \"**/*.yaml\"",
     "fix": "npm run format:fix",
-    "clean": "rm -rf .nyc_output coverage generated tests.json",
+    "clean": "rm -rf generated tests.json",
     "build": "npm run build:compile && npm run build:tests && npm run build:resources",
     "build:compile": "tsc -p .",
     "build:tests": "tsx test-builder/index.ts",

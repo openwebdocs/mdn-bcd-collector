@@ -23,7 +23,6 @@ const staticCompat = new FlatCompat({
 export default [
   {
     ignores: [
-      "**/coverage/",
       "**/generated/",
       "**/browser-compat-data/",
       "**/es-scraper/",
