@@ -1444,12 +1444,12 @@ api:
             instance.createElement('p', options);
           }
           return bcd.testOptionParam(doTest, null, 'is', '') || bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
-        customElementRegistry_option: |-
+        options_parameter.customElementRegistry_option: |-
           function doTest(options) {
             instance.createElement('p', options);
           }
           return bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
-        options_is_parameter: |-
+        options_parameter.options_is_parameter: |-
           function doTest(options) {
               instance.createElement('p', options);
             }
@@ -1461,12 +1461,12 @@ api:
             instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
           }
           return bcd.testOptionParam(doTest, null, 'is', '') || bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
-        customElementRegistry_option: |-
+        options_parameter.customElementRegistry_option: |-
           function doTest(options) {
             instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
           }
           return bcd.testOptionParam(doTest, null, 'customElementRegistry', null);
-        options_is_parameter: |-
+        options_parameter.options_is_parameter: |-
           function doTest(options) {
               instance.createElementNS('http://www.w3.org/1999/xhtml', 'p', options);
             }
