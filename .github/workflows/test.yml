@@ -53,8 +53,6 @@ jobs:
           npx wait-on -t 10000 -v http://localhost:8080
         env:
           NODE_ENV: production
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v7
 
   diff-features:
     if: github.event_name == 'pull_request'
