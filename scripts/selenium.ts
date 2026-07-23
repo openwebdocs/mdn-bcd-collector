@@ -117,6 +117,10 @@ const earliestBrowserVersions = {
   edge: "12",
   firefox: "4",
   safari: "5.1",
+  // Only collect recent mobile browsers for now
+  chrome_android: "150",
+  firefox_android: "150",
+  safari_ios: "26.5",
 };
 
 /**
@@ -178,6 +182,9 @@ const getBrowsersToTest = (
     edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
     safari: filterVersions("safari", since, reverse),
+    chrome_android: filterVersions("chrome_android", since, reverse),
+    firefox_android: filterVersions("firefox_android", since, reverse),
+    safari_ios: filterVersions("safari_ios", since, reverse),
   };
 
   if (limitBrowsers) {
@@ -268,6 +275,12 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
             ["OS X", "El Capitan"],
           ];
       }
+      break;
+    case "Android":
+      osesToTest = [["Android", "17"]];
+      break;
+    case "iOS":
+      osesToTest = [["iOS", "26.5"]];
       break;
     default:
       throw new Error(`Unknown/unsupported OS: ${os}`);
@@ -371,7 +384,12 @@ const buildDriver = async (
       capabilities.set("build", commonConfig.build);
       capabilities.set("project", commonConfig.project);
 
-      capabilities.set(Capability.BROWSER_NAME, Browser[browser.toUpperCase()]);
+      const webdriverBrowserName = browser
+        .replace("_android", "")
+        .replace("_ios", "")
+        .toUpperCase();
+
+      capabilities.set(Capability.BROWSER_NAME, Browser[webdriverBrowserName]);
       capabilities.set(Capability.BROWSER_VERSION, version.split(".")[0]);
 
       if (service === "browserstack") {
@@ -379,6 +397,16 @@ const buildDriver = async (
         if (browser !== "safari") {
           osCaps.osVersion = osVersion;
         }
+        if (os === "Android") {
+          osCaps.deviceName = "Pixel 9";
+          osCaps.realMobile = true;
+        }
+
+        if (os === "iOS") {
+          osCaps.deviceName = "iPhone 17 Pro";
+          osCaps.realMobile = true;
+        }
+
         capabilities.set("bstack:options", osCaps);
       } else {
         // Remap target OS for Safari x.0 vs. x.1 on SauceLabs
@@ -453,6 +481,7 @@ const buildDriver = async (
         const driverBuilder = new Builder()
           .usingServer(seleniumUrl)
           .withCapabilities(capabilities);
+        // console.log(capabilities);
         const driver = await driverBuilder.build();
 
         return {driver, service, osName, osVersion};
@@ -714,19 +743,26 @@ const runAll = async (
   ][]) {
     const browsertasks: ListrTask[] = [];
 
+    const browserOsMap = {
+      chrome_android: ["Android"],
+      firefox_android: ["Android"],
+      safari_ios: ["iOS"],
+      safari: ["macOS"],
+    };
+
     for (const version of versions) {
       for (const os of oses) {
+        const supportedOs = browserOsMap[browser];
+        if (supportedOs && !supportedOs.includes(os)) {
+          continue;
+        }
+
+        // Don't test EdgeHTML on macOS
         if (
           os === "macOS" &&
           browser === "edge" &&
           compareVersions(version, "18", "<=")
         ) {
-          // Don't test EdgeHTML on macOS
-          continue;
-        }
-
-        if (os === "Windows" && browser === "safari") {
-          // Don't test Safari on Windows
           continue;
         }
 
@@ -781,7 +817,15 @@ if (esMain(import.meta)) {
           describe: "Limit the browser(s) to test",
           alias: "b",
           type: "string",
-          choices: ["chrome", "edge", "firefox", "safari"],
+          choices: [
+            "chrome",
+            "edge",
+            "firefox",
+            "safari",
+            "chrome_android",
+            "firefox_android",
+            "safari_ios",
+          ],
         })
         .option("since", {
           describe: "Limit to browser releases from this year on",
@@ -794,8 +838,8 @@ if (esMain(import.meta)) {
           describe: "Specify OS to test",
           alias: "o",
           type: "array",
-          choices: ["Windows", "macOS"],
-          default: ["Windows", "macOS"],
+          choices: ["Windows", "macOS", "Android", "iOS"],
+          default: ["Windows", "macOS", "Android", "iOS"],
         })
         .option("concurrent", {
           describe: "Define the number of concurrent jobs to run",
