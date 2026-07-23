@@ -1,5 +1,44 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.5
+
+Released July 23, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Document.createElement.options_parameter.customElementRegistry_option
+- api.Document.createElement.options_parameter.options_is_parameter
+- api.Document.createElementNS.options_parameter.customElementRegistry_option
+- api.Document.createElementNS.options_parameter.options_is_parameter
+- javascript.builtins.BigInt.abs
+- javascript.builtins.BigInt.cbrt
+- javascript.builtins.BigInt.max
+- javascript.builtins.BigInt.min
+- javascript.builtins.BigInt.pow
+- javascript.builtins.BigInt.sign
+- javascript.builtins.BigInt.sqrt
+
+#### Removed
+
+- api.Document.createElement.customElementRegistry_option
+- api.Document.createElement.options_is_parameter
+- api.Document.createElementNS.customElementRegistry_option
+- api.Document.createElementNS.options_is_parameter
+
+### Commits
+
+- Add mobile browsers and beta versions to selenium run ([#3296](https://github.com/openwebdocs/mdn-bcd-collector/pull/3296))
+- Add BigInt Math methods ([#3299](https://github.com/openwebdocs/mdn-bcd-collector/pull/3299))
+- build(deps-dev): bump the dev group with 2 updates ([#3298](https://github.com/openwebdocs/mdn-bcd-collector/pull/3298))
+- build(deps): bump body-parser from 2.2.1 to 2.3.0 ([#3295](https://github.com/openwebdocs/mdn-bcd-collector/pull/3295))
+- build(deps-dev): bump shell-quote from 1.8.4 to 1.10.0 ([#3294](https://github.com/openwebdocs/mdn-bcd-collector/pull/3294))
+- build(deps-dev): bump the dev group with 2 updates ([#3293](https://github.com/openwebdocs/mdn-bcd-collector/pull/3293))
+- Remove codecov upload action ([#3292](https://github.com/openwebdocs/mdn-bcd-collector/pull/3292))
+- build(deps): bump the dev group with 2 updates ([#3291](https://github.com/openwebdocs/mdn-bcd-collector/pull/3291))
+- Fix nesting in createElement options tests ([#3290](https://github.com/openwebdocs/mdn-bcd-collector/pull/3290))
+
 ## v10.20.4
 
 Released July 17, 2026
