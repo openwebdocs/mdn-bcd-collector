@@ -264,7 +264,7 @@
     "Iterator": {
       "ctor": {},
       "members": {
-        "static": ["concat", "from"],
+        "static": ["concat", "from", "zip", "zipKeyed"],
         "instance": [
           "chunks",
           "drop",
