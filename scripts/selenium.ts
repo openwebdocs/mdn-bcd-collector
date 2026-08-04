@@ -744,7 +744,10 @@ const runAll = async (
     const browsertasks: ListrTask[] = [];
 
     const browserOsMap = {
+      chrome: ["macOS", "Windows"],
       chrome_android: ["Android"],
+      edge: ["macOS", "Windows"],
+      firefox: ["macOS", "Windows"],
       firefox_android: ["Android"],
       safari_ios: ["iOS"],
       safari: ["macOS"],
