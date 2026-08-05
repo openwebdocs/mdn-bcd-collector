@@ -1,5 +1,40 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.6
+
+Released August 5, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Element.containerTiming
+- api.Element.containerTimingIgnore
+- api.ModelContext.getTools
+- css.properties.animation-delay-end
+- css.properties.animation-delay-start
+- javascript.builtins.Iterator.zip
+- javascript.builtins.Iterator.zipKeyed
+
+#### Removed
+
+- api.Element.containertiming
+- api.Element.containertimingIgnore
+- api.SVGFilterElement.href
+
+### Commits
+
+- Approve puppeteer install script ([#3311](https://github.com/openwebdocs/mdn-bcd-collector/pull/3311))
+- build(deps): bump tsx from 4.23.1 to 4.23.2 in the dev group ([#3310](https://github.com/openwebdocs/mdn-bcd-collector/pull/3310))
+- Do not collect Chrome iOS and Edge Android ([#3309](https://github.com/openwebdocs/mdn-bcd-collector/pull/3309))
+- build(deps-dev): bump undici from 7.28.0 to 7.29.0 ([#3308](https://github.com/openwebdocs/mdn-bcd-collector/pull/3308))
+- Add Iterator.zip/zipKeyed ([#3307](https://github.com/openwebdocs/mdn-bcd-collector/pull/3307))
+- build(deps-dev): bump the dev group with 4 updates ([#3306](https://github.com/openwebdocs/mdn-bcd-collector/pull/3306))
+- build(deps): bump the dev group with 5 updates ([#3305](https://github.com/openwebdocs/mdn-bcd-collector/pull/3305))
+- build(deps): bump the dev group with 2 updates ([#3304](https://github.com/openwebdocs/mdn-bcd-collector/pull/3304))
+- build(deps-dev): bump the data group with 2 updates ([#3303](https://github.com/openwebdocs/mdn-bcd-collector/pull/3303))
+- Approve install scripts ([#3302](https://github.com/openwebdocs/mdn-bcd-collector/pull/3302))
+
 ## v10.20.5
 
 Released July 23, 2026
