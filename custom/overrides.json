@@ -1333,8 +1333,6 @@
   ["api.DeviceMotionEventRotationRate.alpha", "safari_ios", "4.2+", true],
   ["api.DeviceMotionEventRotationRate.beta", "safari_ios", "4.2+", true],
   ["api.DeviceMotionEventRotationRate.gamma", "safari_ios", "4.2+", true],
-  "Not yet shipping",
-  ["api.Document.ariaNotify", "safari", "27", false],
   "Partial implementation. Only available on iPad, not on iPhone.",
   ["api.Document.exitFullscreen", "safari_ios", "16.4+", true],
   ["api.Document.fullscreen", "safari_ios", "16.4+", true],
@@ -1390,5 +1388,6 @@
   ["api.WEBGL_multi_draw.multiDrawArraysInstancedWEBGL", "chrome_android", "86+", true],
   ["api.WEBGL_multi_draw.multiDrawArraysWEBGL", "chrome_android", "86+", true],
   ["api.WEBGL_multi_draw.multiDrawElementsInstancedWEBGL", "chrome_android", "86+", true],
-  ["api.WEBGL_multi_draw.multiDrawElementsWEBGL", "chrome_android", "86+", true]
+  ["api.WEBGL_multi_draw.multiDrawElementsWEBGL", "chrome_android", "86+", true],
+  ["api.WebGLVertexArrayObjectOES", "chrome_android", "24+", true]
 ]
