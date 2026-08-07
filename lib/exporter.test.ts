@@ -109,11 +109,11 @@ const REPORTS: {
     },
     expected: {
       digest: "2b4d5a5f00",
-      browser: "Samsung Internet 12.1",
+      browser: "Samsung Browser 12.1",
       os: "Android 11",
-      desc: "Samsung Internet 12.1 / Android 11",
+      desc: "Samsung Browser 12.1 / Android 11",
       title:
-        "Results from Samsung Internet 12.1 / Android 11 / Collector v1.2.3",
+        "Results from Samsung Browser 12.1 / Android 11 / Collector v1.2.3",
       urls: ["https://collector.openwebdocs.org/tests/"],
       slug: "1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00",
       filename: "1.2.3-samsunginternet-android-12.1-android-11-2b4d5a5f00.json",

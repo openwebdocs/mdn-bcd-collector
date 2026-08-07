@@ -172,7 +172,7 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
 
   // We reached the last entry in |versions|. With no |next| to compare against
   // we have to check if it looks like a significant release or not. By default
-  // that means a new major version, but for Safari and Samsung Internet the
+  // that means a new major version, but for Safari and Samsung Browser the
   // major and minor version are significant.
   if (!RUNTIME_IDS_WITH_PATCH_VERSIONING.has(data.browser.id)) {
     let normalize = getMajorVersion;
