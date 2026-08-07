@@ -18,7 +18,6 @@ const build = async (wasmFeatures) => {
     ["extendedConst", "extended-constant-expressions"],
     ["gc", "garbage-collection"],
     ["multiValue", "multi-value"],
-    ["mutableGlobals", "mutable-globals"],
     ["referenceTypes", "reference-types"],
     ["relaxedSimd", "relaxed-SIMD"],
     ["saturatedFloatToInt", "non-trapping-float-to-int-conversions"],
@@ -26,12 +25,19 @@ const build = async (wasmFeatures) => {
     ["simd", "fixed-width-SIMD"],
     ["tailCall", "tail-calls"],
     ["threads", "threads-and-atomics"],
+    ["typeReflection", "type-reflection"],
   ]);
 
   const tests = {};
   for (const feature of features) {
     if (feature === "streamingCompilation") {
       // The streamingCompilation feature is a WASM API feature
+      continue;
+    }
+    if (feature === "mutableGlobals") {
+      // Already recorded as:
+      // webassembly.definitions.global.mut
+      // webassembly.api.Global.Global.mutable
       continue;
     }
 
