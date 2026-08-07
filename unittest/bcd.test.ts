@@ -119,7 +119,7 @@ export default {
       releases: {13: {}, 13.3: {}, 13.4: {}, 14: {}},
     },
     samsunginternet_android: {
-      name: "Samsung Internet",
+      name: "Samsung Browser",
       releases: {
         "10.0": {},
         10.2: {},

@@ -21,7 +21,7 @@ const browsers = {
     releases: {13: {}, 13.3: {}, 13.4: {}, 14: {}},
   },
   samsunginternet_android: {
-    name: "Samsung Internet",
+    name: "Samsung Browser",
     releases: {
       "10.0": {},
       10.2: {},
@@ -336,14 +336,14 @@ describe("parseUA", () => {
     );
   });
 
-  it("Samsung Internet 10.1 (read as 10.0)", () => {
+  it("Samsung Browser 10.1 (read as 10.0)", () => {
     assert.deepEqual(
       parseUA(
         "Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/10.1 Chrome/71.0.3578.99 Mobile Safari/537.36",
         browsers,
       ),
       {
-        browser: {id: "samsunginternet_android", name: "Samsung Internet"},
+        browser: {id: "samsunginternet_android", name: "Samsung Browser"},
         version: "10.0",
         fullVersion: "10.1",
         os: {name: "Android", version: "9"},
@@ -352,14 +352,14 @@ describe("parseUA", () => {
     );
   });
 
-  it("Samsung Internet 12.0", () => {
+  it("Samsung Browser 12.0", () => {
     assert.deepEqual(
       parseUA(
         "Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.0 Chrome/79.0.3945.136 Mobile Safari/537.36",
         browsers,
       ),
       {
-        browser: {id: "samsunginternet_android", name: "Samsung Internet"},
+        browser: {id: "samsunginternet_android", name: "Samsung Browser"},
         version: "12.0",
         fullVersion: "12.0",
         os: {name: "Android", version: "11"},
@@ -368,14 +368,14 @@ describe("parseUA", () => {
     );
   });
 
-  it("Samsung Internet 12.1", () => {
+  it("Samsung Browser 12.1", () => {
     assert.deepEqual(
       parseUA(
         "Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36",
         browsers,
       ),
       {
-        browser: {id: "samsunginternet_android", name: "Samsung Internet"},
+        browser: {id: "samsunginternet_android", name: "Samsung Browser"},
         version: "12.1",
         fullVersion: "12.1",
         os: {name: "Android", version: "11"},
@@ -384,14 +384,14 @@ describe("parseUA", () => {
     );
   });
 
-  it("Samsung Internet 12.2 (not in BCD)", () => {
+  it("Samsung Browser 12.2 (not in BCD)", () => {
     assert.deepEqual(
       parseUA(
         "Mozilla/5.0 (Linux; Android 11; Pixel 2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.2 Chrome/79.0.3945.136 Mobile Safari/537.36",
         browsers,
       ),
       {
-        browser: {id: "samsunginternet_android", name: "Samsung Internet"},
+        browser: {id: "samsunginternet_android", name: "Samsung Browser"},
         version: "12.2",
         fullVersion: "12.2",
         os: {name: "Android", version: "11"},
