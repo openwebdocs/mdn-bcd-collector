@@ -140,6 +140,102 @@ describe("build (API)", () => {
       assert.equal(globals[0].members[0].name, "atob");
     });
 
+    it("GlobalEventHandlers are mapped to their implementing interfaces", () => {
+      const ast = WebIDL2.parse(`
+        interface mixin GlobalEventHandlers {
+          attribute EventHandler onanimationcancel;
+        };
+
+        interface Element {
+        };
+
+        interface HTMLElement : Element {
+        };
+
+        interface SVGElement : Element {
+        };
+
+        interface MathMLElement : Element {
+        };
+
+        interface Document {
+        };
+
+        interface Window {
+        };
+
+        HTMLElement includes GlobalEventHandlers;
+        SVGElement includes GlobalEventHandlers;
+        MathMLElement includes GlobalEventHandlers;
+        Document includes GlobalEventHandlers;
+        Window includes GlobalEventHandlers;
+      `);
+
+      const {ast: flattenedAST} = flattenIDL({test: ast}, {});
+
+      const element = flattenedAST.find(
+        (dfn) => "name" in dfn && dfn.name === "Element",
+      );
+      const htmlElement = flattenedAST.find(
+        (dfn) => "name" in dfn && dfn.name === "HTMLElement",
+      );
+      const svgElement = flattenedAST.find(
+        (dfn) => "name" in dfn && dfn.name === "SVGElement",
+      );
+      const mathMLElement = flattenedAST.find(
+        (dfn) => "name" in dfn && dfn.name === "MathMLElement",
+      );
+      const document = flattenedAST.find(
+        (dfn) => "name" in dfn && dfn.name === "Document",
+      );
+      const window = flattenedAST.find(
+        (dfn) => "name" in dfn && dfn.name === "Window",
+      );
+      assert.equal(
+        element?.type === "interface" &&
+          element.members.some((member) => member.name === "onanimationcancel"),
+        false,
+      );
+
+      assert.equal(
+        htmlElement?.type === "interface" &&
+          htmlElement.members.some(
+            (member) => member.name === "onanimationcancel",
+          ),
+        true,
+      );
+
+      assert.equal(
+        svgElement?.type === "interface" &&
+          svgElement.members.some(
+            (member) => member.name === "onanimationcancel",
+          ),
+        true,
+      );
+
+      assert.equal(
+        mathMLElement?.type === "interface" &&
+          mathMLElement.members.some(
+            (member) => member.name === "onanimationcancel",
+          ),
+        true,
+      );
+
+      assert.equal(
+        document?.type === "interface" &&
+          document.members.some(
+            (member) => member.name === "onanimationcancel",
+          ),
+        true,
+      );
+
+      assert.equal(
+        window?.type === "interface" &&
+          window.members.some((member) => member.name === "onanimationcancel"),
+        true,
+      );
+    });
+
     it("mixin missing", () => {
       const specIDLs = {
         first: WebIDL2.parse(
