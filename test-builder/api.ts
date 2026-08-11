@@ -86,7 +86,6 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
     if (dfn.type === "includes") {
       const skipIncludes = [
         "WindowOrWorkerGlobalScope", // handled separately as globals
-        "GlobalEventHandlers", // XXX needs special handling
         "WindowEventHandlers", // XXX needs special handling
       ];
       if (skipIncludes.includes(dfn.includes)) {
@@ -115,9 +114,28 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
           `Target ${dfn.target} not found for interface mixin ${dfn.includes}`,
         );
       }
-
       // merge members to target interface
-      mergeMembers(target, mixin);
+      if (
+        dfn.includes === "GlobalEventHandlers" &&
+        target.type === "interface" &&
+        mixin.type === "interface mixin"
+      ) {
+        const existingMembers = new Set(
+          target.members
+            .filter((member) => "name" in member)
+            .map((member) => member.name),
+        );
+
+        mergeMembers(target, {
+          ...mixin,
+          members: mixin.members.filter(
+            (member) =>
+              !("name" in member) || !existingMembers.has(member.name),
+          ),
+        });
+      } else {
+        mergeMembers(target, mixin);
+      }
     }
   }
 
