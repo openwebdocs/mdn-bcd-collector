@@ -130,6 +130,11 @@ css:
   properties:
     foo: return 1;
     bar: <%css.properties.foo:a%>
+    text-box-edge:
+      cap:
+        __test: return bcd.testCSSProperty('text-box-edge', 'cap alphabetic');
+      ex:
+        __test: return bcd.testCSSProperty('text-box-edge', 'ex alphabetic');
 
 javascript:
   builtins:

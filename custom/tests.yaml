@@ -6262,6 +6262,11 @@ css:
       __test: return CSS.supports('color', 'var(--foo)') || CSS.supports('color', 'env(--foo)');
     aspect-ratio: |-
       return bcd.testCSSProperty('aspect-ratio', '16 / 9');
+    text-box-edge:
+      cap:
+        __test: return bcd.testCSSProperty('text-box-edge', 'cap alphabetic');
+      ex:
+        __test: return bcd.testCSSProperty('text-box-edge', 'ex alphabetic');
   selectors:
     next-sibling: return bcd.testCSSSelector('div + span');
     child: return bcd.testCSSSelector('div > span');
