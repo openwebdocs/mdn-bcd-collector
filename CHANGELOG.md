@@ -1,5 +1,62 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.7
+
+Released August 20, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLElement.containerTiming
+- api.HTMLElement.containerTimingIgnore
+- api.HTMLIFrameElement.connectionAllowlist
+- api.ModelContext.executeTool
+- css.properties.scroll-axis-lock
+- css.properties.text-wrap.avoid-short-last-line
+- css.properties.text-wrap-style.avoid-short-last-line
+- css.types.attr.type_function
+- javascript.builtins.Promise.allKeyed
+- javascript.builtins.Promise.allSettledKeyed
+- webassembly.type-reflection
+- webassembly.wideArithmetic
+
+#### Removed
+
+- api.Element.containerTiming
+- api.Element.containerTimingIgnore
+- api.HTMLFrameSetElement.orientationchange_event
+- api.HTMLMediaElement.allowedToPlay
+- css.properties.margin-trim.inline
+- css.properties.margin-trim.inline-start
+- css.properties.margin-trim.inline-end
+- css.properties.text-wrap.avoid-orphans
+- css.properties.text-wrap-style.avoid-orphans
+- css.types.attr.type-or-unit
+- webassembly.mutable-globals
+- webassembly.typeReflection
+
+### Commits
+
+- Add Promise.allKeyed/allSettledKeyed ([#3336](https://github.com/openwebdocs/mdn-bcd-collector/pull/3336))
+- build(deps): bump the dev group with 3 updates ([#3335](https://github.com/openwebdocs/mdn-bcd-collector/pull/3335))
+- build(deps-dev): bump the data group with 2 updates ([#3334](https://github.com/openwebdocs/mdn-bcd-collector/pull/3334))
+- Fix typo in dependabot yml ([#3333](https://github.com/openwebdocs/mdn-bcd-collector/pull/3333))
+- Disable dependabot cooldown for mdn & webref ([#3332](https://github.com/openwebdocs/mdn-bcd-collector/pull/3332))
+- build(deps-dev): bump eslint-plugin-jsdoc from 64.1.0 to 64.2.0 in the dev group ([#3331](https://github.com/openwebdocs/mdn-bcd-collector/pull/3331))
+- build(deps): bump the dev group with 6 updates ([#3329](https://github.com/openwebdocs/mdn-bcd-collector/pull/3329))
+- build(deps): bump the dev group with 6 updates ([#3327](https://github.com/openwebdocs/mdn-bcd-collector/pull/3327))
+- build(deps): bump the dev group with 2 updates ([#3325](https://github.com/openwebdocs/mdn-bcd-collector/pull/3325))
+- build(deps): bump the dev group with 4 updates ([#3323](https://github.com/openwebdocs/mdn-bcd-collector/pull/3323))
+- build(deps): bump the dev group with 3 updates ([#3322](https://github.com/openwebdocs/mdn-bcd-collector/pull/3322))
+- Update wasm test builder ([#3321](https://github.com/openwebdocs/mdn-bcd-collector/pull/3321))
+- build(deps-dev): bump js-yaml from 4.3.0 to 4.3.1 ([#3320](https://github.com/openwebdocs/mdn-bcd-collector/pull/3320))
+- build(deps): bump the dev group with 4 updates ([#3317](https://github.com/openwebdocs/mdn-bcd-collector/pull/3317))
+- Rename CSS attr type-or-unit to type_function ([#3319](https://github.com/openwebdocs/mdn-bcd-collector/pull/3319))
+- Remove non-standard HTMLMediaElement.allowedToPlay ([#3318](https://github.com/openwebdocs/mdn-bcd-collector/pull/3318))
+- Remove HTMLFramesetElement.onorientationchange ([#3316](https://github.com/openwebdocs/mdn-bcd-collector/pull/3316))
+- build(deps): bump the dev group with 3 updates ([#3314](https://github.com/openwebdocs/mdn-bcd-collector/pull/3314))
+
 ## v10.20.6
 
 Released August 5, 2026
