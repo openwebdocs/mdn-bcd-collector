@@ -12,7 +12,7 @@ updates:
       data:
         patterns:
           - "@mdn/*"
-          - "@webref/*
+          - "@webref/*"
       dev:
         exclude-patterns:
           - "@mdn/*"
