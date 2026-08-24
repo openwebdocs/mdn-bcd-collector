@@ -761,8 +761,6 @@
   ["css.properties.ry", "webview_ios", "*", false],
   ["css.selectors.user-invalid", "safari", "16.4", false],
   ["css.selectors.user-valid", "safari", "16.4", false],
-  ["css.properties.grid-template-columns.masonry", "safari", "16.4", false],
-  ["css.properties.grid-template-rows.masonry", "safari", "16.4", false],
   "Event handlers aren't supported",
   ["api.Element.focusin_event", "chrome", "1+", true],
   ["api.Element.focusin_event", "chrome_android", "18+", true],
