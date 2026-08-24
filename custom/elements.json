@@ -115,6 +115,7 @@
         "value"
       ]
     },
+    "camera": {},
     "canvas": {"attributes": ["height", "width"]},
     "caption": {"attributes": ["align"]},
     "col": {
@@ -332,6 +333,7 @@
     "meter": {
       "attributes": ["high", "low", "max", "min", "optimum", "value"]
     },
+    "microphone": {},
     "model": {
       "attributes": [
         "autoplay",
