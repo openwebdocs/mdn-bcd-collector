@@ -325,7 +325,6 @@
       }
     },
     "grid-template-columns": {
-      "__values": ["masonry"],
       "__additional_values": {
         "fit-content": "fit-content(40%)",
         "minmax": "minmax(100px, 1fr)",
@@ -333,7 +332,6 @@
       }
     },
     "grid-template-rows": {
-      "__values": ["masonry"],
       "__additional_values": {
         "fit-content": "fit-content(40%)",
         "minmax": "minmax(100px, 1fr)",
