@@ -88,7 +88,7 @@
     "ejs-lint": "^2.0.1",
     "enquirer": "2.4.1",
     "es-scraper": "^0.0.13",
-    "eslint": "10.8.1",
+    "eslint": "10.9.0",
     "eslint-plugin-jsdoc": "^64.2.1",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "^73.0.0",
