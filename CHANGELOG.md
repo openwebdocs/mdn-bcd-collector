@@ -1,5 +1,46 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.8
+
+Released August 26, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLCameraElement
+- api.HTMLMicrophoneElement
+- api.HTMLTemplateElement.htmlFor
+- api.HTMLUserMediaElement
+- api.InteractionContentfulPaint
+- api.MediaDevices.defaultSemantics
+- api.MediaStreamTrack.configurationchange_event
+- api.MediaStreamTrack.stats
+- api.MediaStreamTrackAudioStats
+- api.MediaStreamTrackVideoStats
+- api.PerformanceSoftNavigation
+- api.XRGPUBinding.getDepthInformation
+- api.XRGPUDepthInformation
+- html.elements.camera
+- html.elements.microphone
+
+#### Removed
+
+- css.properties.grid-template-columns.masonry
+- css.properties.grid-template-rows.masonry
+
+### Commits
+
+- build(deps-dev): bump brace-expansion from 1.1.12 to 1.1.18 ([#3346](https://github.com/openwebdocs/mdn-bcd-collector/pull/3346))
+- Remove versions from allowScripts ([#3345](https://github.com/openwebdocs/mdn-bcd-collector/pull/3345))
+- build(deps-dev): bump the dev group with 2 updates ([#3344](https://github.com/openwebdocs/mdn-bcd-collector/pull/3344))
+- build(deps-dev): bump @webref/idl from 3.82.2 to 3.83.0 in the data group ([#3343](https://github.com/openwebdocs/mdn-bcd-collector/pull/3343))
+- build(deps-dev): bump the dev group with 4 updates ([#3342](https://github.com/openwebdocs/mdn-bcd-collector/pull/3342))
+- Add &lt;camera&gt; and &lt;microphone&gt; elements ([#3341](https://github.com/openwebdocs/mdn-bcd-collector/pull/3341))
+- Remove masonry values ([#3340](https://github.com/openwebdocs/mdn-bcd-collector/pull/3340))
+- build(deps-dev): bump eslint from 10.8.1 to 10.9.0 in the dev group ([#3339](https://github.com/openwebdocs/mdn-bcd-collector/pull/3339))
+- build(deps): bump @mdn/browser-compat-data from 8.0.11 to 8.0.12 in the data group ([#3338](https://github.com/openwebdocs/mdn-bcd-collector/pull/3338))
+
 ## v10.20.7
 
 Released August 20, 2026
