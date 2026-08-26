@@ -108,9 +108,9 @@
     "yaml": "2.9.0"
   },
   "allowScripts": {
-    "esbuild@0.28.1": true,
-    "fsevents@2.3.3": true,
-    "protobufjs@7.5.8": true,
-    "puppeteer@25.4.0": true
+    "esbuild": true,
+    "fsevents": true,
+    "protobufjs": true,
+    "puppeteer": true
   }
 }
