@@ -101,7 +101,7 @@
     "nodemon": "3.1.14",
     "prettier": "3.9.6",
     "puppeteer": "25.9.0",
-    "selenium-webdriver": "4.47.0",
+    "selenium-webdriver": "4.48.0",
     "typescript": "6.0.3",
     "typescript-eslint": "~8.68.0",
     "webidl2": "24.5.0",
