@@ -90,6 +90,55 @@ describe("build (CSS)", () => {
     });
   });
 
+  it("custom test for CSS property values", async () => {
+    const webrefCSS = {
+      properties: [
+        {
+          name: "text-box-edge",
+          href: "https://foo.bar",
+          syntax: "[ text | cap | ex ] [ text | alphabetic ]?",
+        },
+      ],
+      selectors: [],
+      types: [],
+    };
+
+    const customCSS = {
+      properties: {},
+      selectors: {},
+      types: {},
+    };
+
+    assert.deepEqual(await build(webrefCSS, customCSS), {
+      "css.properties.text-box-edge": {
+        code: 'bcd.testCSSProperty("text-box-edge")',
+        exposure: ["Window"],
+      },
+      "css.properties.text-box-edge.alphabetic": {
+        code: 'bcd.testCSSProperty("text-box-edge", "alphabetic")',
+        exposure: ["Window"],
+      },
+      "css.properties.text-box-edge.cap": {
+        code: `(function () {
+  return bcd.testCSSProperty("text-box-edge", "cap alphabetic");
+})();
+`,
+        exposure: ["Window"],
+      },
+      "css.properties.text-box-edge.ex": {
+        code: `(function () {
+  return bcd.testCSSProperty("text-box-edge", "ex alphabetic");
+})();
+`,
+        exposure: ["Window"],
+      },
+      "css.properties.text-box-edge.text": {
+        code: 'bcd.testCSSProperty("text-box-edge", "text")',
+        exposure: ["Window"],
+      },
+    });
+  });
+
   it("with custom test", async () => {
     const css = {
       properties: [{name: "foo", href: "https://foo.bar"}],
