@@ -24,7 +24,7 @@ import appVersion from "./lib/app-version.js";
 import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
 import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
-import {coverageData} from "./views/stats.js";
+import {coverageData} from "./scripts/release-stats.js";
 
 type RequestWithSession = Request & {
   session: expressSession.Session;

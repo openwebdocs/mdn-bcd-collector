@@ -37,7 +37,8 @@
     "find-missing-reports": "tsx scripts/find-missing-reports.ts",
     "add-new-bcd": "tsx scripts/add-new-bcd.ts",
     "release": "tsx scripts/release.ts",
-    "report-stats": "tsx scripts/report-stats.ts"
+    "report-stats": "tsx scripts/report-stats.ts",
+    "release-stats": "tsx ./scripts/release-stats.ts"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "7.0.1",

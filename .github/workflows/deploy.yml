@@ -38,6 +38,13 @@ jobs:
         run: |
           git tag v${{steps.check.outputs.version}}
           git push origin v${{steps.check.outputs.version}}
+      - name: Upload release-stats artifact
+        if: github.repository == 'openwebdocs/mdn-bcd-collector'
+        env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+         npm run release-stats --silent -- > stats.json
+         gh release upload stats.json
       - name: Deploy to Heroku
         if: steps.check.outputs.changed == 'true'
         uses: akhileshns/heroku-deploy@v3.15.15
