@@ -53,9 +53,54 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     if (!ua.browser.name) {
       return data;
     }
-
     data.browser.id = ua.browser.name.toLowerCase().replace(/ /g, "_");
     data.browser.name = ua.browser.name;
+    // Handle Huawei / ArkWeb tokens which can appear alongside Chrome/ArkWeb
+    // in HarmonyOS user agents. Prefer treating these as the HarmonyOS
+    // WebView entry in BCD so versions map correctly.
+    if (
+      /arkweb/i.test(userAgent) ||
+      /huawei\s*browser/i.test(ua.browser.name) ||
+      /HuaweiBrowser\//i.test(userAgent)
+    ) {
+      const chromeMatch = userAgent.match(/Chrome\/([\d.]+)/i);
+      const arkMatch = userAgent.match(/ArkWeb\/([\d.]+)/i);
+      const huaweiMatch = userAgent.match(/HuaweiBrowser\/([\d.]+)/i);
+      const preferredIds: string[] = [];
+
+      if (
+        /huawei\s*browser/i.test(ua.browser.name) ||
+        /HuaweiBrowser\//i.test(userAgent)
+      ) {
+        preferredIds.push("huaweibrowser_harmonyos");
+      }
+      preferredIds.push("webview_openharmony", "webview_harmonyos");
+
+      data.fullVersion =
+        (huaweiMatch && huaweiMatch[1]) ||
+        (arkMatch && arkMatch[1]) ||
+        (chromeMatch && chromeMatch[1]) ||
+        ua.browser.version ||
+        "0";
+
+      const candidates = [
+        ...preferredIds,
+        "webview_android",
+        "webview",
+        "chrome",
+        "chrome_android",
+      ];
+      for (const candidate of candidates) {
+        if (browsers && candidate in browsers) {
+          data.browser.id = candidate;
+          break;
+        }
+      }
+
+      if (!data.browser.id) {
+        data.browser.id = preferredIds[0] || "webview_android";
+      }
+    }
     data.os.name = ua.os.name || "";
     data.os.version = ua.os.version || "";
   }
