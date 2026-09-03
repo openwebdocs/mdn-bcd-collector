@@ -43,6 +43,8 @@ jobs:
         env:
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
+         npm ci
+         npm run build
          npm run release-stats --silent -- > stats.json
          gh release create v${{steps.check.outputs.version}} stats.json
       - name: Deploy to Heroku
