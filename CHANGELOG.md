@@ -1,5 +1,40 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.9
+
+Released September 3, 2026
+
+### Test Changes
+
+#### Added
+
+- css.selectors.field-content
+- css.selectors.navigation-source
+- html.elements.usermedia
+
+#### Removed
+
+- css.selectors.field-text
+- css.selectors.nav-source
+
+#### Changed
+
+- html.elements.camera
+- html.elements.microphone
+
+### Commits
+
+- Create releases with statistics release artifact ([#3355](https://github.com/openwebdocs/mdn-bcd-collector/pull/3355))
+- build(deps-dev): bump @humanfs/node from 0.16.7 to 0.16.8 ([#3359](https://github.com/openwebdocs/mdn-bcd-collector/pull/3359))
+- build(deps): bump qs from 6.15.2 to 6.16.0 ([#3358](https://github.com/openwebdocs/mdn-bcd-collector/pull/3358))
+- build(deps-dev): bump the dev group with 5 updates ([#3356](https://github.com/openwebdocs/mdn-bcd-collector/pull/3356))
+- build(deps-dev): bump the dev group with 3 updates ([#3354](https://github.com/openwebdocs/mdn-bcd-collector/pull/3354))
+- build(deps): bump the dev group with 3 updates ([#3352](https://github.com/openwebdocs/mdn-bcd-collector/pull/3352))
+- build(deps-dev): bump selenium-webdriver from 4.47.0 to 4.48.0 in the dev group ([#3351](https://github.com/openwebdocs/mdn-bcd-collector/pull/3351))
+- build(deps): bump @mdn/browser-compat-data from 8.0.12 to 8.0.13 in the data group ([#3350](https://github.com/openwebdocs/mdn-bcd-collector/pull/3350))
+- build(deps-dev): bump the data group with 2 updates ([#3348](https://github.com/openwebdocs/mdn-bcd-collector/pull/3348))
+- build(deps-dev): bump @types/node from 26.3.0 to 26.4.0 in the dev group ([#3349](https://github.com/openwebdocs/mdn-bcd-collector/pull/3349))
+
 ## v10.20.8
 
 Released August 26, 2026
