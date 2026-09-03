@@ -1,5 +1,13 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.10
+
+Released September 3, 2026
+
+### Commits
+
+- Install deps and build project for release step ([#3361](https://github.com/openwebdocs/mdn-bcd-collector/pull/3361))
+
 ## v10.20.9
 
 Released September 3, 2026
