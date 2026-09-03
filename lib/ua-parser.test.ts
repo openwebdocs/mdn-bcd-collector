@@ -597,4 +597,46 @@ describe("parseUA", () => {
       inBcd: undefined,
     });
   });
+
+  it("WebView HarmonyOS (6.1, Chrome 132)", () => {
+    assert.deepEqual(
+      parseUA(
+        "Mozilla/5.0 (PC; OpenHarmony 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36  ArkWeb/6.1.0.123",
+        browsers,
+      ),
+      {
+        browser: {id: "webview_harmonyos", name: "WebView on HarmonyOS"},
+        version: "132",
+        fullVersion: "132.0.0.0",
+        os: {name: "OpenHarmony", version: "6.1"},
+        inBcd: true,
+      },
+    );
+  });
+
+  it("Huawei Browser on HarmonyOS", () => {
+    assert.deepEqual(
+      parseUA(
+        "Mozilla/5.0 (PC; OpenHarmony 6.1; Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 ArkWeb/6.1.0.105 HuaweiBrowser/6.1.1.341",
+        {
+          ...browsers,
+          huaweibrowser_harmonyos: {
+            name: "Huawei Browser",
+            releases: {"5.0": {}, "6.0": {}, "7.0": {}},
+          },
+          webview_openharmony: {
+            name: "WebView on OpenHarmony",
+            releases: {"5.0": {}, "6.0": {}, "7.0": {}},
+          },
+        },
+      ),
+      {
+        browser: {id: "huaweibrowser_harmonyos", name: "Huawei Browser"},
+        version: "6.0",
+        fullVersion: "6.1.1.341",
+        os: {name: "OpenHarmony", version: "6.1"},
+        inBcd: true,
+      },
+    );
+  });
 });

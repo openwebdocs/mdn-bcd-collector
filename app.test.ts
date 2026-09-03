@@ -77,6 +77,7 @@ describe("/api/results", () => {
     const res = await cookieFetch("/api/results");
 
     assert.equal(res.status, 200);
+    delete (res.body as Record<string, unknown>).generatedAt;
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],
@@ -125,6 +126,7 @@ describe("/api/results", () => {
     const res = await cookieFetch("/api/results");
 
     assert.equal(res.status, 200);
+    delete (res.body as Record<string, unknown>).generatedAt;
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],
@@ -153,6 +155,7 @@ describe("/api/results", () => {
     const res = await cookieFetch("/api/results");
 
     assert.equal(res.status, 200);
+    delete (res.body as Record<string, unknown>).generatedAt;
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],

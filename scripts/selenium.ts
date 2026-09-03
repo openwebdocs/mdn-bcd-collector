@@ -30,6 +30,59 @@ import type {BrowserName} from "@mdn/browser-compat-data";
 
 import "../lib/selenium-keepalive.js";
 
+// The Huawei Browser (ArkWeb) is not yet present in the @mdn/browser-compat-data
+// version bundled with this collector, so its versions are read from the local
+// browser-compat-data checkout instead.
+import huaweiBCD from "../../browser-compat-data/browsers/huaweibrowser_harmonyos.json" with {type: "json"};
+
+/**
+ * Returns the testable versions of the Huawei Browser, sourced from the local
+ * browser-compat-data checkout (since the bundled BCD lacks this entry).
+ * Avoids filterVersions(), which throws for unknown browsers.
+ *
+ * Mirrors the semantics of filterVersions() for the other browsers:
+ *  - keep only releases that BCD considers testable (current/planned/retired),
+ *  - then drop the ones released before |since|, so "--since" really limits
+ *    the run to versions from that year on.
+ *
+ * @param since - The date to filter the versions since (or a version string).
+ * @param reverse - Whether to reverse the resulting order.
+ * @returns An array of filtered Huawei Browser versions.
+ */
+const getHuaweiVersions = (
+  since: string | Date | null,
+  reverse: boolean,
+): string[] => {
+  const releases =
+    (huaweiBCD as any).browsers?.huaweibrowser_harmonyos?.releases as Record<
+      string,
+      {status: string; release_date?: string}
+    >;
+  let versions = releases
+    ? Object.entries(releases)
+        .filter(([, r]) => ["current", "planned", "retired"].includes(r.status))
+        .map(([v]) => v)
+    : [];
+
+  if (typeof since === "string") {
+    // Called with a version number (explicit version filtering).
+    versions = versions.filter((v) => compareVersions(v, since, ">="));
+  } else if (since instanceof Date) {
+    // Called with a date (the "--since" year), filter by release_date.
+    // Releases without a release_date are kept, so a missing (or future)
+    // date never silently removes a version from the run.
+    versions = versions.filter((v) => {
+      const releaseDate = releases?.[v]?.release_date;
+      if (!releaseDate) {
+        return true;
+      }
+      return new Date(releaseDate) >= since;
+    });
+  }
+
+  return reverse ? [...versions].reverse() : versions;
+};
+
 const RESULTS_DIR = getResultsDir();
 
 type Task = ListrTaskWrapper<any, any, any>;
@@ -39,6 +92,11 @@ const collectorVersion = (
 ).version;
 
 const secrets = await getSecrets();
+
+// Remote Chrome/Chromium debugger address used to drive a device over the LAN
+// (e.g. an RK board running HarmonyOS/ArkWeb). Provide it via the
+// --debugger-address CLI flag or the DEBUGGER_ADDRESS environment variable.
+let debuggerAddress = process.env.DEBUGGER_ADDRESS || "";
 
 const testenv = process.env.NODE_ENV === "test";
 const host = testenv
@@ -135,7 +193,10 @@ const prettyName = (
   version: string,
   os: string,
 ): string => {
-  return `${bcdBrowsers[browser].name} ${version} on ${os}`;
+  // Fall back to the raw browser identifier when the BCD data source does not
+  // contain an entry (e.g. huaweibrowser_harmonyos in older BCD snapshots).
+  const browserName = bcdBrowsers[browser]?.name ?? browser;
+  return `${browserName} ${version} on ${os}`;
 };
 
 /**
@@ -177,7 +238,10 @@ const getBrowsersToTest = (
   since: Date,
   reverse: boolean,
 ) => {
-  let browsersToTest: Partial<Record<BrowserName, string[]>> = {
+  // Note: huaweibrowser_harmonyos is not yet in the @mdn/browser-compat-data
+  // type definitions shipped with this collector, so it is added as a string
+  // key. It requires a BCD data source that includes the Huawei Browser entry.
+  let browsersToTest: Record<string, string[]> = {
     chrome: filterVersions("chrome", since, reverse),
     edge: filterVersions("edge", since, reverse),
     firefox: filterVersions("firefox", since, reverse),
@@ -185,6 +249,7 @@ const getBrowsersToTest = (
     chrome_android: filterVersions("chrome_android", since, reverse),
     firefox_android: filterVersions("firefox_android", since, reverse),
     safari_ios: filterVersions("safari_ios", since, reverse),
+    huaweibrowser_harmonyos: getHuaweiVersions(since, reverse),
   };
 
   if (limitBrowsers) {
@@ -275,6 +340,11 @@ const getOsesToTest = (service: string, os: string): [string, string][] => {
             ["OS X", "El Capitan"],
           ];
       }
+      break;
+    case "HarmonyOS":
+      // HarmonyOS devices (e.g. boards running ArkWeb) are driven as a single
+      // target; there is no per-version OS matrix to iterate over.
+      osesToTest = [["HarmonyOS", "5.0"]];
       break;
     case "Android":
       osesToTest = [["Android", "17"]];
@@ -379,18 +449,31 @@ const buildDriver = async (
         project: "mdn-bcd-collector",
       };
 
-      // Set test name
-      capabilities.set("name", commonConfig.name);
-      capabilities.set("build", commonConfig.build);
-      capabilities.set("project", commonConfig.project);
+      // Set test name (vendor-specific, only for cloud testing providers)
+      if (["browserstack", "saucelabs", "lambdatest"].includes(service)) {
+        capabilities.set("name", commonConfig.name);
+        capabilities.set("build", commonConfig.build);
+        capabilities.set("project", commonConfig.project);
+      }
 
       const webdriverBrowserName = browser
         .replace("_android", "")
         .replace("_ios", "")
         .toUpperCase();
 
-      capabilities.set(Capability.BROWSER_NAME, Browser[webdriverBrowserName]);
-      capabilities.set(Capability.BROWSER_VERSION, version.split(".")[0]);
+      // Browser (ArkWeb) is Chromium-based but has no dedicated
+      // Selenium browser constant; map it to "chrome" so a Chromium-compatible
+      // driver (e.g. local chromedriver / Appium on a HarmonyOS device) can drive it.
+      // Other browsers keep the base behavior (Browser[webdriverBrowserName]).
+      const browserNameForSelenium =
+        (browser as string) === "huaweibrowser_harmonyos"
+          ? "chrome"
+          : Browser[webdriverBrowserName];
+      capabilities.set(Capability.BROWSER_NAME, browserNameForSelenium);
+      // Cloud testing providers need explicit version; local ChromeDriver uses installed Chrome
+      if (["browserstack", "saucelabs", "lambdatest"].includes(service)) {
+        capabilities.set(Capability.BROWSER_VERSION, version.split(".")[0]);
+      }
 
       if (service === "browserstack") {
         const osCaps: any = {os: osName};
@@ -410,10 +493,13 @@ const buildDriver = async (
         capabilities.set("bstack:options", osCaps);
       } else {
         // Remap target OS for Safari x.0 vs. x.1 on SauceLabs
-        if (browser === "safari") {
-          capabilities.set("platformName", getSafariOS(version));
-        } else {
-          capabilities.set("platformName", `${osName} ${osVersion}`);
+        // Local ChromeDriver rejects platformName mismatch (e.g. "Windows 10" vs "windows"), so only set it for cloud providers
+        if (service === "saucelabs" || service === "lambdatest") {
+          if (browser === "safari") {
+            capabilities.set("platformName", getSafariOS(version));
+          } else {
+            capabilities.set("platformName", `${osName} ${osVersion}`);
+          }
         }
 
         if (service === "saucelabs") {
@@ -431,9 +517,19 @@ const buildDriver = async (
       // Allow mic, camera, geolocation and notifications permissions
       if (
         browser === "chrome" ||
+        (browser as string) === "huaweibrowser_harmonyos" ||
         (browser === "edge" && compareVersions(version, "79", ">="))
       ) {
         capabilities.set("goog:chromeOptions", {
+          // Only the HarmonyOS device attached over the LAN is driven through
+          // debuggerAddress, and only for the local "custom" service. Cloud
+          // providers (BrowserStack/SauceLabs/LambdaTest) launch their own
+          // browser instances, so sending a local debugger address would make
+          // the session fail or attach to the wrong target.
+          ...(service === "custom" &&
+          (browser as string) === "huaweibrowser_harmonyos"
+            ? {debuggerAddress}
+            : {}),
           args: [
             "--use-fake-device-for-media-stream",
             "--use-fake-ui-for-media-stream",
@@ -603,13 +699,21 @@ const click = async (
   driver: WebDriver,
   browser: BrowserName,
   elementId: string,
+  timeout = 60000,
 ) => {
   if (browser === "safari") {
+    // Slow devices (e.g. RK board) may not have rendered the element yet,
+    // so wait for it before clicking.
+    await driver.wait(until.elementLocated(By.id(elementId)), timeout);
     await driver.executeScript(
       `document.getElementById('${elementId}').click()`,
     );
   } else {
-    await driver.findElement(By.id(elementId)).click();
+    const el = await driver.wait(
+      until.elementLocated(By.id(elementId)),
+      timeout,
+    );
+    await el.click();
   }
 };
 
@@ -653,18 +757,43 @@ const run = async (
   try {
     log(task, "Loading homepage...");
     await goToPage(driver, browser, version, `${host}/${getvars}`);
-    await click(driver, browser, "start");
+    await click(driver, browser, "start", 60000);
 
     log(task, "Loading test page...");
     await awaitPage(driver, browser, version, `${host}/tests/${getvars}`);
 
     log(task, "Running tests...");
-    await driver.wait(until.elementLocated(By.id("run")), 5000);
-    await click(driver, browser, "run");
+    await driver.wait(until.elementLocated(By.id("run")), 60000);
+    await click(driver, browser, "run", 60000);
 
     statusEl = await driver.findElement(By.id("status"));
     try {
-      await driver.wait(until.elementTextContains(statusEl, "upload"), 90000);
+      // Slow devices (e.g. RK board) can take many minutes to run the full
+      // suite, so poll the status instead of a short fixed timeout and log
+      // progress periodically.
+      const uploadTimeout = 30 * 60 * 1000; // 30 minutes
+      const pollInterval = 30 * 1000; // 30 seconds
+      const start = Date.now();
+      let uploaded = false;
+      while (Date.now() - start < uploadTimeout) {
+        const text = await statusEl.getText();
+        if (text.includes("upload")) {
+          uploaded = true;
+          break;
+        }
+        log(
+          task,
+          `Still running tests... (${
+            Math.round((Date.now() - start) / 1000)
+          }s elapsed) status: ${text}`,
+        );
+        await driver.sleep(pollInterval);
+      }
+      if (!uploaded) {
+        throw new Error(
+          task.title + " - " + "Timed out waiting for results to upload",
+        );
+      }
     } catch (e) {
       if ((e as Error).name == "TimeoutError") {
         throw new Error(
@@ -689,9 +818,67 @@ const run = async (
 
     if (!ctx.testenv) {
       const filename = path.basename(new URL(downloadUrl).pathname);
+      const destPath = path.join(RESULTS_DIR, filename);
       log(task, `Downloading ${filename} ...`);
-      const report = await (await fetch(downloadUrl)).arrayBuffer();
-      await fs.writeFile(path.join(RESULTS_DIR, filename), Buffer.from(report));
+
+      const https = await import("node:https");
+      const agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 30000,
+        maxSockets: 1,
+      });
+
+      const downloadResumable = async (url: string, maxTries = 8) => {
+        let start = 0;
+        if (await fs.pathExists(destPath)) {
+          start = (await fs.stat(destPath)).size; 
+        }
+        for (let attempt = 1; attempt <= maxTries; attempt++) {
+          try {
+            const headers: Record<string, string> = {
+              Connection: "keep-alive",
+            };
+            if (start > 0) {
+              headers.Range = `bytes=${start}-`;
+            }
+            const res = await (fetch as any)(url, {
+              agent,
+              headers,
+              signal: AbortSignal.timeout(120000),
+            });
+            if (![200, 206].includes(res.status)) {
+              throw new Error(`HTTP ${res.status}`);
+            }
+            const buf = Buffer.from(await res.arrayBuffer());
+            // A 206 (Partial Content) response honors the Range request and
+            // contains only the remaining bytes, so it must be appended.
+            // A 200 response means the server ignored the Range header and
+            // returned the FULL body; appending it would duplicate the content
+            // and corrupt the JSON, so overwrite the file instead.
+            if (res.status === 206) {
+              await fs.appendFile(destPath, buf);
+            } else {
+              await fs.writeFile(destPath, buf);
+            }
+            return;
+          } catch (err) {
+            log(
+              task,
+              `Download attempt ${attempt} failed: ${(err as Error).message}`,
+            );
+            
+            if (await fs.pathExists(destPath)) {
+              start = (await fs.stat(destPath)).size;
+            }
+            if (attempt === maxTries) {
+              throw err;
+            }
+            await new Promise((r) => setTimeout(r, 3000));
+          }
+        }
+      };
+
+      await downloadResumable(downloadUrl);
     }
   } finally {
     driver.quit().catch(() => {});
@@ -713,6 +900,7 @@ const runAll = async (
   oses: string[],
   concurrent: boolean,
   reverse: boolean,
+  limitVersions: string[] = [],
 ) => {
   if (!Object.keys(secrets.selenium).length) {
     console.error(
@@ -735,9 +923,40 @@ const runAll = async (
     limitVersion,
     reverse,
   );
+
+  // Filter to only the explicitly requested versions, if any were provided.
+  // Normalize versions so that "7" and "7.0" are treated as equivalent.
+  const normalizeVersion = (v: string) =>
+    v
+      .split(".")
+      .filter((part, i, arr) => !(i > 0 && part === "0" && i === arr.length - 1))
+      .join(".");
+  const requestedVersions = limitVersions.map(normalizeVersion);
+  const filteredBrowsersToTest: Record<string, string[]> = {};
+  for (const [browser, versions] of Object.entries(browsersToTest)) {
+    const kept =
+      limitVersions.length > 0
+        ? versions.filter((v) => requestedVersions.includes(normalizeVersion(v)))
+        : versions;
+    if (kept.length > 0) {
+      filteredBrowsersToTest[browser] = kept;
+    }
+  }
+
   const tasks: ListrTask[] = [];
 
-  for (const [browser, versions] of Object.entries(browsersToTest) as [
+  if (Object.keys(filteredBrowsersToTest).length === 0) {
+    console.warn(
+      "No browser versions matched the requested filters " +
+        `(browsers=${JSON.stringify(limitBrowsers)}, version=${JSON.stringify(
+          limitVersions,
+        )}, since=${limitVersion.toISOString().slice(0, 10)}). ` +
+        "Nothing to test.",
+    );
+    return false;
+  }
+
+  for (const [browser, versions] of Object.entries(filteredBrowsersToTest) as [
     BrowserName,
     string[],
   ][]) {
@@ -749,6 +968,7 @@ const runAll = async (
       edge: ["macOS", "Windows"],
       firefox: ["macOS", "Windows"],
       firefox_android: ["Android"],
+      huaweibrowser_harmonyos: ["HarmonyOS"],
       safari_ios: ["iOS"],
       safari: ["macOS"],
     };
@@ -784,7 +1004,7 @@ const runAll = async (
     }
 
     tasks.push({
-      title: bcdBrowsers[browser].name,
+      title: bcdBrowsers[browser]?.name ?? (browser as string),
       /**
        * Task function to run the tests for a specific browser.
        * @returns - A promise that resolves when the tests are completed.
@@ -811,7 +1031,9 @@ const runAll = async (
 };
 
 if (esMain(import.meta)) {
-  const {argv}: {argv: any} = yargs(hideBin(process.argv)).command(
+  const {argv}: {argv: any} = yargs(hideBin(process.argv))
+    .version(false)
+    .command(
     "$0 [browser..]",
     "Run Selenium on several browser versions",
     (yargs) => {
@@ -828,6 +1050,7 @@ if (esMain(import.meta)) {
             "chrome_android",
             "firefox_android",
             "safari_ios",
+            "huaweibrowser_harmonyos"
           ],
         })
         .option("since", {
@@ -841,8 +1064,8 @@ if (esMain(import.meta)) {
           describe: "Specify OS to test",
           alias: "o",
           type: "array",
-          choices: ["Windows", "macOS", "Android", "iOS"],
-          default: ["Windows", "macOS", "Android", "iOS"],
+          choices: ["Windows", "macOS", "Android", "iOS", "HarmonyOS"],
+          default: ["Windows", "macOS", "Android", "iOS", "HarmonyOS"],
         })
         .option("concurrent", {
           describe: "Define the number of concurrent jobs to run",
@@ -856,9 +1079,54 @@ if (esMain(import.meta)) {
           alias: "r",
           type: "boolean",
           nargs: 0,
+        })
+        .option("version", {
+          describe: "Only test the specified browser version(s)",
+          alias: "v",
+          type: "array",
+          nargs: 1,
+          coerce: (v: unknown) =>
+            ([] as unknown[])
+              .concat(v ?? [])
+              .map((x) => String(x)),
+        })
+        .option("debugger-address", {
+          describe:
+            "Remote Chrome/Chromium debugger address (host:port) for driving a device over the LAN, e.g. 192.168.1.156:9222",
+          alias: "d",
+          type: "string",
+          nargs: 1,
         });
     },
   );
+
+  if (argv["debugger-address"]) {
+    debuggerAddress = String(argv["debugger-address"]);
+  }
+
+  // The remote debugger address is only required when the HarmonyOS device is
+  // driven locally (through the "custom" service). When running against cloud
+  // providers, they launch their own browser instances and must NOT receive a
+  // local debugger address.
+  const requestedBrowsers = ([] as string[]).concat(
+    (argv.browser as string | string[] | undefined) ?? [],
+  );
+  const usesLocalCustomService = "custom" in secrets.selenium;
+  const needsDebuggerAddress =
+    usesLocalCustomService &&
+    (requestedBrowsers.length === 0 ||
+      requestedBrowsers.includes("huaweibrowser_harmonyos"));
+
+  if (needsDebuggerAddress && !debuggerAddress) {
+    throw new Error(
+      "No debugger address provided. Set DEBUGGER_ADDRESS or pass --debugger-address <host:port>."
+    );
+  }
+
+  const versions = ([] as string[])
+    .concat(argv.version ?? [])
+    .flatMap((v) => String(v).split(",").map((s) => s.trim()))
+    .filter((v) => v.length > 0);
 
   await runAll(
     argv.browser,
@@ -866,5 +1134,6 @@ if (esMain(import.meta)) {
     argv.os,
     argv.concurrent,
     argv.reverse,
+    versions,
   );
 }
