@@ -38,7 +38,7 @@ jobs:
         run: |
           git tag v${{steps.check.outputs.version}}
           git push origin v${{steps.check.outputs.version}}
-      - name: Upload release-stats artifact
+      - name: Create a release with artifacts
         if: github.repository == 'openwebdocs/mdn-bcd-collector'
         env:
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
