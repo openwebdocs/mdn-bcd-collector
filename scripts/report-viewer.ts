@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as path from "path";
-import {fileURLToPath} from "url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import {fileURLToPath} from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,19 +41,19 @@ interface ReportStat {
   version: string;
   __gi?: number;
   osName: string;
-  osVersion: string;          // Raw OS version string, e.g. "7.0"
-  osVersionNum: number[];     // Dot-split version as array, for cross-version ascending comparison
-  browserFullVer: string;     // Full browser engine version, e.g. "142.0.0.0"
-  shortLabel: string;         // Short label: browser-engineVersion-osName-osVersion, e.g. "chrome-142.0.0.0-windows-10"
-  generatedAt: number;        // Report generation timestamp (ms); falls back to mtime for old reports
-  mtime: number;              // File modification time (ms), used as fallback for old reports
+  osVersion: string; // Raw OS version string, e.g. "7.0"
+  osVersionNum: number[]; // Dot-split version as array, for cross-version ascending comparison
+  browserFullVer: string; // Full browser engine version, e.g. "142.0.0.0"
+  shortLabel: string; // Short label: browser-engineVersion-osName-osVersion, e.g. "chrome-142.0.0.0-windows-10"
+  generatedAt: number; // Report generation timestamp (ms); falls back to mtime for old reports
+  mtime: number; // File modification time (ms), used as fallback for old reports
   total: number;
   supported: number;
   unsupported: number;
   unknown: number;
   categories: Record<
     string,
-    { total: number; supported: number; unsupported: number; unknown: number }
+    {total: number; supported: number; unsupported: number; unknown: number}
   >;
   entries: {
     path: string;
@@ -64,6 +64,11 @@ interface ReportStat {
   }[];
 }
 
+/**
+ * Collect the result JSON files to include in the report.
+ * @param args - Result file names or directories; empty means the default results dir
+ * @returns The list of absolute result file paths
+ */
 const collectJsonFiles = (args: string[]): string[] => {
   const baseDir = path.resolve(__dirname, "..", "mdn-bcd-results");
   if (args.length === 0) {
@@ -96,27 +101,40 @@ const collectJsonFiles = (args: string[]): string[] => {
 // Parse the first complete JSON object from a file. This is tolerant of files
 // that contain multiple concatenated JSON objects (e.g. two collector runs
 // accidentally written to the same file), only the first one is used.
+/**
+ * Parse the first complete JSON object from a file's text.
+ * @param text - The raw file contents
+ * @returns The parsed JSON value
+ */
 const parseFirstJson = (text: string): unknown => {
   try {
     return JSON.parse(text);
   } catch (e) {
     const msg = (e as Error).message;
     // "Unexpected non-whitespace character after JSON" => concatenated payloads.
-    if (!/after JSON/i.test(msg)) throw e;
+    if (!/after JSON/i.test(msg)) {
+      throw e;
+    }
     let depth = 0;
     let inStr = false;
     let esc = false;
     for (let i = 0; i < text.length; i++) {
       const c = text[i];
       if (inStr) {
-        if (esc) esc = false;
-        else if (c === "\\") esc = true;
-        else if (c === '"') inStr = false;
+        if (esc) {
+          esc = false;
+        } else if (c === "\\") {
+          esc = true;
+        } else if (c === '"') {
+          inStr = false;
+        }
         continue;
       }
-      if (c === '"') inStr = true;
-      else if (c === "{") depth++;
-      else if (c === "}") {
+      if (c === '"') {
+        inStr = true;
+      } else if (c === "{") {
+        depth++;
+      } else if (c === "}") {
         depth--;
         if (depth === 0) {
           const candidate = text.slice(0, i + 1);
@@ -134,7 +152,14 @@ const parseFirstJson = (text: string): unknown => {
 // extracting digest / osVersion / osName / browserFullVer in order, leaving
 // collectorVer-browserId, from which browserId is split out; this robustly
 // handles hyphens within each segment.
-const parseOsFromFilename = (basename: string): {
+/**
+ * Parse the browser id, OS name and version from a result file name.
+ * @param basename - The result file name
+ * @returns The parsed file name components
+ */
+const parseOsFromFilename = (
+  basename: string,
+): {
   browserId: string;
   osName: string;
   osVersion: string;
@@ -142,40 +167,77 @@ const parseOsFromFilename = (basename: string): {
   browserFullVer: string;
   shortLabel: string;
 } => {
-  const empty = { browserId: "", osName: "", osVersion: "", osVersionNum: [], browserFullVer: "", shortLabel: "" };
+  const empty = {
+    browserId: "",
+    osName: "",
+    osVersion: "",
+    osVersionNum: [],
+    browserFullVer: "",
+    shortLabel: "",
+  };
   let rest = basename.replace(/\.json$/i, "");
   let m = rest.match(/-([0-9a-f]{10})$/i);
-  if (!m) return empty;
-  rest = rest.slice(0, m.index);                       // strip -digest
-  m = rest.match(/-(\d+(?:\.\d+)*)$/);                 // osVersion
+  if (!m) {
+    return empty;
+  }
+  rest = rest.slice(0, m.index); // strip -digest
+  m = rest.match(/-(\d+(?:\.\d+)*)$/); // osVersion
   const osVersion = m ? m[1] : "";
-  if (m) rest = rest.slice(0, m.index);
-  m = rest.match(/-([^-\s]+)$/);                       // osName (single segment)
+  if (m) {
+    rest = rest.slice(0, m.index);
+  }
+  m = rest.match(/-([^-\s]+)$/); // osName (single segment)
   const osName = m ? m[1] : "";
-  if (m) rest = rest.slice(0, m.index);
-  m = rest.match(/-(\d+(?:\.\d+)*)$/);                 // browserFullVer (engine version)
+  if (m) {
+    rest = rest.slice(0, m.index);
+  }
+  m = rest.match(/-(\d+(?:\.\d+)*)$/); // browserFullVer (engine version)
   const browserFullVer = m ? m[1] : "";
-  if (m) rest = rest.slice(0, m.index);
+  if (m) {
+    rest = rest.slice(0, m.index);
+  }
   const parts = rest.split("-");
-  parts.shift();                                        // strip collectorVer
-  const browserId = parts.join("-");                   // browser id (may contain -)
+  parts.shift(); // strip collectorVer
+  const browserId = parts.join("-"); // browser id (may contain -)
   const osVersionNum = osVersion.split(".").map((n) => parseInt(n, 10) || 0);
   // short label: browser-engineVersion-osName-osVersion, segments joined by hyphen
-  const shortLabel = [browserId, browserFullVer, osName, osVersion].filter(Boolean).join("-");
-  return { browserId, osName, osVersion, osVersionNum, browserFullVer, shortLabel };
+  const shortLabel = [browserId, browserFullVer, osName, osVersion]
+    .filter(Boolean)
+    .join("-");
+  return {
+    browserId,
+    osName,
+    osVersion,
+    osVersionNum,
+    browserFullVer,
+    shortLabel,
+  };
 };
 
 // Compare two dot-split version arrays; returns negative if a<b, positive if a>b, 0 if equal.
+/**
+ * Compare two dot-split version arrays.
+ * @param a - The first version array
+ * @param b - The second version array
+ * @returns Negative if a < b, positive if a > b, otherwise 0
+ */
 const compareVersionNum = (a: number[], b: number[]): number => {
   const len = Math.max(a.length, b.length);
   for (let i = 0; i < len; i++) {
     const x = a[i] || 0;
     const y = b[i] || 0;
-    if (x !== y) return x - y;
+    if (x !== y) {
+      return x - y;
+    }
   }
   return 0;
 };
 
+/**
+ * Build the statistics object for a single result file.
+ * @param file - The result file path
+ * @returns The aggregated statistics for that file
+ */
 const buildStat = (file: string): ReportStat => {
   const raw = parseFirstJson(fs.readFileSync(file, "utf-8")) as Report;
   const entries: ReportStat["entries"] = [];
@@ -185,7 +247,8 @@ const buildStat = (file: string): ReportStat => {
   let unsupported = 0;
   let unknown = 0;
   const basename = path.basename(file);
-  const { osName, osVersion, osVersionNum, browserFullVer, shortLabel } = parseOsFromFilename(basename);
+  const {osName, osVersion, osVersionNum, browserFullVer, shortLabel} =
+    parseOsFromFilename(basename);
   const mtime = fs.statSync(file).mtimeMs;
   // Prefer the report's internal timestamp (generatedAt, written by the collector);
   // fall back to file modification time for older reports that lack the field.
@@ -196,7 +259,12 @@ const buildStat = (file: string): ReportStat => {
       const bcdPath = t.name || "unknown";
       const category = bcdPath.split(".")[0] || "other";
       if (!categories[category]) {
-        categories[category] = { total: 0, supported: 0, unsupported: 0, unknown: 0 };
+        categories[category] = {
+          total: 0,
+          supported: 0,
+          unsupported: 0,
+          unknown: 0,
+        };
       }
       total++;
       categories[category].total++;
@@ -239,10 +307,13 @@ const buildStat = (file: string): ReportStat => {
   };
 };
 
+/**
+ * Build the report HTML page from the collected statistics.
+ * @param stats - The per-file statistics
+ * @returns The rendered HTML document
+ */
 const buildHtml = (stats: ReportStat[]): string => {
-  const data = JSON.stringify(
-  stats.map((s, gi) => ({ ...s, __gi: gi })),
-);
+  const data = JSON.stringify(stats.map((s, gi) => ({...s, __gi: gi})));
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -849,6 +920,9 @@ render();
 </html>`;
 };
 
+/**
+ * Entry point: collect the result files, build and write the report.
+ */
 const main = () => {
   const files = collectJsonFiles(process.argv.slice(2));
   if (files.length === 0) {
@@ -861,11 +935,15 @@ const main = () => {
   // within the same OS version, by report generation time (generatedAt, falling back to mtime) old to new.
   stats.sort((a, b) => {
     const byVersion = compareVersionNum(a.osVersionNum, b.osVersionNum);
-    if (byVersion !== 0) return byVersion;
+    if (byVersion !== 0) {
+      return byVersion;
+    }
     return a.generatedAt - b.generatedAt;
   });
   const outDir =
-    process.argv.slice(2).find((a) => fs.existsSync(a) && fs.statSync(a).isDirectory()) ||
+    process.argv
+      .slice(2)
+      .find((a) => fs.existsSync(a) && fs.statSync(a).isDirectory()) ||
     path.dirname(files[0]);
   const outFile = path.join(outDir, "report.html");
   fs.writeFileSync(outFile, buildHtml(stats), "utf-8");

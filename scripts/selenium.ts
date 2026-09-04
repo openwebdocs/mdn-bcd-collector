@@ -44,7 +44,6 @@ import huaweiBCD from "../../browser-compat-data/browsers/huaweibrowser_harmonyo
  *  - keep only releases that BCD considers testable (current/planned/retired),
  *  - then drop the ones released before |since|, so "--since" really limits
  *    the run to versions from that year on.
- *
  * @param since - The date to filter the versions since (or a version string).
  * @param reverse - Whether to reverse the resulting order.
  * @returns An array of filtered Huawei Browser versions.
@@ -53,11 +52,8 @@ const getHuaweiVersions = (
   since: string | Date | null,
   reverse: boolean,
 ): string[] => {
-  const releases =
-    (huaweiBCD as any).browsers?.huaweibrowser_harmonyos?.releases as Record<
-      string,
-      {status: string; release_date?: string}
-    >;
+  const releases = (huaweiBCD as any).browsers?.huaweibrowser_harmonyos
+    ?.releases as Record<string, {status: string; release_date?: string}>;
   let versions = releases
     ? Object.entries(releases)
         .filter(([, r]) => ["current", "planned", "retired"].includes(r.status))
@@ -693,6 +689,7 @@ const goToPage = async (
  * @param driver - The WebDriver instance.
  * @param browser - The browser name.
  * @param elementId - The ID of the element to click.
+ * @param timeout
  * @returns - A promise that resolves when the click operation is completed.
  */
 const click = async (
@@ -783,9 +780,9 @@ const run = async (
         }
         log(
           task,
-          `Still running tests... (${
-            Math.round((Date.now() - start) / 1000)
-          }s elapsed) status: ${text}`,
+          `Still running tests... (${Math.round(
+            (Date.now() - start) / 1000,
+          )}s elapsed) status: ${text}`,
         );
         await driver.sleep(pollInterval);
       }
@@ -828,10 +825,15 @@ const run = async (
         maxSockets: 1,
       });
 
+      /**
+       *
+       * @param url
+       * @param maxTries
+       */
       const downloadResumable = async (url: string, maxTries = 8) => {
         let start = 0;
         if (await fs.pathExists(destPath)) {
-          start = (await fs.stat(destPath)).size; 
+          start = (await fs.stat(destPath)).size;
         }
         for (let attempt = 1; attempt <= maxTries; attempt++) {
           try {
@@ -866,7 +868,7 @@ const run = async (
               task,
               `Download attempt ${attempt} failed: ${(err as Error).message}`,
             );
-            
+
             if (await fs.pathExists(destPath)) {
               start = (await fs.stat(destPath)).size;
             }
@@ -892,6 +894,7 @@ const run = async (
  * @param oses - The operating systems to run the tests on.
  * @param concurrent - The number of tests to run concurrently.
  * @param reverse - Whether to reverse the order of the tests.
+ * @param limitVersions
  * @returns - A boolean indicating whether the tests were successfully run.
  */
 const runAll = async (
@@ -926,17 +929,26 @@ const runAll = async (
 
   // Filter to only the explicitly requested versions, if any were provided.
   // Normalize versions so that "7" and "7.0" are treated as equivalent.
+  /**
+   * Normalize a version string so that "7" and "7.0" are treated as equivalent.
+   * @param v - The version string to normalize
+   * @returns The normalized version string
+   */
   const normalizeVersion = (v: string) =>
     v
       .split(".")
-      .filter((part, i, arr) => !(i > 0 && part === "0" && i === arr.length - 1))
+      .filter(
+        (part, i, arr) => !(i > 0 && part === "0" && i === arr.length - 1),
+      )
       .join(".");
   const requestedVersions = limitVersions.map(normalizeVersion);
   const filteredBrowsersToTest: Record<string, string[]> = {};
   for (const [browser, versions] of Object.entries(browsersToTest)) {
     const kept =
       limitVersions.length > 0
-        ? versions.filter((v) => requestedVersions.includes(normalizeVersion(v)))
+        ? versions.filter((v) =>
+            requestedVersions.includes(normalizeVersion(v)),
+          )
         : versions;
     if (kept.length > 0) {
       filteredBrowsersToTest[browser] = kept;
@@ -1034,71 +1046,74 @@ if (esMain(import.meta)) {
   const {argv}: {argv: any} = yargs(hideBin(process.argv))
     .version(false)
     .command(
-    "$0 [browser..]",
-    "Run Selenium on several browser versions",
-    (yargs) => {
-      (yargs as any)
-        .positional("browser", {
-          describe: "Limit the browser(s) to test",
-          alias: "b",
-          type: "string",
-          choices: [
-            "chrome",
-            "edge",
-            "firefox",
-            "safari",
-            "chrome_android",
-            "firefox_android",
-            "safari_ios",
-            "huaweibrowser_harmonyos"
-          ],
-        })
-        .option("since", {
-          describe: "Limit to browser releases from this year on",
-          alias: "s",
-          type: "string",
-          default: "2023",
-          nargs: 1,
-        })
-        .option("os", {
-          describe: "Specify OS to test",
-          alias: "o",
-          type: "array",
-          choices: ["Windows", "macOS", "Android", "iOS", "HarmonyOS"],
-          default: ["Windows", "macOS", "Android", "iOS", "HarmonyOS"],
-        })
-        .option("concurrent", {
-          describe: "Define the number of concurrent jobs to run",
-          alias: "j",
-          type: "integer",
-          nargs: 1,
-          default: 5,
-        })
-        .option("reverse", {
-          describe: "Run browser versions oldest-to-newest",
-          alias: "r",
-          type: "boolean",
-          nargs: 0,
-        })
-        .option("version", {
-          describe: "Only test the specified browser version(s)",
-          alias: "v",
-          type: "array",
-          nargs: 1,
-          coerce: (v: unknown) =>
-            ([] as unknown[])
-              .concat(v ?? [])
-              .map((x) => String(x)),
-        })
-        .option("debugger-address", {
-          describe:
-            "Remote Chrome/Chromium debugger address (host:port) for driving a device over the LAN, e.g. 192.168.1.156:9222",
-          alias: "d",
-          type: "string",
-          nargs: 1,
-        });
-    },
-  );
+      "$0 [browser..]",
+      "Run Selenium on several browser versions",
+      (yargs) => {
+        (yargs as any)
+          .positional("browser", {
+            describe: "Limit the browser(s) to test",
+            alias: "b",
+            type: "string",
+            choices: [
+              "chrome",
+              "edge",
+              "firefox",
+              "safari",
+              "chrome_android",
+              "firefox_android",
+              "safari_ios",
+              "huaweibrowser_harmonyos",
+            ],
+          })
+          .option("since", {
+            describe: "Limit to browser releases from this year on",
+            alias: "s",
+            type: "string",
+            default: "2023",
+            nargs: 1,
+          })
+          .option("os", {
+            describe: "Specify OS to test",
+            alias: "o",
+            type: "array",
+            choices: ["Windows", "macOS", "Android", "iOS", "HarmonyOS"],
+            default: ["Windows", "macOS", "Android", "iOS", "HarmonyOS"],
+          })
+          .option("concurrent", {
+            describe: "Define the number of concurrent jobs to run",
+            alias: "j",
+            type: "integer",
+            nargs: 1,
+            default: 5,
+          })
+          .option("reverse", {
+            describe: "Run browser versions oldest-to-newest",
+            alias: "r",
+            type: "boolean",
+            nargs: 0,
+          })
+          .option("version", {
+            describe: "Only test the specified browser version(s)",
+            alias: "v",
+            type: "array",
+            nargs: 1,
+            /**
+             * Coerce the --version argument into an array of strings.
+             * @param v - The raw yargs value
+             * @returns The value as an array of strings
+             */
+            coerce: (v: unknown) =>
+              ([] as unknown[]).concat(v ?? []).map((x) => String(x)),
+          })
+          .option("debugger-address", {
+            describe:
+              "Remote Chrome/Chromium debugger address (host:port) for driving a device over the LAN, e.g. 192.168.1.156:9222",
+            alias: "d",
+            type: "string",
+            nargs: 1,
+          });
+      },
+    );
 
   if (argv["debugger-address"]) {
     debuggerAddress = String(argv["debugger-address"]);
@@ -1119,13 +1134,17 @@ if (esMain(import.meta)) {
 
   if (needsDebuggerAddress && !debuggerAddress) {
     throw new Error(
-      "No debugger address provided. Set DEBUGGER_ADDRESS or pass --debugger-address <host:port>."
+      "No debugger address provided. Set DEBUGGER_ADDRESS or pass --debugger-address <host:port>.",
     );
   }
 
   const versions = ([] as string[])
     .concat(argv.version ?? [])
-    .flatMap((v) => String(v).split(",").map((s) => s.trim()))
+    .flatMap((v) =>
+      String(v)
+        .split(",")
+        .map((s) => s.trim()),
+    )
     .filter((v) => v.length > 0);
 
   await runAll(

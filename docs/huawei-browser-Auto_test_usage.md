@@ -4,7 +4,7 @@
 结果写入 `mdn-bcd-results` 目录、生成报告。
 
 自动化测试的入口脚本为
-[`auto-run-HuaweiBrowser-tests.cjs`](../auto-run-HuaweiBrowser-tests.cjs)，
+[`scripts/auto-run-huawei-browser.ts`](../scripts/auto-run-huawei-browser.ts)，
 它把"获取板子内核版本 → 准备 chromedriver → 跑 selenium → 生成报告"串成一条命令。
 
 ## Prerequisites
@@ -64,7 +64,7 @@ npm run build
 
 ```sh
 # 在 mdn-bcd-collector 目录下运行
-node auto-run-HuaweiBrowser-tests.cjs
+npx tsx scripts/auto-run-huawei-browser.ts
 ```
 
 默认会自动探测板子 IP（通过 `hdc shell ifconfig`）并组合 `DEBUGGER_PORT`。
@@ -73,10 +73,10 @@ node auto-run-HuaweiBrowser-tests.cjs
 ```sh
 # Windows (PowerShell)
 $env:DEBUGGER_ADDRESS = "192.168.1.145:9222"
-node auto-run-HuaweiBrowser-tests.cjs
+npx tsx scripts/auto-run-huawei-browser.ts
 
 # macOS / Linux
-DEBUGGER_ADDRESS=192.168.1.145:9222 node auto-run-HuaweiBrowser-tests.cjs
+DEBUGGER_ADDRESS=192.168.1.145:9222 npx tsx scripts/auto-run-huawei-browser.ts
 ```
 
 ### 手动运行 selenium
@@ -91,14 +91,14 @@ npm run selenium -- huaweibrowser_harmonyos --since=2026 -v 7.0 -o HarmonyOS -j 
 
 参数说明：
 
-| 参数 | 含义 |
-| - | - |
-| `huaweibrowser_harmonyos` | 浏览器 ID（positional，必填） |
-| `--since=2026` | 只跑 2026 年及之后发布的版本 |
-| `-v 7.0` | 只跑指定的浏览器版本（建议显式指定，见 [Version Resolution](#version-resolution)） |
-| `-o HarmonyOS` | 被测系统，华为固定为 `HarmonyOS`（其他值会导致零任务） |
-| `-j 1` | 并发任务数 |
-| `-d <host:port>` | 板子调试地址，必填；必须是 `host:port` 格式，不要带 `http://` |
+| 参数                      | 含义                                                                               |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| `huaweibrowser_harmonyos` | 浏览器 ID（positional，必填）                                                      |
+| `--since=2026`            | 只跑 2026 年及之后发布的版本                                                       |
+| `-v 7.0`                  | 只跑指定的浏览器版本（建议显式指定，见 [Version Resolution](#version-resolution)） |
+| `-o HarmonyOS`            | 被测系统，华为固定为 `HarmonyOS`（其他值会导致零任务）                             |
+| `-j 1`                    | 并发任务数                                                                         |
+| `-d <host:port>`          | 板子调试地址，必填；必须是 `host:port` 格式，不要带 `http://`                      |
 
 > [!IMPORTANT]
 > `npm run` 后面的 `--` 是**必须的**，否则 npm 会把 `--since`、`-o`、`-j`
@@ -114,14 +114,14 @@ npx tsx scripts/selenium.ts huaweibrowser_harmonyos --since=2026 -v 7.0 -o Harmo
 
 脚本依次执行以下步骤，每步都会打印 `=== ... ===` 分隔的日志：
 
-| 步骤 | 说明 |
-| - | - |
-| 0 | 访问板子 `http://<addr>/json/version`，获取 Chrome 内核版本 |
-| 1 | 从 npmmirror 下载与内核版本匹配的 `chromedriver` |
-| 2 | 解压到 `CHROMEDRIVER_INSTALL_DIR`（默认 `D:\Program Files\chromedriver-win64`） |
-| 3 | 启动 `chromedriver --port=9515` |
-| 4 | 运行 `scripts/selenium.ts`，驱动板子上的华为浏览器跑测试 |
-| 5 | 确认结果已下载到 `mdn-bcd-results`，并生成报告 |
+| 步骤 | 说明                                                                            |
+| ---- | ------------------------------------------------------------------------------- |
+| 0    | 访问板子 `http://<addr>/json/version`，获取 Chrome 内核版本                     |
+| 1    | 从 npmmirror 下载与内核版本匹配的 `chromedriver`                                |
+| 2    | 解压到 `CHROMEDRIVER_INSTALL_DIR`（默认 `D:\Program Files\chromedriver-win64`） |
+| 3    | 启动 `chromedriver --port=9515`                                                 |
+| 4    | 运行 `scripts/selenium.ts`，驱动板子上的华为浏览器跑测试                        |
+| 5    | 确认结果已下载到 `mdn-bcd-results`，并生成报告                                  |
 
 ## Version Resolution
 
@@ -155,34 +155,35 @@ Board kernel 144 -> release "7.0" -> --since=2026
 
 ### 常用环境变量
 
-| 变量 | 默认值 | 说明 |
-| - | - | - |
-| `DEBUGGER_ADDRESS` | 自动探测 | 板子调试地址，如 `192.168.1.145:9222` |
-| `DEBUGGER_PORT` | `9222` | 仅在自动探测板子 IP 时生效 |
-| `VERSION` | 自动推导 | 浏览器版本，如 `7.0`；最高优先级 |
-| `SINCE` | 自动推导 | 起始年份，如 `2027` |
-| `BROWSER` | `huaweibrowser_harmonyos` | 要测试的浏览器 |
-| `JOBS` | `1` | 并发任务数 |
-| `BCD_OS` | `HarmonyOS` | 传给 selenium 的 `-o` 参数 |
+| 变量               | 默认值                    | 说明                                  |
+| ------------------ | ------------------------- | ------------------------------------- |
+| `DEBUGGER_ADDRESS` | 自动探测                  | 板子调试地址，如 `192.168.1.145:9222` |
+| `DEBUGGER_PORT`    | `9222`                    | 仅在自动探测板子 IP 时生效            |
+| `VERSION`          | 自动推导                  | 浏览器版本，如 `7.0`；最高优先级      |
+| `SINCE`            | 自动推导                  | 起始年份，如 `2027`                   |
+| `BROWSER`          | `huaweibrowser_harmonyos` | 要测试的浏览器                        |
+| `JOBS`             | `1`                       | 并发任务数                            |
+| `BCD_OS`           | `HarmonyOS`               | 传给 selenium 的 `-o` 参数            |
 
 ### 路径相关
 
-| 变量 | 默认值 | 说明 |
-| - | - | - |
-| `PROJECT_DIR` | 脚本所在目录 | `mdn-bcd-collector` 目录 |
-| `RESULTS_DIR` | `../mdn-bcd-results` | 结果 JSON 存放目录 |
-| `BCD_DIR` | `../browser-compat-data` | 本地 BCD checkout |
-| `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver 安装位置 |
-| `CHROMEDRIVER_PORT` | `9515` | chromedriver 监听端口 |
+| 变量                       | 默认值                                | 说明                     |
+| -------------------------- | ------------------------------------- | ------------------------ |
+| `PROJECT_DIR`              | 脚本所在目录                          | `mdn-bcd-collector` 目录 |
+| `RESULTS_DIR`              | `../mdn-bcd-results`                  | 结果 JSON 存放目录       |
+| `BCD_DIR`                  | `../browser-compat-data`              | 本地 BCD checkout        |
+| `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver 安装位置    |
+| `CHROMEDRIVER_PORT`        | `9515`                                | chromedriver 监听端口    |
 
 ### 报告相关
 
-| 变量 | 默认值 | 说明 |
-| - | - | - |
-| `REPORT_COUNT` | `3` | 生成报告时包含的最新结果文件数 |
-| `REPORT_FILTER` | 无 | 只保留文件名含该子串的结果，如 `huawei-browser` |
+| 变量                 | 默认值           | 说明                                                                                                          |
+| -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| `REPORT_COUNT`       | `3`              | 生成报告时包含的最新结果文件数                                                                                |
+| `REPORT_FILTER`      | 无               | 只保留文件名含该子串的结果，如 `huawei-browser`                                                               |
 | `START_LOCAL_SERVER` | 无（默认不启动） | 设为 `1` 才启动本地结果服务器（`npm start`）。默认不启动，因为华为测试在公网 collector 上执行并从那里下载结果 |
-| `APP_PORT` | `8080` | 本地结果服务器端口，仅在 `START_LOCAL_SERVER=1` 时生效 |
+| `APP_PORT`           | `8080`           | 本地结果服务器端口，仅在 `START_LOCAL_SERVER=1` 时生效                                                        |
+
 > [!TIP]
 > 华为测试**默认不需要本地结果服务器**。仅当以 `NODE_ENV=test` 让 selenium
 > 访问本地 collector（而非公网）时，才需要设 `START_LOCAL_SERVER=1`。
@@ -194,12 +195,12 @@ Board kernel 144 -> release "7.0" -> --since=2026
 
 ### 调试相关
 
-| 变量 | 说明 |
-| - | - |
-| `SKIP_DRIVER_DOWNLOAD=1` | 跳过下载，使用已有的 chromedriver |
-| `KEEP_CHROMEDRIVER=1` | 测试结束后保留 chromedriver 进程 |
+| 变量                     | 说明                                               |
+| ------------------------ | -------------------------------------------------- |
+| `SKIP_DRIVER_DOWNLOAD=1` | 跳过下载，使用已有的 chromedriver                  |
+| `KEEP_CHROMEDRIVER=1`    | 测试结束后保留 chromedriver 进程                   |
 | `CHROMEDRIVER_VERBOSE=1` | 给 chromedriver 传 `--verbose`，用于诊断渲染器问题 |
-| `MIRROR_BASE` | chromedriver 下载源，默认 npmmirror |
+| `MIRROR_BASE`            | chromedriver 下载源，默认 npmmirror                |
 
 ## Results
 
@@ -234,6 +235,7 @@ npx tsx scripts/report-viewer.ts
 ```
 
 > [!NOTE]
+>
 > - 报告输出为 `report.html`：若参数中含**文件夹**，输出到该文件夹下；否则输出到
 >   第一份结果文件所在的目录。
 > - 多份报告会按系统版本号升序、同版本按生成时间从旧到新排列，可在页面

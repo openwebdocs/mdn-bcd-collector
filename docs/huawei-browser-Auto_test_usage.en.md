@@ -5,7 +5,7 @@ This tool runs MDN BCD compatibility tests automatically on a HarmonyOS device
 generates a report.
 
 The entry point of the automated test is
-[`auto-run-HuaweiBrowser-tests.cjs`](../auto-run-HuaweiBrowser-tests.cjs),
+[`scripts/auto-run-huawei-browser.ts`](../scripts/auto-run-huawei-browser.ts),
 which chains the steps "query board kernel version → prepare chromedriver → run
 selenium → generate report" into a single command.
 
@@ -77,7 +77,7 @@ Then run the automated test:
 
 ```sh
 # Run from inside the mdn-bcd-collector directory
-node auto-run-HuaweiBrowser-tests.cjs
+npx tsx scripts/auto-run-huawei-browser.ts
 ```
 
 By default the board IP is auto-detected (via `hdc shell ifconfig`) and combined
@@ -87,10 +87,10 @@ explicitly (example):
 ```sh
 # Windows (PowerShell)
 $env:DEBUGGER_ADDRESS = "192.168.1.145:9222"
-node auto-run-HuaweiBrowser-tests.cjs
+npx tsx scripts/auto-run-huawei-browser.ts
 
 # macOS / Linux
-DEBUGGER_ADDRESS=192.168.1.145:9222 node auto-run-HuaweiBrowser-tests.cjs
+DEBUGGER_ADDRESS=192.168.1.145:9222 npx tsx scripts/auto-run-huawei-browser.ts
 ```
 
 ### Run selenium manually
@@ -105,14 +105,14 @@ npm run selenium -- huaweibrowser_harmonyos --since=2026 -v 7.0 -o HarmonyOS -j 
 
 Parameter explanation:
 
-| Parameter | Meaning |
-| - | - |
-| `huaweibrowser_harmonyos` | Browser ID (positional, required) |
-| `--since=2026` | Only run versions released in 2026 or later |
-| `-v 7.0` | Only run the specified browser version (explicit value recommended, see [Version Resolution](#version-resolution)) |
-| `-o HarmonyOS` | Target OS; Huawei is fixed to `HarmonyOS` (other values cause zero tasks) |
-| `-j 1` | Number of concurrent jobs |
-| `-d <host:port>` | Board debug address, required; must be `host:port` format, without `http://` |
+| Parameter                 | Meaning                                                                                                            |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `huaweibrowser_harmonyos` | Browser ID (positional, required)                                                                                  |
+| `--since=2026`            | Only run versions released in 2026 or later                                                                        |
+| `-v 7.0`                  | Only run the specified browser version (explicit value recommended, see [Version Resolution](#version-resolution)) |
+| `-o HarmonyOS`            | Target OS; Huawei is fixed to `HarmonyOS` (other values cause zero tasks)                                          |
+| `-j 1`                    | Number of concurrent jobs                                                                                          |
+| `-d <host:port>`          | Board debug address, required; must be `host:port` format, without `http://`                                       |
 
 > [!IMPORTANT]
 > The `--` after `npm run` is **required**; otherwise npm will consume
@@ -129,14 +129,14 @@ npx tsx scripts/selenium.ts huaweibrowser_harmonyos --since=2026 -v 7.0 -o Harmo
 The script runs the following steps in order, printing `=== ... ===` delimited
 logs for each:
 
-| Step | Description |
-| - | - |
-| 0 | Access the board's `http://<addr>/json/version` to get the Chrome kernel version |
-| 1 | Download the `chromedriver` matching the kernel version from npmmirror |
-| 2 | Extract to `CHROMEDRIVER_INSTALL_DIR` (default `D:\Program Files\chromedriver-win64`) |
-| 3 | Start `chromedriver --port=9515` |
-| 4 | Run `scripts/selenium.ts` to drive the Huawei browser on the board to run tests |
-| 5 | Confirm the results are downloaded into `mdn-bcd-results`, and generate a report |
+| Step | Description                                                                           |
+| ---- | ------------------------------------------------------------------------------------- |
+| 0    | Access the board's `http://<addr>/json/version` to get the Chrome kernel version      |
+| 1    | Download the `chromedriver` matching the kernel version from npmmirror                |
+| 2    | Extract to `CHROMEDRIVER_INSTALL_DIR` (default `D:\Program Files\chromedriver-win64`) |
+| 3    | Start `chromedriver --port=9515`                                                      |
+| 4    | Run `scripts/selenium.ts` to drive the Huawei browser on the board to run tests       |
+| 5    | Confirm the results are downloaded into `mdn-bcd-results`, and generate a report      |
 
 ## Version Resolution
 
@@ -176,34 +176,34 @@ Board kernel 144 -> release "7.0" -> --since=2026
 
 ### Common environment variables
 
-| Variable | Default | Description |
-| - | - | - |
-| `DEBUGGER_ADDRESS` | auto-detect | Board debug address, e.g. `192.168.1.145:9222` |
-| `DEBUGGER_PORT` | `9222` | Only takes effect when auto-detecting the board IP |
-| `VERSION` | auto-derived | Browser version, e.g. `7.0`; highest priority |
-| `SINCE` | auto-derived | Start year, e.g. `2027` |
-| `BROWSER` | `huaweibrowser_harmonyos` | Browser to test |
-| `JOBS` | `1` | Number of concurrent jobs |
-| `BCD_OS` | `HarmonyOS` | The `-o` argument passed to selenium |
+| Variable           | Default                   | Description                                        |
+| ------------------ | ------------------------- | -------------------------------------------------- |
+| `DEBUGGER_ADDRESS` | auto-detect               | Board debug address, e.g. `192.168.1.145:9222`     |
+| `DEBUGGER_PORT`    | `9222`                    | Only takes effect when auto-detecting the board IP |
+| `VERSION`          | auto-derived              | Browser version, e.g. `7.0`; highest priority      |
+| `SINCE`            | auto-derived              | Start year, e.g. `2027`                            |
+| `BROWSER`          | `huaweibrowser_harmonyos` | Browser to test                                    |
+| `JOBS`             | `1`                       | Number of concurrent jobs                          |
+| `BCD_OS`           | `HarmonyOS`               | The `-o` argument passed to selenium               |
 
 ### Path-related
 
-| Variable | Default | Description |
-| - | - | - |
-| `PROJECT_DIR` | script directory | the `mdn-bcd-collector` directory |
-| `RESULTS_DIR` | `../mdn-bcd-results` | directory for result JSON files |
-| `BCD_DIR` | `../browser-compat-data` | local BCD checkout |
-| `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver install location |
-| `CHROMEDRIVER_PORT` | `9515` | chromedriver listening port |
+| Variable                   | Default                               | Description                       |
+| -------------------------- | ------------------------------------- | --------------------------------- |
+| `PROJECT_DIR`              | script directory                      | the `mdn-bcd-collector` directory |
+| `RESULTS_DIR`              | `../mdn-bcd-results`                  | directory for result JSON files   |
+| `BCD_DIR`                  | `../browser-compat-data`              | local BCD checkout                |
+| `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver install location     |
+| `CHROMEDRIVER_PORT`        | `9515`                                | chromedriver listening port       |
 
 ### Report-related
 
-| Variable | Default | Description |
-| - | - | - |
-| `REPORT_COUNT` | `3` | number of latest result files to include in the report |
-| `REPORT_FILTER` | none | only keep results whose file name contains this substring, e.g. `huawei-browser` |
+| Variable             | Default                       | Description                                                                                                                                                      |
+| -------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `REPORT_COUNT`       | `3`                           | number of latest result files to include in the report                                                                                                           |
+| `REPORT_FILTER`      | none                          | only keep results whose file name contains this substring, e.g. `huawei-browser`                                                                                 |
 | `START_LOCAL_SERVER` | none (not started by default) | set to `1` to start the local results server (`npm start`). Off by default because the Huawei test runs on the public collector and downloads results from there |
-| `APP_PORT` | `8080` | local results server port, only used when `START_LOCAL_SERVER=1` |
+| `APP_PORT`           | `8080`                        | local results server port, only used when `START_LOCAL_SERVER=1`                                                                                                 |
 
 > [!TIP]
 > The Huawei test **does not need the local results server by default**. Only
@@ -218,12 +218,12 @@ Board kernel 144 -> release "7.0" -> --since=2026
 
 ### Debug-related
 
-| Variable | Description |
-| - | - |
-| `SKIP_DRIVER_DOWNLOAD=1` | skip download, use an existing chromedriver |
-| `KEEP_CHROMEDRIVER=1` | keep the chromedriver process after the test finishes |
+| Variable                 | Description                                                      |
+| ------------------------ | ---------------------------------------------------------------- |
+| `SKIP_DRIVER_DOWNLOAD=1` | skip download, use an existing chromedriver                      |
+| `KEEP_CHROMEDRIVER=1`    | keep the chromedriver process after the test finishes            |
 | `CHROMEDRIVER_VERBOSE=1` | pass `--verbose` to chromedriver, for diagnosing renderer issues |
-| `MIRROR_BASE` | chromedriver download source, defaults to npmmirror |
+| `MIRROR_BASE`            | chromedriver download source, defaults to npmmirror              |
 
 ## Results
 
@@ -261,6 +261,7 @@ npx tsx scripts/report-viewer.ts
 ```
 
 > [!NOTE]
+>
 > - The report is output as `report.html`: if an argument contains a **folder**,
 >   it is written into that folder; otherwise it is written into the directory of
 >   the first result file.
@@ -288,7 +289,7 @@ See [update-bcd.md](./update-bcd.md) for more details.
 > [!NOTE]
 > `update-bcd` uses the local `browser-compat-data` directly, so before first
 > use make sure that directory has its dependencies installed (run `npm
-> install`).
+install`).
 
 ## Troubleshooting
 
