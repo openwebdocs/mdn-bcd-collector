@@ -39,6 +39,39 @@
       <label for="preview"><span class="mdi mdi-flask"></span> Collect as preview browser:</label>
       <input type="checkbox" id="preview" name="preview">
     </div>
+    <br>
+    <div id="flags-box">
+      <fieldset name="flags" >
+        <legend><span class="mdi mdi-flag"></span> Enabled flags</legend>
+        <fieldset id="flag1" name="flag1" disabled>
+          <legend>1 <input type="checkbox" id="flag1_enabled" name="flag1_enabled" onchange="toggleForm('flag1')"></legend>
+          <input type="radio" id="preference1" name="flag1_type" value="preference" required />
+          <label for="preference1">Preference</label>
+          <input type="radio" id="runtime_flag1" name="flag1_type" value="runtime_flag" required />
+          <label for="runtime_flag1">Runtime flag</label>
+          <br>
+          <label for="flag1_name">Name</label>:
+          <input type="text" id="flag1_name" name="flag1_name" required>
+          <br>
+          <label for="flag1_value_to_set">Value to set</label>:
+          <input type="text" id="flag1_value_to_set" name="flag1_value_to_set" value="enabled">
+        </fieldset>
+        <br>
+        <fieldset id="flag2" name="flag2" disabled>
+          <legend>2  <input type="checkbox" id="flag2_enabled" name="flag2_enabled"  onchange="toggleForm('flag2')"></legend>
+          <input type="radio" id="preference2" name="flag2_type" value="preference" required />
+          <label for="preference2">Preference</label>
+          <input type="radio" id="runtime_flag2" name="flag2_type" value="runtime_flag" required />
+          <label for="runtime_flag2">Runtime flag</label>
+          <br>
+          <label for="flag2_name">Name</label>:
+          <input type="text" id="flag2_name" name="flag2_name" required>
+          <br>
+          <label for="flag2_value_to_set">Value to set</label>:
+          <input type="text" id="flag2_value_to_set" name="flag2_value_to_set" value="enabled">
+        </fieldset>
+      </fieldset>
+    </div>
     <% if (selenium) { %>
       <input id="selenium" name="selenium" type="hidden" value="true">
       <input id="ignore" name="ignore" type="hidden" value="<%=ignore%>">
@@ -47,14 +80,6 @@
   <%- include('unsecurewarning') %>
   <%- include('browserinfo') %>
 </div>
-
-<div id="supported-browsers">
-  <h2>Supported browsers</h2>
-  <p>Various browsers and environments are supported:</p>
-  <p>Chrome 1+ / Edge 12+ / Firefox 1+ / Opera 9.5+ / Safari 3+</p>
-  <p>Samsung Browser / Android & iOS WebViews / Oculus / and more</p>
-  <p>Nodejs (see also the <a href="https://github.com/unjs/runtime-compat">RCD</a> project)</p>
-</div> 
 
 <div id="known-caveats" class="paper">
   <h2><span class="mdi mdi-glass-fragile"></span>Double check results</h2>
@@ -81,6 +106,9 @@
       }
     }
   }
-
+  
+  function toggleForm(form) {
+    document.getElementById(form).disabled = !document.getElementById(form).disabled;
+  }
   window.onload = main;
 </script>

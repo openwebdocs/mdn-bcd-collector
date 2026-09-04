@@ -25,6 +25,7 @@ import parseResults from "./lib/results.js";
 import getSecrets from "./lib/secrets.js";
 import {Report, ReportStore, Extensions, Exposure} from "./types/types.js";
 import {coverageData} from "./scripts/release-stats.js";
+import {FlagStatement} from "@mdn/browser-compat-data/types";
 
 type RequestWithSession = Request & {
   session: expressSession.Session;
@@ -59,6 +60,7 @@ const createReport = (results: ReportStore, req: Request): Report => {
     extensions: extensions || [],
     userAgent: req.get("User-Agent") || "",
     preview: !!req?.body?.preview,
+    flags: JSON.parse(decodeURIComponent(req?.body?.flags || "[]")) || [],
   };
 };
 
@@ -146,6 +148,12 @@ app.post("/api/get", (req: Request, res: Response) => {
     ignore: req.body.ignore,
     exposure: req.body.limitExposure,
     preview: req.body.preview,
+    flag1_type: req.body.flag1_type,
+    flag1_name: req.body.flag1_name,
+    flag1_value_to_set: req.body.flag1_value_to_set,
+    flag2_type: req.body.flag2_type,
+    flag2_name: req.body.flag2_name,
+    flag2_value_to_set: req.body.flag2_value_to_set,
   };
 
   const query = querystring.encode(
@@ -336,6 +344,25 @@ app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
     req.query.exposure as Exposure | undefined,
     ignoreIdents as string[],
   );
+
+  const flags: FlagStatement[] = [];
+
+  if (req.query.flag1_name) {
+    flags.push({
+      type: req.query.flag1_type as "preference" | "runtime_flag",
+      name: String(req.query.flag1_name),
+      value_to_set: String(req.query.flag1_value_to_set),
+    });
+  }
+
+  if (req.query.flag2_name) {
+    flags.push({
+      type: req.query.flag2_type as "preference" | "runtime_flag",
+      name: String(req.query.flag2_name),
+      value_to_set: String(req.query.flag2_value_to_set),
+    });
+  }
+
   if (foundTests && foundTests.length) {
     res.render("tests", {
       title: `${ident || "All Tests"}`,
@@ -345,6 +372,7 @@ app.all(/\/tests\/(.*)/, (req: Request, res: Response) => {
       selenium: req.query.selenium,
       github: !!secrets.github.token,
       isPreview: req.query.preview,
+      flags: encodeURIComponent(JSON.stringify(flags)),
     });
   } else {
     res.status(404).render("testnotfound", {
