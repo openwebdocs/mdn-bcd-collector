@@ -135,11 +135,14 @@ npx tsx scripts/selenium.ts huaweibrowser_harmonyos --since=2026 -v 7.0 -o Harmo
    `engine_version`，匹配到的 release key 即版本（如 `7.0`），其 `release_date`
    年份即 `since`
 
-例如：
+例如（该 release 带 `release_date`）：
 
 ```sh
-Board kernel 144 -> release "7.0" -> --since=2026
+Board kernel 132 -> release "6.1"（release_date 2026-06-27）-> --since=2026
 ```
+
+若匹配到的 release 没有 `release_date`（如内核 `144` 对应的 `7.0` 仍是
+`planned`），则 `--since` 回退为 `2020` 并打印 `⚠` 告警。
 
 > [!NOTE]
 > 当一个内核版本对应多个 release 时（如内核 `132` 同时对应 `6.0` 和 `6.1`），
@@ -160,7 +163,7 @@ Board kernel 144 -> release "7.0" -> --since=2026
 | `DEBUGGER_ADDRESS` | 自动探测                  | 板子调试地址，如 `192.168.1.145:9222` |
 | `DEBUGGER_PORT`    | `9222`                    | 仅在自动探测板子 IP 时生效            |
 | `VERSION`          | 自动推导                  | 浏览器版本，如 `7.0`；最高优先级      |
-| `SINCE`            | 自动推导                  | 起始年份，如 `2027`                   |
+| `SINCE`            | 自动推导                  | 起始年份，如 `2026`                   |
 | `BROWSER`          | `huaweibrowser_harmonyos` | 要测试的浏览器                        |
 | `JOBS`             | `1`                       | 并发任务数                            |
 | `BCD_OS`           | `HarmonyOS`               | 传给 selenium 的 `-o` 参数            |
@@ -169,7 +172,7 @@ Board kernel 144 -> release "7.0" -> --since=2026
 
 | 变量                       | 默认值                                | 说明                     |
 | -------------------------- | ------------------------------------- | ------------------------ |
-| `PROJECT_DIR`              | 脚本所在目录                          | `mdn-bcd-collector` 目录 |
+| `PROJECT_DIR`              | 脚本所在目录的上一级                  | `mdn-bcd-collector` 目录 |
 | `RESULTS_DIR`              | `../mdn-bcd-results`                  | 结果 JSON 存放目录       |
 | `BCD_DIR`                  | `../browser-compat-data`              | 本地 BCD checkout        |
 | `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver 安装位置    |

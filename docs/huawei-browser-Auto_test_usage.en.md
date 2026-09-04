@@ -153,11 +153,14 @@ The resolution priority is as follows:
    release key becomes the version (e.g. `7.0`), and its `release_date` year
    becomes `since`
 
-Example:
+Example (a release that carries a `release_date`):
 
 ```sh
-Board kernel 144 -> release "7.0" -> --since=2026
+Board kernel 132 -> release "6.1" (release_date 2026-06-27) -> --since=2026
 ```
+
+If the matched release has no `release_date` (e.g. `7.0` with kernel `144` is
+still `planned`), `--since` falls back to `2020` and a `⚠` warning is printed.
 
 > [!NOTE]
 > When one kernel version maps to multiple releases (e.g. kernel `132` maps to
@@ -181,7 +184,7 @@ Board kernel 144 -> release "7.0" -> --since=2026
 | `DEBUGGER_ADDRESS` | auto-detect               | Board debug address, e.g. `192.168.1.145:9222`     |
 | `DEBUGGER_PORT`    | `9222`                    | Only takes effect when auto-detecting the board IP |
 | `VERSION`          | auto-derived              | Browser version, e.g. `7.0`; highest priority      |
-| `SINCE`            | auto-derived              | Start year, e.g. `2027`                            |
+| `SINCE`            | auto-derived              | Start year, e.g. `2026`                            |
 | `BROWSER`          | `huaweibrowser_harmonyos` | Browser to test                                    |
 | `JOBS`             | `1`                       | Number of concurrent jobs                          |
 | `BCD_OS`           | `HarmonyOS`               | The `-o` argument passed to selenium               |
@@ -190,7 +193,7 @@ Board kernel 144 -> release "7.0" -> --since=2026
 
 | Variable                   | Default                               | Description                       |
 | -------------------------- | ------------------------------------- | --------------------------------- |
-| `PROJECT_DIR`              | script directory                      | the `mdn-bcd-collector` directory |
+| `PROJECT_DIR`              | parent dir of the script              | the `mdn-bcd-collector` directory |
 | `RESULTS_DIR`              | `../mdn-bcd-results`                  | directory for result JSON files   |
 | `BCD_DIR`                  | `../browser-compat-data`              | local BCD checkout                |
 | `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver install location     |
