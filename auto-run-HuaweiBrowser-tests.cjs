@@ -24,6 +24,9 @@
 //   START_LOCAL_SERVER=1   start the local results server; by default it is NOT
 //                     started because the tests run on the public collector
 
+javascript
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const { spawn } = require("child_process");
 const http = require("http");
 const https = require("https");
