@@ -129,14 +129,14 @@ npx tsx scripts/selenium.ts huaweibrowser_harmonyos --since=2026 -v 7.0 -o Harmo
 The script runs the following steps in order, printing `=== ... ===` delimited
 logs for each:
 
-| Step | Description                                                                           |
-| ---- | ------------------------------------------------------------------------------------- |
-| 0    | Access the board's `http://<addr>/json/version` to get the Chrome kernel version      |
-| 1    | Download the `chromedriver` matching the kernel version from npmmirror                |
-| 2    | Extract to `CHROMEDRIVER_INSTALL_DIR` (default `D:\Program Files\chromedriver-win64`) |
-| 3    | Start `chromedriver --port=9515`                                                      |
-| 4    | Run `scripts/selenium.ts` to drive the Huawei browser on the board to run tests       |
-| 5    | Confirm the results are downloaded into `mdn-bcd-results`, and generate a report      |
+| Step | Description                                                                                 |
+| ---- | ------------------------------------------------------------------------------------------- |
+| 0    | Access the board's `http://<addr>/json/version` to get the Chrome kernel version            |
+| 1    | Download the `chromedriver` matching the kernel version from npmmirror                      |
+| 2    | Extract to `CHROMEDRIVER_INSTALL_DIR` (default: project's sibling dir `chromedriver-win64`) |
+| 3    | Start `chromedriver --port=9515`                                                            |
+| 4    | Run `scripts/selenium.ts` to drive the Huawei browser on the board to run tests             |
+| 5    | Confirm the results are downloaded into `mdn-bcd-results`, and generate a report            |
 
 ## Version Resolution
 
@@ -191,13 +191,13 @@ still `planned`), `--since` falls back to `2020` and a `⚠` warning is printed.
 
 ### Path-related
 
-| Variable                   | Default                               | Description                       |
-| -------------------------- | ------------------------------------- | --------------------------------- |
-| `PROJECT_DIR`              | parent dir of the script              | the `mdn-bcd-collector` directory |
-| `RESULTS_DIR`              | `../mdn-bcd-results`                  | directory for result JSON files   |
-| `BCD_DIR`                  | `../browser-compat-data`              | local BCD checkout                |
-| `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver install location     |
-| `CHROMEDRIVER_PORT`        | `9515`                                | chromedriver listening port       |
+| Variable                   | Default                                    | Description                       |
+| -------------------------- | ------------------------------------------ | --------------------------------- |
+| `PROJECT_DIR`              | parent dir of the script                   | the `mdn-bcd-collector` directory |
+| `RESULTS_DIR`              | `../mdn-bcd-results`                       | directory for result JSON files   |
+| `BCD_DIR`                  | `../browser-compat-data`                   | local BCD checkout                |
+| `CHROMEDRIVER_INSTALL_DIR` | project's sibling dir `chromedriver-win64` | chromedriver install location     |
+| `CHROMEDRIVER_PORT`        | `9515`                                     | chromedriver listening port       |
 
 ### Report-related
 

@@ -114,14 +114,14 @@ npx tsx scripts/selenium.ts huaweibrowser_harmonyos --since=2026 -v 7.0 -o Harmo
 
 脚本依次执行以下步骤，每步都会打印 `=== ... ===` 分隔的日志：
 
-| 步骤 | 说明                                                                            |
-| ---- | ------------------------------------------------------------------------------- |
-| 0    | 访问板子 `http://<addr>/json/version`，获取 Chrome 内核版本                     |
-| 1    | 从 npmmirror 下载与内核版本匹配的 `chromedriver`                                |
-| 2    | 解压到 `CHROMEDRIVER_INSTALL_DIR`（默认 `D:\Program Files\chromedriver-win64`） |
-| 3    | 启动 `chromedriver --port=9515`                                                 |
-| 4    | 运行 `scripts/selenium.ts`，驱动板子上的华为浏览器跑测试                        |
-| 5    | 确认结果已下载到 `mdn-bcd-results`，并生成报告                                  |
+| 步骤 | 说明                                                                       |
+| ---- | -------------------------------------------------------------------------- |
+| 0    | 访问板子 `http://<addr>/json/version`，获取 Chrome 内核版本                |
+| 1    | 从 npmmirror 下载与内核版本匹配的 `chromedriver`                           |
+| 2    | 解压到 `CHROMEDRIVER_INSTALL_DIR`（默认项目同级目录 `chromedriver-win64`） |
+| 3    | 启动 `chromedriver --port=9515`                                            |
+| 4    | 运行 `scripts/selenium.ts`，驱动板子上的华为浏览器跑测试                   |
+| 5    | 确认结果已下载到 `mdn-bcd-results`，并生成报告                             |
 
 ## Version Resolution
 
@@ -170,13 +170,13 @@ Board kernel 132 -> release "6.1"（release_date 2026-06-27）-> --since=2026
 
 ### 路径相关
 
-| 变量                       | 默认值                                | 说明                     |
-| -------------------------- | ------------------------------------- | ------------------------ |
-| `PROJECT_DIR`              | 脚本所在目录的上一级                  | `mdn-bcd-collector` 目录 |
-| `RESULTS_DIR`              | `../mdn-bcd-results`                  | 结果 JSON 存放目录       |
-| `BCD_DIR`                  | `../browser-compat-data`              | 本地 BCD checkout        |
-| `CHROMEDRIVER_INSTALL_DIR` | `D:\Program Files\chromedriver-win64` | chromedriver 安装位置    |
-| `CHROMEDRIVER_PORT`        | `9515`                                | chromedriver 监听端口    |
+| 变量                       | 默认值                            | 说明                     |
+| -------------------------- | --------------------------------- | ------------------------ |
+| `PROJECT_DIR`              | 脚本所在目录的上一级              | `mdn-bcd-collector` 目录 |
+| `RESULTS_DIR`              | `../mdn-bcd-results`              | 结果 JSON 存放目录       |
+| `BCD_DIR`                  | `../browser-compat-data`          | 本地 BCD checkout        |
+| `CHROMEDRIVER_INSTALL_DIR` | 项目同级目录 `chromedriver-win64` | chromedriver 安装位置    |
+| `CHROMEDRIVER_PORT`        | `9515`                            | chromedriver 监听端口    |
 
 ### 报告相关
 

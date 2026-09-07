@@ -79,15 +79,22 @@ const REPORT_FILTER = process.env.REPORT_FILTER || null;
 const DEBUGGER_ADDRESS = process.env.DEBUGGER_ADDRESS || null;
 const DEBUGGER_PORT = process.env.DEBUGGER_PORT || "9222";
 const CD_PORT = process.env.CHROMEDRIVER_PORT || "9515";
+// Defaults to a sibling directory of the project (i.e. next to the repository,
+// not inside it) so the driver never pollutes the git working tree and so no
+// admin rights are required (unlike the previous D:\Program Files default).
 const CD_INSTALL_DIR =
   process.env.CHROMEDRIVER_INSTALL_DIR ||
-  `D:\\Program Files\\chromedriver-${
-    process.platform === "win32" && process.arch === "ia32"
-      ? "win32"
-      : process.platform === "win32" && process.arch === "arm64"
-        ? "win-arm64"
-        : "win64"
-  }`;
+  path.resolve(
+    PROJECT_DIR,
+    "..",
+    `chromedriver-${
+      process.platform === "win32" && process.arch === "ia32"
+        ? "win32"
+        : process.platform === "win32" && process.arch === "arm64"
+          ? "win-arm64"
+          : "win64"
+    }`,
+  );
 const MIRROR_BASE =
   process.env.MIRROR_BASE ||
   "https://registry.npmmirror.com/-/binary/chrome-for-testing";
@@ -108,6 +115,7 @@ console.log(`[paths] SCRIPT_DIR = ${SCRIPT_DIR}`);
 console.log(`[paths] PROJECT_DIR = ${PROJECT_DIR}`);
 console.log(`[paths] RESULTS_DIR = ${RESULTS_DIR}`);
 console.log(`[paths] BCD_DIR = ${BCD_DIR}`);
+console.log(`[paths] CD_INSTALL_DIR = ${CD_INSTALL_DIR}`);
 
 /**
  * Wait for the given number of milliseconds.
