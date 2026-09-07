@@ -2,6 +2,7 @@ import fs from "fs-extra";
 import bcd from "@mdn/browser-compat-data" with {type: "json"};
 import {getMissing} from "../lib/coverage.js";
 import appVersion from "../lib/app-version.js";
+import esMain from "es-main";
 
 const testsPath = new URL("../tests.json", import.meta.url);
 if (!fs.existsSync(testsPath)) {
@@ -79,3 +80,9 @@ const coverageData = {
 };
 
 export {coverageData};
+
+/* node:coverage disable */
+if (esMain(import.meta)) {
+  console.log(JSON.stringify(coverageData, undefined, 2));
+}
+/* node:coverage enable */
