@@ -35,6 +35,10 @@ const browsers = {
     name: "WebView Android",
     releases: {1.1: {}, 4.4: {}, "4.4.3": {}, 37: {}, 86: {}},
   },
+  webview_harmonyos: {
+    name: "WebView on HarmonyOS",
+    releases: {132: {}, 133: {}},
+  },
 };
 
 describe("getMajorMinorVersion", () => {
