@@ -1,4 +1,5 @@
 import path from "node:path";
+import {fileURLToPath} from "node:url";
 import {styleText} from "node:util";
 
 import {
@@ -31,9 +32,35 @@ import type {BrowserName} from "@mdn/browser-compat-data";
 import "../lib/selenium-keepalive.js";
 
 // The Huawei Browser (ArkWeb) is not yet present in the @mdn/browser-compat-data
-// version bundled with this collector, so its versions are read from the local
-// browser-compat-data checkout instead.
-import huaweiBCD from "../../browser-compat-data/browsers/huaweibrowser_harmonyos.json" with {type: "json"};
+// version bundled with this collector, so its versions are read from a local
+// browser-compat-data checkout instead. That checkout lives outside this
+// repository, so it is loaded at runtime and is simply absent (yielding no
+// versions) where it is not available; a static import would break the build
+// for anyone without the sibling checkout.
+let huaweiBcdCache: any;
+
+/**
+ * Load the Huawei Browser release data from the local browser-compat-data
+ * checkout, when that checkout is available.
+ * @returns The parsed BCD data, or null when the checkout is unavailable.
+ */
+const loadHuaweiBCD = (): any => {
+  if (huaweiBcdCache === undefined) {
+    try {
+      huaweiBcdCache = fs.readJsonSync(
+        fileURLToPath(
+          new URL(
+            "../../browser-compat-data/browsers/huaweibrowser_harmonyos.json",
+            import.meta.url,
+          ),
+        ),
+      );
+    } catch {
+      huaweiBcdCache = null;
+    }
+  }
+  return huaweiBcdCache;
+};
 
 /**
  * Returns the testable versions of the Huawei Browser, sourced from the local
@@ -52,7 +79,7 @@ const getHuaweiVersions = (
   since: string | Date | null,
   reverse: boolean,
 ): string[] => {
-  const releases = (huaweiBCD as any).browsers?.huaweibrowser_harmonyos
+  const releases = loadHuaweiBCD()?.browsers?.huaweibrowser_harmonyos
     ?.releases as Record<string, {status: string; release_date?: string}>;
   let versions = releases
     ? Object.entries(releases)
