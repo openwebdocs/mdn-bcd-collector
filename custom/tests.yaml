@@ -6770,6 +6770,15 @@ javascript:
             } catch(e) {
               return {result: false, message: e.message};
             }
+      unregister:
+        __additional:
+          symbol_as_target: |-
+            try {
+              new FinalizationRegistry(() => {}).unregister(Symbol());
+              return true;
+            } catch(e) {
+              return {result: false, message: e.message};
+            }
     Float32Array:
       __additional:
         Float32Array.iterable_allowed: |-
