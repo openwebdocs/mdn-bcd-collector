@@ -8,3 +8,4 @@ tests.old.json
 .testtmp
 feature-list.json
 .env
+chromedriver.log

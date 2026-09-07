@@ -128,21 +128,45 @@ const step = (m: string): void => {
 /**
  * Fetch a URL as text, following redirects.
  * @param url - The URL to fetch
+ * @param redirects - Internal counter to bound redirect recursion
  * @returns The response body as text
  */
-const getText = (url: string): Promise<string> =>
+const getText = (url: string, redirects = 0): Promise<string> =>
   new Promise((resolve, reject) => {
+    if (redirects > 10) {
+      reject(new Error(`Too many redirects (>= 10) while fetching ${url}`));
+      return;
+    }
     const lib = url.startsWith("https") ? https : http;
     lib
       .get(url, (res) => {
         const status = res.statusCode ?? 0;
         if (status >= 300 && status < 400 && res.headers.location) {
-          resolve(getText(new URL(res.headers.location, url).toString()));
+          resolve(
+            getText(
+              new URL(res.headers.location, url).toString(),
+              redirects + 1,
+            ),
+          );
+          return;
+        }
+        if (status >= 400) {
+          let body = "";
+          res.on("data", (c) => {
+            body += c.toString("utf8");
+          });
+          res.on("end", () =>
+            reject(
+              new Error(
+                `HTTP ${status} while fetching ${url}\n${body.slice(0, 200)}`,
+              ),
+            ),
+          );
           return;
         }
         let data = "";
         res.on("data", (chunk) => {
-          data += chunk;
+          data += chunk.toString("utf8");
         });
         res.on("end", () => resolve(data));
       })
@@ -229,7 +253,7 @@ const getBoardChromeVersion = async (
   }
   const browserStr = m[1];
   console.log(`Board Browser: ${browserStr}`);
-  const cm = browserStr.match(/Chrome\/(\d+\.\d+\.\d+)\./);
+  const cm = browserStr.match(/(?:Headless)?Chrome\/([\d.]+)/i);
   if (!cm) {
     throw new Error(
       `No Chrome/x.y.z version found in Browser field: ${browserStr}`,
@@ -372,34 +396,61 @@ const getHuaweiParams = async (
  * Download a URL to a local file, following redirects.
  * @param url - The URL to download
  * @param zipPath - The destination file path
+ * @param redirects - Internal counter to bound redirect recursion
  * @returns Resolves once the download finished
  */
-const downloadToFile = (url: string, zipPath: string): Promise<void> =>
+const downloadToFile = (
+  url: string,
+  zipPath: string,
+  redirects = 0,
+): Promise<void> =>
   new Promise((resolve, reject) => {
+    if (redirects > 10) {
+      reject(new Error(`Too many redirects (>= 10) while downloading ${url}`));
+      return;
+    }
     const lib = url.startsWith("https") ? https : http;
     const file = fs.createWriteStream(zipPath);
+    /**
+     * Abort the download: close and remove the partial file, then reject.
+     * @param e - The error that caused the failure
+     */
+    const fail = (e: Error): void => {
+      file.close();
+      try {
+        fs.unlinkSync(zipPath);
+      } catch {
+        // file may not exist yet
+      }
+      reject(e);
+    };
     lib
       .get(url, (res) => {
         const status = res.statusCode ?? 0;
         if (status >= 300 && status < 400 && res.headers.location) {
           file.close();
-          fs.unlinkSync(zipPath);
+          try {
+            fs.unlinkSync(zipPath);
+          } catch {
+            // ignore
+          }
           resolve(
             downloadToFile(
               new URL(res.headers.location, url).toString(),
               zipPath,
+              redirects + 1,
             ),
           );
+          return;
+        }
+        if (status >= 400) {
+          fail(new Error(`HTTP ${status} while downloading ${url}`));
           return;
         }
         res.pipe(file);
         file.on("finish", () => file.close(() => resolve()));
       })
-      .on("error", (e) => {
-        file.close();
-        fs.unlinkSync(zipPath);
-        reject(e);
-      });
+      .on("error", fail);
   });
 
 /**
@@ -681,6 +732,26 @@ const main = async (): Promise<void> => {
     console.log(`Use explicit debugger address: ${debuggerAddress}`);
   }
 
+  // Query the board's /json/version at most once and cache the result, so we
+  // don't hit the endpoint twice (once for the chromedriver prefix, once for
+  // version/since derivation).
+  let cachedBoardInfo: {full: string; prefix: string; ua: string} | null = null;
+  /**
+   * Return the board's Chrome version info, fetching /json/version at most once.
+   * @returns The board Chrome `full` version, the `prefix` (first three
+   *   segments, used to pick the chromedriver build) and the raw `ua` string.
+   */
+  const getBoardInfo = async (): Promise<{
+    full: string;
+    prefix: string;
+    ua: string;
+  }> => {
+    if (!cachedBoardInfo) {
+      cachedBoardInfo = await getBoardChromeVersion(debuggerAddress);
+    }
+    return cachedBoardInfo;
+  };
+
   if (SKIP_DOWNLOAD) {
     cdExe = path.join(CD_INSTALL_DIR, "chromedriver.exe");
     if (!fs.existsSync(cdExe)) {
@@ -689,7 +760,7 @@ const main = async (): Promise<void> => {
     }
     console.log(`Skip download, use existing: ${cdExe}`);
   } else {
-    const {prefix} = await getBoardChromeVersion(debuggerAddress);
+    const {prefix} = await getBoardInfo();
     cdExe = await downloadChromeDriver(prefix);
   }
 
@@ -699,7 +770,7 @@ const main = async (): Promise<void> => {
   let sinceResolved = SINCE;
   if (!versionResolved || !sinceResolved) {
     try {
-      const {full, ua} = await getBoardChromeVersion(debuggerAddress);
+      const {full, ua} = await getBoardInfo();
       const engineMajor = full.split(".")[0]; // e.g. "144"
       const hp = await getHuaweiParams(engineMajor, ua);
       if (!versionResolved) {
@@ -764,6 +835,11 @@ const main = async (): Promise<void> => {
       console.error(fs.readFileSync(cdLog, "utf8"));
     } catch {
       // the log file may be missing entirely; nothing more to print
+    }
+    try {
+      cdProc.kill("SIGKILL");
+    } catch {
+      // the process may have already exited
     }
     process.exit(1);
   }
