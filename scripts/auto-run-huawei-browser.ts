@@ -568,10 +568,18 @@ const downloadChromeDriver = async (prefix: string): Promise<string> => {
   }
   fs.mkdirSync(path.dirname(CD_INSTALL_DIR), {recursive: true});
   await new Promise<void>((resolve, reject) => {
+    // Pass each path as its own argument instead of interpolating them into
+    // the command string, so a quote inside a path cannot alter the command.
     const ps = spawn("powershell", [
       "-NoProfile",
+      "-NonInteractive",
       "-Command",
-      `Expand-Archive -Path '${zipPath}' -DestinationPath '${tmpDir}' -Force`,
+      "Expand-Archive",
+      "-Path",
+      zipPath,
+      "-DestinationPath",
+      tmpDir,
+      "-Force",
     ]);
     ps.on("close", (code) => {
       if (code === 0) {

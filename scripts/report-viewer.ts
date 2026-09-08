@@ -504,7 +504,17 @@ fileListEl.querySelectorAll("input[type=checkbox]").forEach(function (cb) {
 const selectedStats = () => STATS.filter((s) => selected.has(s.__gi));
 
 // ----- Utility functions -----
-function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+// Escape for both element content and quoted HTML attributes: without the
+// quote escapes, a value containing a single or double quote could break out
+// of an attribute such as title='...' and inject markup.
+function esc(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 function resultClass(r){ return r===true?"pass":r===false?"fail":"unknown"; }
 function resultText(r){ return r===true?"支持":r===false?"失败":"未知"; }
 function card(lbl, num, cls) {
@@ -889,7 +899,7 @@ function renderCompare(stats) {
   }).join("");
   document.getElementById("attrCompare").innerHTML =
     "<colgroup><col style='width:583px'>" + stats.map(() => "<col style='width:80px'>").join("") + "</colgroup>" +
-    "<thead><tr><th>属性路径</th>" + stats.map((s) => "<th><span class='rep-h' title='" + esc(s.file) + "'>#" + (s.__gi + 1) + (s.shortLabel ? "_" + s.shortLabel : "") + "</span></th>").join("") + "</tr></thead>" +
+    "<thead><tr><th>属性路径</th>" + stats.map((s) => "<th><span class='rep-h' title='" + esc(s.file) + "'>#" + (s.__gi + 1) + (s.shortLabel ? "_" + esc(s.shortLabel) : "") + "</span></th>").join("") + "</tr></thead>" +
     "<tbody>" + attrRows + "</tbody>";
 }
 
@@ -951,4 +961,8 @@ const main = () => {
   console.log(`包含 ${stats.length} 个报告文件，可在页面右上角下拉切换`);
 };
 
-main();
+// Only run when invoked directly, so importing this module (e.g. from a test)
+// neither writes a report nor calls process.exit().
+if (process.argv[1] && __filename === path.resolve(process.argv[1])) {
+  main();
+}
