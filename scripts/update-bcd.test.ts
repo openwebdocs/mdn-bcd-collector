@@ -39,6 +39,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -126,6 +127,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -223,6 +225,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -314,6 +317,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -330,6 +334,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -346,6 +351,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -367,6 +373,7 @@ const reports: Report[] = [
   {
     __version: "0.3.1",
     extensions: [],
+    flags: [],
     preview: false,
     results: {
       "https://collector.openwebdocs.org/tests/": [
@@ -452,6 +459,7 @@ describe("BCD updater", () => {
         getSupportMap({
           __version: "test",
           extensions: [],
+          flags: [],
           preview: false,
           results: {},
           userAgent: "abc/1.2.3-beta",
@@ -1401,6 +1409,7 @@ describe("BCD updater", () => {
           {
             __version: "0.3.1",
             extensions: [],
+            flags: [],
             preview: false,
             results: {
               "https://collector.openwebdocs.org/tests/": [
@@ -1688,6 +1697,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -1728,6 +1738,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -1775,6 +1786,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -1825,6 +1837,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -1865,6 +1878,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -1905,6 +1919,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -1955,6 +1970,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -2039,6 +2055,7 @@ describe("BCD updater", () => {
       const report: Report = {
         __version: "0.3.1",
         extensions: [],
+        flags: [],
         preview: false,
         results: {
           "https://collector.openwebdocs.org/tests/": [
@@ -2102,6 +2119,7 @@ describe("BCD updater", () => {
         {
           __version: "0.3.1",
           extensions: [],
+          flags: [],
           preview: false,
           results: {
             "https://collector.openwebdocs.org/tests/": [
@@ -2122,6 +2140,7 @@ describe("BCD updater", () => {
         {
           __version: "0.3.1",
           extensions: [],
+          flags: [],
           preview: true,
           results: {
             "https://collector.openwebdocs.org/tests/?preview=true": [
@@ -2177,6 +2196,162 @@ describe("BCD updater", () => {
           browser: "firefox",
           path: "api.AbortController",
           statements: [{version_added: "preview"}],
+        },
+        {
+          browser: "firefox",
+          path: "api.Event",
+          statements: [{version_added: false}],
+        },
+      ];
+      assert.deepEqual(modified, expectedModified, "modified");
+    });
+
+    it("updates flagged support statements correctly", () => {
+      // For api.AbortController, the test case is:
+      // current bcd: version_added: false
+      // flagged report: support with flag is true
+      // new bcd: version_added: 123, flag added
+
+      // For api.Event, the test case is:
+      // current bcd: version_added: "123", flag
+      // flagged report: support with flag is false
+      // new bcd: version_added: false, flag removed.
+      const initialBcd = {
+        api: {
+          AbortController: {
+            __compat: {
+              support: {
+                firefox: {version_added: false},
+              },
+            },
+          },
+          Event: {
+            __compat: {
+              support: {
+                firefox: {
+                  version_added: "92",
+                  flags: [
+                    {
+                      name: "dom.magic.enabled",
+                      type: "preference",
+                      value_to_set: "true",
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+        browsers: {
+          firefox: {
+            name: "Firefox",
+            releases: {92: {}},
+            accepts_flags: true,
+          },
+        } as unknown as Browsers,
+      };
+      const finalBcd = clone(initialBcd);
+      assert.deepEqual(finalBcd, initialBcd);
+
+      const reports: Report[] = [
+        {
+          __version: "0.3.1",
+          extensions: [],
+          flags: [],
+          preview: false,
+          results: {
+            "https://collector.openwebdocs.org/tests/": [
+              {
+                name: "api.AbortController",
+                exposure: "Window",
+                result: false,
+              },
+              {
+                name: "api.Event",
+                exposure: "Window",
+                result: false,
+              },
+            ],
+          },
+          userAgent: firefox92UaString,
+        },
+        {
+          __version: "0.3.1",
+          extensions: [],
+          flags: [
+            {
+              name: "dom.magic.enabled",
+              type: "preference",
+              value_to_set: "true",
+            },
+          ],
+          preview: false,
+          results: {
+            "https://collector.openwebdocs.org/tests/?flag1_type=preference&flag1_name=dom.magic.enabledd&flag1_value_to_set=true":
+              [
+                {
+                  name: "api.AbortController",
+                  exposure: "Window",
+                  result: true,
+                },
+                {
+                  name: "api.Event",
+                  exposure: "Window",
+                  result: false,
+                },
+              ],
+          },
+          userAgent: firefox92UaString,
+        },
+      ];
+
+      const sm = getSupportMatrix(reports, initialBcd.browsers, []);
+
+      const expectedSM = new Map([
+        [
+          "api.AbortController",
+          new Map([
+            [
+              "firefox",
+              new Map([
+                ["92", true],
+                ["preview", null],
+              ]),
+            ],
+          ]),
+        ],
+        [
+          "api.Event",
+          new Map([
+            [
+              "firefox",
+              new Map([
+                ["92", false],
+                ["preview", null],
+              ]),
+            ],
+          ]),
+        ],
+      ]);
+      assert.deepEqual(sm, expectedSM, "supportMatrix");
+
+      const modified = update(finalBcd, sm, {});
+      const expectedModified = [
+        {
+          browser: "firefox",
+          path: "api.AbortController",
+          statements: [
+            {
+              version_added: "92",
+              flags: [
+                {
+                  name: "dom.magic.enabled",
+                  type: "preference",
+                  value_to_set: "true",
+                },
+              ],
+            },
+          ],
         },
         {
           browser: "firefox",
