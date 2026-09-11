@@ -74,7 +74,8 @@ export interface Report {
   results: TestResults;
   extensions: Extensions;
   userAgent: string;
-  preview: boolean;
+  generatedAt: string;
+  preview?: boolean;
 }
 
 export type BrowserSupportMap = Map<string, TestResultValue>;
@@ -130,7 +131,7 @@ export interface ReportMeta {
   filename: string;
   branch: string;
   version: string;
-  preview: boolean;
+  preview?: boolean;
 }
 
 export type InternalTestResult = TestResult & {
