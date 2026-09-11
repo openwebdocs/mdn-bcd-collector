@@ -160,6 +160,34 @@ export const getSupportMap = (report: Report): BrowserSupportMap => {
   return supportMap;
 };
 
+interface FlagSupportEntry {
+  flags: Report["flags"];
+  versionMap: BrowserSupportMap;
+}
+
+interface FlagSupportMatrix {
+  get(
+    path: string,
+  ): Map<BrowserName, Map<string, FlagSupportEntry>> | undefined;
+  set(
+    path: string,
+    value: Map<BrowserName, Map<string, FlagSupportEntry>>,
+  ): this;
+  entries(): IterableIterator<
+    [string, Map<BrowserName, Map<string, FlagSupportEntry>>]
+  >;
+}
+
+interface SupportMatrixMetadata {
+  defaultSupportMatrix: SupportMatrix;
+  flagSupportMatrix: FlagSupportMatrix;
+}
+
+const supportMatrixMetadata = new WeakMap<
+  SupportMatrix,
+  SupportMatrixMetadata
+>();
+
 /**
  * Load all reports and build a map from BCD path to browser + version and test result (null/true/false) for that version.
  * @param reports The reports to process.
@@ -173,6 +201,8 @@ export const getSupportMatrix = (
   overrides: OverrideTuple[],
 ): SupportMatrix => {
   const supportMatrix = new Map();
+  const defaultSupportMatrix = new Map();
+  const flagSupportMatrix = new Map();
 
   for (const report of reports) {
     const {browser, version, inBcd} = parseUA(report.userAgent, browsers);
@@ -217,13 +247,96 @@ export const getSupportMatrix = (
       // In case of multiple reports for a single version it's possible we
       // already have (non-null) support information. Combine results to deal
       // with this possibility.
-      const combined = combineResults([supported, versionMap.get(version)]);
+      const combined = combineResults([
+        supported,
+        versionMap.get(version) ?? null,
+      ]);
       // If "preview" is true, the report is from a preview browser (Nightly,
       // Canary, TP). In this case, we want to record "preview" in BCD.
       if (report.preview) {
         versionMap.set("preview", combined);
       } else {
         versionMap.set(version, combined);
+      }
+    }
+
+    // Keep a separate matrix for reports without flags. The public support
+    // matrix intentionally continues to contain all reports, but the normal
+    // BCD update must only use unflagged reports.
+    if (!report.flags || report.flags.length === 0) {
+      for (const [name, supported] of supportMap.entries()) {
+        let browserMap = defaultSupportMatrix.get(name);
+        if (!browserMap) {
+          browserMap = new Map();
+          defaultSupportMatrix.set(name, browserMap);
+        }
+        let versionMap = browserMap.get(browser.id);
+        if (!versionMap) {
+          versionMap = new Map();
+          for (const browserVersion of Object.keys(
+            browsers[browser.id].releases,
+          )) {
+            versionMap.set(browserVersion, null);
+          }
+          versionMap.set("preview", null);
+          browserMap.set(browser.id, versionMap);
+        }
+        assert(versionMap.has(version), `${browser.id} ${version} missing`);
+        const combined = combineResults([
+          supported,
+          versionMap.get(version) ?? null,
+        ]);
+        if (report.preview) {
+          versionMap.set("preview", combined);
+        } else {
+          versionMap.set(version, combined);
+        }
+      }
+    } else {
+      const flagKey = JSON.stringify(
+        report.flags.map((flag) => flag.name).sort(),
+      );
+
+      for (const [name, supported] of supportMap.entries()) {
+        let browserMap = flagSupportMatrix.get(name);
+        if (!browserMap) {
+          browserMap = new Map();
+          flagSupportMatrix.set(name, browserMap);
+        }
+
+        let flagMap = browserMap.get(browser.id as BrowserName);
+        if (!flagMap) {
+          flagMap = new Map();
+          browserMap.set(browser.id as BrowserName, flagMap);
+        }
+
+        let entry = flagMap.get(flagKey);
+        if (!entry) {
+          const versionMap: BrowserSupportMap = new Map();
+          for (const browserVersion of Object.keys(
+            browsers[browser.id].releases,
+          )) {
+            versionMap.set(browserVersion, null);
+          }
+          versionMap.set("preview", null);
+          entry = {flags: report.flags, versionMap};
+          flagMap.set(flagKey, entry);
+        }
+
+        assert(
+          entry.versionMap.has(version),
+          `${browser.id} ${version} missing`,
+        );
+
+        const combined = combineResults([
+          supported,
+          entry.versionMap.get(version) ?? null,
+        ]);
+        if (report.preview) {
+          entry.versionMap.set("preview", combined);
+        } else {
+          entry.versionMap.set(version, combined);
+        }
       }
     }
   }
@@ -267,6 +380,47 @@ export const getSupportMatrix = (
       versionMap.set(version, supported);
     }
   }
+
+  // The same overrides apply to the default matrix used by the normal
+  // updater. Flag-specific results are deliberately not affected by these.
+  for (const [path, browser, version, supported] of overrides) {
+    const browserMap = defaultSupportMatrix.get(path);
+    if (!browserMap) {
+      continue;
+    }
+    const versionMap = browserMap.get(browser);
+    if (!versionMap) {
+      continue;
+    }
+    if (version === "*") {
+      for (const v of versionMap.keys()) {
+        versionMap.set(v, supported);
+      }
+    } else if (version.includes("+")) {
+      for (const v of versionMap.keys()) {
+        if (bcdCompare(version.replace("+", ""), v, "<=")) {
+          versionMap.set(v, supported);
+        }
+      }
+    } else if (version.includes("-")) {
+      const versions = version.split("-");
+      for (const v of versionMap.keys()) {
+        if (
+          bcdCompare(versions[0], v, "<=") &&
+          bcdCompare(versions[1], v, ">=")
+        ) {
+          versionMap.set(v, supported);
+        }
+      }
+    } else {
+      versionMap.set(version, supported);
+    }
+  }
+
+  supportMatrixMetadata.set(supportMatrix, {
+    defaultSupportMatrix,
+    flagSupportMatrix,
+  });
 
   return supportMatrix;
 };
@@ -844,32 +998,57 @@ const isSupported = (
   hasSupport: boolean,
   statements: SimpleSupportStatement[],
 ) => {
+  let hasUnknownSupport = false;
+
   for (const {version_added, version_removed} of statements) {
     if (version_added === null) {
-      return null;
+      hasUnknownSupport = true;
+      continue;
     }
 
     if (version_added === "preview") {
       if (version === "preview") {
         return true;
       }
-      return false;
+      continue;
     }
 
-    if (
-      version_added &&
-      bcdCompare(version, version_added.replace("≤", ""), ">=")
-    ) {
-      if (
-        version_removed &&
-        bcdCompare(version, version_removed.replace("≤", ""), ">=")
-      ) {
-        continue;
+    if (version_added) {
+      if (version_added.includes("≤")) {
+        const {lower, upper} = splitRange(version_added);
+
+        if (bcdCompare(version, upper, "<")) {
+          // The actual support status is uncertain in this range.
+          return hasSupport;
+        }
+
+        if (
+          bcdCompare(version, lower, ">=") &&
+          bcdCompare(version, upper, ">=")
+        ) {
+          if (
+            version_removed &&
+            bcdCompare(version, version_removed.replace("≤", ""), ">=")
+          ) {
+            continue;
+          }
+          return true;
+        }
+      } else if (version_added.includes(">")) {
+        return true;
+      } else if (bcdCompare(version, version_added, ">=")) {
+        if (
+          version_removed &&
+          bcdCompare(version, version_removed.replace("≤", ""), ">=")
+        ) {
+          continue;
+        }
+        return true;
       }
-      return true;
     }
   }
-  return false;
+
+  return hasUnknownSupport ? null : false;
 };
 
 /**
@@ -912,9 +1091,27 @@ const persistInferredRange = provideStatements(
       inferredStatement.version_added.includes("≤")
     ) {
       const {lower, upper} = splitRange(inferredStatement.version_added);
-      const simpleAdded = simpleStatement.version_added.replace("≤", "");
+      const simpleAdded = simpleStatement.version_added;
+      if (simpleAdded === "preview") {
+        simpleStatement.version_added = inferredStatement.version_added;
+        return [
+          allStatements,
+          reason(
+            ({browser, path}) =>
+              `${path} applied for ${browser} inferred range in place of preview, lower version than range or higher version than range`,
+            {skip: false},
+          ),
+        ];
+      }
+
+      // A default statement can itself be a range. There is no single
+      // version to compare against the inferred range, so leave it alone
+      // rather than passing the range (e.g. `153> ≤156`) to bcdCompare.
+      if (simpleAdded.includes("≤")) {
+        return;
+      }
+
       if (
-        simpleStatement.version_added === "preview" ||
         bcdCompare(simpleAdded, lower, "<=") ||
         bcdCompare(simpleAdded, upper, ">")
       ) {
@@ -1140,6 +1337,173 @@ export const walkEntries = function* (
 };
 
 /**
+ * Updates flag-specific support statements.
+ *
+ * Flag-specific support statements are only retained when the feature
+ * does not have default support. Existing flag statements are removed
+ * when default support is available
+ * @param bcd - The BCD identifier.
+ * @param flagSupportMatrix - The support matrix produced by getSupportMatrix().
+ * @param options - Update filters.
+ * @returns The paths changed by flag-specific results.
+ */
+const updateFlaggedSupportStatements = (
+  bcd: Identifier,
+  flagSupportMatrix: FlagSupportMatrix,
+  options: any,
+): FeatureListLog[] => {
+  const updates: FeatureListLog[] = [];
+
+  for (const [path, browserMap] of flagSupportMatrix.entries()) {
+    if (options.path) {
+      const matches =
+        typeof options.path === "object" &&
+        options.path.constructor === Minimatch
+          ? options.path.match(path)
+          : path === options.path || path.startsWith(`${options.path}.`);
+      if (!matches) {
+        continue;
+      }
+    }
+
+    const entry = findEntry(bcd, path);
+    const support = entry?.__compat?.support;
+    if (!support) {
+      continue;
+    }
+
+    for (const [browser, flagMap] of browserMap.entries()) {
+      if (options.browser?.length && !options.browser.includes(browser)) {
+        continue;
+      }
+
+      const current = support[browser] as InternalSupportStatement;
+      if (!current || current === "mirror") {
+        continue;
+      }
+
+      const statements = Array.isArray(current) ? current : [current];
+      let changed = false;
+
+      for (const {flags, versionMap} of flagMap.values()) {
+        const inferred = inferSupportStatements(versionMap);
+        if (inferred.length !== 1) {
+          continue;
+        }
+
+        const inferredStatement = inferred[0];
+
+        // A flag is identified by its name. Different flag configurations with
+        // the same name still refer to the same BCD flag statement, so do not
+        // create a second statement just because other flag properties differ.
+        const flaggedIndex = statements.findIndex(
+          (statement) =>
+            "flags" in statement &&
+            statement.flags?.some((statementFlag) =>
+              flags.some((flag) => flag.name === statementFlag.name),
+            ),
+        );
+
+        const defaultStatements = statements.filter(
+          (statement) =>
+            !("flags" in statement) &&
+            !("prefix" in statement) &&
+            !("alternative_name" in statement),
+        );
+
+        if (inferredStatement.version_added === false) {
+          if (flaggedIndex === -1) {
+            continue;
+          }
+
+          // If there is already a default statement, the flagged statement is
+          // simply redundant now that the flag no longer enables support.
+          // Otherwise turn the flagged statement into the default `false`
+          // statement (rather than retaining a flag on an unsupported entry).
+          if (defaultStatements.length > 0) {
+            statements.splice(flaggedIndex, 1);
+          } else {
+            statements[flaggedIndex] = {version_added: false};
+          }
+          changed = true;
+          continue;
+        }
+
+        const inferredVersion = inferredStatement.version_added;
+        if (typeof inferredVersion !== "string") {
+          continue;
+        }
+
+        const hasAnyDefaultSupport = defaultStatements.some(
+          (statement) => typeof statement.version_added === "string",
+        );
+
+        if (hasAnyDefaultSupport) {
+          if (flaggedIndex !== -1) {
+            statements.splice(flaggedIndex, 1);
+            changed = true;
+          }
+          continue;
+        }
+
+        if (flaggedIndex !== -1) {
+          const flaggedStatement = statements[flaggedIndex];
+          if (typeof flaggedStatement.version_added === "string") {
+            const existingVersion = flaggedStatement.version_added.replace(
+              "≤",
+              "",
+            );
+            const newVersion = inferredVersion.replace("≤", "");
+
+            if (bcdCompare(existingVersion, newVersion, "<=")) {
+              continue;
+            }
+          }
+
+          statements[flaggedIndex] = {
+            ...flaggedStatement,
+            version_added: inferredVersion,
+          };
+          changed = true;
+        } else {
+          // A flagged result is an alternative to the default result. If the
+          // default statement says `version_added: false`, remove that
+          // statement when adding the flag-specific support statement.
+          // Keeping both would make the resulting BCD claim contradictory and
+          // leaves the redundant `false` statement behind.
+          const falseDefaultIndex = statements.findIndex(
+            (statement) =>
+              !("flags" in statement) && statement.version_added === false,
+          );
+          if (falseDefaultIndex !== -1) {
+            statements.splice(falseDefaultIndex, 1);
+          }
+
+          statements.push({
+            ...inferredStatement,
+            flags: clone(flags),
+          } as SimpleSupportStatement);
+          changed = true;
+        }
+      }
+
+      if (changed) {
+        support[browser] = (
+          statements.length === 1 ? statements[0] : statements
+        ) as SupportStatement;
+        updates.push({
+          browser,
+          path,
+          statements,
+        });
+      }
+    }
+  }
+
+  return updates;
+};
+
+/**
  * Updates the BCD (Browser Compatibility Data) based on the provided parameters.
  * @param bcd - The BCD identifier.
  * @param supportMatrix - The support matrix.
@@ -1153,6 +1517,13 @@ export const update = (
   options: any,
   verbose = false,
 ): FeatureListLog[] => {
+  // Flagged reports are kept out of the normal/default update path. Otherwise
+  // a positive result behind a flag would first turn a simple `version_added:
+  // false` statement into default support and only then add a flag statement.
+
+  const metadata = supportMatrixMetadata.get(supportMatrix);
+  const defaultSupportMatrix = metadata?.defaultSupportMatrix ?? supportMatrix;
+
   const results: UpdateLog[] = [];
   for (const state of compose(
     expand("entry", function* () {
@@ -1162,7 +1533,7 @@ export const update = (
     }),
     skipPathMismatch(options.path),
     provideShared("browserMap", ({path, shared: {browserMap}}) => {
-      return supportMatrix.get(path) ?? browserMap;
+      return defaultSupportMatrix.get(path) ?? browserMap;
     }),
     skip("noBrowserMap", ({shared: {browserMap}}) => {
       if (!browserMap) {
@@ -1282,7 +1653,16 @@ export const update = (
   const updates = results
     .filter(({statements}) => Boolean(statements))
     .map((result) => pickFeatureList(result));
-  return updates;
+
+  // Apply flag-specific updates after the normal updater. This is important
+  // when a feature has no default support: the normal updater may temporarily
+  // create `{version_added: false}`, but the flag updater must then replace
+  // that with the flag statement rather than leaving both statements behind.
+  const flagUpdates = metadata
+    ? updateFlaggedSupportStatements(bcd, metadata.flagSupportMatrix, options)
+    : [];
+
+  return [...updates, ...flagUpdates];
 };
 
 /* node:coverage disable */

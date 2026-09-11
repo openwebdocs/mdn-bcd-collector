@@ -63,6 +63,7 @@ export interface TestResult {
   name: string;
   result: TestResultValue;
   message?: string;
+  flags?: FlagStatement[];
 }
 
 export type Extensions = string[];
