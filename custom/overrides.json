@@ -774,8 +774,6 @@
   ["api.Element.focusout_event", "firefox_android", "52+", true],
   ["api.VisualViewport.scrollend_event", "chrome", "114+", true],
   ["api.VisualViewport.scrollend_event", "edge", "114+", true],
-  ["api.Element.animationcancel_event", "chrome", "83+", true],
-  ["api.Element.animationcancel_event", "edge", "83+", true],
   ["api.SVGAnimationEvent.beginEvent_event", "safari", "10+", true],
   ["api.SVGAnimationEvent.beginEvent_event", "safari_ios", "10+", true],
   ["api.SVGAnimationEvent.endEvent_event", "safari", "10+", true],
