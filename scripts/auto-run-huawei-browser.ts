@@ -79,22 +79,46 @@ const REPORT_FILTER = process.env.REPORT_FILTER || null;
 const DEBUGGER_ADDRESS = process.env.DEBUGGER_ADDRESS || null;
 const DEBUGGER_PORT = process.env.DEBUGGER_PORT || "9222";
 const CD_PORT = process.env.CHROMEDRIVER_PORT || "9515";
+
+/**
+ * Map the current host OS/arch to the chromedriver platform folder name used by
+ * chrome-for-testing.
+ * e.g. win32+x64 -> win64, win32+ia32 -> win32, win32+arm64 -> win-arm64,
+ * darwin+arm64 -> mac-arm64
+ * @returns The chromedriver platform folder name
+ */
+const chromedriverPlatform = (): string => {
+  const arch = process.arch;
+  if (process.platform === "win32") {
+    if (arch === "ia32") {
+      return "win32";
+    }
+    if (arch === "arm64") {
+      return "win-arm64";
+    }
+    return "win64"; // x64 (and fallback)
+  }
+  if (process.platform === "darwin") {
+    return arch === "arm64" ? "mac-arm64" : "mac-x64";
+  }
+  if (process.platform === "linux") {
+    if (arch === "arm64") {
+      return "linux-arm64";
+    }
+    if (arch === "arm") {
+      return "linux-arm";
+    }
+    return "linux64";
+  }
+  throw new Error(`Unsupported platform/arch: ${process.platform}/${arch}`);
+};
+
 // Defaults to a sibling directory of the project (i.e. next to the repository,
 // not inside it) so the driver never pollutes the git working tree and so no
 // admin rights are required (unlike the previous D:\Program Files default).
 const CD_INSTALL_DIR =
   process.env.CHROMEDRIVER_INSTALL_DIR ||
-  path.resolve(
-    PROJECT_DIR,
-    "..",
-    `chromedriver-${
-      process.platform === "win32" && process.arch === "ia32"
-        ? "win32"
-        : process.platform === "win32" && process.arch === "arm64"
-          ? "win-arm64"
-          : "win64"
-    }`,
-  );
+  path.resolve(PROJECT_DIR, "..", `chromedriver-${chromedriverPlatform()}`);
 const MIRROR_BASE =
   process.env.MIRROR_BASE ||
   "https://registry.npmmirror.com/-/binary/chrome-for-testing";
@@ -134,15 +158,22 @@ const step = (m: string): void => {
 };
 
 /**
- * Fetch a URL as text, following redirects.
+ * Fetch a URL, following up to 10 redirects, and return the response stream.
+ * On HTTP 4xx/5xx the response is drained and the error is rejected with the
+ * status and the first 200 bytes of the body, so callers see why it failed.
  * @param url - The URL to fetch
  * @param redirects - Internal counter to bound redirect recursion
- * @returns The response body as text
+ * @param verb - Used in the error message ("fetching" / "downloading")
+ * @returns The response stream (caller must consume or drain it)
  */
-const getText = (url: string, redirects = 0): Promise<string> =>
+const getWithRedirects = (
+  url: string,
+  redirects = 0,
+  verb = "fetching",
+): Promise<http.IncomingMessage> =>
   new Promise((resolve, reject) => {
     if (redirects > 10) {
-      reject(new Error(`Too many redirects (>= 10) while fetching ${url}`));
+      reject(new Error(`Too many redirects (>= 10) while ${verb} ${url}`));
       return;
     }
     const lib = url.startsWith("https") ? https : http;
@@ -151,9 +182,10 @@ const getText = (url: string, redirects = 0): Promise<string> =>
         const status = res.statusCode ?? 0;
         if (status >= 300 && status < 400 && res.headers.location) {
           resolve(
-            getText(
+            getWithRedirects(
               new URL(res.headers.location, url).toString(),
               redirects + 1,
+              verb,
             ),
           );
           return;
@@ -166,20 +198,33 @@ const getText = (url: string, redirects = 0): Promise<string> =>
           res.on("end", () =>
             reject(
               new Error(
-                `HTTP ${status} while fetching ${url}\n${body.slice(0, 200)}`,
+                `HTTP ${status} while ${verb} ${url}\n${body.slice(0, 200)}`,
               ),
             ),
           );
           return;
         }
-        let data = "";
-        res.on("data", (chunk) => {
-          data += chunk.toString("utf8");
-        });
-        res.on("end", () => resolve(data));
+        resolve(res);
       })
       .on("error", reject);
   });
+
+/**
+ * Fetch a URL and return the response body as text.
+ * @param url - The URL to fetch
+ * @returns The response body as text
+ */
+const getText = async (url: string): Promise<string> => {
+  const res = await getWithRedirects(url, 0, "fetching");
+  let data = "";
+  res.on("data", (chunk) => {
+    data += chunk.toString("utf8");
+  });
+  return new Promise<string>((resolve, reject) => {
+    res.on("end", () => resolve(data));
+    res.on("error", reject);
+  });
+};
 
 /**
  * Fetch a URL and parse the response body as JSON.
@@ -219,9 +264,9 @@ const getBoardIp = (): Promise<string> =>
         return;
       }
       // Match IPv4 addresses, skip loopback (127.0.0.1)
-      const ips = (out.match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g) || [])
-        .filter((ip) => ip !== "127.0.0.1")
-        .filter((ip) => !ip.startsWith("127."));
+      const ips = (out.match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g) || []).filter(
+        (ip) => !ip.startsWith("127."),
+      );
       if (!ips.length) {
         reject(
           new Error(
@@ -404,20 +449,10 @@ const getHuaweiParams = async (
  * Download a URL to a local file, following redirects.
  * @param url - The URL to download
  * @param zipPath - The destination file path
- * @param redirects - Internal counter to bound redirect recursion
  * @returns Resolves once the download finished
  */
-const downloadToFile = (
-  url: string,
-  zipPath: string,
-  redirects = 0,
-): Promise<void> =>
+const downloadToFile = (url: string, zipPath: string): Promise<void> =>
   new Promise((resolve, reject) => {
-    if (redirects > 10) {
-      reject(new Error(`Too many redirects (>= 10) while downloading ${url}`));
-      return;
-    }
-    const lib = url.startsWith("https") ? https : http;
     const file = fs.createWriteStream(zipPath);
     /**
      * Abort the download: close and remove the partial file, then reject.
@@ -432,33 +467,13 @@ const downloadToFile = (
       }
       reject(e);
     };
-    lib
-      .get(url, (res) => {
-        const status = res.statusCode ?? 0;
-        if (status >= 300 && status < 400 && res.headers.location) {
-          file.close();
-          try {
-            fs.unlinkSync(zipPath);
-          } catch {
-            // ignore
-          }
-          resolve(
-            downloadToFile(
-              new URL(res.headers.location, url).toString(),
-              zipPath,
-              redirects + 1,
-            ),
-          );
-          return;
-        }
-        if (status >= 400) {
-          fail(new Error(`HTTP ${status} while downloading ${url}`));
-          return;
-        }
+    getWithRedirects(url, 0, "downloading")
+      .then((res) => {
         res.pipe(file);
         file.on("finish", () => file.close(() => resolve()));
+        res.on("error", fail);
       })
-      .on("error", fail);
+      .catch(fail);
   });
 
 /**
@@ -479,39 +494,6 @@ const findChromedriverExe = (dir: string): string | null => {
     }
   }
   return null;
-};
-
-/**
- * Map the current host OS/arch to the chromedriver platform folder name used by
- * chrome-for-testing.
- * e.g. win32+x64 -> win64, win32+ia32 -> win32, win32+arm64 -> win-arm64,
- * darwin+arm64 -> mac-arm64
- * @returns The chromedriver platform folder name
- */
-const chromedriverPlatform = (): string => {
-  const arch = process.arch;
-  if (process.platform === "win32") {
-    if (arch === "ia32") {
-      return "win32";
-    }
-    if (arch === "arm64") {
-      return "win-arm64";
-    }
-    return "win64"; // x64 (and fallback)
-  }
-  if (process.platform === "darwin") {
-    return arch === "arm64" ? "mac-arm64" : "mac-x64";
-  }
-  if (process.platform === "linux") {
-    if (arch === "arm64") {
-      return "linux-arm64";
-    }
-    if (arch === "arm") {
-      return "linux-arm";
-    }
-    return "linux64";
-  }
-  throw new Error(`Unsupported platform/arch: ${process.platform}/${arch}`);
 };
 
 /**

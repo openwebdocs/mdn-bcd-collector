@@ -67,10 +67,11 @@ const loadHuaweiBCD = (): any => {
  * browser-compat-data checkout (since the bundled BCD lacks this entry).
  * Avoids filterVersions(), which throws for unknown browsers.
  *
- * Mirrors the semantics of filterVersions() for the other browsers:
- *  - keep only releases that BCD considers testable (current/planned/retired),
- *  - then drop the ones released before |since|, so "--since" really limits
- *    the run to versions from that year on.
+ * Mirrors the intent of filterVersions() for the other browsers — keep only
+ * releases BCD considers testable — but uses the status set present in the
+ * Huawei Browser data (current/planned/retired), which differs from the
+ * generic current/beta/retired because Huawei Browser does not use the
+ * "beta" status in its BCD entry.
  * @param since - The date to filter the versions since (or a version string).
  * @param reverse - Whether to reverse the resulting order.
  * @returns An array of filtered Huawei Browser versions.
@@ -726,8 +727,8 @@ const click = async (
   timeout = 60000,
 ) => {
   if (browser === "safari") {
-    // Slow devices (e.g. RK board) may not have rendered the element yet,
-    // so wait for it before clicking.
+    // The Selenium Safari driver does not honour el.click() reliably, so
+    // wait for the element to be located and click via script instead.
     await driver.wait(until.elementLocated(By.id(elementId)), timeout);
     await driver.executeScript(
       `document.getElementById('${elementId}').click()`,

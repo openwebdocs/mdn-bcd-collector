@@ -118,6 +118,11 @@ const parseFirstJson = (text: string): unknown => {
     let depth = 0;
     let inStr = false;
     let esc = false;
+    // Track both objects {} and arrays []: a concatenated stream may start
+    // with either, and we must return as soon as the first top-level value's
+    // closing bracket brings depth back to zero.
+    const openBracket = text.trimStart()[0];
+    const closeBracket = openBracket === "[" ? "]" : "}";
     for (let i = 0; i < text.length; i++) {
       const c = text[i];
       if (inStr) {
@@ -132,11 +137,11 @@ const parseFirstJson = (text: string): unknown => {
       }
       if (c === '"') {
         inStr = true;
-      } else if (c === "{") {
+      } else if (c === "{" || c === "[") {
         depth++;
-      } else if (c === "}") {
+      } else if (c === "}" || c === "]") {
         depth--;
-        if (depth === 0) {
+        if (depth === 0 && c === closeBracket) {
           const candidate = text.slice(0, i + 1);
           return JSON.parse(candidate);
         }
@@ -313,7 +318,12 @@ const buildStat = (file: string): ReportStat => {
  * @returns The rendered HTML document
  */
 const buildHtml = (stats: ReportStat[]): string => {
-  const data = JSON.stringify(stats.map((s, gi) => ({...s, __gi: gi})));
+  // Escape < so a string value containing </script> cannot close the script
+  // tag early and inject markup.
+  const data = JSON.stringify(stats.map((s, gi) => ({...s, __gi: gi}))).replace(
+    /</g,
+    "\\u003c",
+  );
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
