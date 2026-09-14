@@ -834,10 +834,24 @@ const main = async (): Promise<void> => {
     } catch {
       // the log file may be missing entirely; nothing more to print
     }
+    // Clean up every child we started, not just chromedriver; otherwise the
+    // local results server keeps running in the background after we exit.
+    if (serverProc) {
+      try {
+        serverProc.kill("SIGKILL");
+      } catch {
+        // the process may already have exited
+      }
+    }
     try {
       cdProc.kill("SIGKILL");
     } catch {
       // the process may have already exited
+    }
+    try {
+      cdOut.end();
+    } catch {
+      // the stream may already be closed
     }
     process.exit(1);
   }
