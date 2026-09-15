@@ -377,6 +377,44 @@
   }
 
   /**
+   * Test an [HTMLConstructor] element constructor (e.g. HTMLAnchorElement), which
+   * must be invoked via a subclass rather than directly.
+   * @param {string} iface - The name of the constructor to test
+   * @returns {TestResult} - The result of the test
+   */
+  function testHTMLConstructor(iface) {
+    if (typeof customElements === "undefined") {
+      return {
+        result: null,
+        message: "customElements is not available in this context"
+      };
+    }
+
+    try {
+      // eslint-disable-next-line no-eval
+      var BaseCtor = eval(iface);
+      if (typeof BaseCtor !== "function") {
+        return { result: false, message: iface + " is not defined" };
+      }
+
+      // eslint-disable-next-line no-eval
+      var Subclass = eval("(class extends " + iface + " {})");
+      var tagName =
+        "bcd-" +
+        iface.toLowerCase().replace(/[^a-z0-9]/g, "") +
+        "-" +
+        Math.random().toString(36).slice(2, 10);
+
+      customElements.define(tagName, Subclass);
+      new Subclass();
+
+      return { result: true, message: "Constructor passed with no errors" };
+    } catch (err) {
+      return { result: false, message: "threw " + stringify(err) };
+    }
+  }
+
+  /**
    * This function tests to ensure an object prototype's name matches an entry in an
    * explicit list of names
    * @param {object} instance - An object to test
@@ -1936,6 +1974,7 @@
   global.bcd = {
     testConstructor: testConstructor,
     testConstructorNewRequired: testConstructorNewRequired,
+    testHTMLConstructor: testHTMLConstructor,
     testObjectName: testObjectName,
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
