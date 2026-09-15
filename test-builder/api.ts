@@ -202,7 +202,12 @@ const flattenMembers = (iface) => {
     switch (member.type) {
       case "constructor":
         // Test generation doesn't use constructor arguments, so they aren't copied
-        members.push({name: iface.name, type: "constructor"});
+        members.push({
+          name: iface.name,
+          type: "constructor",
+          // [HTMLConstructor] constructors need a different test; see testHTMLConstructor
+          htmlConstructor: !!getExtAttr(member, "HTMLConstructor"),
+        });
         break;
       case "iterable":
       case "async_iterable":
@@ -561,7 +566,9 @@ const buildIDLMemberTests = async (
           }
           break;
         case "constructor":
-          expr = `bcd.testConstructor('${settings.legacyNamespace}.${member.name}')`;
+          expr = member.htmlConstructor
+            ? `bcd.testHTMLConstructor('${settings.legacyNamespace}.${member.name}')`
+            : `bcd.testConstructor('${settings.legacyNamespace}.${member.name}')`;
           break;
       }
     } else {
@@ -582,7 +589,9 @@ const buildIDLMemberTests = async (
           }
           break;
         case "constructor":
-          expr = `bcd.testConstructor('${member.name}')`;
+          expr = member.htmlConstructor
+            ? `bcd.testHTMLConstructor('${member.name}')`
+            : `bcd.testConstructor('${member.name}')`;
           break;
         case "symbol":
           // eslint-disable-next-line no-case-declarations
