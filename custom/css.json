@@ -1265,6 +1265,11 @@
         "dashed-ident": "random(--my-seed, 10px, 20px)"
       }
     },
+    "random-item": {
+      "syntax": "<random-item()>",
+      "property": "width",
+      "value": "random-item(auto, 100px, 200px)"
+    },
     "ray": {
       "syntax": "<ray()>",
       "property": "offset-path",
