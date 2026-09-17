@@ -476,7 +476,6 @@
           "calendarId",
           "day",
           "equals",
-          "getISOFields",
           "monthCode",
           "toJSON",
           "toLocaleString",

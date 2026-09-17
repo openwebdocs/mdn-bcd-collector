@@ -321,7 +321,10 @@
           "Failed to construct", // Used by workerd
           "Error calling function with",
           "can't convert",
-          "needs a"
+          "needs a",
+          "Expected finite integer",
+          "must be finite",
+          "is out of range"
         ])
       ) {
         // If it failed to construct and it's not illegal or just needs
