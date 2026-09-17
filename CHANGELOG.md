@@ -1,5 +1,73 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.11
+
+Released September 17, 2026
+
+### Test Changes
+
+#### Added
+
+- api.AnimationTrigger.activationRangeEnd
+- api.AnimationTrigger.activationRangeStart
+- api.AnimationTrigger.activeRangeEnd
+- api.AnimationTrigger.activeRangeStart
+- api.HTMLInstallElement
+- api.InstallResultEvent
+- api.MLContext.createExportableTensor
+- api.MLContext.exportToGPU
+- api.Navigator.install
+- api.OfflineAudioContext.close
+- api.PerformanceContainerTiming.toJSON
+- api.PerformanceSoftNavigation.toJSON
+- api.RTCPeerConnection.discardDiagnosticLogging_static
+- api.RTCPeerConnection.finishDiagnosticLogging_static
+- api.RTCPeerConnection.startDiagnosticLogging_static
+- api.Sanitizer.setJavascriptURLs
+- css.properties.column-width.stretch
+- css.properties.column-width.contain
+- css.properties.column-width.fit-content
+- css.properties.columns.stretch
+- css.properties.columns.contain
+- css.properties.columns.fit-content
+- css.properties.max-size
+- css.properties.min-size
+- css.properties.scroll-snap-type.pair
+- css.properties.size
+- css.types.random-item
+- html.elements.install
+- javascript.builtins.FinalizationRegistry.unregister.symbol_as_target
+
+#### Removed
+
+- api.AnimationTrigger.exitRangeEnd
+- api.AnimationTrigger.exitRangeStart
+- api.AnimationTrigger.rangeEnd
+- api.AnimationTrigger.rangeStart
+- javascript.builtins.Temporal.PlainMonthDay.getISOFields
+
+### Commits
+
+- Fix Temporal ctor test; remove getISOFields ([#3383](https://github.com/openwebdocs/mdn-bcd-collector/pull/3383))
+- Add symbol_as_target feature for FinalizationRegistry.unregister ([#3368](https://github.com/openwebdocs/mdn-bcd-collector/pull/3368))
+- Add custom test for CSS `random-item()` ([#3379](https://github.com/openwebdocs/mdn-bcd-collector/pull/3379))
+- build(deps): bump @mdn/browser-compat-data from 8.1.1 to 8.1.2 in the data group ([#3382](https://github.com/openwebdocs/mdn-bcd-collector/pull/3382))
+- build(deps): bump the dev group with 2 updates ([#3381](https://github.com/openwebdocs/mdn-bcd-collector/pull/3381))
+- build(deps-dev): bump the data group with 2 updates ([#3380](https://github.com/openwebdocs/mdn-bcd-collector/pull/3380))
+- build(deps-dev): bump the dev group with 4 updates ([#3378](https://github.com/openwebdocs/mdn-bcd-collector/pull/3378))
+- build(deps-dev): bump the dev group with 2 updates ([#3375](https://github.com/openwebdocs/mdn-bcd-collector/pull/3375))
+- build(deps-dev): bump the dev group with 3 updates ([#3374](https://github.com/openwebdocs/mdn-bcd-collector/pull/3374))
+- build(deps-dev): bump the dev group with 4 updates ([#3373](https://github.com/openwebdocs/mdn-bcd-collector/pull/3373))
+- build(deps): bump @mdn/browser-compat-data from 8.1.0 to 8.1.1 in the data group ([#3372](https://github.com/openwebdocs/mdn-bcd-collector/pull/3372))
+- build(deps-dev): bump the dev group with 3 updates ([#3371](https://github.com/openwebdocs/mdn-bcd-collector/pull/3371))
+- build(deps): bump @google-cloud/storage from 8.0.1 to 8.1.0 in the dev group ([#3370](https://github.com/openwebdocs/mdn-bcd-collector/pull/3370))
+- build(deps-dev): bump the dev group with 2 updates ([#3369](https://github.com/openwebdocs/mdn-bcd-collector/pull/3369))
+- build(deps-dev): bump the dev group with 2 updates ([#3367](https://github.com/openwebdocs/mdn-bcd-collector/pull/3367))
+- build(deps-dev): bump the data group with 2 updates ([#3366](https://github.com/openwebdocs/mdn-bcd-collector/pull/3366))
+- Dont create a new relase on pushes to main ([#3365](https://github.com/openwebdocs/mdn-bcd-collector/pull/3365))
+- build(deps): bump the dev group with 3 updates ([#3364](https://github.com/openwebdocs/mdn-bcd-collector/pull/3364))
+- build(deps): bump @mdn/browser-compat-data from 8.0.13 to 8.1.0 in the data group ([#3363](https://github.com/openwebdocs/mdn-bcd-collector/pull/3363))
+
 ## v10.20.10
 
 Released September 3, 2026
