@@ -1144,6 +1144,17 @@
       "property": "voice-pitch",
       "value": "100Hz"
     },
+    "global_keywords": {
+      "property": "color",
+      "additionalValues": {
+        "inherit": "inherit",
+        "initial": "initial",
+        "revert": "revert",
+        "revert-layer": "revert-layer",
+        "revert-rule": "revert-rule",
+        "unset": "unset"
+      }
+    },
     "hypot": {
       "syntax": "<hypot()>",
       "property": "width",
