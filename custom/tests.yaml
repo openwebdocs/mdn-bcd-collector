@@ -6288,6 +6288,7 @@ css:
     nth-last-child: return bcd.testCSSSelector(':nth-last-child(even)');
     nth-last-of-type: return bcd.testCSSSelector(':nth-last-of-type(even)');
     nth-of-type: return bcd.testCSSSelector(':nth-of-type(even)');
+    state: return bcd.testCSSSelector(':state(foo)');
     where: return bcd.testCSSSelector(':where(ol, ul)');
     first: "return {result: null, message: 'Testing :first is not yet implemented'};"
     left: "return {result: null, message: 'Testing :left is not yet implemented'};"
