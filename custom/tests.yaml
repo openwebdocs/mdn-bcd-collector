@@ -6279,7 +6279,7 @@ css:
         custom-ident:
           __test: return CSS.supports('animation-name', 'attr(x type(<custom-ident>))');
         ident:
-          __test: return CSS.supports('animation-name', 'attr(x type(<ident>))');
+          __test: return CSS.supports('animation-name', 'attr(x type(foo))');
         image:
           __test: return CSS.supports('background-image', 'attr(x type(<image>))');
         integer:
