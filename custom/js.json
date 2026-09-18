@@ -262,7 +262,9 @@
       }
     },
     "Iterator": {
-      "ctor": {},
+      "ctor": {
+        "subclass": true
+      },
       "members": {
         "static": ["concat", "from", "zip", "zipKeyed"],
         "instance": [
