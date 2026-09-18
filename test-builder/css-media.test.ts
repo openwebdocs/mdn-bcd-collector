@@ -1,5 +1,6 @@
 import {assert} from "chai";
 import vm from "node:vm";
+import {describe, it} from "mocha";
 
 import fs from "fs-extra";
 import * as YAML from "yaml";
