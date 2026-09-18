@@ -592,6 +592,26 @@ describe("build (API)", () => {
       });
     });
 
+    it("interface with [HTMLConstructor] constructor", async () => {
+      const ast = WebIDL2.parse(
+        `[Exposed=Window]
+           interface HTMLAnchorElement : HTMLElement {
+             [HTMLConstructor] constructor();
+           };`,
+      );
+
+      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+        "api.HTMLAnchorElement": {
+          code: '"HTMLAnchorElement" in self',
+          exposure: ["Window"],
+        },
+        "api.HTMLAnchorElement.HTMLAnchorElement": {
+          code: "bcd.testHTMLConstructor('HTMLAnchorElement')",
+          exposure: ["Window"],
+        },
+      });
+    });
+
     it("iterable interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
