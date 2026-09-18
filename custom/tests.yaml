@@ -6949,7 +6949,7 @@ javascript:
               var options = instance.resolvedOptions();
               return options.signDisplay === 'negative';
             options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
-            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'stripIfInteger');
             options_parameter.options_unit_parameter: return bcd.testOptionParam(construct, null, 'unit', 'gigabyte');
             options_parameter.options_unitDisplay_parameter: "return bcd.testOptionParam(construct, null, 'unitDisplay', 'narrow', {unit: 'gigabyte'});"
             options_parameter.options_useGrouping_parameter: return bcd.testOptionParam(construct, null, 'useGrouping', false);
@@ -6977,7 +6977,7 @@ javascript:
             options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
             options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
             options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
-            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'stripIfInteger');
       RelativeTimeFormat:
         RelativeTimeFormat:
           __base: |-
