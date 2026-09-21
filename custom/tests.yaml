@@ -6265,6 +6265,10 @@ css:
     text-box-edge:
       cap: return bcd.testCSSProperty('text-box-edge', 'cap alphabetic');
       ex: return bcd.testCSSProperty('text-box-edge', 'ex alphabetic');
+    text-fit:
+      consistent: return bcd.testCSSProperty('text-fit', 'grow consistent');
+      per-line: return bcd.testCSSProperty('text-fit', 'grow per-line');
+      per-line-all: return bcd.testCSSProperty('text-fit', 'grow per-line-all');
   selectors:
     next-sibling: return bcd.testCSSSelector('div + span');
     child: return bcd.testCSSSelector('div > span');
