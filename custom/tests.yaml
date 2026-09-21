@@ -6262,6 +6262,9 @@ css:
       __test: return CSS.supports('color', 'var(--foo)') || CSS.supports('color', 'env(--foo)');
     aspect-ratio: |-
       return bcd.testCSSProperty('aspect-ratio', '16 / 9');
+    text-box-edge:
+      cap: return bcd.testCSSProperty('text-box-edge', 'cap alphabetic');
+      ex: return bcd.testCSSProperty('text-box-edge', 'ex alphabetic');
     text-fit:
       consistent: return bcd.testCSSProperty('text-fit', 'grow consistent');
       per-line: return bcd.testCSSProperty('text-fit', 'grow per-line');
@@ -6292,6 +6295,7 @@ css:
     nth-last-child: return bcd.testCSSSelector(':nth-last-child(even)');
     nth-last-of-type: return bcd.testCSSSelector(':nth-last-of-type(even)');
     nth-of-type: return bcd.testCSSSelector(':nth-of-type(even)');
+    state: return bcd.testCSSSelector(':state(foo)');
     where: return bcd.testCSSSelector(':where(ol, ul)');
     first: "return {result: null, message: 'Testing :first is not yet implemented'};"
     left: "return {result: null, message: 'Testing :left is not yet implemented'};"
