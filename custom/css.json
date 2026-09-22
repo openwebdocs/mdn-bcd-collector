@@ -222,6 +222,13 @@
       "__values": ["auto", "optimizeSpeed", "optimizeQuality"]
     },
     "column-progression": {},
+    "column-rule-color": {
+      "__additional_values": {
+        "multiple_colors": "red, blue",
+        "repeat": "repeat(2, red)",
+        "repeat_auto": "repeat(auto, red)"
+      }
+    },
     "contain-intrinsic-size": {
       "__additional_values": {
         "auto_none": "auto none"
