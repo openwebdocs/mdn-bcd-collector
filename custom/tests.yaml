@@ -6202,6 +6202,78 @@ api:
       }
   WGSLLanguageFeatures:
     __additional:
+      extension_linear_indexing: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('linear_indexing');
+      extension_packed_4x8_integer_dot_product: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('packed_4x8_integer_dot_product');
+      extension_pointer_composite_access: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('pointer_composite_access');
+      extension_readonly_and_readwrite_storage_textures: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('readonly_and_readwrite_storage_textures');
+      extension_subgroup_id: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('subgroup_id');
+      extension_subgroup_uniformity: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('subgroup_uniformity');
+      extension_texture_and_sampler_let: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('texture_and_sampler_let');
+      extension_uniform_buffer_standard_layout: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('uniform_buffer_standard_layout');
       extension_unrestricted_pointer_parameters: |-
         if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
           return {result: false, message: 'WebGPU language features are not available'};
