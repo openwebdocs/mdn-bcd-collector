@@ -6300,6 +6300,10 @@ css:
     first: "return {result: null, message: 'Testing :first is not yet implemented'};"
     left: "return {result: null, message: 'Testing :left is not yet implemented'};"
     right: "return {result: null, message: 'Testing :right is not yet implemented'};"
+  types:
+    ratio:
+      number_value: |-
+        return window.matchMedia('(min-aspect-ratio: 1.5)').matches || window.matchMedia('(max-aspect-ratio: 1.5)').matches;
 
 html:
   # Features defined here also need to be in @webref/elements or custom/elements.json.
