@@ -6200,6 +6200,17 @@ api:
       } else {
         instance = CSS.paintWorklet;
       }
+  WGSLLanguageFeatures:
+    __additional:
+      extension_unrestricted_pointer_parameters: |-
+        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+          return {result: false, message: 'WebGPU language features are not available'};
+        }
+        var instance = navigator.gpu.wgslLanguageFeatures;
+        if (!instance || !('has' in instance)) {
+          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+        }
+        return instance.has('unrestricted_pointer_parameters');
   WritableStreamDefaultController:
     __base: |-
       if (!('WritableStream' in self)) {
