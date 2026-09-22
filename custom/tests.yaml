@@ -6201,88 +6201,24 @@ api:
         instance = CSS.paintWorklet;
       }
   WGSLLanguageFeatures:
+    __base: |-
+      if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+        return {result: false, message: 'WebGPU language features are not available'};
+      }
+      var instance = navigator.gpu.wgslLanguageFeatures;
+      if (!instance || !('has' in instance)) {
+        return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+      }
     __additional:
-      extension_linear_indexing: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('linear_indexing');
-      extension_packed_4x8_integer_dot_product: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('packed_4x8_integer_dot_product');
-      extension_pointer_composite_access: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('pointer_composite_access');
-      extension_readonly_and_readwrite_storage_textures: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('readonly_and_readwrite_storage_textures');
-      extension_subgroup_id: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('subgroup_id');
-      extension_subgroup_uniformity: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('subgroup_uniformity');
-      extension_texture_and_sampler_let: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('texture_and_sampler_let');
-      extension_uniform_buffer_standard_layout: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('uniform_buffer_standard_layout');
-      extension_unrestricted_pointer_parameters: |-
-        if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
-          return {result: false, message: 'WebGPU language features are not available'};
-        }
-        var instance = navigator.gpu.wgslLanguageFeatures;
-        if (!instance || !('has' in instance)) {
-          return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
-        }
-        return instance.has('unrestricted_pointer_parameters');
+      extension_linear_indexing: return instance.has('linear_indexing');
+      extension_packed_4x8_integer_dot_product: return instance.has('packed_4x8_integer_dot_product');
+      extension_pointer_composite_access: return instance.has('pointer_composite_access');
+      extension_readonly_and_readwrite_storage_textures: return instance.has('readonly_and_readwrite_storage_textures');
+      extension_subgroup_id: return instance.has('subgroup_id');
+      extension_subgroup_uniformity: return instance.has('subgroup_uniformity');
+      extension_texture_and_sampler_let: return instance.has('texture_and_sampler_let');
+      extension_uniform_buffer_standard_layout: return instance.has('uniform_buffer_standard_layout');
+      extension_unrestricted_pointer_parameters: return instance.has('unrestricted_pointer_parameters');
   WritableStreamDefaultController:
     __base: |-
       if (!('WritableStream' in self)) {
