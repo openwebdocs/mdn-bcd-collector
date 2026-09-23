@@ -853,9 +853,12 @@
   ["api.OffscreenCanvas.contextrestored_event", "firefox", "105-124", false],
   "https://github.com/mdn/browser-compat-data/pull/24386#discussion_r1792287025",
   ["css.properties.display.flow", "chrome", "*", false],
+  ["css.properties.display.flow", "chrome_android", "*", false],
   ["css.properties.display.flow", "edge", "*", false],
   ["css.properties.display.flow", "firefox", "*", false],
+  ["css.properties.display.flow", "firefox_android", "*", false],
   ["css.properties.display.flow", "safari", "*", false],
+  ["css.properties.display.flow", "safari_ios", "*", false],
   "Value recognized, but had no effect yet",
   ["css.properties.line-break.anywhere", "chrome", "80-81", false],
   ["css.properties.line-break.anywhere", "edge", "80-81", false],
@@ -1387,5 +1390,14 @@
   ["api.WEBGL_multi_draw.multiDrawArraysWEBGL", "chrome_android", "86+", true],
   ["api.WEBGL_multi_draw.multiDrawElementsInstancedWEBGL", "chrome_android", "86+", true],
   ["api.WEBGL_multi_draw.multiDrawElementsWEBGL", "chrome_android", "86+", true],
-  ["api.WebGLVertexArrayObjectOES", "chrome_android", "24+", true]
+  ["api.WebGLVertexArrayObjectOES", "chrome_android", "24+", true],
+  "glyph-orientation-vertical is an obsolete SVG property; don't add values",
+  ["css.properties.glyph-orientation-vertical.0", "safari", "*", false],
+  ["css.properties.glyph-orientation-vertical.0", "safari_ios", "*", false],
+  ["css.properties.glyph-orientation-vertical.auto", "safari", "*", false],
+  ["css.properties.glyph-orientation-vertical.auto", "safari_ios", "*", false],
+  ["css.properties.glyph-orientation-vertical.0deg", "safari", "*", false],
+  ["css.properties.glyph-orientation-vertical.0deg", "safari_ios", "*", false],
+  ["css.properties.glyph-orientation-vertical.90deg", "safari", "*", false],
+  ["css.properties.glyph-orientation-vertical.90deg", "safari_ios", "*", false]
 ]
