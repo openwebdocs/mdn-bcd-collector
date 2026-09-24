@@ -6272,6 +6272,7 @@ css:
   types:
     attr:
       type_function:
+        __test: return CSS.supports('content', 'attr(x type(<string>))');
         angle:
           __test: return CSS.supports('rotate', 'attr(x type(<angle>))');
         color:
@@ -6300,6 +6301,7 @@ css:
           __test: return CSS.supports('animation-duration', 'attr(x type(<time>))');
         transform-function:
           __test: return CSS.supports('transform', 'attr(x type(<transform-function>))');
+      raw-string: return bcd.testCSSProperty('content', 'attr(content raw-string)');
   selectors:
     next-sibling: return bcd.testCSSSelector('div + span');
     child: return bcd.testCSSSelector('div > span');
