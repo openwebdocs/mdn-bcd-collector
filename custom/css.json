@@ -1287,7 +1287,10 @@
     "ratio": {
       "syntax": "<ratio>",
       "property": "aspect-ratio",
-      "value": "16 / 9"
+      "value": "16 / 9",
+      "additionalValues": {
+        "number_value": "1.5"
+      }
     },
     "random": {
       "syntax": "<random()>",
