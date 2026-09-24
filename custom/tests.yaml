@@ -6269,6 +6269,39 @@ css:
       consistent: return bcd.testCSSProperty('text-fit', 'grow consistent');
       per-line: return bcd.testCSSProperty('text-fit', 'grow per-line');
       per-line-all: return bcd.testCSSProperty('text-fit', 'grow per-line-all');
+  types:
+    attr:
+      type_function:
+        __test: return CSS.supports('content', 'attr(x type(<string>))');
+        angle:
+          __test: return CSS.supports('rotate', 'attr(x type(<angle>))');
+        color:
+          __test: return CSS.supports('color', 'attr(x type(<color>))');
+        custom-ident:
+          __test: return CSS.supports('animation-name', 'attr(x type(<custom-ident>))');
+        ident:
+          __test: return CSS.supports('animation-name', 'attr(x type(foo))');
+        image:
+          __test: return CSS.supports('background-image', 'attr(x type(<image>))');
+        integer:
+          __test: return CSS.supports('z-index', 'attr(x type(<integer>))');
+        length:
+          __test: return CSS.supports('width', 'attr(x type(<length>))');
+        length-percentage:
+          __test: return CSS.supports('width', 'attr(x type(<length-percentage>))');
+        number:
+          __test: return CSS.supports('opacity', 'attr(x type(<number>))');
+        percentage:
+          __test: return CSS.supports('width', 'attr(x type(<percentage>))');
+        resolution:
+          __test: return CSS.supports('background-image', 'image-set(url(foo) attr(x type(<resolution>)))');
+        string:
+          __test: return CSS.supports('content', 'attr(x type(<string>))');
+        time:
+          __test: return CSS.supports('animation-duration', 'attr(x type(<time>))');
+        transform-function:
+          __test: return CSS.supports('transform', 'attr(x type(<transform-function>))');
+      raw-string: return bcd.testCSSProperty('content', 'attr(content raw-string)');
   selectors:
     next-sibling: return bcd.testCSSSelector('div + span');
     child: return bcd.testCSSSelector('div > span');
@@ -6957,7 +6990,7 @@ javascript:
               var options = instance.resolvedOptions();
               return options.signDisplay === 'negative';
             options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
-            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'stripIfInteger');
             options_parameter.options_unit_parameter: return bcd.testOptionParam(construct, null, 'unit', 'gigabyte');
             options_parameter.options_unitDisplay_parameter: "return bcd.testOptionParam(construct, null, 'unitDisplay', 'narrow', {unit: 'gigabyte'});"
             options_parameter.options_useGrouping_parameter: return bcd.testOptionParam(construct, null, 'useGrouping', false);
@@ -6985,7 +7018,7 @@ javascript:
             options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
             options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
             options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
-            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'stripIfInteger');
       RelativeTimeFormat:
         RelativeTimeFormat:
           __base: |-
