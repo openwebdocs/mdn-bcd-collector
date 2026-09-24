@@ -1061,6 +1061,7 @@
         "contrast-color": "contrast-color(wheat)",
         "currentcolor": "currentcolor",
         "hsl": "hsl(150, 30%, 60%)",
+        "hsla": "hsla(150, 30%, 60%, 0.5)",
         "hwb": "hwb(12, 50%, 0%)",
         "lab": "lab(50%, 40, 59.5)",
         "lch": "lch(52.2%, 72.2, 50)",
