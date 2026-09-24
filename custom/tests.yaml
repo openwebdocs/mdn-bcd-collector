@@ -6673,8 +6673,13 @@ javascript:
             var closed = false;
             var iterable = {};
             iterable[Symbol.iterator] = function() {
+              var yielded = false;
               return {
                 next: function() {
+                  if (yielded) {
+                    return {done: true};
+                  }
+                  yielded = true;
                   return {done: false, value: Promise.reject(new Error('failed'))};
                 },
                 return: function() {
@@ -7256,8 +7261,13 @@ javascript:
           var closed = false;
           var iterable = {};
           iterable[Symbol.iterator] = function() {
+            var yielded = false;
             return {
               next: function() {
+                if (yielded) {
+                  return {done: true};
+                }
+                yielded = true;
                 return {done: false, value: Promise.reject(new Error('failed'))};
               },
               return: function() {
