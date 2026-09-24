@@ -9,7 +9,6 @@ partial interface Document {
 
 partial interface Element {
   attribute EventHandler onafterscriptexecute;
-  attribute EventHandler onanimationcancel;
   attribute EventHandler onanimationend;
   attribute EventHandler onanimationiteration;
   attribute EventHandler onanimationstart;
