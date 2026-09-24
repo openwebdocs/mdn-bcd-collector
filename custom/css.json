@@ -985,7 +985,7 @@
       "value": "attr(content)",
       "additionalValues": {
         "fallback": "attr(content, 'default')",
-        "type_function": "attr(content string)"
+        "raw-string": "attr(content raw-string)"
       }
     },
     "basic-shape": {

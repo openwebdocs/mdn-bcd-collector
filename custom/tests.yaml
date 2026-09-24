@@ -6269,6 +6269,9 @@ css:
       consistent: return bcd.testCSSProperty('text-fit', 'grow consistent');
       per-line: return bcd.testCSSProperty('text-fit', 'grow per-line');
       per-line-all: return bcd.testCSSProperty('text-fit', 'grow per-line-all');
+  types:
+    attr:
+      raw-string: return bcd.testCSSProperty('content', 'attr(content raw-string)');
   selectors:
     next-sibling: return bcd.testCSSSelector('div + span');
     child: return bcd.testCSSSelector('div > span');
