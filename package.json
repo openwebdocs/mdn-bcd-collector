@@ -101,7 +101,7 @@
     "minimatch": "10.2.6",
     "nodemon": "3.1.14",
     "prettier": "3.9.9",
-    "puppeteer": "25.11.0",
+    "puppeteer": "25.12.0",
     "selenium-webdriver": "4.49.0",
     "typescript": "6.0.3",
     "typescript-eslint": "~8.70.1",
