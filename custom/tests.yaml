@@ -6662,6 +6662,36 @@ javascript:
           "Multiple errors thrown",
         );
       AggregateError: return !!instance;
+    Array:
+      fromAsync:
+        __additional:
+          closes_sync_iterator_when_async_wrapper_yields_rejection: |-
+            if (!('Array' in self && 'fromAsync' in Array)) {
+              return {result: false, message: 'Array.fromAsync is not defined'};
+            }
+
+            var closed = false;
+            var iterable = {};
+            iterable[Symbol.iterator] = function() {
+              return {
+                next: function() {
+                  return {done: false, value: Promise.reject(new Error('failed'))};
+                },
+                return: function() {
+                  closed = true;
+                  return {done: true};
+                }
+              };
+            };
+
+            return Array.fromAsync(iterable).then(
+              function() {
+                return false;
+              },
+              function() {
+                return closed;
+              },
+            );
     ArrayBuffer:
       ArrayBuffer:
         __additional:
@@ -7215,6 +7245,41 @@ javascript:
           } catch(e) {
             return {result: false, message: e.message};
           }
+  statements:
+    for_await_of:
+      __additional:
+        closes_sync_iterator_when_async_wrapper_yields_rejection: |-
+          if (!('Promise' in self && 'Symbol' in self && 'iterator' in Symbol)) {
+            return {result: false, message: 'for await...of dependencies are not defined'};
+          }
+
+          var closed = false;
+          var iterable = {};
+          iterable[Symbol.iterator] = function() {
+            return {
+              next: function() {
+                return {done: false, value: Promise.reject(new Error('failed'))};
+              },
+              return: function() {
+                closed = true;
+                return {done: true};
+              }
+            };
+          };
+
+          var test;
+          try {
+            test = new Function(
+              'iterable',
+              'return (async function() { try { for await (var value of iterable) {} } catch (error) {} })();',
+            );
+          } catch (error) {
+            return {result: false, message: error.message};
+          }
+
+          return test(iterable).then(function() {
+            return closed;
+          });
   regular_expressions:
     named_backreference: |-
       try {
