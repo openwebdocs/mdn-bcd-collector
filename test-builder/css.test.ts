@@ -111,6 +111,39 @@ describe("build (CSS)", () => {
     );
   });
 
+  it("CSS attr() raw-string type", async () => {
+    const css = {
+      properties: [],
+      selectors: [],
+      types: [],
+    };
+
+    const customCSS = {
+      properties: {},
+      selectors: {},
+      types: {
+        attr: {
+          property: "content",
+          value: "attr(content)",
+          additionalValues: {
+            "raw-string": "attr(content raw-string)",
+          },
+        },
+      },
+    };
+
+    assert.deepEqual(await build(css, customCSS), {
+      "css.types.attr": {
+        code: 'bcd.testCSSProperty("content", "attr(content)")',
+        exposure: ["Window"],
+      },
+      "css.types.attr.raw-string": {
+        code: 'bcd.testCSSProperty("content", "attr(content raw-string)")',
+        exposure: ["Window"],
+      },
+    });
+  });
+
   it("double-defined property", async () => {
     const css = {
       properties: [{name: "foo", href: "https://foo.bar"}],
