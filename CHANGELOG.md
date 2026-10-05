@@ -1,5 +1,106 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.12
+
+Released October 5, 2026
+
+### Test Changes
+
+#### Added
+
+- api.ModelContext.toolactivated_event
+- api.ModelContext.toolcancel_event
+- api.RTCPeerConnection.cancelDiagnosticLogging_static
+- api.RTCPeerConnection.stopDiagnosticLogging_static
+- api.SpeechGrammarList.addFromUri
+- api.ToolActivatedEvent
+- api.ToolCancelEvent
+- css.properties.bookmark-label.disc
+- css.properties.bookmark-label.circle
+- css.properties.bookmark-label.square
+- css.properties.bookmark-label.disclosure-open
+- css.properties.bookmark-label.disclosure-closed
+- css.properties.column-rule-color.multiple_colors
+- css.properties.column-rule-color.repeat
+- css.properties.content.disc
+- css.properties.content.circle
+- css.properties.content.square
+- css.properties.content.disclosure-open
+- css.properties.content.disclosure-closed
+- css.types.attr.raw-string
+- css.types.attr.type_function.angle
+- css.types.attr.type_function.color
+- css.types.attr.type_function.custom-ident
+- css.types.attr.type_function.ident
+- css.types.attr.type_function.image
+- css.types.attr.type_function.integer
+- css.types.attr.type_function.length
+- css.types.attr.type_function.length-percentage
+- css.types.attr.type_function.number
+- css.types.attr.type_function.percentage
+- css.types.attr.type_function.resolution
+- css.types.attr.type_function.string
+- css.types.attr.type_function.time
+- css.types.attr.type_function.transform-function
+- css.types.color.hsla
+- css.types.global_keywords.inherit
+- css.types.global_keywords.initial
+- css.types.global_keywords.revert
+- css.types.global_keywords.revert-layer
+- css.types.global_keywords.revert-rule
+- css.types.global_keywords.unset
+- css.types.ratio.number_value
+
+#### Removed
+
+- api.RTCPeerConnection.discardDiagnosticLogging_static
+- api.RTCPeerConnection.finishDiagnosticLogging_static
+- api.SharedStorageOperation
+- api.SharedStorageRunOperation
+- api.SharedStorageSelectURLOperation
+- api.SpeechGrammarList.addFromURI
+- api.WindowSharedStorage
+- api.WorkletSharedStorage
+
+#### Changed
+
+- css.properties.column-rule-color.repeat_auto
+- css.properties.text-box-edge.cap
+- css.properties.text-box-edge.ex
+- css.properties.text-fit.consistent
+- css.properties.text-fit.per-line
+- css.properties.text-fit.per-line-all
+- css.selectors.state
+- css.types.attr.type_function
+- javascript.builtins.Intl.NumberFormat.NumberFormat.options_parameter.options_trailingZeroDisplay_parameter
+- javascript.builtins.Intl.PluralRules.PluralRules.options_parameter.options_trailingZeroDisplay_parameter
+
+### Commits
+
+- build(deps): bump the dev group with 4 updates ([#3423](https://github.com/openwebdocs/mdn-bcd-collector/pull/3423))
+- build(deps): bump the data group across 1 directory with 2 updates ([#3416](https://github.com/openwebdocs/mdn-bcd-collector/pull/3416))
+- build(deps-dev): bump the dev group across 1 directory with 7 updates ([#3421](https://github.com/openwebdocs/mdn-bcd-collector/pull/3421))
+- build(deps-dev): bump brace-expansion from 1.1.18 to 1.1.21 ([#3420](https://github.com/openwebdocs/mdn-bcd-collector/pull/3420))
+- build(deps): bump @grpc/grpc-js from 1.14.4 to 1.14.5 ([#3419](https://github.com/openwebdocs/mdn-bcd-collector/pull/3419))
+- build(deps-dev): bump undici from 7.29.0 to 7.30.0 ([#3418](https://github.com/openwebdocs/mdn-bcd-collector/pull/3418))
+- build(deps): bump @mdn/browser-compat-data from 8.1.2 to 8.1.3 in the data group ([#3412](https://github.com/openwebdocs/mdn-bcd-collector/pull/3412))
+- Fix tests.yaml merge ([#3411](https://github.com/openwebdocs/mdn-bcd-collector/pull/3411))
+- test(css): cover ratio numbers in media queries ([#3403](https://github.com/openwebdocs/mdn-bcd-collector/pull/3403))
+- test(css): cover hsla color function ([#3402](https://github.com/openwebdocs/mdn-bcd-collector/pull/3402))
+- feat(css): collect global keyword compatibility tests ([#3393](https://github.com/openwebdocs/mdn-bcd-collector/pull/3393))
+- test(css): cover column-rule-color value forms ([#3399](https://github.com/openwebdocs/mdn-bcd-collector/pull/3399))
+- test(css): cover `attr()` type functions + `raw-string` ([#3390](https://github.com/openwebdocs/mdn-bcd-collector/pull/3390))
+- Remove outdated shared-storage custom IDL ([#3410](https://github.com/openwebdocs/mdn-bcd-collector/pull/3410))
+- build(deps-dev): bump puppeteer from 25.11.0 to 25.12.0 in the dev group ([#3409](https://github.com/openwebdocs/mdn-bcd-collector/pull/3409))
+- build(deps): bump the dev group across 1 directory with 3 updates ([#3405](https://github.com/openwebdocs/mdn-bcd-collector/pull/3405))
+- fix(custom-tests): use valid trailingZeroDisplay values ([#3388](https://github.com/openwebdocs/mdn-bcd-collector/pull/3388))
+- build(deps): bump the dev group with 9 updates ([#3395](https://github.com/openwebdocs/mdn-bcd-collector/pull/3395))
+- fix(css): use valid syntax for text-fit tests ([#3394](https://github.com/openwebdocs/mdn-bcd-collector/pull/3394))
+- fix(css): test paired text-box-edge values ([#3392](https://github.com/openwebdocs/mdn-bcd-collector/pull/3392))
+- fix(css): test `:state()` with an identifier ([#3385](https://github.com/openwebdocs/mdn-bcd-collector/pull/3385))
+- build(deps): bump the dev group with 2 updates ([#3387](https://github.com/openwebdocs/mdn-bcd-collector/pull/3387))
+- build(deps-dev): bump @webref/css from 8.7.4 to 8.7.5 in the data group ([#3386](https://github.com/openwebdocs/mdn-bcd-collector/pull/3386))
+
 ## v10.20.11
 
 Released September 17, 2026
