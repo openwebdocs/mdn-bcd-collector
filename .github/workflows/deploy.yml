@@ -26,7 +26,6 @@ jobs:
       - name: Checkout commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version-file: ".nvmrc"
           persist-credentials: false
       - name: Check for version change
         id: check
@@ -47,6 +46,9 @@ jobs:
           npm run build
           npm run release-stats --silent -- > stats.json
           gh release create $VERSION --title=$VERSION stats.json
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
       - name: Deploy to Heroku
         if: steps.check.outputs.changed == 'true'
         uses: akhileshns/heroku-deploy@1b080913896a5d6d44a18e9e208f8eb1fee9b0f7 # v3.15.15
