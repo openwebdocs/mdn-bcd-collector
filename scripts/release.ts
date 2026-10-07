@@ -310,6 +310,23 @@ const getGitChanges = async (ctx) => {
 };
 
 /**
+ * Retrieves the current statistics.
+ * @param ctx - The context object.
+ * @returns - A promise that resolves when the git changes are retrieved.
+ */
+const getStats = async (ctx) => {
+  const stdout = await exec(`npm run release-stats --silent`);
+  const stats = JSON.parse(stdout);
+  ctx.statistics = `
+   - Total keys in BCD: ${stats.bcd.summary.all_keys_count}
+   - BCD keys testable in the Collector: ${stats.bcd.summary.testable_keys_count} (${(stats.bcd.summary.testable_keys_ratio * 100).toFixed(2)}%)
+   - Collector coverage of testable BCD keys: ${stats.bcd.summary.testable_covered_keys_count} (${(stats.bcd.summary.testable_covered_keys_ratio * 100).toFixed(2)}%)
+   - Total keys in the Collector: ${stats.collector.summary.all_keys_count}
+   - Collector keys in BCD: ${stats.collector.summary.keys_in_bcd_count} (${(stats.collector.summary.keys_in_bcd_ratio * 100).toFixed(2)}%)
+  `;
+};
+
+/**
  * Updates the CHANGELOG.md file with a new version section and commits.
  * If a major version bump is performed, moves the old changelog results to another file.
  * @param ctx - The context object containing information about the new version, test changes, and commits.
@@ -328,6 +345,9 @@ const doChangelogUpdate = async (ctx) => {
     (ctx.testChanges === "\n" ? "" : "### Test Changes\n" + ctx.testChanges) +
     "\n### Commits\n\n" +
     ctx.commits +
+    "\n\n" +
+    "\n### Statistics\n\n" +
+    ctx.statistics +
     "\n\n";
 
   const idx = changelog.indexOf("##");
@@ -463,6 +483,10 @@ const main = async () => {
       {
         title: "Get commits",
         task: getGitChanges,
+      },
+      {
+        title: "Get statistics",
+        task: getStats,
       },
       {
         title: "Update changelog",
