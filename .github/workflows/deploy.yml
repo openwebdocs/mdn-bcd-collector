@@ -6,61 +6,62 @@ on:
       - main
 
 permissions:
-  contents: write
-  deployments: write
+  contents: read
 
 env:
   FORCE_COLOR: 3
   RESULTS_DIR: ./mdn-bcd-results
 
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to publish a release and to write to mdn-bcd-results repo
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v7
-        with:
-          submodules: true
-      - uses: actions/setup-node@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           node-version-file: ".nvmrc"
+          persist-credentials: false
       - name: Check for version change
         id: check
-        uses: EndBug/version-check@v3
+        uses: EndBug/version-check@095362f3cd50f690c8fa0e6afeea81834bd8d320 # v3.0.0
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Configure Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
-      - name: Tag new release
-        if: steps.check.outputs.changed == 'true'
-        run: |
-          git tag v${{steps.check.outputs.version}}
-          git push origin v${{steps.check.outputs.version}}
       - name: Create a release with artifacts
         if: steps.check.outputs.changed == 'true'
         env:
-          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.check.outputs.version }}
         run: |
-         npm ci
-         npm run build
-         npm run release-stats --silent -- > stats.json
-         gh release create v${{steps.check.outputs.version}} stats.json
+          npm ci
+          npm run build
+          npm run release-stats --silent -- > stats.json
+          gh release create "v$VERSION" stats.json
       - name: Deploy to Heroku
         if: steps.check.outputs.changed == 'true'
-        uses: akhileshns/heroku-deploy@v3.15.15
+        uses: akhileshns/heroku-deploy@1b080913896a5d6d44a18e9e208f8eb1fee9b0f7 # v3.15.15
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mdn-bcd-collector"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
       - name: Checkout mdn-bcd-results
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.check.outputs.changed == 'true'
         with:
           repository: openwebdocs/mdn-bcd-results
           path: mdn-bcd-results
           token: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
+          persist-credentials: false
       - name: Configure Git (mdn-bcd-results)
         if: steps.check.outputs.changed == 'true'
         run: |
@@ -77,17 +78,15 @@ jobs:
           cd ..
       - name: Run Selenium and collect results
         if: steps.check.outputs.changed == 'true'
-        run: |
-          npm install -D typescript
-          npm install -D tsx
-          npm run selenium
+        run: npm run selenium
         env:
           SECRETS_JSON: ${{secrets.SECRETS_JSON}}
       - name: Submit all results to the results repo
         if: steps.check.outputs.changed == 'true'
+        working-directory: mdn-bcd-results
+        env:
+          VERSION: ${{ steps.check.outputs.version }}
         run: |
-          cd mdn-bcd-results
-          git add *.json
-          git commit -m "Selenium v${{steps.check.outputs.version}} results"
+          git add '*.json'
+          git commit -m "Selenium v$VERSION results"
           git push origin main
-          cd ..
