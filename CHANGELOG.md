@@ -1,5 +1,15 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.14
+
+Released October 7, 2026
+
+### Commits
+
+- Fix tag name ([#3437](https://github.com/openwebdocs/mdn-bcd-collector/pull/3437))
+- Only install heroku when version has changed ([#3436](https://github.com/openwebdocs/mdn-bcd-collector/pull/3436))
+- ubuntu-latest needs heroku-cli installed first ([#3435](https://github.com/openwebdocs/mdn-bcd-collector/pull/3435))
+
 ## v10.20.13
 
 Released October 7, 2026
