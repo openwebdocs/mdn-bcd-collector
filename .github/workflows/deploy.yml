@@ -64,7 +64,7 @@ jobs:
           repository: openwebdocs/mdn-bcd-results
           path: mdn-bcd-results
           token: ${{ secrets.GOOBORG_BOT_GH_TOKEN }}
-          persist-credentials: false
+          persist-credentials: true # needed later when pushing new results
       - name: Configure Git (mdn-bcd-results)
         if: steps.check.outputs.changed == 'true'
         run: |
