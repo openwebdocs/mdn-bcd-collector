@@ -1,5 +1,23 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.15
+
+Released October 7, 2026
+
+### Commits
+
+- Add stats to changelog ([#3442](https://github.com/openwebdocs/mdn-bcd-collector/pull/3442))
+- Put release notes in pull request and GitHub release ([#3441](https://github.com/openwebdocs/mdn-bcd-collector/pull/3441))
+- Fix deployment permissions ([#3439](https://github.com/openwebdocs/mdn-bcd-collector/pull/3439))
+
+### Statistics
+
+- Total keys in BCD: 20645
+- BCD keys testable in the Collector: 16783 (81.29%)
+- Collector coverage of testable BCD keys: 14780 (88.07%)
+- Total keys in the Collector: 17206
+- Collector keys in BCD: 14780 (85.90%)
+
 ## v10.20.14
 
 Released October 7, 2026
