@@ -83,6 +83,9 @@ export {coverageData};
 
 /* node:coverage disable */
 if (esMain(import.meta)) {
+  // Just provide stats not lists in stats.json release artifact
+  delete (coverageData as any).bcd.lists;
+  delete (coverageData as any).collector.lists;
   console.log(JSON.stringify(coverageData, undefined, 2));
 }
 /* node:coverage enable */
