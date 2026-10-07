@@ -46,7 +46,7 @@ jobs:
           npm ci
           npm run build
           npm run release-stats --silent -- > stats.json
-          gh release create "v$VERSION" stats.json
+          gh release create $VERSION --title=$VERSION stats.json
       - name: Deploy to Heroku
         if: steps.check.outputs.changed == 'true'
         uses: akhileshns/heroku-deploy@1b080913896a5d6d44a18e9e208f8eb1fee9b0f7 # v3.15.15
