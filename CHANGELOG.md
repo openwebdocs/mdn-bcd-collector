@@ -1,5 +1,33 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.13
+
+Released October 7, 2026
+
+### Test Changes
+
+#### Added
+
+- api.LanguageModelToolCall
+- api.LanguageModelToolError
+- api.LanguageModelToolSuccess
+
+#### Removed
+
+- api.MessagePort.close_event
+
+### Commits
+
+- build(deps-dev): bump the dev group with 4 updates ([#3433](https://github.com/openwebdocs/mdn-bcd-collector/pull/3433))
+- build(deps-dev): bump the data group with 3 updates ([#3432](https://github.com/openwebdocs/mdn-bcd-collector/pull/3432))
+- build(deps-dev): bump shell-quote from 1.10.0 to 1.12.0 ([#3430](https://github.com/openwebdocs/mdn-bcd-collector/pull/3430))
+- Fix zizmor permission ([#3431](https://github.com/openwebdocs/mdn-bcd-collector/pull/3431))
+- Introduce zizmore; remove release workflow ([#3429](https://github.com/openwebdocs/mdn-bcd-collector/pull/3429))
+- stats.json release artifact: just stats, no lists ([#3428](https://github.com/openwebdocs/mdn-bcd-collector/pull/3428))
+- build(deps): bump proxy-addr from 2.0.7 to 2.0.8 ([#3427](https://github.com/openwebdocs/mdn-bcd-collector/pull/3427))
+- build(deps): bump source-map-js from 1.2.1 to 1.2.2 ([#3426](https://github.com/openwebdocs/mdn-bcd-collector/pull/3426))
+- build(deps-dev): bump typescript-eslint from 8.71.0 to 8.71.1 in the dev group ([#3425](https://github.com/openwebdocs/mdn-bcd-collector/pull/3425))
+
 ## v10.20.12
 
 Released October 5, 2026
