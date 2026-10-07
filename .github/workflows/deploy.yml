@@ -45,7 +45,7 @@ jobs:
           npm ci
           npm run build
           npm run release-stats --silent -- > stats.json
-          gh release create $VERSION --title=$VERSION stats.json
+          gh release create "v$VERSION" --title="v$VERSION" stats.json
       - name: Install Heroku CLI
         if: steps.check.outputs.changed == 'true'
         run: |
