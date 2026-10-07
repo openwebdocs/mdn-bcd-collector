@@ -1,5 +1,13 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.15
+
+Released October 7, 2026
+
+### Commits
+
+- Fix deployment permissions ([#3439](https://github.com/openwebdocs/mdn-bcd-collector/pull/3439))
+
 ## v10.20.14
 
 Released October 7, 2026
