@@ -6,36 +6,34 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: read # Required to read pull request metadata for the diff workflow.
 
 env:
   FORCE_COLOR: 3
 
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
-    strategy:
-      matrix:
-        include:
-          - name: Linux
-            runs-on: ubuntu-22.04
-          # - name: macOS
-          #   runs-on: macos-latest
-    name: Test (${{ matrix.name }})
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: ubuntu-latest
+    name: Test
     env:
       BCD_DIR: ./browser-compat-data
     steps:
-      - name: Clone collector
-        uses: actions/checkout@v7
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          submodules: true
-      - name: Clone browser-compat-data
-        uses: actions/checkout@v7
+          persist-credentials: false
+      - name: Checkout browser-compat-data
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: mdn/browser-compat-data
           path: browser-compat-data
+          persist-credentials: false
       - name: Setup NodeJS
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
       - name: Prepare browser-compat-data
@@ -64,27 +62,27 @@ jobs:
     env:
       PUPPETEER_SKIP_DOWNLOAD: 1
     steps:
-      - name: Clone collector (base)
-        uses: actions/checkout@v7
+      - name: Checkout collector (base)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.base_ref }}
           path: base
           persist-credentials: false
           submodules: true
-      - name: Clone collector (PR)
-        uses: actions/checkout@v7
+      - name: Checkout collector (PR)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: pr
           persist-credentials: false
           submodules: true
-      - name: Clone browser-compat-data
-        uses: actions/checkout@v7
+      - name: Checkout browser-compat-data
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: mdn/browser-compat-data
           path: bcd
           persist-credentials: false
       - name: Setup NodeJS
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: pr/.nvmrc
       - name: Install

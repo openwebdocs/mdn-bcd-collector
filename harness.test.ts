@@ -26,7 +26,10 @@ describe("harness.js", () => {
 
   for (const product of products) {
     it(product, async () => {
-      const browser = await puppeteer.launch({product});
+      const browser = await puppeteer.launch({
+        product,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
       after(() => browser.close());
 
       const page = await browser.newPage();
