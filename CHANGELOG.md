@@ -1,5 +1,30 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.15
+
+Released October 8, 2026
+
+### Commits
+
+- Fix escaping when updating stats comment ([#3453](https://github.com/openwebdocs/mdn-bcd-collector/pull/3453))
+- Update issue description, not comment ([#3451](https://github.com/openwebdocs/mdn-bcd-collector/pull/3451))
+- build(deps): bump @mdn/browser-compat-data from 8.1.4 to 8.1.5 in the data group ([#3449](https://github.com/openwebdocs/mdn-bcd-collector/pull/3449))
+- build(deps): bump the dev group with 2 updates ([#3448](https://github.com/openwebdocs/mdn-bcd-collector/pull/3448))
+- Automatically update statistics comment as part of release ([#3447](https://github.com/openwebdocs/mdn-bcd-collector/pull/3447))
+- Tweak stats in release notes ([#3445](https://github.com/openwebdocs/mdn-bcd-collector/pull/3445))
+- Add stats to changelog ([#3442](https://github.com/openwebdocs/mdn-bcd-collector/pull/3442))
+- Put release notes in pull request and GitHub release ([#3441](https://github.com/openwebdocs/mdn-bcd-collector/pull/3441))
+- Fix deployment permissions ([#3439](https://github.com/openwebdocs/mdn-bcd-collector/pull/3439))
+
+### Statistics
+
+- Total BCD keys: 20696
+- Testable BCD keys: 16834 (81.34%)
+- Testable BCD keys not in Collector: 2019 (11.99%)
+- Total Collector keys: 17206
+- Collector keys in BCD: 14815 (86.10%)
+- Collector keys not in BCD: 2391 (13.90%)
+
 ## v10.20.14
 
 Released October 7, 2026
