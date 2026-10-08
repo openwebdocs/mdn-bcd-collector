@@ -474,7 +474,7 @@ const updateStatsIssue = async (ctx) => {
     });
   };
 
-  let newBody = appendToXAxis(body, newData.release);
+  let newBody = appendToXAxis(body, "v" + newData.release);
 
   if (newBody != body) {
     newBody = appendToMermaidLine(newBody, "Total BCD keys", newData.totalBcd);
@@ -506,7 +506,9 @@ const updateStatsIssue = async (ctx) => {
     );
 
     await exec(
-      `gh issue edit ${ISSUE_NUMBER} --body "${newBody.replace("`", "\\`")}"`,
+      `gh issue edit ${ISSUE_NUMBER} --body-file - <<'EOF'
+       ${newBody}
+       EOF`,
     );
   }
 };
