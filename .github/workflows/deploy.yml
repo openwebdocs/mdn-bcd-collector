@@ -45,7 +45,7 @@ jobs:
           npm ci
           npm run build
           npm run release-stats --silent -- > stats.json
-          awk '/^## /{if (p) exit; p=1; next} p' CHANGELOG.md | tail -n +4 >> CURRENT_RELEASE_NOTES.md
+          awk '/^## /{if (p) exit; p=1; next} p' CHANGELOG.md > CURRENT_RELEASE_NOTES.md
           gh release create "v$VERSION" --title="v$VERSION" --notes-file="CURRENT_RELEASE_NOTES.md" stats.json
       - name: Install Heroku CLI
         if: steps.check.outputs.changed == 'true'
