@@ -14,6 +14,7 @@ const currentVersion = (
 ).version;
 
 let newChangelogSection = "";
+let stats;
 
 /**
  * Prepares the tasks for the release process.
@@ -316,7 +317,7 @@ const getGitChanges = async (ctx) => {
  */
 const getStats = async (ctx) => {
   const stdout = await exec(`npm run release-stats --silent`);
-  const stats = JSON.parse(stdout);
+  stats = JSON.parse(stdout);
   ctx.statistics = `
    - Total BCD keys: ${stats.bcd.summary.all_keys_count}
    - Testable BCD keys: ${stats.bcd.summary.testable_keys_count} (${(stats.bcd.summary.testable_keys_ratio * 100).toFixed(2)}%)
@@ -418,6 +419,99 @@ const prepareBranch = async (ctx) => {
 };
 
 /**
+ * Updates the statistics issue with the latest stats.
+ * @param ctx - The context object containing the branch name.
+ * @returns - A promise that resolves when the pull request is created.
+ */
+const updateStatsIssue = async (ctx) => {
+  const ISSUE_NUMBER = 3444;
+
+  const newData = {
+    release: ctx.newVersion,
+    totalBcd: stats.bcd.summary.all_keys_count,
+    totalCollector: stats.collector.summary.all_keys_count,
+    testableBcd: stats.bcd.summary.testable_keys_count,
+    collectorInBcd: stats.collector.summary.keys_in_bcd_count,
+    collectorNotInBcd: stats.collector.summary.keys_not_in_bcd_count,
+    testableBcdNotInCollector:
+      stats.bcd.summary.testable_not_covered_keys_count,
+  };
+
+  const body = await exec(
+    `gh issue view ${ISSUE_NUMBER} --json comments -q '.comments[0].body'`,
+  );
+
+  /**
+   * Appends items to a line entry
+   * @param body The comment body to update
+   * @param lineIdentifier A string to identify the line
+   * @param newValue The new value to set
+   * @returns updated body string
+   */
+  const appendToMermaidLine = (body, lineIdentifier, newValue) => {
+    const regex = new RegExp(
+      `(line "${lineIdentifier}" \\[)([^\\]]+)(\\])`,
+      "g",
+    );
+    return body.replace(regex, `$1$2, ${newValue}$3`);
+  };
+
+  /**
+   * Appends items to an x-axis entry
+   * @param body The comment body to update
+   * @param newValue The new value to set
+   * @returns updated body string
+   */
+  const appendToXAxis = (body, newValue) => {
+    const regex = new RegExp(`(x-axis "BCD releases" \\[)([^\\]]+)(\\])`, "g");
+
+    return body.replace(regex, (match, start, values, end) => {
+      if (values.includes(`"${newValue}"`)) {
+        return match;
+      }
+
+      return `${start}${values}, "${newValue}"${end}`;
+    });
+  };
+
+  let newBody = appendToXAxis(body, newData.release);
+
+  if (newBody != body) {
+    newBody = appendToMermaidLine(newBody, "Total BCD keys", newData.totalBcd);
+    newBody = appendToMermaidLine(
+      newBody,
+      "Total Collector keys",
+      newData.totalCollector,
+    );
+    newBody = appendToMermaidLine(
+      newBody,
+      "Testable BCD keys in Collector",
+      newData.testableBcd,
+    );
+    newBody = appendToMermaidLine(
+      newBody,
+      "Collector keys in BCD",
+      newData.collectorInBcd,
+    );
+
+    newBody = appendToMermaidLine(
+      newBody,
+      "Collector keys not in BCD",
+      newData.collectorNotInBcd,
+    );
+    newBody = appendToMermaidLine(
+      newBody,
+      "Testable BCD keys not in Collector",
+      newData.testableBcdNotInCollector,
+    );
+
+    await exec(
+      `gh issue comment ${ISSUE_NUMBER} --body "${newBody}" --edit-last`,
+    );
+  }
+};
+
+/**
  * Creates a pull request using the specified context.
  * @param ctx - The context object containing the branch name.
  * @returns - A promise that resolves when the pull request is created.
@@ -451,6 +545,11 @@ const main = async () => {
     })
     .option("no-pr", {
       describe: "Don't create a pull request",
+      type: "boolean",
+      default: false,
+    })
+    .option("no-stats", {
+      describe: "Don't update statistics issue",
       type: "boolean",
       default: false,
     });
@@ -555,6 +654,16 @@ const main = async () => {
          */
         skip: (ctx) => ctx.skipPR,
       },
+      {
+        title: "Update statistics issue",
+        task: updateStatsIssue,
+        /**
+         * Skip if the user has specified not to update the stats issue
+         * @param ctx - The context object.
+         * @returns - Returns true if the task should be skipped, false otherwise.
+         */
+        skip: (ctx) => ctx.skipStats,
+      },
     ],
     {
       rendererOptions: {
@@ -564,6 +673,7 @@ const main = async () => {
         skipFetch: argv["no-fetch"],
         skipPrompt: argv["no-prompt"],
         skipPR: argv["no-pr"],
+        skipStats: argv["no-stats"],
         newVersion: null,
       },
     },
