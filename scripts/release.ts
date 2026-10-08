@@ -438,7 +438,7 @@ const updateStatsIssue = async (ctx) => {
   };
 
   const body = await exec(
-    `gh issue view ${ISSUE_NUMBER} --json comments -q '.comments[0].body'`,
+    `gh issue view ${ISSUE_NUMBER} --json body -q '.body'`,
   );
 
   /**
@@ -505,9 +505,7 @@ const updateStatsIssue = async (ctx) => {
       newData.testableBcdNotInCollector,
     );
 
-    await exec(
-      `gh issue comment ${ISSUE_NUMBER} --body "${newBody}" --edit-last`,
-    );
+    await exec(`gh issue edit ${ISSUE_NUMBER} --body "${newBody}"`);
   }
 };
 
