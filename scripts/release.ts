@@ -420,14 +420,13 @@ const prepareBranch = async (ctx) => {
 
 /**
  * Updates the statistics issue with the latest stats.
- * @param ctx - The context object containing the branch name.
  * @returns - A promise that resolves when the pull request is created.
  */
-const updateStatsIssue = async (ctx) => {
+const updateStatsIssue = async () => {
   const ISSUE_NUMBER = 3444;
 
   const newData = {
-    release: ctx.newVersion,
+    release: stats.bcd.version,
     totalBcd: stats.bcd.summary.all_keys_count,
     totalCollector: stats.collector.summary.all_keys_count,
     testableBcd: stats.bcd.summary.testable_keys_count,
@@ -485,7 +484,7 @@ const updateStatsIssue = async (ctx) => {
     );
     newBody = appendToMermaidLine(
       newBody,
-      "Testable BCD keys in Collector",
+      "Testable BCD keys",
       newData.testableBcd,
     );
     newBody = appendToMermaidLine(
@@ -507,8 +506,8 @@ const updateStatsIssue = async (ctx) => {
 
     await exec(
       `gh issue edit ${ISSUE_NUMBER} --body-file - <<'EOF'
-       ${newBody}
-       EOF`,
+${newBody}
+EOF`,
     );
   }
 };
