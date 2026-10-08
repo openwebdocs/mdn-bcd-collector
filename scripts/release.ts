@@ -505,7 +505,9 @@ const updateStatsIssue = async (ctx) => {
       newData.testableBcdNotInCollector,
     );
 
-    await exec(`gh issue edit ${ISSUE_NUMBER} --body "${newBody}"`);
+    await exec(
+      `gh issue edit ${ISSUE_NUMBER} --body "${newBody.replace("`", "\\`")}"`,
+    );
   }
 };
 
