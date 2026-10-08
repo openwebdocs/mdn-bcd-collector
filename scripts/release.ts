@@ -318,11 +318,12 @@ const getStats = async (ctx) => {
   const stdout = await exec(`npm run release-stats --silent`);
   const stats = JSON.parse(stdout);
   ctx.statistics = `
-   - Total keys in BCD: ${stats.bcd.summary.all_keys_count}
-   - BCD keys testable in the Collector: ${stats.bcd.summary.testable_keys_count} (${(stats.bcd.summary.testable_keys_ratio * 100).toFixed(2)}%)
-   - Collector coverage of testable BCD keys: ${stats.bcd.summary.testable_covered_keys_count} (${(stats.bcd.summary.testable_covered_keys_ratio * 100).toFixed(2)}%)
-   - Total keys in the Collector: ${stats.collector.summary.all_keys_count}
+   - Total BCD keys: ${stats.bcd.summary.all_keys_count}
+   - Testable BCD keys: ${stats.bcd.summary.testable_keys_count} (${(stats.bcd.summary.testable_keys_ratio * 100).toFixed(2)}%)
+   - Testable BCD keys not in Collector: ${stats.bcd.summary.testable_not_covered_keys_count} (${(stats.bcd.summary.testable_not_covered_keys_ratio * 100).toFixed(2)}%)
+   - Total Collector keys: ${stats.collector.summary.all_keys_count}
    - Collector keys in BCD: ${stats.collector.summary.keys_in_bcd_count} (${(stats.collector.summary.keys_in_bcd_ratio * 100).toFixed(2)}%)
+   - Collector keys not in BCD: ${stats.collector.summary.keys_not_in_bcd_count} (${(stats.collector.summary.keys_not_in_bcd_ratio * 100).toFixed(2)}%)
   `;
 };
 
