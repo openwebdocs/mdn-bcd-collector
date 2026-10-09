@@ -871,7 +871,6 @@
     "svg.global_attributes.opacity",
     "svg.global_attributes.overflow",
     "svg.global_attributes.paint-order",
-    "svg.global_attributes.pointer-events",
     "svg.global_attributes.shape-rendering",
     "svg.global_attributes.stop-color",
     "svg.global_attributes.stop-opacity",
