@@ -420,6 +420,15 @@ const buildSyntax = async (customJS) => {
         },
         exposure: ["Window"],
       });
+
+      for (const [key, additionalCode] of Object.entries(
+        customTest.additional,
+      )) {
+        tests[`${path}.${key}`] = compileTest({
+          raw: {code: additionalCode},
+          exposure: ["Window"],
+        });
+      }
     }
   }
 

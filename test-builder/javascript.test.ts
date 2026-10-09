@@ -290,6 +290,13 @@ describe("build (JavaScript)", () => {
 })();`,
         exposure: ["Window"],
       },
+      "javascript.statements.var.custom": {
+        code: `(function () {
+  return true;
+})();
+`,
+        exposure: ["Window"],
+      },
     });
   });
 });
