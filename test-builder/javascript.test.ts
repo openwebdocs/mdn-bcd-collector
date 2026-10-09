@@ -292,4 +292,37 @@ describe("build (JavaScript)", () => {
       },
     });
   });
+
+  it("uses a subclass to test constructors that cannot be called directly", async () => {
+    const tests = await build([], {
+      builtins: {
+        Iterator: {
+          ctor: {subclass: true},
+        },
+      },
+      classes: {},
+      functions: {},
+      grammar: {},
+      operators: {},
+      regular_expressions: {},
+      statements: {},
+    });
+
+    assert.deepEqual(tests["javascript.builtins.Iterator.Iterator"], {
+      code: `(function () {
+  if (!("Iterator" in self)) {
+    return { result: false, message: "Iterator is not defined" };
+  }
+  class Subclass extends Iterator {
+    constructor() {
+      super();
+    }
+  }
+  new Subclass();
+  return { result: true, message: "Constructor passed with no errors" };
+})();
+`,
+      exposure: ["Window"],
+    });
+  });
 });
