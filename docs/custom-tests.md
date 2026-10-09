@@ -289,6 +289,19 @@ bcd.addTest(
 > [!NOTE]
 > If the specified `ident` cannot be found, an error will be generated and thrown during the test run.
 
+## Test HTTP request headers
+
+The collector can inspect selected request headers sent by the browser. Add a custom test under `http.headers` and call `bcd.testHttpHeader(name, expectedValue)`. The helper returns a promise that resolves to `true` if the header is present and nonempty, or, when `expectedValue` is provided, if its value matches. Otherwise, it resolves to `false`.
+
+```yaml
+http:
+  headers:
+    Sec-Fetch-Site: |-
+      return bcd.testHttpHeader("sec-fetch-site", "same-origin");
+```
+
+Only headers with custom tests under `http.headers` in `custom/tests.yaml` can be inspected. Current tests inspect same-origin XHR requests from the collector page. User-Agent Client Hints require a secure context. Headers tied to user-activated navigation or prefetch requests need different triggers, and testing requests to other sites requires additional origins and CORS configuration.
+
 ## Use ES3 features
 
 Tests are intended to be run on as early of browser versions as possible, including Chrome 1, Firefox 1 and Safari 3. These older versions, however, do not support modern ES6 features. To maximize compatibility, perform the following in custom test code:
