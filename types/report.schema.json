@@ -49,6 +49,27 @@
           "required": ["exposure", "message", "name", "result"]
         }
       ]
+    },
+
+    "flag_statement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Flag type.",
+          "enum": ["preference", "runtime_flag"]
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the flag or preference to configure."
+        },
+        "value_to_set": {
+          "type": "string",
+          "description": "Value to set the flag to."
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type", "name"]
     }
   },
 
@@ -85,6 +106,13 @@
     "preview": {
       "type": "boolean",
       "description": "Whether the report is from a preview browser (Nightly, Canary, Technical Preview)."
+    },
+    "flags": {
+      "type": "array",
+      "description": "Feature flags that must be configured for this browser to support this feature.",
+      "items": {
+        "$ref": "#/definitions/flag_statement"
+      }
     }
   },
   "required": ["__version", "results", "userAgent"],

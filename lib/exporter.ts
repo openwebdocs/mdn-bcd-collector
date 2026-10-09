@@ -31,13 +31,14 @@ const getReportMeta = (report: Report): ReportMeta => {
   const browser = `${ua.browser.name} ${ua.version}`;
   const os = `${ua.os.name} ${ua.os.version}`;
   const preview = report.preview ? "-preview" : "";
-  const desc = `${browser}${preview} / ${os}`;
+  const hasFlags = report.flags.length ? "-flagged" : "";
+  const desc = `${browser}${preview}${hasFlags} / ${os}`;
 
   // XXX Casting slugify to "any" to mitigate NodeNext module resolution issue
   const slug = `${report.__version.toLowerCase()}-${ua.browser.id.replace(
     /_/g,
     "-",
-  )}-${ua.fullVersion}${preview}-${(slugify as any)(os, {lower: true})}-${digest}`;
+  )}-${ua.fullVersion}${preview}${hasFlags}-${(slugify as any)(os, {lower: true})}-${digest}`;
 
   return {
     json,
@@ -55,6 +56,7 @@ const getReportMeta = (report: Report): ReportMeta => {
     branch: `collector/${slug}`,
     version: report.__version,
     preview: report.preview,
+    flags: report.flags,
   };
 };
 
