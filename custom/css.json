@@ -704,6 +704,11 @@
         "x_y_z_angle": "x 90deg"
       }
     },
+    "ruby-overhang": {
+      "__additional_values": {
+        "none": "none"
+      }
+    },
     "scroll-snap-coordinate": {},
     "scroll-snap-destination": {},
     "scroll-snap-points-x": {},
