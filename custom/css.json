@@ -693,6 +693,12 @@
         "position-area": "left center"
       }
     },
+    "position-visibility": {
+      "__additional_values": {
+        "anchors-valid": "anchors-valid",
+        "anchors-visible": "anchors-visible"
+      }
+    },
     "right": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
