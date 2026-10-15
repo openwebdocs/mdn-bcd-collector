@@ -44,6 +44,11 @@ const tests = new Tests({
   tests: await fs.readJson(new URL("./tests.json", import.meta.url)),
   httpOnly: process.env.NODE_ENV !== "production",
 });
+const requestHeaderTests = new Set(
+  Object.keys(tests.tests)
+    .filter((ident) => ident.startsWith("http.headers."))
+    .map((ident) => ident.slice("http.headers.".length).toLowerCase()),
+);
 
 /**
  * Creates a report object based on the provided results and request.
@@ -188,6 +193,22 @@ app.post(
 app.get("/api/results", async (req: Request, res: Response) => {
   const results = await storage.getAll((req as RequestWithSession).session.id);
   res.status(200).json(createReport(results, req));
+});
+
+app.get("/api/test/request-header", (req: Request, res: Response) => {
+  res.set("Cache-Control", "no-store");
+
+  const name = req.query.name;
+  if (typeof name !== "string" || !requestHeaderTests.has(name.toLowerCase())) {
+    res.status(400).json({error: "Unsupported request header"});
+    return;
+  }
+
+  const normalizedName = name.toLowerCase();
+  res.status(200).json({
+    name: normalizedName,
+    value: req.get(normalizedName) ?? null,
+  });
 });
 
 app.post("/api/browserExtensions", async (req: Request, res: Response) => {

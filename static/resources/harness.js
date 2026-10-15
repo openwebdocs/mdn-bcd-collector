@@ -1936,13 +1936,52 @@
     }
   }
 
+  function testHttpHeader(name, expectedValue) {
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open(
+        "GET",
+        "/api/test/request-header?name=" +
+          encodeURIComponent(name) +
+          "&_=" +
+          Date.now(),
+        true
+      );
+
+      request.onload = function () {
+        if (request.status !== 200) {
+          reject(new Error("Failed to read request header"));
+          return;
+        }
+
+        try {
+          var value = JSON.parse(request.responseText).value;
+          resolve(
+            expectedValue === undefined
+              ? typeof value === "string" && value.length > 0
+              : value === expectedValue
+          );
+        } catch (err) {
+          reject(err);
+        }
+      };
+
+      request.onerror = function () {
+        reject(new Error("Failed to read request header"));
+      };
+
+      request.send();
+    });
+  }
+
   global.bcd = {
-    testConstructor: testConstructor,
-    testConstructorNewRequired: testConstructorNewRequired,
-    testObjectName: testObjectName,
-    testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
     testCSSSelector: testCSSSelector,
+    testConstructor: testConstructor,
+    testConstructorNewRequired: testConstructorNewRequired,
+    testHttpHeader: testHttpHeader,
+    testObjectName: testObjectName,
+    testOptionParam: testOptionParam,
     testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,

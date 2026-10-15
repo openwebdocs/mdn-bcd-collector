@@ -13,6 +13,7 @@ import {build as buildCSS} from "./css.js";
 import {build as buildElements} from "./elements.js";
 import {build as buildJS} from "./javascript.js";
 import {build as buildWasm} from "./webassembly.js";
+import {build as buildHTTP} from "./http.js";
 import {customTests} from "./common.js";
 
 import type {IDLFiles} from "../types/types.js";
@@ -48,6 +49,7 @@ const build = async () => {
     await buildElements(specElements, customElements),
     await buildJS(specJS, customJS),
     await buildWasm(wasmFeatures),
+    await buildHTTP(),
   );
 
   await fs.writeJson(new URL("../tests.json", import.meta.url), tests);
