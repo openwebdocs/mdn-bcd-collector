@@ -110,6 +110,19 @@ select:disabled:hover,
   text-align: left;
   margin-left: -2px;
 }
+#test-selection::-webkit-input-placeholder {
+  color: white;
+}
+#test-selection::-moz-placeholder {
+  color: white;
+  opacity: 1;
+}
+#test-selection:-ms-input-placeholder {
+  color: white;
+}
+#test-selection::placeholder {
+  color: white;
+}
 
 footer {
   display: block;
@@ -220,8 +233,56 @@ h1 {
 
 #test-selection {
   padding-left: 16px;
-  width: 240px;
+  padding-right: 24px;
+  width: 215px;
   max-width: 70%;
+}
+#test-search {
+  color: white;
+  display: inline-block;
+  position: relative;
+  width: 300px;
+  max-width: 70%;
+}
+#test-search #test-selection {
+  max-width: 100%;
+}
+#test-search-caret {
+  position: absolute;
+  top: 13px;
+  right: 8px;
+  width: 0;
+  height: 0;
+  border-top: 6px solid white;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  cursor: pointer;
+}
+#test-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -2px;
+  right: 0;
+  z-index: 1;
+  max-height: 250px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #9900a1;
+  text-align: left;
+}
+#test-dropdown .test-option {
+  padding: 4px 8px;
+  color: black;
+  cursor: pointer;
+  word-break: break-all;
+}
+#test-dropdown .test-no-results {
+  padding: 4px 8px;
+  color: #636363;
+}
+#test-dropdown .test-option:hover,
+#test-dropdown .test-option.active {
+  background: #d2bbfd;
 }
 
 #supported-browsers {

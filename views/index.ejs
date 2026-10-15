@@ -15,12 +15,28 @@
   <h2>Run Tests</h2>
   <form id="test-form" action="/api/get" method="post">
     <div id="test-entry">
-      <datalist id="tests">
-        <% tests.forEach(function(test) { %>
-          <option value="<%- test %>"></option>
-        <% }); %>
-      </datalist>
-      <input id="test-selection" name="testSelection" list="tests" placeholder="All Tests">
+      <div id="test-search">
+        <input
+          id="test-selection"
+          name="testSelection"
+          type="text"
+          aria-label="Test"
+          placeholder="All Tests"
+          autocomplete="off"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-controls="test-dropdown"
+          aria-expanded="false">
+        <span id="test-search-caret" aria-hidden="true"></span>
+        <div id="test-dropdown" class="hidden" role="listbox">
+          <% tests.forEach(function(test, i) { %>
+            <div id="test-option-<%= i %>" class="test-option" data-value="<%- test %>" role="option" aria-selected="false">
+              <%- test %>
+            </div>
+          <% }); %>
+          <div id="test-no-results" class="test-no-results hidden">No matching tests</div>
+        </div>
+      </div>
       <button name="submit" type="submit" id="start"><span class="mdi mdi-play"></span> Run</button>
     </div>
     <br>
@@ -71,15 +87,186 @@
 <script>
   function main() {
     var testSelection = document.getElementById('test-selection');
+    var testSearch = document.getElementById('test-search');
+    var testSearchCaret = document.getElementById('test-search-caret');
+    var testDropdown = document.getElementById('test-dropdown');
+    var testOptions = [];
+    var testNoResults = document.getElementById('test-no-results');
     var limitExposureBox = document.getElementById('limit-exposure-box');
+    var activeOption = -1;
 
-    testSelection.onchange = function() {
+    var testDropdownItems = testDropdown.getElementsByTagName('div');
+
+    for (var i = 0; i < testDropdownItems.length; i++) {
+      if (testDropdownItems[i].className == "test-option") {
+        testOptions[testOptions.length] = testDropdownItems[i];
+      }
+    }
+
+    function updateLimitExposure() {
       if (testSelection.value == '' || testSelection.value.indexOf('api') == 0) {
         limitExposureBox.style.display = "block";
       } else {
         limitExposureBox.style.display = "none";
       }
     }
+
+    function showDropdown() {
+      testDropdown.className = "";
+      testSelection.setAttribute("aria-expanded", "true");
+    }
+
+    function hideDropdown() {
+      testDropdown.className = "hidden";
+      testSelection.setAttribute("aria-expanded", "false");
+      testSelection.removeAttribute("aria-activedescendant");
+      activeOption = -1;
+    }
+
+    function visibleOptions() {
+      var visible = [];
+
+      for (var i = 0; i < testOptions.length; i++) {
+        if (testOptions[i].style.display != "none") {
+          visible[visible.length] = testOptions[i];
+        }
+      }
+
+      return visible;
+    }
+
+    function setActiveOption(next) {
+      var visible = visibleOptions();
+
+      for (var i = 0; i < testOptions.length; i++) {
+        testOptions[i].className = "test-option";
+        testOptions[i].setAttribute("aria-selected", "false");
+      }
+
+      if (!visible.length) {
+        activeOption = -1;
+        testSelection.removeAttribute("aria-activedescendant");
+        return;
+      }
+
+      activeOption = next;
+      if (activeOption < 0) {
+        activeOption = visible.length - 1;
+      } else if (activeOption >= visible.length) {
+        activeOption = 0;
+      }
+
+      visible[activeOption].className = "test-option active";
+      visible[activeOption].setAttribute("aria-selected", "true");
+      testSelection.setAttribute("aria-activedescendant", visible[activeOption].id);
+
+      if (visible[activeOption].offsetTop < testDropdown.scrollTop) {
+        testDropdown.scrollTop = visible[activeOption].offsetTop;
+      } else if (visible[activeOption].offsetTop + visible[activeOption].offsetHeight > testDropdown.scrollTop + testDropdown.clientHeight) {
+        testDropdown.scrollTop =
+          visible[activeOption].offsetTop +
+          visible[activeOption].offsetHeight -
+          testDropdown.clientHeight;
+      }
+    }
+
+    function filterTests() {
+      var query = testSelection.value.toLowerCase();
+      var hasMatches = false;
+
+      for (var i = 0; i < testOptions.length; i++) {
+        if (testOptions[i].getAttribute("data-value").toLowerCase().indexOf(query) == -1) {
+          testOptions[i].style.display = "none";
+        } else {
+          testOptions[i].style.display = "block";
+          hasMatches = true;
+        }
+        testOptions[i].className = "test-option";
+        testOptions[i].setAttribute("aria-selected", "false");
+      }
+
+      activeOption = -1;
+      testSelection.removeAttribute("aria-activedescendant");
+      testNoResults.className = hasMatches ? "test-no-results hidden" : "test-no-results";
+
+      showDropdown();
+    }
+
+    function chooseOption(option) {
+      testSelection.value = option.getAttribute("data-value");
+      updateLimitExposure();
+      hideDropdown();
+    }
+
+    testSelection.onchange = updateLimitExposure;
+    function showAllTests() {
+      for (var i = 0; i < testOptions.length; i++) {
+        testOptions[i].style.display = "block";
+        testOptions[i].className = "test-option";
+        testOptions[i].setAttribute("aria-selected", "false");
+      }
+      activeOption = -1;
+      testSelection.removeAttribute("aria-activedescendant");
+      testNoResults.className = "test-no-results hidden";
+      showDropdown();
+    }
+
+    testSelection.onfocus = showAllTests;
+    testSelection.onkeyup = function(event) {
+      event = event || window.event;
+
+      if (event.keyCode == 38 || event.keyCode == 40 || event.keyCode == 13 || event.keyCode == 27) {
+        return;
+      }
+
+      filterTests();
+      updateLimitExposure();
+    };
+    testSelection.onkeydown = function(event) {
+      event = event || window.event;
+
+      if (event.keyCode == 40) {
+        showDropdown();
+        setActiveOption(activeOption + 1);
+        return false;
+      } else if (event.keyCode == 38) {
+        showDropdown();
+        setActiveOption(activeOption - 1);
+        return false;
+      } else if (event.keyCode == 13 && activeOption > -1) {
+        chooseOption(visibleOptions()[activeOption]);
+        return false;
+      } else if (event.keyCode == 27) {
+        hideDropdown();
+        return false;
+      }
+    };
+    testSearchCaret.onmousedown = function() {
+      testSelection.focus();
+      showAllTests();
+      return false;
+    };
+
+    for (var i = 0; i < testOptions.length; i++) {
+      testOptions[i].onmousedown = function() {
+        chooseOption(this);
+        return false;
+      };
+    }
+
+    document.onclick = function(event) {
+      event = event || window.event;
+      var target = event.target || event.srcElement;
+
+      while (target) {
+        if (target == testSearch) {
+          return;
+        }
+        target = target.parentNode;
+      }
+
+      hideDropdown();
+    };
   }
 
   window.onload = main;
