@@ -1438,5 +1438,12 @@
       "property": "background-image",
       "value": "url('https://collector.openwebdocs.org/')"
     }
+  },
+  "at-rules": {
+    "media": {
+      "scan": {},
+      "scan.interlace": {},
+      "scan.progressive": {}
+    }
   }
 }
