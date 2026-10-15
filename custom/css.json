@@ -419,6 +419,11 @@
         "anchor-size": "anchor-size(block, 10%)"
       }
     },
+    "letter-spacing": {
+      "__additional_values": {
+        "percentages": "50%"
+      }
+    },
     "list-style": {
       "__additional_values": {
         "symbols": "symbols(cyclic '*' '†' '‡')"
