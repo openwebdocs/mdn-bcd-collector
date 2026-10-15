@@ -5055,6 +5055,24 @@ api:
       };
       el.attachShadow({mode: 'open'});
       var instance = el.shadowRoot;
+    slotAssignment:
+      __additional:
+        named_value: |-
+          try {
+            var el = document.createElement('div');
+            var shadowRoot = el.attachShadow({mode: 'open', slotAssignment: 'named'});
+            return shadowRoot.slotAssignment === 'named';
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        manual_value: |-
+          try {
+            var el = document.createElement('div');
+            var shadowRoot = el.attachShadow({mode: 'open', slotAssignment: 'manual'});
+            return shadowRoot.slotAssignment === 'manual';
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   SpeechRecognition:
     __resources:
       - speechRecognition
