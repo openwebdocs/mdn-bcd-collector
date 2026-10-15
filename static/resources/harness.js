@@ -825,7 +825,7 @@
         return;
       }
       fail("Timed out");
-    }, 10000);
+    }, 180000);
     /* node:coverage enable */
 
     /**
@@ -889,11 +889,21 @@
     var results = [];
     var completedTests = 0;
 
+    // Number of times to re-run a test that returns "unknown" (null),
+    // to work around flaky timeouts/slow execution on weak devices (e.g. RK board).
+    var UNKNOWN_RETRIES = 5;
+    var retriesLeft = {};
+    var dataByName = {};
+    for (var t = 0; t < tests.length; t++) {
+      retriesLeft[tests[t].name] = UNKNOWN_RETRIES;
+      dataByName[tests[t].name] = tests[t];
+    }
+
     /* node:coverage disable */
     if (debugmode) {
       var remaining = [];
-      for (var t = 0; t < tests.length; t++) {
-        remaining.push(tests[t].name);
+      for (var t2 = 0; t2 < tests.length; t2++) {
+        remaining.push(tests[t2].name);
       }
     }
     /* node:coverage enable */
@@ -903,6 +913,15 @@
      * @param {TestResult} result - The result of the test.
      */
     var oncomplete = function (result) {
+      // If the test came back unknown (null) and we still have retries left,
+      // re-run it in place (overriding the unknown result) without counting
+      // this attempt as completed yet.
+      if (result.result === null && retriesLeft[result.name] > 0) {
+        retriesLeft[result.name] -= 1;
+        runTest(dataByName[result.name], 0, oncomplete);
+        return;
+      }
+
       results.push(result);
       completedTests += 1;
 
@@ -1276,7 +1295,7 @@
       updateStatus("Loading required resources...");
       resources.required = resourceCount;
 
-      var resourceTimeoutLength = 5000;
+      var resourceTimeoutLength = 120000;
       var resourceCountdown = resourceTimeoutLength / 1000;
       var resourceCountdownTimeout;
       /**
@@ -1443,7 +1462,7 @@
 
     var timeout = setTimeout(function () {
       state.timedout = true;
-    }, 20000);
+    }, 600000);
 
     var scopes = [
       runWindow,
