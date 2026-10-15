@@ -3383,6 +3383,40 @@ api:
       );
   MediaDevices:
     __base: var instance = navigator.mediaDevices;
+    getSupportedConstraints:
+      __base: |-
+        if (!navigator.mediaDevices) {
+          return {result: false, message: 'navigator.mediaDevices is not defined'};
+        }
+        if (!('getSupportedConstraints' in navigator.mediaDevices)) {
+          return {result: false, message: 'navigator.mediaDevices.getSupportedConstraints is not defined'};
+        }
+        var result;
+        try {
+          result = navigator.mediaDevices.getSupportedConstraints();
+        } catch(e) {
+          return {result: false, message: e.message};
+        }
+        if (!result || typeof result !== 'object') {
+          return {result: false, message: 'getSupportedConstraints() did not return an object'};
+        }
+      __test: return true;
+      __additional:
+        return_object_property_aspectRatio: return 'aspectRatio' in result;
+        return_object_property_autoGainControl: return 'autoGainControl' in result;
+        return_object_property_channelCount: return 'channelCount' in result;
+        return_object_property_deviceId: return 'deviceId' in result;
+        return_object_property_echoCancellation: return 'echoCancellation' in result;
+        return_object_property_facingMode: return 'facingMode' in result;
+        return_object_property_frameRate: return 'frameRate' in result;
+        return_object_property_groupId: return 'groupId' in result;
+        return_object_property_height: return 'height' in result;
+        return_object_property_latency: return 'latency' in result;
+        return_object_property_noiseSuppression: return 'noiseSuppression' in result;
+        return_object_property_resizeMode: return 'resizeMode' in result;
+        return_object_property_sampleRate: return 'sampleRate' in result;
+        return_object_property_sampleSize: return 'sampleSize' in result;
+        return_object_property_width: return 'width' in result;
   MediaElementAudioSourceNode:
     __resources:
       - audio-blip
