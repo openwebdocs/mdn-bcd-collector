@@ -1,5 +1,103 @@
 # mdn-bcd-collector Changelog
 
+## v10.20.16
+
+Released October 15, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CharacterData.afterHTML
+- api.CharacterData.afterHTMLUnsafe
+- api.CharacterData.beforeHTML
+- api.CharacterData.beforeHTMLUnsafe
+- api.CharacterData.replaceWithHTML
+- api.CharacterData.replaceWithHTMLUnsafe
+- api.CrossOriginStorageManager.getFileHandle
+- api.Element.afterHTML
+- api.Element.afterHTMLUnsafe
+- api.Element.appendHTML
+- api.Element.appendHTMLUnsafe
+- api.Element.beforeHTML
+- api.Element.beforeHTMLUnsafe
+- api.Element.prependHTML
+- api.Element.prependHTMLUnsafe
+- api.Element.replaceWithHTML
+- api.Element.replaceWithHTMLUnsafe
+- api.HTMLScriptElement.innerText
+- api.HTMLScriptElement.textContent
+- api.ShadowRoot.appendHTML
+- api.ShadowRoot.appendHTMLUnsafe
+- api.ShadowRoot.prependHTML
+- api.ShadowRoot.prependHTMLUnsafe
+- api.SVGTextPathElement.side
+- api.TrustedHTMLParserOptions
+- api.TrustedTypePolicy.createParserOptions
+- css.properties.block-ellipsis.ellipsis
+- css.properties.continue.normal
+- css.properties.fit-tolerance
+- css.properties.letter-spacing.percentages
+- css.properties.line-clamp.ellipsis
+- css.properties.max-lines.auto
+- css.properties.position-visibility.anchors-valid
+- css.properties.position-visibility.anchors-visible
+- css.properties.quotes.bikeshed-this
+- css.properties.ruby-overhang.none
+- css.properties.timeline-trigger-range
+- css.selectors.interest-button
+
+#### Removed
+
+- api.CrossOriginStorageManager.requestFileHandle
+- api.HTMLInstallElement.installresult_event
+- css.properties.block-ellipsis.auto
+- css.properties.bookmark-label.disc
+- css.properties.bookmark-label.circle
+- css.properties.bookmark-label.square
+- css.properties.bookmark-label.disclosure-open
+- css.properties.bookmark-label.disclosure-closed
+- css.properties.content.disc
+- css.properties.content.circle
+- css.properties.content.square
+- css.properties.content.disclosure-open
+- css.properties.content.disclosure-closed
+- css.properties.continue.auto
+- css.properties.event-trigger.activate
+- css.properties.event-trigger.interest
+- css.properties.event-trigger.click
+- css.properties.event-trigger.touch
+- css.properties.event-trigger.dblclick
+- css.properties.event-trigger-source.activate
+- css.properties.event-trigger-source.interest
+- css.properties.event-trigger-source.click
+- css.properties.event-trigger-source.touch
+- css.properties.event-trigger-source.dblclick
+- css.properties.flow-tolerance
+- css.properties.max-lines.none
+- css.properties.quotes.match-parent
+
+### Commits
+
+- build(deps): bump @mdn/browser-compat-data from 8.1.5 to 8.1.6 in the data group ([#3469](https://github.com/openwebdocs/mdn-bcd-collector/pull/3469))
+- test(css): add percentage letter-spacing test ([#3468](https://github.com/openwebdocs/mdn-bcd-collector/pull/3468))
+- build(deps-dev): bump the data group with 3 updates ([#3466](https://github.com/openwebdocs/mdn-bcd-collector/pull/3466))
+- build(deps-dev): bump the dev group with 2 updates ([#3467](https://github.com/openwebdocs/mdn-bcd-collector/pull/3467))
+- test(css): cover plural `position-visibility` values ([#3460](https://github.com/openwebdocs/mdn-bcd-collector/pull/3460))
+- build(deps): bump the dev group with 10 updates ([#3463](https://github.com/openwebdocs/mdn-bcd-collector/pull/3463))
+- build(deps): bump actions/setup-node from 7.0.0 to 7.1.0 ([#3464](https://github.com/openwebdocs/mdn-bcd-collector/pull/3464))
+- Add ruby-overhang: none ([#3461](https://github.com/openwebdocs/mdn-bcd-collector/pull/3461))
+- build(deps): bump the dev group with 3 updates ([#3459](https://github.com/openwebdocs/mdn-bcd-collector/pull/3459))
+
+### Statistics
+
+- Total BCD keys: 20721
+- Testable BCD keys: 16851 (81.32%)
+- Testable BCD keys not in Collector: 1989 (11.80%)
+- Total Collector keys: 17219
+- Collector keys in BCD: 14862 (86.31%)
+- Collector keys not in BCD: 2357 (13.69%)
+
 ## v10.20.15
 
 Released October 8, 2026
