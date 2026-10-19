@@ -1399,5 +1399,12 @@
   ["css.properties.glyph-orientation-vertical.0deg", "safari", "*", false],
   ["css.properties.glyph-orientation-vertical.0deg", "safari_ios", "*", false],
   ["css.properties.glyph-orientation-vertical.90deg", "safari", "*", false],
-  ["css.properties.glyph-orientation-vertical.90deg", "safari_ios", "*", false]
+  ["css.properties.glyph-orientation-vertical.90deg", "safari_ios", "*", false],
+  "<selectedcontent> only shipped in Safari 27",
+  ["html.elements.selectedcontent", "safari", "1-26.6", false],
+  ["html.elements.selectedcontent", "safari_ios", "1-26.6", false],
+  ["api.HTMLSelectedContentElement", "safari", "1-26.6", false],
+  ["api.HTMLSelectedContentElement", "safari_ios", "1-26.6", false],
+  "See https://bugs.webkit.org/show_bug.cgi?id=227042",
+  ["html.elements.optgroup.disabled", "safari_ios", "*", false]
 ]
