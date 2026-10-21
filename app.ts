@@ -59,6 +59,7 @@ const createReport = (results: ReportStore, req: Request): Report => {
     extensions: extensions || [],
     userAgent: req.get("User-Agent") || "",
     preview: !!req?.body?.preview,
+    generatedAt: new Date().toISOString(),
   };
 };
 
