@@ -20,6 +20,7 @@ describe("build (CSS)", () => {
         {name: ":nth-of-type()", href: "https://foo.bar"},
       ],
       types: [],
+      atrules: [],
     };
 
     const customCSS = {
@@ -36,6 +37,7 @@ describe("build (CSS)", () => {
         "::-webkit-progress-bar": {},
       },
       types: {},
+      "at-rules": {},
     };
 
     assert.deepEqual(await build(webrefCSS, customCSS), {
@@ -95,10 +97,16 @@ describe("build (CSS)", () => {
       properties: [{name: "foo", href: "https://foo.bar"}],
       selectors: [],
       types: [],
+      atrules: [],
     };
 
     assert.deepEqual(
-      await build(css, {properties: {}, selectors: {}, types: {}}),
+      await build(css, {
+        properties: {},
+        selectors: {},
+        types: {},
+        "at-rules": {},
+      }),
       {
         "css.properties.foo": {
           code: `(function () {
@@ -116,6 +124,7 @@ describe("build (CSS)", () => {
       properties: [{name: "foo", href: "https://foo.bar"}],
       selectors: [],
       types: [],
+      "at-rules": [],
     };
 
     await assert.rejects(
@@ -135,6 +144,7 @@ describe("build (CSS)", () => {
       ],
       selectors: [],
       types: [],
+      atrules: [],
     };
 
     await assert.rejects(
@@ -151,6 +161,7 @@ describe("build (CSS)", () => {
       },
       selectors: {},
       types: {},
+      "at-rules": {},
     };
 
     await assert.rejects(
@@ -170,12 +181,14 @@ describe("build (CSS)", () => {
       ],
       selectors: [],
       types: [],
+      atrules: [],
     };
 
     const customCSS = {
       properties: {foo: {_values: ["bar"]}},
       selectors: {},
       types: {},
+      atRules: {},
     };
 
     await assert.rejects(
@@ -195,12 +208,14 @@ describe("build (CSS)", () => {
       ],
       selectors: [],
       types: [],
+      atrules: [],
     };
 
     const customCSS = {
       properties: {one: {__additional_values: {two: "1em two"}}},
       selectors: {},
       types: {},
+      "at-rules": {},
     };
 
     assert.deepEqual(await build(webrefCSS, customCSS), {
@@ -220,6 +235,7 @@ describe("build (CSS)", () => {
       properties: [],
       selectors: [{name: "foo", href: "https://foo.bar"}],
       types: [],
+      "at-rules": [],
     };
 
     await assert.rejects(
@@ -234,13 +250,19 @@ describe("build (CSS)", () => {
       properties: [{name: "bar", href: "https://foo.bar"}],
       selectors: [],
       types: [],
+      atrules: [],
     };
 
     const error =
       "Test is malformed: <%css.properties.foo:a%> is an invalid import reference";
 
     assert.deepEqual(
-      await build(css, {properties: {}, selectors: {}, types: {}}),
+      await build(css, {
+        properties: {},
+        selectors: {},
+        types: {},
+        "at-rules": {},
+      }),
       {
         "css.properties.bar": {
           code: `(function () {

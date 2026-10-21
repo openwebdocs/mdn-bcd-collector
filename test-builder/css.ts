@@ -646,6 +646,70 @@ const buildTypeTests = async (customCSS) => {
 };
 
 /**
+ * Builds tests for CSS at-rules based on the provided customCSS.
+ * @param specCSS - The specification CSS data.
+ * @param customCSS - The custom CSS data.
+ * @returns - The tests for CSS at-rules.
+ */
+const buildAtRuleTests = async (specCSS, customCSS) => {
+  const atrules = new Map();
+  const tests = {};
+
+  for (const atrule of specCSS.atrules) {
+    if (ignoredSpecs.some((u) => atrule.href.startsWith(u))) {
+      continue;
+    }
+
+    if (atrule.for) {
+      atrules.set(atrule.for + "." + atrule.name, {});
+    } else {
+      atrules.set(atrule.name, {});
+    }
+
+    if (atrule.descriptors) {
+      atrule.descriptors.forEach((descriptor) => {
+        atrules.set(atrule.name + "." + descriptor.name, {});
+      });
+    }
+  }
+
+  for (const [name, value] of Object.entries(customCSS["at-rules"]) as any[]) {
+    if (atrules.has(name)) {
+      throw new Error(`Custom CSS at-rule already known: ${name}`);
+    }
+    atrules.set(name, value);
+    if (value.descriptors) {
+      value.descriptors.forEach((descriptor) => {
+        atrules.set(name + "." + descriptor, {});
+      });
+    }
+  }
+
+  const sortedAtRules = new Map([...atrules.entries()].sort());
+
+  for (const [atrule, atruleData] of sortedAtRules.entries()) {
+    const bcdName = atrule.replaceAll("@", "");
+    const ident = `css.at-rules.${bcdName}`;
+    const customTest = await getCustomTest(ident, "css.at-rules", true);
+
+    // Some at-rules may be nested within others. For CSS.supports('at-rule()'),
+    // we need to drop the parent
+    const removedNested = atrule.replace(/^@.*\.(?=@)/, "");
+
+    tests[ident] = compileTest({
+      raw: {
+        code:
+          customTest.test ||
+          `bcd.testCSSAtRule("${atruleData.syntax || removedNested}")`,
+      },
+      exposure: ["Window"],
+    });
+  }
+
+  return tests;
+};
+
+/**
  * Builds tests for CSS features based on the provided specCSS and customCSS.
  * @param specCSS - The specification CSS data.
  * @param customCSS - The custom CSS data.
@@ -657,6 +721,7 @@ const build = async (specCSS, customCSS) => {
   Object.assign(tests, await buildPropertyTests(specCSS, customCSS));
   Object.assign(tests, await buildSelectorTests(specCSS, customCSS));
   Object.assign(tests, await buildTypeTests(customCSS));
+  Object.assign(tests, await buildAtRuleTests(specCSS, customCSS));
 
   return tests;
 };
