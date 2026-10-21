@@ -383,9 +383,10 @@
    * Test an [HTMLConstructor] element constructor (e.g. HTMLAnchorElement), which
    * must be invoked via a subclass rather than directly.
    * @param {string} iface - The name of the constructor to test
+   * @param {string} HTMLname - The name of the HTML tag to extend
    * @returns {TestResult} - The result of the test
    */
-  function testHTMLConstructor(iface) {
+  function testHTMLConstructor(iface, HTMLname) {
     if (typeof customElements === "undefined") {
       return {
         result: null,
@@ -408,7 +409,7 @@
         "-" +
         Math.random().toString(36).slice(2, 10);
 
-      customElements.define(tagName, Subclass);
+      customElements.define(tagName, Subclass, { extends: HTMLname });
       new Subclass();
 
       return { result: true, message: "Constructor passed with no errors" };
