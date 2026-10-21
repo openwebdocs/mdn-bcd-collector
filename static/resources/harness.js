@@ -405,7 +405,7 @@
         "-" +
         Math.random().toString(36).slice(2, 10);
 
-      customElements.define(tagName, Subclass);
+      customElements.define(tagName, Subclass, { extends: htmlTagName });
       new Subclass();
 
       return { result: true, message: "Constructor passed with no errors" };
