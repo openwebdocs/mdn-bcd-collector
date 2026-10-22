@@ -152,9 +152,10 @@ const flattenIDL = (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
 /**
  * Flattens the members of an interface, filtering out certain members based on specific conditions.
  * @param iface - The interface object.
+ * @param specElements - The elements from webref
  * @returns An array of flattened members, sorted alphabetically by name.
  */
-const flattenMembers = (iface) => {
+const flattenMembers = (iface, specElements) => {
   const members = iface.members
     .filter((member) => member.name && member.type !== "const")
     // Ignore alternate names, overloads, etc. for standard features within the standard IDL
@@ -202,7 +203,13 @@ const flattenMembers = (iface) => {
     switch (member.type) {
       case "constructor":
         // Test generation doesn't use constructor arguments, so they aren't copied
-        members.push({name: iface.name, type: "constructor"});
+        members.push({
+          name: iface.name,
+          type: "constructor",
+          // [HTMLConstructor] constructors need a different test; see testHTMLConstructor
+          htmlConstructor: !!getExtAttr(member, "HTMLConstructor"),
+          htmlTagName: getHTMLTagName(iface.name, specElements),
+        });
         break;
       case "iterable":
       case "async_iterable":
@@ -297,6 +304,23 @@ const flattenMembers = (iface) => {
   }
 
   return members.sort((a, b) => a.name.localeCompare(b.name));
+};
+
+/**
+ * Retrieves HTML tag name from a given HTML* interface
+ * @param htmlInterface - The HTML interface to find the tag name for.
+ * @param specElements - The elements from webref.
+ * @returns - The tag name if found, otherwise undefined.
+ */
+const getHTMLTagName = (htmlInterface, specElements) => {
+  for (const data of Object.values(specElements) as any[]) {
+    for (const el of data.elements) {
+      if (el.interface === htmlInterface) {
+        return el.name;
+      }
+    }
+  }
+  return undefined;
 };
 
 /**
@@ -561,7 +585,9 @@ const buildIDLMemberTests = async (
           }
           break;
         case "constructor":
-          expr = `bcd.testConstructor('${settings.legacyNamespace}.${member.name}')`;
+          expr = member.htmlConstructor
+            ? `bcd.testHTMLConstructor('${settings.legacyNamespace}.${member.name}', '${member.htmlTagName}')`
+            : `bcd.testConstructor('${settings.legacyNamespace}.${member.name}')`;
           break;
       }
     } else {
@@ -582,7 +608,9 @@ const buildIDLMemberTests = async (
           }
           break;
         case "constructor":
-          expr = `bcd.testConstructor('${member.name}')`;
+          expr = member.htmlConstructor
+            ? `bcd.testHTMLConstructor('${member.name}', '${member.htmlTagName}')`
+            : `bcd.testConstructor('${member.name}')`;
           break;
         case "symbol":
           // eslint-disable-next-line no-case-declarations
@@ -623,9 +651,10 @@ const buildIDLMemberTests = async (
  * @param ast - The Abstract Syntax Tree representing the IDL.
  * @param globals - The global objects.
  * @param scopes - The scopes for exposing the IDL.
+ * @param specElements - The elements from webref.
  * @returns - The compiled IDL tests.
  */
-const buildIDLTests = async (ast, globals, scopes) => {
+const buildIDLTests = async (ast, globals, scopes, specElements) => {
   const tests = {};
 
   const interfaces = ast.filter((dfn) => {
@@ -643,7 +672,7 @@ const buildIDLTests = async (ast, globals, scopes) => {
     // Remap WebAssembly API to webassembly.api
     path = path.replace("api.WebAssembly", "webassembly.api");
 
-    const members = flattenMembers(iface);
+    const members = flattenMembers(iface, specElements);
     if (iface.type === "namespace" && members.length === 0) {
       // We should not generate tests for namespaces with no properties/methods
       continue;
@@ -705,7 +734,7 @@ const buildIDLTests = async (ast, globals, scopes) => {
     const fakeIface = {name: "_globals"};
     const exposureSet = new Set(["Window", "Worker"]);
 
-    const members = flattenMembers(iface);
+    const members = flattenMembers(iface, specElements);
     const memberTests = await buildIDLMemberTests(
       members,
       fakeIface,
@@ -728,12 +757,17 @@ const buildIDLTests = async (ast, globals, scopes) => {
  * Builds tests for the given specIDLs and customIDLs.
  * @param specIDLs - The spec IDL files.
  * @param customIDLs - The custom IDL files.
+ * @param specElements - The element data from webref.
  * @returns A promise that resolves to the built tests.
  */
-const build = async (specIDLs: IDLFiles, customIDLs: IDLFiles) => {
+const build = async (
+  specIDLs: IDLFiles,
+  customIDLs: IDLFiles,
+  specElements,
+) => {
   const {ast, globals, scopes} = flattenIDL(specIDLs, customIDLs);
   validateIDL(ast);
-  return await buildIDLTests(ast, globals, scopes);
+  return await buildIDLTests(ast, globals, scopes, specElements);
 };
 
 export {flattenIDL, getExposureSet, buildIDLTests, build, validateIDL};

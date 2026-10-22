@@ -43,7 +43,7 @@ const build = async () => {
       __version: appVersion,
       __resources: customTests.__resources,
     },
-    await buildAPI(specIDLs, customIDL),
+    await buildAPI(specIDLs, customIDL, specElements),
     await buildCSS(specCSS, customCSS),
     await buildElements(specElements, customElements),
     await buildJS(specJS, customJS),

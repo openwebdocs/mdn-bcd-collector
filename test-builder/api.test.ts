@@ -26,7 +26,7 @@ describe("build (API)", () => {
       ),
     };
 
-    const tests = await build(specIDLs, customIDLs);
+    const tests = await build(specIDLs, customIDLs, {});
     assert.deepStrictEqual(
       ["api.XSLTProcessor.reset"].every((key) => Object.hasOwn(tests, key)),
       true,
@@ -346,7 +346,7 @@ describe("build (API)", () => {
              attribute any name;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Attr": {
           code: '"Attr" in self',
           exposure: ["Window"],
@@ -365,7 +365,7 @@ describe("build (API)", () => {
              boolean contains(Node? other);
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Node": {
           code: '"Node" in self',
           exposure: ["Window"],
@@ -385,7 +385,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.MediaSource": {
           code: '"MediaSource" in self',
           exposure: ["Window"],
@@ -405,7 +405,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Window": {
           code: '"Window" in self',
           exposure: ["Window"],
@@ -420,7 +420,7 @@ describe("build (API)", () => {
              attribute EventHandler onadd;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Foo": {
           code: '"Foo" in self',
           exposure: ["Window"],
@@ -457,7 +457,7 @@ describe("build (API)", () => {
           };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.ANGLE_instanced_arrays": {
           code: `(function () {
   var canvas = document.createElement("canvas");
@@ -520,7 +520,7 @@ describe("build (API)", () => {
              readonly attribute string foo;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Thing.Legacy": {
           code: '"Thing" in self && "Legacy" in Thing',
           exposure: ["Window"],
@@ -539,7 +539,7 @@ describe("build (API)", () => {
              readonly attribute string stack;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "webassembly.api.Exception": {
           code: '"WebAssembly" in self && "Exception" in WebAssembly',
           exposure: ["Window"],
@@ -560,7 +560,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.WorkerGlobalScope": {
           code: '"WorkerGlobalScope" in self',
           exposure: ["Worker"],
@@ -580,7 +580,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Number": {
           code: '"Number" in self',
           exposure: ["Window"],
@@ -592,6 +592,39 @@ describe("build (API)", () => {
       });
     });
 
+    it("interface with [HTMLConstructor] constructor", async () => {
+      const ast = WebIDL2.parse(
+        `[Exposed=Window]
+           interface HTMLAnchorElement : HTMLElement {
+             [HTMLConstructor] constructor();
+           };`,
+      );
+
+      assert.deepEqual(
+        await buildIDLTests(ast, [], scopes, {
+          html: {
+            elements: [
+              {
+                name: "a",
+                href: "https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element",
+                interface: "HTMLAnchorElement",
+              },
+            ],
+          },
+        }),
+        {
+          "api.HTMLAnchorElement": {
+            code: '"HTMLAnchorElement" in self',
+            exposure: ["Window"],
+          },
+          "api.HTMLAnchorElement.HTMLAnchorElement": {
+            code: "bcd.testHTMLConstructor('HTMLAnchorElement', 'a')",
+            exposure: ["Window"],
+          },
+        },
+      );
+    });
+
     it("iterable interface", async () => {
       const ast = WebIDL2.parse(
         `[Exposed=Window]
@@ -599,7 +632,7 @@ describe("build (API)", () => {
              iterable<double>;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.DoubleList": {
           code: '"DoubleList" in self',
           exposure: ["Window"],
@@ -634,7 +667,7 @@ describe("build (API)", () => {
              async_iterable<any>;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.ReadableStream": {
           code: '"ReadableStream" in self',
           exposure: ["Window"],
@@ -657,7 +690,7 @@ describe("build (API)", () => {
              async_iterable<DOMString, any>;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.AsyncMap": {
           code: '"AsyncMap" in self',
           exposure: ["Window"],
@@ -688,7 +721,7 @@ describe("build (API)", () => {
              maplike<DOMString, double>;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.DoubleMap": {
           code: '"DoubleMap" in self',
           exposure: ["Window"],
@@ -747,7 +780,7 @@ describe("build (API)", () => {
              setlike<double>;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.DoubleSet": {
           code: '"DoubleSet" in self',
           exposure: ["Window"],
@@ -803,7 +836,7 @@ describe("build (API)", () => {
              setter undefined (GetMe data, optional unsigned long index);
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.GetMe": {
           code: '"GetMe" in self',
           exposure: ["Window"],
@@ -821,7 +854,7 @@ describe("build (API)", () => {
            };
            [Exposed=Window] namespace GPUBufferUsage {};`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.console": {
           code: '"console" in self',
           exposure: ["Window"],
@@ -853,7 +886,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Number": {
           code: '"Number" in self',
           exposure: ["Window"],
@@ -873,7 +906,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.HTMLAreaElement": {
           code: '"HTMLAreaElement" in self',
           exposure: ["Window"],
@@ -898,7 +931,7 @@ describe("build (API)", () => {
              undefined disconnect (AudioNode destinationNode);
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.AudioNode": {
           code: '"AudioNode" in self',
           exposure: ["Window"],
@@ -917,7 +950,7 @@ describe("build (API)", () => {
              readonly attribute any paintWorklet;
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.CSS": {
           code: '"CSS" in self',
           exposure: ["Window"],
@@ -936,7 +969,7 @@ describe("build (API)", () => {
              boolean supports(CSSOMString property, CSSOMString value);
            };`,
       );
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.CSS": {
           code: '"CSS" in self',
           exposure: ["Window"],
@@ -956,7 +989,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.Scope": {
           code: `(function () {
   var scope = Scope;
@@ -981,7 +1014,7 @@ describe("build (API)", () => {
            interface HTMLImageElement {};`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, [], scopes), {
+      assert.deepEqual(await buildIDLTests(ast, [], scopes, {}), {
         "api.HTMLImageElement": {
           code: '"HTMLImageElement" in self',
           exposure: ["Window"],
@@ -1007,7 +1040,7 @@ describe("build (API)", () => {
            };`,
       );
 
-      assert.deepEqual(await buildIDLTests(ast, globals, scopes), {
+      assert.deepEqual(await buildIDLTests(ast, globals, scopes, {}), {
         "api.Dummy": {
           code: '"Dummy" in self',
           exposure: ["Window"],
