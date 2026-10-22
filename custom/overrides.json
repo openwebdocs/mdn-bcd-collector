@@ -1406,5 +1406,14 @@
   ["api.HTMLSelectedContentElement", "safari", "1-26.6", false],
   ["api.HTMLSelectedContentElement", "safari_ios", "1-26.6", false],
   "See https://bugs.webkit.org/show_bug.cgi?id=227042",
-  ["html.elements.optgroup.disabled", "safari_ios", "*", false]
+  ["html.elements.optgroup.disabled", "safari_ios", "*", false],
+  "@charset is not a valid at-rule in CSS3 and so supports(at-rule(@charset)) always fails, https://drafts.csswg.org/css-conditional-5/#dfn-support-at-rule",
+  ["css.at-rules.charset", "chrome", "2+", true],
+  ["css.at-rules.charset", "chrome_android", "*", true],
+  ["css.at-rules.charset", "webview_android", "*", true],
+  ["css.at-rules.charset", "edge", "12+", true],
+  ["css.at-rules.charset", "firefox", "1.5+", true],
+  ["css.at-rules.charset", "firefox_android", "4+", true],
+  ["css.at-rules.charset", "safari", "4+", true],
+  ["css.at-rules.charset", "safari_ios", "4+", true]
 ]
