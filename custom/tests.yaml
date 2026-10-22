@@ -4022,6 +4022,31 @@ api:
         });
 
         return 'callback';
+    observe:
+      __base: |-
+        if (!('PerformanceObserver' in self)) {
+          return {result: false, message: 'PerformanceObserver is not defined'};
+        }
+        var instance = new PerformanceObserver(function() {});
+        bcd.addCleanup(function() {
+          instance.disconnect();
+        });
+        function observe(options) {
+          instance.observe(options);
+        }
+      __additional:
+        options_parameter.type: |-
+          try {
+            return bcd.testOptionParam(observe, null, 'type', 'resource');
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        options_parameter.buffered: |-
+          try {
+            return bcd.testOptionParam(observe, null, 'buffered', true, {type: 'resource'});
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   PerformanceResourceTiming:
     __base: var instance = performance.getEntriesByType("resource")[0];
   PerformanceTiming:
