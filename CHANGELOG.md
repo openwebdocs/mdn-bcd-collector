@@ -1,5 +1,243 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.0
+
+Released October 22, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CanvasPaintEvent
+- api.CanvasRenderingContext2D.drawElementImage
+- api.ElementGeometryUpdateEvent
+- api.ElementImage
+- api.EXT_clip_control
+- api.EXT_conservative_depth
+- api.EXT_depth_clamp
+- api.EXT_polygon_offset_clamp
+- api.EXT_render_snorm
+- api.EXT_texture_mirror_clamp_to_edge
+- api.GPUQueue.drawElementImageToTexture
+- api.HTMLCanvasElement.captureElementImage
+- api.HTMLCanvasElement.clearElementGeometry
+- api.HTMLCanvasElement.content
+- api.HTMLCanvasElement.getElementImageDefaultSize
+- api.HTMLCanvasElement.getElementTransform
+- api.HTMLCanvasElement.requestPaint
+- api.HTMLCanvasElement.updateElementGeometry
+- api.HTMLElement.drawable
+- api.HTMLInputElement.hspace
+- api.HTMLInputElement.vspace
+- api.NV_shader_noperspective_interpolation
+- api.OES_sample_variables
+- api.OES_shader_multisample_interpolation
+- api.OffscreenCanvas.clearElementGeometry
+- api.OffscreenCanvas.getElementImageDefaultSize
+- api.OffscreenCanvas.updateElementGeometry
+- api.OffscreenCanvasRenderingContext2D.drawElementImage
+- api.PerformanceLongAnimationFrameTiming.layoutDuration
+- api.PerformanceLongAnimationFrameTiming.styleDuration
+- api.PerformanceScriptTiming.forcedLayoutDuration
+- api.PerformanceScriptTiming.forcedStyleDuration
+- api.PerformanceScriptTiming.sourceColumn
+- api.PerformanceScriptTiming.sourceLine
+- api.SpeechRecognitionResult.speechEndTime
+- api.SpeechRecognitionResult.speechStartTime
+- api.SVGImageElement.referrerPolicy
+- api.SVGScriptElement.referrerPolicy
+- api.WEBGL_blend_func_extended
+- api.WEBGL_polygon_mode
+- api.WEBGL_render_shared_exponent
+- api.WEBGL_shader_pixel_local_storage
+- api.WEBGL_stencil_texturing
+- api.WebGL2RenderingContext.texElementSubImage2D
+- css.properties.align-content.flow-start
+- css.properties.align-content.flow-end
+- css.properties.align-items.flow-start
+- css.properties.align-items.flow-end
+- css.properties.align-self.flow-start
+- css.properties.align-self.flow-end
+- css.properties.bookmark-label.disc
+- css.properties.bookmark-label.circle
+- css.properties.bookmark-label.square
+- css.properties.bookmark-label.disclosure-open
+- css.properties.bookmark-label.disclosure-closed
+- css.properties.content.disc
+- css.properties.content.circle
+- css.properties.content.square
+- css.properties.content.disclosure-open
+- css.properties.content.disclosure-closed
+- css.properties.justify-content.flow-start
+- css.properties.justify-content.flow-end
+- css.properties.justify-items.flow-start
+- css.properties.justify-items.flow-end
+- css.properties.justify-self.flow-start
+- css.properties.justify-self.flow-end
+- css.properties.place-content.flow-start
+- css.properties.place-content.flow-end
+- css.properties.place-items.flow-start
+- css.properties.place-items.flow-end
+- css.properties.place-self.flow-start
+- css.properties.place-self.flow-end
+- css.at-rules.-moz-document
+- css.at-rules.apply
+- css.at-rules.charset
+- css.at-rules.color-profile
+- css.at-rules.container
+- css.at-rules.contents
+- css.at-rules.counter-style
+- css.at-rules.custom-media
+- css.at-rules.custom-selector
+- css.at-rules.else
+- css.at-rules.font-face
+- css.at-rules.font-feature-values
+- css.at-rules.font-palette-values
+- css.at-rules.function
+- css.at-rules.import
+- css.at-rules.keyframes
+- css.at-rules.layer
+- css.at-rules.location
+- css.at-rules.media
+- css.at-rules.mixin
+- css.at-rules.namespace
+- css.at-rules.navigation
+- css.at-rules.page
+- css.at-rules.position-try
+- css.at-rules.private
+- css.at-rules.property
+- css.at-rules.scope
+- css.at-rules.starting-style
+- css.at-rules.supports
+- css.at-rules.supports-condition
+- css.at-rules.view-transition
+- css.at-rules.when
+
+#### Removed
+
+- api.Navigator.deviceMemory
+- api.Notification.vibrate
+- api.PerformanceLongTaskTiming
+- api.SVGUseElementShadowRoot
+- api.TaskAttributionTiming
+- api.WorkerNavigator.deviceMemory
+- css.properties.path-length.0
+- html.elements.link.rel.alternate_stylesheet
+- html.elements.link.rel.dns-prefetch
+- html.elements.link.rel.icon
+- html.elements.link.rel.manifest
+- html.elements.link.rel.modulepreload
+- html.elements.link.rel.preconnect
+- html.elements.link.rel.prefetch
+- html.elements.link.rel.preload
+- html.elements.link.rel.prerender
+
+#### Changed
+
+- api.HTMLAnchorElement.HTMLAnchorElement
+- api.HTMLAreaElement.HTMLAreaElement
+- api.HTMLAudioElement.HTMLAudioElement
+- api.HTMLBaseElement.HTMLBaseElement
+- api.HTMLBodyElement.HTMLBodyElement
+- api.HTMLBRElement.HTMLBRElement
+- api.HTMLButtonElement.HTMLButtonElement
+- api.HTMLCameraElement.HTMLCameraElement
+- api.HTMLCanvasElement.HTMLCanvasElement
+- api.HTMLDataElement.HTMLDataElement
+- api.HTMLDataListElement.HTMLDataListElement
+- api.HTMLDetailsElement.HTMLDetailsElement
+- api.HTMLDialogElement.HTMLDialogElement
+- api.HTMLDirectoryElement.HTMLDirectoryElement
+- api.HTMLDivElement.HTMLDivElement
+- api.HTMLDListElement.HTMLDListElement
+- api.HTMLElement.HTMLElement
+- api.HTMLEmbedElement.HTMLEmbedElement
+- api.HTMLFencedFrameElement.HTMLFencedFrameElement
+- api.HTMLFieldSetElement.HTMLFieldSetElement
+- api.HTMLFontElement.HTMLFontElement
+- api.HTMLFormElement.HTMLFormElement
+- api.HTMLFrameElement.HTMLFrameElement
+- api.HTMLFrameSetElement.HTMLFrameSetElement
+- api.HTMLGeolocationElement.HTMLGeolocationElement
+- api.HTMLHeadElement.HTMLHeadElement
+- api.HTMLHeadingElement.HTMLHeadingElement
+- api.HTMLHRElement.HTMLHRElement
+- api.HTMLHtmlElement.HTMLHtmlElement
+- api.HTMLIFrameElement.HTMLIFrameElement
+- api.HTMLImageElement.HTMLImageElement
+- api.HTMLInputElement.HTMLInputElement
+- api.HTMLInstallElement.HTMLInstallElement
+- api.HTMLLabelElement.HTMLLabelElement
+- api.HTMLLegendElement.HTMLLegendElement
+- api.HTMLLIElement.HTMLLIElement
+- api.HTMLLinkElement.HTMLLinkElement
+- api.HTMLMapElement.HTMLMapElement
+- api.HTMLMarqueeElement.HTMLMarqueeElement
+- api.HTMLMenuElement.HTMLMenuElement
+- api.HTMLMetaElement.HTMLMetaElement
+- api.HTMLMeterElement.HTMLMeterElement
+- api.HTMLMicrophoneElement.HTMLMicrophoneElement
+- api.HTMLModElement.HTMLModElement
+- api.HTMLObjectElement.HTMLObjectElement
+- api.HTMLOListElement.HTMLOListElement
+- api.HTMLOptGroupElement.HTMLOptGroupElement
+- api.HTMLOptionElement.HTMLOptionElement
+- api.HTMLOutputElement.HTMLOutputElement
+- api.HTMLParagraphElement.HTMLParagraphElement
+- api.HTMLParamElement.HTMLParamElement
+- api.HTMLPictureElement.HTMLPictureElement
+- api.HTMLPortalElement.HTMLPortalElement
+- api.HTMLPreElement.HTMLPreElement
+- api.HTMLProgressElement.HTMLProgressElement
+- api.HTMLQuoteElement.HTMLQuoteElement
+- api.HTMLScriptElement.HTMLScriptElement
+- api.HTMLSelectedContentElement.HTMLSelectedContentElement
+- api.HTMLSelectElement.HTMLSelectElement
+- api.HTMLSlotElement.HTMLSlotElement
+- api.HTMLSourceElement.HTMLSourceElement
+- api.HTMLSpanElement.HTMLSpanElement
+- api.HTMLStyleElement.HTMLStyleElement
+- api.HTMLTableCaptionElement.HTMLTableCaptionElement
+- api.HTMLTableCellElement.HTMLTableCellElement
+- api.HTMLTableColElement.HTMLTableColElement
+- api.HTMLTableElement.HTMLTableElement
+- api.HTMLTableRowElement.HTMLTableRowElement
+- api.HTMLTableSectionElement.HTMLTableSectionElement
+- api.HTMLTemplateElement.HTMLTemplateElement
+- api.HTMLTextAreaElement.HTMLTextAreaElement
+- api.HTMLTimeElement.HTMLTimeElement
+- api.HTMLTitleElement.HTMLTitleElement
+- api.HTMLTrackElement.HTMLTrackElement
+- api.HTMLUListElement.HTMLUListElement
+- api.HTMLUserMediaElement.HTMLUserMediaElement
+- api.HTMLVideoElement.HTMLVideoElement
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3484](https://github.com/openwebdocs/mdn-bcd-collector/pull/3484))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.4.0 to 65.4.1 in the dev group ([#3485](https://github.com/openwebdocs/mdn-bcd-collector/pull/3485))
+- build(deps): bump @mdn/browser-compat-data from 8.1.6 to 8.1.7 in the data group ([#3482](https://github.com/openwebdocs/mdn-bcd-collector/pull/3482))
+- build(deps-dev): bump puppeteer from 25.15.0 to 25.16.0 in the dev group ([#3483](https://github.com/openwebdocs/mdn-bcd-collector/pull/3483))
+- Add custom idl for html-in-canvas ([#3481](https://github.com/openwebdocs/mdn-bcd-collector/pull/3481))
+- Add collection for HTMLConstructors ([#3480](https://github.com/openwebdocs/mdn-bcd-collector/pull/3480))
+- Collect CSS at-rules ([#3477](https://github.com/openwebdocs/mdn-bcd-collector/pull/3477))
+- build(deps-dev): bump the dev group with 2 updates ([#3479](https://github.com/openwebdocs/mdn-bcd-collector/pull/3479))
+- build(deps-dev): bump follow-redirects from 1.16.0 to 1.16.1 ([#3478](https://github.com/openwebdocs/mdn-bcd-collector/pull/3478))
+- build(deps-dev): bump the dev group with 2 updates ([#3476](https://github.com/openwebdocs/mdn-bcd-collector/pull/3476))
+- Remove &lt;link rel&gt; tests ([#3474](https://github.com/openwebdocs/mdn-bcd-collector/pull/3474))
+- build(deps): bump the dev group with 5 updates ([#3473](https://github.com/openwebdocs/mdn-bcd-collector/pull/3473))
+- build(deps): bump zizmorcore/zizmor-action from 0.6.4 to 0.7.1 ([#3472](https://github.com/openwebdocs/mdn-bcd-collector/pull/3472))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.3.4 to 65.3.6 in the dev group ([#3471](https://github.com/openwebdocs/mdn-bcd-collector/pull/3471))
+
+### Statistics
+
+- Total BCD keys: 20898
+- Testable BCD keys: 17007 (81.38%)
+- Testable BCD keys not in Collector: 1978 (11.63%)
+- Total Collector keys: 17442
+- Collector keys in BCD: 15029 (86.17%)
+- Collector keys not in BCD: 2413 (13.83%)
+
 ## v10.20.16
 
 Released October 15, 2026
