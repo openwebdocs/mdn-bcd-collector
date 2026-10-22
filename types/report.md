@@ -62,4 +62,8 @@ The `userAgent` string is a required property and states the user agent of the t
 
 ### `preview`
 
-The `preview` boolean is an optional property and states if the user agent of the tested browser the results were collected from is a preview version like "Nightly", "Canary", or "Technical Preview".
+The `preview` boolean is an optional property and states if the user agent of the test results is a preview version like "Nightly", "Canary", or "Technical Preview".
+
+### `flags`
+
+The `flags` array is an optional property and states which preferences or runtime switches were configured for the test results.
