@@ -261,6 +261,7 @@ const buildBuiltinsTest = async (
  * @param tests - The tests object to store the compiled tests.
  * @param path - The path to the constructor.
  * @param data - Additional data for the tests (optional).
+ * @param data.subclass - Indicates that the constructor must be tested by subclassing it.
  * @returns - A promise that resolves when the tests are built.
  */
 const buildConstructorTests = async (tests, path: string, data: any = {}) => {
@@ -290,14 +291,19 @@ const buildConstructorTests = async (tests, path: string, data: any = {}) => {
       exposure: ["Window"],
     });
   } else {
+    const constructorCode = data.subclass
+      ? `class Subclass extends ${iface} {
+          constructor() {
+            super();
+          }
+        }
+        new Subclass();
+        return {result: true, message: "Constructor passed with no errors"};`
+      : `return bcd.testConstructor("${iface}", ${!!data.no_new})`;
+
     tests[path] = compileTest({
       raw: {
-        code: (
-          await compileCustomTest(
-            baseCode +
-              `return bcd.testConstructor("${iface}", ${!!data.no_new})`,
-          )
-        ).code,
+        code: (await compileCustomTest(baseCode + constructorCode)).code,
       },
       exposure: ["Window"],
     });
