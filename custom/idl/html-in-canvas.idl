@@ -1,0 +1,109 @@
+// HTML additions
+
+partial interface HTMLCanvasElement {
+  [CEReactions, Reflect] attribute DOMString content;
+  ElementImage captureElementImage(Element element);
+  undefined updateElementGeometry((Element or ElementImage) element, optional UpdateElementGeometryOptions options = {});
+  undefined clearElementGeometry((Element or ElementImage) element);
+  ElementImageDefaultSize getElementImageDefaultSize((Element or ElementImage) element);
+  [NewObject] DOMMatrix getElementTransform(Element element);
+  undefined requestPaint();
+};
+
+dictionary ElementImageDefaultSize {
+  required double width;
+  required double height;
+};
+
+dictionary DrawElementImageOptions {
+  boolean preserveElementGeometry = false;
+};
+dictionary UpdateElementGeometryOptions {
+  boolean preserveHitTestOrder = false;
+  DOMRectInit canvasClip;  DOMMatrixInit canvasTransform;
+};
+interface mixin CanvasDrawElementImage {
+  // drawing elements
+  undefined drawElementImage((Element or ElementImage) element, unrestricted double dx, unrestricted double dy, optional DrawElementImageOptions options = {});
+  undefined drawElementImage((Element or ElementImage) element, unrestricted double dx, unrestricted double dy, unrestricted double dw, unrestricted double dh, optional DrawElementImageOptions options = {});
+  undefined drawElementImage((Element or ElementImage) element, unrestricted double sx, unrestricted double sy, unrestricted double sw, unrestricted double sh, unrestricted double dx, unrestricted double dy, optional DrawElementImageOptions options = {});
+  undefined drawElementImage((Element or ElementImage) element, unrestricted double sx, unrestricted double sy, unrestricted double sw, unrestricted double sh, unrestricted double dx, unrestricted double dy, unrestricted double dw, unrestricted double dh, optional DrawElementImageOptions options = {});
+};
+
+partial interface OffscreenCanvas {
+  undefined updateElementGeometry((Element or ElementImage) element, optional UpdateElementGeometryOptions options = {});
+  undefined clearElementGeometry((Element or ElementImage) element);
+  ElementImageDefaultSize getElementImageDefaultSize((Element or ElementImage) element);
+};
+
+[Exposed=(Window,Worker), Transferable]
+interface ElementImage {
+  undefined close();
+};
+
+[Exposed=Window]
+interface CanvasPaintEvent : Event {
+  constructor(DOMString type, optional CanvasPaintEventInit eventInitDict = {});
+  [SameObject] readonly attribute FrozenArray<Element> changedElements;
+};
+dictionary CanvasPaintEventInit : EventInit {
+  sequence<Element> changedElements = [];
+};
+
+[Exposed=Window]
+interface ElementGeometryUpdateEvent : Event {
+  constructor(DOMString type, optional ElementGeometryUpdateEventInit eventInitDict = {});
+  [SameObject] readonly attribute FrozenArray<Element> elements;
+};
+dictionary ElementGeometryUpdateEventInit : EventInit {
+  sequence<Element> elements = [];
+};
+partial interface HTMLElement {
+  [CEReactions, Reflect] attribute boolean drawable;
+};
+
+partial interface mixin GlobalEventHandlers {
+  attribute EventHandler onelementgeometryupdate;
+  attribute EventHandler onpaint;
+};
+
+CanvasRenderingContext2D includes CanvasDrawElementImage;
+OffscreenCanvasRenderingContext2D includes CanvasDrawElementImage;
+
+// WebGL additions
+
+dictionary WebGLCopyElementImageConfig {
+  GLfloat sx;
+  GLfloat sy;
+  GLfloat swidth;
+  GLfloat sheight;
+  GLsizei width;
+  GLsizei height;
+};
+
+partial interface mixin WebGL2RenderingContextBase {
+
+  [throws] undefined texElementSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset,
+                                         (Element or ElementImage) element,
+                                         optional WebGLCopyElementImageConfig config = {});
+};
+
+
+// WebGPU additions
+
+dictionary GPUCopyElementImageSource {
+  required (Element or ElementImage) source;
+  float sx;
+  float sy;
+  float swidth;
+  float sheight;
+};
+dictionary GPUCopyElementImageDestination {
+  GPUIntegerCoordinate width;
+  GPUIntegerCoordinate height;
+};
+partial interface GPUQueue {
+    undefined drawElementImageToTexture(
+        GPUCopyElementImageSource source,
+        GPUCopyElementImageDestination destination);
+};
