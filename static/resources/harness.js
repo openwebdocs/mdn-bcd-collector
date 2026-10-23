@@ -758,7 +758,8 @@
 
     if (syntax.includes("@media.") && window.matchMedia) {
       const query = syntax.replace("@media.", "");
-      return window.matchMedia(`not all and (${query}), (${query})`).matches;
+      return window.matchMedia("not all and (" + query + "), (" + query + ")")
+        .matches;
     }
 
     return { result: null, message: "Detection methods are not supported" };
