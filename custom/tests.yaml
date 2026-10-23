@@ -1886,6 +1886,14 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('EXT_blend_minmax');
+  EXT_clip_control:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_clip_control');
   EXT_clip_cull_distance:
     __resources:
       - webGL
@@ -1910,6 +1918,22 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('EXT_color_buffer_half_float');
+  EXT_conservative_depth:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('EXT_conservative_depth');
+  EXT_depth_clamp:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_depth_clamp');
   EXT_disjoint_timer_query:
     __resources:
       - webGL1
@@ -1942,6 +1966,22 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('EXT_frag_depth');
+  EXT_polygon_offset_clamp:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_polygon_offset_clamp');
+  EXT_render_snorm:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('EXT_render_snorm');
   EXT_shader_texture_lod:
     __resources:
       - webGL1
@@ -1982,6 +2022,14 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('EXT_texture_filter_anisotropic');
+  EXT_texture_mirror_clamp_to_edge:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_texture_mirror_clamp_to_edge');
   EXT_texture_norm16:
     __resources:
       - webGL2
@@ -3676,6 +3724,14 @@ api:
 
       // Finally, disconnect the observer
       observer.disconnect();
+  NV_shader_noperspective_interpolation:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('NV_shader_noperspective_interpolation');
   NamedNodeMap:
     __base: var instance = document.body.attributes;
   Navigator:
@@ -3787,6 +3843,22 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('OES_fbo_render_mipmap');
+  OES_sample_variables:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('OES_sample_variables');
+  OES_shader_multisample_interpolation:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('OES_shader_multisample_interpolation');
   OES_standard_derivatives:
     __resources:
       - webGL1
@@ -5915,6 +5987,14 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('WEBGL_blend_equation_advanced_coherent');
+  WEBGL_blend_func_extended:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('WEBGL_blend_func_extended');
   WEBGL_color_buffer_float:
     __resources:
       - webGL1
@@ -6035,6 +6115,38 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('WEBGL_multi_draw_instanced_base_vertex_base_instance');
+  WEBGL_polygon_mode:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('WEBGL_polygon_mode');
+  WEBGL_render_shared_exponent:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('WEBGL_render_shared_exponent');
+  WEBGL_shader_pixel_local_storage:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('WEBGL_shader_pixel_local_storage');
+  WEBGL_stencil_texturing:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('WEBGL_stencil_texturing');
   WEBGL_lose_context:
     __resources:
       - webGL
