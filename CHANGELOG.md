@@ -1,5 +1,44 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.1
+
+Released October 23, 2026
+
+### Test Changes
+
+#### Changed
+
+- api.EXT_clip_control
+- api.EXT_conservative_depth
+- api.EXT_depth_clamp
+- api.EXT_polygon_offset_clamp
+- api.EXT_render_snorm
+- api.EXT_texture_mirror_clamp_to_edge
+- api.NV_shader_noperspective_interpolation
+- api.OES_sample_variables
+- api.OES_shader_multisample_interpolation
+- api.WEBGL_blend_func_extended
+- api.WEBGL_polygon_mode
+- api.WEBGL_render_shared_exponent
+- api.WEBGL_shader_pixel_local_storage
+- api.WEBGL_stencil_texturing
+- css.properties.column-rule-color.repeat_auto
+
+### Commits
+
+- Add tests for new WebGL extensions ([#3489](https://github.com/openwebdocs/mdn-bcd-collector/pull/3489))
+- Remove repeat_auto from column-rule-color ([#3488](https://github.com/openwebdocs/mdn-bcd-collector/pull/3488))
+- Fix harness to be more compatible again ([#3487](https://github.com/openwebdocs/mdn-bcd-collector/pull/3487))
+
+### Statistics
+
+- Total BCD keys: 20898
+- Testable BCD keys: 17007 (81.38%)
+- Testable BCD keys not in Collector: 1978 (11.63%)
+- Total Collector keys: 17442
+- Collector keys in BCD: 15029 (86.17%)
+- Collector keys not in BCD: 2413 (13.83%)
+
 ## v10.21.0
 
 Released October 22, 2026
