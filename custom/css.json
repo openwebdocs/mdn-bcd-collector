@@ -225,8 +225,7 @@
     "column-rule-color": {
       "__additional_values": {
         "multiple_colors": "red, blue",
-        "repeat": "repeat(2, red)",
-        "repeat_auto": "repeat(auto, red)"
+        "repeat": "repeat(2, red)"
       }
     },
     "contain-intrinsic-size": {
