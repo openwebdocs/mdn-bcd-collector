@@ -67,7 +67,7 @@
     "yargs": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "8.0.7",
+    "@babel/core": "8.0.9",
     "@babel/eslint-parser": "8.0.7",
     "@babel/preset-env": "8.0.7",
     "@eslint/eslintrc": "^3.3.7",
@@ -92,7 +92,7 @@
     "eslint": "10.13.0",
     "eslint-plugin-jsdoc": "^65.4.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "eslint-plugin-unicorn": "^78.0.0",
+    "eslint-plugin-unicorn": "^79.0.0",
     "fdir": "6.5.0",
     "foreman": "^3.0.1",
     "globals": "^17.13.0",
