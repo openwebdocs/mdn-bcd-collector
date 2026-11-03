@@ -67,7 +67,7 @@
     "yargs": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "8.0.10",
+    "@babel/core": "8.1.0",
     "@babel/eslint-parser": "8.0.7",
     "@babel/preset-env": "8.0.7",
     "@eslint/eslintrc": "^3.3.7",
