@@ -7142,6 +7142,18 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
+      Iterator: |-
+        try {
+          class myIterator extends Iterator {
+            constructor() {
+              super();
+            }
+          }
+          new myIterator();
+          return true;
+        } catch(e) {
+          return {result: false, message: e.message};
+        }
       "@@iterator": return !!instance && "Symbol" in self && "iterator" in Symbol && !!(instance[Symbol.iterator]);
     Map:
       __additional:
