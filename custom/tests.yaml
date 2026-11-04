@@ -6312,6 +6312,33 @@ api:
       } else {
         instance = CSS.paintWorklet;
       }
+  WGSLLanguageFeatures:
+    __base: |-
+      if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+        return {result: false, message: 'WebGPU language features are not available'};
+      }
+      var instance = navigator.gpu.wgslLanguageFeatures;
+      if (!instance || !('has' in instance)) {
+        return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+      }
+    # The list of extensions is not machine-readable
+    # A table is here: https://gpuweb.github.io/gpuweb/wgsl/#language-extensions-sec
+    __additional:
+      extension_atomic_vec2u_min_max: return instance.has('atomic_vec2u_min_max');
+      extension_buffer_view: return instance.has('buffer_view');
+      extension_fragment_depth: return instance.has('fragment_depth');
+      extension_immediate_address_space: return instance.has('immediate_address_space');
+      extension_linear_indexing: return instance.has('linear_indexing');
+      extension_packed_4x8_integer_dot_product: return instance.has('packed_4x8_integer_dot_product');
+      extension_pointer_composite_access: return instance.has('pointer_composite_access');
+      extension_readonly_and_readwrite_storage_textures: return instance.has('readonly_and_readwrite_storage_textures');
+      extension_subgroup_id: return instance.has('subgroup_id');
+      extension_subgroup_uniformity: return instance.has('subgroup_uniformity');
+      extension_swizzle_assignment: return instance.has('swizzle_assignment');
+      extension_texture_and_sampler_let: return instance.has('texture_and_sampler_let');
+      extension_texture_formats_tier1: return instance.has('texture_formats_tier1');
+      extension_uniform_buffer_standard_layout: return instance.has('uniform_buffer_standard_layout');
+      extension_unrestricted_pointer_parameters: return instance.has('unrestricted_pointer_parameters');
   WritableStreamDefaultController:
     __base: |-
       if (!('WritableStream' in self)) {
