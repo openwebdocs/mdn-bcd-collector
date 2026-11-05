@@ -222,6 +222,12 @@
       "__values": ["auto", "optimizeSpeed", "optimizeQuality"]
     },
     "column-progression": {},
+    "column-rule-color": {
+      "__additional_values": {
+        "multiple_colors": "red, blue",
+        "repeat": "repeat(2, red)"
+      }
+    },
     "contain-intrinsic-size": {
       "__additional_values": {
         "auto_none": "auto none"
@@ -410,6 +416,11 @@
       "__additional_values": {
         "anchor": "anchor(bottom)",
         "anchor-size": "anchor-size(block, 10%)"
+      }
+    },
+    "letter-spacing": {
+      "__additional_values": {
+        "percentages": "50%"
       }
     },
     "list-style": {
@@ -686,6 +697,12 @@
         "position-area": "left center"
       }
     },
+    "position-visibility": {
+      "__additional_values": {
+        "anchors-valid": "anchors-valid",
+        "anchors-visible": "anchors-visible"
+      }
+    },
     "right": {
       "__additional_values": {
         "anchor": "anchor(bottom)",
@@ -695,6 +712,11 @@
     "rotate": {
       "__additional_values": {
         "x_y_z_angle": "x 90deg"
+      }
+    },
+    "ruby-overhang": {
+      "__additional_values": {
+        "none": "none"
       }
     },
     "scroll-snap-coordinate": {},
@@ -985,7 +1007,22 @@
       "value": "attr(content)",
       "additionalValues": {
         "fallback": "attr(content, 'default')",
-        "type_function": "attr(content string)"
+        "raw-string": "attr(content raw-string)",
+        "type_function": "attr(x type(<string>))",
+        "type_function.angle": "attr(x type(<angle>))",
+        "type_function.color": "attr(x type(<color>))",
+        "type_function.custom-ident": "attr(x type(<custom-ident>))",
+        "type_function.ident": "attr(x type(foo))",
+        "type_function.image": "attr(x type(<image>))",
+        "type_function.integer": "attr(x type(<integer>))",
+        "type_function.length": "attr(x type(<length>))",
+        "type_function.length-percentage": "attr(x type(<length-percentage>))",
+        "type_function.number": "attr(x type(<number>))",
+        "type_function.percentage": "attr(x type(<percentage>))",
+        "type_function.resolution": "attr(x type(<resolution>))",
+        "type_function.string": "attr(x type(<string>))",
+        "type_function.time": "attr(x type(<time>))",
+        "type_function.transform-function": "attr(x type(<transform-function>))"
       }
     },
     "basic-shape": {
@@ -1039,6 +1076,7 @@
         "contrast-color": "contrast-color(wheat)",
         "currentcolor": "currentcolor",
         "hsl": "hsl(150, 30%, 60%)",
+        "hsla": "hsla(150, 30%, 60%, 0.5)",
         "hwb": "hwb(12, 50%, 0%)",
         "lab": "lab(50%, 40, 59.5)",
         "lch": "lch(52.2%, 72.2, 50)",
@@ -1143,6 +1181,17 @@
       "syntax": "<frequency>",
       "property": "voice-pitch",
       "value": "100Hz"
+    },
+    "global_keywords": {
+      "property": "color",
+      "additionalValues": {
+        "inherit": "inherit",
+        "initial": "initial",
+        "revert": "revert",
+        "revert-layer": "revert-layer",
+        "revert-rule": "revert-rule",
+        "unset": "unset"
+      }
     },
     "hypot": {
       "syntax": "<hypot()>",
@@ -1253,7 +1302,10 @@
     "ratio": {
       "syntax": "<ratio>",
       "property": "aspect-ratio",
-      "value": "16 / 9"
+      "value": "16 / 9",
+      "additionalValues": {
+        "number_value": "1.5"
+      }
     },
     "random": {
       "syntax": "<random()>",
@@ -1385,5 +1437,8 @@
       "property": "background-image",
       "value": "url('https://collector.openwebdocs.org/')"
     }
+  },
+  "at-rules": {
+    "@-moz-document": {}
   }
 }

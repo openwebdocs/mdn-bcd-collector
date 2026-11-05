@@ -1,5 +1,546 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.1
+
+Released October 23, 2026
+
+### Test Changes
+
+#### Changed
+
+- api.EXT_clip_control
+- api.EXT_conservative_depth
+- api.EXT_depth_clamp
+- api.EXT_polygon_offset_clamp
+- api.EXT_render_snorm
+- api.EXT_texture_mirror_clamp_to_edge
+- api.NV_shader_noperspective_interpolation
+- api.OES_sample_variables
+- api.OES_shader_multisample_interpolation
+- api.WEBGL_blend_func_extended
+- api.WEBGL_polygon_mode
+- api.WEBGL_render_shared_exponent
+- api.WEBGL_shader_pixel_local_storage
+- api.WEBGL_stencil_texturing
+- css.properties.column-rule-color.repeat_auto
+
+### Commits
+
+- Add tests for new WebGL extensions ([#3489](https://github.com/openwebdocs/mdn-bcd-collector/pull/3489))
+- Remove repeat_auto from column-rule-color ([#3488](https://github.com/openwebdocs/mdn-bcd-collector/pull/3488))
+- Fix harness to be more compatible again ([#3487](https://github.com/openwebdocs/mdn-bcd-collector/pull/3487))
+
+### Statistics
+
+- Total BCD keys: 20898
+- Testable BCD keys: 17007 (81.38%)
+- Testable BCD keys not in Collector: 1978 (11.63%)
+- Total Collector keys: 17442
+- Collector keys in BCD: 15029 (86.17%)
+- Collector keys not in BCD: 2413 (13.83%)
+
+## v10.21.0
+
+Released October 22, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CanvasPaintEvent
+- api.CanvasRenderingContext2D.drawElementImage
+- api.ElementGeometryUpdateEvent
+- api.ElementImage
+- api.EXT_clip_control
+- api.EXT_conservative_depth
+- api.EXT_depth_clamp
+- api.EXT_polygon_offset_clamp
+- api.EXT_render_snorm
+- api.EXT_texture_mirror_clamp_to_edge
+- api.GPUQueue.drawElementImageToTexture
+- api.HTMLCanvasElement.captureElementImage
+- api.HTMLCanvasElement.clearElementGeometry
+- api.HTMLCanvasElement.content
+- api.HTMLCanvasElement.getElementImageDefaultSize
+- api.HTMLCanvasElement.getElementTransform
+- api.HTMLCanvasElement.requestPaint
+- api.HTMLCanvasElement.updateElementGeometry
+- api.HTMLElement.drawable
+- api.HTMLInputElement.hspace
+- api.HTMLInputElement.vspace
+- api.NV_shader_noperspective_interpolation
+- api.OES_sample_variables
+- api.OES_shader_multisample_interpolation
+- api.OffscreenCanvas.clearElementGeometry
+- api.OffscreenCanvas.getElementImageDefaultSize
+- api.OffscreenCanvas.updateElementGeometry
+- api.OffscreenCanvasRenderingContext2D.drawElementImage
+- api.PerformanceLongAnimationFrameTiming.layoutDuration
+- api.PerformanceLongAnimationFrameTiming.styleDuration
+- api.PerformanceScriptTiming.forcedLayoutDuration
+- api.PerformanceScriptTiming.forcedStyleDuration
+- api.PerformanceScriptTiming.sourceColumn
+- api.PerformanceScriptTiming.sourceLine
+- api.SpeechRecognitionResult.speechEndTime
+- api.SpeechRecognitionResult.speechStartTime
+- api.SVGImageElement.referrerPolicy
+- api.SVGScriptElement.referrerPolicy
+- api.WEBGL_blend_func_extended
+- api.WEBGL_polygon_mode
+- api.WEBGL_render_shared_exponent
+- api.WEBGL_shader_pixel_local_storage
+- api.WEBGL_stencil_texturing
+- api.WebGL2RenderingContext.texElementSubImage2D
+- css.properties.align-content.flow-start
+- css.properties.align-content.flow-end
+- css.properties.align-items.flow-start
+- css.properties.align-items.flow-end
+- css.properties.align-self.flow-start
+- css.properties.align-self.flow-end
+- css.properties.bookmark-label.disc
+- css.properties.bookmark-label.circle
+- css.properties.bookmark-label.square
+- css.properties.bookmark-label.disclosure-open
+- css.properties.bookmark-label.disclosure-closed
+- css.properties.content.disc
+- css.properties.content.circle
+- css.properties.content.square
+- css.properties.content.disclosure-open
+- css.properties.content.disclosure-closed
+- css.properties.justify-content.flow-start
+- css.properties.justify-content.flow-end
+- css.properties.justify-items.flow-start
+- css.properties.justify-items.flow-end
+- css.properties.justify-self.flow-start
+- css.properties.justify-self.flow-end
+- css.properties.place-content.flow-start
+- css.properties.place-content.flow-end
+- css.properties.place-items.flow-start
+- css.properties.place-items.flow-end
+- css.properties.place-self.flow-start
+- css.properties.place-self.flow-end
+- css.at-rules.-moz-document
+- css.at-rules.apply
+- css.at-rules.charset
+- css.at-rules.color-profile
+- css.at-rules.container
+- css.at-rules.contents
+- css.at-rules.counter-style
+- css.at-rules.custom-media
+- css.at-rules.custom-selector
+- css.at-rules.else
+- css.at-rules.font-face
+- css.at-rules.font-feature-values
+- css.at-rules.font-palette-values
+- css.at-rules.function
+- css.at-rules.import
+- css.at-rules.keyframes
+- css.at-rules.layer
+- css.at-rules.location
+- css.at-rules.media
+- css.at-rules.mixin
+- css.at-rules.namespace
+- css.at-rules.navigation
+- css.at-rules.page
+- css.at-rules.position-try
+- css.at-rules.private
+- css.at-rules.property
+- css.at-rules.scope
+- css.at-rules.starting-style
+- css.at-rules.supports
+- css.at-rules.supports-condition
+- css.at-rules.view-transition
+- css.at-rules.when
+
+#### Removed
+
+- api.Navigator.deviceMemory
+- api.Notification.vibrate
+- api.PerformanceLongTaskTiming
+- api.SVGUseElementShadowRoot
+- api.TaskAttributionTiming
+- api.WorkerNavigator.deviceMemory
+- css.properties.path-length.0
+- html.elements.link.rel.alternate_stylesheet
+- html.elements.link.rel.dns-prefetch
+- html.elements.link.rel.icon
+- html.elements.link.rel.manifest
+- html.elements.link.rel.modulepreload
+- html.elements.link.rel.preconnect
+- html.elements.link.rel.prefetch
+- html.elements.link.rel.preload
+- html.elements.link.rel.prerender
+
+#### Changed
+
+- api.HTMLAnchorElement.HTMLAnchorElement
+- api.HTMLAreaElement.HTMLAreaElement
+- api.HTMLAudioElement.HTMLAudioElement
+- api.HTMLBaseElement.HTMLBaseElement
+- api.HTMLBodyElement.HTMLBodyElement
+- api.HTMLBRElement.HTMLBRElement
+- api.HTMLButtonElement.HTMLButtonElement
+- api.HTMLCameraElement.HTMLCameraElement
+- api.HTMLCanvasElement.HTMLCanvasElement
+- api.HTMLDataElement.HTMLDataElement
+- api.HTMLDataListElement.HTMLDataListElement
+- api.HTMLDetailsElement.HTMLDetailsElement
+- api.HTMLDialogElement.HTMLDialogElement
+- api.HTMLDirectoryElement.HTMLDirectoryElement
+- api.HTMLDivElement.HTMLDivElement
+- api.HTMLDListElement.HTMLDListElement
+- api.HTMLElement.HTMLElement
+- api.HTMLEmbedElement.HTMLEmbedElement
+- api.HTMLFencedFrameElement.HTMLFencedFrameElement
+- api.HTMLFieldSetElement.HTMLFieldSetElement
+- api.HTMLFontElement.HTMLFontElement
+- api.HTMLFormElement.HTMLFormElement
+- api.HTMLFrameElement.HTMLFrameElement
+- api.HTMLFrameSetElement.HTMLFrameSetElement
+- api.HTMLGeolocationElement.HTMLGeolocationElement
+- api.HTMLHeadElement.HTMLHeadElement
+- api.HTMLHeadingElement.HTMLHeadingElement
+- api.HTMLHRElement.HTMLHRElement
+- api.HTMLHtmlElement.HTMLHtmlElement
+- api.HTMLIFrameElement.HTMLIFrameElement
+- api.HTMLImageElement.HTMLImageElement
+- api.HTMLInputElement.HTMLInputElement
+- api.HTMLInstallElement.HTMLInstallElement
+- api.HTMLLabelElement.HTMLLabelElement
+- api.HTMLLegendElement.HTMLLegendElement
+- api.HTMLLIElement.HTMLLIElement
+- api.HTMLLinkElement.HTMLLinkElement
+- api.HTMLMapElement.HTMLMapElement
+- api.HTMLMarqueeElement.HTMLMarqueeElement
+- api.HTMLMenuElement.HTMLMenuElement
+- api.HTMLMetaElement.HTMLMetaElement
+- api.HTMLMeterElement.HTMLMeterElement
+- api.HTMLMicrophoneElement.HTMLMicrophoneElement
+- api.HTMLModElement.HTMLModElement
+- api.HTMLObjectElement.HTMLObjectElement
+- api.HTMLOListElement.HTMLOListElement
+- api.HTMLOptGroupElement.HTMLOptGroupElement
+- api.HTMLOptionElement.HTMLOptionElement
+- api.HTMLOutputElement.HTMLOutputElement
+- api.HTMLParagraphElement.HTMLParagraphElement
+- api.HTMLParamElement.HTMLParamElement
+- api.HTMLPictureElement.HTMLPictureElement
+- api.HTMLPortalElement.HTMLPortalElement
+- api.HTMLPreElement.HTMLPreElement
+- api.HTMLProgressElement.HTMLProgressElement
+- api.HTMLQuoteElement.HTMLQuoteElement
+- api.HTMLScriptElement.HTMLScriptElement
+- api.HTMLSelectedContentElement.HTMLSelectedContentElement
+- api.HTMLSelectElement.HTMLSelectElement
+- api.HTMLSlotElement.HTMLSlotElement
+- api.HTMLSourceElement.HTMLSourceElement
+- api.HTMLSpanElement.HTMLSpanElement
+- api.HTMLStyleElement.HTMLStyleElement
+- api.HTMLTableCaptionElement.HTMLTableCaptionElement
+- api.HTMLTableCellElement.HTMLTableCellElement
+- api.HTMLTableColElement.HTMLTableColElement
+- api.HTMLTableElement.HTMLTableElement
+- api.HTMLTableRowElement.HTMLTableRowElement
+- api.HTMLTableSectionElement.HTMLTableSectionElement
+- api.HTMLTemplateElement.HTMLTemplateElement
+- api.HTMLTextAreaElement.HTMLTextAreaElement
+- api.HTMLTimeElement.HTMLTimeElement
+- api.HTMLTitleElement.HTMLTitleElement
+- api.HTMLTrackElement.HTMLTrackElement
+- api.HTMLUListElement.HTMLUListElement
+- api.HTMLUserMediaElement.HTMLUserMediaElement
+- api.HTMLVideoElement.HTMLVideoElement
+
+### Commits
+
+- build(deps-dev): bump the data group with 2 updates ([#3484](https://github.com/openwebdocs/mdn-bcd-collector/pull/3484))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.4.0 to 65.4.1 in the dev group ([#3485](https://github.com/openwebdocs/mdn-bcd-collector/pull/3485))
+- build(deps): bump @mdn/browser-compat-data from 8.1.6 to 8.1.7 in the data group ([#3482](https://github.com/openwebdocs/mdn-bcd-collector/pull/3482))
+- build(deps-dev): bump puppeteer from 25.15.0 to 25.16.0 in the dev group ([#3483](https://github.com/openwebdocs/mdn-bcd-collector/pull/3483))
+- Add custom idl for html-in-canvas ([#3481](https://github.com/openwebdocs/mdn-bcd-collector/pull/3481))
+- Add collection for HTMLConstructors ([#3480](https://github.com/openwebdocs/mdn-bcd-collector/pull/3480))
+- Collect CSS at-rules ([#3477](https://github.com/openwebdocs/mdn-bcd-collector/pull/3477))
+- build(deps-dev): bump the dev group with 2 updates ([#3479](https://github.com/openwebdocs/mdn-bcd-collector/pull/3479))
+- build(deps-dev): bump follow-redirects from 1.16.0 to 1.16.1 ([#3478](https://github.com/openwebdocs/mdn-bcd-collector/pull/3478))
+- build(deps-dev): bump the dev group with 2 updates ([#3476](https://github.com/openwebdocs/mdn-bcd-collector/pull/3476))
+- Remove &lt;link rel&gt; tests ([#3474](https://github.com/openwebdocs/mdn-bcd-collector/pull/3474))
+- build(deps): bump the dev group with 5 updates ([#3473](https://github.com/openwebdocs/mdn-bcd-collector/pull/3473))
+- build(deps): bump zizmorcore/zizmor-action from 0.6.4 to 0.7.1 ([#3472](https://github.com/openwebdocs/mdn-bcd-collector/pull/3472))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.3.4 to 65.3.6 in the dev group ([#3471](https://github.com/openwebdocs/mdn-bcd-collector/pull/3471))
+
+### Statistics
+
+- Total BCD keys: 20898
+- Testable BCD keys: 17007 (81.38%)
+- Testable BCD keys not in Collector: 1978 (11.63%)
+- Total Collector keys: 17442
+- Collector keys in BCD: 15029 (86.17%)
+- Collector keys not in BCD: 2413 (13.83%)
+
+## v10.20.16
+
+Released October 15, 2026
+
+### Test Changes
+
+#### Added
+
+- api.CharacterData.afterHTML
+- api.CharacterData.afterHTMLUnsafe
+- api.CharacterData.beforeHTML
+- api.CharacterData.beforeHTMLUnsafe
+- api.CharacterData.replaceWithHTML
+- api.CharacterData.replaceWithHTMLUnsafe
+- api.CrossOriginStorageManager.getFileHandle
+- api.Element.afterHTML
+- api.Element.afterHTMLUnsafe
+- api.Element.appendHTML
+- api.Element.appendHTMLUnsafe
+- api.Element.beforeHTML
+- api.Element.beforeHTMLUnsafe
+- api.Element.prependHTML
+- api.Element.prependHTMLUnsafe
+- api.Element.replaceWithHTML
+- api.Element.replaceWithHTMLUnsafe
+- api.HTMLScriptElement.innerText
+- api.HTMLScriptElement.textContent
+- api.ShadowRoot.appendHTML
+- api.ShadowRoot.appendHTMLUnsafe
+- api.ShadowRoot.prependHTML
+- api.ShadowRoot.prependHTMLUnsafe
+- api.SVGTextPathElement.side
+- api.TrustedHTMLParserOptions
+- api.TrustedTypePolicy.createParserOptions
+- css.properties.block-ellipsis.ellipsis
+- css.properties.continue.normal
+- css.properties.fit-tolerance
+- css.properties.letter-spacing.percentages
+- css.properties.line-clamp.ellipsis
+- css.properties.max-lines.auto
+- css.properties.position-visibility.anchors-valid
+- css.properties.position-visibility.anchors-visible
+- css.properties.quotes.bikeshed-this
+- css.properties.ruby-overhang.none
+- css.properties.timeline-trigger-range
+- css.selectors.interest-button
+
+#### Removed
+
+- api.CrossOriginStorageManager.requestFileHandle
+- api.HTMLInstallElement.installresult_event
+- css.properties.block-ellipsis.auto
+- css.properties.bookmark-label.disc
+- css.properties.bookmark-label.circle
+- css.properties.bookmark-label.square
+- css.properties.bookmark-label.disclosure-open
+- css.properties.bookmark-label.disclosure-closed
+- css.properties.content.disc
+- css.properties.content.circle
+- css.properties.content.square
+- css.properties.content.disclosure-open
+- css.properties.content.disclosure-closed
+- css.properties.continue.auto
+- css.properties.event-trigger.activate
+- css.properties.event-trigger.interest
+- css.properties.event-trigger.click
+- css.properties.event-trigger.touch
+- css.properties.event-trigger.dblclick
+- css.properties.event-trigger-source.activate
+- css.properties.event-trigger-source.interest
+- css.properties.event-trigger-source.click
+- css.properties.event-trigger-source.touch
+- css.properties.event-trigger-source.dblclick
+- css.properties.flow-tolerance
+- css.properties.max-lines.none
+- css.properties.quotes.match-parent
+
+### Commits
+
+- build(deps): bump @mdn/browser-compat-data from 8.1.5 to 8.1.6 in the data group ([#3469](https://github.com/openwebdocs/mdn-bcd-collector/pull/3469))
+- test(css): add percentage letter-spacing test ([#3468](https://github.com/openwebdocs/mdn-bcd-collector/pull/3468))
+- build(deps-dev): bump the data group with 3 updates ([#3466](https://github.com/openwebdocs/mdn-bcd-collector/pull/3466))
+- build(deps-dev): bump the dev group with 2 updates ([#3467](https://github.com/openwebdocs/mdn-bcd-collector/pull/3467))
+- test(css): cover plural `position-visibility` values ([#3460](https://github.com/openwebdocs/mdn-bcd-collector/pull/3460))
+- build(deps): bump the dev group with 10 updates ([#3463](https://github.com/openwebdocs/mdn-bcd-collector/pull/3463))
+- build(deps): bump actions/setup-node from 7.0.0 to 7.1.0 ([#3464](https://github.com/openwebdocs/mdn-bcd-collector/pull/3464))
+- Add ruby-overhang: none ([#3461](https://github.com/openwebdocs/mdn-bcd-collector/pull/3461))
+- build(deps): bump the dev group with 3 updates ([#3459](https://github.com/openwebdocs/mdn-bcd-collector/pull/3459))
+
+### Statistics
+
+- Total BCD keys: 20721
+- Testable BCD keys: 16851 (81.32%)
+- Testable BCD keys not in Collector: 1989 (11.80%)
+- Total Collector keys: 17219
+- Collector keys in BCD: 14862 (86.31%)
+- Collector keys not in BCD: 2357 (13.69%)
+
+## v10.20.15
+
+Released October 8, 2026
+
+### Commits
+
+- One more fix to stats commenting ([#3457](https://github.com/openwebdocs/mdn-bcd-collector/pull/3457))
+- Fix stats comment update ([#3455](https://github.com/openwebdocs/mdn-bcd-collector/pull/3455))
+- Fix escaping when updating stats comment ([#3453](https://github.com/openwebdocs/mdn-bcd-collector/pull/3453))
+- Update issue description, not comment ([#3451](https://github.com/openwebdocs/mdn-bcd-collector/pull/3451))
+- build(deps): bump @mdn/browser-compat-data from 8.1.4 to 8.1.5 in the data group ([#3449](https://github.com/openwebdocs/mdn-bcd-collector/pull/3449))
+- build(deps): bump the dev group with 2 updates ([#3448](https://github.com/openwebdocs/mdn-bcd-collector/pull/3448))
+- Automatically update statistics comment as part of release ([#3447](https://github.com/openwebdocs/mdn-bcd-collector/pull/3447))
+- Tweak stats in release notes ([#3445](https://github.com/openwebdocs/mdn-bcd-collector/pull/3445))
+- Add stats to changelog ([#3442](https://github.com/openwebdocs/mdn-bcd-collector/pull/3442))
+- Put release notes in pull request and GitHub release ([#3441](https://github.com/openwebdocs/mdn-bcd-collector/pull/3441))
+- Fix deployment permissions ([#3439](https://github.com/openwebdocs/mdn-bcd-collector/pull/3439))
+
+### Statistics
+
+- Total BCD keys: 20696
+- Testable BCD keys: 16834 (81.34%)
+- Testable BCD keys not in Collector: 2019 (11.99%)
+- Total Collector keys: 17206
+- Collector keys in BCD: 14815 (86.10%)
+- Collector keys not in BCD: 2391 (13.90%)
+
+## v10.20.14
+
+Released October 7, 2026
+
+### Commits
+
+- Fix tag name ([#3437](https://github.com/openwebdocs/mdn-bcd-collector/pull/3437))
+- Only install heroku when version has changed ([#3436](https://github.com/openwebdocs/mdn-bcd-collector/pull/3436))
+- ubuntu-latest needs heroku-cli installed first ([#3435](https://github.com/openwebdocs/mdn-bcd-collector/pull/3435))
+
+## v10.20.13
+
+Released October 7, 2026
+
+### Test Changes
+
+#### Added
+
+- api.LanguageModelToolCall
+- api.LanguageModelToolError
+- api.LanguageModelToolSuccess
+
+#### Removed
+
+- api.MessagePort.close_event
+
+### Commits
+
+- build(deps-dev): bump the dev group with 4 updates ([#3433](https://github.com/openwebdocs/mdn-bcd-collector/pull/3433))
+- build(deps-dev): bump the data group with 3 updates ([#3432](https://github.com/openwebdocs/mdn-bcd-collector/pull/3432))
+- build(deps-dev): bump shell-quote from 1.10.0 to 1.12.0 ([#3430](https://github.com/openwebdocs/mdn-bcd-collector/pull/3430))
+- Fix zizmor permission ([#3431](https://github.com/openwebdocs/mdn-bcd-collector/pull/3431))
+- Introduce zizmore; remove release workflow ([#3429](https://github.com/openwebdocs/mdn-bcd-collector/pull/3429))
+- stats.json release artifact: just stats, no lists ([#3428](https://github.com/openwebdocs/mdn-bcd-collector/pull/3428))
+- build(deps): bump proxy-addr from 2.0.7 to 2.0.8 ([#3427](https://github.com/openwebdocs/mdn-bcd-collector/pull/3427))
+- build(deps): bump source-map-js from 1.2.1 to 1.2.2 ([#3426](https://github.com/openwebdocs/mdn-bcd-collector/pull/3426))
+- build(deps-dev): bump typescript-eslint from 8.71.0 to 8.71.1 in the dev group ([#3425](https://github.com/openwebdocs/mdn-bcd-collector/pull/3425))
+
+## v10.20.12
+
+Released October 5, 2026
+
+### Test Changes
+
+#### Added
+
+- api.ModelContext.toolactivated_event
+- api.ModelContext.toolcancel_event
+- api.RTCPeerConnection.cancelDiagnosticLogging_static
+- api.RTCPeerConnection.stopDiagnosticLogging_static
+- api.SpeechGrammarList.addFromUri
+- api.ToolActivatedEvent
+- api.ToolCancelEvent
+- css.properties.bookmark-label.disc
+- css.properties.bookmark-label.circle
+- css.properties.bookmark-label.square
+- css.properties.bookmark-label.disclosure-open
+- css.properties.bookmark-label.disclosure-closed
+- css.properties.column-rule-color.multiple_colors
+- css.properties.column-rule-color.repeat
+- css.properties.content.disc
+- css.properties.content.circle
+- css.properties.content.square
+- css.properties.content.disclosure-open
+- css.properties.content.disclosure-closed
+- css.types.attr.raw-string
+- css.types.attr.type_function.angle
+- css.types.attr.type_function.color
+- css.types.attr.type_function.custom-ident
+- css.types.attr.type_function.ident
+- css.types.attr.type_function.image
+- css.types.attr.type_function.integer
+- css.types.attr.type_function.length
+- css.types.attr.type_function.length-percentage
+- css.types.attr.type_function.number
+- css.types.attr.type_function.percentage
+- css.types.attr.type_function.resolution
+- css.types.attr.type_function.string
+- css.types.attr.type_function.time
+- css.types.attr.type_function.transform-function
+- css.types.color.hsla
+- css.types.global_keywords.inherit
+- css.types.global_keywords.initial
+- css.types.global_keywords.revert
+- css.types.global_keywords.revert-layer
+- css.types.global_keywords.revert-rule
+- css.types.global_keywords.unset
+- css.types.ratio.number_value
+
+#### Removed
+
+- api.RTCPeerConnection.discardDiagnosticLogging_static
+- api.RTCPeerConnection.finishDiagnosticLogging_static
+- api.SharedStorageOperation
+- api.SharedStorageRunOperation
+- api.SharedStorageSelectURLOperation
+- api.SpeechGrammarList.addFromURI
+- api.WindowSharedStorage
+- api.WorkletSharedStorage
+
+#### Changed
+
+- css.properties.column-rule-color.repeat_auto
+- css.properties.text-box-edge.cap
+- css.properties.text-box-edge.ex
+- css.properties.text-fit.consistent
+- css.properties.text-fit.per-line
+- css.properties.text-fit.per-line-all
+- css.selectors.state
+- css.types.attr.type_function
+- javascript.builtins.Intl.NumberFormat.NumberFormat.options_parameter.options_trailingZeroDisplay_parameter
+- javascript.builtins.Intl.PluralRules.PluralRules.options_parameter.options_trailingZeroDisplay_parameter
+
+### Commits
+
+- build(deps): bump the dev group with 4 updates ([#3423](https://github.com/openwebdocs/mdn-bcd-collector/pull/3423))
+- build(deps): bump the data group across 1 directory with 2 updates ([#3416](https://github.com/openwebdocs/mdn-bcd-collector/pull/3416))
+- build(deps-dev): bump the dev group across 1 directory with 7 updates ([#3421](https://github.com/openwebdocs/mdn-bcd-collector/pull/3421))
+- build(deps-dev): bump brace-expansion from 1.1.18 to 1.1.21 ([#3420](https://github.com/openwebdocs/mdn-bcd-collector/pull/3420))
+- build(deps): bump @grpc/grpc-js from 1.14.4 to 1.14.5 ([#3419](https://github.com/openwebdocs/mdn-bcd-collector/pull/3419))
+- build(deps-dev): bump undici from 7.29.0 to 7.30.0 ([#3418](https://github.com/openwebdocs/mdn-bcd-collector/pull/3418))
+- build(deps): bump @mdn/browser-compat-data from 8.1.2 to 8.1.3 in the data group ([#3412](https://github.com/openwebdocs/mdn-bcd-collector/pull/3412))
+- Fix tests.yaml merge ([#3411](https://github.com/openwebdocs/mdn-bcd-collector/pull/3411))
+- test(css): cover ratio numbers in media queries ([#3403](https://github.com/openwebdocs/mdn-bcd-collector/pull/3403))
+- test(css): cover hsla color function ([#3402](https://github.com/openwebdocs/mdn-bcd-collector/pull/3402))
+- feat(css): collect global keyword compatibility tests ([#3393](https://github.com/openwebdocs/mdn-bcd-collector/pull/3393))
+- test(css): cover column-rule-color value forms ([#3399](https://github.com/openwebdocs/mdn-bcd-collector/pull/3399))
+- test(css): cover `attr()` type functions + `raw-string` ([#3390](https://github.com/openwebdocs/mdn-bcd-collector/pull/3390))
+- Remove outdated shared-storage custom IDL ([#3410](https://github.com/openwebdocs/mdn-bcd-collector/pull/3410))
+- build(deps-dev): bump puppeteer from 25.11.0 to 25.12.0 in the dev group ([#3409](https://github.com/openwebdocs/mdn-bcd-collector/pull/3409))
+- build(deps): bump the dev group across 1 directory with 3 updates ([#3405](https://github.com/openwebdocs/mdn-bcd-collector/pull/3405))
+- fix(custom-tests): use valid trailingZeroDisplay values ([#3388](https://github.com/openwebdocs/mdn-bcd-collector/pull/3388))
+- build(deps): bump the dev group with 9 updates ([#3395](https://github.com/openwebdocs/mdn-bcd-collector/pull/3395))
+- fix(css): use valid syntax for text-fit tests ([#3394](https://github.com/openwebdocs/mdn-bcd-collector/pull/3394))
+- fix(css): test paired text-box-edge values ([#3392](https://github.com/openwebdocs/mdn-bcd-collector/pull/3392))
+- fix(css): test `:state()` with an identifier ([#3385](https://github.com/openwebdocs/mdn-bcd-collector/pull/3385))
+- build(deps): bump the dev group with 2 updates ([#3387](https://github.com/openwebdocs/mdn-bcd-collector/pull/3387))
+- build(deps-dev): bump @webref/css from 8.7.4 to 8.7.5 in the data group ([#3386](https://github.com/openwebdocs/mdn-bcd-collector/pull/3386))
+
 ## v10.20.11
 
 Released September 17, 2026
