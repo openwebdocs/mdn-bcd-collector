@@ -380,6 +380,45 @@
   }
 
   /**
+   * Test an [HTMLConstructor] element constructor (e.g. HTMLAnchorElement), which
+   * must be invoked via a subclass rather than directly.
+   * @param {string} iface - The name of the constructor to test
+   * @param {string} HTMLname - The name of the HTML tag to extend
+   * @returns {TestResult} - The result of the test
+   */
+  function testHTMLConstructor(iface, HTMLname) {
+    if (typeof customElements === "undefined") {
+      return {
+        result: null,
+        message: "customElements is not available in this context"
+      };
+    }
+
+    try {
+      // eslint-disable-next-line no-eval
+      var BaseCtor = eval(iface);
+      if (typeof BaseCtor !== "function") {
+        return { result: false, message: iface + " is not defined" };
+      }
+
+      // eslint-disable-next-line no-eval
+      var Subclass = eval("(class extends " + iface + " {})");
+      var tagName =
+        "bcd-" +
+        iface.toLowerCase().replace(/[^a-z0-9]/g, "") +
+        "-" +
+        Math.random().toString(36).slice(2, 10);
+
+      customElements.define(tagName, Subclass, { extends: HTMLname });
+      new Subclass();
+
+      return { result: true, message: "Constructor passed with no errors" };
+    } catch (err) {
+      return { result: false, message: "threw " + stringify(err) };
+    }
+  }
+
+  /**
    * This function tests to ensure an object prototype's name matches an entry in an
    * explicit list of names
    * @param {object} instance - An object to test
@@ -696,6 +735,33 @@
     ) {
       return window.CSS.supports("selector(" + syntax + ")");
     }
+    return { result: null, message: "Detection methods are not supported" };
+  }
+
+  /**
+   * Tests the support for a CSS at-rule syntax.
+   * @param {string} syntax - The CSS at-rule syntax to test.
+   * @returns {boolean|{result: null, message: string}} - Returns `true` if the syntax is supported, or an object with `result: null` and a `message` property if detection methods are not supported.
+   */
+  function testCSSAtRule(syntax) {
+    // Use CSS.supports if available, and test if `at-rule()` syntax is available
+    if (
+      "CSS" in window &&
+      window.CSS.supports &&
+      window.CSS.supports("at-rule(@import)") &&
+      // Descriptor testing is not possible for now, so bail out of testing when we have sub features.
+      // https://github.com/w3c/csswg-drafts/issues/6966#issuecomment-3205037703
+      !syntax.includes(".")
+    ) {
+      return window.CSS.supports("at-rule(" + syntax + ")");
+    }
+
+    if (syntax.includes("@media.") && window.matchMedia) {
+      const query = syntax.replace("@media.", "");
+      return window.matchMedia("not all and (" + query + "), (" + query + ")")
+        .matches;
+    }
+
     return { result: null, message: "Detection methods are not supported" };
   }
 
@@ -1939,10 +2005,12 @@
   global.bcd = {
     testConstructor: testConstructor,
     testConstructorNewRequired: testConstructorNewRequired,
+    testHTMLConstructor: testHTMLConstructor,
     testObjectName: testObjectName,
     testOptionParam: testOptionParam,
     testCSSProperty: testCSSProperty,
     testCSSSelector: testCSSSelector,
+    testCSSAtRule: testCSSAtRule,
     testWasmFeature: testWasmFeature,
     addInstance: addInstance,
     addTest: addTest,

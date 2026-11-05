@@ -1886,6 +1886,14 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('EXT_blend_minmax');
+  EXT_clip_control:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_clip_control');
   EXT_clip_cull_distance:
     __resources:
       - webGL
@@ -1910,6 +1918,22 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('EXT_color_buffer_half_float');
+  EXT_conservative_depth:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('EXT_conservative_depth');
+  EXT_depth_clamp:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_depth_clamp');
   EXT_disjoint_timer_query:
     __resources:
       - webGL1
@@ -1942,6 +1966,22 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('EXT_frag_depth');
+  EXT_polygon_offset_clamp:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_polygon_offset_clamp');
+  EXT_render_snorm:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('EXT_render_snorm');
   EXT_shader_texture_lod:
     __resources:
       - webGL1
@@ -1982,6 +2022,14 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('EXT_texture_filter_anisotropic');
+  EXT_texture_mirror_clamp_to_edge:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('EXT_texture_mirror_clamp_to_edge');
   EXT_texture_norm16:
     __resources:
       - webGL2
@@ -3719,6 +3767,14 @@ api:
 
       // Finally, disconnect the observer
       observer.disconnect();
+  NV_shader_noperspective_interpolation:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('NV_shader_noperspective_interpolation');
   NamedNodeMap:
     __base: var instance = document.body.attributes;
   Navigator:
@@ -3830,6 +3886,22 @@ api:
         return {result: false, message: 'WebGL 1 is not available'};
       };
       var instance = reusableInstances.webGL1.getExtension('OES_fbo_render_mipmap');
+  OES_sample_variables:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('OES_sample_variables');
+  OES_shader_multisample_interpolation:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('OES_shader_multisample_interpolation');
   OES_standard_derivatives:
     __resources:
       - webGL1
@@ -4065,6 +4137,31 @@ api:
         });
 
         return 'callback';
+    observe:
+      __base: |-
+        if (!('PerformanceObserver' in self)) {
+          return {result: false, message: 'PerformanceObserver is not defined'};
+        }
+        var instance = new PerformanceObserver(function() {});
+        bcd.addCleanup(function() {
+          instance.disconnect();
+        });
+        function observe(options) {
+          instance.observe(options);
+        }
+      __additional:
+        options_parameter.type: |-
+          try {
+            return bcd.testOptionParam(observe, null, 'type', 'resource');
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        options_parameter.buffered: |-
+          try {
+            return bcd.testOptionParam(observe, null, 'buffered', true, {type: 'resource'});
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   PerformanceResourceTiming:
     __base: var instance = performance.getEntriesByType("resource")[0];
   PerformanceTiming:
@@ -5098,6 +5195,24 @@ api:
       };
       el.attachShadow({mode: 'open'});
       var instance = el.shadowRoot;
+    slotAssignment:
+      __additional:
+        named_value: |-
+          try {
+            var el = document.createElement('div');
+            var shadowRoot = el.attachShadow({mode: 'open', slotAssignment: 'named'});
+            return shadowRoot.slotAssignment === 'named';
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
+        manual_value: |-
+          try {
+            var el = document.createElement('div');
+            var shadowRoot = el.attachShadow({mode: 'open', slotAssignment: 'manual'});
+            return shadowRoot.slotAssignment === 'manual';
+          } catch(e) {
+            return {result: false, message: e.message};
+          }
   SpeechRecognition:
     __resources:
       - speechRecognition
@@ -5958,6 +6073,14 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('WEBGL_blend_equation_advanced_coherent');
+  WEBGL_blend_func_extended:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('WEBGL_blend_func_extended');
   WEBGL_color_buffer_float:
     __resources:
       - webGL1
@@ -6078,6 +6201,38 @@ api:
         return {result: false, message: 'WebGL is not available'};
       };
       var instance = reusableInstances.webGL.getExtension('WEBGL_multi_draw_instanced_base_vertex_base_instance');
+  WEBGL_polygon_mode:
+    __resources:
+      - webGL1
+    __base: |-
+      if (!reusableInstances.webGL1) {
+        return {result: false, message: 'WebGL 1 is not available'};
+      };
+      var instance = reusableInstances.webGL1.getExtension('WEBGL_polygon_mode');
+  WEBGL_render_shared_exponent:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('WEBGL_render_shared_exponent');
+  WEBGL_shader_pixel_local_storage:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('WEBGL_shader_pixel_local_storage');
+  WEBGL_stencil_texturing:
+    __resources:
+      - webGL2
+    __base: |-
+      if (!reusableInstances.webGL2) {
+        return {result: false, message: 'WebGL 2 is not available'};
+      };
+      var instance = reusableInstances.webGL2.getExtension('WEBGL_stencil_texturing');
   WEBGL_lose_context:
     __resources:
       - webGL
@@ -6243,6 +6398,33 @@ api:
       } else {
         instance = CSS.paintWorklet;
       }
+  WGSLLanguageFeatures:
+    __base: |-
+      if (!('gpu' in navigator) || !navigator.gpu || !('wgslLanguageFeatures' in navigator.gpu)) {
+        return {result: false, message: 'WebGPU language features are not available'};
+      }
+      var instance = navigator.gpu.wgslLanguageFeatures;
+      if (!instance || !('has' in instance)) {
+        return {result: false, message: 'WGSLLanguageFeatures.has is not defined'};
+      }
+    # The list of extensions is not machine-readable
+    # A table is here: https://gpuweb.github.io/gpuweb/wgsl/#language-extensions-sec
+    __additional:
+      extension_atomic_vec2u_min_max: return instance.has('atomic_vec2u_min_max');
+      extension_buffer_view: return instance.has('buffer_view');
+      extension_fragment_depth: return instance.has('fragment_depth');
+      extension_immediate_address_space: return instance.has('immediate_address_space');
+      extension_linear_indexing: return instance.has('linear_indexing');
+      extension_packed_4x8_integer_dot_product: return instance.has('packed_4x8_integer_dot_product');
+      extension_pointer_composite_access: return instance.has('pointer_composite_access');
+      extension_readonly_and_readwrite_storage_textures: return instance.has('readonly_and_readwrite_storage_textures');
+      extension_subgroup_id: return instance.has('subgroup_id');
+      extension_subgroup_uniformity: return instance.has('subgroup_uniformity');
+      extension_swizzle_assignment: return instance.has('swizzle_assignment');
+      extension_texture_and_sampler_let: return instance.has('texture_and_sampler_let');
+      extension_texture_formats_tier1: return instance.has('texture_formats_tier1');
+      extension_uniform_buffer_standard_layout: return instance.has('uniform_buffer_standard_layout');
+      extension_unrestricted_pointer_parameters: return instance.has('unrestricted_pointer_parameters');
   WritableStreamDefaultController:
     __base: |-
       if (!('WritableStream' in self)) {
@@ -6312,6 +6494,42 @@ css:
       consistent: return bcd.testCSSProperty('text-fit', 'grow consistent');
       per-line: return bcd.testCSSProperty('text-fit', 'grow per-line');
       per-line-all: return bcd.testCSSProperty('text-fit', 'grow per-line-all');
+  types:
+    attr:
+      type_function:
+        __test: return CSS.supports('content', 'attr(x type(<string>))');
+        angle:
+          __test: return CSS.supports('rotate', 'attr(x type(<angle>))');
+        color:
+          __test: return CSS.supports('color', 'attr(x type(<color>))');
+        custom-ident:
+          __test: return CSS.supports('animation-name', 'attr(x type(<custom-ident>))');
+        ident:
+          __test: return CSS.supports('animation-name', 'attr(x type(foo))');
+        image:
+          __test: return CSS.supports('background-image', 'attr(x type(<image>))');
+        integer:
+          __test: return CSS.supports('z-index', 'attr(x type(<integer>))');
+        length:
+          __test: return CSS.supports('width', 'attr(x type(<length>))');
+        length-percentage:
+          __test: return CSS.supports('width', 'attr(x type(<length-percentage>))');
+        number:
+          __test: return CSS.supports('opacity', 'attr(x type(<number>))');
+        percentage:
+          __test: return CSS.supports('width', 'attr(x type(<percentage>))');
+        resolution:
+          __test: return CSS.supports('background-image', 'image-set(url(foo) attr(x type(<resolution>)))');
+        string:
+          __test: return CSS.supports('content', 'attr(x type(<string>))');
+        time:
+          __test: return CSS.supports('animation-duration', 'attr(x type(<time>))');
+        transform-function:
+          __test: return CSS.supports('transform', 'attr(x type(<transform-function>))');
+      raw-string: return bcd.testCSSProperty('content', 'attr(content raw-string)');
+    ratio:
+      number_value: |-
+        return window.matchMedia('(min-aspect-ratio: 1.5)').matches || window.matchMedia('(max-aspect-ratio: 1.5)').matches;
   selectors:
     next-sibling: return bcd.testCSSSelector('div + span');
     child: return bcd.testCSSSelector('div > span');
@@ -6497,37 +6715,6 @@ html:
           xr-spatial-tracking: |-
             instance.allow = 'xr-spatial-tracking';
             return instance.allow === 'xr-spatial-tracking';
-    link:
-      __base: |-
-        var instance = document.createElement('link');
-      __additional:
-        rel.alternate_stylesheet: |-
-          instance.rel = "alternate stylesheet";
-          return instance.rel === "alternate stylesheet";
-        rel.dns-prefetch: |-
-          instance.rel = "dns-prefetch";
-          return instance.rel === "dns-prefetch";
-        rel.icon: |-
-          instance.rel = "icon";
-          return instance.rel === "icon";
-        rel.manifest: |-
-          instance.rel = "manifest";
-          return instance.rel === "manifest";
-        rel.modulepreload: |-
-          instance.rel = "modulepreload";
-          return instance.rel === "modulepreload";
-        rel.preconnect: |-
-          instance.rel = "preconnect";
-          return instance.rel === "preconnect";
-        rel.prefetch: |-
-          instance.rel = "prefetch";
-          return instance.rel === "prefetch";
-        rel.preload: |-
-          instance.rel = "preload";
-          return instance.rel === "preload";
-        rel.prerender: |-
-          instance.rel = "prerender";
-          return instance.rel === "prerender";
 
 mathml:
   # Features defined here also need to be in @webref/elements or custom/elements.json.
@@ -7000,7 +7187,7 @@ javascript:
               var options = instance.resolvedOptions();
               return options.signDisplay === 'negative';
             options_parameter.options_style_parameter: return bcd.testOptionParam(construct, null, 'style', 'currency');
-            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'stripIfInteger');
             options_parameter.options_unit_parameter: return bcd.testOptionParam(construct, null, 'unit', 'gigabyte');
             options_parameter.options_unitDisplay_parameter: "return bcd.testOptionParam(construct, null, 'unitDisplay', 'narrow', {unit: 'gigabyte'});"
             options_parameter.options_useGrouping_parameter: return bcd.testOptionParam(construct, null, 'useGrouping', false);
@@ -7028,7 +7215,7 @@ javascript:
             options_parameter.options_roundingIncrement_parameter: return bcd.testOptionParam(construct, null, 'roundingIncrement', 200);
             options_parameter.options_roundingMode_parameter: return bcd.testOptionParam(construct, null, 'roundingMode', 'floor');
             options_parameter.options_roundingPriority_parameter: return bcd.testOptionParam(construct, null, 'roundingPriority', 'lessPrecision');
-            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'currency');
+            options_parameter.options_trailingZeroDisplay_parameter: return bcd.testOptionParam(construct, null, 'trailingZeroDisplay', 'stripIfInteger');
       RelativeTimeFormat:
         RelativeTimeFormat:
           __base: |-
@@ -7068,6 +7255,18 @@ javascript:
           return {result: false, message: "Array.prototype.values is not defined"};
         }
         var instance = array.values();
+      Iterator: |-
+        try {
+          class myIterator extends Iterator {
+            constructor() {
+              super();
+            }
+          }
+          new myIterator();
+          return true;
+        } catch(e) {
+          return {result: false, message: e.message};
+        }
       "@@iterator": return !!instance && "Symbol" in self && "iterator" in Symbol && !!(instance[Symbol.iterator]);
     Map:
       __additional:
