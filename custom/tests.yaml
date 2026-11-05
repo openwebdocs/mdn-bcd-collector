@@ -3473,6 +3473,7 @@ api:
         return_object_property_sampleSize: return 'sampleSize' in result;
         return_object_property_screenPixelRatio: return 'screenPixelRatio' in result;
         return_object_property_suppressLocalAudioPlayback: return 'suppressLocalAudioPlayback' in result;
+        return_object_property_volume: return 'volume' in result;
         return_object_property_width: return 'width' in result;
   MediaElementAudioSourceNode:
     __resources:
