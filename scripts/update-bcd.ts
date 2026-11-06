@@ -23,6 +23,7 @@ import {
 
 import assert from "node:assert";
 import path from "node:path";
+import {pathToFileURL} from "node:url";
 
 import {bcdCompare, bcdCompareSort} from "../lib/bcd-compare.js";
 
@@ -40,7 +41,9 @@ import {parseUA} from "../lib/ua-parser.js";
 const BCD_DIR = getBCDDir();
 const RESULTS_DIR = getResultsDir();
 
-const {default: mirror} = await import(`${BCD_DIR}/scripts/build/mirror.js`);
+const {default: mirror} = await import(
+  pathToFileURL(`${BCD_DIR}/scripts/build/mirror.js`).href
+);
 
 /**
  * Finds an entry in the BCD (Browser Compatibility Data) object based on the given identifier.
@@ -1402,7 +1405,7 @@ export const main = async (
 if (esMain(import.meta)) {
   const {
     default: {browsers},
-  } = await import(`${BCD_DIR}/index.js`);
+  } = await import(pathToFileURL(`${BCD_DIR}/index.js`).href);
   const overrides = await fs.readJson(
     new URL("../custom/overrides.json", import.meta.url),
   );

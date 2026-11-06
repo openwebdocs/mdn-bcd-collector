@@ -53,11 +53,66 @@ const parseUA = (userAgent: string, browsers: Browsers): ParsedUserAgent => {
     if (!ua.browser.name) {
       return data;
     }
-
     data.browser.id = ua.browser.name.toLowerCase().replace(/ /g, "_");
     data.browser.name = ua.browser.name;
+    // Handle Huawei / ArkWeb tokens which can appear alongside Chrome/ArkWeb
+    // in HarmonyOS user agents. Prefer treating these as the HarmonyOS
+    // WebView entry in BCD so versions map correctly.
+    if (
+      /arkweb/i.test(userAgent) ||
+      /huawei\s*browser/i.test(ua.browser.name) ||
+      /HuaweiBrowser\//i.test(userAgent)
+    ) {
+      const chromeMatch = userAgent.match(/Chrome\/([\d.]+)/i);
+      const arkMatch = userAgent.match(/ArkWeb\/([\d.]+)/i);
+      const huaweiMatch = userAgent.match(/HuaweiBrowser\/([\d.]+)/i);
+      const preferredIds: string[] = [];
+
+      if (
+        /huawei\s*browser/i.test(ua.browser.name) ||
+        /HuaweiBrowser\//i.test(userAgent)
+      ) {
+        preferredIds.push("huaweibrowser_harmonyos");
+      }
+      preferredIds.push("webview_openharmony", "webview_harmonyos");
+
+      // Prefer the branded browser version, then the Chrome kernel version,
+      // then ArkWeb: browsers that BCD tracks by Chromium version are
+      // identified more accurately by the kernel than by the ArkWeb token.
+      data.fullVersion =
+        (huaweiMatch && huaweiMatch[1]) ||
+        (chromeMatch && chromeMatch[1]) ||
+        (arkMatch && arkMatch[1]) ||
+        ua.browser.version ||
+        "0";
+
+      const candidates = [
+        ...preferredIds,
+        "webview_android",
+        "webview",
+        "chrome",
+        "chrome_android",
+      ];
+      for (const candidate of candidates) {
+        if (browsers && candidate in browsers) {
+          data.browser.id = candidate;
+          break;
+        }
+      }
+
+      if (!data.browser.id) {
+        data.browser.id = preferredIds[0] || "webview_android";
+      }
+    }
     data.os.name = ua.os.name || "";
     data.os.version = ua.os.version || "";
+    // HarmonyOS UAs frequently advertise "Windows NT" alongside OpenHarmony.
+    // The OpenHarmony token is the more specific one, so let it win.
+    const openHarmonyMatch = userAgent.match(/OpenHarmony\s+([\d.]+)/i);
+    if (openHarmonyMatch) {
+      data.os.name = "OpenHarmony";
+      data.os.version = openHarmonyMatch[1];
+    }
   }
 
   data.browser.id = data.browser.id.replace("mobile_", "");
