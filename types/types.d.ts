@@ -1,4 +1,8 @@
-import {BrowserName, SupportStatement} from "@mdn/browser-compat-data/types";
+import {
+  BrowserName,
+  SupportStatement,
+  FlagStatement,
+} from "@mdn/browser-compat-data/types";
 
 import type * as WebIDL2 from "webidl2";
 
@@ -75,6 +79,7 @@ export interface Report {
   extensions: Extensions;
   userAgent: string;
   preview: boolean;
+  flags: FlagStatement[];
 }
 
 export type BrowserSupportMap = Map<string, TestResultValue>;
@@ -131,6 +136,7 @@ export interface ReportMeta {
   branch: string;
   version: string;
   preview: boolean;
+  flags: FlagStatement[];
 }
 
 export type InternalTestResult = TestResult & {
