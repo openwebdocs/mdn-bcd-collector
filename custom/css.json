@@ -678,6 +678,7 @@
       "__values": ["invert"]
     },
     "overflow": {
+      "__values": ["overlay"],
       "__additional_values": {
         "multiple_keywords": "hidden visible"
       }
@@ -689,6 +690,12 @@
     "overflow-clip-box-block": {},
     "overflow-clip-box-inline": {},
     "overflow-inline": {
+      "__values": ["overlay"]
+    },
+    "overflow-x": {
+      "__values": ["overlay"]
+    },
+    "overflow-y": {
       "__values": ["overlay"]
     },
     "pen-action": {},
