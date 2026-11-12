@@ -1,5 +1,107 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.2
+
+Released November 12, 2026
+
+### Test Changes
+
+#### Added
+
+- api.MediaStreamTrack.applyConstraints.aspectRatio_constraint
+- api.MediaStreamTrack.applyConstraints.autoGainControl_constraint
+- api.MediaStreamTrack.applyConstraints.backgroundBlur_constraint
+- api.MediaStreamTrack.applyConstraints.channelCount_constraint
+- api.MediaStreamTrack.applyConstraints.cursor_constraint
+- api.MediaStreamTrack.applyConstraints.deviceId_constraint
+- api.MediaStreamTrack.applyConstraints.displaySurface_constraint
+- api.MediaStreamTrack.applyConstraints.echoCancellation_constraint
+- api.MediaStreamTrack.applyConstraints.facingMode_constraint
+- api.MediaStreamTrack.applyConstraints.frameRate_constraint
+- api.MediaStreamTrack.applyConstraints.groupId_constraint
+- api.MediaStreamTrack.applyConstraints.height_constraint
+- api.MediaStreamTrack.applyConstraints.latency_constraint
+- api.MediaStreamTrack.applyConstraints.logicalSurface_constraint
+- api.MediaStreamTrack.applyConstraints.noiseSuppression_constraint
+- api.MediaStreamTrack.applyConstraints.resizeMode_constraint
+- api.MediaStreamTrack.applyConstraints.restrictOwnAudio_constraint
+- api.MediaStreamTrack.applyConstraints.sampleRate_constraint
+- api.MediaStreamTrack.applyConstraints.sampleSize_constraint
+- api.MediaStreamTrack.applyConstraints.screenPixelRatio_constraint
+- api.MediaStreamTrack.applyConstraints.suppressLocalAudioPlayback_constraint
+- api.MediaStreamTrack.applyConstraints.volume_constraint
+- api.MediaStreamTrack.applyConstraints.width_constraint
+- api.PerformanceObserver.observe.options_parameter.type
+- api.PerformanceObserver.observe.options_parameter.buffered
+- api.ShadowRoot.slotAssignment.named_value
+- api.ShadowRoot.slotAssignment.manual_value
+- api.WGSLLanguageFeatures.extension_atomic_vec2u_min_max
+- api.WGSLLanguageFeatures.extension_buffer_view
+- api.WGSLLanguageFeatures.extension_fragment_depth
+- api.WGSLLanguageFeatures.extension_immediate_address_space
+- api.WGSLLanguageFeatures.extension_linear_indexing
+- api.WGSLLanguageFeatures.extension_packed_4x8_integer_dot_product
+- api.WGSLLanguageFeatures.extension_pointer_composite_access
+- api.WGSLLanguageFeatures.extension_readonly_and_readwrite_storage_textures
+- api.WGSLLanguageFeatures.extension_subgroup_id
+- api.WGSLLanguageFeatures.extension_subgroup_uniformity
+- api.WGSLLanguageFeatures.extension_swizzle_assignment
+- api.WGSLLanguageFeatures.extension_texture_and_sampler_let
+- api.WGSLLanguageFeatures.extension_texture_formats_tier1
+- api.WGSLLanguageFeatures.extension_uniform_buffer_standard_layout
+- api.WGSLLanguageFeatures.extension_unrestricted_pointer_parameters
+- css.properties.overflow.overlay
+- css.properties.overflow-x.overlay
+- css.properties.overflow-y.overlay
+- webassembly.sourcePhaseImports
+
+#### Changed
+
+- api.MediaStreamTrack.applyConstraints
+- api.PerformanceObserver.observe
+- api.WGSLLanguageFeatures
+- javascript.builtins.Iterator.Iterator
+
+### Commits
+
+- build(deps): bump @mdn/browser-compat-data from 8.1.8 to 8.1.9 in the data group ([#3517](https://github.com/openwebdocs/mdn-bcd-collector/pull/3517))
+- build(deps-dev): bump the dev group with 3 updates ([#3515](https://github.com/openwebdocs/mdn-bcd-collector/pull/3515))
+- Move constraint tests to work on applyConstraints ([#3514](https://github.com/openwebdocs/mdn-bcd-collector/pull/3514))
+- Add overlay value to overflow properties ([#3512](https://github.com/openwebdocs/mdn-bcd-collector/pull/3512))
+- build(deps): bump fast-xml-parser from 5.7.1 to 5.12.0 ([#3511](https://github.com/openwebdocs/mdn-bcd-collector/pull/3511))
+- build(deps): bump the dev group with 3 updates ([#3510](https://github.com/openwebdocs/mdn-bcd-collector/pull/3510))
+- build(deps-dev): bump the dev group with 3 updates ([#3509](https://github.com/openwebdocs/mdn-bcd-collector/pull/3509))
+- build(deps): bump the dev group with 2 updates ([#3508](https://github.com/openwebdocs/mdn-bcd-collector/pull/3508))
+- build(deps-dev): bump the dev group with 2 updates ([#3507](https://github.com/openwebdocs/mdn-bcd-collector/pull/3507))
+- test(api): cover getSupportedConstraints result properties ([#3391](https://github.com/openwebdocs/mdn-bcd-collector/pull/3391))
+- test(api): cover ShadowRoot slotAssignment values ([#3397](https://github.com/openwebdocs/mdn-bcd-collector/pull/3397))
+- test(api): cover PerformanceObserver.observe options ([#3400](https://github.com/openwebdocs/mdn-bcd-collector/pull/3400))
+- build(deps): bump zizmorcore/zizmor-action from 0.8.0 to 0.8.1 ([#3506](https://github.com/openwebdocs/mdn-bcd-collector/pull/3506))
+- test(api): cover WGSL language extensions ([#3398](https://github.com/openwebdocs/mdn-bcd-collector/pull/3398))
+- Fix Iterator() ctor test ([#3505](https://github.com/openwebdocs/mdn-bcd-collector/pull/3505))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.4.2 to 65.4.3 in the dev group ([#3504](https://github.com/openwebdocs/mdn-bcd-collector/pull/3504))
+- build(deps-dev): bump @babel/core from 8.0.10 to 8.1.0 in the dev group ([#3503](https://github.com/openwebdocs/mdn-bcd-collector/pull/3503))
+- build(deps): bump @mdn/browser-compat-data from 8.1.7 to 8.1.8 in the data group ([#3502](https://github.com/openwebdocs/mdn-bcd-collector/pull/3502))
+- build(deps-dev): bump follow-redirects from 1.16.1 to 1.16.2 ([#3501](https://github.com/openwebdocs/mdn-bcd-collector/pull/3501))
+- build(deps-dev): bump the dev group with 3 updates ([#3500](https://github.com/openwebdocs/mdn-bcd-collector/pull/3500))
+- build(deps-dev): bump the dev group across 1 directory with 4 updates ([#3499](https://github.com/openwebdocs/mdn-bcd-collector/pull/3499))
+- build(deps-dev): bump minimatch from 10.2.6 to 11.0.2 in the dev group ([#3497](https://github.com/openwebdocs/mdn-bcd-collector/pull/3497))
+- build(deps-dev): bump typescript-eslint from 8.72.0 to 8.72.1 in the dev group ([#3496](https://github.com/openwebdocs/mdn-bcd-collector/pull/3496))
+- build(deps-dev): bump undici from 7.30.0 to 7.30.1 ([#3495](https://github.com/openwebdocs/mdn-bcd-collector/pull/3495))
+- build(deps): bump body-parser from 2.3.0 to 2.4.0 ([#3494](https://github.com/openwebdocs/mdn-bcd-collector/pull/3494))
+- build(deps-dev): bump the dev group with 2 updates ([#3493](https://github.com/openwebdocs/mdn-bcd-collector/pull/3493))
+- build(deps): bump zizmorcore/zizmor-action from 0.7.1 to 0.8.0 ([#3492](https://github.com/openwebdocs/mdn-bcd-collector/pull/3492))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.4.1 to 65.4.2 in the dev group ([#3491](https://github.com/openwebdocs/mdn-bcd-collector/pull/3491))
+
+### Statistics
+
+- Total BCD keys: 20968
+- Testable BCD keys: 17049 (81.31%)
+- Testable BCD keys not in Collector: 1957 (11.48%)
+- Total Collector keys: 17488
+- Collector keys in BCD: 15092 (86.30%)
+- Collector keys not in BCD: 2396 (13.70%)
+
 ## v10.21.1
 
 Released October 23, 2026
