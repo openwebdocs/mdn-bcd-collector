@@ -868,9 +868,6 @@
   ["css.properties.overscroll-behavior-x", "safari_ios", "14-15.6", false],
   ["css.properties.overscroll-behavior-y", "safari", "14-15.6", false],
   ["css.properties.overscroll-behavior-y", "safari_ios", "14-15.6", false],
-  "Only supported in the prefixed version",
-  ["css.properties.ruby-position.inter-character", "chrome", "84+", true],
-  ["css.properties.ruby-position.inter-character", "edge", "84+", true],
   "Recognized but has no effect yet",
   ["api.HTMLInputElement.webkitdirectory", "safari_ios", "*", false],
   ["api.HTMLInputElement.webkitdirectory", "webview_ios", "*", false],
@@ -1415,5 +1412,7 @@
   ["css.at-rules.charset", "firefox", "1.5+", true],
   ["css.at-rules.charset", "firefox_android", "4+", true],
   ["css.at-rules.charset", "safari", "4+", true],
-  ["css.at-rules.charset", "safari_ios", "4+", true]
+  ["css.at-rules.charset", "safari_ios", "4+", true],
+  "See https://issues.chromium.org/issues/40067934#comment35",
+  ["css.at-rules.media.scripting", "chrome", "118-119", false]
 ]
