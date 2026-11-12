@@ -67,8 +67,8 @@
     "yargs": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "8.1.0",
-    "@babel/eslint-parser": "8.0.7",
+    "@babel/core": "8.1.2",
+    "@babel/eslint-parser": "8.1.2",
     "@babel/preset-env": "8.0.7",
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
@@ -100,7 +100,7 @@
     "listr2": "11.4.1",
     "minimatch": "11.0.8",
     "nodemon": "3.1.14",
-    "prettier": "3.9.10",
+    "prettier": "3.10.1",
     "puppeteer": "25.17.0",
     "selenium-webdriver": "4.52.0",
     "typescript": "6.0.3",
