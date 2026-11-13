@@ -1448,7 +1448,5 @@
       "value": "url('https://collector.openwebdocs.org/')"
     }
   },
-  "at-rules": {
-    "@-moz-document": {}
-  }
+  "at-rules": {}
 }
