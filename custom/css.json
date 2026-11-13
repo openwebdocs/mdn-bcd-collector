@@ -677,6 +677,9 @@
     "outline-color": {
       "__values": ["invert"]
     },
+    "outline-offset": {
+      "__values": ["inset"]
+    },
     "overflow": {
       "__values": ["overlay"],
       "__additional_values": {
