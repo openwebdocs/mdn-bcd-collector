@@ -1447,5 +1447,6 @@
       "property": "background-image",
       "value": "url('https://collector.openwebdocs.org/')"
     }
-  }
+  },
+  "at-rules": {}
 }
