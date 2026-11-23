@@ -77,18 +77,25 @@ class CloudStorage extends Storage {
    * @param appVersion - The version of the application.
    */
   constructor(
-    projectIdOrCreds: string | any,
+    projectIdOrCreds: string | Record<string, any> | undefined,
     bucketName: string,
     appVersion: string,
   ) {
     super();
-    const storageOpts =
-      typeof projectIdOrCreds === "string"
-        ? {projectId: projectIdOrCreds}
-        : {
-            projectId: projectIdOrCreds.projectId,
-            credentials: projectIdOrCreds,
-          };
+
+    let storageOpts: {projectId?: string; credentials?: Record<string, any>} =
+      {};
+
+    if (typeof projectIdOrCreds === "string" && projectIdOrCreds.length > 0) {
+      storageOpts = {projectId: projectIdOrCreds};
+    } else if (projectIdOrCreds && typeof projectIdOrCreds === "object") {
+      storageOpts = {
+        // Check both camelCase and standard GCP JSON snake_case (project_id)
+        projectId: projectIdOrCreds.projectId ?? projectIdOrCreds.project_id,
+        credentials: projectIdOrCreds,
+      };
+    }
+
     const storage = new GAEStorage(storageOpts);
     this._bucket = storage.bucket(bucketName);
     // appVersion is used as a prefix for all paths, so that multiple
