@@ -1,5 +1,22 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.4
+
+Released November 23, 2026
+
+### Commits
+
+- Fix google-cloud-storage for 9.0.0 ([#3533](https://github.com/openwebdocs/mdn-bcd-collector/pull/3533))
+
+### Statistics
+
+- Total BCD keys: 21003
+- Testable BCD keys: 17080 (81.32%)
+- Testable BCD keys not in Collector: 1929 (11.29%)
+- Total Collector keys: 17586
+- Collector keys in BCD: 15151 (86.15%)
+- Collector keys not in BCD: 2435 (13.85%)
+
 ## v10.21.3
 
 Released November 23, 2026
