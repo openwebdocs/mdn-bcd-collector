@@ -1,5 +1,150 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.3
+
+Released November 23, 2026
+
+### Test Changes
+
+#### Added
+
+- api.Alarms
+- api.AudioWorkletGlobalScope.performance
+- api.Browser
+- api.CharacterData.streamAfterHTML
+- api.CharacterData.streamAfterHTMLUnsafe
+- api.CharacterData.streamBeforeHTML
+- api.CharacterData.streamBeforeHTMLUnsafe
+- api.CharacterData.streamReplaceWithHTML
+- api.CharacterData.streamReplaceWithHTMLUnsafe
+- api.ContainerQueryList
+- api.DynamicsCompressorNode.makeupGain
+- api.Element.matchContainer
+- api.Element.streamAfterHTML
+- api.Element.streamAfterHTMLUnsafe
+- api.Element.streamAppendHTML
+- api.Element.streamAppendHTMLUnsafe
+- api.Element.streamBeforeHTML
+- api.Element.streamBeforeHTMLUnsafe
+- api.Element.streamHTML
+- api.Element.streamHTMLUnsafe
+- api.Element.streamPrependHTML
+- api.Element.streamPrependHTMLUnsafe
+- api.Element.streamReplaceWithHTML
+- api.Element.streamReplaceWithHTMLUnsafe
+- api.FontFace.sizeAdjust
+- api.FontFace.width
+- api.HTMLEmbedElement.hspace
+- api.HTMLEmbedElement.vspace
+- api.HTMLInputElement.switch
+- api.HTMLModelElement.autoplay
+- api.HTMLModelElement.crossOrigin
+- api.HTMLModelElement.height
+- api.HTMLModelElement.loop
+- api.HTMLModelElement.poster
+- api.HTMLModelElement.src
+- api.HTMLModelElement.width
+- api.Navigator.deviceMemory
+- api.NodeRange
+- api.OnAlarmEvent
+- api.PerformanceLongTaskTiming
+- api.RTCIceCandidatePairEvent.candidatePair
+- api.RTCRtpReceiver.csrcchange_event
+- api.RTCRtpReceiver.ssrcchange_event
+- api.ServiceWorkerGlobalScope.browser
+- api.ShadowRoot.streamAppendHTML
+- api.ShadowRoot.streamAppendHTMLUnsafe
+- api.ShadowRoot.streamHTML
+- api.ShadowRoot.streamHTMLUnsafe
+- api.ShadowRoot.streamPrependHTML
+- api.ShadowRoot.streamPrependHTMLUnsafe
+- api.TaskAttributionTiming
+- api.Tool
+- api.Window.browser
+- api.WorkerNavigator.deviceMemory
+- api.WorkletPerformance
+- css.properties.color-interpolation.in
+- css.properties.color-interpolation.srgb
+- css.properties.color-interpolation.srgb-linear
+- css.properties.color-interpolation.display-p3
+- css.properties.color-interpolation.display-p3-linear
+- css.properties.color-interpolation.a98-rgb
+- css.properties.color-interpolation.prophoto-rgb
+- css.properties.color-interpolation.rec2020
+- css.properties.color-interpolation.lab
+- css.properties.color-interpolation.oklab
+- css.properties.color-interpolation.xyz
+- css.properties.color-interpolation.xyz-d50
+- css.properties.color-interpolation.xyz-d65
+- css.properties.color-interpolation.hsl
+- css.properties.color-interpolation.hwb
+- css.properties.color-interpolation.lch
+- css.properties.color-interpolation.oklch
+- css.properties.color-interpolation.shorter
+- css.properties.color-interpolation.longer
+- css.properties.color-interpolation.increasing
+- css.properties.color-interpolation.decreasing
+- css.properties.color-interpolation.hue
+- css.properties.outline-offset.inset
+- css.properties.text-autospace-size
+- css.properties.text-spacing.space-start
+- css.properties.text-spacing.trim-adjacent
+- css.properties.text-spacing.space-adjacent
+- css.properties.text-spacing.trim-end
+- css.properties.text-spacing.space-end
+- css.properties.text-spacing.allow-end
+- css.properties.text-spacing-trim.space-start
+- css.properties.text-spacing-trim.trim-adjacent
+- css.properties.text-spacing-trim.space-adjacent
+- css.properties.text-spacing-trim.trim-end
+- css.properties.text-spacing-trim.space-end
+- css.properties.text-spacing-trim.allow-end
+- css.at-rules.media.prefers-bold-text
+
+#### Removed
+
+- api.AbstractRange.endContainer
+- api.AbstractRange.startContainer
+- api.FontFace.stretch
+- api.Gamepad.hand
+- api.Gamepad.hapticActuators
+- api.Gamepad.pose
+- api.GamepadHapticActuator.pulse
+- api.GamepadPose
+- api.RTCIceCandidatePairEvent.local
+- api.RTCIceCandidatePairEvent.remote
+- api.RTCRtpTransceiver.rtpHeaderEncryptionNegotiated
+- css.properties.-webkit-hyphenate-limit-lines
+- css.properties.quotes.bikeshed-this
+- css.properties.text-spacing.normal
+- css.properties.text-spacing-trim.normal
+- css.at-rules.-moz-document
+
+### Commits
+
+- build(deps-dev): bump the dev group with 3 updates ([#3531](https://github.com/openwebdocs/mdn-bcd-collector/pull/3531))
+- build(deps-dev): bump the data group with 2 updates ([#3530](https://github.com/openwebdocs/mdn-bcd-collector/pull/3530))
+- build(deps): bump @mdn/browser-compat-data from 8.1.9 to 8.1.10 in the data group ([#3529](https://github.com/openwebdocs/mdn-bcd-collector/pull/3529))
+- Remove -webkit-hyphenate-limit-lines CSS property ([#3528](https://github.com/openwebdocs/mdn-bcd-collector/pull/3528))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.4.12 to 65.5.0 in the dev group ([#3527](https://github.com/openwebdocs/mdn-bcd-collector/pull/3527))
+- build(deps-dev): bump the dev group with 3 updates ([#3526](https://github.com/openwebdocs/mdn-bcd-collector/pull/3526))
+- build(deps-dev): bump the dev group with 3 updates ([#3525](https://github.com/openwebdocs/mdn-bcd-collector/pull/3525))
+- build(deps-dev): bump the dev group with 3 updates ([#3524](https://github.com/openwebdocs/mdn-bcd-collector/pull/3524))
+- build(deps-dev): bump the data group with 2 updates ([#3522](https://github.com/openwebdocs/mdn-bcd-collector/pull/3522))
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.4.5 to 65.4.6 in the dev group ([#3523](https://github.com/openwebdocs/mdn-bcd-collector/pull/3523))
+- Remove -moz-document at-rule ([#3521](https://github.com/openwebdocs/mdn-bcd-collector/pull/3521))
+- build(deps): bump @google-cloud/storage from 8.4.0 to 9.0.0 in the dev group ([#3520](https://github.com/openwebdocs/mdn-bcd-collector/pull/3520))
+- Add outline-offset: inset ([#3519](https://github.com/openwebdocs/mdn-bcd-collector/pull/3519))
+
+### Statistics
+
+- Total BCD keys: 21003
+- Testable BCD keys: 17080 (81.32%)
+- Testable BCD keys not in Collector: 1929 (11.29%)
+- Total Collector keys: 17586
+- Collector keys in BCD: 15151 (86.15%)
+- Collector keys not in BCD: 2435 (13.85%)
+
 ## v10.21.2
 
 Released November 12, 2026
