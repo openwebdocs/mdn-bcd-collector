@@ -4,7 +4,3 @@ partial interface PushManager {
   Promise<sequence<any>> registrations();
   Promise<any> unregister();
 };
-
-partial interface PushSubscription {
-  readonly attribute DOMString subscriptionId;
-};
