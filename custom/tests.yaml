@@ -5198,7 +5198,7 @@ api:
       var instance = el.shadowRoot;
     slotAssignment:
       __additional:
-        named_value: |-
+        named: |-
           try {
             var el = document.createElement('div');
             var shadowRoot = el.attachShadow({mode: 'open', slotAssignment: 'named'});
@@ -5206,7 +5206,7 @@ api:
           } catch(e) {
             return {result: false, message: e.message};
           }
-        manual_value: |-
+        manual: |-
           try {
             var el = document.createElement('div');
             var shadowRoot = el.attachShadow({mode: 'open', slotAssignment: 'manual'});
