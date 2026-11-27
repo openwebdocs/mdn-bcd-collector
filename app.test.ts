@@ -80,6 +80,7 @@ describe("/api/results", () => {
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],
+      flags: [],
       results: {},
       userAgent: "node",
       preview: false,
@@ -128,6 +129,7 @@ describe("/api/results", () => {
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],
+      flags: [],
       results: {[testURL]: testResults},
       userAgent: "node",
       preview: false,
@@ -156,6 +158,7 @@ describe("/api/results", () => {
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],
+      flags: [],
       results: {[testURL]: modifiedResults},
       userAgent: "node",
       preview: false,
@@ -185,6 +188,7 @@ describe("/api/results", () => {
     assert.deepEqual(await res.json(), {
       __version: version,
       extensions: [],
+      flags: [],
       results: {
         [testURL]: modifiedResults,
         [testURL2]: testResults,
@@ -278,6 +282,32 @@ describe("/api/get", () => {
 
     assert.equal(res.status, 302);
     assert.match(res.headers.get("location") || "", /\/tests\/\?preview=true$/);
+  });
+
+  it("get all tests, flagged browser", async () => {
+    const res = await fetch(`${baseURL}/api/get`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        testSelection: "",
+        limitExposure: "",
+        flag1_type: "preference",
+        flag1_name: "dom.owd.enabled",
+        flag1_value_to_set: "true",
+        flag2_type: "runtime_flag",
+        flag2_name: "dom.bcd.enabled",
+        flag2_value_to_set: "enabled",
+      }),
+      redirect: "manual",
+    });
+
+    assert.equal(res.status, 302);
+    assert.match(
+      res.headers.get("location") || "",
+      /\/tests\/\?flag1_type=preference&flag1_name=dom.owd.enabled&flag1_value_to_set=true&flag2_type=runtime_flag&flag2_name=dom.bcd.enabled&flag2_value_to_set=enabled$/,
+    );
   });
 
   it('get "api"', async () => {
