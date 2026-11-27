@@ -151,3 +151,7 @@ javascript:
       name: |-
         function doTheThing() {};
         return doTheThing.name == 'doTheThing';
+  statements:
+    var:
+      __additional:
+        custom: return true;
