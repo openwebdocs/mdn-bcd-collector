@@ -1,5 +1,89 @@
 # mdn-bcd-collector Changelog
 
+## v10.21.5
+
+Released November 27, 2026
+
+### Test Changes
+
+#### Added
+
+- api.HTMLElement.htmlCustomElementRegistry
+- api.HTMLElement.overscrollArea
+- api.HTMLElement.overscrollContainer
+- api.ModelContext.waitForToolsUntil
+- api.OverscrollEvent
+- api.ShadowRoot.slotAssignment.named
+- api.ShadowRoot.slotAssignment.manual
+- css.properties.align-items.anchor-origin
+- css.properties.align-self.anchor-origin
+- css.properties.environment
+- css.properties.environment-intensity
+- css.properties.environment-map
+- css.properties.environment-rotate
+- css.properties.front-limit
+- css.properties.inset-back
+- css.properties.inset-bottom
+- css.properties.inset-front
+- css.properties.inset-left
+- css.properties.inset-right
+- css.properties.inset-top
+- css.properties.justify-items.anchor-origin
+- css.properties.justify-self.anchor-origin
+- css.properties.overscroll-container-type
+- css.properties.place-items.anchor-origin
+- css.properties.place-items.front
+- css.properties.place-items.back
+- css.properties.place-self.anchor-origin
+- css.properties.place-self.front
+- css.properties.place-self.back
+- css.properties.portal-action
+- css.properties.portal-stage
+- css.properties.portal-transform
+- css.properties.position.spatial-absolute
+- css.properties.position-area.front
+- css.properties.position-area.back
+- css.properties.position-area.span-front
+- css.properties.position-area.span-back
+- css.properties.position-area.origin
+- css.properties.position-context
+- css.properties.spatial
+- css.properties.z-align-items
+- css.properties.z-align-self
+- css.selectors.overscroll-backdrop
+- css.selectors.overscroll-closed
+- css.selectors.overscroll-open
+- css.at-rules.environment-map
+- css.at-rules.media.front-limit
+- javascript.builtins.Promise.isPromise
+
+#### Removed
+
+- api.PushSubscription.subscriptionId
+- api.ShadowRoot.slotAssignment.named_value
+- api.ShadowRoot.slotAssignment.manual_value
+
+### Commits
+
+- build(deps-dev): bump eslint-plugin-jsdoc from 65.5.6 to 65.5.7 in the dev group ([#3545](https://github.com/openwebdocs/mdn-bcd-collector/pull/3545))
+- build(deps): bump the data group with 3 updates ([#3544](https://github.com/openwebdocs/mdn-bcd-collector/pull/3544))
+- Add Promise.isPromise ([#3543](https://github.com/openwebdocs/mdn-bcd-collector/pull/3543))
+- Rename keys for ShadowRoot.slotAssignment ([#3542](https://github.com/openwebdocs/mdn-bcd-collector/pull/3542))
+- Remove PushSubscription.subscriptionId ([#3541](https://github.com/openwebdocs/mdn-bcd-collector/pull/3541))
+- build(deps-dev): bump the dev group with 3 updates ([#3540](https://github.com/openwebdocs/mdn-bcd-collector/pull/3540))
+- build(deps): bump zizmorcore/zizmor-action from 0.8.1 to 0.9.2 ([#3539](https://github.com/openwebdocs/mdn-bcd-collector/pull/3539))
+- build(deps-dev): bump the dev group with 2 updates ([#3536](https://github.com/openwebdocs/mdn-bcd-collector/pull/3536))
+- build(deps-dev): bump the dev group with 2 updates ([#3535](https://github.com/openwebdocs/mdn-bcd-collector/pull/3535))
+
+### Statistics
+
+- Total BCD keys: 21223
+- Testable BCD keys: 17299 (81.51%)
+- Testable BCD keys not in Collector: 1948 (11.26%)
+- Total Collector keys: 17683
+- Collector keys in BCD: 15351 (86.81%)
+- Collector keys not in BCD: 2332 (13.19%)
+
 ## v10.21.4
 
 Released November 23, 2026
